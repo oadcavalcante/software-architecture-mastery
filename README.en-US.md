@@ -9,8 +9,8 @@ Not a catalog of patterns. The reasoning that decides when *not* to use them.
 [![CI](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml)
 [![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://software-architecture-mastery.vercel.app)
 <!-- BADGES:PROGRESS -->
-![progress](https://img.shields.io/badge/progress-60%25-blue)
-![documents](https://img.shields.io/badge/documents-261%2F437-informational)
+![progress](https://img.shields.io/badge/progress-64%25-blue)
+![documents](https://img.shields.io/badge/documents-278%2F437-informational)
 <!-- /BADGES:PROGRESS -->
 ![License](https://img.shields.io/badge/content-CC%20BY--SA%204.0-green)
 ![Code](https://img.shields.io/badge/code-MIT-green)

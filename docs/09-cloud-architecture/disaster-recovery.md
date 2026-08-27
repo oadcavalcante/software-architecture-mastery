@@ -12,7 +12,7 @@ objective: >
   escolhe a estratégia que os atende ao menor custo.
 prerequisites: [regions]
 related: [multi-region, availability-zones, data-replication]
-canonical_for: [recuperação de desastre, RTO, RPO, plano de continuidade]
+canonical_for: [estratégia de recuperação em nuvem, piloto aceso, espera quente]
 content_version: 1
 last_reviewed: 2026-08-27
 ---

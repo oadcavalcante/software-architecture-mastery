@@ -5,7 +5,7 @@
 | Diretório | `docs/12-reliability/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 17 (0%) |
+| Progresso | 17 / 17 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,23 +15,23 @@ Esta seção está completa quando os 17 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `availability-metrics` |
-| ⬜ | `reliability-basics` |
-| ⬜ | `fault-tolerance` |
-| ⬜ | `resilience` |
-| ⬜ | `redundancy` |
-| ⬜ | `failover` |
-| ⬜ | `disaster-recovery-planning` |
-| ⬜ | `rto` |
-| ⬜ | `rpo` |
-| ⬜ | `sli` |
-| ⬜ | `slo` |
-| ⬜ | `sla` |
-| ⬜ | `graceful-degradation` |
-| ⬜ | `circuit-breakers` |
-| ⬜ | `bulkheads` |
-| ⬜ | `retry-storms` |
-| ⬜ | `chaos-engineering` |
+| 🟩 | `availability-metrics` |
+| 🟩 | `reliability-basics` |
+| 🟩 | `fault-tolerance` |
+| 🟩 | `resilience` |
+| 🟩 | `redundancy` |
+| 🟩 | `failover` |
+| 🟩 | `disaster-recovery-planning` |
+| 🟩 | `rto` |
+| 🟩 | `rpo` |
+| 🟩 | `sli` |
+| 🟩 | `slo` |
+| 🟩 | `sla` |
+| 🟩 | `graceful-degradation` |
+| 🟩 | `circuit-breakers` |
+| 🟩 | `bulkheads` |
+| 🟩 | `retry-storms` |
+| 🟩 | `chaos-engineering` |
 
 ## Critério de conclusão
 

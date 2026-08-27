@@ -12,7 +12,7 @@ objective: >
   problema cada um resolve.
 prerequisites: [regions]
 related: [regions, availability-zones, disaster-recovery]
-canonical_for: [multi-região, ativo-passivo, ativo-ativo, failover regional]
+canonical_for: [multi-região, ativo-passivo, ativo-ativo]
 content_version: 1
 last_reviewed: 2026-08-27
 ---

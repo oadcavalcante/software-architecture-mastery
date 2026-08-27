@@ -2,85 +2,96 @@
 id: reliability
 title: Confiabilidade
 sidebar_position: 0
-description: Projetar para o sistema continuar útil quando partes dele falham.
+description: Continuar funcionando quando as partes falham — com um alvo definido, não com "o máximo possível".
 doc_type: index
 level: 5
 difficulty: avançado
 status: complete
 objective: >
-  Ao terminar, o leitor deriva arquitetura de SLO, RTO e RPO declarados e projeta
-  contenção de falha em vez de tentar evitá-la.
+  Ao terminar, o leitor define alvos de confiabilidade com o negócio e projeta para
+  contenção de falha, não para ausência dela.
 prerequisites: [distributed-systems]
-related: [observability, scalability, cloud-architecture]
+related: [scalability, cloud-architecture, observability]
 canonical_for: []
 content_version: 1
-last_reviewed: 2026-08-26
+last_reviewed: 2026-08-28
 ---
 
-# Confiabilidade
+# Nível 05 — Confiabilidade
 
-Confiabilidade não é ausência de falha. É a propriedade de o sistema continuar
-útil enquanto partes dele falham.
+Esta seção trata de continuar funcionando quando as partes falham — porque elas falham.
 
 ## O problema desta seção
 
-A meta implícita de muitos times é que nada quebre. É uma meta inatingível e,
-pior, improdutiva: leva a investir em prevenção de falhas individuais em vez de
-em contenção do efeito delas.
+A pergunta errada é "como evitamos falhas?". Elas não são evitáveis: hardware quebra,
+rede particiona, dependências ficam fora, implantações introduzem defeitos, pessoas
+erram.
 
-A postura arquitetural correta parte do oposto. Componentes vão falhar. A
-pergunta é o que acontece com o resto quando falham, quanto tempo leva para
-voltar, e quanto dado se perde no intervalo.
+A pergunta certa é: **quando algo falhar, o que acontece?**
 
-Isso muda a conversa de qualitativa para quantitativa. "O sistema precisa ser
-confiável" não é requisito. "99,9% de disponibilidade mensal, RTO de 15 minutos,
-RPO de 5 minutos" é — e cada um desses números tem um custo arquitetural
-específico que pode ser estimado e negociado.
+Isso muda o alvo do trabalho. Em vez de perseguir ausência de falha — que não existe —
+o esforço vai para **contenção**: que a falha de uma parte não vire falha do todo, que
+a degradação seja parcial em vez de total, e que a recuperação seja rápida.
+
+O segundo problema é de definição. "Máxima confiabilidade possível" não é um alvo — é
+uma intenção sem custo associado. Cada nove adicional custa desproporcionalmente mais,
+e a decisão de quantos noves perseguir é do negócio, com o preço na mesa.
+
+Sem um alvo numérico acordado, duas coisas ruins acontecem: investe-se demais onde não
+importa, e de menos onde importa. E ninguém consegue dizer se o sistema está bom.
 
 ## O que você vai encontrar aqui
 
-**Vocabulário.** Disponibilidade, confiabilidade, tolerância a falhas e
-resiliência. Quatro termos usados como sinônimos que descrevem coisas
-diferentes.
+**As medidas.** Métricas de disponibilidade e os fundamentos de confiabilidade — o que
+os números significam e o que eles escondem.
 
-**Metas.** SLI, SLO e SLA, e a relação entre eles. SLO é decisão de engenharia;
-SLA é decisão comercial com consequência contratual. Confundir os dois é caro
-nas duas direções.
+**Os alvos.** SLI, SLO e SLA — três coisas frequentemente confundidas, com o orçamento
+de erro como o mecanismo que transforma um alvo em decisão operacional.
 
-**Continuidade.** Redundância, failover, disaster recovery, RTO e RPO. Os dois
-últimos são as entradas de que toda a topologia deriva.
+**As técnicas de tolerância.** Tolerância a falhas, resiliência, redundância e
+failover. Redundância recebe atenção específica ao que a anula: correlação.
 
-**Contenção.** Degradação graciosa, circuit breakers e bulkheads. Como impedir
-que a falha de um componente vire falha do sistema.
+**Os padrões de contenção.** Circuit breaker, bulkhead e degradação graciosa. São eles
+que impedem que uma falha localizada se propague.
 
-**Amplificação.** Retry storms — o caso em que o mecanismo de recuperação é a
-causa do colapso. É o modo de falha mais contraintuitivo desta seção.
+**O modo de falha que a própria proteção causa.** Tempestades de retentativa — o caso
+em que a defesa amplifica o problema.
 
-**Verificação.** Chaos engineering. Testar a hipótese de que a contenção
-funciona, em vez de assumir.
+**Recuperação.** Planejamento de recuperação de desastre, com RTO e RPO tratados como
+o que são: decisões de negócio com preço.
+
+**Verificação.** Engenharia do caos — a prática que responde "isso realmente funciona?"
+antes do incidente.
 
 ## Ordem de leitura
 
-Comece por **SLI, SLO e SLA** e por **RTO e RPO**. São as entradas; sem números
-declarados, toda decisão desta seção vira preferência.
+Comece por **SLI, SLO e SLA**, nessa ordem. Sem alvo definido, todo o resto é esforço
+sem critério de parada.
 
-Leia **retry storms** logo depois de circuit breakers, não separadamente. A
-sequência mostra por que retry ingênuo é um problema de confiabilidade e não uma
-solução.
+Depois **degradação graciosa**, que é a técnica de maior retorno e a menos aplicada.
 
-**Chaos engineering** por último, e só faz sentido depois de existir contenção
-para testar.
+**Circuit breaker**, **bulkhead** e **tempestades de retentativa** formam um bloco e
+devem ser lidos juntos — os dois primeiros existem por causa do terceiro.
+
+Deixe **engenharia do caos** para o fim, e leia-a como verificação do que os anteriores
+prometeram, não como prática independente.
 
 ## Ao terminar
 
-Você deriva topologia de números declarados em vez de escolher redundância por
-sensação de segurança. Consegue apontar, num desenho, os caminhos por onde uma
-falha se propaga e onde ela deveria ser contida.
+Você define alvos de confiabilidade em números acordados com o negócio, e sabe o que
+cada nove adicional custa.
 
-E consegue argumentar que 99,99% não vale a pena para um sistema específico —
-com o custo dos dois lados na mesa.
+Consegue apontar, num desenho, onde uma falha se propaga e onde ela é contida — e
+adicionar contenção onde falta.
 
-## Relacionado
+Reconhece que redundância sem independência não é redundância, e que um plano de
+recuperação nunca exercitado não é um plano.
 
-[Observabilidade](../13-observability/index.md), porque não se opera o que não
-se enxerga.
+E entende que a confiabilidade de um sistema é verificada, não presumida — o que
+significa provocar falhas de propósito, em janela controlada, antes que elas aconteçam
+sozinhas.
+
+## Continua em
+
+[Observabilidade](../13-observability/index.md), onde a pergunta passa a ser como você
+sabe o que está acontecendo enquanto acontece.

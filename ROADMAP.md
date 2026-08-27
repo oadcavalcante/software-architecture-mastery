@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**261 de 437 documentos planejados escritos (60%).**
+**278 de 437 documentos planejados escritos (64%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -29,7 +29,7 @@ mas já tem índice publicado explicando o que virá.
 | `09-cloud-architecture` | 05 | 19 / 19 | `██████████` 100% |
 | `10-security` | 05 | 18 / 18 | `██████████` 100% |
 | `11-scalability` | 05 | 14 / 14 | `██████████` 100% |
-| `12-reliability` | 05 | 1 / 18 | `█░░░░░░░░░` 6% |
+| `12-reliability` | 05 | 18 / 18 | `██████████` 100% |
 | `13-observability` | 05 | 1 / 12 | `█░░░░░░░░░` 8% |
 | `14-devops-and-platform` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
 | `15-enterprise-architecture` | 06 | 1 / 21 | `█░░░░░░░░░` 5% |
@@ -319,7 +319,24 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Replicação para Escala](docs/11-scalability/scaling-replication.md) | concept | intermediário | `scalability` | ⬜ |
 | 🟩 | [Ausência de Estado](docs/11-scalability/statelessness.md) | concept | intermediário | `horizontal-scaling` | ⬜ |
 | 🟩 | [Escala Vertical](docs/11-scalability/vertical-scaling.md) | concept | intermediário | `scalability` | ⬜ |
+| 🟩 | [Métricas de Disponibilidade](docs/12-reliability/availability-metrics.md) | concept | intermediário | `reliability` | ⬜ |
+| 🟩 | [Bulkheads](docs/12-reliability/bulkheads.md) | pattern | intermediário | `reliability` | ⬜ |
+| 🟩 | [Engenharia do Caos](docs/12-reliability/chaos-engineering.md) | concept | avançado | `reliability` | ⬜ |
+| 🟩 | [Circuit Breakers](docs/12-reliability/circuit-breakers.md) | pattern | intermediário | `retry-storms` | ⬜ |
+| 🟩 | [Planejamento de Recuperação](docs/12-reliability/disaster-recovery-planning.md) | concept | avançado | `rto` | ⬜ |
+| 🟩 | [Failover](docs/12-reliability/failover.md) | concept | avançado | `redundancy` | ⬜ |
+| 🟩 | [Tolerância a Falhas](docs/12-reliability/fault-tolerance.md) | concept | avançado | `reliability-basics` | ⬜ |
+| 🟩 | [Degradação Graciosa](docs/12-reliability/graceful-degradation.md) | pattern | intermediário | `reliability` | ⬜ |
 | 🟩 | [Confiabilidade](docs/12-reliability/index.md) | index | avançado | `distributed-systems` | ⬜ |
+| 🟩 | [Redundância](docs/12-reliability/redundancy.md) | concept | intermediário | `reliability` | ⬜ |
+| 🟩 | [Fundamentos de Confiabilidade](docs/12-reliability/reliability-basics.md) | foundation | intermediário | `reliability` | ⬜ |
+| 🟩 | [Resiliência](docs/12-reliability/resilience.md) | concept | avançado | `fault-tolerance` | ⬜ |
+| 🟩 | [Tempestades de Retentativa](docs/12-reliability/retry-storms.md) | concept | avançado | `reliability` | ⬜ |
+| 🟩 | [RPO](docs/12-reliability/rpo.md) | foundation | intermediário | `reliability` | ⬜ |
+| 🟩 | [RTO](docs/12-reliability/rto.md) | foundation | intermediário | `reliability` | ⬜ |
+| 🟩 | [SLA](docs/12-reliability/sla.md) | concept | intermediário | `slo` | ⬜ |
+| 🟩 | [SLI](docs/12-reliability/sli.md) | concept | intermediário | `reliability` | ⬜ |
+| 🟩 | [SLO](docs/12-reliability/slo.md) | concept | avançado | `sli` | ⬜ |
 | 🟩 | [Observabilidade](docs/13-observability/index.md) | index | intermediário | `distributed-systems` | ⬜ |
 | 🟩 | [DevOps e Plataforma](docs/14-devops-and-platform/index.md) | index | intermediário | `system-design` | ⬜ |
 | 🟩 | [Documentação de Arquitetura](docs/17-architecture-documentation/index.md) | index | intermediário | `system-design` | ⬜ |

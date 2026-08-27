@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 257 de 432 (59%) |
-| Seções pendentes | 12 de 23 |
-| Próxima tarefa | `12-reliability` → `availability-metrics.md` |
+| Escrito | 274 de 432 (63%) |
+| Seções pendentes | 11 de 23 |
+| Próxima tarefa | `13-observability` → `logs.md` |
 
 ## Como usar
 
@@ -27,28 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 12-reliability — Confiabilidade
-
-Nível 05 — Arquitetura · faltam 17 de 18 · spec: [`specs/12-reliability.md`](specs/12-reliability.md)
-
-- [ ] `availability-metrics.md`
-- [ ] `reliability-basics.md`
-- [ ] `fault-tolerance.md`
-- [ ] `resilience.md`
-- [ ] `redundancy.md`
-- [ ] `failover.md`
-- [ ] `disaster-recovery-planning.md`
-- [ ] `rto.md`
-- [ ] `rpo.md`
-- [ ] `sli.md`
-- [ ] `slo.md`
-- [ ] `sla.md`
-- [ ] `graceful-degradation.md`
-- [ ] `circuit-breakers.md`
-- [ ] `bulkheads.md`
-- [ ] `retry-storms.md`
-- [ ] `chaos-engineering.md`
 
 ### 13-observability — Observabilidade
 
