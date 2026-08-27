@@ -2,91 +2,99 @@
 id: data-architecture
 title: Arquitetura de Dados
 sidebar_position: 0
-description: Onde os dados moram, quem é dono deles e por que essa é a decisão mais cara de reverter.
+description: Onde o dado mora, quem é dono dele e por que essa é a decisão mais difícil de reverter.
 doc_type: index
 level: 5
 difficulty: avançado
 status: complete
 objective: >
-  Ao terminar, o leitor escolhe modelo e tecnologia de armazenamento a partir do
-  padrão de acesso e das garantias exigidas, e sabe o que a escolha custa depois.
+  Ao terminar, o leitor escolhe modelo e armazenamento a partir do padrão de
+  acesso, e reconhece a propriedade do dado como decisão organizacional.
 prerequisites: [distributed-systems]
-related: [scalability, integration-architecture, system-design]
+related: [integration-architecture, scalability, system-design]
 canonical_for: []
 content_version: 1
-last_reviewed: 2026-08-26
+last_reviewed: 2026-08-27
 ---
 
-# Arquitetura de Dados
+# Nível 05 — Arquitetura de Dados
 
-De todas as decisões arquiteturais, as de dados são as mais caras de reverter.
-Código se reescreve num trimestre. Um modelo de dados errado, com anos de
-histórico em produção e dez consumidores acoplados a ele, se arrasta por anos.
+Esta seção trata da decisão mais cara de reverter em qualquer sistema.
 
 ## O problema desta seção
 
-A escolha de banco de dados costuma ser feita pelo motivo errado: familiaridade
-do time, moda do setor, ou uma característica isolada que impressionou. Depois,
-o sistema é moldado à ferramenta em vez do contrário.
+Código se reescreve. Um serviço mal desenhado pode ser substituído em algumas
+semanas, e o resto do sistema nem percebe se o contrato foi mantido.
 
-A escolha correta parte de outro lugar: qual é o padrão de acesso, quais
-garantias transacionais o negócio exige, quanto dado existe, quão rápido cresce
-e quem mais precisa lê-lo. Respondidas essas perguntas, a lista de candidatos
-costuma ter uma ou duas opções — e a familiaridade do time vira, aí sim, um
-critério de desempate legítimo.
+Dados não. Um esquema mal modelado carrega anos de registros que precisam
+continuar legíveis. Uma escolha de armazenamento errada exige migração com o
+sistema no ar. E a decisão sobre **quem é dono de qual dado** determina, na
+prática, quais times conseguem trabalhar em paralelo e quais vivem se
+bloqueando.
 
-A segunda armadilha é confundir armazenamento com propriedade. Dois serviços
-compartilhando uma tabela estão acoplados por ela, com todo o custo de
-acoplamento e nenhum contrato explícito.
+É por isso que arquitetura de dados aparece neste nível e não antes. Ela exige
+que você já entenda [falha parcial](../06-distributed-systems/partial-failure.md)
+e [consistência](../06-distributed-systems/consistency.md) — porque quase toda
+decisão aqui é uma escolha sobre onde pagar esses custos.
 
 ## O que você vai encontrar aqui
 
-**Modelos de armazenamento.** Relacional, documento, chave-valor, colunar e
-grafo. Cada um a partir do padrão de acesso que o justifica, com os casos em que
-a escolha popular é a errada.
+**Os modelos de armazenamento.** Relacional, documento, chave-valor, colunar e
+grafo. Apresentados pelo padrão de acesso que cada um serve bem, não por
+categoria de marketing. O termo "NoSQL" recebe um documento próprio justamente
+para ser desmontado: ele agrupa tecnologias sem nada em comum além de não serem
+relacionais.
 
-**Cargas de trabalho.** OLTP e OLAP, e por que misturar as duas na mesma
-instância é o problema de desempenho mais comum em sistemas de porte médio.
+**Cargas de trabalho.** OLTP e OLAP, e por que confundi-las é a origem de boa
+parte dos problemas de desempenho que se tenta resolver com hardware.
 
-**Plataformas analíticas.** Data warehouses, data lakes e lakehouses — o que
-cada arranjo resolve e a complexidade operacional que traz junto.
+**Plataformas analíticas.** Data warehouse, data lake e lakehouse — o que cada
+uma resolve, e o que acontece quando um lake vira depósito sem catálogo.
 
-**Modelagem.** Normalização, desnormalização e indexação. Desnormalizar é uma
-decisão arquitetural com custo de escrita e de consistência, não um truque de
-desempenho.
+**Modelagem.** Normalização e desnormalização como decisão consciente e
+reversível, com o critério de quando cada uma se paga. Indexação tratada como
+decisão de arquitetura, porque índice errado é a causa mais comum de consulta
+lenta — e a mais frequentemente confundida com necessidade de escalar.
 
-**Distribuição.** Replicação e particionamento aplicados a dados, retomando o
-[Nível 04](../06-distributed-systems/index.md) sob a ótica de quem modela.
+**Distribuição de dados.** Replicação e particionamento vistos do ângulo do
+armazenamento, complementando o tratamento de
+[sistemas distribuídos](../06-distributed-systems/index.md). Transações e
+consistência no nível do banco: níveis de isolamento e o que cada um permite
+acontecer.
 
-**Garantias.** Transações e os níveis de isolamento reais — que quase nunca são
-o que a documentação sugere à primeira leitura.
-
-**Governança.** Propriedade de dados e ciclo de vida: quem escreve, quem lê,
-quanto tempo fica, quando é apagado.
+**Governança.** Propriedade do dado e ciclo de vida — retenção, arquivamento e
+apagamento. Os dois tópicos menos técnicos da seção e os que mais determinam se
+o sistema continua sustentável em cinco anos.
 
 ## Ordem de leitura
 
-Comece por **padrões de acesso** e **OLTP versus OLAP**. São o filtro que
-elimina a maior parte das opções antes de discutir tecnologia.
+Comece por **OLTP e OLAP**. A distinção organiza tudo o que vem depois, e
+escolher armazenamento sem ela é escolher no escuro.
 
-Leia **propriedade de dados** cedo, não no fim. É o conceito que impede a
-arquitetura de virar um banco compartilhado com microsserviços em volta.
+Depois **modelagem**, **normalização** e **desnormalização** — nessa ordem, porque
+desnormalizar sem entender o que se está desfazendo produz um esquema que ninguém
+consegue evoluir.
 
-**Transações** e **níveis de isolamento** merecem leitura atenta mesmo para quem
-já usa banco relacional há anos. É a área em que a intuição mais frequentemente
-está errada.
+**Indexação** pode ser lida a qualquer momento e é a de retorno mais imediato para
+quem tem um sistema em produção agora.
+
+Deixe **propriedade do dado** para o fim, e leia com o organograma do seu time em
+mente. É o tópico em que a resposta certa depende mais do contexto e menos da
+tecnologia.
 
 ## Ao terminar
 
-Você consegue justificar uma escolha de armazenamento por escrito, com o padrão
-de acesso e a garantia exigida como premissas. Consegue apontar quando uma
-desnormalização se paga e quando ela só antecipou um problema de consistência.
+Você escolhe armazenamento a partir do padrão de acesso — como o dado é escrito,
+como é lido, com qual frequência e em qual volume — em vez de por familiaridade
+ou reputação.
 
-E consegue reconhecer o momento em que a resposta certa é não introduzir um
-segundo banco de dados.
+Consegue olhar uma consulta lenta e distinguir problema de índice, de modelo, de
+volume e de carga concorrente, que exigem respostas diferentes.
 
-## Relacionado
+E reconhece quando o problema não é técnico: quando dois times disputam o mesmo
+dado porque ninguém decidiu de quem ele é.
 
-[Escalabilidade](../11-scalability/index.md) para quando o volume é o problema,
-e [Integração](../08-integration-architecture/index.md) para quando o dado
-precisa atravessar uma fronteira.
+## Continua em
+
+[Arquitetura de Integração](../08-integration-architecture/index.md), onde a
+questão passa a ser como esses dados atravessam fronteiras de sistema.

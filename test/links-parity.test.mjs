@@ -66,6 +66,29 @@ describe('check-links', () => {
     }));
   });
 
+  // Autolink compila em Markdown puro e quebra em MDX, que é o que o Docusaurus
+  // usa. Sem esta regra o erro só aparecia no build, com os gates já verdes.
+  test('rejeita autolink de URL, que quebra a compilação MDX', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/exemplo.md': doc('# X\n\nVeja <https://exemplo.com/guia> para detalhes.\n'),
+      }),
+      /autolink .* quebra a compilação MDX/,
+    );
+  });
+
+  test('aceita a mesma URL como link markdown', () => {
+    ok(check('check-links.mjs', {
+      'docs/exemplo.md': doc('# X\n\nVeja [o guia](https://exemplo.com/guia) para detalhes.\n'),
+    }));
+  });
+
+  test('ignora autolink dentro de bloco de código', () => {
+    ok(check('check-links.mjs', {
+      'docs/exemplo.md': doc('# X\n\n```text\n<https://exemplo.com>\n```\n'),
+    }));
+  });
+
   test('rejeita diagrama mermaid com delimitadores desbalanceados', () => {
     fails(
       check('check-links.mjs', {

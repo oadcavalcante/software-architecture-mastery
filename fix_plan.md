@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 174 de 432 (40%) |
-| Seções pendentes | 17 de 23 |
-| Próxima tarefa | `07-data-architecture` → `relational-databases.md` |
+| Escrito | 195 de 432 (45%) |
+| Seções pendentes | 16 de 23 |
+| Próxima tarefa | `08-integration-architecture` → `rest.md` |
 
 ## Como usar
 
@@ -27,32 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 07-data-architecture — Arquitetura de Dados
-
-Nível 05 — Arquitetura · faltam 21 de 22 · spec: [`specs/07-data-architecture.md`](specs/07-data-architecture.md)
-
-- [ ] `relational-databases.md`
-- [ ] `nosql.md`
-- [ ] `document-databases.md`
-- [ ] `key-value-databases.md`
-- [ ] `column-stores.md`
-- [ ] `graph-databases.md`
-- [ ] `oltp.md`
-- [ ] `olap.md`
-- [ ] `data-warehouses.md`
-- [ ] `data-lakes.md`
-- [ ] `data-lakehouses.md`
-- [ ] `data-modeling.md`
-- [ ] `normalization.md`
-- [ ] `denormalization.md`
-- [ ] `indexing.md`
-- [ ] `data-replication.md`
-- [ ] `data-partitioning.md`
-- [ ] `data-consistency.md`
-- [ ] `transactions.md`
-- [ ] `data-ownership.md`
-- [ ] `data-lifecycle.md`
 
 ### 08-integration-architecture — Arquitetura de Integração
 

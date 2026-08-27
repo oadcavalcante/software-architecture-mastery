@@ -5,7 +5,7 @@
 | Diretório | `docs/07-data-architecture/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 21 (0%) |
+| Progresso | 21 / 21 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,27 +15,27 @@ Esta seção está completa quando os 21 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `relational-databases` |
-| ⬜ | `nosql` |
-| ⬜ | `document-databases` |
-| ⬜ | `key-value-databases` |
-| ⬜ | `column-stores` |
-| ⬜ | `graph-databases` |
-| ⬜ | `oltp` |
-| ⬜ | `olap` |
-| ⬜ | `data-warehouses` |
-| ⬜ | `data-lakes` |
-| ⬜ | `data-lakehouses` |
-| ⬜ | `data-modeling` |
-| ⬜ | `normalization` |
-| ⬜ | `denormalization` |
-| ⬜ | `indexing` |
-| ⬜ | `data-replication` |
-| ⬜ | `data-partitioning` |
-| ⬜ | `data-consistency` |
-| ⬜ | `transactions` |
-| ⬜ | `data-ownership` |
-| ⬜ | `data-lifecycle` |
+| 🟩 | `relational-databases` |
+| 🟩 | `nosql` |
+| 🟩 | `document-databases` |
+| 🟩 | `key-value-databases` |
+| 🟩 | `column-stores` |
+| 🟩 | `graph-databases` |
+| 🟩 | `oltp` |
+| 🟩 | `olap` |
+| 🟩 | `data-warehouses` |
+| 🟩 | `data-lakes` |
+| 🟩 | `data-lakehouses` |
+| 🟩 | `data-modeling` |
+| 🟩 | `normalization` |
+| 🟩 | `denormalization` |
+| 🟩 | `indexing` |
+| 🟩 | `data-replication` |
+| 🟩 | `data-partitioning` |
+| 🟩 | `data-consistency` |
+| 🟩 | `transactions` |
+| 🟩 | `data-ownership` |
+| 🟩 | `data-lifecycle` |
 
 ## Critério de conclusão
 

@@ -37,25 +37,31 @@ const SECTION_LEVEL = {
 };
 
 /**
+ * Desvios deliberados da contagem do currículo (SPEC.md §7.4).
+ *
+ * A cobertura planejada vem de scripts/curriculum.json — manter uma segunda
+ * lista à mão dessincroniza, e foi exatamente o que aconteceu: a seção 07 ficou
+ * com 20 aqui e 21 lá, e o panorama passou de 100%.
+ */
+const PLANNED_OVERRIDES = {
+  // 30, não 34: Layered, Hexagonal e Clean Architecture são canônicos em
+  // 02-software-design e aqui são referenciados, não duplicados.
+  '03-design-patterns': 30,
+};
+
+/**
  * Cobertura planejada por seção (SPEC.md §14), sem contar o index.md.
  *
  * Sem isto, o panorama mediria o progresso contra os arquivos que já existem e
  * anunciaria "96% completo" com 28 de ~440 documentos escritos. Progresso se
  * mede contra o escopo, não contra si mesmo.
  */
-const PLANNED_TOPICS = {
-  '01-fundamentals': 22, '02-software-design': 22,
-  // 30, não 34: Layered, Hexagonal e Clean Architecture são canônicos em
-  // 02-software-design e aqui são referenciados, não duplicados (SPEC §7.4).
-  '03-design-patterns': 30,
-  '04-domain-driven-design': 19, '05-system-design': 23, '06-distributed-systems': 35,
-  '07-data-architecture': 20, '08-integration-architecture': 14, '09-cloud-architecture': 18,
-  '10-security': 17, '11-scalability': 13, '12-reliability': 17, '13-observability': 11,
-  '14-devops-and-platform': 13, '15-enterprise-architecture': 20, '16-legacy-modernization': 12,
-  '17-architecture-documentation': 13, '18-architecture-decisions': 14,
-  '19-architecture-governance': 10, '20-trade-offs': 15, '21-case-studies': 14,
-  '22-system-design-interviews': 13, '23-architecture-leadership': 23,
-};
+const PLANNED_TOPICS = Object.fromEntries(
+  JSON.parse(readFileSync(join(ROOT, 'scripts/curriculum.json'), 'utf8')).sections.map((s) => [
+    s.dir,
+    PLANNED_OVERRIDES[s.dir] ?? s.topics.length,
+  ]),
+);
 
 /** Cada seção planeja seus tópicos mais o próprio índice. */
 const plannedFor = (section) =>
@@ -99,7 +105,10 @@ function overview(docs) {
     const levelLabel =
       level === undefined ? '—' : level === 0 ? 'Transv.' : String(level).padStart(2, '0');
     const pct = planned ? Math.round((done / planned) * 100) : 0;
-    const bar = '█'.repeat(Math.round(pct / 10)) + '░'.repeat(10 - Math.round(pct / 10));
+    // Limitado a 10: se a contagem real passar da planejada, o excedente vira
+    // barra cheia em vez de derrubar o gerador com repeat(-1).
+    const filled = Math.min(10, Math.max(0, Math.round(pct / 10)));
+    const bar = '█'.repeat(filled) + '░'.repeat(10 - filled);
     rows.push(`| \`${section}\` | ${levelLabel} | ${done} / ${planned} | \`${bar}\` ${pct}% |`);
   }
 

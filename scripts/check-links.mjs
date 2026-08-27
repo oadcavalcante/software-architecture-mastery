@@ -157,6 +157,21 @@ function checkMermaid(doc, report) {
   }
 }
 
+/**
+ * Docusaurus compila Markdown como MDX, e o parser de MDX interpreta `<` como
+ * início de elemento. Um autolink `<https://exemplo.com>` quebra a compilação
+ * com "Unexpected character `/`" — erro que só aparece no build, depois de os
+ * validadores terem passado. Detectamos aqui para falhar no gate certo.
+ */
+function checkMdxHazards(doc, report) {
+  for (const m of stripCode(doc.body).matchAll(/<(https?:\/\/[^\s>]+)>/g)) {
+    report.error(
+      doc.repoPath,
+      `autolink <${m[1]}> quebra a compilação MDX — use [texto](${m[1]})`,
+    );
+  }
+}
+
 const report = new Report('links');
 const all = loadAll();
 
@@ -169,6 +184,7 @@ for (const doc of all) {
 for (const doc of all) {
   checkLinks(doc, byLocale, report);
   checkMermaid(doc, report);
+  checkMdxHazards(doc, report);
 }
 
 process.exit(report.finish(`${all.length} documento(s)`));

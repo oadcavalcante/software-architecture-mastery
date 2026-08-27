@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**178 de 436 documentos planejados escritos (41%).**
+**199 de 437 documentos planejados escritos (46%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -24,7 +24,7 @@ mas já tem índice publicado explicando o que virá.
 | `04-domain-driven-design` | 02 | 20 / 20 | `██████████` 100% |
 | `05-system-design` | 03 | 24 / 24 | `██████████` 100% |
 | `06-distributed-systems` | 04 | 36 / 36 | `██████████` 100% |
-| `07-data-architecture` | 05 | 1 / 21 | `█░░░░░░░░░` 5% |
+| `07-data-architecture` | 05 | 22 / 22 | `██████████` 100% |
 | `08-integration-architecture` | 05 | 1 / 15 | `█░░░░░░░░░` 7% |
 | `09-cloud-architecture` | 05 | 1 / 19 | `█░░░░░░░░░` 5% |
 | `10-security` | 05 | 1 / 18 | `█░░░░░░░░░` 6% |
@@ -231,7 +231,28 @@ mas já tem índice publicado explicando o que virá.
 
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
+| 🟩 | [Armazenamento Colunar](docs/07-data-architecture/column-stores.md) | concept | intermediário | `olap` | ⬜ |
+| 🟩 | [Consistência de Dados](docs/07-data-architecture/data-consistency.md) | concept | avançado | `transactions` | ⬜ |
+| 🟩 | [Data Lakehouses](docs/07-data-architecture/data-lakehouses.md) | concept | avançado | `data-lakes` | ⬜ |
+| 🟩 | [Data Lakes](docs/07-data-architecture/data-lakes.md) | concept | intermediário | `data-warehouses` | ⬜ |
+| 🟩 | [Ciclo de Vida do Dado](docs/07-data-architecture/data-lifecycle.md) | concept | intermediário | `data-architecture` | ⬜ |
+| 🟩 | [Modelagem de Dados](docs/07-data-architecture/data-modeling.md) | concept | intermediário | `data-architecture` | ⬜ |
+| 🟩 | [Propriedade do Dado](docs/07-data-architecture/data-ownership.md) | concept | avançado | `data-architecture` | ⬜ |
+| 🟩 | [Particionamento de Dados](docs/07-data-architecture/data-partitioning.md) | concept | intermediário | `data-architecture` | ⬜ |
+| 🟩 | [Replicação de Dados](docs/07-data-architecture/data-replication.md) | concept | intermediário | `data-architecture` | ⬜ |
+| 🟩 | [Data Warehouses](docs/07-data-architecture/data-warehouses.md) | concept | intermediário | `olap` | ⬜ |
+| 🟩 | [Desnormalização](docs/07-data-architecture/denormalization.md) | concept | intermediário | `normalization` | ⬜ |
+| 🟩 | [Bancos de Documentos](docs/07-data-architecture/document-databases.md) | concept | intermediário | `nosql` | ⬜ |
+| 🟩 | [Bancos de Grafo](docs/07-data-architecture/graph-databases.md) | concept | intermediário | `nosql` | ⬜ |
 | 🟩 | [Arquitetura de Dados](docs/07-data-architecture/index.md) | index | avançado | `distributed-systems` | ⬜ |
+| 🟩 | [Indexação](docs/07-data-architecture/indexing.md) | concept | intermediário | `data-architecture` | ⬜ |
+| 🟩 | [Bancos Chave-Valor](docs/07-data-architecture/key-value-databases.md) | concept | intermediário | `nosql` | ⬜ |
+| 🟩 | [Normalização](docs/07-data-architecture/normalization.md) | concept | intermediário | `data-modeling` | ⬜ |
+| 🟩 | [NoSQL](docs/07-data-architecture/nosql.md) | concept | intermediário | `relational-databases` | ⬜ |
+| 🟩 | [OLAP](docs/07-data-architecture/olap.md) | concept | intermediário | `oltp` | ⬜ |
+| 🟩 | [OLTP](docs/07-data-architecture/oltp.md) | concept | intermediário | `data-architecture` | ⬜ |
+| 🟩 | [Bancos Relacionais](docs/07-data-architecture/relational-databases.md) | concept | intermediário | `data-architecture` | ⬜ |
+| 🟩 | [Transações](docs/07-data-architecture/transactions.md) | concept | intermediário | `relational-databases` | ⬜ |
 | 🟩 | [Arquitetura de Integração](docs/08-integration-architecture/index.md) | index | avançado | `distributed-systems` | ⬜ |
 | 🟩 | [Arquitetura em Nuvem](docs/09-cloud-architecture/index.md) | index | avançado | `distributed-systems` | ⬜ |
 | 🟩 | [Arquitetura de Segurança](docs/10-security/index.md) | index | avançado | `system-design` | ⬜ |
