@@ -1,39 +1,62 @@
+<div align="center">
+
 # Software Architecture Mastery
 
-[Português](README.md) · [English](README.en-US.md)
+**Um percurso para Engenheiros de Software que querem pensar como Arquitetos.**
 
-Um percurso de aprendizado para Engenheiros de Software que querem pensar como
-Arquitetos de Software.
+Não é um catálogo de padrões. É o raciocínio que decide quando *não* usá-los.
 
-O objetivo não é ensinar padrões, frameworks ou serviços de nuvem. É desenvolver
-raciocínio arquitetural:
+[![CI](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml)
+[![Deploy](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/deploy.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/deploy.yml)
+<!-- BADGES:PROGRESS -->
+![progresso](https://img.shields.io/badge/progresso-28%25-blue)
+![documentos](https://img.shields.io/badge/documentos-120%2F436-informational)
+<!-- /BADGES:PROGRESS -->
+![Licença](https://img.shields.io/badge/conteúdo-CC%20BY--SA%204.0-green)
+![Código](https://img.shields.io/badge/código-MIT-green)
+
+**Português (Brasil)** · [English](README.en-US.md)
+
+</div>
+
+---
+
+## O problema que este material resolve
+
+A maior parte do material sobre arquitetura ensina **formas**: camadas,
+microsserviços, filas, CQRS. Isso produz profissionais que reconhecem estruturas e
+não sabem escolher entre elas — porque nunca aprenderam a articular o que estão
+tentando otimizar.
+
+Aqui a pergunta nunca é *"qual é a arquitetura certa?"*. É *"certa para quê, sob
+quais restrições?"*.
 
 ```text
-Entender o problema
-        ↓
-Identificar restrições
-        ↓
-Avaliar alternativas
-        ↓
-Raciocinar sobre trade-offs
-        ↓
-Tomar decisões arquiteturais
-        ↓
-Comunicar e defender essas decisões
-        ↓
-Evoluir a arquitetura ao longo do tempo
+Entender o problema  →  Identificar restrições  →  Avaliar alternativas
+        →  Raciocinar sobre trade-offs  →  Decidir  →  Comunicar  →  Evoluir
 ```
 
-## Estado do projeto
+## O que torna este material diferente
 
-**Fase F1 — espinha dorsal concluída.** As 23 seções existem com índices que
-explicam o percurso inteiro, a navegação está agrupada nos sete níveis, e o
-glossário, o modelo de maturidade e a política terminológica estão publicados.
-Os tópicos individuais de cada seção ainda não foram escritos.
+**Nenhum padrão é apresentado sem a discussão de quando NÃO usá-lo.** Não como
+formalidade — como a parte mais útil de cada documento, com condições concretas.
 
-O plano completo, com padrão de qualidade, política de tradução e critérios de
-conclusão, está em **[SPEC.md](SPEC.md)**. O estado documento a documento fica
-em **[ROADMAP.md](ROADMAP.md)**.
+Alguns exemplos do que essa regra produziu:
+
+> **Singleton** acopla duas decisões independentes — unicidade e acesso global — e
+> quase sempre você só precisa da primeira.
+
+> **Visitor** escolhe um lado do dilema da expressão. Se os *tipos* é que crescem,
+> ele é o erro mais caro do catálogo.
+
+> **Event Sourcing** impõe versionamento de evento **para sempre**. A pergunta antes
+> de adotar não é se resolve seu problema — é se você aceita esse compromisso
+> permanente.
+
+> **DDD tático** aplicado fora do core domain custa mais do que rende. Adotar dois
+> dos oito blocos é frequentemente a decisão correta.
+
+E toda decisão termina condicionada a restrições, não em recomendação.
 
 ## Os sete níveis
 
@@ -59,20 +82,55 @@ A progressão de competência correspondente:
 código → design → sistemas → sistemas distribuídos → arquitetura → corporativo → estratégia
 ```
 
+## Progresso
+
+<!-- PROGRESS:TABLE -->
+| Nível | Seção | Estado |
+|---|---|:-:|
+| 01 | Fundamentos | 🟩 22 tópicos |
+| 02 | Design de Software | 🟩 22 tópicos |
+| 02 | Design Patterns | 🟩 30 tópicos |
+| 02 | Domain-Driven Design | 🟩 19 tópicos |
+| 03 | Design de Sistemas | ⬜ |
+| 04 | Sistemas Distribuídos | ⬜ |
+| 05 | Arquitetura (11 seções) | ⬜ |
+| 06 | Arquitetura Corporativa | ⬜ |
+| 07 | Liderança em Arquitetura | ⬜ |
+| — | Case Studies · Entrevistas | ⬜ |
+<!-- /PROGRESS:TABLE -->
+
+O estado documento a documento está em **[ROADMAP.md](ROADMAP.md)**, gerado
+automaticamente a partir do front matter.
+
 ## Para quem é
 
-Engenheiro de Software com 3+ anos de experiência, confortável com uma linguagem
-de backend, banco relacional e APIs HTTP, que já entregou software em produção e
-agora precisa raciocinar sobre sistemas maiores que o próprio serviço.
+Engenheiro de Software com 3+ anos, confortável com backend, banco relacional e
+APIs HTTP, que já entregou em produção e agora precisa raciocinar sobre sistemas
+maiores que o próprio serviço.
 
-Não é material para quem está começando a programar. Assume fluência em código.
+**Não é** material para quem está aprendendo a programar. Assume fluência em código.
+
+## Por onde começar
+
+| Se você… | Comece em |
+|---|---|
+| Entrega features e quer entender decisões de estrutura | Nível 01 |
+| Estrutura código bem, nunca projetou um sistema inteiro | Nível 02 |
+| Já projetou sistemas, mas só monolíticos | Nível 03 |
+| Trabalha com distribuídos e quer fechar lacunas | Nível 04 |
+| Vai fazer entrevistas de system design | Nível 03 → seção 22 |
+| É arquiteto e quer atuar acima do sistema | Níveis 06 e 07 |
+
+Detalhes em **[como usar](docs/how-to-use.md)**. Para se localizar por
+**capacidade** em vez de conteúdo lido, veja o
+**[modelo de maturidade](docs/maturity-model.md)** — seis estágios definidos pela
+decisão que você toma sozinho.
 
 ## Idiomas
 
-**pt-BR é o idioma canônico.** en-US é traduzido progressivamente e nunca bloqueia
-a produção de conteúdo novo. Páginas ainda não traduzidas recaem no português.
-
-O estado da tradução, documento a documento, está no [ROADMAP.md](ROADMAP.md).
+**pt-BR é canônico.** en-US é traduzido progressivamente e nunca bloqueia conteúdo
+novo — páginas não traduzidas recaem no português com aviso. O estado por documento
+está no [ROADMAP](ROADMAP.md).
 
 ## Rodando localmente
 
@@ -80,88 +138,49 @@ O estado da tradução, documento a documento, está no [ROADMAP.md](ROADMAP.md)
 npm install
 npm start                     # pt-BR em http://localhost:3000
 npm start -- --locale en-US   # en-US
-npm run build                 # build de produção, ambas as locales
-npm run validate              # todos os validadores de conteúdo
-npm run roadmap               # regenera as tabelas do ROADMAP.md
+npm run build                 # produção, ambas as locales
 ```
 
-O servidor de desenvolvimento do Docusaurus constrói uma locale por vez; o build
-de produção gera todas.
+## Qualidade não é promessa, é verificação
 
-## Validação
-
-O conteúdo é verificado automaticamente a cada PR — links e âncoras, schema de
-front matter, grafo de pré-requisitos sem ciclo, paridade de tradução,
-consistência terminológica e ausência de conteúdo incompleto marcado como pronto.
+O conteúdo é validado automaticamente a cada PR. Não são lint de formatação — são
+regras sobre o material:
 
 ```bash
-npm run validate
+npm test          # 59 testes dos próprios validadores
+npm run validate  # os cinco validadores de conteúdo
 ```
 
-Os critérios estão em [SPEC.md §13](SPEC.md).
+| Validador | O que impede |
+|---|---|
+| **frontmatter** | Schema, `id` duplicado, ciclo no grafo de pré-requisitos, dois documentos reivindicando o mesmo conceito |
+| **links** | Link ou âncora quebrada, diagrama Mermaid inválido |
+| **parity** | Tradução à frente do canônico, tradução órfã |
+| **terminology** | Alternar entre "acoplamento" e "coupling" no mesmo documento; traduzir o que deve ficar em inglês |
+| **placeholders** | `status: complete` sem *Quando Não Usar*, seção vazia, conteúdo raso |
 
-## Filosofia
+Os validadores têm testes próprios porque um linter com falso positivo trava
+contribuição legítima, e um com falso negativo deixa passar o que deveria barrar.
+Todo bug encontrado neles entrou como teste de regressão antes da correção.
 
-Quinze princípios governam o material. Os que mais determinam o que entra e o
-que não entra:
+## Contribuir
 
-- **Arquitetura é sobre decisões e trade-offs.** Não existe arquitetura
-  universalmente melhor; existe adequação a restrições.
-- **Complexidade precisa ser justificada.** Distribuir só quando necessário.
-- **Tecnologia serve à arquitetura, não a define.** O princípio vem primeiro; a
-  ferramenta ilustra.
-- **Documentação explica o porquê**, não só o quê.
-- **Estudar decisões fracassadas** vale tanto quanto estudar as bem-sucedidas.
+Veja **[CONTRIBUTING.md](CONTRIBUTING.md)** para padrão de escrita, schema de front
+matter, política terminológica e fluxo de tradução.
 
-Na prática, isso significa que a maior parte dos documentos termina com uma
-decisão **condicionada a restrições**, e não com uma recomendação. Material que
-entrega conclusões sem as condições treina o hábito contrário ao que o percurso
-desenvolve.
-
-## O que você deve conseguir fazer ao final
-
-Receber *"Projete a arquitetura de uma plataforma de pagamentos de alto volume"*
-e, em vez de começar a desenhar caixas, percorrer:
-
-```text
-Qual é o problema de negócio?
-        ↓
-Quais são os requisitos funcionais?
-        ↓
-Quais atributos de qualidade importam, e com que número?
-        ↓
-Que restrições existem?
-        ↓
-Quais são as opções de arquitetura?
-        ↓
-Que trade-offs existem entre elas?
-        ↓
-Qual arquitetura cabe nas restrições?
-        ↓
-Como o sistema deve evoluir?
-        ↓
-Como comunico e defendo essa decisão?
-```
-
-## Como progredir
-
-O percurso é linear por construção, mas ninguém entra no zero. O guia de
-[como usar](docs/how-to-use.md) tem uma tabela de pontos de entrada por
-experiência atual.
-
-Para se localizar em capacidade — e não em conteúdo lido — use o
-[modelo de maturidade](docs/maturity-model.md), que define seis estágios pela
-decisão que a pessoa toma sozinha.
-
-## Como contribuir
-
-Veja [CONTRIBUTING.md](CONTRIBUTING.md) para o padrão de escrita, o schema de
-front matter, a política terminológica e o fluxo de tradução.
-
-A regra que governa tudo: o material ensina raciocínio arquitetural, não
-memorização. Contribuição que apresenta solução sem o problema, ou padrão sem
+A regra que governa tudo: **o material ensina raciocínio arquitetural, não
+memorização.** Contribuição que apresenta solução sem o problema, ou padrão sem
 discutir quando não usá-lo, é rejeitada.
+
+## Documentos do projeto
+
+| | |
+|---|---|
+| **[SPEC.md](SPEC.md)** | A especificação completa: padrão de qualidade, política de tradução, critérios de conclusão |
+| **[ROADMAP.md](ROADMAP.md)** | Estado por documento, gerado do front matter |
+| **[CONTRIBUTING.md](CONTRIBUTING.md)** | Como escrever, revisar e traduzir |
+| **[Glossário](docs/glossary.md)** | Terminologia com definições operacionais |
 
 ## Licença
 
-Conteúdo sob [CC BY-SA 4.0](LICENSE). Código sob [MIT](LICENSE-CODE).
+Conteúdo sob **[CC BY-SA 4.0](LICENSE)** · Código sob **[MIT](LICENSE-CODE)**

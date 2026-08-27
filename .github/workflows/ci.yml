@@ -38,12 +38,12 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Roadmap está atualizado
+      - name: Roadmap e READMEs estão atualizados
         run: |
           npm run roadmap
-          if ! git diff --quiet -- ROADMAP.md; then
-            echo "::error::ROADMAP.md está defasado. Rode 'npm run roadmap' e faça commit."
-            git diff -- ROADMAP.md
+          if ! git diff --quiet -- ROADMAP.md README.md README.en-US.md; then
+            echo "::error::Números de progresso defasados. Rode 'npm run roadmap' e faça commit."
+            git diff -- ROADMAP.md README.md README.en-US.md
             exit 1
           fi
 

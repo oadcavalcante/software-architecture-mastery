@@ -1,38 +1,66 @@
+<div align="center">
+
 # Software Architecture Mastery
 
-[Português](README.md) · [English](README.en-US.md)
+**A learning path for Software Engineers who want to think like Architects.**
 
-A learning path for Software Engineers who want to think like Software Architects.
+Not a catalog of patterns. The reasoning that decides when *not* to use them.
 
-The goal is not to teach patterns, frameworks, or cloud services. It is to develop
-architectural reasoning:
+[![CI](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml)
+[![Deploy](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/deploy.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/deploy.yml)
+<!-- BADGES:PROGRESS -->
+![progress](https://img.shields.io/badge/progress-28%25-blue)
+![documents](https://img.shields.io/badge/documents-120%2F436-informational)
+<!-- /BADGES:PROGRESS -->
+![License](https://img.shields.io/badge/content-CC%20BY--SA%204.0-green)
+![Code](https://img.shields.io/badge/code-MIT-green)
+
+[Português (Brasil)](README.md) · **English**
+
+</div>
+
+---
+
+> **Note on languages.** Portuguese is the canonical language of this material.
+> English is translated progressively, section by section. Untranslated pages fall
+> back to Portuguese with a notice. Per-document status is in the
+> [ROADMAP](ROADMAP.md).
+
+## The problem this material addresses
+
+Most architecture material teaches **shapes**: layers, microservices, queues,
+CQRS. That produces engineers who recognize structures but cannot choose between
+them — because they never learned to articulate what they are optimizing for.
+
+Here the question is never *"what is the right architecture?"*. It is *"right for
+what, under which constraints?"*.
 
 ```text
-Understand the problem
-        ↓
-Identify constraints
-        ↓
-Evaluate alternatives
-        ↓
-Reason about trade-offs
-        ↓
-Make architectural decisions
-        ↓
-Communicate and defend those decisions
-        ↓
-Evolve the architecture over time
+Understand the problem  →  Identify constraints  →  Evaluate alternatives
+        →  Reason about trade-offs  →  Decide  →  Communicate  →  Evolve
 ```
 
-## Project status
+## What makes this different
 
-**Phase F1 — backbone complete.** All 23 sections exist with index pages that
-explain the whole path, navigation is grouped by the seven levels, and the
-glossary, maturity model, and terminology policy are published. The individual
-topics within each section have not been written yet.
+**No pattern is presented without discussing when NOT to use it.** Not as a
+formality — as the most useful part of each document, with concrete conditions.
 
-The full plan — quality standard, translation policy, and completion criteria —
-lives in **[SPEC.md](SPEC.md)** (Portuguese). Per-document status is in
-**[ROADMAP.md](ROADMAP.md)**.
+Some of what that rule produced:
+
+> **Singleton** couples two independent decisions — uniqueness and global access —
+> and you almost always need only the first.
+
+> **Visitor** picks a side of the expression problem. If it is the *types* that
+> grow, it is the most expensive mistake in the catalog.
+
+> **Event Sourcing** imposes event versioning **forever**. The question before
+> adopting is not whether it solves your problem — it is whether you accept that
+> permanent commitment.
+
+> **Tactical DDD** applied outside the core domain costs more than it returns.
+> Adopting two of the eight building blocks is often the correct call.
+
+And every decision ends conditioned on constraints, not as a recommendation.
 
 ## The seven levels
 
@@ -58,21 +86,49 @@ The corresponding progression of capability:
 code → design → systems → distributed systems → architecture → enterprise → strategy
 ```
 
+## Progress
+
+<!-- PROGRESS:TABLE -->
+| Level | Section | Status |
+|---|---|:-:|
+| 01 | Foundation | 🟩 22 topics |
+| 02 | Software Design | 🟩 22 topics |
+| 02 | Design Patterns | 🟩 30 topics |
+| 02 | Domain-Driven Design | 🟩 19 topics |
+| 03 | System Design | ⬜ |
+| 04 | Distributed Systems | ⬜ |
+| 05 | Architecture (11 sections) | ⬜ |
+| 06 | Enterprise Architecture | ⬜ |
+| 07 | Architecture Leadership | ⬜ |
+| — | Case Studies · Interviews | ⬜ |
+<!-- /PROGRESS:TABLE -->
+
+Per-document status is in **[ROADMAP.md](ROADMAP.md)**, generated from front
+matter.
+
 ## Who it is for
 
-A Software Engineer with 3+ years of experience, comfortable with a backend
-language, a relational database, and HTTP APIs, who has shipped software to
-production and now needs to reason about systems larger than their own service.
+A Software Engineer with 3+ years, comfortable with a backend language, a
+relational database and HTTP APIs, who has shipped to production and now needs to
+reason about systems larger than their own service.
 
-This is not material for people learning to program. It assumes fluency in code.
+**Not** material for people learning to program. It assumes fluency in code.
 
-## Languages
+## Where to start
 
-**Portuguese (pt-BR) is the canonical language.** English is translated
-progressively and never blocks new content. Untranslated pages fall back to
-Portuguese.
+| If you… | Start at |
+|---|---|
+| Ship features and want to understand structural decisions | Level 01 |
+| Structure code well but never designed a whole system | Level 02 |
+| Have designed systems, but only monolithic ones | Level 03 |
+| Work with distributed systems and want to close gaps | Level 04 |
+| Are preparing for system design interviews | Level 03 → section 22 |
+| Are an architect moving above the system | Levels 06 and 07 |
 
-Per-document translation status is in [ROADMAP.md](ROADMAP.md).
+Details in **[how to use](docs/how-to-use.md)**. To locate yourself by
+**capability** rather than by content read, see the
+**[maturity model](docs/maturity-model.md)** — six stages defined by the decision
+you make on your own.
 
 ## Running locally
 
@@ -80,87 +136,49 @@ Per-document translation status is in [ROADMAP.md](ROADMAP.md).
 npm install
 npm start                     # pt-BR at http://localhost:3000
 npm start -- --locale en-US   # en-US
-npm run build                 # production build, both locales
-npm run validate              # all content validators
-npm run roadmap               # regenerate ROADMAP.md tables
+npm run build                 # production, both locales
 ```
 
-The Docusaurus dev server builds one locale at a time; the production build
-generates all of them.
+## Quality is verified, not promised
 
-## Validation
-
-Content is checked automatically on every PR — links and anchors, front matter
-schema, an acyclic prerequisite graph, translation parity, terminology
-consistency, and no incomplete content marked as done.
+Content is validated automatically on every PR. These are not formatting linters —
+they are rules about the material itself:
 
 ```bash
-npm run validate
+npm test          # 59 tests of the validators themselves
+npm run validate  # the five content validators
 ```
 
-The criteria are in [SPEC.md §13](SPEC.md).
+| Validator | What it prevents |
+|---|---|
+| **frontmatter** | Schema, duplicate `id`, cycle in the prerequisite graph, two documents claiming the same concept |
+| **links** | Broken link or anchor, invalid Mermaid diagram |
+| **parity** | Translation ahead of the canonical, orphan translation |
+| **terminology** | Alternating between "acoplamento" and "coupling" in one document; translating what must stay in English |
+| **placeholders** | `status: complete` without *When Not to Use*, empty section, thin content |
 
-## Philosophy
-
-Fifteen principles govern the material. The ones that most determine what gets
-in and what does not:
-
-- **Architecture is about decisions and trade-offs.** There is no universally
-  better architecture; there is fit to constraints.
-- **Complexity must be justified.** Distribute only when necessary.
-- **Technology serves architecture, it does not define it.** The principle comes
-  first; the tool illustrates.
-- **Documentation explains why**, not only what.
-- **Studying failed decisions** matters as much as studying successful ones.
-
-In practice, most documents end with a decision **conditioned on constraints**
-rather than with a recommendation. Material that hands over conclusions without
-the conditions trains the opposite of what this path develops.
-
-## What you should be able to do by the end
-
-Receive *"Design the architecture for a high-volume payment platform"* and, in
-place of drawing boxes, work through:
-
-```text
-What is the business problem?
-        ↓
-What are the functional requirements?
-        ↓
-Which quality attributes matter, and at what number?
-        ↓
-What constraints exist?
-        ↓
-What are the architecture options?
-        ↓
-What trade-offs exist between them?
-        ↓
-Which architecture fits the constraints?
-        ↓
-How should the system evolve?
-        ↓
-How do I communicate and defend this decision?
-```
-
-## How to progress
-
-The path is linear by construction, but nobody starts from zero. The
-[how to use](docs/how-to-use.md) guide has an entry-point table by current
-experience.
-
-To locate yourself by capability — rather than by content read — use the
-[maturity model](docs/maturity-model.md), which defines six stages by the
-decision a person makes on their own.
+The validators have their own tests because a linter with false positives blocks
+legitimate contributions, and one with false negatives lets through what it should
+stop. Every bug found in them entered as a regression test before being fixed.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) (Portuguese) for the writing standard,
-front matter schema, terminology policy, and translation workflow.
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** (Portuguese) for the writing standard,
+front matter schema, terminology policy and translation workflow.
 
-The rule that governs everything: the material teaches architectural reasoning,
-not memorization. A contribution that presents a solution without its problem,
-or a pattern without discussing when not to use it, is rejected.
+The rule that governs everything: **the material teaches architectural reasoning,
+not memorization.** A contribution that presents a solution without its problem, or
+a pattern without discussing when not to use it, is rejected.
+
+## Project documents
+
+| | |
+|---|---|
+| **[SPEC.md](SPEC.md)** | The full specification: quality standard, translation policy, completion criteria (Portuguese) |
+| **[ROADMAP.md](ROADMAP.md)** | Per-document status, generated from front matter |
+| **[CONTRIBUTING.md](CONTRIBUTING.md)** | How to write, review and translate |
+| **[Glossary](docs/glossary.md)** | Terminology with operational definitions |
 
 ## License
 
-Content under [CC BY-SA 4.0](LICENSE). Code under [MIT](LICENSE-CODE).
+Content under **[CC BY-SA 4.0](LICENSE)** · Code under **[MIT](LICENSE-CODE)**

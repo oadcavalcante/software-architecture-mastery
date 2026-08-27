@@ -197,6 +197,112 @@ Ver [SPEC.md §15](SPEC.md#15-plano-de-execução) para o plano completo.
 `;
 }
 
+/** SPEC.md §4.2 — agrupamento de seções por nível, para a tabela do README. */
+const README_GROUPS = [
+  {level: '01', pt: 'Fundamentos', en: 'Foundation', sections: ['01-fundamentals']},
+  {level: '02', pt: 'Design de Software', en: 'Software Design', sections: ['02-software-design']},
+  {level: '02', pt: 'Design Patterns', en: 'Design Patterns', sections: ['03-design-patterns']},
+  {level: '02', pt: 'Domain-Driven Design', en: 'Domain-Driven Design', sections: ['04-domain-driven-design']},
+  {level: '03', pt: 'Design de Sistemas', en: 'System Design', sections: ['05-system-design']},
+  {level: '04', pt: 'Sistemas Distribuídos', en: 'Distributed Systems', sections: ['06-distributed-systems']},
+  {level: '05', pt: 'Arquitetura (11 seções)', en: 'Architecture (11 sections)', sections: [
+    '07-data-architecture', '08-integration-architecture', '09-cloud-architecture',
+    '10-security', '11-scalability', '12-reliability', '13-observability',
+    '14-devops-and-platform', '17-architecture-documentation',
+    '18-architecture-decisions', '20-trade-offs']},
+  {level: '06', pt: 'Arquitetura Corporativa', en: 'Enterprise Architecture', sections: [
+    '15-enterprise-architecture', '16-legacy-modernization', '19-architecture-governance']},
+  {level: '07', pt: 'Liderança em Arquitetura', en: 'Architecture Leadership', sections: ['23-architecture-leadership']},
+  {level: '—', pt: 'Case Studies · Entrevistas', en: 'Case Studies · Interviews', sections: [
+    '21-case-studies', '22-system-design-interviews']},
+];
+
+const README_LABELS = {
+  'pt-BR': {
+    header: '| Nível | Seção | Estado |',
+    sep: '|---|---|:-:|',
+    topics: (n) => `🟩 ${n} tópicos`,
+    partial: 'em progresso',
+    progressBadge: 'progresso',
+    docsBadge: 'documentos',
+  },
+  'en-US': {
+    header: '| Level | Section | Status |',
+    sep: '|---|---|:-:|',
+    topics: (n) => `🟩 ${n} topics`,
+    partial: 'in progress',
+    progressBadge: 'progress',
+    docsBadge: 'documents',
+  },
+};
+
+/**
+ * Atualiza badges e tabela de progresso dos READMEs.
+ *
+ * Números escritos à mão num README envelhecem em silêncio e passam a mentir.
+ * Aqui eles saem da mesma contagem que alimenta o ROADMAP.
+ */
+function updateReadmes(docs) {
+  const done = new Map();
+  for (const doc of docs) {
+    if (!doc.section || doc.frontmatter.status !== 'complete') continue;
+    done.set(doc.section, (done.get(doc.section) ?? 0) + 1);
+  }
+
+  let writtenTotal = 0;
+  let plannedTotal = 0;
+  for (const section of Object.keys(PLANNED_TOPICS)) {
+    writtenTotal += done.get(section) ?? 0;
+    plannedTotal += plannedFor(section);
+  }
+  const rootDone = docs.filter((d) => !d.section && d.frontmatter.status === 'complete').length;
+  writtenTotal += rootDone;
+  plannedTotal += 5; // documentos de raiz previstos
+  const pct = Math.round((writtenTotal / plannedTotal) * 100);
+
+  for (const [file, locale] of [['README.md', 'pt-BR'], ['README.en-US.md', 'en-US']]) {
+    const path = join(ROOT, file);
+    if (!existsSync(path)) continue;
+    let content = readFileSync(path, 'utf8');
+    const L = README_LABELS[locale];
+
+    const badges = [
+      `![${L.progressBadge}](https://img.shields.io/badge/${L.progressBadge}-${pct}%25-blue)`,
+      `![${L.docsBadge}](https://img.shields.io/badge/${L.docsBadge}-${writtenTotal}%2F${plannedTotal}-informational)`,
+    ].join('\n');
+
+    const rows = README_GROUPS.map((g) => {
+      const written = g.sections.reduce((a, s) => a + (done.get(s) ?? 0), 0);
+      const planned = g.sections.reduce((a, s) => a + plannedFor(s), 0);
+      // O índice de seção conta como documento e não como tópico.
+      const topics = Math.max(0, written - g.sections.filter((s) => (done.get(s) ?? 0) > 0).length);
+      const plannedTopics = planned - g.sections.length;
+      const state =
+        topics === 0 ? '⬜'
+        : topics >= plannedTopics ? L.topics(topics)
+        : `🟨 ${L.partial}`;
+      const label = locale === 'en-US' ? g.en : g.pt;
+      return `| ${g.level} | ${label} | ${state} |`;
+    });
+
+    content = replaceBetween(content, '<!-- BADGES:PROGRESS -->', '<!-- /BADGES:PROGRESS -->', badges);
+    content = replaceBetween(
+      content, '<!-- PROGRESS:TABLE -->', '<!-- /PROGRESS:TABLE -->',
+      [L.header, L.sep, ...rows].join('\n'),
+    );
+    writeFileSync(path, content);
+  }
+
+  return {writtenTotal, plannedTotal, pct};
+}
+
+function replaceBetween(text, begin, end, body) {
+  const i = text.indexOf(begin);
+  const j = text.indexOf(end);
+  if (i === -1 || j === -1) return text;
+  return `${text.slice(0, i + begin.length)}\n${body}\n${text.slice(j)}`;
+}
+
 function main() {
   const docs = loadCanonical();
   const locales = translationLocales();
@@ -225,8 +331,12 @@ function main() {
   }
 
   writeFileSync(ROADMAP, output);
+
+  const readme = updateReadmes(docs);
+
   const done = docs.filter((d) => d.frontmatter.status === 'complete').length;
   console.log(`[roadmap] ok — ${docs.length} documento(s), ${done} completo(s), locales: ${locales.join(', ') || 'nenhuma'}`);
+  console.log(`[readme]  ok — ${readme.writtenTotal}/${readme.plannedTotal} (${readme.pct}%) nos badges e na tabela`);
 }
 
 main();
