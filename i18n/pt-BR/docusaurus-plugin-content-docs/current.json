@@ -4,63 +4,63 @@
     "description": "The label for version current"
   },
   "sidebar.curriculum.category.Nível 01 — Fundamentos": {
-    "message": "Level 01 — Foundation",
+    "message": "Nível 01 — Fundamentos",
     "description": "The label for category 'Nível 01 — Fundamentos' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Nível 02 — Design de Software": {
-    "message": "Level 02 — Software Design",
+    "message": "Nível 02 — Design de Software",
     "description": "The label for category 'Nível 02 — Design de Software' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Nível 03 — Design de Sistemas": {
-    "message": "Level 03 — System Design",
+    "message": "Nível 03 — Design de Sistemas",
     "description": "The label for category 'Nível 03 — Design de Sistemas' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Nível 04 — Sistemas Distribuídos": {
-    "message": "Level 04 — Distributed Systems",
+    "message": "Nível 04 — Sistemas Distribuídos",
     "description": "The label for category 'Nível 04 — Sistemas Distribuídos' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Nível 05 — Arquitetura": {
-    "message": "Level 05 — Architecture",
+    "message": "Nível 05 — Arquitetura",
     "description": "The label for category 'Nível 05 — Arquitetura' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Dados": {
-    "message": "Data",
+    "message": "Dados",
     "description": "The label for category 'Dados' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Integração": {
-    "message": "Integration",
+    "message": "Integração",
     "description": "The label for category 'Integração' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Nuvem": {
-    "message": "Cloud",
+    "message": "Nuvem",
     "description": "The label for category 'Nuvem' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Segurança": {
-    "message": "Security",
+    "message": "Segurança",
     "description": "The label for category 'Segurança' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Escalabilidade": {
-    "message": "Scalability",
+    "message": "Escalabilidade",
     "description": "The label for category 'Escalabilidade' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Confiabilidade": {
-    "message": "Reliability",
+    "message": "Confiabilidade",
     "description": "The label for category 'Confiabilidade' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Observabilidade": {
-    "message": "Observability",
+    "message": "Observabilidade",
     "description": "The label for category 'Observabilidade' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.DevOps e Plataforma": {
-    "message": "DevOps and Platform",
+    "message": "DevOps e Plataforma",
     "description": "The label for category 'DevOps e Plataforma' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Documentação": {
-    "message": "Documentation",
+    "message": "Documentação",
     "description": "The label for category 'Documentação' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Decisões": {
-    "message": "Decisions",
+    "message": "Decisões",
     "description": "The label for category 'Decisões' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Trade-offs": {
@@ -68,19 +68,19 @@
     "description": "The label for category 'Trade-offs' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Nível 06 — Arquitetura Corporativa": {
-    "message": "Level 06 — Enterprise Architecture",
+    "message": "Nível 06 — Arquitetura Corporativa",
     "description": "The label for category 'Nível 06 — Arquitetura Corporativa' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Nível 07 — Liderança em Arquitetura": {
-    "message": "Level 07 — Architecture Leadership",
+    "message": "Nível 07 — Liderança em Arquitetura",
     "description": "The label for category 'Nível 07 — Liderança em Arquitetura' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Aplicação": {
-    "message": "Application",
+    "message": "Aplicação",
     "description": "The label for category 'Aplicação' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Referência": {
-    "message": "Reference",
+    "message": "Referência",
     "description": "The label for category 'Referência' in sidebar 'curriculum'"
   }
 }

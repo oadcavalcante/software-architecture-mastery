@@ -36,6 +36,28 @@ const SECTION_LEVEL = {
   '21-case-studies': 0, '22-system-design-interviews': 0,
 };
 
+/**
+ * Cobertura planejada por seção (SPEC.md §14), sem contar o index.md.
+ *
+ * Sem isto, o panorama mediria o progresso contra os arquivos que já existem e
+ * anunciaria "96% completo" com 28 de ~440 documentos escritos. Progresso se
+ * mede contra o escopo, não contra si mesmo.
+ */
+const PLANNED_TOPICS = {
+  '01-fundamentals': 22, '02-software-design': 22, '03-design-patterns': 34,
+  '04-domain-driven-design': 19, '05-system-design': 23, '06-distributed-systems': 35,
+  '07-data-architecture': 20, '08-integration-architecture': 14, '09-cloud-architecture': 18,
+  '10-security': 17, '11-scalability': 13, '12-reliability': 17, '13-observability': 11,
+  '14-devops-and-platform': 13, '15-enterprise-architecture': 20, '16-legacy-modernization': 12,
+  '17-architecture-documentation': 13, '18-architecture-decisions': 14,
+  '19-architecture-governance': 10, '20-trade-offs': 15, '21-case-studies': 14,
+  '22-system-design-interviews': 13, '23-architecture-leadership': 23,
+};
+
+/** Cada seção planeja seus tópicos mais o próprio índice. */
+const plannedFor = (section) =>
+  PLANNED_TOPICS[section] === undefined ? null : PLANNED_TOPICS[section] + 1;
+
 const LEVEL_NAME = {
   0: 'Transversal',
   1: 'Nível 01 — Fundamentos',
@@ -51,7 +73,7 @@ function esc(s) {
   return String(s ?? '').replace(/\|/g, '\\|');
 }
 
-function overview(docs, locales, parityRows) {
+function overview(docs) {
   const bySection = new Map();
   for (const doc of docs) {
     const key = doc.section ?? '(raiz)';
@@ -59,27 +81,38 @@ function overview(docs, locales, parityRows) {
     bySection.get(key).push(doc);
   }
 
-  const header = ['| Seção | Nível | Docs | ⬜ | 🟨 | 🟩 |', '|---|---|---:|---:|---:|---:|'];
-  const rows = [...bySection.entries()]
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([section, list]) => {
-      const c = {'not-started': 0, 'in-progress': 0, complete: 0};
-      for (const d of list) c[d.frontmatter.status] = (c[d.frontmatter.status] ?? 0) + 1;
-      const level = SECTION_LEVEL[section];
-      const levelLabel = level === undefined ? '—' : (level === 0 ? 'Transversal' : String(level).padStart(2, '0'));
-      return `| \`${section}\` | ${levelLabel} | ${list.length} | ${c['not-started']} | ${c['in-progress']} | ${c.complete} |`;
-    });
+  const rows = [];
+  let doneTotal = 0;
+  let plannedTotal = 0;
 
-  const total = docs.length;
-  const done = docs.filter((d) => d.frontmatter.status === 'complete').length;
-  const pct = total ? Math.round((done / total) * 100) : 0;
+  for (const section of [...new Set([...Object.keys(PLANNED_TOPICS), ...bySection.keys()])].sort()) {
+    const list = bySection.get(section) ?? [];
+    const done = list.filter((d) => d.frontmatter.status === 'complete').length;
+    const planned = plannedFor(section) ?? list.length;
+    doneTotal += done;
+    plannedTotal += planned;
+
+    const level = SECTION_LEVEL[section];
+    const levelLabel =
+      level === undefined ? '—' : level === 0 ? 'Transv.' : String(level).padStart(2, '0');
+    const pct = planned ? Math.round((done / planned) * 100) : 0;
+    const bar = '█'.repeat(Math.round(pct / 10)) + '░'.repeat(10 - Math.round(pct / 10));
+    rows.push(`| \`${section}\` | ${levelLabel} | ${done} / ${planned} | \`${bar}\` ${pct}% |`);
+  }
+
+  const pct = plannedTotal ? Math.round((doneTotal / plannedTotal) * 100) : 0;
 
   return [
     '## Panorama',
     '',
-    `**${done} de ${total} documentos completos (${pct}%).**`,
+    `**${doneTotal} de ${plannedTotal} documentos planejados escritos (${pct}%).**`,
     '',
-    ...header,
+    'O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem',
+    'de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,',
+    'mas já tem índice publicado explicando o que virá.',
+    '',
+    '| Seção | Nível | Escritos | Progresso |',
+    '|---|---|---:|---|',
     ...rows,
     '',
   ].join('\n');
@@ -167,7 +200,7 @@ function main() {
   const {rows} = buildParity();
 
   const body = [
-    overview(docs, locales, rows),
+    overview(docs),
     legend(locales),
     detailTables(docs, locales, rows),
   ].join('\n');

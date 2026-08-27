@@ -22,6 +22,9 @@ const WORD_RANGE = {
   exercise: [600, 1500],
   adr: [500, 1200],
   index: [400, 900],
+  // Glossário e tabela terminológica: densidade governada pela cobertura
+  // de termos, não por profundidade argumentativa.
+  reference: [500, 12000],
 };
 
 /** SPEC.md §7.3 — nunca omitidas em concept, pattern e tradeoff. */

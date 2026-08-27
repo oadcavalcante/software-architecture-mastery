@@ -25,9 +25,10 @@ Evolve the architecture over time
 
 ## Project status
 
-**Phase F0 — technical foundation complete.** The structure, the bilingual build,
-the validators, and the publishing pipeline are in place. The content of the seven
-levels has not been written yet.
+**Phase F1 — backbone complete.** All 23 sections exist with index pages that
+explain the whole path, navigation is grouped by the seven levels, and the
+glossary, maturity model, and terminology policy are published. The individual
+topics within each section have not been written yet.
 
 The full plan — quality standard, translation policy, and completion criteria —
 lives in **[SPEC.md](SPEC.md)** (Portuguese). Per-document status is in
@@ -98,6 +99,67 @@ npm run validate
 ```
 
 The criteria are in [SPEC.md §13](SPEC.md).
+
+## Philosophy
+
+Fifteen principles govern the material. The ones that most determine what gets
+in and what does not:
+
+- **Architecture is about decisions and trade-offs.** There is no universally
+  better architecture; there is fit to constraints.
+- **Complexity must be justified.** Distribute only when necessary.
+- **Technology serves architecture, it does not define it.** The principle comes
+  first; the tool illustrates.
+- **Documentation explains why**, not only what.
+- **Studying failed decisions** matters as much as studying successful ones.
+
+In practice, most documents end with a decision **conditioned on constraints**
+rather than with a recommendation. Material that hands over conclusions without
+the conditions trains the opposite of what this path develops.
+
+## What you should be able to do by the end
+
+Receive *"Design the architecture for a high-volume payment platform"* and, in
+place of drawing boxes, work through:
+
+```text
+What is the business problem?
+        ↓
+What are the functional requirements?
+        ↓
+Which quality attributes matter, and at what number?
+        ↓
+What constraints exist?
+        ↓
+What are the architecture options?
+        ↓
+What trade-offs exist between them?
+        ↓
+Which architecture fits the constraints?
+        ↓
+How should the system evolve?
+        ↓
+How do I communicate and defend this decision?
+```
+
+## How to progress
+
+The path is linear by construction, but nobody starts from zero. The
+[how to use](docs/how-to-use.md) guide has an entry-point table by current
+experience.
+
+To locate yourself by capability — rather than by content read — use the
+[maturity model](docs/maturity-model.md), which defines six stages by the
+decision a person makes on their own.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) (Portuguese) for the writing standard,
+front matter schema, terminology policy, and translation workflow.
+
+The rule that governs everything: the material teaches architectural reasoning,
+not memorization. A contribution that presents a solution without its problem,
+or a pattern without discussing when not to use it, is rejected.
 
 ## License
 

@@ -26,9 +26,10 @@ Evoluir a arquitetura ao longo do tempo
 
 ## Estado do projeto
 
-**Fase F0 — fundação técnica concluída.** A estrutura, o build bilíngue, os
-validadores e o pipeline de publicação estão no lugar. O conteúdo dos sete
-níveis ainda não foi escrito.
+**Fase F1 — espinha dorsal concluída.** As 23 seções existem com índices que
+explicam o percurso inteiro, a navegação está agrupada nos sete níveis, e o
+glossário, o modelo de maturidade e a política terminológica estão publicados.
+Os tópicos individuais de cada seção ainda não foram escritos.
 
 O plano completo, com padrão de qualidade, política de tradução e critérios de
 conclusão, está em **[SPEC.md](SPEC.md)**. O estado documento a documento fica
@@ -98,6 +99,68 @@ npm run validate
 ```
 
 Os critérios estão em [SPEC.md §13](SPEC.md).
+
+## Filosofia
+
+Quinze princípios governam o material. Os que mais determinam o que entra e o
+que não entra:
+
+- **Arquitetura é sobre decisões e trade-offs.** Não existe arquitetura
+  universalmente melhor; existe adequação a restrições.
+- **Complexidade precisa ser justificada.** Distribuir só quando necessário.
+- **Tecnologia serve à arquitetura, não a define.** O princípio vem primeiro; a
+  ferramenta ilustra.
+- **Documentação explica o porquê**, não só o quê.
+- **Estudar decisões fracassadas** vale tanto quanto estudar as bem-sucedidas.
+
+Na prática, isso significa que a maior parte dos documentos termina com uma
+decisão **condicionada a restrições**, e não com uma recomendação. Material que
+entrega conclusões sem as condições treina o hábito contrário ao que o percurso
+desenvolve.
+
+## O que você deve conseguir fazer ao final
+
+Receber *"Projete a arquitetura de uma plataforma de pagamentos de alto volume"*
+e, em vez de começar a desenhar caixas, percorrer:
+
+```text
+Qual é o problema de negócio?
+        ↓
+Quais são os requisitos funcionais?
+        ↓
+Quais atributos de qualidade importam, e com que número?
+        ↓
+Que restrições existem?
+        ↓
+Quais são as opções de arquitetura?
+        ↓
+Que trade-offs existem entre elas?
+        ↓
+Qual arquitetura cabe nas restrições?
+        ↓
+Como o sistema deve evoluir?
+        ↓
+Como comunico e defendo essa decisão?
+```
+
+## Como progredir
+
+O percurso é linear por construção, mas ninguém entra no zero. O guia de
+[como usar](docs/how-to-use.md) tem uma tabela de pontos de entrada por
+experiência atual.
+
+Para se localizar em capacidade — e não em conteúdo lido — use o
+[modelo de maturidade](docs/maturity-model.md), que define seis estágios pela
+decisão que a pessoa toma sozinha.
+
+## Como contribuir
+
+Veja [CONTRIBUTING.md](CONTRIBUTING.md) para o padrão de escrita, o schema de
+front matter, a política terminológica e o fluxo de tradução.
+
+A regra que governa tudo: o material ensina raciocínio arquitetural, não
+memorização. Contribuição que apresenta solução sem o problema, ou padrão sem
+discutir quando não usá-lo, é rejeitada.
 
 ## Licença
 

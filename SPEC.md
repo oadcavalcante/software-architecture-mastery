@@ -416,6 +416,7 @@ Nem todo documento usa o mesmo template. Cinco tipos, cada um com seu esqueleto 
 | Exercício | `exercise` | 600 – 1.500 palavras | `*/exercises/` |
 | ADR | `adr` | 500 – 1.200 palavras | `18-architecture-decisions` |
 | Índice de seção | `index` | 400 – 900 palavras | `*/index.md` |
+| Referência | `reference` | 500 – 12.000 palavras | `glossary`, `i18n-terminology` |
 
 Tamanho-alvo é orientação de densidade, não meta a atingir. Um documento abaixo da faixa
 provavelmente está raso; acima da faixa, provavelmente inflado ou deveria ser dividido.
@@ -786,7 +787,32 @@ Executadas em cada PR. Falha bloqueia merge.
 | Canônico alterado sem incremento de `content_version` | `check-parity.mjs` | Aviso |
 | Tamanho fora da faixa do `doc_type` | `check-placeholders.mjs` | Aviso |
 
-### 13.2 Revisão humana
+### 13.2 Testes dos validadores
+
+Os validadores são código que decide o que entra no repositório. Um validador
+com falso positivo trava contribuição legítima; um com falso negativo deixa
+passar o que deveria barrar. Ambos custam mais do que o problema que evitam.
+
+Por isso cada validador tem testes (`npm test`), rodando o script real contra
+árvores de documentos temporárias via a variável `SAM_ROOT`. Os testes cobrem o
+caminho de aceitação e o de rejeição de cada regra.
+
+Todo bug encontrado num validador entra como teste de regressão antes de ser
+corrigido. Os que motivaram a suíte:
+
+| Bug | Efeito |
+|---|---|
+| `/TODO/i` casava com a palavra portuguesa "todo" | Falharia praticamente todo documento do repositório |
+| Termo composto da categoria B contendo palavra da categoria A | "anti-corruption layer" acusado por conter "layer" |
+| Espaço literal no regex não casa com quebra de linha do markdown | Termo composto quebrado em duas linhas escapava da regra |
+| Slugificação de âncora reimplementada removia acentos | Rejeitava links válidos para cabeçalhos em português |
+
+O terceiro e o quarto são o mesmo tipo de erro: reimplementar comportamento que
+outra ferramenta já define. A regra que sai daí — **delegar ao `github-slugger`
+em vez de replicar sua lógica** — vale para qualquer verificação futura que
+precise reproduzir o que o Docusaurus faz.
+
+### 13.3 Revisão humana
 
 Automação não detecta conteúdo raso. Todo documento passa por revisão contra este checklist:
 
@@ -801,7 +827,7 @@ Automação não detecta conteúdo raso. Todo documento passa por revisão contr
 9. Alguma afirmação técnica precisa de verificação contra fonte primária?
 10. Alguma seção existe só para preencher o template?
 
-### 13.3 Uso de IA
+### 13.4 Uso de IA
 
 IA pode acelerar a construção, mas o material final é revisado quanto a: correção factual,
 consistência conceitual, contradições entre seções, conteúdo duplicado, afirmações
@@ -852,7 +878,7 @@ independente — o site é publicável e útil ao fim de cada fase.
 | **F5 — Nível 06–07** | `15`, `16`, `19`, `23` | 65 tópicos; inclui a distinção Software/Sistema/Solução/Corporativa |
 | **F6 — Aplicação** | `21-case-studies`, `22-system-design-interviews`, exercícios de revisão de arquitetura | 14 case studies end-to-end; exercícios de entrevista |
 | **F7 — Tradução** | en-US na ordem de prioridade de §5.3 | Relatório de paridade no ROADMAP; ⬜ é estado válido |
-| **F8 — Consolidação** | Passagem de revisão cruzada: contradições, duplicações, links, densidade, verificação factual | Checklist de §13.2 aplicado a 100% dos documentos `complete` |
+| **F8 — Consolidação** | Passagem de revisão cruzada: contradições, duplicações, links, densidade, verificação factual | Checklist de §13.3 aplicado a 100% dos documentos `complete` |
 
 Ordem dentro de cada fase segue o grafo de pré-requisitos (§4.4). Um tópico não é escrito
 antes dos seus pré-requisitos, porque escrever fora de ordem produz redefinição e duplicação.
@@ -881,7 +907,7 @@ O projeto está completo quando:
 16. Nenhuma seção é filler.
 17. O material ensina raciocínio arquitetural, não memorização.
 18. O repositório é capaz de levar um Engenheiro de Software forte a pensar como Arquiteto.
-19. Todo arquivo `status: complete` passou pela revisão humana de §13.2.
+19. Todo arquivo `status: complete` passou pela revisão humana de §13.3.
 20. Nenhum placeholder não declarado; todo TODO é rastreado em `ROADMAP`.
 
 ---
@@ -890,11 +916,11 @@ O projeto está completo quando:
 
 | Risco | Impacto | Mitigação |
 |---|---|---|
-| Volume gera diluição de qualidade | Alto — destrói o objetivo do projeto | Faixas de densidade (§7.2), revisão humana obrigatória (§13.2), fases entregáveis |
+| Volume gera diluição de qualidade | Alto — destrói o objetivo do projeto | Faixas de densidade (§7.2), revisão humana obrigatória (§13.3), fases entregáveis |
 | Duplicação entre seções interconectadas | Alto — material fica repetitivo e contraditório | `canonical_for` validado em CI, regra antiduplicação (§7.4), ordem por pré-requisito |
 | Tradução defasa e engana o leitor | Médio | Estado derivado (§5.4), aviso de "não traduzido" na UI, fallback pt-BR |
 | Terminologia inconsistente entre PT e EN | Médio | Política terminológica (§5.5) aplicada por linter |
-| Afirmações técnicas incorretas | Alto — destrói credibilidade | §8.2 e item 9 do checklist de revisão |
+| Afirmações técnicas incorretas | Alto — destrói credibilidade | §8.2 e item 9 do checklist de §13.3 |
 | Conteúdo envelhece (nuvem, ferramentas) | Médio | Neutralidade tecnológica (§8.3) limita a superfície perecível; `last_reviewed` em front matter |
 | Projeto para no meio | Médio | Cada fase entrega um site publicável e útil por si só |
 

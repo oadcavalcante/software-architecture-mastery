@@ -56,6 +56,7 @@
     "check:placeholders": "node scripts/check-placeholders.mjs",
     "roadmap": "node scripts/gen-roadmap.mjs",
     "validate": "node scripts/validate.mjs",
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "terminology": "node scripts/gen-terminology-doc.mjs"
   }
 }
