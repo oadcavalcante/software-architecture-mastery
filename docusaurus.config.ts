@@ -79,7 +79,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/social-card.png',
+    // image: 'img/social-card.png',  // F1: criar o card OG (1200×630 PNG)
     colorMode: {
       defaultMode: 'light',
       respectPrefersColorScheme: true,
@@ -115,8 +115,9 @@ const config: Config = {
           title: 'Percurso',
           items: [
             {label: 'Comece aqui', to: '/'},
-            {label: 'Modelo de maturidade', to: '/maturity-model'},
-            {label: 'Glossário', to: '/glossary'},
+            // Modelo de maturidade e Glossário entram aqui na F1,
+            // quando os documentos existirem. onBrokenLinks: 'throw'
+            // impede que um link aponte para o vazio enquanto isso.
           ],
         },
         {
