@@ -161,6 +161,70 @@ The validators have their own tests because a linter with false positives blocks
 legitimate contributions, and one with false negatives lets through what it should
 stop. Every bug found in them entered as a regression test before being fixed.
 
+## How this project is built
+
+The material is large — 409 topics across 23 sections — so construction is
+organized as a **loop**: each iteration writes **one** document and leaves it
+verified.
+
+```mermaid
+graph LR
+  A["curriculum.json<br/>the inventory"] -->|npm run plan| B["specs/<br/>scope per section"]
+  A -->|npm run plan| C["fix_plan.md<br/>prioritized queue"]
+  D["docs/<br/>what exists"] -->|npm run plan| C
+  C -->|next task| E["PROMPT.md<br/>the instruction"]
+  E --> F["write the document"]
+  F --> G["AGENTS.md<br/>the gates"]
+  G -->|green| H[commit]
+  H --> D
+```
+
+### The four files
+
+| File | What it is |
+|---|---|
+| **[PROMPT.md](PROMPT.md)** | The instruction for one iteration. What to do, in order, and when to stop and ask |
+| **[AGENTS.md](AGENTS.md)** | How to build, test and validate. Commands, schema, required sections per type, and an error → cause table |
+| **[specs/](specs/)** | One spec per section: scope, planned topics, completion criteria |
+| **[fix_plan.md](fix_plan.md)** | The queue of what remains, in prerequisite order |
+
+### What is generated and what is written
+
+This distinction is what keeps the plan from lying:
+
+| Written by hand | Generated |
+|---|---|
+| `docs/**` — the content | `specs/**` |
+| `SPEC.md`, `PROMPT.md`, `AGENTS.md` | `fix_plan.md` |
+| `scripts/curriculum.json` — the inventory | `ROADMAP.md` |
+| | README badges and progress table |
+| | `docs/i18n-terminology.md` |
+
+Everything on the right comes from `npm run plan` and `npm run roadmap`, derived
+from the curriculum crossed with the real state of `docs/`. **CI fails if any of
+them is stale** — so no number in this repository can quietly go out of date.
+
+### One iteration, in practice
+
+```bash
+npm run plan          # what is the next task?
+                      # → 05-system-design/request-response.md
+
+# read specs/05-system-design.md and two neighboring documents
+# write docs/05-system-design/request-response.md
+
+npm test              # the validators are correct
+npm run validate      # content passes — no errors AND no warnings
+npm run plan          # the task leaves the queue
+npm run roadmap       # progress updated
+npm run build         # the site builds in both locales
+
+git add -A && git commit && git push
+```
+
+The five middle commands are the **gates**. No commit passes without them, and CI
+runs the same ones.
+
 ## Contributing
 
 See **[CONTRIBUTING.md](CONTRIBUTING.md)** (Portuguese) for the writing standard,

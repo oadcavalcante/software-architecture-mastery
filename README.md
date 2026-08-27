@@ -163,6 +163,74 @@ Os validadores têm testes próprios porque um linter com falso positivo trava
 contribuição legítima, e um com falso negativo deixa passar o que deveria barrar.
 Todo bug encontrado neles entrou como teste de regressão antes da correção.
 
+## Como este projeto é construído
+
+O material é grande — 409 tópicos em 23 seções — e por isso a construção é
+organizada como um **loop**: cada iteração escreve **um** documento e o deixa
+verificado.
+
+```mermaid
+graph LR
+  A["curriculum.json<br/>o inventário"] -->|npm run plan| B["specs/<br/>escopo por seção"]
+  A -->|npm run plan| C["fix_plan.md<br/>fila priorizada"]
+  D["docs/<br/>o que já existe"] -->|npm run plan| C
+  C -->|próxima tarefa| E["PROMPT.md<br/>a instrução"]
+  E --> F["escreve o documento"]
+  F --> G["AGENTS.md<br/>os portões"]
+  G -->|verde| H[commit]
+  H --> D
+```
+
+### Os quatro arquivos
+
+| Arquivo | O que é |
+|---|---|
+| **[PROMPT.md](PROMPT.md)** | A instrução de uma iteração. O que fazer, nessa ordem, e quando parar e perguntar |
+| **[AGENTS.md](AGENTS.md)** | Como construir, testar e validar. Comandos, schema, seções obrigatórias por tipo, e a tabela de erro → causa |
+| **[specs/](specs/)** | Uma spec por seção: escopo, tópicos previstos e critério de conclusão |
+| **[fix_plan.md](fix_plan.md)** | A fila do que falta, na ordem dos pré-requisitos |
+
+### O que é gerado e o que é escrito
+
+Esta distinção é o que impede o plano de mentir:
+
+| Escrito à mão | Gerado |
+|---|---|
+| `docs/**` — o conteúdo | `specs/**` |
+| `SPEC.md`, `PROMPT.md`, `AGENTS.md` | `fix_plan.md` |
+| `scripts/curriculum.json` — o inventário | `ROADMAP.md` |
+| | Badges e tabela de progresso dos READMEs |
+| | `docs/i18n-terminology.md` |
+
+Tudo da coluna direita sai de `npm run plan` e `npm run roadmap`, a partir do
+currículo cruzado com o estado real de `docs/`. **O CI falha se qualquer um
+estiver defasado** — então nenhum número deste repositório pode envelhecer em
+silêncio.
+
+Quando um documento é escrito, a tarefa sai da fila sozinha. Quando o escopo
+muda, ele muda em `curriculum.json` e se propaga.
+
+### Uma iteração, na prática
+
+```bash
+npm run plan          # qual é a próxima tarefa?
+                      # → 05-system-design/request-response.md
+
+# leia specs/05-system-design.md e dois documentos vizinhos
+# escreva docs/05-system-design/request-response.md
+
+npm test              # os validadores estão corretos
+npm run validate      # o conteúdo passa — sem erro E sem aviso
+npm run plan          # a tarefa sai da fila
+npm run roadmap       # progresso atualizado
+npm run build         # o site constrói nas duas locales
+
+git add -A && git commit && git push
+```
+
+Os cinco comandos do meio são os **portões**. Nenhum commit passa sem eles, e o
+CI roda os mesmos.
+
 ## Contribuir
 
 Veja **[CONTRIBUTING.md](CONTRIBUTING.md)** para padrão de escrita, schema de front
