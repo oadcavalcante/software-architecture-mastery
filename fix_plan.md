@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 244 de 432 (56%) |
-| Seções pendentes | 13 de 23 |
-| Próxima tarefa | `11-scalability` → `vertical-scaling.md` |
+| Escrito | 257 de 432 (59%) |
+| Seções pendentes | 12 de 23 |
+| Próxima tarefa | `12-reliability` → `availability-metrics.md` |
 
 ## Como usar
 
@@ -27,24 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 11-scalability — Escalabilidade
-
-Nível 05 — Arquitetura · faltam 13 de 14 · spec: [`specs/11-scalability.md`](specs/11-scalability.md)
-
-- [ ] `vertical-scaling.md`
-- [ ] `horizontal-scaling.md`
-- [ ] `statelessness.md`
-- [ ] `scaling-cache.md`
-- [ ] `scaling-partitioning.md`
-- [ ] `scaling-replication.md`
-- [ ] `scaling-load-balancing.md`
-- [ ] `async-processing.md`
-- [ ] `queue-based-scaling.md`
-- [ ] `database-scaling.md`
-- [ ] `hotspots.md`
-- [ ] `scaling-capacity-planning.md`
-- [ ] `performance-vs-scalability.md`
 
 ### 12-reliability — Confiabilidade
 

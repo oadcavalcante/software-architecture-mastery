@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**248 de 437 documentos planejados escritos (57%).**
+**261 de 437 documentos planejados escritos (60%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -28,7 +28,7 @@ mas já tem índice publicado explicando o que virá.
 | `08-integration-architecture` | 05 | 15 / 15 | `██████████` 100% |
 | `09-cloud-architecture` | 05 | 19 / 19 | `██████████` 100% |
 | `10-security` | 05 | 18 / 18 | `██████████` 100% |
-| `11-scalability` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
+| `11-scalability` | 05 | 14 / 14 | `██████████` 100% |
 | `12-reliability` | 05 | 1 / 18 | `█░░░░░░░░░` 6% |
 | `13-observability` | 05 | 1 / 12 | `█░░░░░░░░░` 8% |
 | `14-devops-and-platform` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
@@ -305,7 +305,20 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Confiança na Cadeia de Suprimentos](docs/10-security/supply-chain-trust.md) | concept | avançado | `security` | ⬜ |
 | 🟩 | [Modelagem de Ameaças](docs/10-security/threat-modeling.md) | concept | avançado | `security` | ⬜ |
 | 🟩 | [Confiança Zero](docs/10-security/zero-trust.md) | concept | avançado | `secure-boundaries` | ⬜ |
-| 🟩 | [Escalabilidade](docs/11-scalability/index.md) | index | avançado | `system-design`, `distributed-systems` | ⬜ |
+| 🟩 | [Processamento Assíncrono](docs/11-scalability/async-processing.md) | concept | intermediário | `scalability` | ⬜ |
+| 🟩 | [Escala de Banco de Dados](docs/11-scalability/database-scaling.md) | concept | avançado | `scalability` | ⬜ |
+| 🟩 | [Escala Horizontal](docs/11-scalability/horizontal-scaling.md) | concept | avançado | `vertical-scaling` | ⬜ |
+| 🟩 | [Pontos Quentes](docs/11-scalability/hotspots.md) | concept | avançado | `scalability` | ⬜ |
+| 🟩 | [Escalabilidade](docs/11-scalability/index.md) | index | avançado | `system-design` | ⬜ |
+| 🟩 | [Desempenho versus Escalabilidade](docs/11-scalability/performance-vs-scalability.md) | tradeoff | intermediário | `scalability` | ⬜ |
+| 🟩 | [Escala Dirigida por Fila](docs/11-scalability/queue-based-scaling.md) | pattern | avançado | `async-processing` | ⬜ |
+| 🟩 | [Cache para Escala](docs/11-scalability/scaling-cache.md) | concept | avançado | `scalability` | ⬜ |
+| 🟩 | [Planejamento de Capacidade para Escala](docs/11-scalability/scaling-capacity-planning.md) | concept | avançado | `performance-vs-scalability` | ⬜ |
+| 🟩 | [Balanceamento para Escala](docs/11-scalability/scaling-load-balancing.md) | concept | intermediário | `horizontal-scaling` | ⬜ |
+| 🟩 | [Particionamento para Escala](docs/11-scalability/scaling-partitioning.md) | concept | avançado | `scaling-replication` | ⬜ |
+| 🟩 | [Replicação para Escala](docs/11-scalability/scaling-replication.md) | concept | intermediário | `scalability` | ⬜ |
+| 🟩 | [Ausência de Estado](docs/11-scalability/statelessness.md) | concept | intermediário | `horizontal-scaling` | ⬜ |
+| 🟩 | [Escala Vertical](docs/11-scalability/vertical-scaling.md) | concept | intermediário | `scalability` | ⬜ |
 | 🟩 | [Confiabilidade](docs/12-reliability/index.md) | index | avançado | `distributed-systems` | ⬜ |
 | 🟩 | [Observabilidade](docs/13-observability/index.md) | index | intermediário | `distributed-systems` | ⬜ |
 | 🟩 | [DevOps e Plataforma](docs/14-devops-and-platform/index.md) | index | intermediário | `system-design` | ⬜ |

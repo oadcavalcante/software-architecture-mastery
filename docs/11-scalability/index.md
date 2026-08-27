@@ -2,84 +2,104 @@
 id: scalability
 title: Escalabilidade
 sidebar_position: 0
-description: Como um sistema absorve crescimento — e por que escalabilidade não é a mesma coisa que desempenho.
+description: Crescer sem que o custo por unidade cresça junto — e por que a maior parte dos problemas atribuídos a escala não é de escala.
 doc_type: index
 level: 5
 difficulty: avançado
 status: complete
 objective: >
-  Ao terminar, o leitor identifica o gargalo real antes de escalar e escolhe a
-  estratégia a partir da dimensão que cresce, não do recurso mais visível.
-prerequisites: [system-design, distributed-systems]
-related: [data-architecture, reliability, cloud-architecture]
+  Ao terminar, o leitor distingue problema de desempenho de problema de escala, e
+  ataca o gargalo real em vez de adicionar capacidade.
+prerequisites: [system-design]
+related: [distributed-systems, data-architecture, reliability]
 canonical_for: []
 content_version: 1
-last_reviewed: 2026-08-26
+last_reviewed: 2026-08-28
 ---
 
-# Escalabilidade
+# Nível 05 — Escalabilidade
 
-Escalabilidade é a capacidade de absorver crescimento adicionando recursos. Não
-é a mesma coisa que desempenho, e confundir as duas leva a otimizar a coisa
-errada com competência.
+Esta seção trata de crescer sem que o custo cresça na mesma proporção.
 
 ## O problema desta seção
 
-Desempenho é quanto tempo uma operação leva com a carga atual. Escalabilidade é
-como esse tempo se comporta quando a carga multiplica. Um sistema pode ser
-rápido e não escalar; pode escalar bem e ser lento.
+Escalabilidade é a propriedade de suportar mais carga **adicionando recursos**, com o
+custo por unidade de trabalho permanecendo estável ou caindo.
 
-A confusão produz um padrão previsível: alguém otimiza uma consulta, ganha 30%,
-e o sistema cai de novo três meses depois — porque o problema nunca foi a
-consulta, e sim o fato de que toda requisição passa por um recurso que não se
-multiplica.
+Isso é diferente de desempenho, e a confusão entre os dois é a origem da maior parte
+dos projetos de escala mal direcionados. Um sistema pode ser rápido e não escalar; um
+sistema lento pode escalar perfeitamente.
 
-O trabalho arquitetural aqui é identificar **qual dimensão cresce** — usuários,
-dados, escritas, leituras, conexões simultâneas, tamanho de payload — e qual
-recurso satura primeiro nessa dimensão. Escalar sem essa análise é caro e
-frequentemente ineficaz.
+O segundo problema é de diagnóstico. Uma fração grande dos problemas atribuídos a
+escala não é de escala — é
+[índice ausente](../07-data-architecture/indexing.md), consulta mal escrita, mistura
+de cargas, ou contenção sobre um único recurso.
+
+Adicionar capacidade a um desses gasta dinheiro e não resolve, porque o gargalo não é
+capacidade. E, o que é pior, costuma esconder o problema por alguns meses.
+
+O terceiro é que **escala tem limite estrutural**. Uma fração serial de 5% no
+processamento limita o ganho a 20 vezes, independentemente de quantas máquinas você
+adicione. Reconhecer isso muda o alvo: em vez de adicionar recursos, remover a parte
+que não paraleliza.
 
 ## O que você vai encontrar aqui
 
-**As duas direções.** Escala vertical e horizontal, com o ponto em que a
-primeira deixa de ser a resposta certa — que é mais tarde do que se costuma
-supor.
+**As duas direções.** Escala vertical e horizontal — com a defesa explícita da
+vertical, que é subestimada e resolve mais casos do que a literatura sugere.
 
-**A precondição.** Ausência de estado no processamento. É o que torna a escala
-horizontal possível; sem isso, o resto não se aplica.
+**O pré-requisito.** Ausência de estado, sem a qual escalar horizontalmente não
+funciona.
 
-**Distribuição de carga.** Balanceamento de carga, particionamento e replicação
-sob a ótica de crescimento.
+**Os mecanismos.** Cache, particionamento, replicação e balanceamento vistos pelo
+ângulo da escala — complementando o tratamento de
+[design de sistemas](../05-system-design/index.md) e de
+[sistemas distribuídos](../06-distributed-systems/index.md).
 
-**Absorção.** Cache, processamento assíncrono e escala baseada em fila. Como
-converter picos em atraso em vez de em falha.
+**Assíncrono e filas.** As duas técnicas que resolvem pico sem adicionar capacidade
+proporcional. Frequentemente a resposta certa quando a intuição pede mais máquinas.
 
-**O ponto difícil.** Escala de banco de dados e hotspots. O banco é o gargalo
-final da maior parte dos sistemas, e hotspot é o motivo pelo qual particionar
-nem sempre resolve.
+**Banco de dados.** O gargalo real da maioria dos sistemas, e o mais difícil de
+escalar.
 
-**Antecipação.** Planejamento de capacidade e a distinção entre desempenho e
-escalabilidade.
+**Pontos quentes.** O modo de falha que sobrevive a qualquer quantidade de capacidade
+— e que explica por que "temos dez réplicas e mesmo assim caiu".
+
+**Planejamento de capacidade.** Como saber quando escalar, antes do incidente.
+
+**Desempenho contra escalabilidade.** O documento que organiza toda a seção, e que
+deveria ser o primeiro para quem tem pouco tempo.
 
 ## Ordem de leitura
 
-Leia **desempenho versus escalabilidade** primeiro. É curto e reorganiza tudo o
-que vem depois.
+Comece por **desempenho contra escalabilidade**. Sem essa distinção, o resto vira
+catálogo de técnicas sem critério.
 
-Depois **planejamento de capacidade** e **hotspots**, nessa ordem — a análise
-antes das soluções. Cache e fila são fáceis de aplicar e por isso são aplicados
-antes da análise com frequência demais.
+Depois **pontos quentes**, que explica por que capacidade adicional às vezes não faz
+diferença nenhuma.
+
+**Escala vertical** antes de **horizontal** — a ordem é deliberada, porque a vertical
+é a resposta certa com mais frequência do que se imagina, e a horizontal cobra
+complexidade permanente.
+
+**Escala de banco de dados** pode ser lida a qualquer momento e é a de retorno mais
+imediato para quem tem sistema em produção agora.
 
 ## Ao terminar
 
-Você identifica o gargalo real de um sistema com um argumento quantitativo, e
-não pela intuição de onde "parece lento". Escolhe entre cache, fila,
-particionamento e réplica a partir da dimensão que cresce.
+Você distingue um problema de desempenho de um de escala, e sabe qual medição
+responde a essa pergunta.
 
-E reconhece o caso em que a resposta correta é reduzir a carga em vez de
-aumentar a capacidade.
+Consegue identificar onde está o gargalo antes de decidir o que fazer, em vez de
+adicionar capacidade e observar.
 
-## Relacionado
+Reconhece que assíncrono e fila resolvem picos que capacidade não resolve, e que
+ponto quente é imune a qualquer quantidade de máquinas.
 
-[Confiabilidade](../12-reliability/index.md) — sistemas escalam até o ponto em
-que falham, e o que acontece nesse ponto é decisão de projeto.
+E sabe defender a decisão de **não** escalar horizontalmente quando uma máquina maior
+resolve — que continua sendo a resposta certa para a maioria dos sistemas.
+
+## Continua em
+
+[Confiabilidade](../12-reliability/index.md), onde a pergunta passa a ser o que
+acontece quando as partes que você multiplicou começam a falhar.

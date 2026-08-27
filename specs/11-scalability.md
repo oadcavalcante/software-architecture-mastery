@@ -5,7 +5,7 @@
 | Diretório | `docs/11-scalability/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 13 (0%) |
+| Progresso | 13 / 13 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,19 +15,19 @@ Esta seção está completa quando os 13 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `vertical-scaling` |
-| ⬜ | `horizontal-scaling` |
-| ⬜ | `statelessness` |
-| ⬜ | `scaling-cache` |
-| ⬜ | `scaling-partitioning` |
-| ⬜ | `scaling-replication` |
-| ⬜ | `scaling-load-balancing` |
-| ⬜ | `async-processing` |
-| ⬜ | `queue-based-scaling` |
-| ⬜ | `database-scaling` |
-| ⬜ | `hotspots` |
-| ⬜ | `scaling-capacity-planning` |
-| ⬜ | `performance-vs-scalability` |
+| 🟩 | `vertical-scaling` |
+| 🟩 | `horizontal-scaling` |
+| 🟩 | `statelessness` |
+| 🟩 | `scaling-cache` |
+| 🟩 | `scaling-partitioning` |
+| 🟩 | `scaling-replication` |
+| 🟩 | `scaling-load-balancing` |
+| 🟩 | `async-processing` |
+| 🟩 | `queue-based-scaling` |
+| 🟩 | `database-scaling` |
+| 🟩 | `hotspots` |
+| 🟩 | `scaling-capacity-planning` |
+| 🟩 | `performance-vs-scalability` |
 
 ## Critério de conclusão
 
