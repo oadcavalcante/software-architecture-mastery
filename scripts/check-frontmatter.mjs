@@ -6,7 +6,25 @@
  *        ciclo no grafo de pré-requisitos, canonical_for reivindicado duas vezes.
  */
 
+import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
 import {loadCanonical, loadAll, Report, CANONICAL_LOCALE} from './lib/docs.mjs';
+
+/**
+ * Tópicos previstos no currículo, escritos ou não.
+ *
+ * `prerequisites` e `related` têm semânticas diferentes e por isso regras
+ * diferentes: pré-requisito significa "leia isto antes", então o documento
+ * precisa existir. `related` significa "veja também", e apontar para um tópico
+ * já previsto no escopo é legítimo — registra a relação para quando ele for
+ * escrito, sem criar link quebrado, já que `related` é metadado e não vira
+ * link renderizado.
+ */
+const PLANNED_IDS = new Set(
+  JSON.parse(
+    readFileSync(fileURLToPath(new URL('./curriculum.json', import.meta.url)), 'utf8'),
+  ).sections.flatMap((s) => [s.dir.replace(/^\d+-/, ''), ...s.topics]),
+);
 
 const DOC_TYPES = new Set([
   'concept', 'pattern', 'tradeoff', 'case-study', 'exercise', 'adr', 'index',
@@ -127,16 +145,31 @@ function checkGraph(canonical, report) {
     }
   }
 
-  // Referências precisam existir.
+  // prerequisites: precisa existir. related: basta estar previsto no currículo.
   for (const doc of canonical) {
-    for (const key of ['prerequisites', 'related']) {
-      for (const ref of doc.frontmatter[key] ?? []) {
-        if (!byId.has(ref)) {
-          report.error(doc.repoPath, `${key} aponta para id inexistente: "${ref}"`);
-        }
-        if (ref === doc.frontmatter.id) {
-          report.error(doc.repoPath, `${key} referencia o próprio documento`);
-        }
+    for (const ref of doc.frontmatter.prerequisites ?? []) {
+      if (!byId.has(ref)) {
+        const planned = PLANNED_IDS.has(ref);
+        report.error(
+          doc.repoPath,
+          planned
+            ? `prerequisites aponta para "${ref}", que está previsto mas ainda não foi escrito — escreva o pré-requisito antes`
+            : `prerequisites aponta para id inexistente: "${ref}"`,
+        );
+      }
+      if (ref === doc.frontmatter.id) {
+        report.error(doc.repoPath, 'prerequisites referencia o próprio documento');
+      }
+    }
+    for (const ref of doc.frontmatter.related ?? []) {
+      if (!byId.has(ref) && !PLANNED_IDS.has(ref)) {
+        report.error(
+          doc.repoPath,
+          `related aponta para id que não existe nem está previsto no currículo: "${ref}"`,
+        );
+      }
+      if (ref === doc.frontmatter.id) {
+        report.error(doc.repoPath, 'related referencia o próprio documento');
       }
     }
   }

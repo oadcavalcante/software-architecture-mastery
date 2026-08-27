@@ -5,7 +5,7 @@
 | Diretório | `docs/05-system-design/` |
 | Nível | Nível 03 — Design de Sistemas |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 23 (0%) |
+| Progresso | 23 / 23 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,29 +15,29 @@ Esta seção está completa quando os 23 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `system-decomposition` |
-| ⬜ | `components` |
-| ⬜ | `services` |
-| ⬜ | `apis` |
-| ⬜ | `request-response` |
-| ⬜ | `state-management` |
-| ⬜ | `stateless-vs-stateful` |
-| ⬜ | `load-balancing` |
-| ⬜ | `caching` |
-| ⬜ | `cdn` |
-| ⬜ | `queues` |
-| ⬜ | `background-processing` |
-| ⬜ | `rate-limiting` |
-| ⬜ | `pagination` |
-| ⬜ | `search` |
-| ⬜ | `file-storage` |
-| ⬜ | `authentication` |
-| ⬜ | `authorization` |
-| ⬜ | `configuration` |
-| ⬜ | `service-boundaries` |
-| ⬜ | `capacity-planning` |
-| ⬜ | `bottleneck-analysis` |
-| ⬜ | `scalability-basics` |
+| 🟩 | `system-decomposition` |
+| 🟩 | `components` |
+| 🟩 | `services` |
+| 🟩 | `apis` |
+| 🟩 | `request-response` |
+| 🟩 | `state-management` |
+| 🟩 | `stateless-vs-stateful` |
+| 🟩 | `load-balancing` |
+| 🟩 | `caching` |
+| 🟩 | `cdn` |
+| 🟩 | `queues` |
+| 🟩 | `background-processing` |
+| 🟩 | `rate-limiting` |
+| 🟩 | `pagination` |
+| 🟩 | `search` |
+| 🟩 | `file-storage` |
+| 🟩 | `authentication` |
+| 🟩 | `authorization` |
+| 🟩 | `configuration` |
+| 🟩 | `service-boundaries` |
+| 🟩 | `capacity-planning` |
+| 🟩 | `bottleneck-analysis` |
+| 🟩 | `scalability-basics` |
 
 ## Critério de conclusão
 

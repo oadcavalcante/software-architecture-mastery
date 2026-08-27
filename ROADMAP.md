@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**120 de 436 documentos planejados escritos (28%).**
+**143 de 436 documentos planejados escritos (33%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -22,7 +22,7 @@ mas já tem índice publicado explicando o que virá.
 | `02-software-design` | 02 | 23 / 23 | `██████████` 100% |
 | `03-design-patterns` | 02 | 31 / 31 | `██████████` 100% |
 | `04-domain-driven-design` | 02 | 20 / 20 | `██████████` 100% |
-| `05-system-design` | 03 | 1 / 24 | `░░░░░░░░░░` 4% |
+| `05-system-design` | 03 | 24 / 24 | `██████████` 100% |
 | `06-distributed-systems` | 04 | 1 / 36 | `░░░░░░░░░░` 3% |
 | `07-data-architecture` | 05 | 1 / 21 | `█░░░░░░░░░` 5% |
 | `08-integration-architecture` | 05 | 1 / 15 | `█░░░░░░░░░` 7% |
@@ -161,7 +161,30 @@ mas já tem índice publicado explicando o que virá.
 
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
+| 🟩 | [APIs](docs/05-system-design/apis.md) | concept | intermediário | `services` | ⬜ |
+| 🟩 | [Autenticação](docs/05-system-design/authentication.md) | concept | intermediário | `state-management` | ⬜ |
+| 🟩 | [Autorização](docs/05-system-design/authorization.md) | concept | intermediário | `authentication` | ⬜ |
+| 🟩 | [Processamento em Background](docs/05-system-design/background-processing.md) | concept | intermediário | `queues` | ⬜ |
+| 🟩 | [Análise de Gargalos](docs/05-system-design/bottleneck-analysis.md) | concept | intermediário | `capacity-planning` | ⬜ |
+| 🟩 | [Cache](docs/05-system-design/caching.md) | concept | intermediário | `state-management` | ⬜ |
+| 🟩 | [Planejamento de Capacidade](docs/05-system-design/capacity-planning.md) | concept | intermediário | `components` | ⬜ |
+| 🟩 | [CDN](docs/05-system-design/cdn.md) | concept | iniciante | `caching` | ⬜ |
+| 🟩 | [Componentes](docs/05-system-design/components.md) | concept | intermediário | `system-decomposition` | ⬜ |
+| 🟩 | [Configuração](docs/05-system-design/configuration.md) | concept | iniciante | `components` | ⬜ |
+| 🟩 | [Armazenamento de Arquivos](docs/05-system-design/file-storage.md) | concept | iniciante | `state-management` | ⬜ |
 | 🟩 | [Design de Sistemas](docs/05-system-design/index.md) | index | intermediário | `design-patterns`, `domain-driven-design` | ⬜ |
+| 🟩 | [Balanceamento de Carga](docs/05-system-design/load-balancing.md) | concept | intermediário | `stateless-vs-stateful` | ⬜ |
+| 🟩 | [Paginação](docs/05-system-design/pagination.md) | concept | iniciante | `apis` | ⬜ |
+| 🟩 | [Filas](docs/05-system-design/queues.md) | concept | intermediário | `request-response` | ⬜ |
+| 🟩 | [Rate Limiting](docs/05-system-design/rate-limiting.md) | concept | intermediário | `load-balancing` | ⬜ |
+| 🟩 | [Request/Response](docs/05-system-design/request-response.md) | concept | intermediário | `apis` | ⬜ |
+| 🟩 | [Estratégias Básicas de Escalabilidade](docs/05-system-design/scalability-basics.md) | concept | intermediário | `bottleneck-analysis` | ⬜ |
+| 🟩 | [Busca](docs/05-system-design/search.md) | concept | intermediário | `pagination` | ⬜ |
+| 🟩 | [Fronteiras de Serviço](docs/05-system-design/service-boundaries.md) | concept | avançado | `services` | ⬜ |
+| 🟩 | [Serviços](docs/05-system-design/services.md) | concept | intermediário | `components` | ⬜ |
+| 🟩 | [Gestão de Estado](docs/05-system-design/state-management.md) | concept | intermediário | `components` | ⬜ |
+| 🟩 | [Sem Estado vs. Com Estado](docs/05-system-design/stateless-vs-stateful.md) | concept | intermediário | `state-management` | ⬜ |
+| 🟩 | [Decomposição de Sistemas](docs/05-system-design/system-decomposition.md) | concept | intermediário | `system-design` | ⬜ |
 
 ### Nível 04 — Sistemas Distribuídos
 

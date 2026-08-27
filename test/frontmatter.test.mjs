@@ -144,3 +144,46 @@ describe('check-frontmatter', () => {
     );
   });
 });
+
+describe('check-frontmatter — prerequisites vs. related', () => {
+  const ok = (r) => assert.equal(r.code, 0, `esperava sucesso, obteve:\n${r.output}`);
+  const fails = (r, needle) => {
+    assert.equal(r.code, 1, `esperava falha, obteve:\n${r.output}`);
+    assert.match(r.output, needle);
+  };
+
+  // `related` é metadado, não vira link renderizado. Apontar para um tópico já
+  // previsto no currículo registra a relação sem quebrar nada.
+  test('related aceita tópico previsto no currículo, ainda não escrito', () => {
+    ok(check('check-frontmatter.mjs', {
+      'docs/a.md': frontmatter({id: 'a', related: ['idempotency', 'circuit-breakers']}) + '\n# A\n',
+    }));
+  });
+
+  test('related rejeita id que não existe nem está previsto', () => {
+    fails(
+      check('check-frontmatter.mjs', {
+        'docs/a.md': frontmatter({id: 'a', related: ['coisa-inventada']}) + '\n# A\n',
+      }),
+      /related aponta para id que não existe nem está previsto/,
+    );
+  });
+
+  // `prerequisites` significa "leia isto antes" — o documento precisa existir,
+  // mesmo que esteja previsto.
+  test('prerequisites exige que o documento já exista, mesmo se previsto', () => {
+    fails(
+      check('check-frontmatter.mjs', {
+        'docs/a.md': frontmatter({id: 'a', prerequisites: ['idempotency']}) + '\n# A\n',
+      }),
+      /previsto mas ainda não foi escrito/,
+    );
+  });
+
+  test('prerequisites aceita documento existente', () => {
+    ok(check('check-frontmatter.mjs', {
+      'docs/a.md': frontmatter({id: 'a', prerequisites: ['b']}) + '\n# A\n',
+      'docs/b.md': frontmatter({id: 'b'}) + '\n# B\n',
+    }));
+  });
+});

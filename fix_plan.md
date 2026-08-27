@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 116 de 432 (27%) |
-| Seções pendentes | 19 de 23 |
-| Próxima tarefa | `05-system-design` → `system-decomposition.md` |
+| Escrito | 139 de 432 (32%) |
+| Seções pendentes | 18 de 23 |
+| Próxima tarefa | `06-distributed-systems` → `distributed-fundamentals.md` |
 
 ## Como usar
 
@@ -27,34 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 05-system-design — Design de Sistemas
-
-Nível 03 — Design de Sistemas · faltam 23 de 24 · spec: [`specs/05-system-design.md`](specs/05-system-design.md)
-
-- [ ] `system-decomposition.md`
-- [ ] `components.md`
-- [ ] `services.md`
-- [ ] `apis.md`
-- [ ] `request-response.md`
-- [ ] `state-management.md`
-- [ ] `stateless-vs-stateful.md`
-- [ ] `load-balancing.md`
-- [ ] `caching.md`
-- [ ] `cdn.md`
-- [ ] `queues.md`
-- [ ] `background-processing.md`
-- [ ] `rate-limiting.md`
-- [ ] `pagination.md`
-- [ ] `search.md`
-- [ ] `file-storage.md`
-- [ ] `authentication.md`
-- [ ] `authorization.md`
-- [ ] `configuration.md`
-- [ ] `service-boundaries.md`
-- [ ] `capacity-planning.md`
-- [ ] `bottleneck-analysis.md`
-- [ ] `scalability-basics.md`
 
 ### 06-distributed-systems — Sistemas Distribuídos
 

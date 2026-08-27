@@ -9,8 +9,8 @@ Não é um catálogo de padrões. É o raciocínio que decide quando *não* usá
 [![CI](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml)
 [![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://software-architecture-mastery.vercel.app)
 <!-- BADGES:PROGRESS -->
-![progresso](https://img.shields.io/badge/progresso-28%25-blue)
-![documentos](https://img.shields.io/badge/documentos-120%2F436-informational)
+![progresso](https://img.shields.io/badge/progresso-33%25-blue)
+![documentos](https://img.shields.io/badge/documentos-143%2F436-informational)
 <!-- /BADGES:PROGRESS -->
 ![Licença](https://img.shields.io/badge/conteúdo-CC%20BY--SA%204.0-green)
 ![Código](https://img.shields.io/badge/código-MIT-green)
@@ -91,7 +91,7 @@ código → design → sistemas → sistemas distribuídos → arquitetura → c
 | 02 | Design de Software | 🟩 22 tópicos |
 | 02 | Design Patterns | 🟩 30 tópicos |
 | 02 | Domain-Driven Design | 🟩 19 tópicos |
-| 03 | Design de Sistemas | ⬜ |
+| 03 | Design de Sistemas | 🟩 23 tópicos |
 | 04 | Sistemas Distribuídos | ⬜ |
 | 05 | Arquitetura (11 seções) | ⬜ |
 | 06 | Arquitetura Corporativa | ⬜ |
