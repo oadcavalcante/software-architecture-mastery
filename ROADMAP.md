@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**49 de 440 documentos planejados escritos (11%).**
+**71 de 440 documentos planejados escritos (16%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -19,7 +19,7 @@ mas já tem índice publicado explicando o que virá.
 |---|---|---:|---|
 | `(raiz)` | — | 4 / 5 | `████████░░` 80% |
 | `01-fundamentals` | 01 | 23 / 23 | `██████████` 100% |
-| `02-software-design` | 02 | 1 / 23 | `░░░░░░░░░░` 4% |
+| `02-software-design` | 02 | 23 / 23 | `██████████` 100% |
 | `03-design-patterns` | 02 | 1 / 35 | `░░░░░░░░░░` 3% |
 | `04-domain-driven-design` | 02 | 1 / 20 | `█░░░░░░░░░` 5% |
 | `05-system-design` | 03 | 1 / 24 | `░░░░░░░░░░` 4% |
@@ -82,7 +82,29 @@ mas já tem índice publicado explicando o que virá.
 
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
+| 🟩 | [Fronteiras](docs/02-software-design/boundaries.md) | concept | intermediário | `interfaces` | ⬜ |
+| 🟩 | [Clean Architecture](docs/02-software-design/clean-architecture.md) | pattern | intermediário | `onion-architecture` | ⬜ |
+| 🟩 | [Clean Code](docs/02-software-design/clean-code.md) | concept | iniciante | `fundamentals` | ⬜ |
+| 🟩 | [Code Smells](docs/02-software-design/code-smells.md) | concept | intermediário | `clean-code` | ⬜ |
+| 🟩 | [Design de Componentes](docs/02-software-design/component-design.md) | concept | avançado | `package-design` | ⬜ |
+| 🟩 | [Composição vs. Herança](docs/02-software-design/composition-vs-inheritance.md) | concept | intermediário | `encapsulation` | ⬜ |
+| 🟩 | [Direção de Dependência](docs/02-software-design/dependency-direction.md) | concept | intermediário | `dependency-inversion` | ⬜ |
+| 🟩 | [Inversão de Dependência](docs/02-software-design/dependency-inversion.md) | concept | intermediário | `interfaces` | ⬜ |
+| 🟩 | [Heurísticas de Design](docs/02-software-design/design-heuristics.md) | foundation | intermediário | `clean-code` | ⬜ |
+| 🟩 | [DRY](docs/02-software-design/dry.md) | concept | iniciante | `fundamentals` | ⬜ |
+| 🟩 | [Encapsulamento](docs/02-software-design/encapsulation.md) | concept | iniciante | `fundamentals` | ⬜ |
+| 🟩 | [Arquitetura Hexagonal](docs/02-software-design/hexagonal-architecture.md) | pattern | intermediário | `ports-and-adapters` | ⬜ |
 | 🟩 | [Design de Software](docs/02-software-design/index.md) | index | iniciante | `fundamentals` | ⬜ |
+| 🟩 | [Interfaces](docs/02-software-design/interfaces.md) | concept | intermediário | `encapsulation` | ⬜ |
+| 🟩 | [KISS](docs/02-software-design/kiss.md) | concept | iniciante | `fundamentals` | ⬜ |
+| 🟩 | [Camadas](docs/02-software-design/layering.md) | concept | intermediário | `boundaries` | ⬜ |
+| 🟩 | [Design Modular](docs/02-software-design/modular-design.md) | concept | intermediário | `layering` | ⬜ |
+| 🟩 | [Arquitetura Onion](docs/02-software-design/onion-architecture.md) | pattern | intermediário | `hexagonal-architecture` | ⬜ |
+| 🟩 | [Design de Pacotes](docs/02-software-design/package-design.md) | concept | avançado | `modular-design` | ⬜ |
+| 🟩 | [Ports and Adapters](docs/02-software-design/ports-and-adapters.md) | pattern | intermediário | `dependency-inversion` | ⬜ |
+| 🟩 | [Refatoração](docs/02-software-design/refactoring.md) | concept | intermediário | `code-smells` | ⬜ |
+| 🟩 | [SOLID](docs/02-software-design/solid.md) | concept | intermediário | `fundamentals` | ⬜ |
+| 🟩 | [YAGNI](docs/02-software-design/yagni.md) | concept | iniciante | `fundamentals` | ⬜ |
 | 🟩 | [Design Patterns](docs/03-design-patterns/index.md) | index | intermediário | `software-design` | ⬜ |
 | 🟩 | [Domain-Driven Design](docs/04-domain-driven-design/index.md) | index | intermediário | `software-design` | ⬜ |
 
@@ -151,7 +173,7 @@ Cada fase entrega um site publicável e útil por si só. Ver
 |---|---|:-:|
 | **F0** | Scaffold Docusaurus, i18n, Mermaid, busca, CI, validadores, deploy | 🟩 |
 | **F1** | README, ROADMAP, CONTRIBUTING, glossário, modelo de maturidade, política terminológica, 23 índices de seção, sidebar por nível | 🟩 |
-| **F2** | Níveis 01–02: fundamentos, design de software, padrões, DDD | 🟨 Nível 01 completo (22 tópicos); faltam seções 02, 03, 04 |
+| **F2** | Níveis 01–02: fundamentos, design de software, padrões, DDD | 🟨 Seções 01 e 02 completas (44 tópicos); faltam 03 e 04 |
 | **F3** | Níveis 03–04: design de sistemas, sistemas distribuídos | ⬜ |
 | **F4** | Nível 05: as onze disciplinas de arquitetura + ADRs didáticos | ⬜ |
 | **F5** | Níveis 06–07: corporativo, legado, governança, liderança | ⬜ |
