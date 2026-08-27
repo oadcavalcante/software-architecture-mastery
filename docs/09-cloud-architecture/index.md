@@ -2,88 +2,100 @@
 id: cloud-architecture
 title: Arquitetura em Nuvem
 sidebar_position: 0
-description: Nuvem como modelo arquitetural — não como tutorial de provedor.
+description: Projetar sobre infraestrutura que você aluga — onde o custo vira decisão de arquitetura e a falha vira rotina.
 doc_type: index
 level: 5
 difficulty: avançado
 status: complete
 objective: >
-  Ao terminar, o leitor decide entre serviço gerenciado e autogerido, projeta
-  topologia multi-região a partir de RTO e RPO, e trata custo como restrição.
+  Ao terminar, o leitor projeta para as garantias que o provedor de fato oferece,
+  e trata custo e dependência como decisões arquiteturais explícitas.
 prerequisites: [distributed-systems]
-related: [devops-and-platform, reliability, security]
+related: [integration-architecture, scalability, reliability]
 canonical_for: []
 content_version: 1
-last_reviewed: 2026-08-26
+last_reviewed: 2026-08-27
 ---
 
-# Arquitetura em Nuvem
+# Nível 05 — Arquitetura em Nuvem
 
-Esta seção trata de nuvem como modelo arquitetural. Não é um tutorial de AWS,
-Azure ou GCP — exemplos usam os três, mas os princípios precedem qualquer um.
+Esta seção trata do que muda quando a infraestrutura é alugada e programável.
 
 ## O problema desta seção
 
-A nuvem muda três coisas de forma fundamental: capacidade vira variável em vez
-de constante, falha de infraestrutura vira evento rotineiro e previsto, e custo
-vira consequência direta de decisão arquitetural.
+Nuvem é frequentemente ensinada como catálogo de serviços: este produto faz isto,
+aquele faz aquilo. Isso é treinamento de fornecedor, não arquitetura.
 
-O terceiro é o mais subestimado. Em datacenter próprio, o custo é decidido uma
-vez, na compra, e a arquitetura opera dentro dele. Na nuvem, cada decisão de
-design — quantas réplicas, qual região, síncrono ou assíncrono, quanto tráfego
-atravessa zona — reaparece na fatura todo mês. Custo deixa de ser assunto de
-finanças e vira atributo de qualidade, com o mesmo estatuto de disponibilidade.
+O que muda de fato, do ponto de vista de quem projeta, são três coisas.
 
-A armadilha oposta também é real: tratar a nuvem como datacenter alugado.
-Migrar máquinas virtuais sem mudar nada produz um sistema que herdou o custo da
-nuvem e nenhuma das suas propriedades.
+**A falha deixa de ser exceção.** Uma máquina pode desaparecer a qualquer momento,
+por decisão do provedor. Isso não é um risco a mitigar — é o modelo de operação, e
+o sistema precisa ser projetado para ele. Ver
+[falha parcial](../06-distributed-systems/partial-failure.md).
+
+**O custo vira decisão de arquitetura.** Numa infraestrutura própria, a máquina já
+foi comprada e a escolha de desenho não muda a fatura no mês seguinte. Na nuvem,
+cada chamada, cada gigabyte transferido e cada segundo de execução aparecem na
+conta. Uma decisão ruim de arquitetura tem preço mensal e mensurável.
+
+**A dependência é real e precisa ser escolhida.** Todo serviço gerenciado que você
+adota é trabalho que não vai fazer e liberdade que não vai ter. Fingir que essa
+troca não existe — dos dois lados — é o que produz tanto o sofrimento de reinventar
+o que já existe quanto o de não conseguir sair.
 
 ## O que você vai encontrar aqui
 
-**Modelos de serviço.** IaaS, PaaS e SaaS. Menos como taxonomia e mais como
-gradiente de quanto controle você troca por quanta operação deixa de fazer.
+**Os modelos de serviço.** IaaS, PaaS e SaaS pelo que cada um transfere de
+responsabilidade, não pela sigla. Serviços gerenciados tratados como a decisão
+central que são.
 
-**Unidades de execução.** Containers, Kubernetes, serverless e serviços
-gerenciados. Cada um com a faixa de carga e a maturidade de time em que se paga.
+**Empacotamento e orquestração.** Contêineres e Kubernetes — este último com a
+pergunta que precede a adoção: qual problema concreto ele resolve que você tem
+hoje?
 
-**Topologia física.** Regiões, zonas de disponibilidade e rede. É onde a
-promessa de disponibilidade encontra a geografia, e onde a latência entre
-componentes deixa de ser desprezível.
+**Serverless.** O que ele entrega, e os quatro custos que a apresentação inicial
+omite.
 
-**Recursos.** Identidade, storage e compute como primitivas arquiteturais.
+**Geografia.** Regiões, zonas de disponibilidade e multi-região. A distinção entre
+as duas primeiras é a base de quase toda decisão de disponibilidade, e é
+rotineiramente confundida.
 
-**Continuidade.** Multi-região e disaster recovery, derivados de RTO e RPO em
-vez de escolhidos por ambição.
+**Os blocos.** Rede, identidade, armazenamento e computação em nuvem — cada um pelo
+que muda em relação ao equivalente local.
 
-**Economia.** Arquitetura de custo — como estimar antes, medir depois e atribuir
-gasto a decisão.
+**As decisões que ninguém toma até doer.** Arquitetura de custo, recuperação de
+desastre e dependência de fornecedor. São os três documentos que mais mudam o que
+se faz na segunda-feira.
 
-**Dependência.** Cloud-native e vendor lock-in, tratados como um trade-off
-quantificável e não como questão ideológica.
+**Cloud native.** O termo, o que ele designa de útil, e o que ele virou.
 
 ## Ordem de leitura
 
-Comece por **regiões e zonas de disponibilidade**. Sem isso, discussões sobre
-alta disponibilidade ficam sem chão físico.
+Comece por **regiões e zonas de disponibilidade**. Sem essa distinção, nenhuma
+decisão de disponibilidade faz sentido.
 
-Leia **arquitetura de custo** antes de serverless e Kubernetes, não depois. As
-duas decisões mais caras da nuvem — granularidade de serviço e volume de
-tráfego entre zonas — são decisões de custo disfarçadas de decisões técnicas.
+Depois **serviços gerenciados**, que é a decisão econômica e arquitetural central
+da seção.
 
-Deixe **multi-região** para o fim, e leia junto com
-[Confiabilidade](../12-reliability/index.md). Multi-região é a solução mais
-frequentemente adotada sem que ninguém tenha escrito o RTO exigido.
+**Arquitetura de custo** pode ser lida a qualquer momento e é a de retorno mais
+imediato para quem tem sistema em produção agora.
+
+Deixe **multi-região** e **recuperação de desastre** para o fim, e leia-os juntos —
+eles respondem à mesma pergunta com preços muito diferentes.
 
 ## Ao terminar
 
-Você decide entre gerenciado e autogerido com um argumento que inclui custo
-total, não só mensalidade. Projeta topologia derivando de RTO e RPO declarados.
-Estima a fatura de um desenho antes de construí-lo.
+Você projeta assumindo que qualquer componente pode sumir, porque na nuvem ele
+pode.
 
-E consegue dizer, sobre lock-in, quanto custaria sair — em meses e em dinheiro —
-em vez de repetir que é ruim.
+Consegue estimar o custo de uma decisão de arquitetura antes de implementá-la, e
+reconhece quando o desenho está caro por motivo estrutural — transferência entre
+zonas, chamadas excessivas, dados parados sem política.
 
-## Relacionado
+E consegue discutir dependência de fornecedor sem os dois extremos: nem adotar
+tudo sem pensar, nem abstrair tudo para uma portabilidade que nunca vai ser usada.
 
-[DevOps e Plataforma](../14-devops-and-platform/index.md) para operar isso, e
-[Segurança](../10-security/index.md) para as fronteiras.
+## Continua em
+
+[Arquitetura de Segurança](../10-security/index.md), onde as fronteiras que a
+nuvem tornou programáveis precisam ser defendidas.

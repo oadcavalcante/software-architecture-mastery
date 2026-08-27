@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**213 de 437 documentos planejados escritos (49%).**
+**231 de 437 documentos planejados escritos (53%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -26,7 +26,7 @@ mas já tem índice publicado explicando o que virá.
 | `06-distributed-systems` | 04 | 36 / 36 | `██████████` 100% |
 | `07-data-architecture` | 05 | 22 / 22 | `██████████` 100% |
 | `08-integration-architecture` | 05 | 15 / 15 | `██████████` 100% |
-| `09-cloud-architecture` | 05 | 1 / 19 | `█░░░░░░░░░` 5% |
+| `09-cloud-architecture` | 05 | 19 / 19 | `██████████` 100% |
 | `10-security` | 05 | 1 / 18 | `█░░░░░░░░░` 6% |
 | `11-scalability` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
 | `12-reliability` | 05 | 1 / 18 | `█░░░░░░░░░` 6% |
@@ -268,7 +268,25 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Evolução de Esquema](docs/08-integration-architecture/schema-evolution.md) | concept | avançado | `integration-contracts` | ⬜ |
 | 🟩 | [Malha de Serviço](docs/08-integration-architecture/service-mesh.md) | pattern | avançado | `api-gateways` | ⬜ |
 | 🟩 | [Webhooks](docs/08-integration-architecture/webhooks.md) | pattern | intermediário | `integration-architecture` | ⬜ |
+| 🟩 | [Zonas de Disponibilidade](docs/09-cloud-architecture/availability-zones.md) | concept | intermediário | `regions` | ⬜ |
+| 🟩 | [Computação em Nuvem](docs/09-cloud-architecture/cloud-compute.md) | concept | intermediário | `iaas` | ⬜ |
+| 🟩 | [Identidade em Nuvem](docs/09-cloud-architecture/cloud-identity.md) | concept | avançado | `cloud-architecture` | ⬜ |
+| 🟩 | [Cloud Native](docs/09-cloud-architecture/cloud-native.md) | concept | intermediário | `containers` | ⬜ |
+| 🟩 | [Rede em Nuvem](docs/09-cloud-architecture/cloud-networking.md) | concept | avançado | `cloud-architecture` | ⬜ |
+| 🟩 | [Armazenamento em Nuvem](docs/09-cloud-architecture/cloud-storage.md) | concept | intermediário | `cloud-architecture` | ⬜ |
+| 🟩 | [Contêineres](docs/09-cloud-architecture/containers.md) | concept | intermediário | `cloud-architecture` | ⬜ |
+| 🟩 | [Arquitetura de Custo](docs/09-cloud-architecture/cost-architecture.md) | concept | avançado | `cloud-architecture` | ⬜ |
+| 🟩 | [Recuperação de Desastre](docs/09-cloud-architecture/disaster-recovery.md) | concept | avançado | `regions` | ⬜ |
+| 🟩 | [IaaS](docs/09-cloud-architecture/iaas.md) | concept | intermediário | `cloud-architecture` | ⬜ |
 | 🟩 | [Arquitetura em Nuvem](docs/09-cloud-architecture/index.md) | index | avançado | `distributed-systems` | ⬜ |
+| 🟩 | [Kubernetes](docs/09-cloud-architecture/kubernetes.md) | concept | avançado | `containers` | ⬜ |
+| 🟩 | [Serviços Gerenciados](docs/09-cloud-architecture/managed-services.md) | concept | intermediário | `cloud-architecture` | ⬜ |
+| 🟩 | [Multi-Região](docs/09-cloud-architecture/multi-region.md) | pattern | avançado | `regions` | ⬜ |
+| 🟩 | [PaaS](docs/09-cloud-architecture/paas.md) | concept | intermediário | `iaas` | ⬜ |
+| 🟩 | [Regiões](docs/09-cloud-architecture/regions.md) | concept | intermediário | `cloud-architecture` | ⬜ |
+| 🟩 | [SaaS](docs/09-cloud-architecture/saas.md) | concept | intermediário | `paas` | ⬜ |
+| 🟩 | [Serverless](docs/09-cloud-architecture/serverless.md) | concept | avançado | `managed-services` | ⬜ |
+| 🟩 | [Dependência de Fornecedor](docs/09-cloud-architecture/vendor-lock-in.md) | tradeoff | avançado | `managed-services` | ⬜ |
 | 🟩 | [Arquitetura de Segurança](docs/10-security/index.md) | index | avançado | `system-design` | ⬜ |
 | 🟩 | [Escalabilidade](docs/11-scalability/index.md) | index | avançado | `system-design`, `distributed-systems` | ⬜ |
 | 🟩 | [Confiabilidade](docs/12-reliability/index.md) | index | avançado | `distributed-systems` | ⬜ |

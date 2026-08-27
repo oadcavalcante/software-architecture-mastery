@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 209 de 432 (48%) |
-| Seções pendentes | 15 de 23 |
-| Próxima tarefa | `09-cloud-architecture` → `iaas.md` |
+| Escrito | 227 de 432 (53%) |
+| Seções pendentes | 14 de 23 |
+| Próxima tarefa | `10-security` → `identity.md` |
 
 ## Como usar
 
@@ -27,29 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 09-cloud-architecture — Arquitetura em Nuvem
-
-Nível 05 — Arquitetura · faltam 18 de 19 · spec: [`specs/09-cloud-architecture.md`](specs/09-cloud-architecture.md)
-
-- [ ] `iaas.md`
-- [ ] `paas.md`
-- [ ] `saas.md`
-- [ ] `containers.md`
-- [ ] `kubernetes.md`
-- [ ] `serverless.md`
-- [ ] `managed-services.md`
-- [ ] `regions.md`
-- [ ] `availability-zones.md`
-- [ ] `cloud-networking.md`
-- [ ] `cloud-identity.md`
-- [ ] `cloud-storage.md`
-- [ ] `cloud-compute.md`
-- [ ] `cost-architecture.md`
-- [ ] `multi-region.md`
-- [ ] `disaster-recovery.md`
-- [ ] `cloud-native.md`
-- [ ] `vendor-lock-in.md`
 
 ### 10-security — Arquitetura de Segurança
 

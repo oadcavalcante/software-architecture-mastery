@@ -5,7 +5,7 @@
 | Diretório | `docs/09-cloud-architecture/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 18 (0%) |
+| Progresso | 18 / 18 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,24 +15,24 @@ Esta seção está completa quando os 18 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `iaas` |
-| ⬜ | `paas` |
-| ⬜ | `saas` |
-| ⬜ | `containers` |
-| ⬜ | `kubernetes` |
-| ⬜ | `serverless` |
-| ⬜ | `managed-services` |
-| ⬜ | `regions` |
-| ⬜ | `availability-zones` |
-| ⬜ | `cloud-networking` |
-| ⬜ | `cloud-identity` |
-| ⬜ | `cloud-storage` |
-| ⬜ | `cloud-compute` |
-| ⬜ | `cost-architecture` |
-| ⬜ | `multi-region` |
-| ⬜ | `disaster-recovery` |
-| ⬜ | `cloud-native` |
-| ⬜ | `vendor-lock-in` |
+| 🟩 | `iaas` |
+| 🟩 | `paas` |
+| 🟩 | `saas` |
+| 🟩 | `containers` |
+| 🟩 | `kubernetes` |
+| 🟩 | `serverless` |
+| 🟩 | `managed-services` |
+| 🟩 | `regions` |
+| 🟩 | `availability-zones` |
+| 🟩 | `cloud-networking` |
+| 🟩 | `cloud-identity` |
+| 🟩 | `cloud-storage` |
+| 🟩 | `cloud-compute` |
+| 🟩 | `cost-architecture` |
+| 🟩 | `multi-region` |
+| 🟩 | `disaster-recovery` |
+| 🟩 | `cloud-native` |
+| 🟩 | `vendor-lock-in` |
 
 ## Critério de conclusão
 
