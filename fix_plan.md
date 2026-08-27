@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 343 de 432 (79%) |
-| Seções pendentes | 6 de 23 |
-| Próxima tarefa | `18-architecture-decisions` → `what-is-an-adr.md` |
+| Escrito | 357 de 432 (83%) |
+| Seções pendentes | 5 de 23 |
+| Próxima tarefa | `19-architecture-governance` → `governance-basics.md` |
 
 ## Como usar
 
@@ -27,25 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 18-architecture-decisions — Decisões de Arquitetura
-
-Nível 05 — Arquitetura · faltam 14 de 15 · spec: [`specs/18-architecture-decisions.md`](specs/18-architecture-decisions.md)
-
-- [ ] `what-is-an-adr.md`
-- [ ] `why-adrs-matter.md`
-- [ ] `adr-structure.md`
-- [ ] `adr-context.md`
-- [ ] `adr-decision.md`
-- [ ] `adr-alternatives.md`
-- [ ] `adr-consequences.md`
-- [ ] `adr-status.md`
-- [ ] `superseding-decisions.md`
-- [ ] `adr-001-modular-monolith.md`
-- [ ] `adr-002-async-processing.md`
-- [ ] `adr-003-postgresql.md`
-- [ ] `adr-004-kafka.md`
-- [ ] `adr-005-hexagonal.md`
 
 ### 19-architecture-governance — Governança de Arquitetura
 

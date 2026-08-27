@@ -164,10 +164,28 @@ function checkMermaid(doc, report) {
  * validadores terem passado. Detectamos aqui para falhar no gate certo.
  */
 function checkMdxHazards(doc, report) {
-  for (const m of stripCode(doc.body).matchAll(/<(https?:\/\/[^\s>]+)>/g)) {
+  const prose = stripCode(doc.body);
+
+  for (const m of prose.matchAll(/<(https?:\/\/[^\s>]+)>/g)) {
     report.error(
       doc.repoPath,
       `autolink <${m[1]}> quebra a compilação MDX — use [texto](${m[1]})`,
+    );
+  }
+
+  // Marcador entre sinais de menor e maior — "<data>", "<nome do serviço>" — é
+  // hábito de quem escreve gabarito, e o MDX o lê como abertura de tag JSX:
+  // "Expected a closing tag for <data>". Fora de bloco de código ele quebra a
+  // compilação, e o erro aparece no build e não aqui, que é tarde demais.
+  //
+  // O teste é a ausência de fechamento: JSX legítimo neste corpus (`<Tabs>`,
+  // `<details>`) sempre fecha, e tag vazia se escreve `<br />`, que não casa.
+  for (const m of prose.matchAll(/<([a-zA-Z][\w-]*)\s*>/g)) {
+    if (prose.includes(`</${m[1]}>`)) continue;
+    report.error(
+      doc.repoPath,
+      `<${m[1]}> sem fechamento quebra a compilação MDX — ` +
+        'use bloco de código ou outro delimitador para marcadores',
     );
   }
 }

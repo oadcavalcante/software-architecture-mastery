@@ -5,7 +5,7 @@
 | Diretório | `docs/18-architecture-decisions/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 14 (0%) |
+| Progresso | 14 / 14 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,20 +15,20 @@ Esta seção está completa quando os 14 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `what-is-an-adr` |
-| ⬜ | `why-adrs-matter` |
-| ⬜ | `adr-structure` |
-| ⬜ | `adr-context` |
-| ⬜ | `adr-decision` |
-| ⬜ | `adr-alternatives` |
-| ⬜ | `adr-consequences` |
-| ⬜ | `adr-status` |
-| ⬜ | `superseding-decisions` |
-| ⬜ | `adr-001-modular-monolith` |
-| ⬜ | `adr-002-async-processing` |
-| ⬜ | `adr-003-postgresql` |
-| ⬜ | `adr-004-kafka` |
-| ⬜ | `adr-005-hexagonal` |
+| 🟩 | `what-is-an-adr` |
+| 🟩 | `why-adrs-matter` |
+| 🟩 | `adr-structure` |
+| 🟩 | `adr-context` |
+| 🟩 | `adr-decision` |
+| 🟩 | `adr-alternatives` |
+| 🟩 | `adr-consequences` |
+| 🟩 | `adr-status` |
+| 🟩 | `superseding-decisions` |
+| 🟩 | `adr-001-modular-monolith` |
+| 🟩 | `adr-002-async-processing` |
+| 🟩 | `adr-003-postgresql` |
+| 🟩 | `adr-004-kafka` |
+| 🟩 | `adr-005-hexagonal` |
 
 ## Critério de conclusão
 

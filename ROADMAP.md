@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**347 de 437 documentos planejados escritos (79%).**
+**361 de 437 documentos planejados escritos (83%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -35,7 +35,7 @@ mas já tem índice publicado explicando o que virá.
 | `15-enterprise-architecture` | 06 | 21 / 21 | `██████████` 100% |
 | `16-legacy-modernization` | 06 | 13 / 13 | `██████████` 100% |
 | `17-architecture-documentation` | 05 | 14 / 14 | `██████████` 100% |
-| `18-architecture-decisions` | 05 | 1 / 15 | `█░░░░░░░░░` 7% |
+| `18-architecture-decisions` | 05 | 15 / 15 | `██████████` 100% |
 | `19-architecture-governance` | 06 | 1 / 11 | `█░░░░░░░░░` 9% |
 | `20-trade-offs` | 05 | 1 / 16 | `█░░░░░░░░░` 6% |
 | `21-case-studies` | Transv. | 1 / 15 | `█░░░░░░░░░` 7% |
@@ -377,7 +377,21 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Documentação de Arquitetura](docs/17-architecture-documentation/index.md) | index | intermediário | `system-design` | ⬜ |
 | 🟩 | [Documentação Viva](docs/17-architecture-documentation/living-documentation.md) | concept | avançado | `documentation-principles` | ⬜ |
 | 🟩 | [Diagramas de Sequência](docs/17-architecture-documentation/sequence-diagrams.md) | concept | intermediário | `container-diagrams` | ⬜ |
+| 🟩 | [ADR-001 — Adotar Monólito Modular](docs/18-architecture-decisions/adr-001-modular-monolith.md) | adr | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [ADR-002 — Processamento Assíncrono da Confirmação](docs/18-architecture-decisions/adr-002-async-processing.md) | adr | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [ADR-003 — PostgreSQL como Banco Primário Único](docs/18-architecture-decisions/adr-003-postgresql.md) | adr | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [ADR-004 — Adotar Kafka para Eventos de Domínio](docs/18-architecture-decisions/adr-004-kafka.md) | adr | avançado | `superseding-decisions` | ⬜ |
+| 🟩 | [ADR-005 — Portas e Adaptadores nos Módulos de Domínio](docs/18-architecture-decisions/adr-005-hexagonal.md) | adr | avançado | `adr-structure` | ⬜ |
+| 🟩 | [Alternativas Consideradas](docs/18-architecture-decisions/adr-alternatives.md) | concept | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [Consequências](docs/18-architecture-decisions/adr-consequences.md) | concept | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [Contexto da Decisão](docs/18-architecture-decisions/adr-context.md) | concept | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [A Decisão](docs/18-architecture-decisions/adr-decision.md) | concept | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [Status do ADR](docs/18-architecture-decisions/adr-status.md) | concept | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [Estrutura do ADR](docs/18-architecture-decisions/adr-structure.md) | concept | iniciante | `what-is-an-adr` | ⬜ |
 | 🟩 | [Decisões de Arquitetura](docs/18-architecture-decisions/index.md) | index | intermediário | `architecture-documentation` | ⬜ |
+| 🟩 | [Superação de Decisões](docs/18-architecture-decisions/superseding-decisions.md) | concept | avançado | `adr-status` | ⬜ |
+| 🟩 | [O Que É um ADR](docs/18-architecture-decisions/what-is-an-adr.md) | foundation | iniciante | `architecture-documentation` | ⬜ |
+| 🟩 | [Por Que ADRs Importam](docs/18-architecture-decisions/why-adrs-matter.md) | foundation | iniciante | `what-is-an-adr` | ⬜ |
 | 🟩 | [Trade-offs](docs/20-trade-offs/index.md) | index | avançado | `distributed-systems` | ⬜ |
 
 ### Nível 06 — Arquitetura Corporativa

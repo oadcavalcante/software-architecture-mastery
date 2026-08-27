@@ -89,6 +89,29 @@ describe('check-links', () => {
     }));
   });
 
+  // Mesma classe do autolink: marcador de gabarito entre < e > compila como
+  // abertura de tag JSX e derruba o build — "Expected a closing tag for <data>".
+  test('rejeita marcador <data> sem fechamento, que quebra a compilação MDX', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/exemplo.md': doc('# X\n\nUm bloco "revisado em <data>" informa que alguém olhou.\n'),
+      }),
+      /sem fechamento quebra a compilação MDX/,
+    );
+  });
+
+  test('ignora o mesmo marcador dentro de bloco de código', () => {
+    ok(check('check-links.mjs', {
+      'docs/exemplo.md': doc('# X\n\n```text\nStatus: superado em <data>\n```\n'),
+    }));
+  });
+
+  test('aceita tag JSX que fecha', () => {
+    ok(check('check-links.mjs', {
+      'docs/exemplo.md': doc('# X\n\n<details>\n\nConteúdo.\n\n</details>\n'),
+    }));
+  });
+
   test('rejeita diagrama mermaid com delimitadores desbalanceados', () => {
     fails(
       check('check-links.mjs', {
