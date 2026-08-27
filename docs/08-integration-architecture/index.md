@@ -2,85 +2,96 @@
 id: integration-architecture
 title: Arquitetura de Integração
 sidebar_position: 0
-description: Como sistemas conversam entre si, e por que o contrato importa mais que o protocolo.
+description: Como sistemas conversam através de fronteiras — e por que o contrato importa mais que o protocolo.
 doc_type: index
 level: 5
 difficulty: avançado
 status: complete
 objective: >
-  Ao terminar, o leitor escolhe estilo de integração a partir do acoplamento
-  aceitável e evolui contratos sem quebrar consumidores.
+  Ao terminar, o leitor escolhe estilo de integração pelo acoplamento que aceita,
+  e trata contrato e evolução como o problema central.
 prerequisites: [distributed-systems]
-related: [data-architecture, cloud-architecture, enterprise-architecture]
+related: [data-architecture, cloud-architecture, system-design]
 canonical_for: []
 content_version: 1
-last_reviewed: 2026-08-26
+last_reviewed: 2026-08-27
 ---
 
-# Arquitetura de Integração
+# Nível 05 — Arquitetura de Integração
 
-Todo sistema de porte real conversa com outros. O que se decide aqui determina
-quão independentemente as partes podem evoluir.
+Esta seção trata do que acontece nas fronteiras entre sistemas.
 
 ## O problema desta seção
 
-A discussão de integração quase sempre começa pelo protocolo — REST ou gRPC,
-fila ou chamada direta — como se fosse uma escolha de tecnologia. Não é. É uma
-escolha de acoplamento.
+A discussão sobre integração quase sempre começa errado: "REST ou gRPC?",
+"síncrono ou assíncrono?". São perguntas sobre mecanismo, e o mecanismo é a
+parte fácil.
 
-Uma chamada síncrona acopla no tempo: se o outro lado está fora, você está fora.
-Uma fila desacopla no tempo e acopla no formato da mensagem. Um evento
-publicado desacopla dos consumidores e acopla você à estabilidade do próprio
-evento, que agora é contrato público.
+O problema difícil é o **contrato**: o que uma ponta promete à outra, quem pode
+mudar o quê, e o que acontece quando alguém muda. Uma integração morre por
+contrato quebrado, não por escolha de protocolo.
 
-Nenhuma dessas opções remove acoplamento. Elas escolhem **onde** ele fica. A
-pergunta útil não é qual protocolo é melhor, e sim qual acoplamento você
-consegue sustentar.
+O segundo problema difícil é o **acoplamento**. Toda integração acopla — a
+questão é acoplar em quê. Em disponibilidade? Em formato de dado? Em modelo de
+domínio? Em ritmo de implantação?
+
+Escolher o estilo de integração é escolher qual acoplamento você aceita. É essa
+a decisão, e ela é anterior à tecnologia.
 
 ## O que você vai encontrar aqui
 
-**Estilos síncronos.** REST, GraphQL e gRPC. As diferenças que importam de fato
-— formato de contrato, evolução, streaming, custo de depuração — em vez da
-comparação superficial de desempenho.
+**Os estilos síncronos.** REST, GraphQL e gRPC, comparados pelo que cada um
+assume sobre quem consome. GraphQL recebe atenção específica ao que ele
+transfere de custo do cliente para o servidor — que é a parte omitida na
+comparação usual.
 
-**Estilos assíncronos.** Mensageria, arquitetura orientada a eventos e webhooks.
-Quando inverter o controle e o que isso cobra em observabilidade.
+**Os estilos assíncronos.** Integração por mensageria e por eventos, apoiadas em
+[sistemas distribuídos](../06-distributed-systems/index.md). Webhooks tratados
+como o que são: uma integração assíncrona em que a outra ponta é um servidor
+que você não controla.
 
-**Integração em lote.** Batch e integração por arquivo. Frequentemente
-descartadas como legado; frequentemente a resposta correta, especialmente entre
-organizações.
+**Os estilos que ninguém apresenta em conferência.** Integração em lote e por
+arquivo — que movem, hoje, mais dados corporativos que todo o resto somado, e
+que continuam sendo a resposta certa para uma classe grande de problemas.
 
-**Infraestrutura de integração.** API gateways e service mesh. O que cada um
-resolve e o que acontece quando viram o lugar onde a lógica de negócio se
-esconde.
+**A infraestrutura de borda.** API gateways e service mesh, com a pergunta que
+precede as duas: qual problema concreto isso resolve que já não está resolvido?
 
-**Padrões corporativos.** Enterprise integration patterns e anti-corruption
-layer — a defesa contra deixar o modelo de outro sistema vazar para dentro do seu.
+**Os padrões clássicos.** Enterprise Integration Patterns — o vocabulário que
+descreve o que roteadores, tradutores e agregadores fazem, e que continua válido
+independentemente da tecnologia da moda.
 
-**Contratos.** Contratos de integração e evolução de schema. Esta é a parte que
-determina se a integração sobrevive ao segundo ano.
+**O núcleo da seção.** Contratos de integração, evolução de esquema e
+anti-corruption layer. Se você ler só três documentos daqui, sejam esses.
 
 ## Ordem de leitura
 
-Leia **contratos** e **evolução de schema** primeiro, antes de qualquer
-protocolo. Todo o resto é consequência de como você pretende versionar e quebrar
-compatibilidade.
+Comece por **contratos de integração**. Ele organiza todo o resto, e sem ele os
+documentos de protocolo viram comparação de recursos.
 
-Depois, síncrono e assíncrono em bloco, para comparar. E **anti-corruption
-layer** logo em seguida, porque é o padrão que mais frequentemente falta em
-integrações com sistemas que você não controla.
+Depois **evolução de esquema**, que é onde as integrações reais quebram.
+
+Os estilos podem ser lidos em qualquer ordem, conforme a necessidade. Se você
+está decidindo agora, leia o par que está considerando e vá direto aos
+trade-offs.
+
+Deixe **service mesh** por último, e leia com ceticismo — é a tecnologia desta
+seção com a maior distância entre adoção e necessidade.
 
 ## Ao terminar
 
-Você escolhe estilo de integração declarando qual acoplamento está aceitando e
-por quê. Consegue evoluir um contrato sem quebrar consumidores, e sabe dizer
-quando quebrar é inevitável e como conduzir isso.
+Você para de escolher integração por protocolo e passa a escolher por
+acoplamento: o que cada ponta precisa saber sobre a outra, e o que acontece
+quando uma muda.
 
-E reconhece, num desenho de integração, o ponto onde uma falha em um sistema vai
-derrubar três outros.
+Consegue projetar um contrato que permite evoluir sem coordenar implantações, e
+reconhece quando uma integração está acoplando modelo de domínio — o acoplamento
+mais caro e o menos visível.
 
-## Relacionado
+E consegue defender integração em lote quando ela é a resposta certa, que é mais
+frequente do que a literatura sugere.
 
-[Sistemas Distribuídos](../06-distributed-systems/index.md) para as garantias de
-entrega, e [Confiabilidade](../12-reliability/index.md) para conter a propagação
-de falha.
+## Continua em
+
+[Arquitetura em Nuvem](../09-cloud-architecture/index.md), onde essas decisões
+passam a interagir com o que a plataforma oferece e cobra.

@@ -5,7 +5,7 @@
 | Diretório | `docs/08-integration-architecture/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 14 (0%) |
+| Progresso | 14 / 14 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,20 +15,20 @@ Esta seção está completa quando os 14 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `rest` |
-| ⬜ | `graphql` |
-| ⬜ | `grpc` |
-| ⬜ | `messaging-integration` |
-| ⬜ | `event-driven-integration` |
-| ⬜ | `webhooks` |
-| ⬜ | `batch-integration` |
-| ⬜ | `file-integration` |
-| ⬜ | `api-gateways` |
-| ⬜ | `service-mesh` |
-| ⬜ | `enterprise-integration-patterns` |
-| ⬜ | `integration-anti-corruption` |
-| ⬜ | `integration-contracts` |
-| ⬜ | `schema-evolution` |
+| 🟩 | `rest` |
+| 🟩 | `graphql` |
+| 🟩 | `grpc` |
+| 🟩 | `messaging-integration` |
+| 🟩 | `event-driven-integration` |
+| 🟩 | `webhooks` |
+| 🟩 | `batch-integration` |
+| 🟩 | `file-integration` |
+| 🟩 | `api-gateways` |
+| 🟩 | `service-mesh` |
+| 🟩 | `enterprise-integration-patterns` |
+| 🟩 | `integration-anti-corruption` |
+| 🟩 | `integration-contracts` |
+| 🟩 | `schema-evolution` |
 
 ## Critério de conclusão
 

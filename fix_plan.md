@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 195 de 432 (45%) |
-| Seções pendentes | 16 de 23 |
-| Próxima tarefa | `08-integration-architecture` → `rest.md` |
+| Escrito | 209 de 432 (48%) |
+| Seções pendentes | 15 de 23 |
+| Próxima tarefa | `09-cloud-architecture` → `iaas.md` |
 
 ## Como usar
 
@@ -27,25 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 08-integration-architecture — Arquitetura de Integração
-
-Nível 05 — Arquitetura · faltam 14 de 15 · spec: [`specs/08-integration-architecture.md`](specs/08-integration-architecture.md)
-
-- [ ] `rest.md`
-- [ ] `graphql.md`
-- [ ] `grpc.md`
-- [ ] `messaging-integration.md`
-- [ ] `event-driven-integration.md`
-- [ ] `webhooks.md`
-- [ ] `batch-integration.md`
-- [ ] `file-integration.md`
-- [ ] `api-gateways.md`
-- [ ] `service-mesh.md`
-- [ ] `enterprise-integration-patterns.md`
-- [ ] `integration-anti-corruption.md`
-- [ ] `integration-contracts.md`
-- [ ] `schema-evolution.md`
 
 ### 09-cloud-architecture — Arquitetura em Nuvem
 

@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**199 de 437 documentos planejados escritos (46%).**
+**213 de 437 documentos planejados escritos (49%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -25,7 +25,7 @@ mas já tem índice publicado explicando o que virá.
 | `05-system-design` | 03 | 24 / 24 | `██████████` 100% |
 | `06-distributed-systems` | 04 | 36 / 36 | `██████████` 100% |
 | `07-data-architecture` | 05 | 22 / 22 | `██████████` 100% |
-| `08-integration-architecture` | 05 | 1 / 15 | `█░░░░░░░░░` 7% |
+| `08-integration-architecture` | 05 | 15 / 15 | `██████████` 100% |
 | `09-cloud-architecture` | 05 | 1 / 19 | `█░░░░░░░░░` 5% |
 | `10-security` | 05 | 1 / 18 | `█░░░░░░░░░` 6% |
 | `11-scalability` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
@@ -253,7 +253,21 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [OLTP](docs/07-data-architecture/oltp.md) | concept | intermediário | `data-architecture` | ⬜ |
 | 🟩 | [Bancos Relacionais](docs/07-data-architecture/relational-databases.md) | concept | intermediário | `data-architecture` | ⬜ |
 | 🟩 | [Transações](docs/07-data-architecture/transactions.md) | concept | intermediário | `relational-databases` | ⬜ |
+| 🟩 | [API Gateways](docs/08-integration-architecture/api-gateways.md) | pattern | intermediário | `rest` | ⬜ |
+| 🟩 | [Integração em Lote](docs/08-integration-architecture/batch-integration.md) | concept | intermediário | `integration-architecture` | ⬜ |
+| 🟩 | [Enterprise Integration Patterns](docs/08-integration-architecture/enterprise-integration-patterns.md) | reference | intermediário | `messaging-integration` | ⬜ |
+| 🟩 | [Integração Orientada a Eventos](docs/08-integration-architecture/event-driven-integration.md) | concept | avançado | `messaging-integration` | ⬜ |
+| 🟩 | [Integração por Arquivo](docs/08-integration-architecture/file-integration.md) | concept | intermediário | `batch-integration` | ⬜ |
+| 🟩 | [GraphQL](docs/08-integration-architecture/graphql.md) | concept | avançado | `rest` | ⬜ |
+| 🟩 | [gRPC](docs/08-integration-architecture/grpc.md) | concept | avançado | `rest` | ⬜ |
 | 🟩 | [Arquitetura de Integração](docs/08-integration-architecture/index.md) | index | avançado | `distributed-systems` | ⬜ |
+| 🟩 | [Anti-Corruption Layer na Integração](docs/08-integration-architecture/integration-anti-corruption.md) | pattern | avançado | `integration-contracts` | ⬜ |
+| 🟩 | [Contratos de Integração](docs/08-integration-architecture/integration-contracts.md) | concept | avançado | `integration-architecture` | ⬜ |
+| 🟩 | [Integração por Mensageria](docs/08-integration-architecture/messaging-integration.md) | concept | avançado | `integration-architecture` | ⬜ |
+| 🟩 | [REST](docs/08-integration-architecture/rest.md) | concept | intermediário | `integration-architecture` | ⬜ |
+| 🟩 | [Evolução de Esquema](docs/08-integration-architecture/schema-evolution.md) | concept | avançado | `integration-contracts` | ⬜ |
+| 🟩 | [Malha de Serviço](docs/08-integration-architecture/service-mesh.md) | pattern | avançado | `api-gateways` | ⬜ |
+| 🟩 | [Webhooks](docs/08-integration-architecture/webhooks.md) | pattern | intermediário | `integration-architecture` | ⬜ |
 | 🟩 | [Arquitetura em Nuvem](docs/09-cloud-architecture/index.md) | index | avançado | `distributed-systems` | ⬜ |
 | 🟩 | [Arquitetura de Segurança](docs/10-security/index.md) | index | avançado | `system-design` | ⬜ |
 | 🟩 | [Escalabilidade](docs/11-scalability/index.md) | index | avançado | `system-design`, `distributed-systems` | ⬜ |
