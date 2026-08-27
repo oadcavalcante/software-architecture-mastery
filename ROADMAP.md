@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**101 de 436 documentos planejados escritos (23%).**
+**120 de 436 documentos planejados escritos (28%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -21,7 +21,7 @@ mas já tem índice publicado explicando o que virá.
 | `01-fundamentals` | 01 | 23 / 23 | `██████████` 100% |
 | `02-software-design` | 02 | 23 / 23 | `██████████` 100% |
 | `03-design-patterns` | 02 | 31 / 31 | `██████████` 100% |
-| `04-domain-driven-design` | 02 | 1 / 20 | `█░░░░░░░░░` 5% |
+| `04-domain-driven-design` | 02 | 20 / 20 | `██████████` 100% |
 | `05-system-design` | 03 | 1 / 24 | `░░░░░░░░░░` 4% |
 | `06-distributed-systems` | 04 | 1 / 36 | `░░░░░░░░░░` 3% |
 | `07-data-architecture` | 05 | 1 / 21 | `█░░░░░░░░░` 5% |
@@ -136,7 +136,26 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Strategy](docs/03-design-patterns/strategy.md) | pattern | iniciante | `design-patterns` | ⬜ |
 | 🟩 | [Template Method](docs/03-design-patterns/template-method.md) | pattern | iniciante | `design-patterns` | ⬜ |
 | 🟩 | [Visitor](docs/03-design-patterns/visitor.md) | pattern | avançado | `composite` | ⬜ |
+| 🟩 | [Aggregate](docs/04-domain-driven-design/aggregate.md) | pattern | avançado | `entity`, `value-object` | ⬜ |
+| 🟩 | [Anti-Corruption Layer](docs/04-domain-driven-design/anti-corruption-layer.md) | pattern | intermediário | `context-mapping` | ⬜ |
+| 🟩 | [Application Service](docs/04-domain-driven-design/application-service.md) | pattern | intermediário | `domain-service` | ⬜ |
+| 🟩 | [Bounded Context](docs/04-domain-driven-design/bounded-context.md) | concept | intermediário | `subdomain`, `ubiquitous-language` | ⬜ |
+| 🟩 | [Context Mapping](docs/04-domain-driven-design/context-mapping.md) | concept | avançado | `bounded-context` | ⬜ |
+| 🟩 | [Core Domain](docs/04-domain-driven-design/core-domain.md) | foundation | intermediário | `subdomain` | ⬜ |
+| 🟩 | [Domain Event](docs/04-domain-driven-design/domain-event.md) | pattern | avançado | `aggregate` | ⬜ |
+| 🟩 | [Domain Service](docs/04-domain-driven-design/domain-service.md) | pattern | intermediário | `aggregate` | ⬜ |
+| 🟩 | [Domínio](docs/04-domain-driven-design/domain.md) | foundation | iniciante | `domain-driven-design` | ⬜ |
+| 🟩 | [Entity](docs/04-domain-driven-design/entity.md) | pattern | intermediário | `ubiquitous-language` | ⬜ |
+| 🟩 | [Factory](docs/04-domain-driven-design/factory.md) | pattern | intermediário | `aggregate` | ⬜ |
+| 🟩 | [Generic Domain](docs/04-domain-driven-design/generic-domain.md) | foundation | iniciante | `subdomain` | ⬜ |
 | 🟩 | [Domain-Driven Design](docs/04-domain-driven-design/index.md) | index | intermediário | `software-design` | ⬜ |
+| 🟩 | [Repository](docs/04-domain-driven-design/repository.md) | pattern | intermediário | `aggregate` | ⬜ |
+| 🟩 | [DDD Estratégico](docs/04-domain-driven-design/strategic-ddd.md) | foundation | avançado | `bounded-context`, `context-mapping` | ⬜ |
+| 🟩 | [Subdomínio](docs/04-domain-driven-design/subdomain.md) | foundation | iniciante | `domain` | ⬜ |
+| 🟩 | [Supporting Domain](docs/04-domain-driven-design/supporting-domain.md) | foundation | iniciante | `subdomain` | ⬜ |
+| 🟩 | [DDD Tático](docs/04-domain-driven-design/tactical-ddd.md) | foundation | avançado | `aggregate`, `repository` | ⬜ |
+| 🟩 | [Ubiquitous Language](docs/04-domain-driven-design/ubiquitous-language.md) | concept | intermediário | `domain` | ⬜ |
+| 🟩 | [Value Object](docs/04-domain-driven-design/value-object.md) | pattern | iniciante | `entity` | ⬜ |
 
 ### Nível 03 — Design de Sistemas
 
@@ -203,8 +222,8 @@ Cada fase entrega um site publicável e útil por si só. Ver
 |---|---|:-:|
 | **F0** | Scaffold Docusaurus, i18n, Mermaid, busca, CI, validadores, deploy | 🟩 |
 | **F1** | README, ROADMAP, CONTRIBUTING, glossário, modelo de maturidade, política terminológica, 23 índices de seção, sidebar por nível | 🟩 |
-| **F2** | Níveis 01–02: fundamentos, design de software, padrões, DDD | 🟨 Seções 01, 02 e 03 completas (74 tópicos); falta 04 |
-| **F3** | Níveis 03–04: design de sistemas, sistemas distribuídos | ⬜ |
+| **F2** | Níveis 01–02: fundamentos, design de software, padrões, DDD | 🟩 |
+| **F3** | Níveis 03–04: design de sistemas, sistemas distribuídos | ⬜ próxima |
 | **F4** | Nível 05: as onze disciplinas de arquitetura + ADRs didáticos | ⬜ |
 | **F5** | Níveis 06–07: corporativo, legado, governança, liderança | ⬜ |
 | **F6** | Case studies, entrevistas, exercícios de revisão de arquitetura | ⬜ |
