@@ -55,7 +55,24 @@ const config: Config = {
     },
   },
 
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      // Busca offline, indexada por locale no build. Escolhida em vez do
+      // Algolia DocSearch porque não depende de aprovação externa nem de
+      // serviço de terceiros para funcionar. Ver SPEC.md §10.
+      '@easyops-cn/docusaurus-search-local',
+      {
+        hashed: true,
+        language: ['pt', 'en'],
+        indexDocs: true,
+        indexBlog: false,
+        docsRouteBasePath: '/',
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+      },
+    ],
+  ],
 
   presets: [
     [
