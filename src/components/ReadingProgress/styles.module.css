@@ -1,0 +1,120 @@
+/* Controle de "marcar como lido" — rodapé do documento. */
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  font-size: 0.9rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.toggle:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.toggleRead {
+  border-color: var(--ifm-color-success);
+  background: var(--ifm-color-success-contrast-background);
+  color: var(--ifm-color-success-contrast-foreground);
+}
+
+/* Caixa desenhada em vez de <input>: o alvo de clique é o botão inteiro, e o
+   estado precisa acompanhar o tema claro e escuro sem estilo de sistema. */
+.box {
+  display: grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  border: 1.5px solid currentColor;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.boxChecked {
+  background: var(--ifm-color-success);
+  border-color: var(--ifm-color-success);
+  color: #fff;
+}
+
+/* Barra de progresso agregada — índices de seção. */
+
+.summary {
+  margin: 1.5rem 0 2rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-global-radius);
+  background: var(--ifm-background-surface-color);
+}
+
+.summaryHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+  font-size: 0.9rem;
+}
+
+.summaryLabel {
+  font-weight: 600;
+}
+
+.summaryCount {
+  color: var(--ifm-color-emphasis-700);
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--ifm-color-emphasis-200);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--ifm-color-success);
+  transition: width 200ms ease;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.action {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ifm-color-emphasis-800);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.action:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.action:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}

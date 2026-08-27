@@ -705,10 +705,60 @@ documentada na própria seção, em vez de dependência externa de renderizaçã
 | Linguagem de config | TypeScript | Erro de config detectado em build |
 | Diagramas | `@docusaurus/theme-mermaid` | Versionável, sem asset binário |
 | Busca | `@easyops-cn/docusaurus-search-local` | Funciona offline e por locale, sem depender de aprovação do Algolia DocSearch |
-| Hospedagem | GitHub Pages via GitHub Actions | Sem custo, sem vendor extra; migração para Vercel/Netlify é trivial se necessário |
+| Hospedagem | Vercel | Preview por PR, build de todas as locales, domínio na raiz (`baseUrl: '/'`); a URL canônica vem de `SITE_URL` ou `VERCEL_PROJECT_PRODUCTION_URL` |
 | CI | GitHub Actions | Build + validadores em cada PR |
 
 Versões exatas são fixadas no `package.json` no momento do scaffold, não nesta spec.
+
+### 10.1 Progresso de leitura
+
+O percurso tem mais de 400 documentos. Sem marcação de progresso, o leitor que
+volta depois de uma semana não sabe onde parou — e um currículo de que não se
+consegue acompanhar o avanço é abandonado.
+
+**Comportamento.** Cada documento de conteúdo exibe um controle "marcar como
+lido". Índices de seção e o roadmap do site exibem o progresso agregado. Nada
+disso altera o conteúdo em si.
+
+**Armazenamento — primeira fase.** `localStorage` do navegador, sem backend e sem
+autenticação. Isso entrega a funcionalidade imediatamente, não obriga a decidir
+sobre contas de usuário, e não cria responsabilidade sobre dado pessoal — o
+progresso nunca sai da máquina do leitor.
+
+Limitações aceitas explicitamente: o progresso não atravessa dispositivos nem
+navegadores, e some se o leitor limpar os dados do site. Para a fase atual do
+projeto — sem leitores autenticados — a troca é claramente favorável.
+
+**Chave de armazenamento.** O identificador do documento, não a URL. Isso faz o
+progresso ser compartilhado entre as locales: quem lê `idempotency` em português
+e depois abre a versão em inglês vê o documento já marcado, porque `docs/` e
+`i18n/en-US/` são espelhados.
+
+O identificador usado é o do Docusaurus — `<seção>/<id>`, como
+`distributed-systems/idempotency` — e não o `id` cru do front matter. O motivo é
+prático: é o que a barra lateral expõe, e o progresso agregado da seção lê dali.
+Usar o `id` cru no botão e o do Docusaurus no agregado criaria dois espaços de
+chave para o mesmo fato.
+
+**Requisitos de implementação:**
+
+| Requisito | Motivo |
+|---|---|
+| Seguro em renderização estática | O Docusaurus pré-renderiza no build, onde `localStorage` não existe. O controle só lê o armazenamento depois da hidratação. |
+| Tolerante a exceção | Navegação privada e bloqueio de dados de site fazem o acesso lançar. Toda leitura e escrita é protegida; o pior caso é o controle aparecer sempre desmarcado. |
+| Sem salto de layout | O estado inicial é o desmarcado; a marcação aparece na hidratação sem deslocar o texto. |
+| Formato versionado | O valor guardado carrega uma versão de esquema, para que uma mudança futura de formato possa migrar em vez de descartar. |
+| Acesso por abstração única | Todo acesso passa por um módulo dedicado, para que a troca por backend não se espalhe pelos componentes. |
+| Exportável | O leitor pode exportar e importar o próprio progresso, o que cobre a troca de máquina sem backend e serve de caminho de migração. |
+
+**Caminho para backend — segunda fase, não agendada.** A abstração de
+armazenamento é a costura: trocá-la por uma implementação que sincroniza com um
+serviço não deve exigir mudança nos componentes. Quando houver autenticação, a
+migração de um leitor existente é a importação do seu progresso local.
+
+Enquanto essa fase não existir, o repositório **não** ganha backend, banco nem
+autenticação — ver [§1.2](#12-não-objetivos).
+
 
 **Comandos de desenvolvimento:**
 
@@ -738,6 +788,7 @@ O repositório pratica o que ensina: suas decisões estruturais são ADRs, em
 | ADR-R004 | `content_version` inteiro em vez de hash de conteúdo | Sinaliza intenção humana de "mudou de forma relevante"; typo não marca 400 traduções como defasadas. Custo: depende de disciplina, mitigado por aviso de CI. |
 | ADR-R005 | Ordem por `sidebar_position`, não por prefixo numérico de arquivo | Reordenar não quebra URLs nem links externos. Custo: ordem não é visível no `ls`. |
 | ADR-R006 | Criar `23-architecture-leadership` em vez de dobrar no Nível 06 | O nível final do percurso ganha lugar próprio. Custo: são 23 seções, não 22 como no briefing. |
+| ADR-R007 | Progresso de leitura em `localStorage`, sem backend | Funcionalidade entregue sem autenticação, sem banco e sem responsabilidade sobre dado pessoal. Custo: o progresso não atravessa dispositivos, e some se o leitor limpar os dados do site — mitigado por exportar/importar. Ver [§10.1](#101-progresso-de-leitura). |
 
 Além desses, `18-architecture-decisions` contém ADRs **didáticos** de sistemas fictícios,
 que é o conteúdo de ensino da seção:

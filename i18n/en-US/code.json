@@ -360,5 +360,33 @@
   "theme.SearchBar.label": {
     "message": "Search",
     "description": "The ARIA label and placeholder for search button"
+  },
+  "readingProgress.toggle.title": {
+    "message": "Progress is saved in this browser only",
+    "description": "Tooltip do botão de marcar documento como lido"
+  },
+  "readingProgress.toggle.read": {
+    "message": "Read",
+    "description": "Rótulo do botão quando o documento já foi lido"
+  },
+  "readingProgress.toggle.unread": {
+    "message": "Mark as read",
+    "description": "Rótulo do botão quando o documento ainda não foi lido"
+  },
+  "readingProgress.section.label": {
+    "message": "Reading progress for this section",
+    "description": "Rótulo acessível do bloco de progresso da seção"
+  },
+  "readingProgress.section.title": {
+    "message": "Your progress in this section",
+    "description": "Título do bloco de progresso da seção"
+  },
+  "readingProgress.section.unmarkAll": {
+    "message": "Unmark all",
+    "description": "Botão para desmarcar todos os documentos da seção"
+  },
+  "readingProgress.section.markAll": {
+    "message": "Mark all as read",
+    "description": "Botão para marcar todos os documentos da seção como lidos"
   }
 }
