@@ -177,6 +177,9 @@ discutir quando não usá-lo, é rejeitada.
 | | |
 |---|---|
 | **[SPEC.md](SPEC.md)** | A especificação completa: padrão de qualidade, política de tradução, critérios de conclusão |
+| **[AGENTS.md](AGENTS.md)** | Como construir, testar e validar — os portões de qualidade |
+| **[PROMPT.md](PROMPT.md)** | A instrução de uma iteração de trabalho |
+| **[fix_plan.md](fix_plan.md)** | Fila priorizada do que falta, gerada do currículo |
 | **[ROADMAP.md](ROADMAP.md)** | Estado por documento, gerado do front matter |
 | **[CONTRIBUTING.md](CONTRIBUTING.md)** | Como escrever, revisar e traduzir |
 | **[Glossário](docs/glossary.md)** | Terminologia com definições operacionais |

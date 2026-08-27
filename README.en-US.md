@@ -175,6 +175,9 @@ a pattern without discussing when not to use it, is rejected.
 | | |
 |---|---|
 | **[SPEC.md](SPEC.md)** | The full specification: quality standard, translation policy, completion criteria (Portuguese) |
+| **[AGENTS.md](AGENTS.md)** | How to build, test and validate — the quality gates |
+| **[PROMPT.md](PROMPT.md)** | The instruction for one work iteration |
+| **[fix_plan.md](fix_plan.md)** | Prioritized queue of what remains, generated from the curriculum |
 | **[ROADMAP.md](ROADMAP.md)** | Per-document status, generated from front matter |
 | **[CONTRIBUTING.md](CONTRIBUTING.md)** | How to write, review and translate |
 | **[Glossary](docs/glossary.md)** | Terminology with operational definitions |
