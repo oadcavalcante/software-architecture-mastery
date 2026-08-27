@@ -2,13 +2,31 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import {themes as prismThemes} from 'prism-react-renderer';
 
-/**
- * AJUSTE ANTES DO PRIMEIRO DEPLOY.
- * GH_ORG precisa ser o usuário ou organização dono do repositório no GitHub.
- * A URL publicada será https://<GH_ORG>.github.io/<GH_REPO>/
- */
+/** Repositório no GitHub — usado nos links de edição e de código-fonte. */
 const GH_ORG = process.env.GH_ORG ?? 'oadcavalcante';
 const GH_REPO = process.env.GH_REPO ?? 'software-architecture-mastery';
+
+/**
+ * URL canônica do site publicado.
+ *
+ * O site é hospedado na Vercel, servido na raiz do domínio — daí baseUrl '/'.
+ * A URL canônica alimenta hreflang, Open Graph e sitemap, e por isso precisa
+ * apontar para o domínio de produção mesmo quando o build roda num preview.
+ *
+ * Ordem de resolução:
+ *   SITE_URL                        — override explícito, tem precedência
+ *   VERCEL_PROJECT_PRODUCTION_URL   — domínio de produção, fornecido pela Vercel
+ *   localhost                       — desenvolvimento
+ *
+ * Note que VERCEL_URL NÃO é usada: ela é o domínio efêmero do deploy específico,
+ * e usá-la faria cada preview publicar hreflang e canônicas apontando para si
+ * mesmo, o que confunde indexação.
+ */
+const SITE_URL =
+  process.env.SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : 'http://localhost:3000');
 
 /**
  * O Docusaurus constrói uma locale por vez e expõe qual está sendo construída.
@@ -29,8 +47,8 @@ const config: Config = {
   tagline: 'Pensar como arquiteto, não decorar padrões',
   favicon: 'img/favicon.svg',
 
-  url: `https://${GH_ORG}.github.io`,
-  baseUrl: `/${GH_REPO}/`,
+  url: SITE_URL,
+  baseUrl: '/',
   organizationName: GH_ORG,
   projectName: GH_REPO,
   trailingSlash: false,

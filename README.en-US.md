@@ -7,7 +7,7 @@
 Not a catalog of patterns. The reasoning that decides when *not* to use them.
 
 [![CI](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml)
-[![Deploy](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/deploy.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/deploy.yml)
+[![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://software-architecture-mastery.vercel.app)
 <!-- BADGES:PROGRESS -->
 ![progress](https://img.shields.io/badge/progress-28%25-blue)
 ![documents](https://img.shields.io/badge/documents-120%2F436-informational)
