@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**371 de 437 documentos planejados escritos (85%).**
+**386 de 437 documentos planejados escritos (88%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -37,7 +37,7 @@ mas já tem índice publicado explicando o que virá.
 | `17-architecture-documentation` | 05 | 14 / 14 | `██████████` 100% |
 | `18-architecture-decisions` | 05 | 15 / 15 | `██████████` 100% |
 | `19-architecture-governance` | 06 | 11 / 11 | `██████████` 100% |
-| `20-trade-offs` | 05 | 1 / 16 | `█░░░░░░░░░` 6% |
+| `20-trade-offs` | 05 | 16 / 16 | `██████████` 100% |
 | `21-case-studies` | Transv. | 1 / 15 | `█░░░░░░░░░` 7% |
 | `22-system-design-interviews` | Transv. | 1 / 14 | `█░░░░░░░░░` 7% |
 | `23-architecture-leadership` | 07 | 1 / 24 | `░░░░░░░░░░` 4% |
@@ -392,7 +392,22 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Superação de Decisões](docs/18-architecture-decisions/superseding-decisions.md) | concept | avançado | `adr-status` | ⬜ |
 | 🟩 | [O Que É um ADR](docs/18-architecture-decisions/what-is-an-adr.md) | foundation | iniciante | `architecture-documentation` | ⬜ |
 | 🟩 | [Por Que ADRs Importam](docs/18-architecture-decisions/why-adrs-matter.md) | foundation | iniciante | `what-is-an-adr` | ⬜ |
+| 🟩 | [Abstração vs. Complexidade](docs/20-trade-offs/abstraction-vs-complexity.md) | tradeoff | avançado | `abstraction` | ⬜ |
+| 🟩 | [Build vs. Buy](docs/20-trade-offs/build-vs-buy.md) | tradeoff | intermediário | `saas` | ⬜ |
+| 🟩 | [Centralização vs. Descentralização](docs/20-trade-offs/centralization-vs-decentralization.md) | tradeoff | avançado | `governance-basics` | ⬜ |
+| 🟩 | [Nativo de Nuvem vs. Portável](docs/20-trade-offs/cloud-native-vs-portable.md) | tradeoff | avançado | `vendor-lock-in` | ⬜ |
+| 🟩 | [Consistência vs. Disponibilidade](docs/20-trade-offs/consistency-vs-availability.md) | tradeoff | avançado | `cap` | ⬜ |
+| 🟩 | [Custo vs. Confiabilidade](docs/20-trade-offs/cost-vs-reliability.md) | tradeoff | avançado | `reliability-basics` | ⬜ |
+| 🟩 | [Acoplamento vs. Duplicação](docs/20-trade-offs/coupling-vs-duplication.md) | tradeoff | intermediário | `coupling` | ⬜ |
 | 🟩 | [Trade-offs](docs/20-trade-offs/index.md) | index | avançado | `distributed-systems` | ⬜ |
+| 🟩 | [Gerenciado vs. Autogerido](docs/20-trade-offs/managed-vs-self-hosted.md) | tradeoff | intermediário | `managed-services` | ⬜ |
+| 🟩 | [Monólito vs. Microsserviços](docs/20-trade-offs/monolith-vs-microservices.md) | tradeoff | avançado | `microservices` | ⬜ |
+| 🟩 | [Desempenho vs. Manutenibilidade](docs/20-trade-offs/performance-vs-maintainability.md) | tradeoff | intermediário | `complexity` | ⬜ |
+| 🟩 | [Simplicidade vs. Flexibilidade](docs/20-trade-offs/simplicity-vs-flexibility.md) | tradeoff | intermediário | `complexity` | ⬜ |
+| 🟩 | [Velocidade vs. Qualidade](docs/20-trade-offs/speed-vs-quality.md) | tradeoff | intermediário | `technical-debt` | ⬜ |
+| 🟩 | [SQL vs. NoSQL](docs/20-trade-offs/sql-vs-nosql.md) | tradeoff | intermediário | `nosql` | ⬜ |
+| 🟩 | [Consistência Forte vs. Eventual](docs/20-trade-offs/strong-vs-eventual-consistency.md) | tradeoff | avançado | `eventual-consistency` | ⬜ |
+| 🟩 | [Síncrono vs. Assíncrono](docs/20-trade-offs/sync-vs-async.md) | tradeoff | avançado | `messaging` | ⬜ |
 
 ### Nível 06 — Arquitetura Corporativa
 

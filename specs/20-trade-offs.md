@@ -5,7 +5,7 @@
 | Diretório | `docs/20-trade-offs/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 15 (0%) |
+| Progresso | 15 / 15 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,21 +15,21 @@ Esta seção está completa quando os 15 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `simplicity-vs-flexibility` |
-| ⬜ | `consistency-vs-availability` |
-| ⬜ | `performance-vs-maintainability` |
-| ⬜ | `cost-vs-reliability` |
-| ⬜ | `speed-vs-quality` |
-| ⬜ | `coupling-vs-duplication` |
-| ⬜ | `centralization-vs-decentralization` |
-| ⬜ | `monolith-vs-microservices` |
-| ⬜ | `sync-vs-async` |
-| ⬜ | `sql-vs-nosql` |
-| ⬜ | `build-vs-buy` |
-| ⬜ | `strong-vs-eventual-consistency` |
-| ⬜ | `managed-vs-self-hosted` |
-| ⬜ | `cloud-native-vs-portable` |
-| ⬜ | `abstraction-vs-complexity` |
+| 🟩 | `simplicity-vs-flexibility` |
+| 🟩 | `consistency-vs-availability` |
+| 🟩 | `performance-vs-maintainability` |
+| 🟩 | `cost-vs-reliability` |
+| 🟩 | `speed-vs-quality` |
+| 🟩 | `coupling-vs-duplication` |
+| 🟩 | `centralization-vs-decentralization` |
+| 🟩 | `monolith-vs-microservices` |
+| 🟩 | `sync-vs-async` |
+| 🟩 | `sql-vs-nosql` |
+| 🟩 | `build-vs-buy` |
+| 🟩 | `strong-vs-eventual-consistency` |
+| 🟩 | `managed-vs-self-hosted` |
+| 🟩 | `cloud-native-vs-portable` |
+| 🟩 | `abstraction-vs-complexity` |
 
 ## Critério de conclusão
 

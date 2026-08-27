@@ -9,8 +9,8 @@ Not a catalog of patterns. The reasoning that decides when *not* to use them.
 [![CI](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml)
 [![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://software-architecture-mastery.vercel.app)
 <!-- BADGES:PROGRESS -->
-![progress](https://img.shields.io/badge/progress-85%25-blue)
-![documents](https://img.shields.io/badge/documents-371%2F437-informational)
+![progress](https://img.shields.io/badge/progress-88%25-blue)
+![documents](https://img.shields.io/badge/documents-386%2F437-informational)
 <!-- /BADGES:PROGRESS -->
 ![License](https://img.shields.io/badge/content-CC%20BY--SA%204.0-green)
 ![Code](https://img.shields.io/badge/code-MIT-green)
@@ -97,7 +97,7 @@ code → design → systems → distributed systems → architecture → enterpr
 | 02 | Domain-Driven Design | 🟩 19 topics |
 | 03 | System Design | 🟩 23 topics |
 | 04 | Distributed Systems | 🟩 35 topics |
-| 05 | Architecture (11 sections) | 🟨 in progress |
+| 05 | Architecture (11 sections) | 🟩 166 topics |
 | 06 | Enterprise Architecture | 🟩 42 topics |
 | 07 | Architecture Leadership | ⬜ |
 | — | Case Studies · Interviews | ⬜ |

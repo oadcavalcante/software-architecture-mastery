@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 367 de 432 (85%) |
-| Seções pendentes | 4 de 23 |
-| Próxima tarefa | `20-trade-offs` → `simplicity-vs-flexibility.md` |
+| Escrito | 382 de 432 (88%) |
+| Seções pendentes | 3 de 23 |
+| Próxima tarefa | `21-case-studies` → `ecommerce.md` |
 
 ## Como usar
 
@@ -27,26 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 20-trade-offs — Trade-offs
-
-Nível 05 — Arquitetura · faltam 15 de 16 · spec: [`specs/20-trade-offs.md`](specs/20-trade-offs.md)
-
-- [ ] `simplicity-vs-flexibility.md`
-- [ ] `consistency-vs-availability.md`
-- [ ] `performance-vs-maintainability.md`
-- [ ] `cost-vs-reliability.md`
-- [ ] `speed-vs-quality.md`
-- [ ] `coupling-vs-duplication.md`
-- [ ] `centralization-vs-decentralization.md`
-- [ ] `monolith-vs-microservices.md`
-- [ ] `sync-vs-async.md`
-- [ ] `sql-vs-nosql.md`
-- [ ] `build-vs-buy.md`
-- [ ] `strong-vs-eventual-consistency.md`
-- [ ] `managed-vs-self-hosted.md`
-- [ ] `cloud-native-vs-portable.md`
-- [ ] `abstraction-vs-complexity.md`
 
 ### 21-case-studies — Case Studies
 
