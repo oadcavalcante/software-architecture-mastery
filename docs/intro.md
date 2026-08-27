@@ -29,7 +29,7 @@ alternativas, raciocinar sobre trade-offs, decidir, comunicar e evoluir.
 :::info Em construção
 
 <!-- PROGRESS:INTRO -->
-Este site está sendo escrito. São **334 de 437 documentos** (76%), com **16 de 23 seções** completas.
+Este site está sendo escrito. São **347 de 437 documentos** (79%), com **17 de 23 seções** completas.
 <!-- /PROGRESS:INTRO -->
 
 A tradução para inglês é progressiva: páginas ainda não traduzidas aparecem em

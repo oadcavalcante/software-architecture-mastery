@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**334 de 437 documentos planejados escritos (76%).**
+**347 de 437 documentos planejados escritos (79%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -34,7 +34,7 @@ mas já tem índice publicado explicando o que virá.
 | `14-devops-and-platform` | 05 | 14 / 14 | `██████████` 100% |
 | `15-enterprise-architecture` | 06 | 21 / 21 | `██████████` 100% |
 | `16-legacy-modernization` | 06 | 13 / 13 | `██████████` 100% |
-| `17-architecture-documentation` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
+| `17-architecture-documentation` | 05 | 14 / 14 | `██████████` 100% |
 | `18-architecture-decisions` | 05 | 1 / 15 | `█░░░░░░░░░` 7% |
 | `19-architecture-governance` | 06 | 1 / 11 | `█░░░░░░░░░` 9% |
 | `20-trade-offs` | 05 | 1 / 16 | `█░░░░░░░░░` 6% |
@@ -363,7 +363,20 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Gestão de Releases](docs/14-devops-and-platform/release-management.md) | concept | intermediário | `ci-cd` | ⬜ |
 | 🟩 | [Implantação em Ondas](docs/14-devops-and-platform/rolling-deployments.md) | pattern | intermediário | `deployment-strategies` | ⬜ |
 | 🟩 | [Segurança da Esteira](docs/14-devops-and-platform/supply-chain-security.md) | concept | avançado | `ci-cd` | ⬜ |
+| 🟩 | [Descrições de Arquitetura](docs/17-architecture-documentation/architecture-descriptions.md) | concept | avançado | `architecture-views` | ⬜ |
+| 🟩 | [Visões de Arquitetura](docs/17-architecture-documentation/architecture-views.md) | concept | avançado | `c4-model` | ⬜ |
+| 🟩 | [Modelo C4](docs/17-architecture-documentation/c4-model.md) | concept | intermediário | `documentation-principles` | ⬜ |
+| 🟩 | [Diagramas de Componente](docs/17-architecture-documentation/component-diagrams.md) | concept | intermediário | `container-diagrams` | ⬜ |
+| 🟩 | [Diagramas de Contêiner](docs/17-architecture-documentation/container-diagrams.md) | concept | intermediário | `c4-model` | ⬜ |
+| 🟩 | [Diagramas de Contexto](docs/17-architecture-documentation/context-diagrams.md) | concept | iniciante | `c4-model` | ⬜ |
+| 🟩 | [Diagramas de Fluxo de Dados](docs/17-architecture-documentation/data-flow-diagrams.md) | concept | intermediário | `container-diagrams` | ⬜ |
+| 🟩 | [Diagramas de Implantação](docs/17-architecture-documentation/deployment-diagrams.md) | concept | intermediário | `container-diagrams` | ⬜ |
+| 🟩 | [Qualidade de Diagrama](docs/17-architecture-documentation/diagram-quality.md) | concept | intermediário | `documentation-principles` | ⬜ |
+| 🟩 | [Princípios de Documentação](docs/17-architecture-documentation/documentation-principles.md) | concept | intermediário | `architecture-documentation` | ⬜ |
+| 🟩 | [Padrões de Documentação](docs/17-architecture-documentation/documentation-standards.md) | concept | intermediário | `documentation-principles` | ⬜ |
 | 🟩 | [Documentação de Arquitetura](docs/17-architecture-documentation/index.md) | index | intermediário | `system-design` | ⬜ |
+| 🟩 | [Documentação Viva](docs/17-architecture-documentation/living-documentation.md) | concept | avançado | `documentation-principles` | ⬜ |
+| 🟩 | [Diagramas de Sequência](docs/17-architecture-documentation/sequence-diagrams.md) | concept | intermediário | `container-diagrams` | ⬜ |
 | 🟩 | [Decisões de Arquitetura](docs/18-architecture-decisions/index.md) | index | intermediário | `architecture-documentation` | ⬜ |
 | 🟩 | [Trade-offs](docs/20-trade-offs/index.md) | index | avançado | `distributed-systems` | ⬜ |
 

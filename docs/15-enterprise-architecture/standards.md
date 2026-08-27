@@ -189,6 +189,26 @@ E há um caso comum que merece decisão explícita: sistemas que não vão migra
 em processo de desativação não deveria consumir esforço para atender um padrão novo — e a
 exceção precisa ser registrada, ou ele aparece perpetuamente na lista de pendências.
 
+### Adoção medida, não declarada
+
+Um padrão só existe na medida em que é seguido, e a diferença entre "publicado" e
+"adotado" costuma ser grande o bastante para invalidar a política inteira.
+
+```text
+publicado    o documento existe
+comunicado   os times sabem que existe
+adotado      os sistemas novos seguem
+convergido   os sistemas antigos foram migrados
+```
+
+Medir a adoção separa padrões vivos de letra morta, e produz a informação que decide o
+próximo passo: um padrão publicado há dois anos e seguido por 20% dos sistemas novos ou
+está errado, ou não foi comunicado, ou não tem caminho de migração viável — e as três
+causas exigem respostas diferentes.
+
+Sem essa medição, a resposta institucional padrão é reforçar a obrigatoriedade, que é a
+única que não funciona em nenhum dos três casos.
+
 ## Modelo Mental
 
 **Padrão que precisa ser verificado por pessoa não foi operacionalizado.** Embuta,

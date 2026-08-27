@@ -114,6 +114,32 @@ describe('check-placeholders', () => {
     assert.equal(r.code, 0, r.out);
   });
 
+  // "escrever depois" também é prosa legítima — a orientação de documentar o
+  // sistema depois de construí-lo é exatamente essa frase.
+  test('não confunde "escrever depois" em prosa com marcador de pendência', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/exemplo.md': doc(
+        completeBody(
+          'A descrição funciona melhor ao escrever depois de construir, não antes.\n',
+        ),
+        {status: 'complete', doc_type: 'concept'},
+      ),
+    });
+    assert.equal(r.code, 0, r.out);
+  });
+
+  test('detecta "escrever depois" isolado como marcador', () => {
+    fails(
+      check('check-placeholders.mjs', {
+        'docs/exemplo.md': doc(
+          completeBody('Comparação entre os gabaritos: _escrever depois_\n'),
+          {status: 'complete', doc_type: 'concept'},
+        ),
+      }),
+      /pendência/,
+    );
+  });
+
   test('tolera pendência em documento ainda não completo, como aviso', () => {
     const r = check('check-placeholders.mjs', {
       'docs/exemplo.md': doc('# X\n\nTODO: escrever.\n', {status: 'in-progress'}),

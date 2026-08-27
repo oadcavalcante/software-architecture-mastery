@@ -2,92 +2,89 @@
 id: architecture-documentation
 title: Documentação de Arquitetura
 sidebar_position: 0
-description: Documentar para que alguém decida melhor depois — não para cumprir processo.
+description: Como o conhecimento sobre o sistema sobrevive às pessoas — e por que a maior parte da documentação não sobrevive a si mesma.
 doc_type: index
 level: 5
 difficulty: intermediário
 status: complete
 objective: >
-  Ao terminar, o leitor escolhe a visão certa para cada audiência e produz
-  diagramas em que cada elemento carrega informação.
+  Ao terminar, o leitor produz documentação com leitor definido, no nível de detalhe que
+  se sustenta, e que envelhece devagar.
 prerequisites: [system-design]
-related: [architecture-decisions, architecture-governance]
+related: [architecture-decisions, enterprise-architecture, observability]
 canonical_for: []
 content_version: 1
-last_reviewed: 2026-08-26
+last_reviewed: 2026-08-29
 ---
 
-# Documentação de Arquitetura
+# Nível 05 — Documentação de Arquitetura
 
-Documentação de arquitetura existe para que alguém — frequentemente você, daqui
-a dois anos — consiga decidir melhor. Todo o resto é cerimônia.
+Esta seção trata de como o conhecimento sobre o sistema sobrevive às pessoas.
 
 ## O problema desta seção
 
-Dois fracassos simétricos. No primeiro, não há documentação: o conhecimento vive
-na cabeça de três pessoas e sai pela porta quando elas saem. No segundo, há
-documentação demais: cem páginas geradas para um comitê, desatualizadas no mês
-seguinte, que ninguém lê porque ninguém confia.
+Documentação de arquitetura tem um problema recorrente: ela é produzida, e não é lida.
 
-O segundo é pior, porque consome esforço e produz falsa segurança.
+As razões são conhecidas. Ela é escrita sem leitor definido — para "documentar", não para
+alguém. Ela descreve o sistema num nível de detalhe que envelhece em semanas. Ela fica
+num lugar que ninguém visita. E ninguém é dono dela.
 
-A saída não é escrever mais nem menos, e sim escrever para uma audiência
-específica com uma decisão específica em vista. Um diagrama que não muda nenhuma
-decisão de ninguém não precisa existir.
+O resultado é o pior dos dois mundos: custo de produção e manutenção, sem o benefício —
+e, pior, um artefato desatualizado que induz decisões erradas em quem confia nele.
 
-A pergunta que este material aplica a cada artefato: **quem vai ler isto, e que
-decisão vai tomar melhor por causa disto?**
+O segundo problema é de calibração. O reflexo, quando se percebe que falta documentação,
+é documentar mais. Frequentemente a resposta certa é documentar **menos**, e melhor: um
+diagrama de contexto correto vale mais que quarenta páginas que ninguém confia.
+
+O terceiro é de derivação. Boa parte do que se documenta à mão pode ser derivada do
+sistema — dependências, topologia, versões, contratos. O que precisa de escrita humana é
+o que a máquina não sabe: **por que** as coisas são assim.
 
 ## O que você vai encontrar aqui
 
-**Princípios.** O que documentar, para quem e com que durabilidade. Separar o
-que muda toda semana do que muda a cada dois anos, e documentar cada um de forma
-diferente.
+**Princípios.** O que decide se a documentação vai ser lida: leitor, propósito, nível de
+detalhe, e onde ela vive.
 
-**O modelo C4.** Contexto, container, componente e código — como quatro níveis
-de zoom, cada um para uma audiência. Inclui o nível que quase nunca vale a pena
-manter.
+**O modelo C4.** A abordagem mais prática para diagramar software, com os quatro níveis
+de zoom — e a orientação de que os dois primeiros bastam na maioria dos casos.
 
-**Outras visões.** Diagramas de implantação, sequência e fluxo de dados. Cada um
-responde a uma pergunta que os demais respondem mal; diagrama de sequência é o
-mais subutilizado dos três.
+**Os diagramas.** Contexto, contêiner, componente, implantação, sequência e fluxo de
+dados — cada um com o que ele responde e quando não vale a pena.
 
-**Estrutura.** Visões de arquitetura e descrições de arquitetura — como organizar
-para que audiências diferentes encontrem o que precisam.
+**Visões e descrições.** Como organizar a documentação por preocupação de quem lê, em vez
+de por estrutura do sistema.
 
-**Sustentação.** Documentação viva e padrões de documentação. Como manter perto
-do código para que a defasagem seja visível.
+**Padrões e documentação viva.** Como manter, derivar e evitar que envelheça.
 
-**Qualidade de diagramas.** Notação consistente, legenda, densidade. Um diagrama
-com quarenta caixas e nenhuma legenda transfere zero informação com muito esforço.
-
-## Sobre a ferramenta
-
-Este repositório usa **Mermaid** para tudo. A razão é arquitetural: diagrama em
-texto fica versionado, aparece em diff e é revisado como código. Um diagrama que
-vive num arquivo binário numa pasta compartilhada está desatualizado agora e
-ninguém sabe.
+**Qualidade de diagrama.** O que separa um diagrama que comunica de um que polui.
 
 ## Ordem de leitura
 
-Comece por **princípios** e pela pergunta de audiência. Sem isso, C4 vira
-formato a preencher.
+Comece por **princípios de documentação** — ele estabelece os critérios que o resto usa.
 
-Depois **C4**, que é a estrutura de zoom mais útil disponível. Depois
-**diagramas de sequência**, que cobrem o que o C4 não cobre: comportamento no
-tempo, especialmente em cenário de falha.
+Depois **o modelo C4** e, dentro dele, **contexto** e **contêiner**. Esses dois diagramas
+cobrem a maior parte da necessidade real.
 
-**Qualidade de diagramas** por último, como critério de revisão.
+**Qualidade de diagrama** pode ser lido a qualquer momento e é o de retorno mais imediato
+para quem já produz diagramas.
+
+Deixe **documentação viva** para o fim: ela reorganiza tudo o que veio antes em torno da
+pergunta de como isso se mantém.
 
 ## Ao terminar
 
-Você escolhe a visão certa para a audiência certa e sabe justificar por que não
-produziu as outras. Produz diagramas em que cada elemento carrega informação.
+Você escreve para um leitor específico, com uma pergunta específica — e descarta o que
+não serve a nenhum dos dois.
 
-E consegue apagar documentação sem ansiedade quando ela deixou de servir a
-alguém.
+Escolhe o nível de detalhe pelo tempo que ele vai sobreviver, e não pela completude.
+
+Deriva do sistema o que a máquina sabe, e reserva a escrita humana para o que ela não
+sabe — as razões, os trade-offs, o que foi descartado e por quê.
+
+E reconhece que documentação desatualizada é pior que ausente, porque ela é confiável até
+o momento em que alguém age sobre ela.
 
 ## Continua em
 
-[Decisões de Arquitetura](../18-architecture-decisions/index.md) — o registro do
-porquê, que é a parte que diagramas não capturam.
+[Decisões de Arquitetura](../18-architecture-decisions/index.md), onde o registro do
+**porquê** ganha forma própria.

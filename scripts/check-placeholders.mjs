@@ -60,13 +60,14 @@ const REQUIRED_SECTIONS = {
 // case-SENSITIVE: em português, /TODO/i casa com "todo", "todo mundo",
 // "de todo" — e falharia praticamente todo documento do repositório.
 const PENDING_MARKERS = /(?<![\p{L}\p{N}_])(TODO|FIXME|TBD|XXX|WIP)(?![\p{L}\p{N}_])/gu;
-const PENDING_PHRASES = /(?<![\p{L}\p{N}_])(preencher aqui|lorem ipsum|escrever depois)(?![\p{L}\p{N}_])/giu;
+const PENDING_PHRASES = /(?<![\p{L}\p{N}_])(preencher aqui|lorem ipsum)(?![\p{L}\p{N}_])/giu;
 
 // Estas frases só são marcadores quando aparecem isoladas — "(a escrever)",
 // "_em breve_", ou sozinhas na linha. Em prosa corrida são português legítimo e
-// frequente: "último a escrever vence", "vai afetar em breve". Ver
-// check-terminology.mjs para o mesmo cuidado com "em contrapartida".
-const PENDING_ISOLATED = /(?:^|[(\[_*])\s*(a escrever|a fazer|em breve)\s*(?:[)\]_*]|$)/gimu;
+// frequente: "último a escrever vence", "vai afetar em breve", "escrever depois
+// de construir, não antes". Ver check-terminology.mjs para o mesmo cuidado com
+// "em contrapartida".
+const PENDING_ISOLATED = /(?:^|[(\[_*])\s*(a escrever|a fazer|em breve|escrever depois)\s*(?:[)\]_*]|$)/gimu;
 
 function normalize(s) {
   return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();

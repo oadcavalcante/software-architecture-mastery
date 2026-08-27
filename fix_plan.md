@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 330 de 432 (76%) |
-| Seções pendentes | 7 de 23 |
-| Próxima tarefa | `17-architecture-documentation` → `documentation-principles.md` |
+| Escrito | 343 de 432 (79%) |
+| Seções pendentes | 6 de 23 |
+| Próxima tarefa | `18-architecture-decisions` → `what-is-an-adr.md` |
 
 ## Como usar
 
@@ -27,24 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 17-architecture-documentation — Documentação de Arquitetura
-
-Nível 05 — Arquitetura · faltam 13 de 14 · spec: [`specs/17-architecture-documentation.md`](specs/17-architecture-documentation.md)
-
-- [ ] `documentation-principles.md`
-- [ ] `c4-model.md`
-- [ ] `context-diagrams.md`
-- [ ] `container-diagrams.md`
-- [ ] `component-diagrams.md`
-- [ ] `deployment-diagrams.md`
-- [ ] `sequence-diagrams.md`
-- [ ] `data-flow-diagrams.md`
-- [ ] `architecture-views.md`
-- [ ] `architecture-descriptions.md`
-- [ ] `documentation-standards.md`
-- [ ] `living-documentation.md`
-- [ ] `diagram-quality.md`
 
 ### 18-architecture-decisions — Decisões de Arquitetura
 
