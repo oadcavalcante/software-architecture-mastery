@@ -12,7 +12,7 @@ objective: >
   quando ele vai apertar.
 prerequisites: [iaas]
 related: [iaas, saas, serverless]
-canonical_for: [PaaS, plataforma como serviço, plataforma interna de desenvolvimento]
+canonical_for: [PaaS, plataforma como serviço, contorno da plataforma]
 content_version: 1
 last_reviewed: 2026-08-27
 ---
@@ -94,7 +94,9 @@ disciplina que dá portabilidade entre os três modelos, e vale mesmo sem PaaS.
 
 ### Plataforma interna de desenvolvimento
 
-A versão construída dentro de casa: um time de plataforma oferece aos demais uma
+A versão construída dentro de casa — ver
+[plataformas internas](../14-devops-and-platform/internal-developer-platforms.md)
+para o tratamento completo: um time de plataforma oferece aos demais uma
 camada com implantação, observabilidade e padrões prontos, sobre
 [Kubernetes](kubernetes.md) ou IaaS.
 

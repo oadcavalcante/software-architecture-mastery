@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 285 de 432 (66%) |
-| Seções pendentes | 10 de 23 |
-| Próxima tarefa | `14-devops-and-platform` → `ci-cd.md` |
+| Escrito | 298 de 432 (69%) |
+| Seções pendentes | 9 de 23 |
+| Próxima tarefa | `15-enterprise-architecture` → `enterprise-architecture-basics.md` |
 
 ## Como usar
 
@@ -27,24 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 14-devops-and-platform — DevOps e Plataforma
-
-Nível 05 — Arquitetura · faltam 13 de 14 · spec: [`specs/14-devops-and-platform.md`](specs/14-devops-and-platform.md)
-
-- [ ] `ci-cd.md`
-- [ ] `infrastructure-as-code.md`
-- [ ] `containers-in-delivery.md`
-- [ ] `deployment-strategies.md`
-- [ ] `blue-green.md`
-- [ ] `canary.md`
-- [ ] `rolling-deployments.md`
-- [ ] `feature-flags.md`
-- [ ] `environment-management.md`
-- [ ] `platform-engineering.md`
-- [ ] `internal-developer-platforms.md`
-- [ ] `supply-chain-security.md`
-- [ ] `release-management.md`
 
 ### 15-enterprise-architecture — Arquitetura Corporativa
 

@@ -5,7 +5,7 @@
 | Diretório | `docs/14-devops-and-platform/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 13 (0%) |
+| Progresso | 13 / 13 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,19 +15,19 @@ Esta seção está completa quando os 13 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `ci-cd` |
-| ⬜ | `infrastructure-as-code` |
-| ⬜ | `containers-in-delivery` |
-| ⬜ | `deployment-strategies` |
-| ⬜ | `blue-green` |
-| ⬜ | `canary` |
-| ⬜ | `rolling-deployments` |
-| ⬜ | `feature-flags` |
-| ⬜ | `environment-management` |
-| ⬜ | `platform-engineering` |
-| ⬜ | `internal-developer-platforms` |
-| ⬜ | `supply-chain-security` |
-| ⬜ | `release-management` |
+| 🟩 | `ci-cd` |
+| 🟩 | `infrastructure-as-code` |
+| 🟩 | `containers-in-delivery` |
+| 🟩 | `deployment-strategies` |
+| 🟩 | `blue-green` |
+| 🟩 | `canary` |
+| 🟩 | `rolling-deployments` |
+| 🟩 | `feature-flags` |
+| 🟩 | `environment-management` |
+| 🟩 | `platform-engineering` |
+| 🟩 | `internal-developer-platforms` |
+| 🟩 | `supply-chain-security` |
+| 🟩 | `release-management` |
 
 ## Critério de conclusão
 

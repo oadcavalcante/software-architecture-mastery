@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**289 de 437 documentos planejados escritos (66%).**
+**302 de 437 documentos planejados escritos (69%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -31,7 +31,7 @@ mas já tem índice publicado explicando o que virá.
 | `11-scalability` | 05 | 14 / 14 | `██████████` 100% |
 | `12-reliability` | 05 | 18 / 18 | `██████████` 100% |
 | `13-observability` | 05 | 12 / 12 | `██████████` 100% |
-| `14-devops-and-platform` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
+| `14-devops-and-platform` | 05 | 14 / 14 | `██████████` 100% |
 | `15-enterprise-architecture` | 06 | 1 / 21 | `█░░░░░░░░░` 5% |
 | `16-legacy-modernization` | 06 | 1 / 13 | `█░░░░░░░░░` 8% |
 | `17-architecture-documentation` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
@@ -349,7 +349,20 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Conceitos de SRE](docs/13-observability/sre-concepts.md) | concept | avançado | `observability` | ⬜ |
 | 🟩 | [Telemetria](docs/13-observability/telemetry.md) | concept | avançado | `observability` | ⬜ |
 | 🟩 | [Traces](docs/13-observability/traces.md) | concept | intermediário | `observability` | ⬜ |
-| 🟩 | [DevOps e Plataforma](docs/14-devops-and-platform/index.md) | index | intermediário | `system-design` | ⬜ |
+| 🟩 | [Blue-Green](docs/14-devops-and-platform/blue-green.md) | pattern | intermediário | `deployment-strategies` | ⬜ |
+| 🟩 | [Canary](docs/14-devops-and-platform/canary.md) | pattern | avançado | `deployment-strategies` | ⬜ |
+| 🟩 | [Integração e Entrega Contínuas](docs/14-devops-and-platform/ci-cd.md) | concept | intermediário | `devops-and-platform` | ⬜ |
+| 🟩 | [Contêineres na Entrega](docs/14-devops-and-platform/containers-in-delivery.md) | concept | intermediário | `ci-cd` | ⬜ |
+| 🟩 | [Estratégias de Implantação](docs/14-devops-and-platform/deployment-strategies.md) | tradeoff | intermediário | `ci-cd` | ⬜ |
+| 🟩 | [Gestão de Ambientes](docs/14-devops-and-platform/environment-management.md) | concept | intermediário | `infrastructure-as-code` | ⬜ |
+| 🟩 | [Feature Flags](docs/14-devops-and-platform/feature-flags.md) | pattern | intermediário | `ci-cd` | ⬜ |
+| 🟩 | [DevOps e Plataforma](docs/14-devops-and-platform/index.md) | index | avançado | `observability` | ⬜ |
+| 🟩 | [Infraestrutura como Código](docs/14-devops-and-platform/infrastructure-as-code.md) | concept | intermediário | `devops-and-platform` | ⬜ |
+| 🟩 | [Plataformas Internas](docs/14-devops-and-platform/internal-developer-platforms.md) | concept | avançado | `platform-engineering` | ⬜ |
+| 🟩 | [Engenharia de Plataforma](docs/14-devops-and-platform/platform-engineering.md) | concept | avançado | `devops-and-platform` | ⬜ |
+| 🟩 | [Gestão de Releases](docs/14-devops-and-platform/release-management.md) | concept | intermediário | `ci-cd` | ⬜ |
+| 🟩 | [Implantação em Ondas](docs/14-devops-and-platform/rolling-deployments.md) | pattern | intermediário | `deployment-strategies` | ⬜ |
+| 🟩 | [Segurança da Esteira](docs/14-devops-and-platform/supply-chain-security.md) | concept | avançado | `ci-cd` | ⬜ |
 | 🟩 | [Documentação de Arquitetura](docs/17-architecture-documentation/index.md) | index | intermediário | `system-design` | ⬜ |
 | 🟩 | [Decisões de Arquitetura](docs/18-architecture-decisions/index.md) | index | intermediário | `architecture-documentation` | ⬜ |
 | 🟩 | [Trade-offs](docs/20-trade-offs/index.md) | index | avançado | `distributed-systems` | ⬜ |
