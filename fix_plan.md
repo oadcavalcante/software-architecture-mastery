@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 227 de 432 (53%) |
-| Seções pendentes | 14 de 23 |
-| Próxima tarefa | `10-security` → `identity.md` |
+| Escrito | 244 de 432 (56%) |
+| Seções pendentes | 13 de 23 |
+| Próxima tarefa | `11-scalability` → `vertical-scaling.md` |
 
 ## Como usar
 
@@ -27,28 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 10-security — Arquitetura de Segurança
-
-Nível 05 — Arquitetura · faltam 17 de 18 · spec: [`specs/10-security.md`](specs/10-security.md)
-
-- [ ] `identity.md`
-- [ ] `oauth2.md`
-- [ ] `oidc.md`
-- [ ] `jwt.md`
-- [ ] `secrets.md`
-- [ ] `encryption.md`
-- [ ] `key-management.md`
-- [ ] `network-security.md`
-- [ ] `zero-trust.md`
-- [ ] `threat-modeling.md`
-- [ ] `secure-boundaries.md`
-- [ ] `least-privilege.md`
-- [ ] `auditability.md`
-- [ ] `data-protection.md`
-- [ ] `security-failure-modes.md`
-- [ ] `authz-models.md`
-- [ ] `supply-chain-trust.md`
 
 ### 11-scalability — Escalabilidade
 

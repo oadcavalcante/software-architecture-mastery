@@ -5,7 +5,7 @@
 | Diretório | `docs/10-security/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 17 (0%) |
+| Progresso | 17 / 17 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,23 +15,23 @@ Esta seção está completa quando os 17 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `identity` |
-| ⬜ | `oauth2` |
-| ⬜ | `oidc` |
-| ⬜ | `jwt` |
-| ⬜ | `secrets` |
-| ⬜ | `encryption` |
-| ⬜ | `key-management` |
-| ⬜ | `network-security` |
-| ⬜ | `zero-trust` |
-| ⬜ | `threat-modeling` |
-| ⬜ | `secure-boundaries` |
-| ⬜ | `least-privilege` |
-| ⬜ | `auditability` |
-| ⬜ | `data-protection` |
-| ⬜ | `security-failure-modes` |
-| ⬜ | `authz-models` |
-| ⬜ | `supply-chain-trust` |
+| 🟩 | `identity` |
+| 🟩 | `oauth2` |
+| 🟩 | `oidc` |
+| 🟩 | `jwt` |
+| 🟩 | `secrets` |
+| 🟩 | `encryption` |
+| 🟩 | `key-management` |
+| 🟩 | `network-security` |
+| 🟩 | `zero-trust` |
+| 🟩 | `threat-modeling` |
+| 🟩 | `secure-boundaries` |
+| 🟩 | `least-privilege` |
+| 🟩 | `auditability` |
+| 🟩 | `data-protection` |
+| 🟩 | `security-failure-modes` |
+| 🟩 | `authz-models` |
+| 🟩 | `supply-chain-trust` |
 
 ## Critério de conclusão
 

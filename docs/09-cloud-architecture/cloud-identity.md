@@ -12,7 +12,7 @@ objective: >
   elimina credenciais de longa duração.
 prerequisites: [cloud-architecture]
 related: [cloud-networking, vendor-lock-in, managed-services]
-canonical_for: [identidade em nuvem, menor privilégio, credencial de curta duração, papel de serviço]
+canonical_for: [identidade em nuvem, credencial de curta duração, papel de serviço]
 content_version: 1
 last_reviewed: 2026-08-27
 ---
@@ -47,7 +47,9 @@ script com defeito — e o alcance do dano é o alcance da permissão.
 
 ### Menor privilégio é o princípio, e ele é operacionalizável
 
-Conceder apenas o necessário para a função, e nada além.
+Conceder apenas o necessário para a função, e nada além. Ver
+[menor privilégio](../10-security/least-privilege.md) para o tratamento completo;
+aqui interessa como aplicá-lo na nuvem.
 
 Isso parece abstrato até virar procedimento:
 

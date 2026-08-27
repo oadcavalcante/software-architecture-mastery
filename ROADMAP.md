@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**231 de 437 documentos planejados escritos (53%).**
+**248 de 437 documentos planejados escritos (57%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -27,7 +27,7 @@ mas já tem índice publicado explicando o que virá.
 | `07-data-architecture` | 05 | 22 / 22 | `██████████` 100% |
 | `08-integration-architecture` | 05 | 15 / 15 | `██████████` 100% |
 | `09-cloud-architecture` | 05 | 19 / 19 | `██████████` 100% |
-| `10-security` | 05 | 1 / 18 | `█░░░░░░░░░` 6% |
+| `10-security` | 05 | 18 / 18 | `██████████` 100% |
 | `11-scalability` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
 | `12-reliability` | 05 | 1 / 18 | `█░░░░░░░░░` 6% |
 | `13-observability` | 05 | 1 / 12 | `█░░░░░░░░░` 8% |
@@ -287,7 +287,24 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [SaaS](docs/09-cloud-architecture/saas.md) | concept | intermediário | `paas` | ⬜ |
 | 🟩 | [Serverless](docs/09-cloud-architecture/serverless.md) | concept | avançado | `managed-services` | ⬜ |
 | 🟩 | [Dependência de Fornecedor](docs/09-cloud-architecture/vendor-lock-in.md) | tradeoff | avançado | `managed-services` | ⬜ |
+| 🟩 | [Auditabilidade](docs/10-security/auditability.md) | concept | intermediário | `security` | ⬜ |
+| 🟩 | [Modelos de Autorização](docs/10-security/authz-models.md) | tradeoff | avançado | `identity` | ⬜ |
+| 🟩 | [Proteção de Dados](docs/10-security/data-protection.md) | concept | avançado | `security` | ⬜ |
+| 🟩 | [Criptografia](docs/10-security/encryption.md) | concept | avançado | `security` | ⬜ |
+| 🟩 | [Identidade](docs/10-security/identity.md) | concept | intermediário | `security` | ⬜ |
 | 🟩 | [Arquitetura de Segurança](docs/10-security/index.md) | index | avançado | `system-design` | ⬜ |
+| 🟩 | [JWT](docs/10-security/jwt.md) | concept | avançado | `oauth2` | ⬜ |
+| 🟩 | [Gestão de Chaves](docs/10-security/key-management.md) | concept | avançado | `encryption` | ⬜ |
+| 🟩 | [Menor Privilégio](docs/10-security/least-privilege.md) | concept | intermediário | `security` | ⬜ |
+| 🟩 | [Segurança de Rede](docs/10-security/network-security.md) | concept | intermediário | `security` | ⬜ |
+| 🟩 | [OAuth 2.0](docs/10-security/oauth2.md) | concept | avançado | `identity` | ⬜ |
+| 🟩 | [OpenID Connect](docs/10-security/oidc.md) | concept | avançado | `oauth2` | ⬜ |
+| 🟩 | [Segredos](docs/10-security/secrets.md) | concept | intermediário | `security` | ⬜ |
+| 🟩 | [Fronteiras Seguras](docs/10-security/secure-boundaries.md) | concept | avançado | `threat-modeling` | ⬜ |
+| 🟩 | [Modos de Falha de Segurança](docs/10-security/security-failure-modes.md) | concept | avançado | `secure-boundaries` | ⬜ |
+| 🟩 | [Confiança na Cadeia de Suprimentos](docs/10-security/supply-chain-trust.md) | concept | avançado | `security` | ⬜ |
+| 🟩 | [Modelagem de Ameaças](docs/10-security/threat-modeling.md) | concept | avançado | `security` | ⬜ |
+| 🟩 | [Confiança Zero](docs/10-security/zero-trust.md) | concept | avançado | `secure-boundaries` | ⬜ |
 | 🟩 | [Escalabilidade](docs/11-scalability/index.md) | index | avançado | `system-design`, `distributed-systems` | ⬜ |
 | 🟩 | [Confiabilidade](docs/12-reliability/index.md) | index | avançado | `distributed-systems` | ⬜ |
 | 🟩 | [Observabilidade](docs/13-observability/index.md) | index | intermediário | `distributed-systems` | ⬜ |

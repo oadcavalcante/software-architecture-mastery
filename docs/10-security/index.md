@@ -2,83 +2,103 @@
 id: security
 title: Arquitetura de Segurança
 sidebar_position: 0
-description: Segurança como propriedade estrutural — fronteiras, identidade e o que acontece quando cada controle falha.
+description: Projetar sistemas que resistem a quem quer quebrá-los — decisões estruturais, não uma camada adicionada no fim.
 doc_type: index
 level: 5
 difficulty: avançado
 status: complete
 objective: >
-  Ao terminar, o leitor modela ameaças de um sistema, desenha fronteiras de
-  confiança e escolhe controles a partir do que falha se cada um for burlado.
+  Ao terminar, o leitor trata segurança como propriedade do desenho, com fronteiras
+  de confiança explícitas e falhas que fecham em vez de abrir.
 prerequisites: [system-design]
-related: [cloud-architecture, integration-architecture, architecture-governance]
+related: [cloud-architecture, integration-architecture, reliability]
 canonical_for: []
 content_version: 1
-last_reviewed: 2026-08-26
+last_reviewed: 2026-08-28
 ---
 
-# Arquitetura de Segurança
+# Nível 05 — Arquitetura de Segurança
 
-Segurança não é uma camada adicionada no fim. É uma propriedade estrutural, e
-estrutura é decidida cedo.
+Esta seção trata de projetar sistemas que resistem a quem quer quebrá-los.
 
 ## O problema desta seção
 
-O tratamento mais comum de segurança em arquitetura é uma lista de controles:
-criptografe em trânsito, use OAuth2, guarde segredos num cofre. A lista não é
-errada — é insuficiente, porque não diz onde estão as fronteiras nem o que
-acontece quando um item falha.
+Segurança é frequentemente tratada como uma etapa: constrói-se o sistema, e depois
+alguém faz uma revisão, roda uma varredura e aponta correções.
 
-O raciocínio arquitetural de segurança parte de outras perguntas. Quais são as
-fronteiras de confiança do sistema? O que atravessa cada uma? Quem é o
-adversário plausível, e o que ele ganha? Se este controle específico for
-burlado, o que ele ainda protege?
+Isso funciona para uma classe de problema — configuração errada, biblioteca
+desatualizada — e não funciona para a que importa. As falhas graves são quase sempre
+**estruturais**: uma fronteira de confiança no lugar errado, uma permissão ampla
+demais concedida no início, um dado que não deveria estar ali.
 
-A última é a que separa arquitetura de checklist. Um controle cuja falha derruba
-tudo não é um controle — é um ponto único de falha com nome de segurança.
+Nenhuma varredura encontra isso, porque não é defeito de código. É decisão de
+arquitetura.
+
+O segundo problema é de enquadramento. "Segurança" é discutida como se fosse uma
+propriedade binária — o sistema é seguro ou não é. Ela é, na prática, um conjunto de
+decisões sobre **contra quem**, **protegendo o quê**, e **a que custo** — que é
+exatamente a forma de qualquer outro trade-off arquitetural.
 
 ## O que você vai encontrar aqui
 
-**Identidade e acesso.** Autenticação, autorização, identidade, OAuth2, OIDC e
-JWT. Tratados pelo que garantem e — mais importante — pelo que não garantem.
-JWT em particular acumula mais mal-entendidos que qualquer outro item da lista.
+**Identidade e acesso.** Identidade, OAuth 2.0, OpenID Connect e JWT — os quatro
+tratados pelo que resolvem e pelo que costumam ser usados errado. JWT ganha atenção
+específica ao problema de revogação, que é onde a maioria das implementações falha.
 
-**Segredos e criptografia.** Gestão de segredos, criptografia e gestão de
-chaves. A chave é o problema difícil; o algoritmo raramente é.
+**Autorização.** Modelos de autorização — por papel, por atributo, por relação — com
+o critério para escolher, que raramente é discutido.
 
-**Fronteiras.** Segurança de rede, Zero Trust e fronteiras seguras. Zero Trust
-apresentado como consequência de uma premissa — a rede interna não é confiável —
-e não como produto.
+**Os princípios que decidem estrutura.** Menor privilégio, fronteiras de confiança
+seguras, confiança zero e defesa em profundidade. São eles que determinam o tamanho
+do dano quando algo dá errado.
 
-**Análise.** Threat modeling e menor privilégio. O método que transforma
-segurança de opinião em análise.
+**Segredos e criptografia.** Gestão de segredos, criptografia em trânsito e em
+repouso, e gestão de chaves — o tópico onde a intuição mais engana.
 
-**Consequências.** Auditabilidade, proteção de dados e modos de falha de
-segurança. O que o sistema consegue provar depois que algo aconteceu.
+**Modelagem de ameaças.** A prática que transforma "vamos pensar em segurança" em
+uma lista concreta de decisões. É o documento de maior retorno da seção.
+
+**Proteção de dados e auditabilidade.** O que guardar, como proteger, e como provar
+o que aconteceu.
+
+**Modos de falha de segurança.** Como um sistema falha quando falha — e por que
+falhar fechado precisa ser decisão consciente.
+
+**Confiança na cadeia de suprimentos.** Dependências, artefatos e esteiras — o vetor
+que mais cresceu.
 
 ## Ordem de leitura
 
-Comece por **fronteiras de confiança** e **threat modeling**. São o método;
-todo o resto são controles que só fazem sentido dentro dele.
+Comece por **modelagem de ameaças**. Sem ela, os demais documentos viram lista de
+boas práticas sem critério de prioridade.
 
-Leia **menor privilégio** logo em seguida. É o princípio com maior retorno por
-esforço e o mais frequentemente sacrificado por conveniência de implantação.
+Depois **fronteiras seguras** e **menor privilégio**, nessa ordem. Eles determinam
+o alcance de qualquer comprometimento, e são as duas decisões que mais mudam o
+resultado de um incidente.
 
-**Modos de falha de segurança** é a seção que mais distingue este material de um
-checklist. Leia com atenção: descreve o que acontece com o resto do sistema
-quando cada controle é burlado.
+**Identidade**, **OAuth 2.0**, **OpenID Connect** e **JWT** formam um bloco e devem
+ser lidos em sequência — os três últimos só fazem sentido sobre o primeiro.
+
+Deixe **criptografia** e **gestão de chaves** juntos para o fim. Eles são densos, e
+a lição principal — não implemente você mesmo — é rápida de aceitar e difícil de
+respeitar sob pressão.
 
 ## Ao terminar
 
-Você produz um modelo de ameaças de um sistema real, com fronteiras, ativos e
-adversários nomeados. Consegue justificar cada controle pelo que ele contém em
-caso de falha dos outros.
+Você desenha fronteiras de confiança explícitas, e sabe dizer o que acontece quando
+cada uma é atravessada.
 
-E consegue argumentar contra um controle caro que não reduz risco material —
-que é uma conversa tão necessária quanto a inversa.
+Consegue conduzir uma modelagem de ameaças sobre um desenho e sair com decisões, não
+com preocupações.
 
-## Relacionado
+Reconhece que a pergunta não é "é seguro?", e sim "resiste a quem, protegendo o quê,
+e o que acontece quando falhar?".
 
-[Nuvem](../09-cloud-architecture/index.md) para identidade e rede na prática, e
-[Governança](../19-architecture-governance/index.md) para sustentar isso entre
-times.
+E entende que a maior parte do trabalho de segurança em arquitetura é **reduzir o
+alcance do dano**, não impedir o comprometimento — porque o comprometimento
+eventualmente acontece.
+
+## Continua em
+
+[Escalabilidade](../11-scalability/index.md), onde as fronteiras que você desenhou
+aqui passam a ser testadas por volume.
