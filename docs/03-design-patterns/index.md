@@ -50,6 +50,21 @@ Filters, Space-Based Architecture e SOA. Estes operam num nível diferente:
 decidem como o sistema é implantado e operado, não apenas como o código é
 organizado.
 
+## Três padrões que moram no Nível 02
+
+Layered, Hexagonal e Clean Architecture são padrões arquiteturais e são tratados
+em [Design de Software](../02-software-design/index.md), porque ali eles surgem
+como consequência das decisões de fronteira e direção de dependência.
+
+Um conceito tem um único documento canônico neste material; onde reaparece, é
+referenciado. Os links diretos:
+
+- [Camadas](../02-software-design/layering.md)
+- [Ports and Adapters](../02-software-design/ports-and-adapters.md)
+- [Arquitetura Hexagonal](../02-software-design/hexagonal-architecture.md)
+- [Arquitetura Onion](../02-software-design/onion-architecture.md)
+- [Clean Architecture](../02-software-design/clean-architecture.md)
+
 ## A regra desta seção
 
 **Nenhum padrão é apresentado sem a discussão de quando não usá-lo.**

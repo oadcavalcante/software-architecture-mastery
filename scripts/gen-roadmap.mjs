@@ -44,7 +44,10 @@ const SECTION_LEVEL = {
  * mede contra o escopo, não contra si mesmo.
  */
 const PLANNED_TOPICS = {
-  '01-fundamentals': 22, '02-software-design': 22, '03-design-patterns': 34,
+  '01-fundamentals': 22, '02-software-design': 22,
+  // 30, não 34: Layered, Hexagonal e Clean Architecture são canônicos em
+  // 02-software-design e aqui são referenciados, não duplicados (SPEC §7.4).
+  '03-design-patterns': 30,
   '04-domain-driven-design': 19, '05-system-design': 23, '06-distributed-systems': 35,
   '07-data-architecture': 20, '08-integration-architecture': 14, '09-cloud-architecture': 18,
   '10-security': 17, '11-scalability': 13, '12-reliability': 17, '13-observability': 11,

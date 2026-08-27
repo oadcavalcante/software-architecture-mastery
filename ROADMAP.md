@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**71 de 440 documentos planejados escritos (16%).**
+**101 de 436 documentos planejados escritos (23%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -20,7 +20,7 @@ mas já tem índice publicado explicando o que virá.
 | `(raiz)` | — | 4 / 5 | `████████░░` 80% |
 | `01-fundamentals` | 01 | 23 / 23 | `██████████` 100% |
 | `02-software-design` | 02 | 23 / 23 | `██████████` 100% |
-| `03-design-patterns` | 02 | 1 / 35 | `░░░░░░░░░░` 3% |
+| `03-design-patterns` | 02 | 31 / 31 | `██████████` 100% |
 | `04-domain-driven-design` | 02 | 1 / 20 | `█░░░░░░░░░` 5% |
 | `05-system-design` | 03 | 1 / 24 | `░░░░░░░░░░` 4% |
 | `06-distributed-systems` | 04 | 1 / 36 | `░░░░░░░░░░` 3% |
@@ -105,7 +105,37 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Refatoração](docs/02-software-design/refactoring.md) | concept | intermediário | `code-smells` | ⬜ |
 | 🟩 | [SOLID](docs/02-software-design/solid.md) | concept | intermediário | `fundamentals` | ⬜ |
 | 🟩 | [YAGNI](docs/02-software-design/yagni.md) | concept | iniciante | `fundamentals` | ⬜ |
+| 🟩 | [Abstract Factory](docs/03-design-patterns/abstract-factory.md) | pattern | intermediário | `factory-method` | ⬜ |
+| 🟩 | [Adapter](docs/03-design-patterns/adapter.md) | pattern | iniciante | `design-patterns` | ⬜ |
+| 🟩 | [Bridge](docs/03-design-patterns/bridge.md) | pattern | avançado | `adapter` | ⬜ |
+| 🟩 | [Builder](docs/03-design-patterns/builder.md) | pattern | iniciante | `design-patterns` | ⬜ |
+| 🟩 | [Chain of Responsibility](docs/03-design-patterns/chain-of-responsibility.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [Command](docs/03-design-patterns/command.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [Composite](docs/03-design-patterns/composite.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [CQRS](docs/03-design-patterns/cqrs.md) | pattern | avançado | `event-driven` | ⬜ |
+| 🟩 | [Decorator](docs/03-design-patterns/decorator.md) | pattern | intermediário | `composite` | ⬜ |
+| 🟩 | [Arquitetura Orientada a Eventos](docs/03-design-patterns/event-driven.md) | pattern | avançado | `microservices` | ⬜ |
+| 🟩 | [Event Sourcing](docs/03-design-patterns/event-sourcing.md) | pattern | avançado | `cqrs` | ⬜ |
+| 🟩 | [Facade](docs/03-design-patterns/facade.md) | pattern | iniciante | `design-patterns` | ⬜ |
+| 🟩 | [Factory Method](docs/03-design-patterns/factory-method.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [Flyweight](docs/03-design-patterns/flyweight.md) | pattern | avançado | `design-patterns` | ⬜ |
 | 🟩 | [Design Patterns](docs/03-design-patterns/index.md) | index | intermediário | `software-design` | ⬜ |
+| 🟩 | [Iterator](docs/03-design-patterns/iterator.md) | pattern | iniciante | `design-patterns` | ⬜ |
+| 🟩 | [Mediator](docs/03-design-patterns/mediator.md) | pattern | intermediário | `observer` | ⬜ |
+| 🟩 | [Memento](docs/03-design-patterns/memento.md) | pattern | intermediário | `command` | ⬜ |
+| 🟩 | [Microsserviços](docs/03-design-patterns/microservices.md) | pattern | avançado | `modular-monolith` | ⬜ |
+| 🟩 | [Monolito Modular](docs/03-design-patterns/modular-monolith.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [Observer](docs/03-design-patterns/observer.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [Pipes and Filters](docs/03-design-patterns/pipes-and-filters.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [Prototype](docs/03-design-patterns/prototype.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [Proxy](docs/03-design-patterns/proxy.md) | pattern | intermediário | `decorator` | ⬜ |
+| 🟩 | [Singleton](docs/03-design-patterns/singleton.md) | pattern | iniciante | `design-patterns` | ⬜ |
+| 🟩 | [SOA](docs/03-design-patterns/soa.md) | pattern | intermediário | `microservices` | ⬜ |
+| 🟩 | [Space-Based Architecture](docs/03-design-patterns/space-based-architecture.md) | pattern | avançado | `microservices` | ⬜ |
+| 🟩 | [State](docs/03-design-patterns/state.md) | pattern | intermediário | `strategy` | ⬜ |
+| 🟩 | [Strategy](docs/03-design-patterns/strategy.md) | pattern | iniciante | `design-patterns` | ⬜ |
+| 🟩 | [Template Method](docs/03-design-patterns/template-method.md) | pattern | iniciante | `design-patterns` | ⬜ |
+| 🟩 | [Visitor](docs/03-design-patterns/visitor.md) | pattern | avançado | `composite` | ⬜ |
 | 🟩 | [Domain-Driven Design](docs/04-domain-driven-design/index.md) | index | intermediário | `software-design` | ⬜ |
 
 ### Nível 03 — Design de Sistemas
@@ -173,7 +203,7 @@ Cada fase entrega um site publicável e útil por si só. Ver
 |---|---|:-:|
 | **F0** | Scaffold Docusaurus, i18n, Mermaid, busca, CI, validadores, deploy | 🟩 |
 | **F1** | README, ROADMAP, CONTRIBUTING, glossário, modelo de maturidade, política terminológica, 23 índices de seção, sidebar por nível | 🟩 |
-| **F2** | Níveis 01–02: fundamentos, design de software, padrões, DDD | 🟨 Seções 01 e 02 completas (44 tópicos); faltam 03 e 04 |
+| **F2** | Níveis 01–02: fundamentos, design de software, padrões, DDD | 🟨 Seções 01, 02 e 03 completas (74 tópicos); falta 04 |
 | **F3** | Níveis 03–04: design de sistemas, sistemas distribuídos | ⬜ |
 | **F4** | Nível 05: as onze disciplinas de arquitetura + ADRs didáticos | ⬜ |
 | **F5** | Níveis 06–07: corporativo, legado, governança, liderança | ⬜ |

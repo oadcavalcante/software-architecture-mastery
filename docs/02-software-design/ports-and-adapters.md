@@ -12,7 +12,7 @@ objective: >
   e reconhece quando o custo não se paga.
 prerequisites: [dependency-inversion]
 related: [hexagonal-architecture, onion-architecture, clean-architecture]
-canonical_for: [ports and adapters, porta, adaptador]
+canonical_for: [ports and adapters, porta primária, porta secundária]
 content_version: 1
 last_reviewed: 2026-08-26
 ---
