@@ -2,83 +2,100 @@
 id: legacy-modernization
 title: Modernização de Legado
 sidebar_position: 0
-description: Mudar sistemas que não podem parar, sem apostar a empresa numa reescrita.
+description: Mudar o que já está em produção, funcionando, e sustentando o negócio — sem parar.
 doc_type: index
 level: 6
 difficulty: avançado
 status: complete
 objective: >
-  Ao terminar, o leitor escolhe entre as estratégias de modernização a partir de
-  risco e valor, e sabe por que reescrever é quase sempre a pior delas.
+  Ao terminar, o leitor escolhe estratégia de modernização a partir do motivo real, e
+  executa incrementalmente com risco controlado.
 prerequisites: [enterprise-architecture]
-related: [architecture-decisions, architecture-governance]
+related: [enterprise-architecture, architecture-governance, architecture-leadership]
 canonical_for: []
 content_version: 1
-last_reviewed: 2026-08-26
+last_reviewed: 2026-08-28
 ---
 
-# Modernização de Legado
+# Nível 06 — Modernização de Legado
 
-A maior parte do trabalho de arquitetura acontece sobre sistemas que já existem,
-não em folha em branco. Esta seção trata desse caso.
+Esta seção trata de mudar o que já está em produção, funcionando, e sustentando o
+negócio.
 
 ## O problema desta seção
 
-Sistemas legados têm três propriedades que tornam a mudança difícil: estão em
-produção e não podem parar, encodam regras de negócio que ninguém documentou, e
-frequentemente já sobreviveram a uma tentativa de substituição fracassada.
+Projetar do zero é o caso raro. A maior parte do trabalho de arquitetura acontece sobre
+sistemas que já existem — que atendem clientes agora, que ninguém entende completamente,
+e que não podem parar.
 
-A resposta instintiva — reescrever — é a que mais falha. Falha porque o sistema
-antigo continua evoluindo durante a reescrita, porque as regras não documentadas
-só aparecem quando o novo sistema erra em produção, e porque o valor só chega no
-fim, quando o orçamento já acabou.
+Isso muda a natureza do problema. Numa construção nova, a dificuldade é decidir. Aqui, a
+dificuldade é **mudar sem quebrar** — e o sistema em produção é a restrição, não o
+ponto de partida.
 
-O trabalho arquitetural aqui é encontrar caminhos incrementais: mudanças que
-entregam valor antes de estarem completas e que podem ser revertidas.
+O segundo problema é de motivação. "É legado" não é razão para modernizar. Um sistema
+antigo, estável, barato de operar e que ninguém precisa mudar está fazendo o trabalho
+dele. Modernizar por desconforto estético é a forma mais cara de não entregar nada.
+
+A pergunta que precede tudo: **o que exatamente não conseguimos fazer por causa deste
+sistema?** Se não houver resposta concreta, não há projeto.
+
+O terceiro é de execução. Reescritas completas falham com frequência conhecida, por
+razões estruturais: elas competem com um sistema em movimento, o conhecimento embutido
+no código antigo se perde, e o valor só aparece no fim — quando frequentemente já não há
+apoio.
 
 ## O que você vai encontrar aqui
 
-**Diagnóstico.** O que caracteriza um sistema legado além da idade — e por que
-"legado" descreve a relação do time com o sistema, não a tecnologia dele.
+**O que é legado, e o que motiva mudar.** A definição útil, e os motivos que sustentam
+investimento — separados dos que não sustentam.
 
-**As estratégias.** Replatforming, refactoring, rebuilding e replacing, com o
-perfil de risco, custo e prazo de cada uma. A escolha entre elas é a decisão
-central da seção.
+**Estrangulamento.** O padrão que permite substituir gradualmente, com o antigo em
+operação.
 
-**O padrão principal.** Strangler fig — substituição incremental com convivência
-entre o antigo e o novo. Tratado a fundo, incluindo o que ele exige em
-roteamento, consistência de dados e a fase desconfortável em que os dois sistemas
-coexistem.
+**Modernização incremental.** A abordagem que sobrevive a interrupções.
 
-**Modernização incremental.** Como fatiar para que cada fatia entregue valor.
+**As estratégias.** Replataformar, refatorar, reconstruir, substituir — cada uma com o
+problema que resolve e o que ela custa.
 
-**Migração.** Estratégias de migração de dados, que são frequentemente a parte
-mais difícil e a menos planejada.
+**Migração de dados.** A parte mais arriscada e a mais subestimada de qualquer
+modernização.
 
-**Realidade.** Gestão de risco e restrições organizacionais. Por que a melhor
-estratégia técnica perde para a que o negócio consegue patrocinar por três anos.
+**Risco.** O que dá errado, e os controles que reduzem a probabilidade e o dano.
+
+**Restrições organizacionais.** As que decidem o resultado com mais frequência que as
+técnicas — conhecimento concentrado, apoio que evapora, incentivo desalinhado.
 
 ## Ordem de leitura
 
-Comece pelas **quatro estratégias**, para ter o espaço de decisão inteiro antes
-de aprofundar em qualquer uma.
+Comece por **motivadores de modernização**. Ele estabelece o critério que separa
+projetos que se justificam dos que são desconforto com nome de estratégia.
 
-Depois **strangler fig**, que é o padrão que viabiliza a maior parte dos casos
-reais.
+Depois **estratégias de migração**, que organiza as opções e o critério de escolha.
 
-Leia **restrições organizacionais** por último e com atenção. É o tópico que mais
-frequentemente explica por que a modernização tecnicamente correta não aconteceu.
+**Estrangulamento** e **modernização incremental** formam um bloco — o primeiro é o
+padrão, o segundo é a disciplina de executá-lo.
+
+**Migração de dados** merece leitura atenta: é onde os projetos falham de forma
+irreversível.
+
+E deixe **restrições organizacionais** para o fim, lendo-o como o documento que explica
+por que projetos tecnicamente corretos fracassam.
 
 ## Ao terminar
 
-Você avalia um sistema legado e recomenda uma estratégia com justificativa de
-risco e valor, não de preferência técnica. Desenha um caminho incremental com
-pontos de reversão.
+Você exige um motivo concreto antes de propor modernização, e sabe defender a decisão de
+**não** modernizar.
 
-E consegue argumentar contra uma reescrita completa diante de um time que quer
-fazê-la — que é uma das conversas mais difíceis e mais necessárias da profissão.
+Escolhe entre replataformar, refatorar, reconstruir e substituir a partir do problema, e
+não da preferência.
 
-## Relacionado
+Executa em incrementos que entregam valor por si, de forma que uma interrupção não
+transforme meses de trabalho em desperdício.
 
-[ADRs](../18-architecture-decisions/index.md), porque decisões de modernização
-duram anos e precisam do contexto registrado.
+E reconhece que os obstáculos decisivos costumam ser organizacionais — e que ignorá-los
+é a razão mais comum de fracasso de programas tecnicamente bem desenhados.
+
+## Continua em
+
+[Governança de Arquitetura](../19-architecture-governance/index.md), onde a questão passa
+a ser como sustentar decisões ao longo do tempo.

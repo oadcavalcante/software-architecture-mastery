@@ -88,7 +88,7 @@ E a última é a que mais frequentemente não acontece: o sistema antigo permane
 ### Padrões de transição
 
 ```text
-estrangulamento    o novo intercepta e assume funcionalidades gradualmente,
+strangler fig      o novo intercepta e assume funcionalidades gradualmente,
                    o velho encolhe até poder ser desligado
 escrita dupla      escreve nos dois, lê de um; troca a leitura quando confiar
 sombra             o novo processa em paralelo sem responder, para comparar

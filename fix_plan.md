@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 318 de 432 (74%) |
-| Seções pendentes | 8 de 23 |
-| Próxima tarefa | `16-legacy-modernization` → `legacy-systems.md` |
+| Escrito | 330 de 432 (76%) |
+| Seções pendentes | 7 de 23 |
+| Próxima tarefa | `17-architecture-documentation` → `documentation-principles.md` |
 
 ## Como usar
 
@@ -27,23 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 16-legacy-modernization — Modernização de Legado
-
-Nível 06 — Arquitetura Corporativa · faltam 12 de 13 · spec: [`specs/16-legacy-modernization.md`](specs/16-legacy-modernization.md)
-
-- [ ] `legacy-systems.md`
-- [ ] `modernization-drivers.md`
-- [ ] `strangler-fig.md`
-- [ ] `incremental-modernization.md`
-- [ ] `replatforming.md`
-- [ ] `legacy-refactoring.md`
-- [ ] `rebuilding.md`
-- [ ] `replacing.md`
-- [ ] `migration-strategies.md`
-- [ ] `data-migration.md`
-- [ ] `modernization-risk.md`
-- [ ] `organizational-constraints.md`
 
 ### 17-architecture-documentation — Documentação de Arquitetura
 

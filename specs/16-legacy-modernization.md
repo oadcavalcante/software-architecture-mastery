@@ -5,7 +5,7 @@
 | Diretório | `docs/16-legacy-modernization/` |
 | Nível | Nível 06 — Arquitetura Corporativa |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 12 (0%) |
+| Progresso | 12 / 12 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,18 +15,18 @@ Esta seção está completa quando os 12 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `legacy-systems` |
-| ⬜ | `modernization-drivers` |
-| ⬜ | `strangler-fig` |
-| ⬜ | `incremental-modernization` |
-| ⬜ | `replatforming` |
-| ⬜ | `legacy-refactoring` |
-| ⬜ | `rebuilding` |
-| ⬜ | `replacing` |
-| ⬜ | `migration-strategies` |
-| ⬜ | `data-migration` |
-| ⬜ | `modernization-risk` |
-| ⬜ | `organizational-constraints` |
+| 🟩 | `legacy-systems` |
+| 🟩 | `modernization-drivers` |
+| 🟩 | `strangler-fig` |
+| 🟩 | `incremental-modernization` |
+| 🟩 | `replatforming` |
+| 🟩 | `legacy-refactoring` |
+| 🟩 | `rebuilding` |
+| 🟩 | `replacing` |
+| 🟩 | `migration-strategies` |
+| 🟩 | `data-migration` |
+| 🟩 | `modernization-risk` |
+| 🟩 | `organizational-constraints` |
 
 ## Critério de conclusão
 

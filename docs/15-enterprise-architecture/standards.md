@@ -167,6 +167,28 @@ atualizando o modelo de serviço e propagando — a migração deixa de ser trab
 time. Ver
 [plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
 
+### Padrões descontinuados precisam de rastreabilidade
+
+Um padrão substituído deixa um rastro: os sistemas construídos sob ele.
+
+Sem rastreabilidade, a organização acumula gerações de padrões sobrepostos, e ninguém
+sabe qual sistema segue qual.
+
+```text
+qual padrão cada sistema segue      derivado, no catálogo de serviços
+quando o padrão anterior expira     data explícita
+o que falta migrar                  lista visível, priorizada
+quem é responsável pela migração    nomeado
+```
+
+Ver [plataformas internas](../14-devops-and-platform/internal-developer-platforms.md) —
+quando a plataforma conhece o padrão de cada serviço, essa rastreabilidade é derivada e
+não exige manutenção.
+
+E há um caso comum que merece decisão explícita: sistemas que não vão migrar. Um sistema
+em processo de desativação não deveria consumir esforço para atender um padrão novo — e a
+exceção precisa ser registrada, ou ele aparece perpetuamente na lista de pendências.
+
 ## Modelo Mental
 
 **Padrão que precisa ser verificado por pessoa não foi operacionalizado.** Embuta,

@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**322 de 437 documentos planejados escritos (74%).**
+**334 de 437 documentos planejados escritos (76%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -33,7 +33,7 @@ mas já tem índice publicado explicando o que virá.
 | `13-observability` | 05 | 12 / 12 | `██████████` 100% |
 | `14-devops-and-platform` | 05 | 14 / 14 | `██████████` 100% |
 | `15-enterprise-architecture` | 06 | 21 / 21 | `██████████` 100% |
-| `16-legacy-modernization` | 06 | 1 / 13 | `█░░░░░░░░░` 8% |
+| `16-legacy-modernization` | 06 | 13 / 13 | `██████████` 100% |
 | `17-architecture-documentation` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
 | `18-architecture-decisions` | 05 | 1 / 15 | `█░░░░░░░░░` 7% |
 | `19-architecture-governance` | 06 | 1 / 11 | `█░░░░░░░░░` 9% |
@@ -392,7 +392,19 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Arquitetura de Tecnologia](docs/15-enterprise-architecture/technology-architecture.md) | concept | avançado | `enterprise-architecture` | ⬜ |
 | 🟩 | [Radar Tecnológico](docs/15-enterprise-architecture/technology-radar.md) | pattern | intermediário | `enterprise-architecture` | ⬜ |
 | 🟩 | [Arquitetura de Transição](docs/15-enterprise-architecture/transition-architecture.md) | concept | avançado | `target-architecture` | ⬜ |
+| 🟩 | [Migração de Dados](docs/16-legacy-modernization/data-migration.md) | concept | avançado | `legacy-modernization` | ⬜ |
+| 🟩 | [Modernização Incremental](docs/16-legacy-modernization/incremental-modernization.md) | concept | avançado | `migration-strategies` | ⬜ |
 | 🟩 | [Modernização de Legado](docs/16-legacy-modernization/index.md) | index | avançado | `enterprise-architecture` | ⬜ |
+| 🟩 | [Refatoração de Legado](docs/16-legacy-modernization/legacy-refactoring.md) | concept | avançado | `legacy-systems` | ⬜ |
+| 🟩 | [Sistemas Legados](docs/16-legacy-modernization/legacy-systems.md) | foundation | avançado | `legacy-modernization` | ⬜ |
+| 🟩 | [Estratégias de Migração](docs/16-legacy-modernization/migration-strategies.md) | tradeoff | avançado | `modernization-drivers` | ⬜ |
+| 🟩 | [Motivadores de Modernização](docs/16-legacy-modernization/modernization-drivers.md) | concept | avançado | `legacy-modernization` | ⬜ |
+| 🟩 | [Risco de Modernização](docs/16-legacy-modernization/modernization-risk.md) | concept | avançado | `migration-strategies` | ⬜ |
+| 🟩 | [Restrições Organizacionais](docs/16-legacy-modernization/organizational-constraints.md) | concept | avançado | `legacy-modernization` | ⬜ |
+| 🟩 | [Reconstrução](docs/16-legacy-modernization/rebuilding.md) | concept | avançado | `migration-strategies` | ⬜ |
+| 🟩 | [Substituição](docs/16-legacy-modernization/replacing.md) | concept | avançado | `migration-strategies` | ⬜ |
+| 🟩 | [Replataforma](docs/16-legacy-modernization/replatforming.md) | concept | intermediário | `migration-strategies` | ⬜ |
+| 🟩 | [Strangler Fig](docs/16-legacy-modernization/strangler-fig.md) | pattern | avançado | `legacy-modernization` | ⬜ |
 | 🟩 | [Governança de Arquitetura](docs/19-architecture-governance/index.md) | index | avançado | `enterprise-architecture` | ⬜ |
 
 ### Nível 07 — Liderança em Arquitetura

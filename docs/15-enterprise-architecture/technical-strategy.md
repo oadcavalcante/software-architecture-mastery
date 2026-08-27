@@ -171,6 +171,30 @@ A prática que resolve é modesta: incluir na estratégia, para cada aposta, **o
 no dia a dia de quem constrói**. Uma aposta que não altera nenhuma decisão concreta
 provavelmente não é uma aposta — é uma intenção.
 
+### A estratégia precisa dizer o que fazer com o que já está em andamento
+
+Uma lacuna comum: a estratégia define o futuro e não trata o presente.
+
+No momento em que ela é publicada, há iniciativas em execução — algumas alinhadas, outras
+não. Ignorá-las produz duas realidades paralelas.
+
+```text
+alinhada e em andamento    continua, com prioridade reforçada
+desalinhada e avançada     avaliar: terminar ou interromper, com o custo já gasto
+                           tratado como perdido
+desalinhada e inicial      interromper
+não iniciada e desalinhada não começar
+```
+
+A segunda linha é a difícil, e o erro característico é deixar a iniciativa continuar
+"porque já investimos" — que é o raciocínio de custo afundado.
+
+O critério correto ignora o que já foi gasto: **daqui para frente, este investimento é o
+melhor uso do recurso?**
+
+Tomar essas decisões explicitamente, no momento da publicação, é o que evita que a
+estratégia conviva com um conjunto de trabalhos que a contradizem.
+
 ## Modelo Mental
 
 **Estratégia é diagnóstico, política e renúncia.** Se nada foi descartado, nada foi

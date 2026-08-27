@@ -168,6 +168,28 @@ O que funciona é registrar, quando a tensão aparece, qual venceu e por quê. V
 Depois de alguns registros, o padrão emerge — e ele é mais informativo que qualquer
 regra de precedência definida antecipadamente.
 
+### O princípio precisa ser testável contra a decisão de amanhã
+
+Um teste operacional que separa princípio de slogan: pegue uma decisão que ainda não foi
+tomada, e verifique se o princípio aponta uma direção.
+
+```text
+decisão pendente   "vamos manter o cadastro de clientes em cada serviço,
+                    ou centralizar?"
+princípio 1        "dados pertencem a um único sistema"  → aponta: centralizar
+princípio 2        "buscamos simplicidade"               → não aponta nada
+```
+
+O segundo pode ser usado para defender qualquer um dos lados — manter é simples porque
+evita integração; centralizar é simples porque elimina reconciliação.
+
+Essa ambiguidade não é defeito de redação. É o sinal de que o princípio não escolheu
+nada.
+
+E há um segundo teste, mais duro: pergunte a três pessoas de times diferentes o que o
+princípio implica numa situação concreta. Se as respostas divergirem, as implicações não
+foram escritas — e o princípio está produzindo divergência em vez de coerência.
+
 ## Modelo Mental
 
 **Um princípio útil escolhe um lado.** Se ninguém discordaria, ele não decide nada.
