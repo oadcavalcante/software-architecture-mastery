@@ -1,0 +1,97 @@
+#!/usr/bin/env node
+/**
+ * Aplica a política terminológica (SPEC.md §5.5).
+ *
+ * O linter é deliberadamente conservador: só sinaliza o que consegue afirmar
+ * com confiança. Tradução técnica inconsistente destrói material de arquitetura,
+ * mas um linter ruidoso é ignorado, e um linter ignorado não protege nada.
+ *
+ * Três regras:
+ *   1. Mistura — o documento usa a forma PT e a forma EN do mesmo termo sem
+ *      que seja glosa de primeira ocorrência. Alterna vocabulário no meio do texto.
+ *   2. Não traduzido — documento pt-BR usa a forma EN de um termo da categoria A
+ *      e nunca a forma PT. Está adotando o termo inglês como termo de trabalho.
+ *   3. Traduzido indevidamente — documento pt-BR traduz um termo da categoria B.
+ *
+ * Escape hatch: front matter `terminology_exempt: [termo, ...]`.
+ */
+
+import {readFileSync} from 'node:fs';
+import {join} from 'node:path';
+import {loadAll, Report, ROOT, stripCode, CANONICAL_LOCALE} from './lib/docs.mjs';
+
+const TERMS = JSON.parse(readFileSync(join(ROOT, 'scripts', 'terminology.json'), 'utf8'));
+
+/** Ocorrências de um termo em prosa, com limite de palavra e sem acento-sensibilidade. */
+function occurrences(prose, term) {
+  const escaped = term.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
+  const re = new RegExp(`(?<![\\p{L}\\p{N}_])${escaped}(?![\\p{L}\\p{N}_])`, 'giu');
+  return [...prose.matchAll(re)].map((m) => m.index);
+}
+
+/**
+ * Glosa legítima: "acoplamento (coupling)" ou "coupling (acoplamento)".
+ * Aceita a forma EN colada à forma PT dentro de uma janela curta.
+ */
+function isGlossPair(prose, ptIndexes, enIndexes) {
+  const WINDOW = 40;
+  return enIndexes.every((en) =>
+    ptIndexes.some((pt) => Math.abs(en - pt) <= WINDOW),
+  );
+}
+
+function checkCanonicalDoc(doc, report) {
+  const prose = stripCode(doc.body);
+  const exempt = new Set((doc.frontmatter.terminology_exempt ?? []).map((t) => String(t).toLowerCase()));
+  const at = doc.repoPath;
+
+  // Regras 1 e 2 — categoria A.
+  for (const {en, pt, enforced} of TERMS.translate) {
+    if (!enforced || exempt.has(en.toLowerCase())) continue;
+    const enHits = occurrences(prose, en);
+    if (!enHits.length) continue;
+    const ptHits = occurrences(prose, pt);
+
+    if (!ptHits.length) {
+      report.error(at, `usa "${en}" (${enHits.length}×) e nunca "${pt}" — categoria A exige o termo em português`);
+    } else if (!isGlossPair(prose, ptHits, enHits)) {
+      report.error(at, `alterna entre "${pt}" e "${en}" fora de glosa de primeira ocorrência — fixe um vocabulário`);
+    }
+  }
+
+  // Regra 3 — categoria B.
+  for (const {term, badPt, enforced} of TERMS.keep) {
+    if (!enforced || exempt.has(term.toLowerCase())) continue;
+    for (const bad of badPt) {
+      if (occurrences(prose, bad).length) {
+        report.error(at, `traduz "${term}" como "${bad}" — categoria B mantém o termo em inglês`);
+      }
+    }
+  }
+}
+
+function checkTranslatedDoc(doc, report) {
+  const prose = stripCode(doc.body);
+  const exempt = new Set((doc.frontmatter.terminology_exempt ?? []).map((t) => String(t).toLowerCase()));
+  const at = doc.repoPath;
+
+  // Termo em português vazando para documento em inglês.
+  for (const {en, pt, enforced} of TERMS.translate) {
+    if (!enforced || exempt.has(en.toLowerCase())) continue;
+    if (occurrences(prose, pt).length) {
+      report.error(at, `documento ${doc.locale} contém o termo em português "${pt}" — use "${en}"`);
+    }
+  }
+}
+
+const report = new Report('terminology');
+const all = loadAll();
+
+for (const doc of all) {
+  if (doc.locale === CANONICAL_LOCALE) checkCanonicalDoc(doc, report);
+  else checkTranslatedDoc(doc, report);
+}
+
+const enforced = TERMS.translate.filter((t) => t.enforced).length
+  + TERMS.keep.filter((t) => t.enforced).length;
+process.exit(report.finish(`${all.length} documento(s), ${enforced} termo(s) aplicados`));

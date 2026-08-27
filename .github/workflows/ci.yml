@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validação de conteúdo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # check-parity compara o PR contra a base para detectar canônico
+          # alterado sem incremento de content_version. Precisa do histórico.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Validadores de conteúdo
+        env:
+          BASE_REF: origin/${{ github.base_ref || 'main' }}
+        run: npm run validate
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Roadmap está atualizado
+        run: |
+          npm run roadmap
+          if ! git diff --quiet -- ROADMAP.md; then
+            echo "::error::ROADMAP.md está defasado. Rode 'npm run roadmap' e faça commit."
+            git diff -- ROADMAP.md
+            exit 1
+          fi
+
+  build:
+    name: Build (pt-BR + en-US)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build

@@ -1,0 +1,146 @@
+/**
+ * Carregamento e modelo comum dos documentos, usado por todos os validadores.
+ *
+ * Convenção de caminhos (SPEC.md §5.1):
+ *   docs/<seção>/<slug>.md                                          → canônico (pt-BR)
+ *   i18n/<locale>/docusaurus-plugin-content-docs/current/<mesmo>.md  → tradução
+ */
+
+import {readFileSync, readdirSync, statSync, existsSync} from 'node:fs';
+import {join, relative, sep, extname} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import matter from 'gray-matter';
+
+export const ROOT = fileURLToPath(new URL('../..', import.meta.url));
+export const DOCS_DIR = join(ROOT, 'docs');
+export const I18N_DIR = join(ROOT, 'i18n');
+export const CANONICAL_LOCALE = 'pt-BR';
+
+const MD_EXT = new Set(['.md', '.mdx']);
+
+/** Caminho da árvore de documentos traduzidos de uma locale. */
+export function translationDir(locale) {
+  return join(I18N_DIR, locale, 'docusaurus-plugin-content-docs', 'current');
+}
+
+/** Locales de tradução presentes no disco (exclui a canônica). */
+export function translationLocales() {
+  if (!existsSync(I18N_DIR)) return [];
+  return readdirSync(I18N_DIR)
+    .filter((name) => name !== CANONICAL_LOCALE)
+    .filter((name) => existsSync(translationDir(name)))
+    .sort();
+}
+
+function walk(dir, acc = []) {
+  if (!existsSync(dir)) return acc;
+  for (const entry of readdirSync(dir)) {
+    if (entry.startsWith('.') || entry === 'node_modules') continue;
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) walk(full, acc);
+    else if (MD_EXT.has(extname(entry))) acc.push(full);
+  }
+  return acc;
+}
+
+function toDoc(absPath, baseDir, locale) {
+  const raw = readFileSync(absPath, 'utf8');
+  const {data, content} = matter(raw);
+  const docPath = relative(baseDir, absPath).split(sep).join('/');
+  return {
+    absPath,
+    repoPath: relative(ROOT, absPath).split(sep).join('/'),
+    docPath, // caminho relativo à raiz de docs, idêntico entre locales
+    section: docPath.includes('/') ? docPath.split('/')[0] : null,
+    locale,
+    frontmatter: data,
+    body: content,
+    raw,
+  };
+}
+
+/** Documentos canônicos (pt-BR), em docs/. */
+export function loadCanonical() {
+  return walk(DOCS_DIR).map((f) => toDoc(f, DOCS_DIR, CANONICAL_LOCALE));
+}
+
+/** Documentos traduzidos de uma locale. */
+export function loadTranslations(locale) {
+  const base = translationDir(locale);
+  return walk(base).map((f) => toDoc(f, base, locale));
+}
+
+/** Todos os documentos, canônicos e traduzidos. */
+export function loadAll() {
+  return [
+    ...loadCanonical(),
+    ...translationLocales().flatMap((l) => loadTranslations(l)),
+  ];
+}
+
+/**
+ * Coletor de diagnósticos. Erros falham o build; avisos são reportados
+ * e não bloqueiam. Ver SPEC.md §13.1.
+ */
+export class Report {
+  constructor(name) {
+    this.name = name;
+    this.errors = [];
+    this.warnings = [];
+  }
+
+  error(file, message) {
+    this.errors.push({file, message});
+  }
+
+  warn(file, message) {
+    this.warnings.push({file, message});
+  }
+
+  /** Imprime o resultado e devolve o código de saída apropriado. */
+  finish(summary = '') {
+    const {name, errors, warnings} = this;
+    for (const {file, message} of warnings) {
+      console.log(`  aviso  ${file}\n         ${message}`);
+    }
+    for (const {file, message} of errors) {
+      console.log(`  ERRO   ${file}\n         ${message}`);
+    }
+    const status = errors.length ? 'FALHOU' : 'ok';
+    const counts = `${errors.length} erro(s), ${warnings.length} aviso(s)`;
+    console.log(`[${name}] ${status} — ${counts}${summary ? ` — ${summary}` : ''}`);
+    return errors.length ? 1 : 0;
+  }
+}
+
+/** Extrai os títulos de seção (## …) do corpo de um documento. */
+export function headings(body) {
+  const out = [];
+  let inFence = false;
+  for (const line of body.split('\n')) {
+    if (/^\s*```/.test(line)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+    const m = /^(#{1,6})\s+(.+?)\s*$/.exec(line);
+    if (m) out.push({level: m[1].length, text: m[2]});
+  }
+  return out;
+}
+
+/** Remove blocos de código e código inline, para análises que só olham prosa. */
+export function stripCode(body) {
+  return body
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/~~~[\s\S]*?~~~/g, '')
+    .replace(/`[^`\n]*`/g, '');
+}
+
+/** Conta palavras da prosa, ignorando código e front matter. */
+export function wordCount(body) {
+  return stripCode(body)
+    .replace(/[#>|\-*_[\]()]/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean).length;
+}

@@ -1,0 +1,66 @@
+{
+  "$comment": [
+    "Fonte única da política terminológica (SPEC.md §5.5).",
+    "docs/i18n-terminology.md é gerado a partir daqui em F1 — não edite os dois.",
+    "'enforced: false' documenta o termo sem que o linter o aplique: usado quando",
+    "a decisão depende de contexto e a automação produziria falso positivo."
+  ],
+
+  "translate": [
+    {"en": "coupling",             "pt": "acoplamento",             "enforced": true},
+    {"en": "cohesion",             "pt": "coesão",                  "enforced": true},
+    {"en": "availability",         "pt": "disponibilidade",         "enforced": true},
+    {"en": "reliability",          "pt": "confiabilidade",          "enforced": true},
+    {"en": "scalability",          "pt": "escalabilidade",          "enforced": true},
+    {"en": "maintainability",      "pt": "manutenibilidade",        "enforced": true},
+    {"en": "layer",                "pt": "camada",                  "enforced": true},
+    {"en": "eventual consistency", "pt": "consistência eventual",   "enforced": true},
+    {"en": "strong consistency",   "pt": "consistência forte",      "enforced": true},
+    {"en": "technical debt",       "pt": "dívida técnica",          "enforced": true},
+    {"en": "bottleneck",           "pt": "gargalo",                 "enforced": true},
+    {"en": "constraint",           "pt": "restrição",               "enforced": true},
+    {"en": "deployment",           "pt": "implantação",             "enforced": true},
+    {"en": "requirement",          "pt": "requisito",               "enforced": true},
+    {"en": "boundary",             "pt": "fronteira",               "enforced": true},
+    {"en": "throughput",           "pt": "vazão",                   "enforced": false},
+    {"en": "latency",              "pt": "latência",                "enforced": true},
+    {"en": "redundancy",           "pt": "redundância",             "enforced": true},
+    {"en": "fault tolerance",      "pt": "tolerância a falhas",     "enforced": true},
+    {"en": "load balancing",       "pt": "balanceamento de carga",  "enforced": true}
+  ],
+
+  "keep": [
+    {"term": "trade-off",         "badPt": ["compromisso técnico", "contrapartida"], "enforced": true},
+    {"term": "bounded context",   "badPt": ["contexto limitado", "contexto delimitado"], "enforced": true},
+    {"term": "ubiquitous language", "badPt": ["linguagem onipresente"], "enforced": true},
+    {"term": "aggregate root",    "badPt": ["raiz do agregado"], "enforced": false},
+    {"term": "event sourcing",    "badPt": ["fonte de eventos", "obtenção de eventos"], "enforced": true},
+    {"term": "sharding",          "badPt": ["fragmentação", "estilhaçamento"], "enforced": true},
+    {"term": "backpressure",      "badPt": ["contrapressão"], "enforced": true},
+    {"term": "feature flag",      "badPt": ["sinalizador de recurso", "bandeira de recurso"], "enforced": true},
+    {"term": "service mesh",      "badPt": ["malha de serviços"], "enforced": true},
+    {"term": "sidecar",           "badPt": ["carro lateral"], "enforced": true},
+    {"term": "canary",            "badPt": ["canário"], "enforced": true},
+    {"term": "blue/green",        "badPt": ["azul/verde"], "enforced": true},
+    {"term": "strangler fig",     "badPt": ["figueira estranguladora"], "enforced": true},
+    {"term": "CQRS",              "badPt": [], "enforced": false},
+    {"term": "commit",            "badPt": [], "enforced": false}
+  ],
+
+  "gloss": [
+    {"term": "circuit breaker", "gloss": "disjuntor"},
+    {"term": "bulkhead",        "gloss": "anteparo"},
+    {"term": "poison message",  "gloss": "mensagem envenenada"},
+    {"term": "dead-letter queue", "gloss": "fila de mensagens mortas"},
+    {"term": "hotspot",         "gloss": "ponto quente"}
+  ],
+
+  "neverTranslate": [
+    "Strategy", "Observer", "Factory Method", "Abstract Factory", "Builder",
+    "Prototype", "Singleton", "Adapter", "Bridge", "Composite", "Decorator",
+    "Facade", "Flyweight", "Proxy", "Chain of Responsibility", "Command",
+    "Iterator", "Mediator", "Memento", "State", "Template Method", "Visitor",
+    "Ports and Adapters", "Pipes and Filters", "Strangler Fig",
+    "Clean Architecture", "Space-Based Architecture", "Team Topologies"
+  ]
+}

@@ -1,0 +1,23 @@
+# Licenciamento
+
+Este repositório usa duas licenças distintas, conforme a natureza do arquivo.
+
+## Conteúdo educacional — CC BY-SA 4.0
+
+Todo o material textual, diagramas e exercícios — o conteúdo de `docs/`, `i18n/`
+e os documentos Markdown da raiz — está sob a
+**Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional**.
+
+Você pode copiar, redistribuir, adaptar e usar comercialmente, desde que:
+
+- **Atribuição** — dê o crédito apropriado e indique se mudanças foram feitas.
+- **CompartilhaIgual** — distribua suas contribuições sob a mesma licença.
+
+Texto completo: https://creativecommons.org/licenses/by-sa/4.0/legalcode.pt
+Resumo: https://creativecommons.org/licenses/by-sa/4.0/deed.pt-BR
+
+## Código — MIT
+
+Os arquivos de configuração, scripts de validação e componentes do site
+— `scripts/`, `src/`, `docusaurus.config.ts`, `sidebars.ts` — estão sob
+a licença MIT, cujo texto completo está em [LICENSE-CODE](LICENSE-CODE).

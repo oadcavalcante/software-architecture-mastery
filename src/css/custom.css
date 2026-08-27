@@ -1,0 +1,78 @@
+/**
+ * Software Architecture Mastery — tema.
+ *
+ * O conteúdo é denso e longo. As escolhas aqui priorizam leitura prolongada:
+ * medida de linha limitada, contraste calibrado, tabelas legíveis e diagramas
+ * que não estouram a coluna. Nada é decorativo.
+ */
+
+:root {
+  --ifm-color-primary: #1f4e79;
+  --ifm-color-primary-dark: #1d4870;
+  --ifm-color-primary-darker: #1b456b;
+  --ifm-color-primary-darkest: #173959;
+  --ifm-color-primary-light: #215482;
+  --ifm-color-primary-lighter: #235787;
+  --ifm-color-primary-lightest: #276399;
+
+  --ifm-code-font-size: 92%;
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.7;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
+
+  /* Marcadores de status usados em tabelas de roadmap e paridade. */
+  --sam-status-done: #2e7d32;
+  --sam-status-partial: #b8860b;
+  --sam-status-none: #9e9e9e;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #7fb2e0;
+  --ifm-color-primary-dark: #76adde;
+  --ifm-color-primary-darker: #71a9dd;
+  --ifm-color-primary-darkest: #5e9ed8;
+  --ifm-color-primary-light: #88b7e2;
+  --ifm-color-primary-lighter: #8dbbe3;
+  --ifm-color-primary-lightest: #a0c6e8;
+
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.12);
+}
+
+/* Medida de linha: texto técnico longo fica ilegível em colunas largas. */
+.markdown {
+  max-width: 46rem;
+}
+
+/* Tabelas de trade-off são frequentes e costumam ser largas.
+   Rolam dentro da própria caixa em vez de estourar a página. */
+.markdown table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+  width: fit-content;
+}
+
+.markdown table th {
+  white-space: nowrap;
+}
+
+/* Diagramas Mermaid centralizados e contidos. */
+.docusaurus-mermaid-container {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+/* Citação usada para as notas de pré-requisito (SPEC.md §7.4). */
+.markdown blockquote {
+  border-left: 3px solid var(--ifm-color-primary);
+  background: var(--ifm-color-emphasis-100);
+  padding: 0.75rem 1rem;
+}
+
+/* Blocos de progressão em ASCII aparecem em vários documentos.
+   Preservam alinhamento sem virar código colorido. */
+.markdown pre code.language-text {
+  line-height: 1.45;
+}
