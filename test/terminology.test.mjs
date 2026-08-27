@@ -26,6 +26,25 @@ describe('check-terminology', () => {
     );
   });
 
+  test('rejeita má tradução de termo da categoria B', () => {
+    fails(
+      check('check-terminology.mjs', {
+        'docs/exemplo.md': doc('# X\n\nCada escolha tem sua contrapartida clara.\n'),
+      }),
+      /traduz "trade-off" como "contrapartida"/,
+    );
+  });
+
+  // "em contrapartida" é conectivo corrente do português e não tem relação com
+  // trade-off. Sem o mascaramento de homônimos, prosa correta era reprovada.
+  test('não confunde o conectivo "em contrapartida" com má tradução', () => {
+    ok(check('check-terminology.mjs', {
+      'docs/exemplo.md': doc(
+        '# X\n\nA orquestração é explícita. Em contrapartida, concentra o acoplamento.\n',
+      ),
+    }));
+  });
+
   test('aceita glosa de primeira ocorrência', () => {
     ok(check('check-terminology.mjs', {
       'docs/exemplo.md': doc('# X\n\nO acoplamento (coupling) entre módulos é alto.\n'),

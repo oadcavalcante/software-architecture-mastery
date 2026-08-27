@@ -114,7 +114,10 @@
         "compromisso técnico",
         "contrapartida"
       ],
-      "enforced": true
+      "enforced": true,
+      "homonyms": [
+        "em contrapartida"
+      ]
     },
     {
       "term": "bounded context",

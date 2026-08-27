@@ -57,12 +57,17 @@ function isGlossPair(prose, ptIndexes, enIndexes) {
  * Termos compostos da categoria B contêm palavras da categoria A:
  * "anti-corruption layer" contém "layer". Sem mascarar, a regra
  * layer→camada dispara dentro de um termo que deve ficar em inglês.
+ *
+ * `homonyms` cobre o caso inverso: expressões fixas do português que contêm
+ * uma má tradução sem serem uma. "em contrapartida" é conectivo corrente e
+ * não tem relação com trade-off; mascará-lo evita punir prosa correta.
  * Mascaramos antes de checar, preservando o comprimento para que os
  * índices usados na detecção de glosa continuem válidos.
  */
 function maskProtectedPhrases(prose) {
   const phrases = [
     ...TERMS.keep.map((k) => k.term),
+    ...TERMS.keep.flatMap((k) => k.homonyms ?? []),
     ...TERMS.gloss.map((g) => g.term),
     ...TERMS.neverTranslate,
   ].sort((a, b) => b.length - a.length); // mais longos primeiro

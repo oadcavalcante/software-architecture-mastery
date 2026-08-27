@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 139 de 432 (32%) |
-| Seções pendentes | 18 de 23 |
-| Próxima tarefa | `06-distributed-systems` → `distributed-fundamentals.md` |
+| Escrito | 174 de 432 (40%) |
+| Seções pendentes | 17 de 23 |
+| Próxima tarefa | `07-data-architecture` → `relational-databases.md` |
 
 ## Como usar
 
@@ -27,46 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 06-distributed-systems — Sistemas Distribuídos
-
-Nível 04 — Sistemas Distribuídos · faltam 35 de 36 · spec: [`specs/06-distributed-systems.md`](specs/06-distributed-systems.md)
-
-- [ ] `distributed-fundamentals.md`
-- [ ] `network-failure.md`
-- [ ] `partial-failure.md`
-- [ ] `latency.md`
-- [ ] `timeouts.md`
-- [ ] `retries.md`
-- [ ] `backoff.md`
-- [ ] `idempotency.md`
-- [ ] `consistency.md`
-- [ ] `availability.md`
-- [ ] `cap.md`
-- [ ] `pacelc.md`
-- [ ] `replication.md`
-- [ ] `partitioning.md`
-- [ ] `sharding.md`
-- [ ] `leader-election.md`
-- [ ] `consensus.md`
-- [ ] `distributed-locks.md`
-- [ ] `messaging.md`
-- [ ] `event-driven-systems.md`
-- [ ] `distributed-event-sourcing.md`
-- [ ] `distributed-cqrs.md`
-- [ ] `sagas.md`
-- [ ] `distributed-transactions.md`
-- [ ] `delivery-guarantees.md`
-- [ ] `ordering.md`
-- [ ] `duplicate-messages.md`
-- [ ] `poison-messages.md`
-- [ ] `dead-letter-queues.md`
-- [ ] `backpressure.md`
-- [ ] `eventual-consistency.md`
-- [ ] `strong-consistency.md`
-- [ ] `conflict-resolution.md`
-- [ ] `clock-and-time.md`
-- [ ] `failure-detection.md`
 
 ### 07-data-architecture — Arquitetura de Dados
 

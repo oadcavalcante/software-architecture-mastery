@@ -55,12 +55,39 @@ describe('check-placeholders', () => {
     fails(
       check('check-placeholders.mjs', {
         'docs/exemplo.md': doc(
-          completeBody('Esta seção está a escrever.\n'),
+          completeBody('Esta seção fica pronta em breve.\n'),
           {status: 'complete', doc_type: 'concept'},
         ),
       }),
       /pendência/,
     );
+  });
+
+  test('detecta "a escrever" isolado como marcador', () => {
+    fails(
+      check('check-placeholders.mjs', {
+        'docs/exemplo.md': doc(
+          completeBody('Comparação entre as duas formas: (a escrever)\n'),
+          {status: 'complete', doc_type: 'concept'},
+        ),
+      }),
+      /pendência/,
+    );
+  });
+
+  // "a escrever" é português corrente. Marcá-lo em prosa reprovava documentos
+  // corretos — "último a escrever vence" é o nome do padrão em pt-BR.
+  test('não confunde "a escrever" em prosa com marcador de pendência', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/exemplo.md': doc(
+        completeBody(
+          'A estratégia último a escrever vence descarta dados. ' +
+            'A compensação a escrever fica a cargo do time.\n',
+        ),
+        {status: 'complete', doc_type: 'concept'},
+      ),
+    });
+    assert.equal(r.code, 0, r.out);
   });
 
   test('tolera pendência em documento ainda não completo, como aviso', () => {

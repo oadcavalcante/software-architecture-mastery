@@ -5,7 +5,7 @@
 | Diretório | `docs/06-distributed-systems/` |
 | Nível | Nível 04 — Sistemas Distribuídos |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 35 (0%) |
+| Progresso | 35 / 35 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,41 +15,41 @@ Esta seção está completa quando os 35 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `distributed-fundamentals` |
-| ⬜ | `network-failure` |
-| ⬜ | `partial-failure` |
-| ⬜ | `latency` |
-| ⬜ | `timeouts` |
-| ⬜ | `retries` |
-| ⬜ | `backoff` |
-| ⬜ | `idempotency` |
-| ⬜ | `consistency` |
-| ⬜ | `availability` |
-| ⬜ | `cap` |
-| ⬜ | `pacelc` |
-| ⬜ | `replication` |
-| ⬜ | `partitioning` |
-| ⬜ | `sharding` |
-| ⬜ | `leader-election` |
-| ⬜ | `consensus` |
-| ⬜ | `distributed-locks` |
-| ⬜ | `messaging` |
-| ⬜ | `event-driven-systems` |
-| ⬜ | `distributed-event-sourcing` |
-| ⬜ | `distributed-cqrs` |
-| ⬜ | `sagas` |
-| ⬜ | `distributed-transactions` |
-| ⬜ | `delivery-guarantees` |
-| ⬜ | `ordering` |
-| ⬜ | `duplicate-messages` |
-| ⬜ | `poison-messages` |
-| ⬜ | `dead-letter-queues` |
-| ⬜ | `backpressure` |
-| ⬜ | `eventual-consistency` |
-| ⬜ | `strong-consistency` |
-| ⬜ | `conflict-resolution` |
-| ⬜ | `clock-and-time` |
-| ⬜ | `failure-detection` |
+| 🟩 | `distributed-fundamentals` |
+| 🟩 | `network-failure` |
+| 🟩 | `partial-failure` |
+| 🟩 | `latency` |
+| 🟩 | `timeouts` |
+| 🟩 | `retries` |
+| 🟩 | `backoff` |
+| 🟩 | `idempotency` |
+| 🟩 | `consistency` |
+| 🟩 | `availability` |
+| 🟩 | `cap` |
+| 🟩 | `pacelc` |
+| 🟩 | `replication` |
+| 🟩 | `partitioning` |
+| 🟩 | `sharding` |
+| 🟩 | `leader-election` |
+| 🟩 | `consensus` |
+| 🟩 | `distributed-locks` |
+| 🟩 | `messaging` |
+| 🟩 | `event-driven-systems` |
+| 🟩 | `distributed-event-sourcing` |
+| 🟩 | `distributed-cqrs` |
+| 🟩 | `sagas` |
+| 🟩 | `distributed-transactions` |
+| 🟩 | `delivery-guarantees` |
+| 🟩 | `ordering` |
+| 🟩 | `duplicate-messages` |
+| 🟩 | `poison-messages` |
+| 🟩 | `dead-letter-queues` |
+| 🟩 | `backpressure` |
+| 🟩 | `eventual-consistency` |
+| 🟩 | `strong-consistency` |
+| 🟩 | `conflict-resolution` |
+| 🟩 | `clock-and-time` |
+| 🟩 | `failure-detection` |
 
 ## Critério de conclusão
 
