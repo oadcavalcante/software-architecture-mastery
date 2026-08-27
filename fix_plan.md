@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 357 de 432 (83%) |
-| Seções pendentes | 5 de 23 |
-| Próxima tarefa | `19-architecture-governance` → `governance-basics.md` |
+| Escrito | 367 de 432 (85%) |
+| Seções pendentes | 4 de 23 |
+| Próxima tarefa | `20-trade-offs` → `simplicity-vs-flexibility.md` |
 
 ## Como usar
 
@@ -27,21 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 19-architecture-governance — Governança de Arquitetura
-
-Nível 06 — Arquitetura Corporativa · faltam 10 de 11 · spec: [`specs/19-architecture-governance.md`](specs/19-architecture-governance.md)
-
-- [ ] `governance-basics.md`
-- [ ] `governance-review.md`
-- [ ] `governance-principles.md`
-- [ ] `governance-standards.md`
-- [ ] `compliance.md`
-- [ ] `exceptions.md`
-- [ ] `fitness-functions-governance.md`
-- [ ] `federated-governance.md`
-- [ ] `governance-pathologies.md`
-- [ ] `measuring-governance.md`
 
 ### 20-trade-offs — Trade-offs
 

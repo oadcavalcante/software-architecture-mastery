@@ -5,7 +5,7 @@
 | Diretório | `docs/19-architecture-governance/` |
 | Nível | Nível 06 — Arquitetura Corporativa |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 10 (0%) |
+| Progresso | 10 / 10 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,16 +15,16 @@ Esta seção está completa quando os 10 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `governance-basics` |
-| ⬜ | `governance-review` |
-| ⬜ | `governance-principles` |
-| ⬜ | `governance-standards` |
-| ⬜ | `compliance` |
-| ⬜ | `exceptions` |
-| ⬜ | `fitness-functions-governance` |
-| ⬜ | `federated-governance` |
-| ⬜ | `governance-pathologies` |
-| ⬜ | `measuring-governance` |
+| 🟩 | `governance-basics` |
+| 🟩 | `governance-review` |
+| 🟩 | `governance-principles` |
+| 🟩 | `governance-standards` |
+| 🟩 | `compliance` |
+| 🟩 | `exceptions` |
+| 🟩 | `fitness-functions-governance` |
+| 🟩 | `federated-governance` |
+| 🟩 | `governance-pathologies` |
+| 🟩 | `measuring-governance` |
 
 ## Critério de conclusão
 
