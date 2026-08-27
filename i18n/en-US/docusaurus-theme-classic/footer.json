@@ -17,19 +17,19 @@
   },
   "link.item.label.Especificação": {
     "message": "Specification",
-    "description": "The label of footer link with label=Especificação linking to https://github.com/CHANGE-ME/software-architecture-mastery/blob/main/SPEC.md"
+    "description": "The label of footer link with label=Especificação linking to https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md"
   },
   "link.item.label.Roadmap": {
     "message": "Roadmap",
-    "description": "The label of footer link with label=Roadmap linking to https://github.com/CHANGE-ME/software-architecture-mastery/blob/main/ROADMAP.md"
+    "description": "The label of footer link with label=Roadmap linking to https://github.com/oadcavalcante/software-architecture-mastery/blob/main/ROADMAP.md"
   },
   "link.item.label.Como contribuir": {
     "message": "Contributing",
-    "description": "The label of footer link with label=Como contribuir linking to https://github.com/CHANGE-ME/software-architecture-mastery/blob/main/CONTRIBUTING.md"
+    "description": "The label of footer link with label=Como contribuir linking to https://github.com/oadcavalcante/software-architecture-mastery/blob/main/CONTRIBUTING.md"
   },
   "link.item.label.GitHub": {
     "message": "GitHub",
-    "description": "The label of footer link with label=GitHub linking to https://github.com/CHANGE-ME/software-architecture-mastery"
+    "description": "The label of footer link with label=GitHub linking to https://github.com/oadcavalcante/software-architecture-mastery"
   },
   "copyright": {
     "message": "Content under CC BY-SA 4.0. Code under MIT. © 2026.",

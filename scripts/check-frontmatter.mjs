@@ -56,9 +56,18 @@ function validateOne(doc, report) {
   }
 
   // O nome do arquivo é a fonte do id: divergência quebra os links entre locales.
-  const expectedId = doc.docPath.replace(/\.mdx?$/, '').split('/').pop();
+  // Índices de seção são exceção — 23 arquivos chamados index.md colidiriam.
+  // Para eles o id é o slug do diretório sem o prefixo numérico de ordenação:
+  // docs/01-fundamentals/index.md → "fundamentals".
+  const segments = doc.docPath.replace(/\.mdx?$/, '').split('/');
+  const basename = segments.pop();
+  const expectedId =
+    basename === 'index' && segments.length
+      ? segments[segments.length - 1].replace(/^\d+-/, '')
+      : basename;
   if (fm.id && fm.id !== expectedId) {
-    report.error(at, `id "${fm.id}" diverge do nome do arquivo "${expectedId}"`);
+    const why = basename === 'index' ? ' (índice de seção: use o slug do diretório sem o prefixo numérico)' : '';
+    report.error(at, `id "${fm.id}" diverge do esperado "${expectedId}"${why}`);
   }
 
   // Controle de versão de tradução (SPEC.md §5.4).

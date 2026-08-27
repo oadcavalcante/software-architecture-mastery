@@ -7,11 +7,18 @@
  */
 
 import {readFileSync, readdirSync, statSync, existsSync} from 'node:fs';
-import {join, relative, sep, extname} from 'node:path';
+import {join, relative, sep, extname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import matter from 'gray-matter';
 
-export const ROOT = fileURLToPath(new URL('../..', import.meta.url));
+/**
+ * Raiz do repositório. SAM_ROOT permite apontar os validadores para uma árvore
+ * alternativa — usado pelos testes, que rodam cada script contra fixtures em
+ * vez de contra o conteúdo real.
+ */
+export const ROOT = process.env.SAM_ROOT
+  ? resolve(process.env.SAM_ROOT)
+  : fileURLToPath(new URL('../..', import.meta.url));
 export const DOCS_DIR = join(ROOT, 'docs');
 export const I18N_DIR = join(ROOT, 'i18n');
 export const CANONICAL_LOCALE = 'pt-BR';

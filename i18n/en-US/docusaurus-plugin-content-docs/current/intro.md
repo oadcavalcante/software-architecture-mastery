@@ -32,7 +32,7 @@ This site is in **Phase F0** — technical foundation. The structure, the biling
 build, and the validators are in place; the content of the seven levels has not
 been written yet.
 
-The full plan lives in the [project specification](https://github.com/CHANGE-ME/software-architecture-mastery/blob/main/SPEC.md).
+The full plan lives in the [project specification](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md).
 
 :::
 

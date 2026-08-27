@@ -9,6 +9,7 @@
 
 import {existsSync} from 'node:fs';
 import {join, dirname, resolve, relative} from 'node:path';
+import GithubSlugger from 'github-slugger';
 import {loadAll, Report, ROOT, DOCS_DIR, translationDir, CANONICAL_LOCALE, stripCode} from './lib/docs.mjs';
 
 const MERMAID_TYPES = [
@@ -18,20 +19,16 @@ const MERMAID_TYPES = [
   'C4Component', 'C4Dynamic', 'sankey-beta', 'block-beta', 'architecture-beta',
 ];
 
-/** GitHub/Docusaurus slug: minúsculas, sem pontuação, espaços viram hífen. */
-function slugify(text) {
-  return text
-    .toLowerCase()
-    .replace(/`[^`]*`/g, (s) => s.replace(/`/g, ''))
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^\w\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-');
-}
-
+/**
+ * Âncoras de um documento, calculadas com o MESMO slugger que o Docusaurus usa.
+ *
+ * Reimplementar a regra é um erro sutil e caro num site em português: a versão
+ * anterior removia acentos, mas o Docusaurus os preserva — "Decisão de Exemplo"
+ * vira "decisão-de-exemplo", não "decisao-de-exemplo". Delegar ao github-slugger
+ * também nos dá de graça o sufixo -1, -2 de cabeçalhos repetidos.
+ */
 function anchorsOf(doc) {
+  const slugger = new GithubSlugger();
   const set = new Set();
   let inFence = false;
   for (const line of doc.body.split('\n')) {
@@ -44,7 +41,15 @@ function anchorsOf(doc) {
     if (!m) continue;
     // Docusaurus permite id explícito: ## Título {#id-custom}
     const explicit = /\{#([^}]+)\}\s*$/.exec(m[1]);
-    set.add(explicit ? explicit[1] : slugify(m[1]));
+    if (explicit) {
+      set.add(explicit[1]);
+      continue;
+    }
+    // Remove links e código do texto antes de gerar o slug, como o Docusaurus faz.
+    const text = m[1]
+      .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+      .replace(/`([^`]*)`/g, '$1');
+    set.add(slugger.slug(text));
   }
   return set;
 }

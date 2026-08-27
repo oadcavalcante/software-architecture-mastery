@@ -7,7 +7,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
  * GH_ORG precisa ser o usuário ou organização dono do repositório no GitHub.
  * A URL publicada será https://<GH_ORG>.github.io/<GH_REPO>/
  */
-const GH_ORG = process.env.GH_ORG ?? 'CHANGE-ME';
+const GH_ORG = process.env.GH_ORG ?? 'oadcavalcante';
 const GH_REPO = process.env.GH_REPO ?? 'software-architecture-mastery';
 
 const config: Config = {

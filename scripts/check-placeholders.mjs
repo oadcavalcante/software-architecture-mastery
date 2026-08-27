@@ -31,7 +31,11 @@ const REQUIRED_SECTIONS = {
 };
 const TYPES_WITH_REQUIRED_SECTIONS = new Set(['concept', 'pattern', 'tradeoff']);
 
-const PENDING = /\b(TODO|FIXME|TBD|XXX|WIP)\b|\b(a escrever|em breve|preencher aqui|lorem ipsum)\b/gi;
+// Dois padrões separados de propósito. Os marcadores em caixa alta são
+// case-SENSITIVE: em português, /TODO/i casa com "todo", "todo mundo",
+// "de todo" — e falharia praticamente todo documento do repositório.
+const PENDING_MARKERS = /(?<![\p{L}\p{N}_])(TODO|FIXME|TBD|XXX|WIP)(?![\p{L}\p{N}_])/gu;
+const PENDING_PHRASES = /(?<![\p{L}\p{N}_])(a escrever|em breve|preencher aqui|lorem ipsum|escrever depois)(?![\p{L}\p{N}_])/giu;
 
 function normalize(s) {
   return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
@@ -70,7 +74,10 @@ function checkDoc(doc, report) {
   const prose = stripCode(doc.body);
 
   // Pendências.
-  const pending = [...prose.matchAll(PENDING)].map((m) => m[0]);
+  const pending = [
+    ...[...prose.matchAll(PENDING_MARKERS)].map((m) => m[0]),
+    ...[...prose.matchAll(PENDING_PHRASES)].map((m) => m[0]),
+  ];
   if (pending.length) {
     const unique = [...new Set(pending.map((p) => p.toUpperCase()))].join(', ');
     if (complete) {

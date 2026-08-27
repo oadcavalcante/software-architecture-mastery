@@ -31,7 +31,7 @@ alternativas, raciocinar sobre trade-offs, decidir, comunicar e evoluir.
 Este site está na **Fase F0** — fundação técnica. A estrutura, o build bilíngue e
 os validadores estão no lugar; o conteúdo dos sete níveis ainda não foi escrito.
 
-O plano completo está na [especificação do projeto](https://github.com/CHANGE-ME/software-architecture-mastery/blob/main/SPEC.md).
+O plano completo está na [especificação do projeto](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md).
 
 :::
 

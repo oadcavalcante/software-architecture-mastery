@@ -27,6 +27,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Testes dos validadores
+        run: npm test
+
       - name: Validadores de conteúdo
         env:
           BASE_REF: origin/${{ github.base_ref || 'main' }}

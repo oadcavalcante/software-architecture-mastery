@@ -17,15 +17,28 @@
  */
 
 import {readFileSync} from 'node:fs';
-import {join} from 'node:path';
-import {loadAll, Report, ROOT, stripCode, CANONICAL_LOCALE} from './lib/docs.mjs';
+import {fileURLToPath} from 'node:url';
+import {loadAll, Report, stripCode, CANONICAL_LOCALE} from './lib/docs.mjs';
 
-const TERMS = JSON.parse(readFileSync(join(ROOT, 'scripts', 'terminology.json'), 'utf8'));
+// Resolvido relativo a este script, não à raiz de conteúdo: a política
+// terminológica pertence à ferramenta, e SAM_ROOT move só a árvore de documentos.
+const TERMS = JSON.parse(
+  readFileSync(fileURLToPath(new URL('./terminology.json', import.meta.url)), 'utf8'),
+);
 
 /** Ocorrências de um termo em prosa, com limite de palavra e sem acento-sensibilidade. */
+function termPattern(term) {
+  // Markdown quebra linhas no meio de termos compostos: "anti-corruption\nlayer".
+  // Um espaço literal não casa com a quebra, então qualquer espaço no termo
+  // vira \s+ e o termo é reconhecido independentemente de onde a linha quebrou.
+  return term
+    .split(/\s+/)
+    .map((word) => word.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&'))
+    .join('\\s+');
+}
+
 function occurrences(prose, term) {
-  const escaped = term.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
-  const re = new RegExp(`(?<![\\p{L}\\p{N}_])${escaped}(?![\\p{L}\\p{N}_])`, 'giu');
+  const re = new RegExp(`(?<![\\p{L}\\p{N}_])${termPattern(term)}(?![\\p{L}\\p{N}_])`, 'giu');
   return [...prose.matchAll(re)].map((m) => m.index);
 }
 
@@ -40,8 +53,30 @@ function isGlossPair(prose, ptIndexes, enIndexes) {
   );
 }
 
+/**
+ * Termos compostos da categoria B contêm palavras da categoria A:
+ * "anti-corruption layer" contém "layer". Sem mascarar, a regra
+ * layer→camada dispara dentro de um termo que deve ficar em inglês.
+ * Mascaramos antes de checar, preservando o comprimento para que os
+ * índices usados na detecção de glosa continuem válidos.
+ */
+function maskProtectedPhrases(prose) {
+  const phrases = [
+    ...TERMS.keep.map((k) => k.term),
+    ...TERMS.gloss.map((g) => g.term),
+    ...TERMS.neverTranslate,
+  ].sort((a, b) => b.length - a.length); // mais longos primeiro
+
+  let masked = prose;
+  for (const phrase of phrases) {
+    const re = new RegExp(`(?<![\\p{L}\\p{N}_])${termPattern(phrase)}(?![\\p{L}\\p{N}_])`, 'giu');
+    masked = masked.replace(re, (m) => '\u0000'.repeat(m.length));
+  }
+  return masked;
+}
+
 function checkCanonicalDoc(doc, report) {
-  const prose = stripCode(doc.body);
+  const prose = maskProtectedPhrases(stripCode(doc.body));
   const exempt = new Set((doc.frontmatter.terminology_exempt ?? []).map((t) => String(t).toLowerCase()));
   const at = doc.repoPath;
 
@@ -71,7 +106,7 @@ function checkCanonicalDoc(doc, report) {
 }
 
 function checkTranslatedDoc(doc, report) {
-  const prose = stripCode(doc.body);
+  const prose = maskProtectedPhrases(stripCode(doc.body));
   const exempt = new Set((doc.frontmatter.terminology_exempt ?? []).map((t) => String(t).toLowerCase()));
   const at = doc.repoPath;
 
