@@ -5,7 +5,7 @@
 | Diretório | `docs/15-enterprise-architecture/` |
 | Nível | Nível 06 — Arquitetura Corporativa |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 20 (0%) |
+| Progresso | 20 / 20 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,26 +15,26 @@ Esta seção está completa quando os 20 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `enterprise-architecture-basics` |
-| ⬜ | `business-architecture` |
-| ⬜ | `application-architecture` |
-| ⬜ | `enterprise-data-architecture` |
-| ⬜ | `technology-architecture` |
-| ⬜ | `capability-mapping` |
-| ⬜ | `business-capabilities` |
-| ⬜ | `application-portfolios` |
-| ⬜ | `integration-landscapes` |
-| ⬜ | `enterprise-principles` |
-| ⬜ | `standards` |
-| ⬜ | `enterprise-governance` |
-| ⬜ | `architecture-review` |
-| ⬜ | `technology-radar` |
-| ⬜ | `technical-strategy` |
-| ⬜ | `target-architecture` |
-| ⬜ | `current-state-architecture` |
-| ⬜ | `transition-architecture` |
-| ⬜ | `architecture-roadmaps` |
-| ⬜ | `architecture-levels` |
+| 🟩 | `enterprise-architecture-basics` |
+| 🟩 | `business-architecture` |
+| 🟩 | `application-architecture` |
+| 🟩 | `enterprise-data-architecture` |
+| 🟩 | `technology-architecture` |
+| 🟩 | `capability-mapping` |
+| 🟩 | `business-capabilities` |
+| 🟩 | `application-portfolios` |
+| 🟩 | `integration-landscapes` |
+| 🟩 | `enterprise-principles` |
+| 🟩 | `standards` |
+| 🟩 | `enterprise-governance` |
+| 🟩 | `architecture-review` |
+| 🟩 | `technology-radar` |
+| 🟩 | `technical-strategy` |
+| 🟩 | `target-architecture` |
+| 🟩 | `current-state-architecture` |
+| 🟩 | `transition-architecture` |
+| 🟩 | `architecture-roadmaps` |
+| 🟩 | `architecture-levels` |
 
 ## Critério de conclusão
 

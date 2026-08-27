@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 298 de 432 (69%) |
-| Seções pendentes | 9 de 23 |
-| Próxima tarefa | `15-enterprise-architecture` → `enterprise-architecture-basics.md` |
+| Escrito | 318 de 432 (74%) |
+| Seções pendentes | 8 de 23 |
+| Próxima tarefa | `16-legacy-modernization` → `legacy-systems.md` |
 
 ## Como usar
 
@@ -27,31 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 15-enterprise-architecture — Arquitetura Corporativa
-
-Nível 06 — Arquitetura Corporativa · faltam 20 de 21 · spec: [`specs/15-enterprise-architecture.md`](specs/15-enterprise-architecture.md)
-
-- [ ] `enterprise-architecture-basics.md`
-- [ ] `business-architecture.md`
-- [ ] `application-architecture.md`
-- [ ] `enterprise-data-architecture.md`
-- [ ] `technology-architecture.md`
-- [ ] `capability-mapping.md`
-- [ ] `business-capabilities.md`
-- [ ] `application-portfolios.md`
-- [ ] `integration-landscapes.md`
-- [ ] `enterprise-principles.md`
-- [ ] `standards.md`
-- [ ] `enterprise-governance.md`
-- [ ] `architecture-review.md`
-- [ ] `technology-radar.md`
-- [ ] `technical-strategy.md`
-- [ ] `target-architecture.md`
-- [ ] `current-state-architecture.md`
-- [ ] `transition-architecture.md`
-- [ ] `architecture-roadmaps.md`
-- [ ] `architecture-levels.md`
 
 ### 16-legacy-modernization — Modernização de Legado
 
