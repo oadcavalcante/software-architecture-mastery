@@ -5,7 +5,7 @@
 | Diretório | `docs/13-observability/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 11 (0%) |
+| Progresso | 11 / 11 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,17 +15,17 @@ Esta seção está completa quando os 11 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `logs` |
-| ⬜ | `metrics` |
-| ⬜ | `traces` |
-| ⬜ | `distributed-tracing` |
-| ⬜ | `correlation-ids` |
-| ⬜ | `telemetry` |
-| ⬜ | `alerting` |
-| ⬜ | `dashboards` |
-| ⬜ | `sre-concepts` |
-| ⬜ | `golden-signals` |
-| ⬜ | `debuggability` |
+| 🟩 | `logs` |
+| 🟩 | `metrics` |
+| 🟩 | `traces` |
+| 🟩 | `distributed-tracing` |
+| 🟩 | `correlation-ids` |
+| 🟩 | `telemetry` |
+| 🟩 | `alerting` |
+| 🟩 | `dashboards` |
+| 🟩 | `sre-concepts` |
+| 🟩 | `golden-signals` |
+| 🟩 | `debuggability` |
 
 ## Critério de conclusão
 

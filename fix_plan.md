@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 274 de 432 (63%) |
-| Seções pendentes | 11 de 23 |
-| Próxima tarefa | `13-observability` → `logs.md` |
+| Escrito | 285 de 432 (66%) |
+| Seções pendentes | 10 de 23 |
+| Próxima tarefa | `14-devops-and-platform` → `ci-cd.md` |
 
 ## Como usar
 
@@ -27,22 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 13-observability — Observabilidade
-
-Nível 05 — Arquitetura · faltam 11 de 12 · spec: [`specs/13-observability.md`](specs/13-observability.md)
-
-- [ ] `logs.md`
-- [ ] `metrics.md`
-- [ ] `traces.md`
-- [ ] `distributed-tracing.md`
-- [ ] `correlation-ids.md`
-- [ ] `telemetry.md`
-- [ ] `alerting.md`
-- [ ] `dashboards.md`
-- [ ] `sre-concepts.md`
-- [ ] `golden-signals.md`
-- [ ] `debuggability.md`
 
 ### 14-devops-and-platform — DevOps e Plataforma
 

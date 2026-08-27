@@ -2,82 +2,104 @@
 id: observability
 title: Observabilidade
 sidebar_position: 0
-description: Conseguir responder perguntas novas sobre o sistema sem precisar alterá-lo.
+description: Conseguir responder perguntas que você não antecipou — a diferença entre monitoramento e observabilidade.
 doc_type: index
 level: 5
-difficulty: intermediário
+difficulty: avançado
 status: complete
 objective: >
-  Ao terminar, o leitor instrumenta um sistema para responder perguntas não
-  previstas e desenha alertas que apontam sintoma percebido pelo usuário.
+  Ao terminar, o leitor instrumenta sistemas para responder perguntas novas, não
+  apenas para exibir métricas conhecidas.
 prerequisites: [distributed-systems]
-related: [reliability, devops-and-platform]
+related: [reliability, scalability, devops-and-platform]
 canonical_for: []
 content_version: 1
-last_reviewed: 2026-08-26
+last_reviewed: 2026-08-28
 ---
 
-# Observabilidade
+# Nível 05 — Observabilidade
 
-Monitoramento responde perguntas que você previu. Observabilidade é a capacidade
-de responder perguntas que você não previu, sem alterar o sistema.
+Esta seção trata de saber o que está acontecendo dentro do sistema.
 
 ## O problema desta seção
 
-Num sistema de processo único, depurar é anexar um debugger. Num sistema
-distribuído, o comportamento que interessa acontece entre processos, em
-requisições que atravessam sete serviços, das quais 0,3% falham por um motivo
-que nenhum log isolado revela.
+Monitoramento responde perguntas que você antecipou: a CPU está alta? A taxa de erro
+subiu? O disco está cheio?
 
-O incidente típico não é "o serviço caiu" — isso é fácil. É "algumas requisições
-de alguns clientes estão lentas desde ontem". Responder a isso exige correlação
-entre sinais que foram emitidos por componentes diferentes, e essa correlação
-precisa ter sido projetada antes.
+Observabilidade é a capacidade de responder perguntas que você **não** antecipou: por
+que essas 200 requisições específicas, de clientes de um plano específico, ficaram
+lentas às 14h de ontem?
 
-Observabilidade é, portanto, decisão arquitetural. Adicionada depois do
-incidente, chega tarde para aquele incidente.
+A distinção não é semântica. Ela decide se, durante um incidente, você consegue
+investigar — ou apenas confirmar que algo está errado.
+
+E ela importa porque os incidentes que causam dano são justamente os não antecipados.
+Ver [resiliência](../12-reliability/resilience.md). Se todos os cenários fossem
+previstos, eles teriam sido tratados por mecanismo.
+
+O segundo problema é econômico. Telemetria custa — coleta, transporte, armazenamento,
+consulta — e o custo cresce mais rápido que o sistema. Boa parte do que é coletado
+nunca é consultado, e a redução ingênua remove exatamente o que faz falta na
+investigação.
 
 ## O que você vai encontrar aqui
 
 **Os três sinais.** Logs, métricas e traces — o que cada um responde bem, o que
-responde mal, e o custo de armazenamento e cardinalidade de cada um.
+responde mal, e por que os três são necessários.
 
-**Correlação.** Tracing distribuído e correlation IDs. É o que transforma três
-sinais desconexos numa narrativa por requisição, e é a parte que precisa
-atravessar toda fronteira de serviço para funcionar.
+**Rastreamento distribuído.** Como seguir uma requisição através de dezenas de
+serviços, com propagação de contexto e amostragem.
 
-**Coleta.** Telemetria e instrumentação — o que emitir, com que granularidade,
-e por que instrumentar tudo é tão problemático quanto instrumentar pouco.
+**Identificadores de correlação.** A técnica mais barata da seção e o pré-requisito de
+quase tudo.
 
-**Consumo.** Dashboards e alertas. Alerta que não corresponde a ação humana
-necessária é ruído que treina o time a ignorar alertas.
+**Telemetria.** Instrumentação, coleta e o custo — tratado como decisão de arquitetura,
+porque é.
 
-**Prática de SRE.** Golden signals e a ligação com SLO. Alertar por sintoma
-percebido pelo usuário em vez de por causa suposta.
+**Alertas.** O que merece acordar alguém, e por que a maior parte dos alertas
+existentes não merece.
 
-**O objetivo final.** Depurabilidade: a propriedade de o sistema permitir
-investigação, não apenas emitir dados.
+**Painéis.** Para que servem, e por que o painel que serve à investigação é diferente
+do que serve ao acompanhamento.
+
+**Sinais dourados.** As quatro medidas que cobrem a maior parte dos problemas.
+
+**Conceitos de SRE.** O vocabulário e as práticas que organizam operação em escala.
+
+**Depurabilidade.** A propriedade que se projeta no sistema, não na ferramenta.
 
 ## Ordem de leitura
 
-Comece por **os três sinais** e **correlação**, nessa ordem. Correlation ID é a
-decisão de menor custo e maior retorno desta seção, e precisa ser tomada cedo
-porque atravessa todos os contratos.
+Comece por **identificadores de correlação**. Sem eles, os demais sinais não se
+conectam, e a investigação em sistema distribuído fica inviável.
 
-Leia **golden signals** e **alertas** junto com
-[Confiabilidade](../12-reliability/index.md). Alerta desconectado de SLO é
-alerta sem critério de urgência.
+Depois **sinais dourados**, que dão um ponto de partida concreto para instrumentar.
+
+**Logs**, **métricas** e **traces** formam um bloco. Leia os três antes de decidir onde
+investir.
+
+**Alertas** merece atenção especial se o seu time tem sobreaviso — é o documento que
+mais reduz sofrimento operacional.
+
+Deixe **depurabilidade** para o fim. Ele reorganiza tudo o que veio antes numa
+propriedade de projeto.
 
 ## Ao terminar
 
-Você instrumenta um sistema de forma que uma pergunta nova possa ser respondida
-com os dados já emitidos. Desenha alertas que apontam para sintoma percebido
-pelo usuário e correspondem a uma ação.
+Você instrumenta para responder perguntas que ainda não foram feitas, em vez de para
+preencher painéis.
 
-E consegue estimar o custo de observabilidade antes de ligá-la — que em sistemas
-de alto volume rivaliza com o custo de computação.
+Consegue seguir uma requisição através do sistema e dizer onde ela gastou tempo — sem
+correlacionar registros à mão.
 
-## Relacionado
+Reconhece que a maior parte dos alertas de um sistema típico não deveria existir, e
+sabe qual critério aplicar.
 
-[DevOps e Plataforma](../14-devops-and-platform/index.md), onde essa
-instrumentação vira responsabilidade de plataforma em vez de esforço por time.
+E entende que observabilidade é uma propriedade do **sistema**, não da ferramenta: um
+sistema que não emite contexto não fica observável porque alguém comprou uma
+plataforma.
+
+## Continua em
+
+[DevOps e Plataforma](../14-devops-and-platform/index.md), onde a operação deixa de ser
+reativa e passa a ser desenhada.

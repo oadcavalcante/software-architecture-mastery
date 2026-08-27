@@ -55,7 +55,31 @@ describe('check-placeholders', () => {
     fails(
       check('check-placeholders.mjs', {
         'docs/exemplo.md': doc(
-          completeBody('Esta seção fica pronta em breve.\n'),
+          completeBody('Esta seção tem lorem ipsum no lugar do texto.\n'),
+          {status: 'complete', doc_type: 'concept'},
+        ),
+      }),
+      /pendência/,
+    );
+  });
+
+  // "em breve" é português corrente em prosa — "vai afetar em breve". Só conta
+  // como marcador quando isolado, como "a escrever".
+  test('não confunde "em breve" em prosa com marcador de pendência', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/exemplo.md': doc(
+        completeBody('Alerte quando algo afeta usuários, ou vai afetar em breve.\n'),
+        {status: 'complete', doc_type: 'concept'},
+      ),
+    });
+    assert.equal(r.code, 0, r.out);
+  });
+
+  test('detecta "em breve" isolado como marcador', () => {
+    fails(
+      check('check-placeholders.mjs', {
+        'docs/exemplo.md': doc(
+          completeBody('Comparação entre as abordagens: (em breve)\n'),
           {status: 'complete', doc_type: 'concept'},
         ),
       }),

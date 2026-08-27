@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**278 de 437 documentos planejados escritos (64%).**
+**289 de 437 documentos planejados escritos (66%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -30,7 +30,7 @@ mas já tem índice publicado explicando o que virá.
 | `10-security` | 05 | 18 / 18 | `██████████` 100% |
 | `11-scalability` | 05 | 14 / 14 | `██████████` 100% |
 | `12-reliability` | 05 | 18 / 18 | `██████████` 100% |
-| `13-observability` | 05 | 1 / 12 | `█░░░░░░░░░` 8% |
+| `13-observability` | 05 | 12 / 12 | `██████████` 100% |
 | `14-devops-and-platform` | 05 | 1 / 14 | `█░░░░░░░░░` 7% |
 | `15-enterprise-architecture` | 06 | 1 / 21 | `█░░░░░░░░░` 5% |
 | `16-legacy-modernization` | 06 | 1 / 13 | `█░░░░░░░░░` 8% |
@@ -337,7 +337,18 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [SLA](docs/12-reliability/sla.md) | concept | intermediário | `slo` | ⬜ |
 | 🟩 | [SLI](docs/12-reliability/sli.md) | concept | intermediário | `reliability` | ⬜ |
 | 🟩 | [SLO](docs/12-reliability/slo.md) | concept | avançado | `sli` | ⬜ |
-| 🟩 | [Observabilidade](docs/13-observability/index.md) | index | intermediário | `distributed-systems` | ⬜ |
+| 🟩 | [Alertas](docs/13-observability/alerting.md) | concept | avançado | `golden-signals` | ⬜ |
+| 🟩 | [Identificadores de Correlação](docs/13-observability/correlation-ids.md) | pattern | intermediário | `observability` | ⬜ |
+| 🟩 | [Painéis](docs/13-observability/dashboards.md) | concept | intermediário | `golden-signals` | ⬜ |
+| 🟩 | [Depurabilidade](docs/13-observability/debuggability.md) | concept | avançado | `observability` | ⬜ |
+| 🟩 | [Rastreamento Distribuído](docs/13-observability/distributed-tracing.md) | concept | avançado | `traces` | ⬜ |
+| 🟩 | [Sinais Dourados](docs/13-observability/golden-signals.md) | concept | intermediário | `observability` | ⬜ |
+| 🟩 | [Observabilidade](docs/13-observability/index.md) | index | avançado | `distributed-systems` | ⬜ |
+| 🟩 | [Logs](docs/13-observability/logs.md) | concept | intermediário | `observability` | ⬜ |
+| 🟩 | [Métricas](docs/13-observability/metrics.md) | concept | intermediário | `observability` | ⬜ |
+| 🟩 | [Conceitos de SRE](docs/13-observability/sre-concepts.md) | concept | avançado | `observability` | ⬜ |
+| 🟩 | [Telemetria](docs/13-observability/telemetry.md) | concept | avançado | `observability` | ⬜ |
+| 🟩 | [Traces](docs/13-observability/traces.md) | concept | intermediário | `observability` | ⬜ |
 | 🟩 | [DevOps e Plataforma](docs/14-devops-and-platform/index.md) | index | intermediário | `system-design` | ⬜ |
 | 🟩 | [Documentação de Arquitetura](docs/17-architecture-documentation/index.md) | index | intermediário | `system-design` | ⬜ |
 | 🟩 | [Decisões de Arquitetura](docs/18-architecture-decisions/index.md) | index | intermediário | `architecture-documentation` | ⬜ |

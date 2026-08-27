@@ -29,7 +29,7 @@ alternatives, reason about trade-offs, decide, communicate, and evolve.
 :::info Work in progress
 
 <!-- PROGRESS:INTRO -->
-This site is being written. **278 of 437 documents** (64%) are done, across **12 of 23 complete sections**.
+This site is being written. **289 of 437 documents** (66%) are done, across **13 of 23 complete sections**.
 <!-- /PROGRESS:INTRO -->
 
 Translation to English is progressive: pages not yet translated appear in
