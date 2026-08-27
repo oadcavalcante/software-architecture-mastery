@@ -1,5 +1,8 @@
 /**
- * Barra de progresso agregada — exibida no índice de cada seção.
+ * Painel de progresso da seção — topo do índice.
+ *
+ * Fica antes do conteúdo porque "quanto falta nesta seção?" é a pergunta que se
+ * faz ao *chegar* no índice, não depois de rolar até o fim dele.
  *
  * Os identificadores dos documentos vêm da barra lateral, não de um manifesto
  * gerado: a barra já é derivada do conteúdo real pelo Docusaurus, e um arquivo
@@ -53,27 +56,33 @@ export default function SectionProgress(): React.ReactElement | null {
   if (ids.length === 0) return null;
 
   const pct = Math.round((done / ids.length) * 100);
-  const allRead = done === ids.length;
+  const complete = done === ids.length;
 
   return (
     <section
-      className={styles.summary}
+      className={`${styles.panel} ${complete ? styles.panelComplete : ''}`}
       aria-label={translate({
         id: 'readingProgress.section.label',
         message: 'Progresso de leitura desta seção',
         description: 'Rótulo acessível do bloco de progresso da seção',
       })}>
-      <div className={styles.summaryHead}>
-        <span className={styles.summaryLabel}>
-          <Translate
-            id="readingProgress.section.title"
-            description="Título do bloco de progresso da seção">
-            Seu progresso nesta seção
-          </Translate>
+      <div className={styles.panelHead}>
+        <span className={styles.panelTitle}>
+          {complete ? (
+            <Translate
+              id="readingProgress.section.done"
+              description="Título do painel quando toda a seção foi lida">
+              Seção concluída
+            </Translate>
+          ) : (
+            <Translate
+              id="readingProgress.section.title"
+              description="Título do painel de progresso da seção">
+              Seu progresso nesta seção
+            </Translate>
+          )}
         </span>
-        <span className={styles.summaryCount}>
-          {done} / {ids.length} · {pct}%
-        </span>
+        <span className={styles.panelPct}>{pct}%</span>
       </div>
 
       <div
@@ -82,12 +91,24 @@ export default function SectionProgress(): React.ReactElement | null {
         aria-valuenow={done}
         aria-valuemin={0}
         aria-valuemax={ids.length}>
-        <div className={styles.fill} style={{width: `${pct}%`}} />
+        <div
+          className={`${styles.fill} ${complete ? styles.fillComplete : ''}`}
+          style={{width: `${pct}%`}}
+        />
       </div>
 
-      <div className={styles.actions}>
-        <button type="button" className={styles.action} onClick={() => setManyRead(ids, !allRead)}>
-          {allRead ? (
+      <div className={styles.panelFoot}>
+        <span className={styles.panelCount}>
+          <Translate
+            id="readingProgress.section.count"
+            description="Contagem de documentos lidos na seção"
+            values={{done, total: ids.length}}>
+            {'{done} de {total} documentos lidos'}
+          </Translate>
+        </span>
+
+        <button type="button" className={styles.action} onClick={() => setManyRead(ids, !complete)}>
+          {complete ? (
             <Translate
               id="readingProgress.section.unmarkAll"
               description="Botão para desmarcar todos os documentos da seção">
@@ -101,6 +122,16 @@ export default function SectionProgress(): React.ReactElement | null {
             </Translate>
           )}
         </button>
+      </div>
+
+      <div className={styles.panelFoot}>
+        <span className={styles.panelHint}>
+          <Translate
+            id="readingProgress.section.hint"
+            description="Aviso de que o progresso fica apenas neste navegador">
+            O progresso fica salvo apenas neste navegador.
+          </Translate>
+        </span>
       </div>
     </section>
   );

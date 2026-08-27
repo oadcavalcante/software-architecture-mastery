@@ -379,7 +379,7 @@
   },
   "readingProgress.section.title": {
     "message": "Your progress in this section",
-    "description": "Título do bloco de progresso da seção"
+    "description": "Título do painel de progresso da seção"
   },
   "readingProgress.section.unmarkAll": {
     "message": "Unmark all",
@@ -388,5 +388,29 @@
   "readingProgress.section.markAll": {
     "message": "Mark all as read",
     "description": "Botão para marcar todos os documentos da seção como lidos"
+  },
+  "readingProgress.toggle.doneTitle": {
+    "message": "Document completed",
+    "description": "Título do cartão quando o documento já foi lido"
+  },
+  "readingProgress.toggle.promptTitle": {
+    "message": "Finished reading this document?",
+    "description": "Título do cartão convidando a marcar o documento como lido"
+  },
+  "readingProgress.toggle.hint": {
+    "message": "Your progress is saved in this browser only.",
+    "description": "Aviso de que o progresso fica apenas neste navegador"
+  },
+  "readingProgress.section.done": {
+    "message": "Section completed",
+    "description": "Título do painel quando toda a seção foi lida"
+  },
+  "readingProgress.section.count": {
+    "message": "{done} of {total} documents read",
+    "description": "Contagem de documentos lidos na seção"
+  },
+  "readingProgress.section.hint": {
+    "message": "Progress is saved in this browser only.",
+    "description": "Aviso de que o progresso fica apenas neste navegador"
   }
 }

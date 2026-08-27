@@ -26,12 +26,16 @@ O objetivo não é ensinar padrões, frameworks ou serviços de nuvem. É desenv
 raciocínio arquitetural: entender o problema, identificar restrições, avaliar
 alternativas, raciocinar sobre trade-offs, decidir, comunicar e evoluir.
 
-:::warning Em construção
+:::info Em construção
 
-Este site está na **Fase F0** — fundação técnica. A estrutura, o build bilíngue e
-os validadores estão no lugar; o conteúdo dos sete níveis ainda não foi escrito.
+<!-- PROGRESS:INTRO -->
+Este site está sendo escrito. São **199 de 437 documentos** (46%), com **7 de 23 seções** completas.
+<!-- /PROGRESS:INTRO -->
 
-O plano completo está na [especificação do projeto](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md).
+A tradução para inglês é progressiva: páginas ainda não traduzidas aparecem em
+português. O plano completo está na
+[especificação do projeto](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md)
+e o estado detalhado, no [roadmap](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/ROADMAP.md).
 
 :::
 

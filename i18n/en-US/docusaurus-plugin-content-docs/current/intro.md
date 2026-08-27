@@ -26,13 +26,17 @@ The goal is not to teach patterns, frameworks, or cloud services. It is to devel
 architectural reasoning: understand the problem, identify constraints, evaluate
 alternatives, reason about trade-offs, decide, communicate, and evolve.
 
-:::warning Under construction
+:::info Work in progress
 
-This site is in **Phase F0** — technical foundation. The structure, the bilingual
-build, and the validators are in place; the content of the seven levels has not
-been written yet.
+<!-- PROGRESS:INTRO -->
+This site is being written. **199 of 437 documents** (46%) are done, across **7 of 23 complete sections**.
+<!-- /PROGRESS:INTRO -->
 
-The full plan lives in the [project specification](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md).
+Translation to English is progressive: pages not yet translated appear in
+Portuguese. The full plan lives in the
+[project specification](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md),
+and the detailed state in the
+[roadmap](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/ROADMAP.md).
 
 :::
 

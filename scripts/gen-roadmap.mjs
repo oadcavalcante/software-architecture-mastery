@@ -246,6 +246,57 @@ const README_LABELS = {
 };
 
 /**
+ * Texto do aviso de progresso das páginas de introdução.
+ *
+ * Ele já esteve escrito à mão dizendo "Fase F0 — o conteúdo ainda não foi
+ * escrito", e continuou dizendo isso com sete seções prontas. Aviso de
+ * progresso mantido à mão é aviso que envelhece em silêncio.
+ */
+const INTRO_TEXT = {
+  'pt-BR': ({pct, writtenTotal, plannedTotal, doneSections, totalSections}) =>
+    `Este site está sendo escrito. São **${writtenTotal} de ${plannedTotal} documentos** `
+    + `(${pct}%), com **${doneSections} de ${totalSections} seções** completas.`,
+  'en-US': ({pct, writtenTotal, plannedTotal, doneSections, totalSections}) =>
+    `This site is being written. **${writtenTotal} of ${plannedTotal} documents** `
+    + `(${pct}%) are done, across **${doneSections} of ${totalSections} complete sections**.`,
+};
+
+/** Caminho da introdução por locale — pt-BR é canônico em `docs/`. */
+const INTRO_PATH = {
+  'pt-BR': 'docs/intro.md',
+  'en-US': 'i18n/en-US/docusaurus-plugin-content-docs/current/intro.md',
+};
+
+/**
+ * Atualiza o aviso de progresso das duas introduções.
+ *
+ * Uma seção conta como completa quando todos os tópicos previstos existem —
+ * o índice não entra na conta, porque ele é sumário e não tópico.
+ */
+function updateIntros(done, stats) {
+  let doneSections = 0;
+  for (const section of Object.keys(PLANNED_TOPICS)) {
+    const topics = Math.max(0, (done.get(section) ?? 0) - 1); // desconta o índice
+    if (topics >= PLANNED_TOPICS[section]) doneSections += 1;
+  }
+  const totalSections = Object.keys(PLANNED_TOPICS).length;
+  const facts = {...stats, doneSections, totalSections};
+
+  for (const [locale, rel] of Object.entries(INTRO_PATH)) {
+    const path = join(ROOT, rel);
+    if (!existsSync(path)) continue;
+    const content = readFileSync(path, 'utf8');
+    const next = replaceBetween(
+      content, '<!-- PROGRESS:INTRO -->', '<!-- /PROGRESS:INTRO -->',
+      INTRO_TEXT[locale](facts),
+    );
+    if (next !== content) writeFileSync(path, next);
+  }
+
+  return {doneSections, totalSections};
+}
+
+/**
  * Atualiza badges e tabela de progresso dos READMEs.
  *
  * Números escritos à mão num README envelhecem em silêncio e passam a mentir.
@@ -302,7 +353,7 @@ function updateReadmes(docs) {
     writeFileSync(path, content);
   }
 
-  return {writtenTotal, plannedTotal, pct};
+  return {writtenTotal, plannedTotal, pct, done};
 }
 
 function replaceBetween(text, begin, end, body) {
@@ -342,10 +393,12 @@ function main() {
   writeFileSync(ROADMAP, output);
 
   const readme = updateReadmes(docs);
+  const intro = updateIntros(readme.done, readme);
 
   const done = docs.filter((d) => d.frontmatter.status === 'complete').length;
   console.log(`[roadmap] ok — ${docs.length} documento(s), ${done} completo(s), locales: ${locales.join(', ') || 'nenhuma'}`);
   console.log(`[readme]  ok — ${readme.writtenTotal}/${readme.plannedTotal} (${readme.pct}%) nos badges e na tabela`);
+  console.log(`[intro]   ok — ${intro.doneSections}/${intro.totalSections} seção(ões) completa(s) no aviso das introduções`);
 }
 
 main();
