@@ -18,7 +18,7 @@
 
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
-import {loadAll, Report, stripCode, CANONICAL_LOCALE} from './lib/docs.mjs';
+import {loadAll, Report, proseOnly, CANONICAL_LOCALE} from './lib/docs.mjs';
 
 // Resolvido relativo a este script, não à raiz de conteúdo: a política
 // terminológica pertence à ferramenta, e SAM_ROOT move só a árvore de documentos.
@@ -75,8 +75,22 @@ function maskProtectedPhrases(prose) {
   return masked;
 }
 
+/**
+ * Remove a seção de bibliografia antes de checar terminologia.
+ *
+ * "Site Reliability Engineering" e "Technical Debt Quadrant" são títulos de
+ * obras — nomes próprios que não se traduzem. Sem esta exclusão, todo documento
+ * com bibliografia acusa uso do termo em inglês, o que é praticamente todos.
+ */
+const BIBLIOGRAPHY_HEADINGS = /^##\s+(Para Aprofundar|Further Exploration|Refer[êe]ncias|References)\s*$/im;
+
+function stripBibliography(body) {
+  const match = BIBLIOGRAPHY_HEADINGS.exec(body);
+  return match ? body.slice(0, match.index) : body;
+}
+
 function checkCanonicalDoc(doc, report) {
-  const prose = maskProtectedPhrases(stripCode(doc.body));
+  const prose = maskProtectedPhrases(proseOnly(stripBibliography(doc.body)));
   const exempt = new Set((doc.frontmatter.terminology_exempt ?? []).map((t) => String(t).toLowerCase()));
   const at = doc.repoPath;
 
@@ -106,7 +120,7 @@ function checkCanonicalDoc(doc, report) {
 }
 
 function checkTranslatedDoc(doc, report) {
-  const prose = maskProtectedPhrases(stripCode(doc.body));
+  const prose = maskProtectedPhrases(proseOnly(stripBibliography(doc.body)));
   const exempt = new Set((doc.frontmatter.terminology_exempt ?? []).map((t) => String(t).toLowerCase()));
   const at = doc.repoPath;
 

@@ -410,6 +410,7 @@ Nem todo documento usa o mesmo template. Cinco tipos, cada um com seu esqueleto 
 | Tipo | `doc_type` | Tamanho-alvo | Onde ocorre |
 |---|---|---|---|
 | Conceito | `concept` | 1.200 – 2.500 palavras | Níveis 01–07 |
+| Fundamento | `foundation` | 900 – 2.200 palavras | Documentos definicionais, sobretudo no Nível 01 |
 | Padrão | `pattern` | 1.000 – 2.000 palavras | `03-design-patterns`, padrões em outras seções |
 | Trade-off | `tradeoff` | 1.200 – 2.200 palavras | `20-trade-offs` |
 | Case study | `case-study` | 3.000 – 6.000 palavras | `21-case-studies` |
@@ -481,8 +482,20 @@ Referências reais, verificáveis, com autor e ano.
 
 **Seções não são obrigatórias em bloco.** A estrutura guia o conteúdo; não o torna repetitivo.
 Omitir uma seção que não faz sentido é correto. Preenchê-la com texto vazio é violação da spec.
-Exceção: **"Quando Não Usar" e "Trade-offs" nunca podem ser omitidas** em `concept`,
-`pattern` e `tradeoff`.
+
+**Exceção: cada tipo tem seções que nunca podem ser omitidas.** A regra existe para forçar
+justamente a parte que aquele tipo de documento mais frequentemente omite.
+
+| `doc_type` | Seções obrigatórias | O que a regra protege |
+|---|---|---|
+| `concept`, `pattern`, `tradeoff` | Quando Não Usar · Trade-offs | O limite de aplicação — a parte que a literatura de padrões quase sempre pula |
+| `foundation` | Por Que Isso Importa · Erros Comuns | A consequência prática da distinção, sem a qual o documento vira verbete |
+| demais | — | — |
+
+O tipo `foundation` existe porque exigir "Quando Não Usar" de um documento definicional é
+incoerente: não há o que aplicar em "Arquitetura vs. Design". Forçar a seção produziria
+exatamente o filler que esta spec proíbe. O que um documento definicional omite não é o
+limite de aplicação — é por que a distinção muda alguma decisão.
 
 ### 7.4 Regra antiduplicação
 

@@ -103,3 +103,66 @@ describe('check-terminology', () => {
     );
   });
 });
+
+describe('check-terminology — falsos positivos sistêmicos', () => {
+  // Regressão: os slugs deste repositório são em inglês por decisão (ADR-R003).
+  // Um link para ../12-reliability/index.md contém "reliability" sem que o autor
+  // tenha escrito o termo em inglês. Sem descartar a URL, todo link interno
+  // vira falso positivo.
+  test('ignora o termo dentro da URL de um link, mas checa o texto', () => {
+    ok(check('check-terminology.mjs', {
+      'docs/exemplo.md': doc('# X\n\nVeja [confiabilidade](../12-reliability/index.md).\n'),
+    }));
+    fails(
+      check('check-terminology.mjs', {
+        'docs/exemplo.md': doc('# X\n\nVeja [reliability](../12-reliability/index.md).\n'),
+      }),
+      /usa "reliability"/,
+    );
+  });
+
+  // Regressão: "Site Reliability Engineering" e "Technical Debt Quadrant" são
+  // títulos de obras — nomes próprios. Sem excluir a bibliografia, todo
+  // documento que cita fontes acusa uso do termo em inglês.
+  test('ignora títulos de obras na seção de bibliografia', () => {
+    for (const heading of ['Para Aprofundar', 'Further Exploration', 'Referências']) {
+      ok(check('check-terminology.mjs', {
+        'docs/exemplo.md': doc(
+          `# X\n\nA confiabilidade do sistema importa.\n\n## ${heading}\n\n`
+          + '- Beyer, Betsy et al. *Site Reliability Engineering*. O\'Reilly, 2016.\n'
+          + '- Fowler, Martin. *Technical Debt Quadrant*, 2009.\n',
+        ),
+      }));
+    }
+  });
+
+  test('continua checando o corpo mesmo havendo bibliografia depois', () => {
+    fails(
+      check('check-terminology.mjs', {
+        'docs/exemplo.md': doc(
+          '# X\n\nO reliability do sistema importa.\n\n## Para Aprofundar\n\n- Fonte.\n',
+        ),
+      }),
+      /usa "reliability"/,
+    );
+  });
+
+  // Regressão: "fragmentação" é palavra portuguesa comum, usada fora de
+  // qualquer contexto de sharding. Era enforced e acusava texto legítimo.
+  test('não trata "fragmentação" como má tradução de sharding', () => {
+    ok(check('check-terminology.mjs', {
+      'docs/exemplo.md': doc(
+        '# X\n\nHá risco de fragmentação ao dividir um módulo coeso em três.\n',
+      ),
+    }));
+  });
+
+  test('ainda rejeita "estilhaçamento" como tradução de sharding', () => {
+    fails(
+      check('check-terminology.mjs', {
+        'docs/exemplo.md': doc('# X\n\nO estilhaçamento distribui a carga.\n'),
+      }),
+      /traduz "sharding" como "estilhaçamento"/,
+    );
+  });
+});

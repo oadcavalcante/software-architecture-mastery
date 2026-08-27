@@ -136,12 +136,30 @@ export function headings(body) {
   return out;
 }
 
-/** Remove blocos de código e código inline, para análises que só olham prosa. */
+/** Remove blocos de código e código inline. Links são preservados. */
 export function stripCode(body) {
   return body
     .replace(/```[\s\S]*?```/g, '')
     .replace(/~~~[\s\S]*?~~~/g, '')
     .replace(/`[^`\n]*`/g, '');
+}
+
+/**
+ * Texto corrido para análise linguística: sem código e sem URLs.
+ *
+ * O texto de um link é prosa e deve ser analisado; a URL não. Os slugs deste
+ * repositório são em inglês por decisão (ADR-R003), então um link para
+ * `../12-reliability/index.md` contém "reliability" sem que o autor tenha
+ * escrito o termo em inglês.
+ *
+ * Separado de stripCode de propósito: check-links precisa dos links intactos
+ * para poder validá-los, e removê-los ali faria o validador não encontrar nada.
+ */
+export function proseOnly(body) {
+  return stripCode(body)
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')   // link e imagem: preserva o texto
+    .replace(/^\s*\[[^\]]+\]:\s*\S+.*$/gm, '')  // definição de link de referência
+    .replace(/<https?:\/\/[^>]+>/g, '');           // autolink
 }
 
 /** Conta palavras da prosa, ignorando código e front matter. */

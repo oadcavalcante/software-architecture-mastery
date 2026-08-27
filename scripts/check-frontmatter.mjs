@@ -10,7 +10,7 @@ import {loadCanonical, loadAll, Report, CANONICAL_LOCALE} from './lib/docs.mjs';
 
 const DOC_TYPES = new Set([
   'concept', 'pattern', 'tradeoff', 'case-study', 'exercise', 'adr', 'index',
-  'reference',
+  'reference', 'foundation',
 ]);
 const DIFFICULTIES = new Set([
   'iniciante', 'intermediário', 'avançado',

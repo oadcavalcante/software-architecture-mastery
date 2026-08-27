@@ -41,7 +41,7 @@ id: coupling                    # igual ao nome do arquivo
 title: Acoplamento
 sidebar_position: 8
 description: Uma frase que diz o que o documento resolve.
-doc_type: concept               # concept | pattern | tradeoff | case-study | exercise | adr | index | reference
+doc_type: concept               # concept | foundation | pattern | tradeoff | case-study | exercise | adr | index | reference
 level: 1
 difficulty: iniciante
 status: in-progress             # not-started | in-progress | complete
@@ -60,13 +60,19 @@ Para índices de seção, o `id` é o nome do diretório sem o prefixo numérico
 
 ### Estrutura
 
-Siga o template do seu `doc_type` ([SPEC.md §7.3](SPEC.md)). Duas seções nunca
-podem faltar em `concept`, `pattern` e `tradeoff`:
+Siga o template do seu `doc_type` ([SPEC.md §7.3](SPEC.md)). Cada tipo tem
+seções que nunca podem faltar:
 
-- **Quando Não Usar** — com condições concretas, não hedge genérico.
-- **Trade-offs** — com o eixo de comparação declarado.
+| `doc_type` | Obrigatórias |
+|---|---|
+| `concept`, `pattern`, `tradeoff` | **Quando Não Usar** (condições concretas, não hedge genérico) · **Trade-offs** (com o eixo declarado) |
+| `foundation` | **Por Que Isso Importa** · **Erros Comuns** |
 
 O CI verifica a presença **e** o tamanho mínimo delas.
+
+Use `foundation` para documentos definicionais — "Arquitetura vs. Design", por
+exemplo — em que "quando não usar" não faz sentido porque não há o que aplicar.
+Use `concept` quando o tópico prescreve uma ação cujo limite importa.
 
 ### Densidade
 

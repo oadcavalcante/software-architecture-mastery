@@ -149,10 +149,10 @@
     {
       "term": "sharding",
       "badPt": [
-        "fragmentação",
         "estilhaçamento"
       ],
-      "enforced": true
+      "enforced": true,
+      "$note": "'fragmentação' foi removido: é palavra portuguesa comum, usada fora de qualquer contexto de sharding."
     },
     {
       "term": "backpressure",

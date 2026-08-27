@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**27 de 440 documentos planejados escritos (6%).**
+**49 de 440 documentos planejados escritos (11%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -18,7 +18,7 @@ mas já tem índice publicado explicando o que virá.
 | Seção | Nível | Escritos | Progresso |
 |---|---|---:|---|
 | `(raiz)` | — | 4 / 5 | `████████░░` 80% |
-| `01-fundamentals` | 01 | 1 / 23 | `░░░░░░░░░░` 4% |
+| `01-fundamentals` | 01 | 23 / 23 | `██████████` 100% |
 | `02-software-design` | 02 | 1 / 23 | `░░░░░░░░░░` 4% |
 | `03-design-patterns` | 02 | 1 / 35 | `░░░░░░░░░░` 3% |
 | `04-domain-driven-design` | 02 | 1 / 20 | `█░░░░░░░░░` 5% |
@@ -54,7 +54,29 @@ mas já tem índice publicado explicando o que virá.
 
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
+| 🟩 | [Abstração](docs/01-fundamentals/abstraction.md) | concept | iniciante | `separation-of-concerns` | ⬜ |
+| 🟩 | [Arquitetura como Conjunto de Decisões](docs/01-fundamentals/architecture-as-decisions.md) | foundation | intermediário | `architecture-principles` | ⬜ |
+| 🟩 | [Características Arquiteturais](docs/01-fundamentals/architecture-characteristics.md) | foundation | intermediário | `quality-attributes` | ⬜ |
+| 🟩 | [Evolução da Arquitetura](docs/01-fundamentals/architecture-evolution.md) | foundation | intermediário | `architecture-as-decisions` | ⬜ |
+| 🟩 | [Princípios de Arquitetura](docs/01-fundamentals/architecture-principles.md) | concept | intermediário | `architecture-characteristics` | ⬜ |
+| 🟩 | [Arquitetura vs. Design](docs/01-fundamentals/architecture-vs-design.md) | foundation | iniciante | `what-is-software-architecture` | ⬜ |
+| 🟩 | [Arquitetura vs. Implementação](docs/01-fundamentals/architecture-vs-implementation.md) | foundation | iniciante | `architecture-vs-design` | ⬜ |
+| 🟩 | [Contexto de Negócio](docs/01-fundamentals/business-context.md) | foundation | iniciante | `what-is-software-architecture` | ⬜ |
+| 🟩 | [Coesão](docs/01-fundamentals/cohesion.md) | concept | iniciante | `coupling` | ⬜ |
+| 🟩 | [Complexidade](docs/01-fundamentals/complexity.md) | concept | intermediário | `abstraction` | ⬜ |
+| 🟩 | [Restrições](docs/01-fundamentals/constraints.md) | foundation | iniciante | `quality-attributes` | ⬜ |
+| 🟩 | [Acoplamento](docs/01-fundamentals/coupling.md) | concept | iniciante | `modularity` | ⬜ |
+| 🟩 | [Gestão de Dependências](docs/01-fundamentals/dependency-management.md) | concept | intermediário | `coupling` | ⬜ |
+| 🟩 | [Requisitos Funcionais](docs/01-fundamentals/functional-requirements.md) | foundation | iniciante | `problem-space` | ⬜ |
 | 🟩 | [Fundamentos](docs/01-fundamentals/index.md) | index | iniciante | — | ⬜ |
+| 🟩 | [Modularidade](docs/01-fundamentals/modularity.md) | concept | iniciante | `architecture-vs-design` | ⬜ |
+| 🟩 | [Requisitos Não-Funcionais](docs/01-fundamentals/non-functional-requirements.md) | foundation | iniciante | `functional-requirements` | ⬜ |
+| 🟩 | [Espaço do Problema](docs/01-fundamentals/problem-space.md) | foundation | iniciante | `business-context` | ⬜ |
+| 🟩 | [Atributos de Qualidade](docs/01-fundamentals/quality-attributes.md) | foundation | iniciante | `non-functional-requirements` | ⬜ |
+| 🟩 | [Separação de Responsabilidades](docs/01-fundamentals/separation-of-concerns.md) | concept | iniciante | `modularity` | ⬜ |
+| 🟩 | [Espaço da Solução](docs/01-fundamentals/solution-space.md) | foundation | iniciante | `problem-space` | ⬜ |
+| 🟩 | [Dívida Técnica](docs/01-fundamentals/technical-debt.md) | concept | intermediário | `complexity` | ⬜ |
+| 🟩 | [O que é Arquitetura de Software](docs/01-fundamentals/what-is-software-architecture.md) | foundation | iniciante | — | ⬜ |
 
 ### Nível 02 — Design de Software
 
@@ -129,7 +151,7 @@ Cada fase entrega um site publicável e útil por si só. Ver
 |---|---|:-:|
 | **F0** | Scaffold Docusaurus, i18n, Mermaid, busca, CI, validadores, deploy | 🟩 |
 | **F1** | README, ROADMAP, CONTRIBUTING, glossário, modelo de maturidade, política terminológica, 23 índices de seção, sidebar por nível | 🟩 |
-| **F2** | Níveis 01–02: fundamentos, design de software, padrões, DDD | ⬜ |
+| **F2** | Níveis 01–02: fundamentos, design de software, padrões, DDD | 🟨 Nível 01 completo (22 tópicos); faltam seções 02, 03, 04 |
 | **F3** | Níveis 03–04: design de sistemas, sistemas distribuídos | ⬜ |
 | **F4** | Nível 05: as onze disciplinas de arquitetura + ADRs didáticos | ⬜ |
 | **F5** | Níveis 06–07: corporativo, legado, governança, liderança | ⬜ |
@@ -144,7 +166,7 @@ redefinição e duplicação.
 ## Ferramentas
 
 ```bash
-npm test          # 49 testes dos validadores
+npm test          # 59 testes dos validadores
 npm run validate  # os cinco validadores de conteúdo
 npm run roadmap   # regenera as tabelas acima
 npm run build     # build nas duas locales

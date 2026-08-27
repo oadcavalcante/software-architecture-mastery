@@ -16,6 +16,7 @@ import {loadAll, Report, headings, wordCount, stripCode, CANONICAL_LOCALE} from 
 /** SPEC.md §7.2 — faixas de densidade por tipo de documento. */
 const WORD_RANGE = {
   concept: [1200, 2500],
+  foundation: [900, 2200],
   pattern: [1000, 2000],
   tradeoff: [1200, 2200],
   'case-study': [3000, 6000],
@@ -27,12 +28,33 @@ const WORD_RANGE = {
   reference: [500, 12000],
 };
 
-/** SPEC.md §7.3 — nunca omitidas em concept, pattern e tradeoff. */
+/**
+ * SPEC.md §7.3 — seções que nunca podem ser omitidas, por tipo de documento.
+ *
+ * A regra existe para forçar a parte que mais se omite em cada tipo. Para um
+ * conceito acionável, é o limite de aplicação: "quando não reduzir acoplamento".
+ * Para um documento definicional, exigir "Quando Não Usar" é incoerente — não há
+ * o que aplicar — e produziria o filler que a spec proíbe. O que se omite num
+ * documento definicional é outra coisa: por que a distinção importa na prática.
+ */
 const REQUIRED_SECTIONS = {
-  'pt-BR': ['Quando Não Usar', 'Trade-offs'],
-  'en-US': ['When Not to Use', 'Trade-offs'],
+  concept: {
+    'pt-BR': ['Quando Não Usar', 'Trade-offs'],
+    'en-US': ['When Not to Use', 'Trade-offs'],
+  },
+  pattern: {
+    'pt-BR': ['Quando Não Usar', 'Trade-offs'],
+    'en-US': ['When Not to Use', 'Trade-offs'],
+  },
+  tradeoff: {
+    'pt-BR': ['Quando Não Usar', 'Trade-offs'],
+    'en-US': ['When Not to Use', 'Trade-offs'],
+  },
+  foundation: {
+    'pt-BR': ['Por Que Isso Importa', 'Erros Comuns'],
+    'en-US': ['Why This Matters', 'Common Mistakes'],
+  },
 };
-const TYPES_WITH_REQUIRED_SECTIONS = new Set(['concept', 'pattern', 'tradeoff']);
 
 // Dois padrões separados de propósito. Os marcadores em caixa alta são
 // case-SENSITIVE: em português, /TODO/i casa com "todo", "todo mundo",
@@ -93,8 +115,9 @@ function checkDoc(doc, report) {
   const sections = sectionBodies(doc.body);
 
   // Seções obrigatórias.
-  if (complete && TYPES_WITH_REQUIRED_SECTIONS.has(fm.doc_type)) {
-    const required = REQUIRED_SECTIONS[doc.locale] ?? REQUIRED_SECTIONS[CANONICAL_LOCALE];
+  const requiredByLocale = REQUIRED_SECTIONS[fm.doc_type];
+  if (complete && requiredByLocale) {
+    const required = requiredByLocale[doc.locale] ?? requiredByLocale[CANONICAL_LOCALE];
     const present = new Map([...sections.keys()].map((k) => [normalize(k), k]));
     for (const needed of required) {
       const key = present.get(normalize(needed));

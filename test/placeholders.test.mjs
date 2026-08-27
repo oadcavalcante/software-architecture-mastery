@@ -135,3 +135,59 @@ describe('check-placeholders', () => {
     }));
   });
 });
+
+describe('check-placeholders — seções obrigatórias por doc_type', () => {
+  const prosa = 'Cada decisão fecha uma porta e abre outra, e o custo dessa troca '
+    + 'precisa ser declarado com clareza suficiente para que alguém discorde dele. ';
+
+  const fnd = (secoes) =>
+    frontmatter({id: 'exemplo', doc_type: 'foundation', status: 'complete'})
+    + `\n# X\n\n${prosa.repeat(3)}\n\n`
+    + secoes.map((s) => `## ${s}\n\n${prosa.repeat(2)}\n`).join('\n');
+
+  // Um documento definicional não tem "quando não usar" — não há o que aplicar.
+  // O que ele omite é por que a distinção importa.
+  test('foundation exige "Por Que Isso Importa" e "Erros Comuns"', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/exemplo.md': fnd(['Por Que Isso Importa', 'Erros Comuns']),
+    });
+    assert.equal(r.code, 0, `esperava sucesso, obteve:\n${r.output}`);
+  });
+
+  test('foundation não exige "Quando Não Usar"', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/exemplo.md': fnd(['Por Que Isso Importa', 'Erros Comuns', 'Alternativas']),
+    });
+    assert.equal(r.code, 0, `esperava sucesso, obteve:\n${r.output}`);
+    assert.doesNotMatch(r.output, /Quando Não Usar/);
+  });
+
+  test('foundation sem "Por Que Isso Importa" falha', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/exemplo.md': fnd(['Erros Comuns']),
+    });
+    assert.equal(r.code, 1);
+    assert.match(r.output, /exige a seção "Por Que Isso Importa"/);
+  });
+
+  test('concept segue exigindo "Quando Não Usar", não as de foundation', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/exemplo.md':
+        frontmatter({id: 'exemplo', doc_type: 'concept', status: 'complete'})
+        + `\n# X\n\n${prosa.repeat(3)}\n\n`
+        + `## Por Que Isso Importa\n\n${prosa.repeat(2)}\n\n`
+        + `## Erros Comuns\n\n${prosa.repeat(2)}\n`,
+    });
+    assert.equal(r.code, 1);
+    assert.match(r.output, /exige a seção "Quando Não Usar"/);
+  });
+
+  test('reference não exige seção nenhuma', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/exemplo.md':
+        frontmatter({id: 'exemplo', doc_type: 'reference', status: 'complete'})
+        + '\n# X\n\n' + prosa.repeat(40),
+    });
+    assert.equal(r.code, 0, `esperava sucesso, obteve:\n${r.output}`);
+  });
+});
