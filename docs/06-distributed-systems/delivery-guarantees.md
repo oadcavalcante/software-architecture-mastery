@@ -107,6 +107,28 @@ desproporcional.
 Escolher **no máximo uma vez** deliberadamente, onde a perda é aceitável, é uma
 decisão de arquitetura legítima e raramente considerada.
 
+### Onde a mensagem se perde na prática
+
+A perda quase nunca vem do intermediário. Ela vem das costuras, e são poucas e
+conhecidas:
+
+**Publicação sem confirmação.** O produtor envia e segue adiante sem esperar o
+reconhecimento. Se o intermediário não persistiu, a mensagem não existe e ninguém
+sabe.
+
+**Confirmação de leitura antes do processamento.** O consumidor marca a mensagem
+como processada ao recebê-la, e depois falha ao processar. Esse é o padrão de
+várias bibliotecas, e é a causa mais comum de perda silenciosa.
+
+**Buffer em memória.** O produtor acumula mensagens para enviar em lote e o
+processo termina. O lote some.
+
+**Persistência sem replicação.** O intermediário confirmou, gravou em um nó só, e
+esse nó falhou.
+
+Auditar essas quatro costuras no seu sistema encontra mais perda do que qualquer
+mudança de garantia nominal.
+
 ## Modelo Mental
 
 **O canal escolhe entre perder e duplicar. Você escolhe tornar a duplicação

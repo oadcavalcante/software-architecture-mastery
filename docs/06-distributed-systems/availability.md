@@ -115,6 +115,24 @@ Medir disponibilidade como binário esconde isso. A métrica melhor é a **taxa 
 requisições bem-sucedidas** — que captura degradação parcial e é o que
 [SLI](../12-reliability/index.md) formaliza.
 
+### Meça do lado do cliente
+
+A disponibilidade que o servidor reporta e a que o usuário experimenta são números
+diferentes, e a diferença costuma ser grande.
+
+Métrica de servidor não enxerga falha de DNS, de rede intermediária, de borda, de
+balanceador, nem requisição que nunca chegou. Um sistema pode registrar 99,99% de
+respostas bem-sucedidas enquanto uma fração dos usuários não consegue nem abrir a
+conexão.
+
+O número que importa para o negócio é o do cliente. Obtê-lo exige instrumentação
+no navegador ou no aplicativo, ou sondagem externa a partir das regiões onde os
+usuários estão.
+
+Quando os dois números divergem de forma persistente, a diferença é o mapa do que
+está quebrado fora do seu perímetro — e é justamente a parte que ninguém está
+observando.
+
 ## Modelo Mental
 
 **Disponibilidade é uma promessa com prazo e critério.** Sem os dois, é um número

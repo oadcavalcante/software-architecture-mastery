@@ -116,6 +116,25 @@ pressão: [backoff](backoff.md), circuit breaker, ou descartar carga.
 Um serviço que devolve `429` está pedindo explicitamente que você espere — e
 repetir imediatamente ignora o pedido.
 
+### Taxa de retentativa é indicador antecedente
+
+A instrumentação que mais rende nesta área custa pouco e raramente existe: contar
+retentativas separadamente das tentativas iniciais.
+
+Um sistema com retentativa bem configurada esconde falhas — é essa a função dela.
+A consequência é que a degradação fica invisível nas métricas de sucesso até o
+ponto em que a retentativa deixa de dar conta, e aí a queda é abrupta.
+
+A taxa de retentativa sobe antes disso. Ela é o sinal de que a dependência está
+piorando enquanto o resultado ainda parece bom.
+
+Três métricas que valem a pena, por destino: proporção de requisições que
+precisaram de pelo menos uma retentativa; distribuição do número de tentativas até
+o sucesso; e proporção que esgotou o limite.
+
+A segunda é a mais informativa. Quando a distribuição desloca de "quase tudo na
+primeira" para "boa parte na segunda", há algo acontecendo que ninguém notou.
+
 ## Modelo Mental
 
 **Retentativa transfere trabalho do futuro para agora.** Quando o sistema está

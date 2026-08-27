@@ -120,6 +120,27 @@ e a confirmação.
 
 Ali a idempotência precisa estar **do outro lado**, com chave enviada na chamada.
 
+### O tamanho da janela vem do comportamento real
+
+Escolher a janela de deduplicação por intuição — "uma hora parece razoável" — é
+como o mecanismo falha em produção.
+
+A janela precisa cobrir o maior intervalo possível entre duas entregas da mesma
+mensagem, que é a soma de três coisas mensuráveis:
+
+```text
+janela ≥ atraso máximo de reentrega do intermediário
+       + atraso máximo do consumidor
+       + margem para reprocessamento operacional
+```
+
+O terceiro termo é o que mais surpreende. Se a operação inclui reprocessar um
+período depois de um incidente, a janela precisa cobrir esse período inteiro — e
+aí ela deixa de ser uma janela e passa a ser deduplicação persistente.
+
+A regra prática: se o sistema tem qualquer procedimento de reprocessamento, a
+janela não serve.
+
 ## Modelo Mental
 
 **A mensagem vai chegar duas vezes. A pergunta é se o mundo nota.**

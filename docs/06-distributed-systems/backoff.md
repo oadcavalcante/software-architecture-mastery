@@ -100,6 +100,34 @@ O efeito é o mesmo e o mecanismo não é do cliente — é da fila. Configurar
 retentativa no consumidor **além** do mecanismo da fila produz duas camadas de
 repetição que se multiplicam.
 
+### As variantes de variação
+
+"Adicionar variação" admite formulações diferentes, com comportamentos distintos:
+
+```text
+variação total     espera = aleatório(0, teto_atual)
+variação parcial   espera = teto_atual/2 + aleatório(0, teto_atual/2)
+descorrelacionada  espera = min(teto, aleatório(base, espera_anterior * 3))
+```
+
+**Variação total** é a que mais dispersa a carga e a que dá o melhor resultado
+agregado na maioria das medições. O custo é que uma tentativa individual pode
+acontecer quase imediatamente, o que parece errado a quem lê o código.
+
+**Variação parcial** garante um piso de espera. É mais intuitiva e dispersa menos.
+
+**Descorrelacionada** cresce com base na espera anterior, não no número de
+tentativas. Dispersa bem e é menos previsível de raciocinar.
+
+Na dúvida, variação total. A objeção de "mas pode tentar de novo em 10 ms" é
+exatamente o comportamento que evita o pulso sincronizado.
+
+A base merece a mesma atenção que o teto e recebe menos. Uma base muito curta
+desperdiça tentativas antes que a falha transitória tenha tempo de passar; uma base
+longa demais gasta o orçamento do chamador na primeira espera. O ponto de partida
+razoável é a latência típica da operação, não um valor redondo escolhido por
+hábito.
+
 ## Modelo Mental
 
 **Backoff espalha as tentativas no tempo; a variação aleatória as espalha entre

@@ -107,6 +107,26 @@ mensagem some se ninguém agir.
 
 O prazo precisa ser generoso o bastante para cobrir fim de semana e feriado.
 
+### Depois de analisar, há três destinos
+
+Mensagem em dead-letter não é o fim do processo — é o começo de uma decisão que
+precisa ser tomada por alguém:
+
+**Descartar.** A mensagem é inválida e não há o que fazer. Registre o descarte;
+uma dead-letter esvaziada sem registro apaga a evidência do problema.
+
+**Corrigir a mensagem e reprocessar.** Um campo malformado na origem. Exige
+ferramenta de edição e trilha de auditoria de quem alterou o quê.
+
+**Corrigir o código e reprocessar.** O caso mais comum. A mensagem estava certa e
+o consumidor tinha defeito.
+
+O terceiro caso é o que justifica guardar a mensagem original intacta: depois da
+correção, o reprocessamento precisa dos dados como eles chegaram, não como o
+consumidor defeituoso os interpretou.
+
+Sem esses três caminhos definidos e com dono, a dead-letter vira depósito.
+
 ## Modelo Mental
 
 **A dead-letter é uma caixa de entrada, não um arquivo.** Se ela nunca é esvaziada,

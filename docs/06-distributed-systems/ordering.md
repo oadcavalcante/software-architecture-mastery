@@ -112,6 +112,26 @@ divergem. Ver [relógio e tempo](clock-and-time.md).
 A ordem precisa vir de um contador da entidade, de um número de sequência
 atribuído por quem produz, ou da partição.
 
+### Reordenar no consumidor tem custo e limite
+
+Quando o consumidor precisa de ordem que o transporte não garante, a saída é
+guardar as mensagens fora de sequência até que a faltante chegue.
+
+Isso funciona e traz duas restrições que precisam ser decididas antes:
+
+**O buffer é finito.** Guardar indefinidamente esgota memória. Com limite, uma
+lacuna longa força descarte ou bloqueio.
+
+**A lacuna pode nunca se fechar.** Se a mensagem faltante foi perdida ou foi para
+outra partição, esperar por ela trava o consumo para sempre.
+
+Isso obriga um prazo: depois de N segundos esperando a sequência 7, o consumidor
+precisa decidir entre processar fora de ordem, pular, ou parar e alertar.
+
+Escolher entre as três é decisão de domínio, não técnica — e um consumidor que
+reordena sem prazo definido vai travar em produção, invariavelmente numa
+madrugada.
+
 ## Modelo Mental
 
 **A pergunta não é "as mensagens estão em ordem?". É "a ordem de quê importa para

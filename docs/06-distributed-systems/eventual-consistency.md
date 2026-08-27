@@ -107,6 +107,26 @@ leitura, reparo em segundo plano, reconciliação periódica.
 Sem ele, réplicas divergentes podem permanecer divergentes indefinidamente — o que
 não é consistência eventual, é inconsistência permanente com nome bonito.
 
+### O atraso não é constante
+
+O erro de dimensionamento mais comum é medir o atraso de replicação em condições
+normais, ver 200 ms e projetar o sistema para isso.
+
+O atraso tem cauda longa e ela é dominada por eventos previsíveis:
+
+**Carga de escrita alta.** A réplica não acompanha e o atraso cresce
+cumulativamente.
+
+**Reconstrução de índice ou de projeção.** Pode parar o consumo por completo.
+
+**Troca de nó primário.** A nova réplica pode começar atrás.
+
+**Manutenção e implantação.** O consumidor fica fora por minutos.
+
+Nesses momentos, o atraso não vai de 200 ms para 400 ms — vai para minutos ou
+horas. As decisões de produto sobre o que é aceitável precisam ser tomadas com o
+percentil alto na mesa, não com a mediana.
+
 ## Modelo Mental
 
 **Consistência eventual é uma promessa sem prazo.** O prazo é uma propriedade

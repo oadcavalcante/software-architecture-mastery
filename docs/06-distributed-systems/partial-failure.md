@@ -95,6 +95,26 @@ externo e um de e-mail já tem falha parcial — em duas fronteiras.
 
 O que microsserviços fazem é multiplicar o número de fronteiras.
 
+### A falha parcial silenciosa é a pior
+
+Os casos discutidos até aqui envolvem algo que falha de forma visível. O modo mais
+difícil é o componente que continua respondendo e responde errado.
+
+**Degradado mas vivo.** Um nó com disco cheio aceita conexões, responde à
+verificação de saúde e falha em toda escrita real.
+
+**Lento sem falhar.** Responde em 30 segundos em vez de 30 milissegundos. Nenhum
+erro é registrado, e a lentidão se propaga aos chamadores até esgotar suas
+conexões.
+
+**Correto mas desatualizado.** Uma réplica que parou de replicar continua servindo
+leituras — de dados antigos, sem sinal de que algo está errado.
+
+Nenhum desses aparece em contagem de erros. Detectá-los exige verificar
+comportamento, não disponibilidade: a verificação de saúde precisa exercitar o
+caminho real, e o monitoramento precisa observar latência e defasagem, não apenas
+sucesso e falha.
+
 ## Modelo Mental
 
 **Para cada passo: se falhar aqui, em que estado o sistema fica, e quem o
