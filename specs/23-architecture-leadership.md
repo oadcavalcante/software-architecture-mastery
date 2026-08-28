@@ -5,7 +5,7 @@
 | Diretório | `docs/23-architecture-leadership/` |
 | Nível | Nível 07 — Liderança em Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 23 (0%) |
+| Progresso | 23 / 23 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,29 +15,29 @@ Esta seção está completa quando os 23 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `architecture-leadership-basics` |
-| ⬜ | `technical-strategy-leadership` |
-| ⬜ | `architecture-vision` |
-| ⬜ | `decision-making` |
-| ⬜ | `stakeholder-management` |
-| ⬜ | `communication` |
-| ⬜ | `architecture-presentations` |
-| ⬜ | `negotiating-tradeoffs` |
-| ⬜ | `technical-influence` |
-| ⬜ | `cross-team-architecture` |
-| ⬜ | `leadership-governance` |
-| ⬜ | `leadership-principles` |
-| ⬜ | `leadership-standards` |
-| ⬜ | `technical-roadmaps` |
-| ⬜ | `risk-management` |
-| ⬜ | `cost-management` |
-| ⬜ | `organizational-architecture` |
-| ⬜ | `conways-law` |
-| ⬜ | `team-topologies` |
-| ⬜ | `architecture-ownership` |
-| ⬜ | `evolutionary-architecture` |
-| ⬜ | `fitness-functions` |
-| ⬜ | `measuring-architecture-outcomes` |
+| 🟩 | `architecture-leadership-basics` |
+| 🟩 | `technical-strategy-leadership` |
+| 🟩 | `architecture-vision` |
+| 🟩 | `decision-making` |
+| 🟩 | `stakeholder-management` |
+| 🟩 | `communication` |
+| 🟩 | `architecture-presentations` |
+| 🟩 | `negotiating-tradeoffs` |
+| 🟩 | `technical-influence` |
+| 🟩 | `cross-team-architecture` |
+| 🟩 | `leadership-governance` |
+| 🟩 | `leadership-principles` |
+| 🟩 | `leadership-standards` |
+| 🟩 | `technical-roadmaps` |
+| 🟩 | `risk-management` |
+| 🟩 | `cost-management` |
+| 🟩 | `organizational-architecture` |
+| 🟩 | `conways-law` |
+| 🟩 | `team-topologies` |
+| 🟩 | `architecture-ownership` |
+| 🟩 | `evolutionary-architecture` |
+| 🟩 | `fitness-functions` |
+| 🟩 | `measuring-architecture-outcomes` |
 
 ## Critério de conclusão
 

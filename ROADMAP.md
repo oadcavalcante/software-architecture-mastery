@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**413 de 437 documentos planejados escritos (95%).**
+**437 de 437 documentos planejados escritos (100%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -17,7 +17,7 @@ mas já tem índice publicado explicando o que virá.
 
 | Seção | Nível | Escritos | Progresso |
 |---|---|---:|---|
-| `(raiz)` | — | 4 / 5 | `████████░░` 80% |
+| `(raiz)` | — | 5 / 5 | `██████████` 100% |
 | `01-fundamentals` | 01 | 23 / 23 | `██████████` 100% |
 | `02-software-design` | 02 | 23 / 23 | `██████████` 100% |
 | `03-design-patterns` | 02 | 31 / 31 | `██████████` 100% |
@@ -40,7 +40,7 @@ mas já tem índice publicado explicando o que virá.
 | `20-trade-offs` | 05 | 16 / 16 | `██████████` 100% |
 | `21-case-studies` | Transv. | 15 / 15 | `██████████` 100% |
 | `22-system-design-interviews` | Transv. | 14 / 14 | `██████████` 100% |
-| `23-architecture-leadership` | 07 | 1 / 24 | `░░░░░░░░░░` 4% |
+| `23-architecture-leadership` | 07 | 24 / 24 | `██████████` 100% |
 
 ## Legenda
 
@@ -463,7 +463,30 @@ mas já tem índice publicado explicando o que virá.
 
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
+| 🟩 | [Fundamentos de Liderança em Arquitetura](docs/23-architecture-leadership/architecture-leadership-basics.md) | concept | avançado | `architecture-governance` | ⬜ |
+| 🟩 | [Propriedade de Arquitetura](docs/23-architecture-leadership/architecture-ownership.md) | concept | avançado | `team-topologies` | ⬜ |
+| 🟩 | [Apresentações de Arquitetura](docs/23-architecture-leadership/architecture-presentations.md) | concept | avançado | `communication` | ⬜ |
+| 🟩 | [Visão de Arquitetura](docs/23-architecture-leadership/architecture-vision.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Comunicação de Arquitetura](docs/23-architecture-leadership/communication.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Lei de Conway](docs/23-architecture-leadership/conways-law.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Gestão de Custo](docs/23-architecture-leadership/cost-management.md) | concept | avançado | `risk-management` | ⬜ |
+| 🟩 | [Arquitetura entre Times](docs/23-architecture-leadership/cross-team-architecture.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Tomada de Decisão](docs/23-architecture-leadership/decision-making.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Arquitetura Evolutiva](docs/23-architecture-leadership/evolutionary-architecture.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Funções de Aptidão](docs/23-architecture-leadership/fitness-functions.md) | concept | avançado | `evolutionary-architecture` | ⬜ |
 | 🟩 | [Liderança em Arquitetura](docs/23-architecture-leadership/index.md) | index | avançado | `architecture-governance`, `enterprise-architecture` | ⬜ |
+| 🟩 | [Governança sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-governance.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Princípios sob a Ótica de Quem Escreve](docs/23-architecture-leadership/leadership-principles.md) | concept | avançado | `architecture-vision` | ⬜ |
+| 🟩 | [Padrões sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-standards.md) | concept | avançado | `leadership-principles` | ⬜ |
+| 🟩 | [Medição de Resultados de Arquitetura](docs/23-architecture-leadership/measuring-architecture-outcomes.md) | concept | avançado | `fitness-functions` | ⬜ |
+| 🟩 | [Negociação de Trade-offs](docs/23-architecture-leadership/negotiating-tradeoffs.md) | concept | avançado | `decision-making` | ⬜ |
+| 🟩 | [Arquitetura Organizacional](docs/23-architecture-leadership/organizational-architecture.md) | concept | avançado | `conways-law` | ⬜ |
+| 🟩 | [Gestão de Risco](docs/23-architecture-leadership/risk-management.md) | concept | avançado | `decision-making` | ⬜ |
+| 🟩 | [Gestão de Interessados](docs/23-architecture-leadership/stakeholder-management.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Topologias de Time](docs/23-architecture-leadership/team-topologies.md) | concept | avançado | `conways-law` | ⬜ |
+| 🟩 | [Influência Técnica](docs/23-architecture-leadership/technical-influence.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Roadmaps Técnicos](docs/23-architecture-leadership/technical-roadmaps.md) | concept | avançado | `technical-strategy-leadership` | ⬜ |
+| 🟩 | [Estratégia Técnica na Liderança](docs/23-architecture-leadership/technical-strategy-leadership.md) | concept | avançado | `architecture-vision` | ⬜ |
 
 ### Transversal
 
@@ -501,7 +524,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Glossário](docs/glossary.md) | reference | iniciante | — | ⬜ |
 | 🟩 | [Como Usar](docs/how-to-use.md) | index | iniciante | — | ⬜ |
 | 🟩 | [Política Terminológica](docs/i18n-terminology.md) | reference | iniciante | — | ⬜ |
-| 🟨 | [Comece aqui](docs/intro.md) | index | iniciante | — | 🟩 |
+| 🟩 | [Comece aqui](docs/intro.md) | index | iniciante | — | 🟩 |
 | 🟩 | [Modelo de Maturidade](docs/maturity-model.md) | reference | iniciante | — | ⬜ |
 
 <!-- END:GENERATED -->

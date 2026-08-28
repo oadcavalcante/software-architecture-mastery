@@ -252,13 +252,26 @@ const README_LABELS = {
  * escrito", e continuou dizendo isso com sete seções prontas. Aviso de
  * progresso mantido à mão é aviso que envelhece em silêncio.
  */
+/**
+ * O texto muda quando o percurso fecha.
+ *
+ * Um aviso de "está sendo escrito" que sobrevive à conclusão é o mesmo defeito
+ * que este gerador existe para evitar: número escrito à mão que envelhece em
+ * silêncio. A frase é derivada do estado, como o resto.
+ */
 const INTRO_TEXT = {
   'pt-BR': ({pct, writtenTotal, plannedTotal, doneSections, totalSections}) =>
-    `Este site está sendo escrito. São **${writtenTotal} de ${plannedTotal} documentos** `
-    + `(${pct}%), com **${doneSections} de ${totalSections} seções** completas.`,
+    doneSections >= totalSections
+      ? `O percurso em português está completo: **${writtenTotal} de ${plannedTotal} documentos**, `
+        + `nas **${totalSections} seções**.`
+      : `Este site está sendo escrito. São **${writtenTotal} de ${plannedTotal} documentos** `
+        + `(${pct}%), com **${doneSections} de ${totalSections} seções** completas.`,
   'en-US': ({pct, writtenTotal, plannedTotal, doneSections, totalSections}) =>
-    `This site is being written. **${writtenTotal} of ${plannedTotal} documents** `
-    + `(${pct}%) are done, across **${doneSections} of ${totalSections} complete sections**.`,
+    doneSections >= totalSections
+      ? `The Portuguese track is complete: **${writtenTotal} of ${plannedTotal} documents**, `
+        + `across all **${totalSections} sections**.`
+      : `This site is being written. **${writtenTotal} of ${plannedTotal} documents** `
+        + `(${pct}%) are done, across **${doneSections} of ${totalSections} complete sections**.`,
 };
 
 /** Caminho da introdução por locale — pt-BR é canônico em `docs/`. */
