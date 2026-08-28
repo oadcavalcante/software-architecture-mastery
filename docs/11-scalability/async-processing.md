@@ -267,7 +267,7 @@ priorização por prazo.
 volume de chamados ao suporte triplicou. A adição de uma previsão e de um histórico de
 tentativas resolveu.
 
-O que a equipe registra: a modelagem dos estados consumiu mais tempo que a mudança
+O ponto que a equipe sublinha: a modelagem dos estados consumiu mais tempo que a mudança
 técnica — cinco telas, dois relatórios e o treinamento do suporte. Ela tinha sido
 estimada como detalhe.
 

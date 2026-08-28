@@ -260,7 +260,7 @@ conta de transferência em cerca de 40%.
 **Teste periódico de perda de zona**, em produção, em janela controlada. O primeiro
 teste encontrou dois problemas novos.
 
-O que a equipe registra: eles estavam em três zonas e acreditavam estar protegidos.
+O que a equipe aprendeu: eles estavam em três zonas e acreditavam estar protegidos.
 Estar distribuído e **sobreviver** à falha são coisas diferentes, e a diferença só
 aparece no teste — ou no incidente.
 

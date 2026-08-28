@@ -268,7 +268,7 @@ por documentação errada.
 Um efeito não previsto: ao escrever os READMEs, três times descobriram que não conseguiam
 descrever a organização interna em dez linhas — o que virou motivo para refatorar.
 
-O que a equipe registra: a lição não foi "componentes não importam", e sim que a
+A avaliação posterior aponta: a lição não foi "componentes não importam", e sim que a
 completude tem custo e o custo é contínuo. Documentar tudo produziu menos verdade que
 documentar menos.
 

@@ -228,7 +228,7 @@ que é raro e aceitável.
 Resultado: a garantia de não vender duas vezes permaneceu absoluta, e a capacidade
 subiu por mais de uma ordem de grandeza.
 
-O que a equipe registrou: nunca esteve em questão abrir mão de consistência forte
+A avaliação posterior aponta: nunca esteve em questão abrir mão de consistência forte
 para a reserva. O que estava errado era o **escopo** — coordenar globalmente algo
 que é intrinsecamente local a um evento.
 

@@ -315,7 +315,7 @@ problema era falta de caminho de migração; em um, o padrão estava simplesment
 prescrevia uma abordagem que não funcionava para sistemas com alto volume, e nenhum dos
 autores tinha operado um sistema assim.
 
-O que ficou registrado: o estágio de recomendação transformou baixa adoção de falha de
+O detalhe que a equipe destaca: o estágio de recomendação transformou baixa adoção de falha de
 disciplina em informação sobre o padrão. Essa inversão de leitura foi a mudança de maior
 efeito.
 

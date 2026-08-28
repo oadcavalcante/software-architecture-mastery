@@ -286,7 +286,7 @@ elevada — o campo de experimento tornou isso uma consulta.
 formato diferente, causando falhas silenciosas. O campo de versão do cliente revelou a
 correlação imediatamente.
 
-O que a equipe registra: três meses de investigação sem resultado, resolvidos em duas
+A lição registrada: três meses de investigação sem resultado, resolvidos em duas
 semanas — não por uma ferramenta nova, mas por o sistema passar a emitir os campos que
 distinguem uma execução de outra.
 

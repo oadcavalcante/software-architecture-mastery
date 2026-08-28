@@ -331,7 +331,7 @@ O dado que a equipe destaca: as regras de negócio pararam de vazar para os cont
 **depois** que as camadas foram reduzidas. A estrutura excessiva não estava protegendo o
 domínio; ela estava empurrando a lógica para onde coubesse.
 
-O que ficou registrado: o guia original tinha sido escrito com boa intenção — padronizar
+Na retrospectiva: o guia original tinha sido escrito com boa intenção — padronizar
 para facilitar a leitura entre serviços. Ele padronizou a forma e não a substância, e a
 forma sem substância é exatamente o que Ousterhout chama de camada rasa: custo de leitura
 para todos, benefício para ninguém.

@@ -338,7 +338,7 @@ Os chamados de suporte são o dado que a equipe destaca. Nos primeiros dois mese
 correção foi de produto: nomes de estado em linguagem do cliente, prazo explícito e
 notificação proativa.
 
-O que ficou registrado: a parte técnica da migração levou seis semanas. A parte de produto —
+A avaliação posterior aponta: a parte técnica da migração levou seis semanas. A parte de produto —
 telas, textos, prazos, escalonamento, comunicação de recusa — levou quatro meses e não tinha
 sido estimada. Ela é o custo real de tornar um fluxo assíncrono, e é o que a decisão precisa
 prever.

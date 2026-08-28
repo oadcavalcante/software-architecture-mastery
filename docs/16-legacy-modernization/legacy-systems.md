@@ -194,7 +194,7 @@ Dois anos depois, o sistema continua em produção. Ele não é mais chamado de 
 internamente — não porque mudou de tecnologia, mas porque a organização deixou de ter
 medo de mexer nele.
 
-O que a equipe registra: as seis semanas de arqueologia custaram uma fração do projeto de
+O que se registrou depois: as seis semanas de arqueologia custaram uma fração do projeto de
 substituição, e revelaram que o projeto resolveria o problema errado. A regra de
 arredondamento, sozinha, teria sido perdida numa reescrita — e teria produzido um passivo
 jurídico.

@@ -250,7 +250,7 @@ E uma decisão deliberada: **a API pública permaneceu em REST**, com o gateway
 traduzindo. A proposta de expor gRPC a parceiros foi recusada depois de dois
 deles informarem que não tinham suporte.
 
-O que a equipe registra: o balanceamento é o risco que ninguém antecipa. gRPC é
+A avaliação posterior aponta: o balanceamento é o risco que ninguém antecipa. gRPC é
 apresentado como substituto direto de HTTP, e a diferença no comportamento de
 conexão muda a operação de forma que não aparece em nenhuma comparação de
 desempenho.

@@ -234,7 +234,7 @@ acesso.
 **Convenção de chave** com prefixo por domínio, permitindo inventariar o que
 estava ocupando memória — o que ninguém conseguia responder antes.
 
-O que a equipe registra: a pergunta "o que acontece se este nó reiniciar agora?"
+A leitura que a equipe faz: a pergunta "o que acontece se este nó reiniciar agora?"
 nunca tinha sido feita para o carrinho. Ela teria custado cinco minutos.
 
 ## Conceitos Relacionados

@@ -325,7 +325,7 @@ serviços dependendo da biblioteca comum         14 (só para o núcleo mínimo)
 
 O aumento de 18% em código é o custo aceito e foi explicitamente registrado como tal.
 
-O que a equipe registra: a biblioteca não foi um erro de execução. Ela foi criada quando
+A biblioteca não foi um erro de execução. Ela foi criada quando
 havia dois consumidores com a mesma necessidade — e a decisão correta naquele momento
 provavelmente era mesmo compartilhar. O erro foi não revisar quando o terceiro e o quarto
 consumidor chegaram com razões de mudança diferentes. Cada parâmetro de controle adicionado

@@ -239,7 +239,7 @@ que atualiza o total.
 
 **Recálculo sob demanda** para pedidos com divergência detectada.
 
-O que a equipe registra: a desnormalização estava certa, a implementação inicial
+A leitura que a equipe faz: a desnormalização estava certa, a implementação inicial
 estava certa, e o modelo apodreceu porque nada impedia caminhos novos de ignorar a
 regra. Uma cópia sem verificação é uma aposta em disciplina permanente de todos os
 times futuros.

@@ -330,7 +330,7 @@ incidentes atribuíveis a mecanismo removido    1 — o de dependências,
   na pesquisa interna                         de 1º para 6º lugar
 ```
 
-O que a equipe registra: a suspensão temporária foi o instrumento decisivo. Discutir se um
+O ponto que a equipe sublinha: a suspensão temporária foi o instrumento decisivo. Discutir se um
 mecanismo é necessário produz argumentos indefinidamente; suspendê-lo por três meses produz
 evidência em três meses.
 

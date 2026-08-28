@@ -175,7 +175,7 @@ de negócio.
 O tempo médio para adicionar um campo a um cadastro caiu de dois dias para
 algumas horas.
 
-O que a equipe registrou: os objetos de valor foram mantidos em todos os módulos,
+A avaliação posterior aponta: os objetos de valor foram mantidos em todos os módulos,
 inclusive nos de apoio, porque continuavam se pagando — validação de documento,
 de placa e de coordenada valem em qualquer lugar. Os demais blocos saíram.
 

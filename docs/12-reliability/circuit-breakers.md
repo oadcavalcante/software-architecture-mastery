@@ -274,7 +274,7 @@ Dois meses depois, o mesmo serviço externo degradou de novo. O circuito abriu e
 segundos, as páginas passaram a ser servidas sem avaliações, e nenhum usuário reportou
 problema. O incidente foi registrado como degradação, não como indisponibilidade.
 
-O que a equipe registra: o ajuste que mais importou foi contar lentidão como falha. A
+A conclusão registrada: o ajuste que mais importou foi contar lentidão como falha. A
 primeira versão do circuit breaker, instalada meses antes, contava apenas erro — e
 teria ficado fechado durante o incidente original, porque o serviço respondia com
 sucesso, muito devagar.

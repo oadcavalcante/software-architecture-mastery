@@ -306,7 +306,7 @@ dimensões protegidas violadas        0 desde o bloqueio
 Nenhuma reescrita. O sistema é o mesmo, com as mesmas responsabilidades — o que mudou foi o custo
 de alterá-lo.
 
-O que a equipe registra: a medição sobre o histórico do repositório foi o instrumento mais barato
+O detalhe que a equipe destaca: a medição sobre o histórico do repositório foi o instrumento mais barato
 e mais informativo do projeto. Ela custou dois dias de trabalho, existia desde sempre, e ninguém
 a tinha extraído — e os 11 pares que mudavam juntos apontaram para as fronteiras erradas com uma
 precisão que nenhuma análise de desenho tinha alcançado.

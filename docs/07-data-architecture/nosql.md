@@ -241,7 +241,7 @@ Lenta e sem relevância. Migrada para índice invertido.
 
 Das cinco cargas, o banco de documentos era a escolha certa para uma.
 
-O que a equipe registra: a decisão original não foi entre modelos — foi entre
+A avaliação posterior aponta: a decisão original não foi entre modelos — foi entre
 "NoSQL" e "SQL", e por isso não podia estar certa. Nenhuma das cinco cargas foi
 descrita em termos de padrão de acesso antes de escolher.
 

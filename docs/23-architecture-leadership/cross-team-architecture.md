@@ -299,7 +299,7 @@ tempo médio de integração                   2 dias
 incidentes por incompatibilidade            0
 ```
 
-O que a área registra: o que mudou entre a segunda e a terceira tentativa não foi a proposta
+A leitura que a equipe faz: o que mudou entre a segunda e a terceira tentativa não foi a proposta
 técnica — o formato final é 90% igual ao da segunda tentativa, que foi ignorada. O que mudou foi
 quem participou de chegar nele.
 

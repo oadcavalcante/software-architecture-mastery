@@ -224,7 +224,7 @@ Dois anos depois, houve uma ocasião em que duas instâncias executaram
 simultaneamente por uma falha no bloqueio. O resultado foi trabalho duplicado e
 zero inconsistência — exatamente o que a idempotência garante.
 
-O que a equipe registrou: consenso teria resolvido o problema, e o problema não
+O que a equipe aprendeu: consenso teria resolvido o problema, e o problema não
 precisava de consenso. A pergunta que economizou dois meses foi "o que acontece se
 executar duas vezes?", e ela vem antes de qualquer discussão sobre algoritmo.
 

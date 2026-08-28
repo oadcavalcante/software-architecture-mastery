@@ -222,7 +222,7 @@ origem — a prevenção, que não substitui o tratamento.
 Nos dois anos seguintes, a dead-letter recebeu 34 mensagens. Todas foram
 analisadas em minutos, e nenhuma bloqueou nada.
 
-O que a equipe registrou: as quatro correções custaram um dia de trabalho, e todas
+A avaliação posterior aponta: as quatro correções custaram um dia de trabalho, e todas
 estavam na documentação do serviço de fila. O incidente de nove horas foi
 inteiramente evitável com configuração padrão de boa prática.
 

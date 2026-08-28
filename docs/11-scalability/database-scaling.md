@@ -267,7 +267,7 @@ capacidade de transações por segundo quadruplicada, **sem particionar**.
 O plano de particionamento foi arquivado com o desenho pronto e um gatilho definido:
 quando a utilização de escrita passar de 60% de forma sustentada por um mês.
 
-O que a equipe registra: os degraus 1 e 2, sozinhos, resolveram o incidente que
+O que a equipe aprendeu: os degraus 1 e 2, sozinhos, resolveram o incidente que
 motivou o projeto — e custaram uma semana. A proposta de sete meses tinha sido montada
 sem nenhuma das medições que a escada exige.
 

@@ -271,7 +271,7 @@ vez de removê-la.
 Resultado: a diferença entre a instância mais e a menos carregada caiu de 4 vezes para
 1,3 vezes, e a expansão durante picos passou a ter efeito.
 
-O que a equipe registra: a migração para gRPC tinha sido avaliada por desempenho e por
+A leitura que a equipe faz: a migração para gRPC tinha sido avaliada por desempenho e por
 contrato, e o comportamento de balanceamento não estava na lista. Ele é a mudança
 operacional mais significativa do protocolo, e não aparece em nenhuma comparação de
 desempenho.

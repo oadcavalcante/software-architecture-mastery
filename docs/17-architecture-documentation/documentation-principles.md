@@ -302,7 +302,7 @@ acessados mais de 10 vezes no ano         61
 proporção considerada confiável (pesquisa) 84%, contra 22% antes
 ```
 
-O que a equipe registra: a remoção dos 300 foi a mudança mais controversa e a mais
+A remoção dos 300 foi a mudança mais controversa e a mais
 eficaz. O argumento de que "pode ser útil um dia" tinha sustentado a manutenção de um
 acervo que ninguém consultava e em que ninguém confiava.
 

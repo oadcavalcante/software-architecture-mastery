@@ -303,7 +303,7 @@ exceções vencidas em uso                       0
 esforço de preparação para auditoria          de ~600 h/ano para ~40 h/ano
 ```
 
-O que a equipe registra: o número de 94% nunca foi mentira — ele era verdadeiro sobre a
+Na retrospectiva: o número de 94% nunca foi mentira — ele era verdadeiro sobre a
 amostra e sobre o dia. O erro estava em lê-lo como afirmação sobre a organização.
 
 E o dado que mais mudou o comportamento não foi a taxa de conformidade, e sim o tempo entre

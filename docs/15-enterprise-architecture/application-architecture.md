@@ -298,7 +298,7 @@ tocaram 3 ou mais     2
 
 E o tempo médio de entrega de uma mudança de negócio caiu de 11 semanas para 3.
 
-O que a equipe registra: a fronteira original era razoável quando foi criada — a empresa
+A fronteira original era razoável quando foi criada — a empresa
 tinha um tipo de serviço, e o processo era o único eixo de variação. Ela deixou de fazer
 sentido quando o negócio passou a variar por serviço, e ninguém revisitou.
 

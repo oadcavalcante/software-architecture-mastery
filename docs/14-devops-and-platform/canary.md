@@ -278,7 +278,7 @@ foi adicionado depois de encontrarem duas versões em canary havia semanas, esqu
 Nos dez meses seguintes, o canary reverteu automaticamente nove implantações. Cinco eram
 degradações de métrica de negócio, invisíveis nas técnicas.
 
-O que a equipe registra: o canary existia e dava a sensação de proteção, medindo
+O que a equipe aprendeu: o canary existia e dava a sensação de proteção, medindo
 exatamente o que não estava em risco. A calibração com ruído histórico foi o passo que
 tornou a comparação confiável, e é o mais frequentemente pulado.
 

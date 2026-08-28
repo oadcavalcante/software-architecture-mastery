@@ -314,7 +314,7 @@ antes do descomissionamento.
 depois do corte — o que teria detectado a divergência em dezembro, com o antigo ainda
 disponível.
 
-O que a equipe registra: o risco de "processo periódico não exercitado" não estava no
+O detalhe que a equipe destaca: o risco de "processo periódico não exercitado" não estava no
 registro. Ele é específico de modernização, e não aparece em listas genéricas de risco de
 projeto — que era o modelo usado.
 

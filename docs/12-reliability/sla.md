@@ -277,7 +277,7 @@ identidade por até 15 minutos.
 Depois disso, a disponibilidade real subiu para 99,93% — e o SLA de 99,5% passou a ter
 folga confortável.
 
-O que a equipe registra: o problema não era o sistema. Era ter prometido um número que
+O que se registrou depois: o problema não era o sistema. Era ter prometido um número que
 a arquitetura não sustentava, definido numa reunião comercial sem ninguém fazer a conta
 de dez minutos que teria mostrado isso.
 

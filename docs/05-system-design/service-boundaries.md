@@ -214,7 +214,7 @@ provedor entrou e o time de pagamentos ganhou autonomia.
 
 Resultado após dois anos: dois serviços em vez de quatro, e nenhuma reversão.
 
-O que a equipe registrou: a medição levou uma tarde e mudou metade das decisões. A
+O ponto que a equipe sublinha: a medição levou uma tarde e mudou metade das decisões. A
 proposta original teria criado duas fronteiras erradas, e desfazê-las custaria
 migração de dados nos dois casos.
 

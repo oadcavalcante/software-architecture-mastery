@@ -260,7 +260,7 @@ trabalhadores a cada fila, com proporção mínima garantida.
 Nos doze meses seguintes, quatro clientes tiveram integrações defeituosas. Nenhuma
 afetou os demais.
 
-O que a equipe registra: o isolamento por cliente foi o de maior impacto, e era o mais
+Na retrospectiva: o isolamento por cliente foi o de maior impacto, e era o mais
 óbvio — a plataforma servia 900 empresas num pool único desde o primeiro dia, e ninguém
 tinha questionado.
 

@@ -232,7 +232,7 @@ E os 11 superados foram usados como argumento interno para sustentar a prática:
 mostravam decisões sendo revistas com base em mudança de contexto documentada, em vez de
 por opinião.
 
-O que a equipe registra: a ausência de comitê foi decisiva. Uma tentativa anterior, com
+A lição registrada: a ausência de comitê foi decisiva. Uma tentativa anterior, com
 aprovação obrigatória, tinha produzido 6 ADRs em um ano — todos genéricos, todos escritos
 depois da implementação.
 

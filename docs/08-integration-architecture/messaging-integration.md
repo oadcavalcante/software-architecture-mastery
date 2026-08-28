@@ -267,7 +267,7 @@ e o terceiro.
 **Reconciliação diária** entre vendas e movimentações de estoque — a rede de
 segurança para tudo.
 
-O que a equipe registra: a decisão de migrar para fila estava certa e resolveu o
+O que a equipe aprendeu: a decisão de migrar para fila estava certa e resolveu o
 problema que motivou a mudança. O erro foi tratar mensageria como "chamada
 assíncrona" — uma troca de mecanismo — quando ela é um conjunto de
 responsabilidades novas que precisam existir antes da primeira mensagem.

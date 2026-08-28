@@ -222,7 +222,7 @@ consolidações administrativas, executadas fora do horário.
 O desequilíbrio das três escolas grandes passou a existir e foi tratado com
 partições dedicadas para elas.
 
-O que a equipe registrou: a chave certa não era a entidade mais numerosa. Era a
+A avaliação posterior aponta: a chave certa não era a entidade mais numerosa. Era a
 dimensão pela qual as operações filtravam — e essa informação estava no log de
 consultas desde o primeiro dia.
 

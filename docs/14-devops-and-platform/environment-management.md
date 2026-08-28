@@ -280,7 +280,7 @@ integrado.
 Resultado: tempo de 9 dias para 4 horas, e uma redução de 60% nos incidentes causados
 por implantação — atribuída principalmente à paridade de topologia e volume.
 
-O que a equipe registra: os quatro ambientes existiam porque cada um tinha sido criado
+A conclusão registrada: os quatro ambientes existiam porque cada um tinha sido criado
 para resolver um problema de fila do anterior. Nenhum resolvia paridade, e juntos
 custavam mais que o único ambiente fiel que os substituiu.
 

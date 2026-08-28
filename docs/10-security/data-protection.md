@@ -286,7 +286,7 @@ sistema trabalha com token. Isso removeu o campo de doze bancos e do warehouse.
 
 **Contratos revistos** com os terceiros, restringindo o que é enviado.
 
-O que a equipe registra: a solicitação de exclusão que iniciou tudo passou a ser
+O que a equipe aprendeu: a solicitação de exclusão que iniciou tudo passou a ser
 atendível em dois dias. E a maior parte do ganho veio da primeira etapa — os onze
 campos que deixaram de ser coletados eliminaram mais risco que qualquer controle
 técnico teria eliminado.

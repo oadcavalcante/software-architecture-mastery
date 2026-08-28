@@ -300,7 +300,7 @@ divergente, 11 não delimitavam o que ficava de fora.
 A correção dos quatro serviços levou sete meses. O tempo de resposta das consultas
 convertidas caiu de 2,4 s para 90 ms.
 
-O que a equipe registra: o ADR original não estava errado. Ele estava incompleto de uma
+Na retrospectiva: o ADR original não estava errado. Ele estava incompleto de uma
 forma que só era visível para quem não participou da conversa — que é exatamente o público
 do documento.
 

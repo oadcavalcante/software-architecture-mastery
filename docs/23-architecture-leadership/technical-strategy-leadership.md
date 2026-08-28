@@ -277,7 +277,7 @@ custo de infraestrutura                  +16% (previsto: +14%)
 O ciclo seguinte pôde ter duas frentes, porque a capacidade liberada da manutenção passou a
 existir — o que foi o argumento mais forte para manter o método.
 
-O que a liderança registra: a decisão de ter **uma** frente foi a mais difícil de aprovar e a que
+O ponto que a equipe sublinha: a decisão de ter **uma** frente foi a mais difícil de aprovar e a que
 produziu o resultado. As conversas de renúncia consumiram seis semanas antes da publicação, e elas
 são o que impediu que as renúncias fossem desfeitas em março — que era o padrão dos ciclos
 anteriores.

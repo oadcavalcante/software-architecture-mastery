@@ -274,7 +274,7 @@ A iniciativa foi aprovada no ciclo seguinte.
 
 Dois anos depois, o tempo de emissão estava em 1,3 dia, e a automação em 74%.
 
-O que a equipe registra: a justificativa técnica estava correta desde o início. Ela
+A avaliação posterior aponta: a justificativa técnica estava correta desde o início. Ela
 falhava porque descrevia a **causa** — tecnologia obsoleta — sem conectar ao **efeito**
 que o negócio media. O mapeamento do fluxo levou três semanas e fez essa conexão.
 

@@ -262,7 +262,7 @@ reversa do que estava rodando.
 **Correções automatizadas**, com substituição de instância em vez de atualização no
 lugar.
 
-O que a equipe registra: a migração como estava foi a decisão certa para o prazo
+A migração como estava foi a decisão certa para o prazo
 que tinham. O erro foi considerá-la concluída — o plano de modernização existia no
 papel e ficou dois anos sem prioridade, acumulando risco de segurança e custo.
 

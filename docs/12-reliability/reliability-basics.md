@@ -200,7 +200,7 @@ aconteceu. Ver
 E, na origem, a condição de corrida foi corrigida — o que era o trabalho mais simples
 dos cinco.
 
-O que a equipe registra: eles mediam disponibilidade em quatro pontos e correção em
+O aprendizado que ficou: eles mediam disponibilidade em quatro pontos e correção em
 nenhum. O sistema estava, pelos números, entre os mais confiáveis da empresa.
 
 ## Conceitos Relacionados

@@ -281,7 +281,7 @@ funciona em estado metaestável.
 Nos dezoito meses seguintes, três degradações semelhantes se recuperaram sozinhas em
 menos de dois minutos.
 
-O que a equipe registra: a decisão que mais prolongou o incidente foi dobrar a
+A conclusão registrada: a decisão que mais prolongou o incidente foi dobrar a
 capacidade. Ela era a reação natural, e alimentava exatamente o mecanismo que mantinha
 a degradação.
 

@@ -286,7 +286,7 @@ As quatro rejeitadas são o resultado que a área considera mais valioso: todas 
 **antes** da reunião, nas conversas individuais, o que economizou semanas de preparação em
 propostas que não avançariam.
 
-O que ficou registrado: o conteúdo técnico das propostas não mudou. O que mudou foi que ele parou
+A lição registrada: o conteúdo técnico das propostas não mudou. O que mudou foi que ele parou
 de ocupar a reunião — e que o pedido passou a ser feito.
 
 E o silêncio de cinco minutos no início, para leitura, foi a mudança mais estranha e a mais

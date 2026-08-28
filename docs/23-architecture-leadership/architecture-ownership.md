@@ -304,7 +304,7 @@ tempo médio até acionar o responsável
 O último número é o que a operação valoriza mais: 43 minutos economizados por incidente,
 simplesmente por saber a quem ligar.
 
-O que ficou registrado: os 198 componentes com dono "declarado em algum lugar" davam a impressão
+O detalhe que a equipe destaca: os 198 componentes com dono "declarado em algum lugar" davam a impressão
 de que a organização tinha 69% de cobertura. A verificação mostrou 38% — e a diferença entre
 declarar e verificar é toda a diferença entre um inventário e uma ficção.
 

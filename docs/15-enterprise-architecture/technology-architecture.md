@@ -315,7 +315,7 @@ transferência de conhecimento em doze meses.
 Resultado: de nove para seis bancos, e nenhum com menos de cinco pessoas capazes de
 atendê-lo.
 
-O que a equipe registra: nenhuma das nove escolhas tinha sido errada no momento em que
+O que se registrou depois: nenhuma das nove escolhas tinha sido errada no momento em que
 foi feita. Cada uma resolvia um problema real. O erro foi nunca somar — ninguém tinha,
 até o inventário, a visão de que a organização operava nove armazenamentos.
 

@@ -303,7 +303,7 @@ Os dois retirados pelo próprio autor são o resultado que a organização mais 
 "quem propõe, opera" fez com que duas propostas fossem abandonadas por quem as tinha feito,
 depois de sentir o custo.
 
-O que ficou registrado: a suspensão temporária foi o instrumento decisivo. Discutir se um
+A avaliação posterior aponta: a suspensão temporária foi o instrumento decisivo. Discutir se um
 mecanismo é necessário produz argumentos indefinidamente; suspendê-lo por três meses produz
 evidência em três meses.
 

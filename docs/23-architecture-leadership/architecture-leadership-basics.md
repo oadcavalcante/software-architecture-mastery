@@ -318,7 +318,7 @@ decisões arquiteturais boas tomadas pelos
 O último número foi o que mudou a autoavaliação da área. Ela passou a se considerar bem-sucedida
 quando os times decidiam bem sozinhos — e não quando ela decidia.
 
-O que ficou registrado: a redução de 31 para 24 propostas foi deliberada. A área passou a
+O ponto que a equipe sublinha: a redução de 31 para 24 propostas foi deliberada. A área passou a
 selecionar batalhas, e as sete propostas que deixou de fazer eram todas de baixa consequência —
 preferências de padronização que não afetavam risco, custo nem velocidade.
 

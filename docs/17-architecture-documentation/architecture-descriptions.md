@@ -265,7 +265,7 @@ sistema real por alguém de fora do time.
 Dezoito meses depois: 54 descrições atualizadas nos últimos 12 meses, 49 com riscos reais
 registrados, e a taxa de consulta subiu para 41 sistemas.
 
-O que a equipe registra: a mudança de maior efeito não foi o formato. Foi permitir declarar
+A conclusão registrada: a mudança de maior efeito não foi o formato. Foi permitir declarar
 seções vazias. Enquanto preencher tudo era obrigatório, texto genérico era a resposta
 racional.
 

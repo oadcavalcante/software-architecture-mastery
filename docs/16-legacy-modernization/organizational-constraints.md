@@ -290,7 +290,7 @@ trimestralmente.
 A segunda tentativa levou 26 meses — mais que os 18 originalmente previstos na primeira —
 e foi concluída.
 
-O que a equipe registra: o desenho técnico da primeira tentativa era melhor que o da
+Na retrospectiva: o desenho técnico da primeira tentativa era melhor que o da
 segunda. Ele falhou por razões que estavam fora do documento de arquitetura, e que
 ninguém tinha considerado escopo do projeto.
 

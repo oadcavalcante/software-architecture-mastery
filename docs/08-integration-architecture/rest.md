@@ -271,7 +271,7 @@ passaram a usar 4xx contra 5xx.
 `POST /cancelarRemessa`. O cancelamento passou a ser consultável, o que resolveu
 uma demanda antiga de auditoria que ninguém tinha ligado a isso.
 
-O que a equipe registra: nenhuma das quatro correções era sobre pureza de estilo.
+O que se registrou depois: nenhuma das quatro correções era sobre pureza de estilo.
 Cada uma removeu código que existia só para compensar uma garantia do protocolo
 que estava sendo desperdiçada.
 

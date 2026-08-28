@@ -297,7 +297,7 @@ custo estimado da paralisia anterior, no caso
 O último par de números virou o argumento interno para a mudança: duas decisões erradas custaram
 um sexto do que uma decisão adiada tinha custado.
 
-O que ficou registrado: a pergunta "qual informação mudaria a escolha?" é o instrumento mais
+A lição registrada: a pergunta "qual informação mudaria a escolha?" é o instrumento mais
 barato do conjunto. Ela leva segundos e, na maior parte das vezes, a resposta honesta revela que
 o adiamento não era sobre informação.
 

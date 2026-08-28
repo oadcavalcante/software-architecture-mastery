@@ -239,7 +239,7 @@ com restrição de unicidade no banco. Importar duas vezes passa a inserir uma v
 O lock permaneceu, agora explicitamente como otimização de eficiência — evitar
 trabalho duplicado — e não como garantia de correção.
 
-O que a equipe registrou: passaram duas semanas ajustando prazos para um problema
+Na retrospectiva: passaram duas semanas ajustando prazos para um problema
 que não tinha solução por prazo. A pergunta certa — "o que acontece se importar
 duas vezes?" — veio depois, e a resposta levou três dias.
 

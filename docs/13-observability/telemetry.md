@@ -279,7 +279,7 @@ e documentos apareciam em registros de erro.
 Resultado: a conta caiu 78% em relação ao pico, com **mais** retenção e mais capacidade
 de investigação.
 
-O que a equipe registra: o primeiro corte — reduzir retenção — foi o pior movimento
+O que a equipe aprendeu: o primeiro corte — reduzir retenção — foi o pior movimento
 possível. Ele atacou a dimensão que mais importa para investigação e deixou intactas as
 três causas reais.
 

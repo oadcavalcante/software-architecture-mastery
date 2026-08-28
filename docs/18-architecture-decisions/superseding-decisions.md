@@ -269,9 +269,7 @@ Os ADRs 021, 034 e 052 giravam em torno de uma tensão conhecida — revogação
 tokens sem estado não permitem revogação — que nenhum deles nomeava. Cada decisão resolvia
 o sintoma da anterior e reintroduzia o problema da que veio antes dela.
 
-O que a organização mudou:
-
-**Revisão de cadeia** incorporada à revisão anual: toda cadeia com três ou mais superações
+A leitura que a equipe faz: **Revisão de cadeia** incorporada à revisão anual: toda cadeia com três ou mais superações
 é lida por inteiro, com uma pergunta única — "qual é a tensão que não foi nomeada?".
 
 **Seção de "história desta decisão"** nos sucessores de cadeias longas, resumindo as
@@ -286,7 +284,7 @@ três ou mais superações. Todas as nove, examinadas, mostravam o mesmo padrão
 
 Duas delas foram reabertas com base nisso.
 
-O que a equipe registra: cada ADR isolado da cadeia de autenticação era defensável. O
+O aprendizado que ficou: cada ADR isolado da cadeia de autenticação era defensável. O
 problema só era visível na sequência — e a sequência só existia porque nenhum ADR tinha
 sido apagado ou editado.
 

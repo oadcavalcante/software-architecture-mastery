@@ -296,7 +296,7 @@ Resultado: custo de governança de 1.940 para cerca de 400 horas, e o número de
 subiu para 74 — porque a automação cobre mais e a atenção humana passou a se concentrar
 no que exige julgamento.
 
-O que a equipe registra: a aprovação de infraestrutura tinha sido criada após um
+O detalhe que a equipe destaca: a aprovação de infraestrutura tinha sido criada após um
 incidente de custo, quatro anos antes. O problema foi resolvido por outro mecanismo dois
 anos depois, e o controle permaneceu — como quase todos.
 

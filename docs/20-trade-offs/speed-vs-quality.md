@@ -305,9 +305,7 @@ E o dado que mudou a política: a taxa de falha em mudanças nas áreas com atal
 de 18%, contra 4% nas demais. O atalho não estava só custando tempo — estava produzindo
 incidentes.
 
-O que a equipe mudou:
-
-**Prazo com consequência.** Todo atalho registrado tem data. Vencida a data sem desfazer, o
+A leitura que a equipe faz: **Prazo com consequência.** Todo atalho registrado tem data. Vencida a data sem desfazer, o
 item vira pauta obrigatória de priorização com o produto — não uma pauta de engenharia.
 
 **Custo por semana estimado** no momento do registro, e reestimado a cada trimestre. A
@@ -339,7 +337,7 @@ O último par de números é o que a equipe usa para explicar o tema internament
 falha caiu e a frequência de entrega subiu, ao mesmo tempo. No horizonte de dois anos, os
 dois não eram opostos.
 
-O que ficou registrado: os 23 atalhos da largada foram uma boa decisão — o produto precisava
+O aprendizado que ficou: os 23 atalhos da largada foram uma boa decisão — o produto precisava
 existir em cinco meses. O erro foi não reestimar o custo deles, o que fez com que os quatro
 mais caros deixassem de parecer dívida e passassem a parecer arquitetura.
 

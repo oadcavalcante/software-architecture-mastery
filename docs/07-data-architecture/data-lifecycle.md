@@ -274,7 +274,7 @@ resolvia a necessidade real dos analistas.
 procedimento documentado para os terceiros — e trilha de auditoria do que foi
 apagado.
 
-O que a equipe registra: a solicitação era de um único cliente. O trabalho que ela
+A leitura que a equipe faz: a solicitação era de um único cliente. O trabalho que ela
 desencadeou levou seis meses, e teria sido uma fração disso se a classificação
 existisse desde o início.
 

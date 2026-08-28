@@ -311,7 +311,7 @@ O dado que a equipe considera decisivo: as consultas voluntárias superaram em q
 o volume da revisão obrigatória. Times procuram orientação quando ela é barata, cedo e não
 tem poder de veto.
 
-O que ficou registrado: o comitê nunca foi o problema. O problema era que ele intervinha no
+A leitura que a equipe faz: o comitê nunca foi o problema. O problema era que ele intervinha no
 único ponto em que a única ação disponível era cara demais para ser tomada.
 
 ## Conceitos Relacionados

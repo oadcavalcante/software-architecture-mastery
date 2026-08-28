@@ -248,7 +248,7 @@ só o sintoma.
 A instabilidade desapareceu. E a detecção de falha real continuou acontecendo em
 15 segundos, o que era perfeitamente aceitável para aquele sistema.
 
-O que a equipe registrou: o problema não era o detector estar errado — ele estava
+Na retrospectiva: o problema não era o detector estar errado — ele estava
 detectando corretamente que o nó não respondia. O problema era **usar a mesma
 resposta para uma pausa de 4 segundos e para uma máquina morta**.
 

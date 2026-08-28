@@ -307,7 +307,7 @@ destinos não documentados.
 E uma verificação que passou a rodar continuamente: comparar o que está publicado no
 registro com o que a esteira produziu. Um artefato sem correspondência dispara alerta.
 
-O que a equipe registra: a esteira tinha sido configurada anos antes, por conveniência, e
+A esteira tinha sido configurada anos antes, por conveniência, e
 nunca revisada sob a ótica de segurança. Ela era o componente com mais privilégios da
 organização e o menos governado.
 

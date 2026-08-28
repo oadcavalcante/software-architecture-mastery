@@ -272,7 +272,7 @@ fila acumulou 180 mil pedidos. A drenagem levou 2 horas, durante as quais os ped
 novos entravam atrás. A priorização por prazo de entrega foi adicionada: pedidos com
 entrega mais próxima são processados primeiro, independentemente da ordem de chegada.
 
-O que a equipe registra: o escalonamento programado resolveu mais que a fila para os
+O aprendizado que ficou: o escalonamento programado resolveu mais que a fila para os
 picos conhecidos. A fila continua sendo essencial — para o imprevisto e para a
 recuperação — e a expectativa inicial, de que ela sozinha resolveria os picos diários,
 estava errada.

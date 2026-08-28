@@ -365,7 +365,7 @@ custo de saída consolidado, estimado               ~11 meses
 O custo de saída **subiu** — de 9 para 11 meses — e isso foi apresentado ao conselho junto
 com os demais números, e aceito.
 
-O que ficou registrado: a política de 2021 respondia a uma preocupação legítima com o
+A política de 2021 respondia a uma preocupação legítima com o
 instrumento errado. O conselho queria não ficar refém; o que ele precisava era de uma
 estimativa crível de saída, e não de uma arquitetura que evitasse a nuvem inteira.
 

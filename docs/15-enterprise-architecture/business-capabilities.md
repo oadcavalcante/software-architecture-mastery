@@ -290,7 +290,7 @@ conhecimento como primeira etapa.
 E uma mudança de processo: a discussão de orçamento passou a acontecer sobre o mapa de
 capacidades, não sobre a lista de sistemas.
 
-O que a equipe registra: o modelo levou seis semanas e o mapeamento, mais quatro. Ele
+Na retrospectiva: o modelo levou seis semanas e o mapeamento, mais quatro. Ele
 mudou a conversa mais que qualquer análise técnica dos anos anteriores — porque o
 negócio finalmente conseguia participar dela.
 

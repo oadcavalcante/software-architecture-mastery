@@ -308,7 +308,7 @@ operado um sistema assim.
 Esse quarto caso é o argumento inteiro do estágio de recomendação. Sob obrigatoriedade direta, ele
 teria sido imposto, contornado, e a organização teria concluído que os times eram indisciplinados.
 
-O que ficou registrado: o estágio de recomendação transformou baixa adoção de falha de disciplina
+O que a equipe aprendeu: o estágio de recomendação transformou baixa adoção de falha de disciplina
 em informação sobre o padrão. Essa inversão de leitura foi a mudança de maior efeito, e ela custa
 apenas seis meses de espera.
 

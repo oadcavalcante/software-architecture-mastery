@@ -259,7 +259,7 @@ automático.
 **Revisão trimestral** com base em uso real. A primeira reduziu as permissões
 concedidas em cerca de 80% sem quebrar nada.
 
-O que a equipe registra: o último número é o mais revelador. Quatro quintos das
+A conclusão registrada: o último número é o mais revelador. Quatro quintos das
 permissões concedidas nunca tinham sido exercidas — elas existiam apenas por
 precaução, e foi exatamente essa precaução que definiu o tamanho do dano.
 

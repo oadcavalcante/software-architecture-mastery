@@ -258,7 +258,7 @@ papel distinto do que administra o armazenamento, com uso auditado.
 E uma descoberta durante a migração: **a chave estava numa cópia de segurança da
 configuração**, armazenada no mesmo armazenamento de objetos que ela protegia.
 
-O que a equipe registra: a decisão de cifrar tinha sido bem tomada e bem justificada.
+A lição registrada: a decisão de cifrar tinha sido bem tomada e bem justificada.
 Nada além dela foi decidido — e quatro anos depois o sistema tinha cifragem sem
 nenhuma das propriedades que a cifragem deveria entregar.
 

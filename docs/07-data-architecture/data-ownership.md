@@ -261,7 +261,7 @@ acesso.
 Resultado: adicionar um campo passou de onze semanas para dias, sem mover nenhum
 banco de lugar.
 
-O que a equipe registra: a proposta inicial era dividir em bancos separados por
+A lição registrada: a proposta inicial era dividir em bancos separados por
 domínio — um projeto estimado em dois anos e meio. A propriedade declarada com
 visões publicadas entregou o mesmo desbloqueio sem a migração.
 

@@ -323,7 +323,7 @@ implantações independentes por serviço/mês         18
 incidentes por mudança                             -44%
 ```
 
-O que a organização registra: os cinco serviços eram os mesmos antes e depois. Nenhuma linha de
+Na retrospectiva: os cinco serviços eram os mesmos antes e depois. Nenhuma linha de
 fronteira arquitetural mudou. O que mudou foi quem conversava com quem — e isso, sozinho,
 transformou uma arquitetura que não funcionava numa que funcionava.
 

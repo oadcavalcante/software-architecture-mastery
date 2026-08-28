@@ -244,7 +244,7 @@ a ler do primário por 30 segundos. A queixa de "editei e não mudou" desaparece
 **Particionamento planejado** para quando a escrita voltar a saturar, com gatilho
 definido — o que a equipe estima em cerca de três anos no ritmo atual.
 
-O que a equipe registra: a resposta para dois anos de crescimento tinha sido sempre a
+A avaliação posterior aponta: a resposta para dois anos de crescimento tinha sido sempre a
 mesma — adicionar uma réplica. Ninguém tinha calculado a amplificação de escrita, e a
 12ª réplica estava tornando o sistema pior.
 

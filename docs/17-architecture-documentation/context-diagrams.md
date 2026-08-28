@@ -267,7 +267,7 @@ Manutenção: os diagramas são descritos em texto no repositório de cada siste
 esteira, e revisados quando uma integração muda. Em dezoito meses, a média foi de 1,4
 alteração por sistema.
 
-O que a equipe registra: os 11 consumidores desconhecidos foram a descoberta de maior
+A lição registrada: os 11 consumidores desconhecidos foram a descoberta de maior
 valor, e ela veio de um exercício que a organização tinha considerado simples demais para
 priorizar durante anos.
 

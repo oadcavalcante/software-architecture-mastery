@@ -268,7 +268,7 @@ necessárias. Ver [menor privilégio](least-privilege.md).
 
 **Filtro de registros** para não gravar credenciais.
 
-O que a equipe registra: o requisito regulatório dizia "os dados devem ser
+O ponto que a equipe sublinha: o requisito regulatório dizia "os dados devem ser
 criptografados", e eles atenderam literalmente. A pergunta que ninguém fez — "contra
 quem?" — teria mudado a resposta inteira, com o mesmo orçamento.
 

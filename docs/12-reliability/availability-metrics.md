@@ -280,7 +280,7 @@ Duas correções resolveram treze dos quatorze:
 
 **Implantação fora do horário de pico**, e depois implantação gradual sem parada.
 
-O que a equipe registra: eles tinham investido meses tentando reduzir a duração dos
+A conclusão registrada: eles tinham investido meses tentando reduzir a duração dos
 incidentes — que já era de 2,5 minutos. O problema era a **frequência**, e a
 decomposição levou uma tarde para revelar isso.
 

@@ -246,7 +246,7 @@ atual, explicitamente.
 **Reconciliação diária** comparando o total do warehouse com o do ponto de venda,
 com alerta acima de 0,1%.
 
-O que a equipe registra: os problemas técnicos foram corrigidos em três semanas. A
+A lição registrada: os problemas técnicos foram corrigidos em três semanas. A
 confiança levou quase um ano para voltar, e por muito tempo as áreas mantiveram
 planilhas paralelas "para conferir".
 

@@ -298,7 +298,7 @@ A redução de 70% no tempo de revisão gasto em conferência de regras é o nú
 destaca: ela não substituiu a revisão humana, liberou-a. As conversas passaram a ser sobre
 fronteira, modelagem e trade-off — as perguntas que nenhuma verificação responde.
 
-O que ficou registrado: as correções voluntárias durante o modo de aviso resolveram cerca de 60%
+O ponto que a equipe sublinha: as correções voluntárias durante o modo de aviso resolveram cerca de 60%
 das violações antes de qualquer bloqueio, sem nenhuma cobrança. Tornar visível foi mais eficaz
 que impor.
 

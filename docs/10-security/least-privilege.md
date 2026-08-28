@@ -262,7 +262,7 @@ Resultado após um ano: as permissões concedidas caíram cerca de 80%, e houve 
 incidentes de "faltou permissão" — todos resolvidos em menos de uma hora pelo
 processo de elevação.
 
-O que a equipe registra: a fase 1 em modo de aviso foi o que tornou tudo viável. A
+O que se registrou depois: a fase 1 em modo de aviso foi o que tornou tudo viável. A
 proposta original era cortar direto, e o time de operações tinha vetado — com razão.
 Duas semanas registrando o que seria negado transformou uma discussão de risco numa
 lista de exceções.

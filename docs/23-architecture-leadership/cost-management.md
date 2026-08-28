@@ -289,7 +289,7 @@ propostas arquiteturais com
   estimativa de custo           100% acima do limite
 ```
 
-O que a organização registra: a intervenção de maior retorno não foi nenhuma otimização técnica —
+O detalhe que a equipe destaca: a intervenção de maior retorno não foi nenhuma otimização técnica —
 foi tornar o custo visível por time. Os 16% que os times reduziram sozinhos, sem meta e sem
 diretriz, foram obtidos apenas por mostrar o número a quem podia agir sobre ele.
 

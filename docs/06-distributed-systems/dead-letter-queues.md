@@ -240,7 +240,7 @@ o que teria evitado a cobrança dupla no reprocessamento.
 **Registro de esquema** entre produtor e consumidor, impedindo que uma mudança
 incompatível seja publicada.
 
-O que a equipe registrou: a dead-letter fez exatamente o que devia — impediu o
+A lição registrada: a dead-letter fez exatamente o que devia — impediu o
 bloqueio da fila e preservou as mensagens. O que faltou foi a metade
 organizacional do mecanismo.
 

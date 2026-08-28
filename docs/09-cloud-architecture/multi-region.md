@@ -269,7 +269,7 @@ impossível.
 
 Após seis meses de exercícios, o tempo de failover caiu para 9 minutos.
 
-O que a equipe registra: eles tinham multi-região havia dois anos e nunca a haviam
+O aprendizado que ficou: eles tinham multi-região havia dois anos e nunca a haviam
 usado. Ter a infraestrutura e **conseguir usá-la** são coisas diferentes — e a
 diferença só aparece no exercício ou no incidente.
 

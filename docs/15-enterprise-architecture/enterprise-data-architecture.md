@@ -289,7 +289,7 @@ menos de 0,2%, e a pergunta de quantos pacientes únicos passou a ter resposta.
 E uma decisão em sentido contrário: dados de agendamento de cada unidade permaneceram
 locais. Eles não são compartilhados, e consolidá-los teria custo sem benefício.
 
-O que a equipe registra: a parte técnica foi a menor. A decisão de qual sistema seria a
+A conclusão registrada: a parte técnica foi a menor. A decisão de qual sistema seria a
 fonte levou quatro meses de negociação, e ela era o pré-requisito de tudo.
 
 ## Conceitos Relacionados

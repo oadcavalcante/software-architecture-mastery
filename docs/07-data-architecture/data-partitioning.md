@@ -240,7 +240,7 @@ que eles queriam de qualquer forma.
 ingestão parou às 00:00 e ficou 40 minutos fora até alguém entender. A automação
 passou a criar 6 meses de antecedência, com alerta se restarem menos de 3.
 
-O que a equipe registra: o ganho que justificou o projeto não foi desempenho de
+A leitura que a equipe faz: o ganho que justificou o projeto não foi desempenho de
 consulta — foi transformar o apagamento diário de uma operação de risco em
 metadados. O ganho de consulta veio junto e foi tratado como bônus.
 

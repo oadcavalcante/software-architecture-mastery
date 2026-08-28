@@ -303,7 +303,7 @@ integrações a menos para manter.
 E o quadrante de risco virou o plano de modernização de dois anos, com transferência de
 conhecimento como primeira etapa nas oito de mantenedor único.
 
-O que a equipe registra: as 31 aplicações do quadrante de risco eram conhecidas
+A avaliação posterior aponta: as 31 aplicações do quadrante de risco eram conhecidas
 individualmente por várias pessoas. Nenhuma tinha aparecido numa discussão de prioridade,
 porque nenhuma estava quebrando.
 

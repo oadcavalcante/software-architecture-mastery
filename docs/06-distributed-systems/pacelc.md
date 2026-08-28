@@ -166,7 +166,7 @@ de segundos. O negócio confirmou que uma disponibilidade ligeiramente desatuali
 
 Resultado: p50 de 95 ms.
 
-O que a equipe registrou: a consistência forte não foi abandonada. O que mudou foi
+O ponto que a equipe sublinha: a consistência forte não foi abandonada. O que mudou foi
 **o escopo da coordenação** — de global para regional — mais a separação das
 operações que não precisavam dela.
 

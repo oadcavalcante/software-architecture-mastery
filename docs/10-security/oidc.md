@@ -258,7 +258,7 @@ Os seis times passaram a usá-la em vez de cada um implementar.
 
 **Logout global** configurado, encerrando a sessão do provedor.
 
-O que a equipe registra: seis implementações independentes do mesmo protocolo
+O aprendizado que ficou: seis implementações independentes do mesmo protocolo
 produziram seis conjuntos diferentes de omissões. A decisão de deixar cada time
 implementar — tomada para não criar dependência — custou mais que a dependência
 teria custado.

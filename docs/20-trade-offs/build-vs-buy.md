@@ -348,7 +348,7 @@ casos em que a inclusão do custo de pessoal
 Os 9 casos invertidos são o dado que a equipe considera decisivo. Em todos, a intuição
 inicial era construir, e o número mudou a decisão.
 
-O que ficou registrado: a construção de 2022 não foi mal executada. A plataforma funcionava.
+O que a equipe aprendeu: a construção de 2022 não foi mal executada. A plataforma funcionava.
 Ela apenas custava seis vezes mais do que a alternativa, numa capacidade em que a empresa
 nunca teria vantagem — e a conta que teria mostrado isso levava vinte minutos para ser
 feita.

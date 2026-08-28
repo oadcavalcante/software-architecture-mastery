@@ -281,7 +281,7 @@ Nos 18 meses seguintes, o programa foi interrompido duas vezes por mudança de
 prioridade — e retomado nas duas. Cada interrupção deixou um estado defensável, e a
 retomada não perdeu trabalho.
 
-O que a equipe registra: o roteiro anterior estava tecnicamente correto na sequência de
+O aprendizado que ficou: o roteiro anterior estava tecnicamente correto na sequência de
 dependências. Ele foi ordenado da forma que faz sentido para construir, e não da que faz
 sentido para sobreviver.
 

@@ -277,7 +277,7 @@ Um problema durante a produção:
 autenticação, logging, cliente HTTP interno. Isso inflava os diagramas e misturava
 níveis. A regra "é separadamente implantável?" resolveu.
 
-O que a equipe registra: o acesso direto ao banco existia havia cinco anos, era conhecido
+O que se registrou depois: o acesso direto ao banco existia havia cinco anos, era conhecido
 por várias pessoas, e nunca tinha sido tratado como problema arquitetural — até aparecer
 num diagrama com três setas convergindo para a mesma caixa.
 

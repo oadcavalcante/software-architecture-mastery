@@ -268,7 +268,7 @@ passou a ser idempotente. As transações perdidas foram a zero.
 **Alerta de ausência.** Se o lote não iniciar até 2h15, alerta. E monitoramento da
 razão entre duração e janela, com alerta acima de 60%.
 
-O que a equipe registra: a proposta na mesa era migrar para processamento
+A lição registrada: a proposta na mesa era migrar para processamento
 contínuo, estimada em oito meses. As quatro correções levaram cinco semanas,
 resolveram todos os incidentes, e a conciliação continua sendo — corretamente — um
 processo diário, porque o arquivo do banco chega uma vez por dia.

@@ -320,7 +320,7 @@ E o risco de pessoas foi endereçado em paralelo, com transferência de conhecim
 mantenedor para três pessoas — tratado como projeto próprio, e não como consequência da
 modernização.
 
-O que a equipe registra: as três rejeições anteriores estavam corretas. A proposta pedia
+O que a equipe aprendeu: as três rejeições anteriores estavam corretas. A proposta pedia
 R$ 4,2 milhões para resolver um desconforto técnico, e o negócio não tinha como avaliá-la.
 
 ## Conceitos Relacionados

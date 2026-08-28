@@ -264,7 +264,7 @@ seguinte para corrigir o que o acordou.
 Nos doze meses seguintes, os acionamentos noturnos caíram 70%, e a fração de trabalho
 manual do time de plataforma foi de 80% para cerca de 30%.
 
-O que a equipe registra: as práticas eram corretas desde o início; a estrutura estava
+O ponto que a equipe sublinha: as práticas eram corretas desde o início; a estrutura estava
 errada para o tamanho da empresa. E a última mudança — tempo alocado para corrigir — foi
 a que mais reduziu acionamentos, porque fechou o ciclo entre ser acordado e eliminar a
 causa.

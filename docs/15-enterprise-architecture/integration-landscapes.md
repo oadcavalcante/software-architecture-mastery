@@ -284,7 +284,7 @@ E uma decisão deliberada: a proposta de introduzir um barramento central foi re
 análise mostrou que ele reorganizaria o diagrama sem reduzir o número de dependências
 entre times — que era a causa da lentidão.
 
-O que a equipe registra: a lentidão era atribuída a processo e a ferramentas. A causa era
+A lentidão era atribuída a processo e a ferramentas. A causa era
 estrutural, e ficou visível só quando alguém desenhou o mapa a partir do que acontece, e
 não do que está documentado.
 

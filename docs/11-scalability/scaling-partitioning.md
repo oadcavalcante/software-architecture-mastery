@@ -257,7 +257,7 @@ feita com o sistema no ar.
 Esse último foi o mais caro, e era o mais evitável: a estratégia de mapeamento tinha
 sido escolhida na primeira semana do projeto, sem discussão.
 
-O que a equipe registra: a chave de partição estava certa e continua certa. O que
+O que se registrou depois: a chave de partição estava certa e continua certa. O que
 faltou foi antecipar as consultas que **não** usam a chave — busca e deduplicação — que
 existiam no roteiro de produto e não entraram na análise.
 

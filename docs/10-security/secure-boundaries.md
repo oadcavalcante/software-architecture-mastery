@@ -268,7 +268,7 @@ empresa do token, nunca do parâmetro.
 
 **Registro de negações** em todas as fronteiras.
 
-O que a equipe registra: a fronteira que falhou não era a que eles vigiavam. O
+A lição registrada: a fronteira que falhou não era a que eles vigiavam. O
 perímetro externo era sólido — autenticação forte, gateway, limite de taxa. O
 vazamento aconteceu inteiramente **dentro** dele, entre dois clientes legítimos,
 porque ali não havia fronteira nenhuma.

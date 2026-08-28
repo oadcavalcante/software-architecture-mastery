@@ -209,7 +209,7 @@ algorítmico.
 A migração para o novo esquema levou seis semanas. Depois dela, a passagem de 8
 para 12 instâncias levou quatro horas.
 
-O que a equipe registrou: shards lógicos e diretório são decisões que custam pouco
+O detalhe que a equipe destaca: shards lógicos e diretório são decisões que custam pouco
 no início e são caras de retrofitar. Ambas estavam na documentação de referência
 que ninguém leu antes de implementar.
 

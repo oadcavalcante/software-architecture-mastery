@@ -272,7 +272,7 @@ mudanças das últimas duas horas.
 Resultado: de 31 notificações por dia para **1,4**. E o tempo médio de resposta caiu,
 porque cada notificação passou a ser levada a sério.
 
-O que a equipe registra: os 118 alertas removidos tinham sido criados por pessoas
+O aprendizado que ficou: os 118 alertas removidos tinham sido criados por pessoas
 razoáveis, cada um em resposta a um incidente real. Nenhum foi um erro individual — o
 erro foi nunca revisar.
 

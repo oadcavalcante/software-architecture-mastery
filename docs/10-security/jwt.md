@@ -263,7 +263,7 @@ resto passou a ser consultado.
 **Registros com omissão** de cabeçalhos de autorização — e os três meses de registros
 existentes foram expurgados.
 
-O que a equipe registra: a escolha de JWT tinha sido feita por escala, e o sistema
+A conclusão registrada: a escolha de JWT tinha sido feita por escala, e o sistema
 tinha 400 usuários. Uma sessão tradicional teria atendido com folga, sem nenhum dos
 quatro problemas.
 

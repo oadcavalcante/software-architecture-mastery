@@ -339,7 +339,7 @@ tempo de onboarding                de 11 para 5 semanas
 
 O relatório trimestral passou a ter seis números e nenhuma contagem de atividade.
 
-O que a área registra: a linha de base foi a parte mais desconfortável e a mais valiosa. Ela
+A leitura que a equipe faz: a linha de base foi a parte mais desconfortável e a mais valiosa. Ela
 mostrou que a percepção de progresso estava errada, e a segmentação por domínio apontou a causa em
 uma tarde — depois de dois anos de estratégias construídas sobre percepção.
 

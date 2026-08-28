@@ -242,7 +242,7 @@ data. A consulta de telemetria caiu de 8 TB para 40 GB lidos.
 
 **Classificação de dado pessoal** na ingestão, com zona restrita.
 
-O que a equipe registra: nenhuma dessas medidas é difícil ou cara — todas são
+O aprendizado que ficou: nenhuma dessas medidas é difícil ou cara — todas são
 baratas se adotadas na ingestão do primeiro conjunto. Retroagir custou oito meses
 porque cada decisão precisou ser aplicada a dados que já estavam lá, sem
 documentação de origem.

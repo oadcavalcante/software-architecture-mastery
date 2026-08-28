@@ -294,7 +294,7 @@ serviços. As 60 verificações viraram uma chamada padronizada.
 Resultado: 214 papéis viraram 4, e as regras que os papéis tentavam expressar
 passaram a ser relações — que é o que elas sempre foram.
 
-O que a equipe registra: nenhum dos 214 papéis foi criado por engano. Cada um
+O ponto que a equipe sublinha: nenhum dos 214 papéis foi criado por engano. Cada um
 resolvia uma necessidade legítima, com o único mecanismo disponível. O erro estava um
 nível acima — no modelo escolhido no primeiro mês, para um produto cujas regras ainda
 não existiam.

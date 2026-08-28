@@ -274,7 +274,7 @@ As duas propostas abandonadas são o resultado que a área considera mais valios
 objeções estruturais que teriam aparecido depois de meses de trabalho — e abandoná-las na segunda
 semana custou quase nada.
 
-O que ficou registrado: a conversa de cinco minutos com jurídico, que teria evitado o incidente
+A conversa de cinco minutos com jurídico, que teria evitado o incidente
 original, é o item de maior retorno da lista. Ela custa cinco minutos e evita, ocasionalmente,
 quatro meses.
 

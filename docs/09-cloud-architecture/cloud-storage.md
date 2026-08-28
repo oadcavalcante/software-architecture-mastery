@@ -250,7 +250,7 @@ de alunos.
 **Rede de distribuição de conteúdo** na frente dos vídeos. O custo de saída caiu
 substancialmente, e a experiência melhorou.
 
-O que a equipe registra: a migração foi tratada como troca de tecnologia — "de disco
+O detalhe que a equipe destaca: a migração foi tratada como troca de tecnologia — "de disco
 para objetos" — e as três decisões que vieram depois (classe, versionamento,
 permissões) não estavam no plano. Cada uma gerou um incidente antes de virar
 configuração.

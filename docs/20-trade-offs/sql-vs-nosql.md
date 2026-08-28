@@ -324,7 +324,7 @@ custo de infraestrutura                         -12%
 Os dois bancos remanescentes têm justificativa registrada em ADR, com condição de reversão:
 se o registro de refeições passar a exigir consulta cruzada, ele volta para o relacional.
 
-O que a equipe registra: a decisão de 2022 não era absurda — a variação de atributos era
+A decisão de 2022 não era absurda — a variação de atributos era
 real. O erro foi de método: a escolha foi feita a partir de uma característica do dado, sem
 listar os padrões de acesso previstos nem perguntar se haveria consulta não prevista. A
 resposta a essa segunda pergunta, em um produto que ainda estava descobrindo seu mercado,

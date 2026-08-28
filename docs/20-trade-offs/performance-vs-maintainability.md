@@ -330,7 +330,7 @@ tempo médio de mudança em código de decisão      reduzido, sem medida formal
                                                  mas relatado por todo o time
 ```
 
-O que ficou registrado: as três semanas iniciais não foram desperdício de esforço, foram
+O ponto que a equipe sublinha: as três semanas iniciais não foram desperdício de esforço, foram
 desperdício de direção. A equipe tinha capacidade técnica para otimizar e não tinha o hábito
 de medir antes — e a intuição sobre onde estava o tempo errou por uma ordem de grandeza.
 

@@ -305,7 +305,7 @@ E um item foi adicionado no segundo ano: política de custo de infraestrutura, d
 três times fizeram escolhas com efeito agregado significativo na fatura. A externalidade não
 tinha sido percebida antes.
 
-O que ficou registrado: a primeira tentativa não falhou por federação demais. Falhou por
+O que a equipe aprendeu: a primeira tentativa não falhou por federação demais. Falhou por
 usar o critério errado para dividir — "técnico contra estratégico" põe do lado local
 decisões cuja consequência é de todos.
 

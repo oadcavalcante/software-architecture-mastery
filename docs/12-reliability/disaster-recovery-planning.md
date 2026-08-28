@@ -274,7 +274,7 @@ passou a ser anual.
 Nos dois anos seguintes, os exercícios encontraram nove problemas, todos corrigidos em
 janela controlada. Um incidente real de corrupção parcial foi resolvido em 35 minutos.
 
-O que a equipe registra: o plano de 40 páginas cumpria a exigência de auditoria
+Na retrospectiva: o plano de 40 páginas cumpria a exigência de auditoria
 perfeitamente. Ele nunca tinha sido escrito para ser usado — apenas para existir.
 
 ## Conceitos Relacionados

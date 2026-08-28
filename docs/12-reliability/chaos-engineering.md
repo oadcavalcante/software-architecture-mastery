@@ -300,7 +300,7 @@ banco trimestralmente.
 Nos dez meses seguintes, dois incidentes reais ocorreram nas condições exercitadas.
 Ambos foram absorvidos sem indisponibilidade.
 
-O que a equipe registra: os dois anos de investimento em confiabilidade tinham
+O que a equipe aprendeu: os dois anos de investimento em confiabilidade tinham
 produzido mecanismos que, na maioria, não funcionavam. Não por incompetência — por
 nunca terem sido executados.
 

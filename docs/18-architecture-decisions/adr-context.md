@@ -303,7 +303,7 @@ Na primeira rodada de revisão, 7 dos 34 ADRs de decisões custosas tinham restr
 não existiam. Dois foram superados. Ver
 [superação](superseding-decisions.md).
 
-O que a equipe registra: o contexto original não era desonesto nem preguiçoso — ele parecia
+A lição registrada: o contexto original não era desonesto nem preguiçoso — ele parecia
 completo. A frase "requisitos editoriais específicos" descrevia com precisão o que todos
 sabiam em 2021. O problema é que "todos sabiam" é exatamente a informação que evapora.
 

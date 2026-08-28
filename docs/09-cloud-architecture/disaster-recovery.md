@@ -273,7 +273,7 @@ horas; o quarto, 3h20.
 
 **Autoridade de acionamento** definida em três nomes.
 
-O que a equipe registra: eles cumpriam a exigência de auditoria — havia cópias e
+O que se registrou depois: eles cumpriam a exigência de auditoria — havia cópias e
 havia documento. A auditoria nunca pediu um teste, e ninguém ofereceu.
 
 ## Conceitos Relacionados

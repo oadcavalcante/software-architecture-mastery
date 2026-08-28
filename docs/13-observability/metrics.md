@@ -266,7 +266,7 @@ a necessidade original que levou alguém a adicionar o identificador como rótul
 
 **Revisão semestral** de métricas não consultadas. A primeira removeu 40% delas.
 
-O que a equipe registra: o erro que causou tudo foi um nome de variável trocado. O que
+O que a equipe aprendeu: o erro que causou tudo foi um nome de variável trocado. O que
 o transformou em incidente de 6 horas foi não haver limite de cardinalidade — uma
 proteção que o sistema de métricas oferecia e ninguém tinha configurado.
 

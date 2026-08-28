@@ -317,7 +317,7 @@ O efeito **subiu** enquanto o atrito caiu em 75%. A explicação registrada: os 
 convertidos em verificação automática pegam mais que os equivalentes manuais, porque rodam
 sempre.
 
-O que a equipe registra: a discussão de dois anos terminou em uma reunião, quando a tabela
+O detalhe que a equipe destaca: a discussão de dois anos terminou em uma reunião, quando a tabela
 foi apresentada. Não houve argumento novo — houve número.
 
 ## Conceitos Relacionados

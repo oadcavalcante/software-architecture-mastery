@@ -263,7 +263,7 @@ executado quando necessário.
 **Alerta de tendência**, não só de valor absoluto: se a utilização crescer a um ritmo
 que atinja 70% em menos de seis meses, o alerta dispara.
 
-O que a equipe registra: a decisão de distribuir tinha sido tomada a partir de uma
+A lição registrada: a decisão de distribuir tinha sido tomada a partir de uma
 projeção de crescimento, sem nenhuma medição do que a infraestrutura atual comportava.
 A conta que faltava — quanto da máquina estamos usando — levou uma hora.
 

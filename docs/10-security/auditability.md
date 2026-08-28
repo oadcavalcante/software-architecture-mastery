@@ -278,7 +278,7 @@ Onze meses depois, o alerta de volume anômalo detectou um caso semelhante em do
 dias — com identificação da pessoa, dos 14 registros acessados, e sem necessidade de
 notificação em massa.
 
-O que a equipe registra: eles cumpriam a exigência regulatória de "manter trilha de
+O detalhe que a equipe destaca: eles cumpriam a exigência regulatória de "manter trilha de
 auditoria". A trilha existia, e não respondia a nenhuma das perguntas que a
 investigação fez.
 

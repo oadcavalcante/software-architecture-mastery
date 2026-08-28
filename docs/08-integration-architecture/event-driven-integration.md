@@ -272,7 +272,7 @@ meses porque nenhum diagrama existia.
 Depois disso, a refatoração de "consulta" e "procedimento" foi feita em três
 semanas, sem tocar em nenhum consumidor.
 
-O que a equipe registra: a camada de tradução parecia cerimônia desnecessária no
+O aprendizado que ficou: a camada de tradução parecia cerimônia desnecessária no
 início — "é o mesmo dado, por que copiar?". O custo dela é pequeno e constante; o
 custo de não tê-la foi sete meses de uma mudança de negócio bloqueada.
 

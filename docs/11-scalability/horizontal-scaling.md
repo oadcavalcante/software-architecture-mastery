@@ -276,7 +276,7 @@ mostrou que acima de 45 o ganho ficava marginal.
 Esse número virou o teto configurado do escalonamento automático, com alerta quando
 ele é atingido.
 
-O que a equipe registra: a expansão para 60 instâncias foi feita durante o incidente,
+A expansão para 60 instâncias foi feita durante o incidente,
 na esperança de que capacidade resolvesse. Ela custou dinheiro, piorou a latência, e o
 diagnóstico só começou depois que alguém perguntou por que não estava funcionando.
 

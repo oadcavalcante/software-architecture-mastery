@@ -227,7 +227,7 @@ enriquecimento era síncrono, toda a fila parou. Corrigido com timeout, cache e 
 caminho alternativo que usa o último preço conhecido, marcando o item para
 revisão.
 
-O que a equipe registra: os dois problemas estão descritos no livro, com esses
+A avaliação posterior aponta: os dois problemas estão descritos no livro, com esses
 nomes, há vinte anos. Ter usado o vocabulário na fase de desenho teria feito
 alguém perguntar "qual o critério de conclusão do agregador?" antes de a
 implementação existir.

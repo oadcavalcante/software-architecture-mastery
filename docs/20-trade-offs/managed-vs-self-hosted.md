@@ -333,7 +333,7 @@ O custo total subiu 6%, e a decisão foi considerada acertada mesmo assim: 87 ho
 voltaram para o produto, e a redução de plantão noturno foi apontada pela equipe como a
 mudança de maior efeito na qualidade de trabalho.
 
-O que ficou registrado: a comparação de 2020 não estava errada nos números que usou. Ela
+O ponto que a equipe sublinha: a comparação de 2020 não estava errada nos números que usou. Ela
 estava incompleta — comparava fatura com fatura, e o trabalho de operar não aparece em
 nenhuma das duas.
 

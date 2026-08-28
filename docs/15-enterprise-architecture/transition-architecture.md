@@ -274,7 +274,7 @@ E dois estados intermediários teriam sido defensáveis como parada: após o est
 gargalo de capacidade estava resolvido; após o estado 2, as divergências de regra
 estavam mapeadas.
 
-O que a equipe registra: os 20 meses do plano original não produziram nenhum valor
+A lição registrada: os 20 meses do plano original não produziram nenhum valor
 utilizável. O que travava não era técnico — era que o único momento de valor era o
 último, e ele era arriscado demais para alguém aprovar.
 

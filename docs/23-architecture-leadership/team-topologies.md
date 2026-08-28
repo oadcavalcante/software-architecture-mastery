@@ -312,7 +312,7 @@ engenheiros                                          190 (inalterado)
 O último número é o que a liderança destaca: a capacidade de entrega quase dobrou sem contratar
 ninguém. O gargalo nunca tinha sido capacidade — era coordenação.
 
-O que ficou registrado: a medição de "colaborações de fato, não declaradas" foi o instrumento
+O detalhe que a equipe destaca: a medição de "colaborações de fato, não declaradas" foi o instrumento
 decisivo. Ela é simples de obter — contar dependências recorrentes entre times ao longo de um
 trimestre — e nenhuma organização a media.
 

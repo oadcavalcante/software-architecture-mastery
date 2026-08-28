@@ -244,7 +244,7 @@ autoritativo.
 
 **Reindexação completa periódica**, aceitando que eventos se perdem.
 
-O que a equipe registra: a discussão que destravou tudo foi separar os três
+O que se registrou depois: a discussão que destravou tudo foi separar os três
 sentidos da palavra. Antes disso, as reuniões alternavam entre isolamento de
 transação, integridade referencial e sincronia de índice como se fossem o mesmo
 problema — e nenhuma decisão saía.

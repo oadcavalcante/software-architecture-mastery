@@ -325,7 +325,7 @@ E dois anos depois, com a empresa em 9 times, dois módulos do monólito modular
 extraídos — desta vez com fronteiras provadas por dois anos de mudanças, e com a plataforma
 pronta. As extrações levaram 5 e 7 semanas, sem incidente.
 
-O que a equipe registra: o monólito de 2022 era de fato difícil de manter, e o diagnóstico
+A avaliação posterior aponta: o monólito de 2022 era de fato difícil de manter, e o diagnóstico
 estava certo. O erro foi de tratamento — o problema era ausência de fronteiras internas, e a
 resposta aplicada foi distribuição, que fixa fronteiras antes de conhecê-las.
 

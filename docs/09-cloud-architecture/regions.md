@@ -243,7 +243,7 @@ E um detalhe que quase passou: as **cópias de segurança** estavam configuradas
 replicar para uma região americana, por uma escolha feita anos antes para
 "redundância geográfica". Migrar o banco não teria resolvido a conformidade.
 
-O que a equipe registra: a escolha original custou uma migração de oito meses.
+O que a equipe aprendeu: a escolha original custou uma migração de oito meses.
 Ela foi feita em uma tarde, sem que ninguém tivesse listado latência, jurisdição,
 custo e disponibilidade de serviço como critérios — porque na época o sistema
 tinha três usuários internos e a região parecia irrelevante.

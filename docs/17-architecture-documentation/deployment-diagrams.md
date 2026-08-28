@@ -271,7 +271,7 @@ escala com sub-rede única em sistema crítico falha a verificação. Ver
 Os dois sistemas foram corrigidos em três meses. E oito meses depois houve uma falha de
 zona real, de quatro horas: os doze sistemas seguiram operando.
 
-O que a equipe registra: a informação que faltava não era difícil nem cara. Ela estava
+O aprendizado que ficou: a informação que faltava não era difícil nem cara. Ela estava
 disponível no console do provedor o tempo todo. Faltava alguém olhar para ela **junto**,
 num desenho, com o requisito ao lado.
 

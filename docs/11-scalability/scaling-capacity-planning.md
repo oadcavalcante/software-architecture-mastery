@@ -275,7 +275,7 @@ antes.
 
 As três aberturas seguintes ocorreram sem degradação.
 
-O que a equipe registra: o achado mais importante foi o crescimento do consumo por
+A lição registrada: o achado mais importante foi o crescimento do consumo por
 ingresso. Ele tinha acontecido gradualmente, ao longo de oito meses, sem que nenhum
 alerta disparasse — porque nenhuma métrica olhava a razão entre negócio e recurso.
 

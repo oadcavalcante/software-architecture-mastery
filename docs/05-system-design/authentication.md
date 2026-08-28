@@ -209,7 +209,7 @@ localmente, não de algo que alguém injetou.
 E as chamadas entre serviços passaram a usar credencial própria de serviço, com
 escopo restrito ao que cada um precisa, em vez de repassar o token do usuário.
 
-O que a equipe registrou: a decisão de verificar só na borda estava correta para
+O que a equipe registra: a decisão de verificar só na borda estava correta para
 uma topologia em que os serviços eram inalcançáveis de fora. Ela deixou de valer
 quando a rede mudou, e ninguém revisou.
 

@@ -261,7 +261,7 @@ latência que ninguém tinha diagnosticado.
 A investigação encontrou deriva de até 800 ms em duas instâncias. Ver
 [relógio e tempo](../06-distributed-systems/clock-and-time.md).
 
-O que a equipe registra: a ferramenta estava instalada e correta havia seis meses. A
+A lição registrada: a ferramenta estava instalada e correta havia seis meses. A
 escolha de amostragem — feita sem discussão, com o valor padrão — a tornava inútil.
 
 ## Conceitos Relacionados

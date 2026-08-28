@@ -309,7 +309,7 @@ Y-Statements                                   57
 consultados ao menos uma vez                   38
 ```
 
-O que a equipe registra: exigir uma consequência negativa foi a regra de maior efeito. Ela
+Exigir uma consequência negativa foi a regra de maior efeito. Ela
 custava uma linha e mudava a natureza do documento — de peça de convencimento para
 registro de trade-off aceito.
 

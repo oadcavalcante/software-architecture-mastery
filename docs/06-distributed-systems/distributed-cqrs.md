@@ -242,7 +242,7 @@ relatando contrato que não aparecia na busca.
 **Reconstrução.** Levava 6 horas para o histórico completo. Foi reduzida para 40
 minutos com paralelização, depois que a necessidade apareceu num incidente.
 
-O que a equipe registra: o CQRS que valeu a pena foi o de escopo mínimo, adotado
+O ponto que a equipe sublinha: o CQRS que valeu a pena foi o de escopo mínimo, adotado
 quando havia razão técnica clara. O CQRS que quase adotaram um ano antes teria
 custado meses para resolver um problema de índice.
 

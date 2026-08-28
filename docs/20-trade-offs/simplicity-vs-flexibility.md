@@ -303,7 +303,7 @@ semanas — e nenhum desses ganhou abstração antecipada.
 externos continuam recebendo versionamento e opcionalidade desde o início, mesmo sem
 segundo caso — porque adaptar depois exige coordenar terceiros.
 
-O que ficou registrado: a decisão de 2021 não foi irracional. O erro foi de método —
+A lição registrada: a decisão de 2021 não foi irracional. O erro foi de método —
 desenhar a variação a partir de um único exemplo. A pergunta que faltou não era "vamos
 precisar de outro provedor?", que estava certa, e sim "o que sabemos sobre como o segundo
 provedor será diferente?", cuja resposta honesta era "nada".

@@ -253,7 +253,7 @@ ninguém tinha definido retenção. Encontrado numa auditoria. Passou a haver
 criptografia em repouso, acesso restrito e retenção de 90 dias, com arquivamento
 cifrado para o que a regulação exige guardar.
 
-O que a equipe registra: nenhuma dessas correções é sofisticada. Todas são
+Na retrospectiva: nenhuma dessas correções é sofisticada. Todas são
 mecânica conhecida de integração por arquivo, documentada há décadas. Elas não
 existiam porque a integração era tratada como "coisa simples, é só ler um CSV" — e
 por isso nunca recebeu projeto.

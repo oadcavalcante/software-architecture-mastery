@@ -258,7 +258,7 @@ portas administrativas expostas foram fechadas.
 
 **Autenticação entre serviços**, para que a segmentação não fosse a única linha.
 
-O que a equipe registra: o comprometimento inicial foi comum e provavelmente
+O que a equipe aprendeu: o comprometimento inicial foi comum e provavelmente
 inevitável. O que transformou um incidente de uma máquina num incidente da empresa
 inteira foi a topologia — e ela tinha sido decidida por conveniência, quinze anos
 antes, quando a empresa tinha vinte pessoas.

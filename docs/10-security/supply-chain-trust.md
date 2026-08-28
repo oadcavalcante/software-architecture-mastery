@@ -275,7 +275,7 @@ válida é recusado.
 **Inventário gerado a cada construção**, consultável. A vulnerabilidade seguinte foi
 mapeada em minutos.
 
-O que a equipe registra: o comprometimento não usou nenhuma vulnerabilidade de
+O comprometimento não usou nenhuma vulnerabilidade de
 software. Usou uma característica de configuração da esteira que estava documentada e
 era conhecida — e que ninguém tinha avaliado como fronteira de confiança.
 

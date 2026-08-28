@@ -300,7 +300,7 @@ mês 11 em vez de no 24.
 E uma decisão registrada: o cadastro de produtos foi avaliado e a decisão de não mexer
 foi documentada, com revisão anual. Dois anos depois, ela continua válida.
 
-O que a equipe registra: a proposta original não estava errada tecnicamente — reconstruir
+O que a equipe aprendeu: a proposta original não estava errada tecnicamente — reconstruir
 o sistema inteiro produziria um sistema melhor. Ela estava errada em escopo, porque
 tratava como homogêneo um sistema cujas partes tinham problemas completamente diferentes.
 

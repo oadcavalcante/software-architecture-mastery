@@ -261,7 +261,7 @@ declarando se altera comportamento observável.
 Nos doze meses seguintes, o canary reverteu automaticamente sete implantações. Três
 seriam incidentes de comportamento silencioso como o original.
 
-O que a equipe registra: a implantação em ondas nunca foi errada — ela protege contra
+O ponto que a equipe sublinha: a implantação em ondas nunca foi errada — ela protege contra
 indisponibilidade, e fazia isso bem. Ela simplesmente não protege contra o que
 aconteceu, e ninguém tinha feito essa distinção.
 

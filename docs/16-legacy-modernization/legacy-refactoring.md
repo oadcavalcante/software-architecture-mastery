@@ -283,7 +283,7 @@ testes convencionais conforme o comportamento correto era estabelecido com o neg
 O desconto para os três clientes foi investigado: era um acordo comercial de 2011, ainda
 válido. Ele foi movido para configuração, e o negócio passou a poder alterá-lo.
 
-O que a equipe registra: as três primeiras semanas não entregaram nada visível, e foram o
+O que se registrou depois: as três primeiras semanas não entregaram nada visível, e foram o
 que tornou a quarta possível. A proposta de reescrever teria descartado os seis
 comportamentos desconhecidos — incluindo o acordo comercial ativo.
 

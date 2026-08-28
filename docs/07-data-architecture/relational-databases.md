@@ -230,7 +230,7 @@ Dois anos depois, o núcleo transacional voltou para relacional. O que permanece
 em documento foi o histórico de eventos de rastreamento — dados de estrutura
 variável, escritos uma vez, lidos por chave. Ali o modelo é adequado.
 
-O que a equipe registra: a decisão foi tomada a partir de uma premissa que ninguém
+O aprendizado que ficou: a decisão foi tomada a partir de uma premissa que ninguém
 tinha verificado. Um dia de análise de plano de consulta teria evitado sete meses
 de migração.
 

@@ -282,7 +282,7 @@ vez da estrutura lógica.
 A correção foi terminológica: o glossário interno passou a chamar o nível de "unidades
 executáveis", com a nota de que corresponde ao contêiner do C4.
 
-O que a equipe registra: o ganho não veio da notação. Veio da disciplina de um nível por
+O ponto que a equipe sublinha: o ganho não veio da notação. Veio da disciplina de um nível por
 diagrama — que tornou possível dizer, antes de desenhar, para quem o diagrama é.
 
 ## Conceitos Relacionados

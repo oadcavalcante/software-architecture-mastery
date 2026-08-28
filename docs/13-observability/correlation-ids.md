@@ -259,7 +259,7 @@ registrar explicitamente o que a originou.
 pessoal por registros e por um sistema de terceiro. Substituído por identificador
 opaco.
 
-O que a equipe registra: três semanas de trabalho eliminaram, sozinhas, a maior fonte
+Três semanas de trabalho eliminaram, sozinhas, a maior fonte
 de tempo gasto em investigação. Nenhuma ferramenta foi comprada.
 
 ## Conceitos Relacionados

@@ -283,7 +283,7 @@ Resultado em nove meses: tempo entre integração e produção de 11 dias para 4
 implantações de 2 por semana para 31, e incidentes causados por implantação reduzidos
 pela metade.
 
-O que a equipe registra: a ferramenta estava correta desde o início. O que faltava era a
+A conclusão registrada: a ferramenta estava correta desde o início. O que faltava era a
 prática — e a mudança que mais destravou foi reduzir o tempo da esteira, que era vista
 como detalhe de infraestrutura.
 

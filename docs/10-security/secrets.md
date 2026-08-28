@@ -273,7 +273,7 @@ distinto. Rotacionar uma deixou de afetar as demais.
 
 **Filtro de segredos nos registros.**
 
-O que a equipe registra: a chave exposta no repositório público foi o gatilho, e era
+Na retrospectiva: a chave exposta no repositório público foi o gatilho, e era
 o menor dos problemas. O que a auditoria revelou — 31 credenciais válidas em
 repositórios internos, sem nenhuma auditoria de uso — era muito maior e não tinha
 gerado nenhum alerta em dois anos.

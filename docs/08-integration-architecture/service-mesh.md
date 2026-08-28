@@ -266,7 +266,7 @@ parou. Os alertas apontavam falhas de conexão em dezenas de serviços
 simultaneamente, e a causa raiz levou 40 minutos para ser encontrada. Passou a
 haver alerta de proximidade de expiração.
 
-O que a equipe registra: a adoção foi acertada porque havia um requisito concreto
+A conclusão registrada: a adoção foi acertada porque havia um requisito concreto
 que a alternativa não atendia bem. Um time vizinho, com 8 serviços numa linguagem
 só, adotou a mesma malha "para padronizar" e a removeu quatorze meses depois — o
 custo operacional era real e o benefício não existia naquele contexto.

@@ -267,7 +267,7 @@ sobreaviso.
 autorizado por 20 minutos. Passou a haver avaliação local com política em cache e
 comportamento definido para falha.
 
-O que a equipe registra: a primeira tentativa falhou por tratar confiança zero como
+O ponto que a equipe sublinha: a primeira tentativa falhou por tratar confiança zero como
 projeto de plataforma. A segunda funcionou porque cada trimestre entregou uma redução
 de risco verificável — e porque a primeira etapa, sozinha, já teria evitado o
 incidente que motivou tudo.

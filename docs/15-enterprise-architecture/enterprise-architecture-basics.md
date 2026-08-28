@@ -209,7 +209,7 @@ O estado-alvo de três anos virou uma direção de doze meses, com arquitetura d
 explícita. Ver
 [arquitetura de transição](transition-architecture.md).
 
-O que a equipe registra: o trabalho da consultoria não estava tecnicamente errado. Ele
+A avaliação posterior aponta: o trabalho da consultoria não estava tecnicamente errado. Ele
 foi produzido como entregável, e não como serviço contínuo aos times — e por isso morreu
 na entrega.
 

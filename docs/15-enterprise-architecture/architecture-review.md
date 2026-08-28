@@ -292,7 +292,7 @@ Resultado em um ano: espera média de 19 dias para 2, e o número de mudanças d
 provocadas por revisão subiu de 11 para 47 — porque a conversa passou a acontecer quando
 mudar ainda era barato.
 
-O que a equipe registra: o comitê não era inútil, era caro pelo que entregava. E o
+A conclusão registrada: o comitê não era inútil, era caro pelo que entregava. E o
 formato — apresentação para aprovação — produzia exatamente o comportamento que
 impedia a revisão de funcionar.
 

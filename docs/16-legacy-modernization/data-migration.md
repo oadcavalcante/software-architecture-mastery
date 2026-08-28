@@ -312,7 +312,7 @@ encontrou dois problemas de transformação que nenhuma verificação anterior t
 A migração real levou 8 horas e 40 minutos. Nenhum registro perdido, e a reversão nunca
 foi necessária.
 
-O que a equipe registra: os três meses de perfilagem e preparação foram o projeto. A
+A conclusão registrada: os três meses de perfilagem e preparação foram o projeto. A
 execução foi a parte fácil — e teria sido um desastre sem eles.
 
 O campo de observação com informação jurídica, sozinho, teria produzido um passivo

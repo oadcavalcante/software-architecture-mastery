@@ -277,8 +277,6 @@ com a equipe que mantém o atual.
 
 Nenhuma pergunta foi sobre arquitetura.
 
-O que a área registra:
-
 **O conteúdo técnico não mudou.** A arquitetura alvo era a mesma das duas propostas negadas. O
 plano de migração era o mesmo. O que mudou foi o eixo e a ordem.
 

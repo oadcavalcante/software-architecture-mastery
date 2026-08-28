@@ -292,7 +292,7 @@ A interrupção de três meses aconteceu — como nos dois roadmaps anteriores. 
 desta vez ela não cancelou nada: o trabalho parou num estado aproveitável, e retomar foi
 possível.
 
-O que a liderança registra: as seis semanas de retrabalho por construir a plataforma sob demanda
+A leitura que a equipe faz: as seis semanas de retrabalho por construir a plataforma sob demanda
 foram o preço da sobrevivência do plano, e ele foi barato. Os dois roadmaps anteriores tinham
 evitado retrabalho e perdido tudo.
 

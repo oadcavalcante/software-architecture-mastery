@@ -238,7 +238,7 @@ passou despercebida: o sistema que deveria avisar sobre problemas estava com
 problema, e não havia alternativa. Passou a existir um monitoramento mínimo
 independente, apenas para o caminho crítico.
 
-O que a equipe registra: a decisão de comprar foi claramente positiva. O que faltou
+Na retrospectiva: a decisão de comprar foi claramente positiva. O que faltou
 foi orçar a integração como projeto — ela foi tratada como detalhe da aquisição e
 consumiu mais tempo que a avaliação dos fornecedores.
 

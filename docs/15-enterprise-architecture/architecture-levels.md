@@ -293,7 +293,7 @@ E um efeito que a equipe não esperava: a **qualidade das decisões locais melho
 a responsabilidade devolvida, os times passaram a escrever registros de decisão e a
 discutir alternativas — o que não faziam quando alguém decidia por eles.
 
-O que a equipe registra: cada item do processo tinha sido criado em resposta a um
+O ponto que a equipe sublinha: cada item do processo tinha sido criado em resposta a um
 problema real. Nenhum tinha sido revisado quando a organização mudou de tamanho.
 
 ## Conceitos Relacionados

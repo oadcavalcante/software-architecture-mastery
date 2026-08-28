@@ -237,7 +237,7 @@ E uma decisão em sentido contrário: **6 aplicações voltaram para máquinas
 virtuais**. Eram sistemas internos estáveis, com carga previsível e implantação
 trimestral. A orquestração não entregava nada ali e custava operação.
 
-O que a equipe registra: o programa media a coisa errada. O indicador era "aplicações
+O aprendizado que ficou: o programa media a coisa errada. O indicador era "aplicações
 migradas para Kubernetes", e ele chegou a 100% sem que nenhuma propriedade tivesse
 sido adquirida.
 

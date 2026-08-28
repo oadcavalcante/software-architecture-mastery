@@ -311,7 +311,7 @@ E na revisão anual, um item foi removido: o quarto, sobre gabarito, tinha virad
 eliminava mais nenhuma opção em discussão. Ele foi promovido a padrão verificado
 automaticamente — o que é a evolução correta de um item de visão que já não gera decisão.
 
-O que a área registra: derivar a visão do acervo de ADRs, em vez de escrevê-la do zero, foi a
+A avaliação posterior aponta: derivar a visão do acervo de ADRs, em vez de escrevê-la do zero, foi a
 decisão de método mais acertada. Os quatro itens não eram aspiração — eram a descrição dos
 critérios que a organização já usava, enunciados de forma lembrável.
 

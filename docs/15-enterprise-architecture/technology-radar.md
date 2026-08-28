@@ -253,7 +253,7 @@ usar a opção recomendada virou o caminho mais fácil. Ver
 O radar continuou útil para o que não pode ser embutido: as decisões estruturais e o
 registro do que foi tentado.
 
-O que a equipe registra: as 31 tecnologias fora da lista não eram indisciplina. Elas
+A avaliação posterior aponta: as 31 tecnologias fora da lista não eram indisciplina. Elas
 eram a resposta a problemas reais, tomada por pessoas que consultaram a lista, não
 encontraram resposta útil, e seguiram.
 

@@ -257,7 +257,7 @@ Os dois parceiros externos continuaram sem teste de contrato — não há como
 executá-lo do lado deles. Para eles, o processo virou aviso com noventa dias e
 convivência de versões.
 
-O que a equipe registra: os quatro incidentes eram, tecnicamente, mudanças
+O ponto que a equipe sublinha: os quatro incidentes eram, tecnicamente, mudanças
 válidas. O contrato não prometia nada do que foi quebrado. E isso não ajudou
 ninguém — o que não está declarado como "não garantido" é assumido como
 garantido.

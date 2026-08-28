@@ -289,7 +289,7 @@ Os sete serviços encontrados pela verificação foram um resultado não previst
 restos de experimentos que ainda rodavam, consumindo recursos e mantendo acesso a dados de
 produção.
 
-O que a equipe registra: a geração completa falhou não por ser tecnicamente errada, mas por
+A geração completa falhou não por ser tecnicamente errada, mas por
 ignorar que curadoria é conteúdo. O agrupamento por domínio e a ênfase em certas relações
 são informação arquitetural — e são exatamente o que a extração automática não tem como
 saber.

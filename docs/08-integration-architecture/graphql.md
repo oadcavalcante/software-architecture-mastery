@@ -253,7 +253,7 @@ de horas, passou a bater no servidor a cada requisição. A solução foi manter
 recorte específico em REST — o catálogo voltou para `GET` cacheável, e o resto
 permaneceu em GraphQL.
 
-O que a equipe registra: a decisão de adotar continua correta para os três
+O ponto que a equipe sublinha: a decisão de adotar continua correta para os três
 clientes autenticados. O erro foi tratá-la como escolha global e migrar também o
 conteúdo público de leitura intensa, onde REST era estritamente melhor.
 

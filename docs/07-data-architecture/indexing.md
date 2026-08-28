@@ -239,7 +239,7 @@ A auditoria completa depois encontrou outra coisa: **de 47 índices na base, 19
 nunca tinham sido usados** desde a última reinicialização, seis meses antes.
 Removê-los reduziu o tempo de escrita em 22%.
 
-O que a equipe registra: a proposta original de arquitetura teria custado cerca de
+Na retrospectiva: a proposta original de arquitetura teria custado cerca de
 três meses e teria funcionado — mascarando o problema real e mantendo o custo de
 escrita dos 19 índices inúteis.
 

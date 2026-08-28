@@ -259,7 +259,7 @@ acontece antes de a requisição sair do navegador.
 
 O resultado: o SLI de contratação, medido corretamente, era **97,3%** — não 99,95%.
 
-O que a equipe registra: o número antigo não era falso. Ele media exatamente o que
+A conclusão registrada: o número antigo não era falso. Ele media exatamente o que
 dizia medir — taxa de erro do servidor. Ele simplesmente não tinha relação com a
 pergunta que importava, e ninguém tinha percebido porque a pergunta nunca foi escrita.
 

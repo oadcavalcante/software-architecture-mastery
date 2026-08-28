@@ -311,7 +311,7 @@ Investigado, o motivo era que aquele time mantinha sistemas herdados de uma aqui
 contexto tecnológico diferente. A resposta foi criar um conjunto de padrões específico para
 essa classe, em vez de conceder exceções indefinidamente.
 
-O que a equipe registra: o número de exceções **subiu** de 31 para 119, e isso foi tratado
+Na retrospectiva: o número de exceções **subiu** de 31 para 119, e isso foi tratado
 como sucesso. O que caiu foi o desvio invisível — de 125 para 23. A métrica que importava
 nunca tinha sido o número de exceções.
 

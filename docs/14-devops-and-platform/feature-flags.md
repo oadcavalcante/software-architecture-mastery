@@ -284,7 +284,7 @@ que existia no caminho de checkout.
 Em dezoito meses, as 740 flags viraram **94** — das quais 61 são de operação
 permanentes, com justificativa registrada.
 
-O que a equipe registra: a técnica nunca foi o problema, e ela continua sendo a mais
+A lição registrada: a técnica nunca foi o problema, e ela continua sendo a mais
 valiosa que adotaram. O que faltava era o ciclo de vida — criar era fácil e remover não
 tinha dono.
 

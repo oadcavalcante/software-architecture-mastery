@@ -276,7 +276,7 @@ indisponibilidades do banco primário.
 tabela fixa tinha sido escrita 8 meses antes e nunca executada, com um erro de formato.
 A partir daí, os caminhos degradados entraram na suíte de testes e no exercício mensal.
 
-O que a equipe registra: a classificação levou duas horas e nunca tinha sido feita em
+O aprendizado que ficou: a classificação levou duas horas e nunca tinha sido feita em
 seis anos de produto. A pergunta "o que é essencial nesta página?" não tinha dono — nem
 produto nem engenharia a consideravam sua.
 

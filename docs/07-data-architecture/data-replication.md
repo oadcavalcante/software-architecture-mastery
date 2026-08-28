@@ -251,7 +251,7 @@ não funcionava como escrito.
 **Migrações destrutivas** passaram a exigir cópia da tabela afetada antes, e
 aprovação de segunda pessoa.
 
-O que a equipe registra: a proteção que funcionou existia por acidente. Ninguém
+A leitura que a equipe faz: a proteção que funcionou existia por acidente. Ninguém
 tinha desenhado defesa contra erro humano — a conversa sobre resiliência de dados
 tinha se esgotado em "temos três réplicas".
 

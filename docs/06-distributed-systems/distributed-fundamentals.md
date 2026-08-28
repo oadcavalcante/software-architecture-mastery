@@ -173,7 +173,7 @@ foi vista.
 E o timeout foi recalibrado a partir do percentil 99 medido, não do valor redondo
 que alguém escolheu.
 
-O que a equipe registrou: nada disso era conhecimento novo. As três correções estão
+O detalhe que a equipe destaca: nada disso era conhecimento novo. As três correções estão
 na documentação do provedor. O que faltou foi tratar a integração como
 distribuída, e não como uma chamada de função que às vezes demora.
 

@@ -279,7 +279,7 @@ usuário.
 
 **Teste do caminho de falha** nos exercícios periódicos.
 
-O que a equipe registra: nenhuma das doze aplicações tinha decidido o comportamento.
+Na retrospectiva: nenhuma das doze aplicações tinha decidido o comportamento.
 Todas o herdaram de quem escreveu o tratamento de exceção — e nas cinco piores, essa
 pessoa tinha priorizado disponibilidade sem saber que estava tomando uma decisão de
 segurança.

@@ -224,7 +224,7 @@ A publicação única com outbox eliminou a parcialidade.
 E o reprocessamento virou reposicionar a leitura — a análise recalculou seis meses
 em duas horas, lendo o histórico retido.
 
-O que a equipe registrou: a fila não estava errada como tecnologia. Estava errada
+O que a equipe aprendeu: a fila não estava errada como tecnologia. Estava errada
 como **modelo** — o caso era distribuição de fatos, não de trabalho, e o sintoma
 de ter escolhido errado foi ter que publicar N vezes.
 

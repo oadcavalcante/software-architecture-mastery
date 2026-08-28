@@ -282,7 +282,7 @@ da faixa esperada.
 **Instrumentação dos mecanismos**: contagem de aberturas de circuito, retentativas e
 mensagens descartadas, com painel e alerta de tendência.
 
-O que a equipe registra: eles tinham investido bastante em isolar e recuperar, e quase
+A avaliação posterior aponta: eles tinham investido bastante em isolar e recuperar, e quase
 nada em detectar. A falha foi isolada com perfeição — e ficou isolada, silenciosa, por
 onze meses.
 

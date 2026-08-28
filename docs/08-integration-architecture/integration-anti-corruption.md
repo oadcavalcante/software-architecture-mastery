@@ -257,7 +257,7 @@ faturamento interno **não** ganhou camada. O modelo era o mesmo, o sistema é d
 própria empresa e não seria trocado. Uma camada ali teria sido cópia campo a
 campo.
 
-O que a equipe registra: o erro inicial não foi técnico, foi de sequência. Com uma
+O detalhe que a equipe destaca: o erro inicial não foi técnico, foi de sequência. Com uma
 transportadora só, integrar direto parecia — e era — mais simples. O problema é que
 ninguém perguntou "e quando entrar a segunda?", que era uma certeza do plano de
 negócio.

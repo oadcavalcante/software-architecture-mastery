@@ -329,7 +329,7 @@ latência p99 de consulta de saldo                 inalterada
 latência p99 de débito                            +34 ms
 ```
 
-O que a equipe registra: o problema descrito como "consistência eventual" era, em 79% dos
+O que a equipe aprendeu: o problema descrito como "consistência eventual" era, em 79% dos
 casos, a ausência de uma garantia intermediária que custa pouco. A discussão tinha sido
 enquadrada como "forte contra eventual" por dois anos, e a resposta não estava em nenhum dos
 dois extremos.

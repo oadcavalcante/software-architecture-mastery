@@ -289,7 +289,7 @@ Cada uma virou um parâmetro. Ao chegar em 20 parâmetros, a manutenção ficou 
 A política mudou: casos especiais saem do caminho pavimentado, com a plataforma
 entregando a configuração gerada como ponto de partida.
 
-O que a equipe registra: a mudança de comportamento foi maior que a de tempo. Com criação
+O ponto que a equipe sublinha: a mudança de comportamento foi maior que a de tempo. Com criação
 de serviço em minutos, os times passaram a decompor adequadamente — e o problema de
 serviços inchados, que era tratado como questão de arquitetura, era consequência do
 atrito.

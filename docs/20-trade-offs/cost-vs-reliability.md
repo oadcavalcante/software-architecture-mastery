@@ -353,7 +353,7 @@ O dado que a equipe mais destaca: os sistemas críticos ficaram **mais** confiá
 mudança. A atenção da equipe de operação, antes distribuída entre 52 sistemas com o mesmo
 alarme, passou a se concentrar nos quatro que importavam.
 
-O que ficou registrado: a política única de 99,95% tinha sido criada com boa intenção — evitar
+O aprendizado que ficou: a política única de 99,95% tinha sido criada com boa intenção — evitar
 que alguém decidisse mal. Ela não evitou decisão ruim; ela impediu qualquer decisão, e o
 custo apareceu como redundância inútil e plantão desgastado.
 

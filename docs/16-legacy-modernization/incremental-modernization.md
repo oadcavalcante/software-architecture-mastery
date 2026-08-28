@@ -297,7 +297,7 @@ No plano original, ambos os eventos teriam sido fatais: a interrupção no mês 
 programa na fase 2, sem nada entregue; a mudança de escopo no mês 15 invalidaria trabalho
 das fases anteriores.
 
-O que a equipe registra: a primeira fatia custou cerca de 60% a mais que custaria se a
+O detalhe que a equipe destaca: a primeira fatia custou cerca de 60% a mais que custaria se a
 infraestrutura tivesse sido construída antes, isoladamente. Esse foi o prêmio pago — e
 ele se pagou duas vezes, nos dois eventos.
 

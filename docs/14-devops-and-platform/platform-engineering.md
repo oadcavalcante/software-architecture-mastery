@@ -277,7 +277,7 @@ considerado aceitável.
 E o time de plataforma reduziu de seis para quatro pessoas, porque parte do trabalho
 inicial era manter a abstração própria que foi abandonada.
 
-O que a equipe registra: oito meses foram gastos construindo a solução para o problema
+O que se registrou depois: oito meses foram gastos construindo a solução para o problema
 errado. A pesquisa que redirecionou tudo levou duas semanas e poderia ter sido feita
 antes.
 

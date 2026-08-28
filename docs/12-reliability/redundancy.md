@@ -279,7 +279,7 @@ E uma decisão em sentido contrário: a proposta de adicionar uma quarta zona fo
 recusada. A análise mostrou que nenhum dos três incidentes teria sido evitado por ela,
 e o custo seria significativo.
 
-O que a equipe registra: eles tinham redundância de sobra e correlação em toda parte. A
+O detalhe que a equipe destaca: eles tinham redundância de sobra e correlação em toda parte. A
 pergunta "o que faria as três zonas caírem juntas?" nunca tinha sido feita — e a
 resposta tinha sete itens.
 

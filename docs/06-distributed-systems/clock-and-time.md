@@ -221,7 +221,7 @@ aproximada.
 **Medição de duração** migrada para relógio monotônico em todo o sistema — uma
 auditoria de código encontrou onze lugares que subtraíam marcas de parede.
 
-O que a equipe registrou: o sistema funcionou por três anos, e a ordem esteve
+O detalhe que a equipe destaca: o sistema funcionou por três anos, e a ordem esteve
 errada em uma fração dos leilões esse tempo todo. Só apareceu quando alguém
 contestou — e a ausência de um contador central era conhecida por ninguém, porque
 "usar a hora do servidor" parecia óbvio demais para ser questionado.

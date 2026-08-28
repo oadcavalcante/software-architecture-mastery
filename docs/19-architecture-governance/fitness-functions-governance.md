@@ -307,7 +307,7 @@ O último número é o que a equipe considera mais importante e o mais fácil de
 automação não substituiu a revisão, ela liberou a revisão. As conversas passaram a ser sobre
 fronteira e modelagem — as quatro regras que nenhuma função verifica.
 
-O que ficou registrado: as 4 correções voluntárias durante o modo de aviso, sem nenhuma
+A avaliação posterior aponta: as 4 correções voluntárias durante o modo de aviso, sem nenhuma
 cobrança, foram o argumento que convenceu a organização a seguir. Tornar visível resolveu
 dois terços do problema antes de qualquer bloqueio.
 

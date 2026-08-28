@@ -321,7 +321,7 @@ O princípio removido era "preferimos serviços gerenciados a componentes operad
 A revisão constatou que ele havia se tornado consenso e não eliminava mais nenhuma opção em
 discussão — tinha virado descrição, não escolha.
 
-O que a equipe registra: reduzir de nove para quatro aumentou o uso em quatro vezes. A lista
+A conclusão registrada: reduzir de nove para quatro aumentou o uso em quatro vezes. A lista
 longa não era consultada porque não cabia na cabeça de ninguém no momento da decisão, que é
 o único momento em que um princípio serve.
 

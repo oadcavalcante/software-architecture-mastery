@@ -271,7 +271,7 @@ justificava.
 **Sistema antigo desligado** no mês 14, com o histórico migrado para o produto e os dados
 anteriores a 2019 arquivados em formato aberto.
 
-O que a equipe registra: a decisão de não customizar foi contestada três vezes no primeiro
+O ponto que a equipe sublinha: a decisão de não customizar foi contestada três vezes no primeiro
 ano, sempre com um caso razoável. Manter a disciplina é o que preservou a capacidade de
 atualizar — e, na terceira contestação, a funcionalidade pedida chegou numa versão nova
 do produto.

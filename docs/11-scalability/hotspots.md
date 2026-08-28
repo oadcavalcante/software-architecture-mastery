@@ -271,7 +271,7 @@ permitiu dimensionar os grandes separadamente.
 Resultado: a latência de criação de pedido caiu de 900 ms para 60 ms no pico, com a
 **mesma quantidade de infraestrutura**.
 
-O que a equipe registra: a duplicação de partições feita meses antes tinha custado
+A conclusão registrada: a duplicação de partições feita meses antes tinha custado
 dinheiro e duas semanas de migração, sem nenhum efeito. Ela foi decidida a partir da
 métrica agregada, que era o único número disponível.
 

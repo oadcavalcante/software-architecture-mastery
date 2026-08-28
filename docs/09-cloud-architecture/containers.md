@@ -258,7 +258,7 @@ automatizada que recusa imagens com padrões de segredo.
 
 **Referência por digest** em produção, eliminando a etiqueta móvel.
 
-O que a equipe registra: a migração foi tratada como projeto de empacotamento —
+O que a equipe aprendeu: a migração foi tratada como projeto de empacotamento —
 "colocar em contêiner" — e terminou quando as aplicações rodavam. As práticas acima
 não estavam no escopo porque ninguém as tinha listado como parte de adotar
 contêineres.

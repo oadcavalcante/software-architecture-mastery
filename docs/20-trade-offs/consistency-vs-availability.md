@@ -326,7 +326,7 @@ tempo médio até cancelamento e aviso         11 minutos
 O saldo líquido foi de cerca de R$ 2,6 milhões por ano, com o risco concentrado onde ele é
 barato.
 
-O que a equipe registra: a decisão travou por dois anos porque a discussão era "consistência
+O que se registrou depois: a decisão travou por dois anos porque a discussão era "consistência
 ou disponibilidade", em abstrato, e ninguém tinha o custo de recusar. Assim que os dois
 números entraram na mesma tabela, a decisão levou uma reunião — e não foi um dos dois lados,
 foi a separação por categoria, que ninguém tinha proposto enquanto o dilema era global.

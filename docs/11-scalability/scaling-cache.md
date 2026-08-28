@@ -275,7 +275,7 @@ não essencial passam a receber uma resposta degradada em vez de enfileirar.
 confirmou que o banco ainda caía; após o descarte de carga e o cache local, o terceiro
 exercício passou com degradação parcial e sem indisponibilidade.
 
-O que a equipe registra: a taxa de acerto de 97% era vista como excelente e escondia
+A taxa de acerto de 97% era vista como excelente e escondia
 uma dependência crítica. O banco nunca tinha sido dimensionado para operar sem cache, e
 ninguém tinha decidido isso — foi consequência de o cache ter sido adicionado depois.
 

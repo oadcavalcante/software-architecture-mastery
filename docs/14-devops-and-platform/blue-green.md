@@ -257,7 +257,7 @@ Isso reduziu o custo em cerca de 40% e teve um efeito colateral positivo: o ambi
 novo passou a ser sempre construído do zero a partir do código, eliminando a divergência
 que se acumulava no ambiente permanente.
 
-O que a equipe registra: o problema dos consumidores de fila foi o mais grave e o menos
+A avaliação posterior aponta: o problema dos consumidores de fila foi o mais grave e o menos
 esperado. Blue-green é apresentado como troca de tráfego, e o tráfego assíncrono não
 passa por roteamento.
 

@@ -284,7 +284,7 @@ passou a acontecer na biblioteca, com lista de campos permitidos em vez de bloqu
 Resultado: custo de logs reduzido em cerca de 85%, e tempo médio de consulta durante
 investigação de 4 minutos para 15 segundos.
 
-O que a equipe registra: a expectativa era ter que escolher entre custo e capacidade de
+Na retrospectiva: a expectativa era ter que escolher entre custo e capacidade de
 investigação. O evento canônico melhorou os dois — porque o problema não era volume de
 informação, era volume de linhas com pouca informação cada.
 

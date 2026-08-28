@@ -249,7 +249,7 @@ Depois de sete meses, a API voltou para contêineres com escalonamento automáti
 O processamento de imagens permanece serverless até hoje, e continua sendo a
 escolha certa para aquela carga.
 
-O que a equipe registra: o erro não foi adotar serverless — foi generalizar a
+O que a equipe aprendeu: o erro não foi adotar serverless — foi generalizar a
 partir de um caso em que ele era perfeito. As duas cargas têm perfis opostos, e a
 diferença estava visível nos dados de tráfego antes da migração. Ninguém olhou.
 

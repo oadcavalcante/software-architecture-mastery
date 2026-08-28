@@ -305,7 +305,7 @@ O removido era "preferimos serviços gerenciados a componentes operados por nós
 constatou que ele havia virado consenso: em 22 decisões do ano, nenhuma tinha considerado seriamente
 operar algo internamente. Ele deixou de eliminar opções e foi aposentado.
 
-O que a organização registra: reduzir de nove para quatro multiplicou o uso por quatro. A lista
+Reduzir de nove para quatro multiplicou o uso por quatro. A lista
 longa não era consultada porque não cabia na cabeça de ninguém no momento da decisão — que é o
 único momento em que um princípio serve.
 

@@ -304,7 +304,7 @@ por semana para 40, e incidentes causados por implantação reduzidos em 55%.
 E o comitê, que era visto como burocracia, passou a ser valorizado — porque discutia
 apenas as mudanças que mereciam discussão.
 
-O que a equipe registra: o congelamento era a prática mais defendida internamente, com o
+A lição registrada: o congelamento era a prática mais defendida internamente, com o
 argumento de proteger os períodos críticos. Os dados mostravam o contrário — ele
 concentrava risco em vez de reduzi-lo.
 

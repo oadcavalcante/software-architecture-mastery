@@ -264,7 +264,7 @@ não justificava o acoplamento.
 **Criado:** um documento de estratégia de saída, revisado anualmente, com o custo
 estimado de migração por componente.
 
-O que a equipe registra: a política original vinha de uma experiência ruim que um
+O que a equipe aprendeu: a política original vinha de uma experiência ruim que um
 dos fundadores tivera com um fornecedor, anos antes. Ela nunca foi analisada em
 custo — era um princípio, e princípios não são comparados com números.
 

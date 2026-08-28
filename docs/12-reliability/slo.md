@@ -266,7 +266,7 @@ esforço foi realocado.
 se importava. O alvo foi renegociado para 97%, e o time parou de tratar as falhas dali
 como urgentes.
 
-O que a equipe registra: o efeito mais valioso não foi técnico. Foi a discussão
+O que a equipe aprendeu: o efeito mais valioso não foi técnico. Foi a discussão
 trimestral entre produto e engenharia deixar de existir, porque passou a haver um
 número acordado que respondia à pergunta.
 

@@ -215,7 +215,7 @@ Para o segundo, a garantia necessária era **linearizabilidade**, porque estoque
 controla um recurso finito e a decisão é irreversível. A verificação e a reserva
 voltaram para a primária, numa transação.
 
-O que a equipe registrou: a migração para réplicas não estava errada — 90% das
+A conclusão registrada: a migração para réplicas não estava errada — 90% das
 leituras continuaram nelas. O erro foi tratar todas as leituras como equivalentes.
 
 E a conversa que mais rendeu foi com o negócio: perguntando o atraso aceitável por

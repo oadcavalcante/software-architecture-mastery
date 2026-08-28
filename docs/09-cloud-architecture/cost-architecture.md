@@ -265,7 +265,7 @@ exigiu tratamento na aplicação para vídeos raramente acessados.
 Resultado: a fatura caiu 44%, e o **custo por hora de vídeo assistida** — a métrica
 que passou a ser acompanhada — caiu 61%.
 
-O que a equipe registra: nenhuma correção exigiu mudar a arquitetura da aplicação.
+A leitura que a equipe faz: nenhuma correção exigiu mudar a arquitetura da aplicação.
 Todas eram decisões de infraestrutura tomadas por omissão, que ninguém revisitou
 porque ninguém era dono do número.
 

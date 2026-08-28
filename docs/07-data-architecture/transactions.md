@@ -256,7 +256,7 @@ armazenamento, valendo para todo escritor.
 **Registro de movimentação** em vez de apenas o saldo, permitindo auditar e
 reconciliar. Isso foi o que permitiu quantificar o prejuízo passado.
 
-O que a equipe registra: o código estava dentro de uma transação, e todo mundo
+O que a equipe aprendeu: o código estava dentro de uma transação, e todo mundo
 acreditava estar protegido por isso. A palavra "transação" foi lida como
 "exclusão mútua", e não é.
 

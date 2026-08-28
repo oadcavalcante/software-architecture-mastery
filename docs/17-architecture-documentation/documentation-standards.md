@@ -302,7 +302,7 @@ atualizados nos últimos 6 meses              44
 com divergência entre lugares                 0 (só existe um lugar)
 ```
 
-O que a equipe registra: a decisão mais impopular — desligar o wiki — foi a mais efetiva.
+O que a equipe aprendeu: a decisão mais impopular — desligar o wiki — foi a mais efetiva.
 Enquanto existiam dois lugares válidos, a divergência era inevitável, e nenhuma política
 de qualidade resolvia isso.
 

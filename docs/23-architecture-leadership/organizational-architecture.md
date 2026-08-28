@@ -311,7 +311,7 @@ pesquisa interna: "consigo tomar as
 reorganizações                            0
 ```
 
-O que a liderança registra: as três reorganizações anteriores tinham custado, somadas, cerca de
+A conclusão registrada: as três reorganizações anteriores tinham custado, somadas, cerca de
 14 meses de produtividade reduzida — e nenhuma tocava a causa. A causa estava no fluxo de decisão,
 que não aparece em nenhum organograma e não exigia mover ninguém.
 

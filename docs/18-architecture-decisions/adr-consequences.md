@@ -303,7 +303,7 @@ custos não previstos que apareceram            1,8 por ADR em média
 A equipe passou a usar esses números como calibração: benefícios previstos são otimistas,
 custos previstos são conservadores, e sempre há custos não previstos.
 
-O que a equipe registra: os blocos de revisão a 12 meses foram o artefato mais lido do
+Na retrospectiva: os blocos de revisão a 12 meses foram o artefato mais lido do
 conjunto — mais que os próprios ADRs. Eles ensinam algo que nenhum ADR isolado ensina.
 
 ## Conceitos Relacionados

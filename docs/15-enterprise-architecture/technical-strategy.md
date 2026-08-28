@@ -335,7 +335,7 @@ E as renúncias tiveram custo: dois sistemas de apoio degradaram, e um incidente
 de infraestrutura consumiu atenção. Ambos foram tratados como consequência aceita, não
 como falha de planejamento.
 
-O que a equipe registra: as nove frentes anteriores tinham sido construídas agregando o
+O que a equipe aprendeu: as nove frentes anteriores tinham sido construídas agregando o
 pedido de cada área. Nenhuma delas era errada. O erro foi não escolher.
 
 ## Conceitos Relacionados

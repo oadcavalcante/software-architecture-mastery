@@ -251,7 +251,7 @@ semanas, porque o volume de dados não tinha mudado.
 tabelas de alta rotatividade. O armazenamento de versões antigas chegou a superar o
 dos dados atuais antes de alguém revisar.
 
-O que a equipe registra: a expectativa inicial era substituir o warehouse. O
+A expectativa inicial era substituir o warehouse. O
 resultado foi redividir responsabilidades — lakehouse como fonte única e camada de
 processamento, warehouse como camada de servida para consulta interativa.
 

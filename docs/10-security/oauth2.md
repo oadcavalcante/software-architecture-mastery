@@ -267,7 +267,7 @@ entre o usuário do token e o recurso, nunca do parâmetro. Ver
 **Rotação de token de renovação**, com detecção de reuso — que, no primeiro mês,
 disparou três vezes e revelou dois casos de token extraído de dispositivo.
 
-O que a equipe registra: o problema mais grave não era de OAuth. O protocolo estava
+Na retrospectiva: o problema mais grave não era de OAuth. O protocolo estava
 implementado corretamente naquele ponto — o erro foi presumir que ter um token com o
 escopo certo significava poder acessar o recurso pedido.
 

@@ -333,7 +333,7 @@ o de formato de mensagem — que foi revisado e ampliado.
 Resultado: 47 padrões viraram 21, e a aderência média subiu de 42% para 96% — não por
 mais controle, mas porque seguir passou a ser o caminho de menor esforço.
 
-O que a equipe registra: os 26 padrões removidos não causaram nenhum problema. Eles
+O que se registrou depois: os 26 padrões removidos não causaram nenhum problema. Eles
 existiam porque alguém, em algum momento, teve uma preferência e escreveu.
 
 ## Conceitos Relacionados

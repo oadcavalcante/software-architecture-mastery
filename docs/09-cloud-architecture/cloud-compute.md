@@ -266,7 +266,7 @@ interrompível.
 Resultado combinado: o sistema passou a suportar as aberturas sem degradação, e o
 custo mensal caiu 38% — apesar de a capacidade de pico ter aumentado.
 
-O que a equipe registra: eles vinham tentando resolver com ajustes de limiar do
+A lição registrada: eles vinham tentando resolver com ajustes de limiar do
 escalonamento havia mais de um ano. A resposta não estava no escalonamento — estava
 em não depender dele para um evento agendado.
 

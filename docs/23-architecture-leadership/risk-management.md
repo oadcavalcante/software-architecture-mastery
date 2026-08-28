@@ -300,7 +300,7 @@ incidentes de exposição alta              1 (contra 4 no período anterior)
 Os dois sistemas que continuam com menos de três operadores estão registrados com plano de
 formação em curso e data.
 
-O que a diretoria registra: o item que mais mudou o comportamento foi o apetite declarado. Antes,
+O aprendizado que ficou: o item que mais mudou o comportamento foi o apetite declarado. Antes,
 cada discussão sobre investimento em resiliência era negociada isoladamente; depois, ela virou
 uma verificação contra um número já acordado — e as discussões passaram de negociação a
 constatação.

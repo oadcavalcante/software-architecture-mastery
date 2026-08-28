@@ -290,7 +290,7 @@ Um efeito não previsto da migração: ao recuperar as versões antigas, três d
 apareceram como tendo ido e voltado — o mesmo padrão do caso que motivou a mudança. Isso
 virou um exercício interno de calibração.
 
-O que a equipe registra: a prática de editar com linha de histórico parecia preservar
+A conclusão registrada: a prática de editar com linha de histórico parecia preservar
 informação. Ela preservava o registro de que algo tinha mudado, e apagava o que era —
 que é a parte que importa.
 

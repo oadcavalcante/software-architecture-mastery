@@ -301,7 +301,7 @@ ADRs em que a definição prévia de critérios mudou a conclusão    5
 alternativas reabertas por condição de reversão atingida         3
 ```
 
-O que a equipe registra: os 7 casos em que o custo de pessoal mudou a conclusão são o
+A leitura que a equipe faz: os 7 casos em que o custo de pessoal mudou a conclusão são o
 argumento mais concreto que se conseguiu produzir para a prática. Todos eram decisões de
 construir contra comprar, e em todos a intuição da equipe apontava para construir.
 

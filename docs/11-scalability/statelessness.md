@@ -260,7 +260,7 @@ anos de lembretes perdidos em cada implantação, sem que nenhum alerta existiss
 
 **Desligamento gracioso**, com o nó saindo do balanceamento antes de encerrar.
 
-O que a equipe registra: o teste de desligar uma instância levou vinte minutos e
+O teste de desligar uma instância levou vinte minutos e
 encontrou cinco problemas, dois deles em produção havia anos. Ele nunca tinha sido
 feito porque "a aplicação é sem estado".
 

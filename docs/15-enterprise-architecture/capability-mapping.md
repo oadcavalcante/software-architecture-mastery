@@ -268,7 +268,7 @@ negócio conseguia participar, porque reconhecia os nomes.
 O mapa de calor de criticidade contra saúde produziu uma lista de seis capacidades
 prioritárias, aceita sem disputa — o que não tinha acontecido em nenhum ciclo anterior.
 
-O que a equipe registra: o primeiro exercício foi tecnicamente competente e produziu um
+O primeiro exercício foi tecnicamente competente e produziu um
 artefato correto. Ele era um mapa da arquitetura de sistemas com nomes diferentes, e por
 isso não servia ao propósito — que era permitir a conversa com o negócio.
 

@@ -326,7 +326,7 @@ Nos dezoito meses seguintes, o registro de exceções acumulou 11 casos — e no
 eram do princípio 3. A revisão anual reescreveu esse princípio: a lista de tecnologias
 suportadas tinha ficado estreita demais para a variedade de problemas da empresa.
 
-O que a equipe registra: o registro de exceções foi o mecanismo mais valioso. Ele
+A leitura que a equipe faz: o registro de exceções foi o mecanismo mais valioso. Ele
 transformou "esse princípio atrapalha" — uma reclamação — em evidência de que o princípio
 precisava mudar.
 

@@ -305,7 +305,7 @@ construção caiu de 11 minutos para 90 segundos. Isso reduziu o tempo total da 
 teve efeito direto na frequência de integração. Ver
 [integração contínua](ci-cd.md).
 
-O que a equipe registra: a construção múltipla existia porque as imagens continham
+O detalhe que a equipe destaca: a construção múltipla existia porque as imagens continham
 configuração — a causa raiz era essa, e ela tinha sido tratada como conveniência por
 anos.
 

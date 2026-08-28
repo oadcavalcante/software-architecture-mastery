@@ -203,7 +203,7 @@ estimativa, com o número exato só quando o filtro reduz muito o conjunto.
 A sincronização ganhou um endpoint próprio, com cursor. A sincronização diária
 caiu de horas para 4 minutos, com custo constante por página.
 
-O que a equipe registrou: os dois casos de uso pareciam a mesma coisa — "listar
+A leitura que a equipe faz: os dois casos de uso pareciam a mesma coisa — "listar
 pedidos" — e tinham requisitos incompatíveis. Tentar servir aos dois com um
 endpoint foi o erro original.
 

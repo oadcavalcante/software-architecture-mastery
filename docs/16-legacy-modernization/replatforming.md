@@ -285,7 +285,7 @@ E a segunda fase, planejada desde o início, começou no mês 16: refatoração 
 das aplicações que a análise de portfólio indicava. Ver
 [portfólio de aplicações](../15-enterprise-architecture/application-portfolios.md).
 
-O que a equipe registra: a replataforma não melhorou nenhuma aplicação. Ela tornou
+A lição registrada: a replataforma não melhorou nenhuma aplicação. Ela tornou
 possível melhorá-las — o que, antes, exigia uma janela de manutenção e um procedimento
 manual para cada mudança.
 

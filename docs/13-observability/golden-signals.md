@@ -269,7 +269,7 @@ No incidente seguinte, de perfil semelhante, a localização levou 4 minutos.
 E as 340 métricas antigas foram auditadas: 190 não tinham sido consultadas em doze
 meses e foram removidas, reduzindo o custo de telemetria em cerca de um terço.
 
-O que a equipe registra: eles tinham muito mais instrumentação do que precisavam, e
+A leitura que a equipe faz: eles tinham muito mais instrumentação do que precisavam, e
 faltavam as quatro medidas que respondem às primeiras perguntas de qualquer incidente.
 
 ## Conceitos Relacionados
