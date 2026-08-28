@@ -132,7 +132,8 @@ resposta melhor que inventar um caminho alternativo que criaria inconsistência.
 A tentação de sempre oferecer um caminho alternativo é forte, porque "o sistema continua
 funcionando" soa melhor que "o sistema recusa". Mas aceitar uma operação que não pode ser
 concluída corretamente troca uma indisponibilidade visível e curta por uma inconsistência
-invisível e indefinida — e a segunda é sempre pior de resolver.
+invisível e indefinida — e a segunda costuma ser muito mais cara de resolver, porque
+ninguém sabe quando ela começou nem quantos registros afetou.
 
 ### Os mecanismos, com a condição de uso
 

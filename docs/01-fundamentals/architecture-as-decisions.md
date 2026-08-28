@@ -101,8 +101,9 @@ antigos acumulam decisões que ninguém entende. O time convive com elas ou as
 quebra às cegas. Com registro, cada uma pode ser examinada contra o contexto de
 hoje.
 
-**Porque transfere conhecimento sem transferir pessoas.** É a única forma prática
-de alguém que chegou depois entender por que o sistema é assim.
+**Porque transfere conhecimento sem transferir pessoas.** Perguntar a quem estava lá
+funciona enquanto essa pessoa estiver por perto e lembrar — o registro é o que
+funciona depois disso.
 
 **Porque separa "está errado" de "não vale mais".** São coisas diferentes com
 respostas diferentes, e sem contexto registrado não há como distinguir.
