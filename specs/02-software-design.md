@@ -5,12 +5,12 @@
 | Diretório | `docs/02-software-design/` |
 | Nível | Nível 02 — Design de Software |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 22 / 22 (100%) |
+| Progresso | 23 / 23 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
 
-Esta seção está completa quando os 22 tópicos abaixo existem com
+Esta seção está completa quando os 23 tópicos abaixo existem com
 `status: complete`, mais o `index.md` da seção.
 
 | | Tópico |
@@ -37,6 +37,7 @@ Esta seção está completa quando os 22 tópicos abaixo existem com
 | 🟩 | `hexagonal-architecture` |
 | 🟩 | `onion-architecture` |
 | 🟩 | `clean-architecture` |
+| 🟩 | `01-library-system` |
 
 ## Critério de conclusão
 

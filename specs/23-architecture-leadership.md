@@ -5,12 +5,12 @@
 | Diretório | `docs/23-architecture-leadership/` |
 | Nível | Nível 07 — Liderança em Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 23 / 23 (100%) |
+| Progresso | 24 / 24 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
 
-Esta seção está completa quando os 23 tópicos abaixo existem com
+Esta seção está completa quando os 24 tópicos abaixo existem com
 `status: complete`, mais o `index.md` da seção.
 
 | | Tópico |
@@ -38,6 +38,7 @@ Esta seção está completa quando os 23 tópicos abaixo existem com
 | 🟩 | `evolutionary-architecture` |
 | 🟩 | `fitness-functions` |
 | 🟩 | `measuring-architecture-outcomes` |
+| 🟩 | `08-present-and-defend` |
 
 ## Critério de conclusão
 

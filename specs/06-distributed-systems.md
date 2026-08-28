@@ -5,12 +5,12 @@
 | Diretório | `docs/06-distributed-systems/` |
 | Nível | Nível 04 — Sistemas Distribuídos |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 35 / 35 (100%) |
+| Progresso | 38 / 38 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
 
-Esta seção está completa quando os 35 tópicos abaixo existem com
+Esta seção está completa quando os 38 tópicos abaixo existem com
 `status: complete`, mais o `index.md` da seção.
 
 | | Tópico |
@@ -50,6 +50,9 @@ Esta seção está completa quando os 35 tópicos abaixo existem com
 | 🟩 | `conflict-resolution` |
 | 🟩 | `clock-and-time` |
 | 🟩 | `failure-detection` |
+| 🟩 | `03-scaling-ecommerce` |
+| 🟩 | `04-async-processing` |
+| 🟩 | `05-partial-failure` |
 
 ## Critério de conclusão
 

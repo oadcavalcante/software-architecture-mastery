@@ -2,7 +2,9 @@
   "$comment": [
     "Inventário completo do currículo — a fonte de specs/ e de fix_plan.md.",
     "Derivado do Apêndice A da SPEC. Alterar aqui é alterar o escopo do projeto.",
-    "'type' é o doc_type previsto; pode ser ajustado ao escrever, com justificativa."
+    "'type' é o doc_type previsto; pode ser ajustado ao escrever, com justificativa.",
+    "Os oito exercícios progressivos do Apêndice B entram como tópicos da seção do seu nível;",
+    "eles vivem em <seção>/exercises/ e são contados junto com ela."
   ],
   "sections": [
     {
@@ -60,7 +62,8 @@
         "ports-and-adapters",
         "hexagonal-architecture",
         "onion-architecture",
-        "clean-architecture"
+        "clean-architecture",
+        "01-library-system"
       ]
     },
     {
@@ -153,7 +156,8 @@
         "service-boundaries",
         "capacity-planning",
         "bottleneck-analysis",
-        "scalability-basics"
+        "scalability-basics",
+        "02-ecommerce-backend"
       ]
     },
     {
@@ -195,7 +199,10 @@
         "strong-consistency",
         "conflict-resolution",
         "clock-and-time",
-        "failure-detection"
+        "failure-detection",
+        "03-scaling-ecommerce",
+        "04-async-processing",
+        "05-partial-failure"
       ]
     },
     {
@@ -337,7 +344,8 @@
         "circuit-breakers",
         "bulkheads",
         "retry-storms",
-        "chaos-engineering"
+        "chaos-engineering",
+        "06-multi-region"
       ]
     },
     {
@@ -421,7 +429,8 @@
         "migration-strategies",
         "data-migration",
         "modernization-risk",
-        "organizational-constraints"
+        "organizational-constraints",
+        "07-modernize-legacy"
       ]
     },
     {
@@ -573,7 +582,8 @@
         "architecture-ownership",
         "evolutionary-architecture",
         "fitness-functions",
-        "measuring-architecture-outcomes"
+        "measuring-architecture-outcomes",
+        "08-present-and-defend"
       ]
     }
   ]

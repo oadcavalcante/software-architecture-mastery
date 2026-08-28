@@ -29,7 +29,7 @@ alternativas, raciocinar sobre trade-offs, decidir, comunicar e evoluir.
 :::info Estado do percurso
 
 <!-- PROGRESS:INTRO -->
-O percurso em português está completo: **437 de 437 documentos**, nas **23 seções**.
+O percurso em português está completo: **445 de 445 documentos**, nas **23 seções**.
 <!-- /PROGRESS:INTRO -->
 
 A tradução para inglês é progressiva e está no início: páginas ainda não

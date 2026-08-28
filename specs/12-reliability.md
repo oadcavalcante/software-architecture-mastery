@@ -5,12 +5,12 @@
 | Diretório | `docs/12-reliability/` |
 | Nível | Nível 05 — Arquitetura |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 17 / 17 (100%) |
+| Progresso | 18 / 18 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
 
-Esta seção está completa quando os 17 tópicos abaixo existem com
+Esta seção está completa quando os 18 tópicos abaixo existem com
 `status: complete`, mais o `index.md` da seção.
 
 | | Tópico |
@@ -32,6 +32,7 @@ Esta seção está completa quando os 17 tópicos abaixo existem com
 | 🟩 | `bulkheads` |
 | 🟩 | `retry-storms` |
 | 🟩 | `chaos-engineering` |
+| 🟩 | `06-multi-region` |
 
 ## Critério de conclusão
 

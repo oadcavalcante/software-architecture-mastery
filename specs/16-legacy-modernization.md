@@ -5,12 +5,12 @@
 | Diretório | `docs/16-legacy-modernization/` |
 | Nível | Nível 06 — Arquitetura Corporativa |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 12 / 12 (100%) |
+| Progresso | 13 / 13 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
 
-Esta seção está completa quando os 12 tópicos abaixo existem com
+Esta seção está completa quando os 13 tópicos abaixo existem com
 `status: complete`, mais o `index.md` da seção.
 
 | | Tópico |
@@ -27,6 +27,7 @@ Esta seção está completa quando os 12 tópicos abaixo existem com
 | 🟩 | `data-migration` |
 | 🟩 | `modernization-risk` |
 | 🟩 | `organizational-constraints` |
+| 🟩 | `07-modernize-legacy` |
 
 ## Critério de conclusão
 

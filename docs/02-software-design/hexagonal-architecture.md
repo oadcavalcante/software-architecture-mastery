@@ -186,6 +186,15 @@ Na retrospectiva: o saldo foi positivo porque o serviço era de integração int
 dependências externas voláteis. Num serviço de domínio estável e pouca infraestrutura, as mesmas
 seis portas ociosas seriam o resultado inteiro — e a conclusão seria oposta.
 
+Esse é o critério que o time passou a aplicar antes de adotar o padrão em serviços novos: contar
+as dependências externas que podem mudar. Acima de três, o isolamento se paga; abaixo, ele
+produz indireção que ninguém exerce.
+
+E há um detalhe de sequência que a equipe considera decisivo: as três trocas foram feitas
+**depois** de o teste de arquitetura existir. Sem ele, as dependências teriam voltado a vazar
+entre uma troca e outra, e a segunda troca já não encontraria o isolamento que a primeira
+supunha. O padrão sem mecanismo de verificação tem meia-vida de meses.
+
 ## Conceitos Relacionados
 
 - [Ports and Adapters](ports-and-adapters.md) — a formulação original e o

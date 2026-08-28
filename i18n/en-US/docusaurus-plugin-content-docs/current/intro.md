@@ -29,7 +29,7 @@ alternatives, reason about trade-offs, decide, communicate, and evolve.
 :::info Track status
 
 <!-- PROGRESS:INTRO -->
-The Portuguese track is complete: **437 of 437 documents**, across all **23 sections**.
+The Portuguese track is complete: **445 of 445 documents**, across all **23 sections**.
 <!-- /PROGRESS:INTRO -->
 
 Translation to English is progressive and still early: pages not yet translated

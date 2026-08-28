@@ -5,12 +5,12 @@
 | Diretório | `docs/05-system-design/` |
 | Nível | Nível 03 — Design de Sistemas |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 23 / 23 (100%) |
+| Progresso | 24 / 24 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
 
-Esta seção está completa quando os 23 tópicos abaixo existem com
+Esta seção está completa quando os 24 tópicos abaixo existem com
 `status: complete`, mais o `index.md` da seção.
 
 | | Tópico |
@@ -38,6 +38,7 @@ Esta seção está completa quando os 23 tópicos abaixo existem com
 | 🟩 | `capacity-planning` |
 | 🟩 | `bottleneck-analysis` |
 | 🟩 | `scalability-basics` |
+| 🟩 | `02-ecommerce-backend` |
 
 ## Critério de conclusão
 

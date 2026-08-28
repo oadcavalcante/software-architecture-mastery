@@ -10,7 +10,7 @@ Not a catalog of patterns. The reasoning that decides when *not* to use them.
 [![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://software-architecture-mastery.vercel.app)
 <!-- BADGES:PROGRESS -->
 ![progress](https://img.shields.io/badge/progress-100%25-blue)
-![documents](https://img.shields.io/badge/documents-437%2F437-informational)
+![documents](https://img.shields.io/badge/documents-445%2F445-informational)
 <!-- /BADGES:PROGRESS -->
 ![License](https://img.shields.io/badge/content-CC%20BY--SA%204.0-green)
 ![Code](https://img.shields.io/badge/code-MIT-green)
@@ -92,14 +92,14 @@ code → design → systems → distributed systems → architecture → enterpr
 | Level | Section | Status |
 |---|---|:-:|
 | 01 | Foundation | 🟩 22 topics |
-| 02 | Software Design | 🟩 22 topics |
+| 02 | Software Design | 🟩 23 topics |
 | 02 | Design Patterns | 🟩 30 topics |
 | 02 | Domain-Driven Design | 🟩 19 topics |
-| 03 | System Design | 🟩 23 topics |
-| 04 | Distributed Systems | 🟩 35 topics |
-| 05 | Architecture (11 sections) | 🟩 166 topics |
-| 06 | Enterprise Architecture | 🟩 42 topics |
-| 07 | Architecture Leadership | 🟩 23 topics |
+| 03 | System Design | 🟩 24 topics |
+| 04 | Distributed Systems | 🟩 38 topics |
+| 05 | Architecture (11 sections) | 🟩 167 topics |
+| 06 | Enterprise Architecture | 🟩 43 topics |
+| 07 | Architecture Leadership | 🟩 24 topics |
 | — | Case Studies · Interviews | 🟩 27 topics |
 <!-- /PROGRESS:TABLE -->
 
