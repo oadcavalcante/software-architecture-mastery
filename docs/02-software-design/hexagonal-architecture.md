@@ -146,43 +146,45 @@ imposta.
 
 ## Exemplo Real
 
-Um time adotou "arquitetura hexagonal", criou a estrutura de diretórios e
-apresentou o resultado.
+Um time adotou hexagonal num serviço novo e, seis meses depois, tinha dezenove imports de `infra`
+dentro de `dominio` — o caso descrito em
+[arquitetura vs. implementação](../01-fundamentals/architecture-vs-implementation.md), onde a
+lição é sobre a distância entre a arquitetura declarada e a implementada.
 
-Seis meses depois, uma análise de dependências mostrou dezenove imports de
-`infra` dentro de `dominio`, e as entidades carregavam anotações do ORM.
+O que interessa aqui é o que veio depois, porque ele responde à pergunta específica do padrão:
+**depois de corrigido, o hexagonal se pagou?**
 
-O diagnóstico do time foi "falta de disciplina". O diagnóstico correto era outro:
-a regra existia como acordo verbal e nada a verificava.
+As dezenove violações foram corrigidas em três semanas, e um teste de arquitetura passou a impedir
+novas. A partir daí o serviço operou com a estrutura de fato isolada por dezoito meses, durante os
+quais três trocas de infraestrutura aconteceram:
 
-A correção foi um teste de arquitetura de dez linhas — nenhum pacote de domínio
-importa `infra`. Falhou com as dezenove violações, que foram corrigidas em três
-semanas, e nenhuma nova apareceu depois.
+```text
+troca                          arquivos tocados   duração
+provedor de pagamento          adaptador + teste     6 dias
+banco relacional → gerenciado  adaptador + config    2 dias
+fila própria → gerenciada      adaptador + teste     4 dias
+```
 
-O padrão não estava errado, e o time não era indisciplinado. Faltava o mecanismo.
-Ver
-[arquitetura vs. implementação](../01-fundamentals/architecture-vs-implementation.md).
+Nenhuma tocou o domínio. Como referência, a mesma troca de provedor de pagamento em outro serviço
+da empresa — sem isolamento, com o cliente HTTP importado direto pelos casos de uso — levou sete
+semanas e tocou 41 arquivos.
 
-## Os quatro nomes, lado a lado
+O custo do padrão, medido no mesmo período:
 
-Comparação para encerrar a discussão de qual adotar:
+```text
+arquivos a mais no serviço                    ~30%
+tempo de integração de pessoa nova            +1,5 dia, estimado
+casos de uso que precisaram de porta nova     4 de 23
+portas com um único adaptador, após 18 meses  6 de 9
+```
 
-| | Ports and Adapters | Hexagonal | Onion | Clean |
-|---|---|---|---|---|
-| Autor, ano | Cockburn, 2005 | Cockburn, 2005 | Palermo, 2008 | Martin, 2012 |
-| Regra de direção | Para dentro | Para dentro | Para dentro | Para dentro |
-| Metáfora | Dentro e fora | Hexágono | Círculos | Círculos |
-| Nomeia o interior? | Não | Não | Sim: domínio, serviço de domínio, aplicação | Sim: entidades, casos de uso |
-| Prescreve o que atravessa? | Não | Não | Não | Sim: estruturas simples |
-| Cerimônia | Menor | Menor | Média | Maior |
+A última linha é a que o time considera a mais honesta: dois terços das portas nunca tiveram um
+segundo adaptador, e provavelmente nunca terão. Elas são custo de indireção sem retorno de
+substituição — pagas para que as três que importaram funcionassem.
 
-A propriedade fundamental — dependências apontam para dentro — é idêntica nos
-quatro. As diferenças são de vocabulário interno e de quanto o padrão prescreve.
-
-A escolha prática: adote o nome que seu time já conhece, e decida separadamente
-duas coisas que importam mais que o nome — **quanto do interior você vai nomear**
-e **o que atravessa as fronteiras**. Times gastam reuniões escolhendo entre os
-quatro e nenhuma decidindo essas duas.
+Na retrospectiva: o saldo foi positivo porque o serviço era de integração intensa, com quatro
+dependências externas voláteis. Num serviço de domínio estável e pouca infraestrutura, as mesmas
+seis portas ociosas seriam o resultado inteiro — e a conclusão seria oposta.
 
 ## Conceitos Relacionados
 
