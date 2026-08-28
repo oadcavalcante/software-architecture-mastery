@@ -5,7 +5,7 @@
 | Diretório | `docs/21-case-studies/` |
 | Nível | Transversal |
 | `doc_type` previsto | `case-study` |
-| Progresso | 3 / 14 (21%) |
+| Progresso | 14 / 14 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -18,17 +18,17 @@ Esta seção está completa quando os 14 tópicos abaixo existem com
 | 🟩 | `ecommerce` |
 | 🟩 | `banking` |
 | 🟩 | `payments` |
-| ⬜ | `food-delivery` |
-| ⬜ | `social-network` |
-| ⬜ | `video-streaming` |
-| ⬜ | `messaging-platform` |
-| ⬜ | `ride-sharing` |
-| ⬜ | `logistics` |
-| ⬜ | `healthcare` |
-| ⬜ | `saas-platform` |
-| ⬜ | `multi-tenant-enterprise` |
-| ⬜ | `legacy-modernization-case` |
-| ⬜ | `high-volume-events` |
+| 🟩 | `food-delivery` |
+| 🟩 | `social-network` |
+| 🟩 | `video-streaming` |
+| 🟩 | `messaging-platform` |
+| 🟩 | `ride-sharing` |
+| 🟩 | `logistics` |
+| 🟩 | `healthcare` |
+| 🟩 | `saas-platform` |
+| 🟩 | `multi-tenant-enterprise` |
+| 🟩 | `legacy-modernization-case` |
+| 🟩 | `high-volume-events` |
 
 ## Critério de conclusão
 

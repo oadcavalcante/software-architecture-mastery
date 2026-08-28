@@ -531,7 +531,7 @@ diretamente se o Reconciliador está cumprindo sua função, e uma transação a
 ```text
 Gateway (escopo PCI)      implantação com aprovação adicional e registro
                           para auditoria; mudanças acompanhadas por segurança
-Orquestrador              canário 5% → 25% → 100%, com reversão automática
+Orquestrador              canary 5% → 25% → 100%, com reversão automática
                           por taxa de erro ou de ambiguidade
 Conectores                implantados independentemente, por parceiro;
                           um conector com defeito não afeta os outros

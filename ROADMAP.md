@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**389 de 437 documentos planejados escritos (89%).**
+**400 de 437 documentos planejados escritos (92%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -38,7 +38,7 @@ mas já tem índice publicado explicando o que virá.
 | `18-architecture-decisions` | 05 | 15 / 15 | `██████████` 100% |
 | `19-architecture-governance` | 06 | 11 / 11 | `██████████` 100% |
 | `20-trade-offs` | 05 | 16 / 16 | `██████████` 100% |
-| `21-case-studies` | Transv. | 4 / 15 | `███░░░░░░░` 27% |
+| `21-case-studies` | Transv. | 15 / 15 | `██████████` 100% |
 | `22-system-design-interviews` | Transv. | 1 / 14 | `█░░░░░░░░░` 7% |
 | `23-architecture-leadership` | 07 | 1 / 24 | `░░░░░░░░░░` 4% |
 
@@ -471,8 +471,19 @@ mas já tem índice publicado explicando o que virá.
 |:-:|---|---|---|---|:-:|
 | 🟩 | [Case: Núcleo Bancário Digital](docs/21-case-studies/banking.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: E-commerce Omnicanal](docs/21-case-studies/ecommerce.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Delivery de Comida](docs/21-case-studies/food-delivery.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Plataforma de Saúde](docs/21-case-studies/healthcare.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Processamento de Eventos de Alto Volume](docs/21-case-studies/high-volume-events.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case Studies](docs/21-case-studies/index.md) | index | avançado | `system-design`, `distributed-systems` | ⬜ |
+| 🟩 | [Case: Modernização de Legado](docs/21-case-studies/legacy-modernization-case.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Logística e Malha de Entregas](docs/21-case-studies/logistics.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Plataforma de Mensageria](docs/21-case-studies/messaging-platform.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Sistema Corporativo Multi-inquilino](docs/21-case-studies/multi-tenant-enterprise.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Plataforma de Pagamentos](docs/21-case-studies/payments.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Transporte por Aplicativo](docs/21-case-studies/ride-sharing.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Plataforma SaaS](docs/21-case-studies/saas-platform.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Rede Social](docs/21-case-studies/social-network.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Streaming de Vídeo](docs/21-case-studies/video-streaming.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Entrevistas de System Design](docs/22-system-design-interviews/index.md) | index | intermediário | `system-design` | ⬜ |
 | 🟩 | [Glossário](docs/glossary.md) | reference | iniciante | — | ⬜ |
 | 🟩 | [Como Usar](docs/how-to-use.md) | index | iniciante | — | ⬜ |

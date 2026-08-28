@@ -521,7 +521,7 @@ esforço de atendimento a demandas regulatórias de dias para horas.
 razão                     implantação com janela, fora do pico, com
                           verificação de esquema em três etapas
                           (compatível → migração → limpeza)
-demais serviços           canário, 5% → 50% → 100%, com reversão automática
+demais serviços           canary, 5% → 50% → 100%, com reversão automática
 migração de esquema       nunca destrutiva na mesma implantação;
                           coluna removida no mínimo 2 versões depois
 teste de carga            obrigatório antes de cada mudança no razão,

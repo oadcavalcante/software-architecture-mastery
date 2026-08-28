@@ -403,7 +403,7 @@ ou instalar um cache — em vez de aparecer como uma piora difusa da média.
 
 ## Implantação
 
-O plano de controle usa implantação canário convencional. O plano de dados é diferente: um
+O plano de controle usa implantação canary convencional. O plano de dados é diferente: um
 cache instalado na rede de um provedor não pode ser atualizado a qualquer momento, porque a
 janela de manutenção é negociada com o parceiro.
 

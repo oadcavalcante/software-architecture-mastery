@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 385 de 432 (89%) |
-| Seções pendentes | 3 de 23 |
-| Próxima tarefa | `21-case-studies` → `food-delivery.md` |
+| Escrito | 396 de 432 (92%) |
+| Seções pendentes | 2 de 23 |
+| Próxima tarefa | `22-system-design-interviews` → `requirement-clarification.md` |
 
 ## Como usar
 
@@ -27,22 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 21-case-studies — Case Studies
-
-Transversal · faltam 11 de 15 · spec: [`specs/21-case-studies.md`](specs/21-case-studies.md)
-
-- [ ] `food-delivery.md`
-- [ ] `social-network.md`
-- [ ] `video-streaming.md`
-- [ ] `messaging-platform.md`
-- [ ] `ride-sharing.md`
-- [ ] `logistics.md`
-- [ ] `healthcare.md`
-- [ ] `saas-platform.md`
-- [ ] `multi-tenant-enterprise.md`
-- [ ] `legacy-modernization-case.md`
-- [ ] `high-volume-events.md`
 
 ### 22-system-design-interviews — Entrevistas de System Design
 

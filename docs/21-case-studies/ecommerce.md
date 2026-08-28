@@ -554,7 +554,7 @@ lado do roteador, por rota — é o instrumento principal de acompanhamento da m
 
 ```text
 sete unidades implantáveis, cada uma com esteira própria
-implantação canário para o fluxo de compra, com 5% → 25% → 100%
+implantação canary para o fluxo de compra, com 5% → 25% → 100%
 reversão automática por taxa de erro
 congelamento de mudanças estruturais entre 1º/out e 15/jan
 o roteador de borda é o único ponto de virada e de reversão
