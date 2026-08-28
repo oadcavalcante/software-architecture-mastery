@@ -9,8 +9,8 @@ Não é um catálogo de padrões. É o raciocínio que decide quando *não* usá
 [![CI](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml)
 [![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://software-architecture-mastery.vercel.app)
 <!-- BADGES:PROGRESS -->
-![progresso](https://img.shields.io/badge/progresso-88%25-blue)
-![documentos](https://img.shields.io/badge/documentos-386%2F437-informational)
+![progresso](https://img.shields.io/badge/progresso-89%25-blue)
+![documentos](https://img.shields.io/badge/documentos-389%2F437-informational)
 <!-- /BADGES:PROGRESS -->
 ![Licença](https://img.shields.io/badge/conteúdo-CC%20BY--SA%204.0-green)
 ![Código](https://img.shields.io/badge/código-MIT-green)
@@ -96,7 +96,7 @@ código → design → sistemas → sistemas distribuídos → arquitetura → c
 | 05 | Arquitetura (11 seções) | 🟩 166 tópicos |
 | 06 | Arquitetura Corporativa | 🟩 42 tópicos |
 | 07 | Liderança em Arquitetura | ⬜ |
-| — | Case Studies · Entrevistas | ⬜ |
+| — | Case Studies · Entrevistas | 🟨 em progresso |
 <!-- /PROGRESS:TABLE -->
 
 O estado documento a documento está em **[ROADMAP.md](ROADMAP.md)**, gerado

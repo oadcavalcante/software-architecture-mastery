@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**386 de 437 documentos planejados escritos (88%).**
+**389 de 437 documentos planejados escritos (89%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -38,7 +38,7 @@ mas já tem índice publicado explicando o que virá.
 | `18-architecture-decisions` | 05 | 15 / 15 | `██████████` 100% |
 | `19-architecture-governance` | 06 | 11 / 11 | `██████████` 100% |
 | `20-trade-offs` | 05 | 16 / 16 | `██████████` 100% |
-| `21-case-studies` | Transv. | 1 / 15 | `█░░░░░░░░░` 7% |
+| `21-case-studies` | Transv. | 4 / 15 | `███░░░░░░░` 27% |
 | `22-system-design-interviews` | Transv. | 1 / 14 | `█░░░░░░░░░` 7% |
 | `23-architecture-leadership` | 07 | 1 / 24 | `░░░░░░░░░░` 4% |
 
@@ -469,7 +469,10 @@ mas já tem índice publicado explicando o que virá.
 
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
+| 🟩 | [Case: Núcleo Bancário Digital](docs/21-case-studies/banking.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: E-commerce Omnicanal](docs/21-case-studies/ecommerce.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case Studies](docs/21-case-studies/index.md) | index | avançado | `system-design`, `distributed-systems` | ⬜ |
+| 🟩 | [Case: Plataforma de Pagamentos](docs/21-case-studies/payments.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Entrevistas de System Design](docs/22-system-design-interviews/index.md) | index | intermediário | `system-design` | ⬜ |
 | 🟩 | [Glossário](docs/glossary.md) | reference | iniciante | — | ⬜ |
 | 🟩 | [Como Usar](docs/how-to-use.md) | index | iniciante | — | ⬜ |

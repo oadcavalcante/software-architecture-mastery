@@ -5,7 +5,7 @@
 | Diretório | `docs/21-case-studies/` |
 | Nível | Transversal |
 | `doc_type` previsto | `case-study` |
-| Progresso | 0 / 14 (0%) |
+| Progresso | 3 / 14 (21%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,9 +15,9 @@ Esta seção está completa quando os 14 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `ecommerce` |
-| ⬜ | `banking` |
-| ⬜ | `payments` |
+| 🟩 | `ecommerce` |
+| 🟩 | `banking` |
+| 🟩 | `payments` |
 | ⬜ | `food-delivery` |
 | ⬜ | `social-network` |
 | ⬜ | `video-streaming` |

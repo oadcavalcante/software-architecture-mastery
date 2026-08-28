@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 382 de 432 (88%) |
+| Escrito | 385 de 432 (89%) |
 | Seções pendentes | 3 de 23 |
-| Próxima tarefa | `21-case-studies` → `ecommerce.md` |
+| Próxima tarefa | `21-case-studies` → `food-delivery.md` |
 
 ## Como usar
 
@@ -30,11 +30,8 @@ e dentro de cada seção a ordem pedagógica do currículo.
 
 ### 21-case-studies — Case Studies
 
-Transversal · faltam 14 de 15 · spec: [`specs/21-case-studies.md`](specs/21-case-studies.md)
+Transversal · faltam 11 de 15 · spec: [`specs/21-case-studies.md`](specs/21-case-studies.md)
 
-- [ ] `ecommerce.md`
-- [ ] `banking.md`
-- [ ] `payments.md`
 - [ ] `food-delivery.md`
 - [ ] `social-network.md`
 - [ ] `video-streaming.md`
