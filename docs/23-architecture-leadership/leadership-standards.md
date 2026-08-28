@@ -251,66 +251,57 @@ do gabarito não precisa ser lembrado nem verificado.
 
 ## Exemplo Real
 
-Uma empresa de telecomunicações tinha 71 padrões arquiteturais publicados, mantidos por uma área
-central de cinco pessoas.
+Uma empresa de serviços financeiros publicou, ao longo de dois anos, quatro padrões
+arquiteturais. Todos foram anunciados como obrigatórios desde o primeiro dia.
 
-Um levantamento de adoção, com verificação automática onde possível:
-
-```text
-padrões com adoção acima de 80%              14
-entre 30% e 80%                              17
-abaixo de 30%                                22
-impossíveis de medir (formulação vaga)       18
-com dono identificável                       23
-com data de revisão                           6
-com caminho de adoção fornecido               9
-referenciando tecnologia descontinuada        9
-```
-
-Apenas 9 dos 71 tinham caminho. Isso, sozinho, explicava a maior parte da adoção baixa.
-
-A reestruturação, ao longo de nove meses:
-
-**De 71 para 19.** Os 18 não mensuráveis foram removidos ou reformulados até ficarem verificáveis;
-os 22 com adoção abaixo de 30% foram examinados individualmente — 15 removidos, 7 mantidos com
-plano de adoção financiado.
-
-**Caminho obrigatório.** Nenhum padrão novo é publicado sem gabarito, exemplo funcional ou
-ferramenta de migração. Os 7 mantidos receberam caminho antes de qualquer cobrança.
-
-**Dono como papel**, sempre alguém de um time que aplica o padrão, não da área central.
-
-**Data de revisão** obrigatória, máximo de 24 meses.
-
-**Estágio de recomendação** de seis meses para padrões novos, com adoção voluntária medida.
-
-**Regra de troca**: adicionar exige remover, salvo risco regulatório.
-
-**Migração financiada** para os 7 mantidos, com orçamento da área de arquitetura.
-
-Dois anos depois:
+A adoção, medida 18 meses depois:
 
 ```text
-padrões                                       23
-com adoção acima de 80%                       19
-com dono e data de revisão                    23
-com caminho fornecido                         23
-aposentados no período                         6
-promovidos de recomendação a obrigatório       7
-recomendações revisadas por baixa adoção       4
+padrão de observabilidade          89%
+padrão de contrato de API          71%
+padrão de tratamento de erro       34%
+padrão de estrutura de projeto      9%
 ```
 
-Os 4 revisados por baixa adoção voluntária são o dado que a área mais valoriza. Em três, o
-problema era falta de caminho de migração — resolvido. No quarto, o padrão estava errado: ele
-prescrevia uma abordagem que não funcionava em sistemas de alto volume, e nenhum dos autores tinha
-operado um sistema assim.
+Os dois primeiros tinham gabarito pronto na publicação; os dois últimos, não. A correlação era
+perfeita e ninguém a tinha notado, porque a leitura institucional de baixa adoção era de
+indisciplina — e a resposta em curso era um plano de cobrança por área.
 
-Esse quarto caso é o argumento inteiro do estágio de recomendação. Sob obrigatoriedade direta, ele
-teria sido imposto, contornado, e a organização teria concluído que os times eram indisciplinados.
+A liderança de arquitetura propôs inverter a leitura antes de cobrar qualquer coisa: entrevistar
+os times com baixa adoção e perguntar o que impedia.
 
-O que a equipe aprendeu: o estágio de recomendação transformou baixa adoção de falha de disciplina
-em informação sobre o padrão. Essa inversão de leitura foi a mudança de maior efeito, e ela custa
-apenas seis meses de espera.
+```text
+padrão de tratamento de erro   "cada linguagem trata erro de um jeito;
+                               o padrão foi escrito pensando em Java
+                               e não traduz para os outros três"
+padrão de estrutura de projeto "não existe ferramenta que gere isso;
+                               reestruturar um serviço existente leva
+                               dois dias e não entrega nada ao usuário"
+```
+
+Nenhuma das duas causas era disciplina. A primeira era um padrão errado — escrito por quem
+usava uma linguagem, para quatro. A segunda era um padrão sem caminho e sem financiamento.
+
+O que a organização passou a exigir antes de publicar:
+
+**Caminho pronto** — gabarito, ferramenta de migração ou exemplo funcional. Sem isso, não publica.
+
+**Estágio de recomendação** de seis meses, com adoção voluntária medida antes de tornar
+obrigatório.
+
+**Resposta explícita a quem paga** a migração dos sistemas existentes — incluindo a opção de não
+migrar, aplicando o padrão só a sistemas novos.
+
+**Escrito por quem aplica**, revisado por quem tem visão ampla.
+
+Os dois padrões problemáticos foram tratados de formas opostas: o de tratamento de erro foi
+reescrito por um grupo com representantes das quatro linguagens, e a adoção subiu para 78% em oito
+meses. O de estrutura de projeto foi rebaixado a recomendação e passou a valer apenas para
+serviços novos — a adoção em serviços novos ficou em 94%, e os existentes não foram tocados.
+
+Na retrospectiva: nenhum dos dois padrões precisou de cobrança. Um estava errado e foi corrigido;
+o outro estava certo e faltava caminho. A cobrança planejada teria empurrado os dois para o
+descumprimento silencioso, e a organização teria concluído que padrões não funcionam.
 
 ## Conceitos Relacionados
 

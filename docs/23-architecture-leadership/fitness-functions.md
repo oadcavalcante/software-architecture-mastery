@@ -230,77 +230,64 @@ verificada.
 
 ## Exemplo Real
 
-Uma empresa de tecnologia com 30 times tinha um guia de arquitetura de 60 páginas e uma área de
-arquitetura de cinco pessoas que conseguia revisar cerca de 8% das mudanças relevantes.
+Uma plataforma de comércio eletrônico com 18 times tinha uma área de arquitetura de três pessoas.
+Elas participavam de cerca de 12% das revisões de desenho — e a seleção não era por importância,
+era por quem as convidava.
 
-Uma verificação pontual sobre o código real encontrou:
-
-```text
-regras documentadas                        41
-verificáveis automaticamente               26
-efetivamente verificadas                    2
-violações nas 26 verificáveis            1 340
-serviços sem nenhuma violação               7 de 96
-```
-
-A adoção foi incremental, ao longo de 14 meses, seguindo a ordem de dano histórico:
+O diagnóstico que mudou a abordagem veio de uma análise de incidentes: das 34 ocorrências de
+severidade alta em 12 meses, 21 tinham como causa uma regra arquitetural documentada e violada.
 
 ```text
-ordem   regra                                 dano prévio
-1       acesso direto a dados de outro time   9 incidentes
-2       segredo em código                     3 exposições
-3       dependência cíclica entre módulos     tempo de construção
-4       serviço sem dono declarado            47 min médios em
-                                              incidente para achar
-                                              o responsável
-5       dependência com vulnerabilidade       auditoria
-6       serviço sem alarme de disponibilidade 4 incidentes não
-                                              detectados
+causa da violação                                incidentes
+serviço sem alarme de saturação de recurso        7
+chamada síncrona a dependência externa sem prazo  6
+acesso direto a dado de outro domínio             4
+segredo em variável de ambiente sem cofre         4
 ```
 
-Cada uma seguiu o protocolo: aviso, correção do acervo, exceções para o que restar, bloqueio.
+Nenhuma das quatro exigia julgamento — todas eram verificáveis. E nenhuma tinha sido pega em
+revisão, porque a revisão só via 12% das mudanças.
 
-**Duas holísticas** foram acrescentadas depois, e são as que a área considera mais valiosas:
+A adoção seguiu a ordem do dano, com a primeira sendo a de maior frequência:
+
+**Fase de aviso, oito semanas.** A verificação de alarme de saturação rodou sem bloquear, com um
+painel por time. Ao fim das oito semanas, 61 dos 94 serviços tinham corrigido — sem nenhuma
+cobrança, apenas por ver o número.
+
+**Acervo corrigido, depois bloqueio.** Os 33 restantes foram tratados: 26 corrigidos, 7 com
+exceção registrada e prazo.
+
+As três seguintes levaram quatro meses, no mesmo protocolo.
+
+**Uma holística acrescentada no sexto mês:** disponibilidade composta do fluxo de compra,
+calculada a partir das dependências declaradas de cada serviço. Ela falha quando o produto das
+disponibilidades individuais cai abaixo do requisito contratual — e ela pegou, na primeira
+execução, uma cadeia de cinco chamadas síncronas que ninguém tinha somado.
 
 ```text
-latência p99 do fluxo de checkout, medida em produção
-  → falha o painel quando passa de 300 ms por 24 h
-
-custo por transação
-  → alerta quando cresce mais de 15% num mês sem
-    crescimento de volume
+disponibilidade composta calculada     98,4%
+requisito contratual                   99,5%
 ```
 
-**Falso positivo monitorado.** Três funções foram ajustadas por passarem de 2%; uma —
-"complexidade ciclomática" — foi rebaixada de bloqueio para relatório, por não distinguir
-complexidade essencial de acidental.
-
-**Lista de exclusões revisada trimestralmente.** Na primeira revisão, 31 exclusões estavam ativas;
-19 tinham prazo vencido e foram resolvidas, 8 renovadas com justificativa, 4 viraram mudança da
-própria regra.
+Essa única verificação produziu a decisão de tornar duas das cinco chamadas assíncronas, que era
+o problema arquitetural de maior consequência do sistema e que nenhuma revisão de desenho tinha
+identificado — porque cada uma das cinco chamadas, isoladamente, era razoável.
 
 Resultados após 14 meses:
 
 ```text
-funções em operação                        8 (6 atômicas, 2 holísticas)
-violações remanescentes                    41 (de 1 340)
-exceções registradas com prazo             23
-falso positivo médio                       1,4%
-tempo de revisão de arquitetura gasto
-  em verificação de regras                 -70%
-incidentes por acesso direto a dados
-  de outro time                            0 (de 9/ano)
-tempo para achar o responsável em
-  incidente                                de 47 min para 4 min
+incidentes de severidade alta por regra violada     de 21 para 2
+cobertura das verificações                          100% das mudanças
+                                                    (contra 12% em revisão)
+falso positivo médio                                1,9%
+exceções ativas com prazo                           14
+tempo da área de arquitetura em revisão de regras   -80%
 ```
 
-A redução de 70% no tempo de revisão gasto em conferência de regras é o número que a área
-destaca: ela não substituiu a revisão humana, liberou-a. As conversas passaram a ser sobre
-fronteira, modelagem e trade-off — as perguntas que nenhuma verificação responde.
-
-O ponto que a equipe sublinha: as correções voluntárias durante o modo de aviso resolveram cerca de 60%
-das violações antes de qualquer bloqueio, sem nenhuma cobrança. Tornar visível foi mais eficaz
-que impor.
+A avaliação posterior aponta: a verificação holística foi a de maior valor e a última a ser
+construída, porque parecia a mais difícil. Ela custou três semanas e encontrou, no primeiro dia, o
+problema que dois anos de revisões pontuais não tinham encontrado — pela razão de sempre, que é
+que ninguém somava as partes.
 
 ## Conceitos Relacionados
 

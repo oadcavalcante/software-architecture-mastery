@@ -244,73 +244,59 @@ implicações e precedência.
 
 ## Exemplo Real
 
-Uma empresa de varejo tinha nove princípios arquiteturais, produzidos numa oficina em 2022.
+Uma empresa de tecnologia em saúde não tinha princípios arquiteturais publicados, e a liderança de
+engenharia queria criar. A proposta inicial era a usual: uma oficina de dois dias com os
+arquitetos e líderes técnicos.
 
-Dois anos depois, uma revisão aplicou dois testes:
+A área de arquitetura propôs um método diferente, com um argumento simples: a organização já
+decidia de alguma forma, havia quatro anos, e essas decisões estavam registradas.
 
-```text
-teste do inverso
-  passaram (inverso defensável)         3
-  falharam (inverso absurdo)            6
-
-teste de citação, em 140 ADRs e 60 atas
-  citados mais de cinco vezes           2
-  citados ao menos uma vez              4
-  nunca citados                         5
-```
-
-Os dois mais citados eram os mesmos dois que passavam no teste do inverso com folga.
-
-E um terceiro achado: em 11 ADRs, dois princípios tinham sido citados por lados **opostos** da
-mesma discussão — autonomia de time contra redução do número de tecnologias. Não havia
-precedência, e as 11 decisões tinham sido resolvidas de formas inconsistentes.
-
-A reformulação seguiu o método de derivação:
-
-**Leitura dos 140 ADRs**, extraindo os critérios que apareciam repetidamente. Isso produziu seis
-candidatos, dos quais quatro sobreviveram ao teste do inverso.
-
-**De nove para quatro.** Os cinco nunca citados foram removidos; um dos reprovados foi
-reformulado até passar.
-
-**Implicações obrigatórias**, mínimo de duas por princípio, escritas como o que muda na prática — e
-com ao menos uma impondo obrigação a quem escreveu o princípio.
-
-**Precedência por domínio** para o conflito entre autonomia e padronização:
+**Leitura dos ADRs.** Os 96 registros de decisão dos últimos três anos foram lidos, e os critérios
+citados em cada um foram tabulados.
 
 ```text
-escolha interna a um serviço, sem superfície compartilhada
-  → autonomia vence
-tecnologia que aparece em contrato entre times
-  → padronização vence
-tecnologia que entra no plantão compartilhado
-  → padronização vence
+critério citado                                   ADRs
+"não podemos depender de conexão da unidade"      31
+"o dado clínico não pode ser alterado"            27
+"quem opera precisa conseguir depurar às 3h"      19
+"o time que constrói é o que responde no plantão" 17
+"preferimos comprar onde não somos diferentes"    11
+demais critérios, com menos de 5 citações         —
 ```
 
-**Dois princípios promovidos a padrão**, porque a ponderação se repetia com o mesmo resultado.
+Cinco critérios cobriam 105 das 96 decisões — vários ADRs citavam mais de um.
 
-**Revisão anual** com a pergunta única sobre as condições.
+**Teste do inverso** aplicado aos cinco: os quatro primeiros passaram com folga; o quinto foi
+contestado internamente, porque a organização tinha construído três sistemas que o mercado
+oferecia. A discussão que se seguiu foi produtiva, e o princípio foi mantido com uma implicação
+adicional: toda proposta de construir precisa nomear o diferencial por escrito.
 
-No ano seguinte:
+**Implicações**, mínimo duas por princípio, com ao menos uma impondo obrigação a quem escreveu.
+Para o princípio de plantão, a obrigação foi da liderança: nenhum time recebe responsabilidade de
+plantão sem a plataforma que a torna sustentável.
+
+**Precedência declarada** entre os dois que conflitavam — autonomia de time e comprar em vez de
+construir — resolvida por domínio.
+
+O resultado foi um documento de uma página, com cinco afirmações, publicado em três semanas em
+vez de uma oficina de dois dias.
+
+Doze meses depois:
 
 ```text
-princípios                            4
-citações em ADRs                     38 (contra 9)
-decisões com conflito de princípio    7 — todas resolvidas pela
-                                      regra de precedência
-princípios removidos na revisão       1
+citações em ADRs novos                        44 de 51
+engenheiros que citavam ao menos três         83%
+princípios contestados internamente            1 — o de comprar,
+                                              mantido após discussão
+princípios adicionados                         0
 ```
 
-O removido era "preferimos serviços gerenciados a componentes operados por nós". A revisão
-constatou que ele havia virado consenso: em 22 decisões do ano, nenhuma tinha considerado seriamente
-operar algo internamente. Ele deixou de eliminar opções e foi aposentado.
+A conclusão registrada: os cinco princípios não eram novidade para ninguém. Eles descreviam o
+critério que a organização já usava, enunciado de forma lembrável — e é por isso que foram
+reconhecidos de imediato, em vez de precisarem ser vendidos.
 
-Reduzir de nove para quatro multiplicou o uso por quatro. A lista
-longa não era consultada porque não cabia na cabeça de ninguém no momento da decisão — que é o
-único momento em que um princípio serve.
-
-E derivar dos ADRs, em vez de escrever do zero, foi o que fez os quatro serem reconhecidos
-imediatamente: eles descreviam o que a organização já fazia.
+E a oficina de dois dias, que teria produzido aspirações, custaria oito pessoas por dois dias.
+A leitura dos ADRs custou uma pessoa por três dias.
 
 ## Conceitos Relacionados
 

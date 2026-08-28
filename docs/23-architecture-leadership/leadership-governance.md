@@ -235,77 +235,56 @@ remoção, porque adicionar tem dono e remover não tem.
 
 ## Exemplo Real
 
-Uma empresa de serviços financeiros com 500 engenheiros conduziu um inventário de mecanismos de
-governança de engenharia — comitês, aprovações, relatórios, formulários, verificações
-obrigatórias.
+Uma empresa de logística com 160 engenheiros sofreu um vazamento de credencial: uma chave de
+acesso a um armazenamento de objetos foi comitada num repositório público por engano, e ficou
+exposta por nove dias.
 
-Foram encontrados **34**, e nenhuma pessoa na organização conhecia todos.
+A resposta institucional imediata foi a esperada — criar um comitê de revisão de segurança para
+toda entrega. A liderança de arquitetura pediu duas semanas antes de instituí-lo, para desenhar
+o mecanismo com os quatro campos.
 
-Para cada um, quatro perguntas:
-
-```text
-                                          respondidas
-qual risco previne                        34
-quantas vezes pegou algo em 24 meses      11
-quanto atraso adiciona                     6
-quem é o dono                             19
-```
-
-Todo mundo sabia justificar a existência de um mecanismo; quase ninguém sabia se ele funcionava.
-
-Dos 11 com dado de efetividade:
+O exercício mudou a resposta:
 
 ```text
-pegaram algo relevante mais de 5 vezes    4
-entre 1 e 5 vezes                          3
-nunca pegaram nada                         4
+risco endereçado    credencial exposta em repositório
+                    — específico, não "segurança de código"
+efeito medido como  credenciais detectadas antes de chegarem ao
+                    repositório remoto
+custo estimado      comitê: ~3 dias de atraso × 340 entregas/ano
+                    ≈ 4 anos-pessoa de calendário
+                    verificação automática: ~0
+ponto de intervenção mais cedo viável: no cliente de versionamento,
+                    antes do envio
 ```
 
-Os quatro que nunca pegaram nada existiam havia em média 4,7 anos.
+O comitê nunca foi criado. Em vez dele: verificação local no momento do envio, verificação na
+esteira como rede de segurança, e rotação automática de credenciais com prazo curto — de modo que
+uma chave exposta expire antes de ser útil.
 
-O programa, ao longo de 12 meses:
+O mecanismo humano que restou foi pequeno e específico: revisão de segurança obrigatória apenas
+para serviços que expõem superfície pública nova, cerca de 12 por ano em vez de 340.
 
-**Suspensão de 9 mecanismos** por um trimestre, escolhidos entre os sem dono e os sem efetividade
-demonstrada. Nada quebrou em 7; foram removidos. Dois foram restabelecidos — um relatório de
-exposição de dados e uma verificação de dependências — com dono e escopo reduzido.
+**Dono, validade e medida** foram definidos antes de ligar qualquer coisa. Dono: o papel de
+mantenedor da plataforma. Validade: 24 meses. Medida: credenciais bloqueadas antes do envio.
 
-**11 convertidos em verificação automática**, movendo o ponto de intervenção.
-
-**8 com escopo reduzido** para a classe de risco que os justificava. O mais significativo passou de
-"todo projeto" para "projetos com dado regulado ou compromisso irreversível acima de um limite".
-
-**6 mantidos**, todos com efetividade demonstrada.
-
-**Prazo de validade obrigatório** em todo mecanismo novo, máximo de 24 meses, com renovação
-exigindo evidência de efeito.
-
-**Meta anual de remoção**: ao menos um mecanismo removido por ano, com a justificativa registrada
-de que, sem meta explícita, o conjunto volta a crescer.
-
-**Quem propõe, opera.** Todo mecanismo novo é operado pela pessoa ou área que o propôs, pelos
-primeiros seis meses.
-
-Resultados após 12 meses:
+Nos 24 meses seguintes:
 
 ```text
-mecanismos                                    34 → 15
-tempo médio de aprovação de projeto novo      de 26 para 4 dias
-incidentes atribuíveis a mecanismo removido    1 — o de dependências,
-                                              restabelecido
-"burocracia" como principal obstáculo na
-  pesquisa interna                            de 1º para 6º lugar
-mecanismos propostos no período                7
-propostos e retirados pelo próprio autor
-  após operá-los                               2
+credenciais bloqueadas antes do envio        41
+credenciais que chegaram ao repositório       0
+atraso adicionado ao processo de entrega      0
+revisões humanas de segurança realizadas     23 (das 12/ano previstas
+                                             mais exceções)
 ```
 
-Os dois retirados pelo próprio autor são o resultado que a organização mais valoriza: a regra de
-"quem propõe, opera" fez com que duas propostas fossem abandonadas por quem as tinha feito,
-depois de sentir o custo.
+Na renovação, aos 24 meses, o dono apresentou os números e o mecanismo foi mantido — com o escopo
+das revisões humanas ampliado para incluir integrações com parceiros externos, que tinham
+aparecido como lacuna.
 
-A avaliação posterior aponta: a suspensão temporária foi o instrumento decisivo. Discutir se um
-mecanismo é necessário produz argumentos indefinidamente; suspendê-lo por três meses produz
-evidência em três meses.
+O aprendizado que ficou: a pergunta "qual é o ponto de intervenção mais cedo viável?" transformou
+uma proposta de quatro anos-pessoa de atraso anual num mecanismo de custo zero. E ela custou duas
+semanas de espera — que foi a parte politicamente difícil, porque logo após um incidente a
+pressão é por agir, não por desenhar.
 
 ## Conceitos Relacionados
 
