@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**400 de 437 documentos planejados escritos (92%).**
+**413 de 437 documentos planejados escritos (95%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -39,7 +39,7 @@ mas já tem índice publicado explicando o que virá.
 | `19-architecture-governance` | 06 | 11 / 11 | `██████████` 100% |
 | `20-trade-offs` | 05 | 16 / 16 | `██████████` 100% |
 | `21-case-studies` | Transv. | 15 / 15 | `██████████` 100% |
-| `22-system-design-interviews` | Transv. | 1 / 14 | `█░░░░░░░░░` 7% |
+| `22-system-design-interviews` | Transv. | 14 / 14 | `██████████` 100% |
 | `23-architecture-leadership` | 07 | 1 / 24 | `░░░░░░░░░░` 4% |
 
 ## Legenda
@@ -484,7 +484,20 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Case: Plataforma SaaS](docs/21-case-studies/saas-platform.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Rede Social](docs/21-case-studies/social-network.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Streaming de Vídeo](docs/21-case-studies/video-streaming.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Cálculo de Guardanapo](docs/22-system-design-interviews/back-of-envelope.md) | concept | intermediário | `capacity-estimation` | ⬜ |
+| 🟩 | [Identificação de Gargalo](docs/22-system-design-interviews/bottleneck-identification.md) | concept | intermediário | `high-level-architecture` | ⬜ |
+| 🟩 | [Estimativa em Entrevista](docs/22-system-design-interviews/capacity-estimation.md) | concept | intermediário | `functional-vs-nonfunctional` | ⬜ |
+| 🟩 | [Comunicação de Trade-offs](docs/22-system-design-interviews/communicating-tradeoffs.md) | concept | intermediário | `high-level-architecture` | ⬜ |
+| 🟩 | [Tratamento de Falhas na Entrevista](docs/22-system-design-interviews/failure-handling.md) | concept | intermediário | `high-level-architecture` | ⬜ |
+| 🟩 | [Requisitos Funcionais vs. Não Funcionais](docs/22-system-design-interviews/functional-vs-nonfunctional.md) | concept | intermediário | `requirement-clarification` | ⬜ |
+| 🟩 | [Arquitetura de Alto Nível](docs/22-system-design-interviews/high-level-architecture.md) | concept | intermediário | `interview-data-modeling` | ⬜ |
 | 🟩 | [Entrevistas de System Design](docs/22-system-design-interviews/index.md) | index | intermediário | `system-design` | ⬜ |
+| 🟩 | [Desenho de API na Entrevista](docs/22-system-design-interviews/interview-api-design.md) | concept | intermediário | `functional-vs-nonfunctional` | ⬜ |
+| 🟩 | [Erros Comuns](docs/22-system-design-interviews/interview-common-mistakes.md) | concept | intermediário | `interview-structure` | ⬜ |
+| 🟩 | [Modelagem de Dados na Entrevista](docs/22-system-design-interviews/interview-data-modeling.md) | concept | intermediário | `interview-api-design` | ⬜ |
+| 🟩 | [Escala na Entrevista](docs/22-system-design-interviews/interview-scaling.md) | concept | intermediário | `bottleneck-identification` | ⬜ |
+| 🟩 | [Estrutura da Entrevista](docs/22-system-design-interviews/interview-structure.md) | concept | intermediário | `requirement-clarification` | ⬜ |
+| 🟩 | [Clarificação de Requisitos](docs/22-system-design-interviews/requirement-clarification.md) | concept | intermediário | `system-design` | ⬜ |
 | 🟩 | [Glossário](docs/glossary.md) | reference | iniciante | — | ⬜ |
 | 🟩 | [Como Usar](docs/how-to-use.md) | index | iniciante | — | ⬜ |
 | 🟩 | [Política Terminológica](docs/i18n-terminology.md) | reference | iniciante | — | ⬜ |

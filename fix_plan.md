@@ -8,9 +8,9 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 396 de 432 (92%) |
-| Seções pendentes | 2 de 23 |
-| Próxima tarefa | `22-system-design-interviews` → `requirement-clarification.md` |
+| Escrito | 409 de 432 (95%) |
+| Seções pendentes | 1 de 23 |
+| Próxima tarefa | `23-architecture-leadership` → `architecture-leadership-basics.md` |
 
 ## Como usar
 
@@ -27,24 +27,6 @@ A ordem respeita o grafo de pré-requisitos: seções de nível mais baixo prime
 e dentro de cada seção a ordem pedagógica do currículo.
 
 ## Pendências
-
-### 22-system-design-interviews — Entrevistas de System Design
-
-Transversal · faltam 13 de 14 · spec: [`specs/22-system-design-interviews.md`](specs/22-system-design-interviews.md)
-
-- [ ] `requirement-clarification.md`
-- [ ] `functional-vs-nonfunctional.md`
-- [ ] `capacity-estimation.md`
-- [ ] `back-of-envelope.md`
-- [ ] `interview-api-design.md`
-- [ ] `interview-data-modeling.md`
-- [ ] `high-level-architecture.md`
-- [ ] `bottleneck-identification.md`
-- [ ] `interview-scaling.md`
-- [ ] `failure-handling.md`
-- [ ] `communicating-tradeoffs.md`
-- [ ] `interview-structure.md`
-- [ ] `interview-common-mistakes.md`
 
 ### 23-architecture-leadership — Liderança em Arquitetura
 

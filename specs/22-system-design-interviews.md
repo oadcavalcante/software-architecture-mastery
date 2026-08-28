@@ -5,7 +5,7 @@
 | Diretório | `docs/22-system-design-interviews/` |
 | Nível | Transversal |
 | `doc_type` previsto | `concept · pattern · foundation` |
-| Progresso | 0 / 13 (0%) |
+| Progresso | 13 / 13 (100%) |
 | Índice de seção | 🟩 escrito |
 
 ## Escopo
@@ -15,19 +15,19 @@ Esta seção está completa quando os 13 tópicos abaixo existem com
 
 | | Tópico |
 |:-:|---|
-| ⬜ | `requirement-clarification` |
-| ⬜ | `functional-vs-nonfunctional` |
-| ⬜ | `capacity-estimation` |
-| ⬜ | `back-of-envelope` |
-| ⬜ | `interview-api-design` |
-| ⬜ | `interview-data-modeling` |
-| ⬜ | `high-level-architecture` |
-| ⬜ | `bottleneck-identification` |
-| ⬜ | `interview-scaling` |
-| ⬜ | `failure-handling` |
-| ⬜ | `communicating-tradeoffs` |
-| ⬜ | `interview-structure` |
-| ⬜ | `interview-common-mistakes` |
+| 🟩 | `requirement-clarification` |
+| 🟩 | `functional-vs-nonfunctional` |
+| 🟩 | `capacity-estimation` |
+| 🟩 | `back-of-envelope` |
+| 🟩 | `interview-api-design` |
+| 🟩 | `interview-data-modeling` |
+| 🟩 | `high-level-architecture` |
+| 🟩 | `bottleneck-identification` |
+| 🟩 | `interview-scaling` |
+| 🟩 | `failure-handling` |
+| 🟩 | `communicating-tradeoffs` |
+| 🟩 | `interview-structure` |
+| 🟩 | `interview-common-mistakes` |
 
 ## Critério de conclusão
 

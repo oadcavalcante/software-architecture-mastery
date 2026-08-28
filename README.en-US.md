@@ -9,8 +9,8 @@ Not a catalog of patterns. The reasoning that decides when *not* to use them.
 [![CI](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml/badge.svg)](https://github.com/oadcavalcante/software-architecture-mastery/actions/workflows/ci.yml)
 [![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://software-architecture-mastery.vercel.app)
 <!-- BADGES:PROGRESS -->
-![progress](https://img.shields.io/badge/progress-92%25-blue)
-![documents](https://img.shields.io/badge/documents-400%2F437-informational)
+![progress](https://img.shields.io/badge/progress-95%25-blue)
+![documents](https://img.shields.io/badge/documents-413%2F437-informational)
 <!-- /BADGES:PROGRESS -->
 ![License](https://img.shields.io/badge/content-CC%20BY--SA%204.0-green)
 ![Code](https://img.shields.io/badge/code-MIT-green)
@@ -100,7 +100,7 @@ code → design → systems → distributed systems → architecture → enterpr
 | 05 | Architecture (11 sections) | 🟩 166 topics |
 | 06 | Enterprise Architecture | 🟩 42 topics |
 | 07 | Architecture Leadership | ⬜ |
-| — | Case Studies · Interviews | 🟨 in progress |
+| — | Case Studies · Interviews | 🟩 27 topics |
 <!-- /PROGRESS:TABLE -->
 
 Per-document status is in **[ROADMAP.md](ROADMAP.md)**, generated from front
