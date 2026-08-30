@@ -68,6 +68,22 @@ function baseDirFor(locale) {
   return locale === CANONICAL_LOCALE ? DOCS_DIR : translationDir(locale);
 }
 
+/**
+ * Caminho equivalente no locale canônico.
+ *
+ * O Docusaurus serve o documento em pt-BR quando a tradução não existe
+ * (SPEC.md §5.3: a tradução é progressiva e ⬜ é estado válido). Um link de um
+ * documento em en-US para uma página ainda não traduzida resolve em tempo de
+ * execução — tratá-lo como quebrado obrigaria a traduzir o corpus inteiro numa
+ * única passagem, que é exatamente o que a política de tradução recusa.
+ *
+ * Só se aplica a locales não canônicos: em pt-BR não há para onde cair.
+ */
+function canonicalFallback(doc, base, abs) {
+  if (doc.locale === CANONICAL_LOCALE) return abs;
+  return join(DOCS_DIR, relative(base, abs));
+}
+
 function checkLinks(doc, byLocale, report) {
   const base = baseDirFor(doc.locale);
   const here = dirname(doc.absPath);
@@ -95,7 +111,7 @@ function checkLinks(doc, byLocale, report) {
 
     // Arquivo de documentação: precisa existir e a âncora precisa bater.
     if (/\.mdx?$/.test(pathPart)) {
-      if (!existsSync(abs)) {
+      if (!existsSync(abs) && !existsSync(canonicalFallback(doc, base, abs))) {
         report.error(doc.repoPath, `link para arquivo inexistente: ${pathPart}`);
         continue;
       }

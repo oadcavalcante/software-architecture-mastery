@@ -109,23 +109,25 @@ already made.
 
 ## Where to start
 
-If you build software and want to understand architecture, start at **Level 01 —
-Foundation** in the sidebar and follow the order.
+If you build software and want to understand architecture, start at
+[Level 01](01-fundamentals/index.md) and follow the order.
 
-If you are already an architect looking for specific material, **Trade-offs** and
-**Case Studies** can be read on their own: the first is fifteen recurring
-decisions with the axis that settles each one, and the second is fourteen worked
-architectures with the options that were discarded.
+If you are already an architect looking for specific material,
+[Trade-offs](20-trade-offs/index.md) and [Case Studies](21-case-studies/index.md)
+can be read on their own: the first is fifteen recurring decisions with the axis
+that settles each one, and the second is fourteen worked architectures with the
+options that were discarded.
 
-If you are preparing for interviews, **System Design Interviews** is the method,
+If you are preparing for interviews,
+[System Design Interviews](22-system-design-interviews/index.md) is the method,
 and the case studies are the same reasoning without time pressure.
 
-And **How to use** explains the fixed structure every document follows — the same
-in all 437 — which is what makes reading by lookup possible without losing
-context.
+And [How to use](how-to-use.md) explains the fixed structure every document
+follows — the same in all of them — which is what makes reading by lookup
+possible without losing context.
 
-Sections still awaiting translation are served in Portuguese; the sidebar shows
-the full track either way.
+Pages not yet translated are served in Portuguese; the sidebar shows the full
+track either way.
 
 ## Acceptance test
 

@@ -130,6 +130,38 @@ describe('check-links', () => {
     );
   });
 
+  // O Docusaurus serve a versão pt-BR de uma página ainda não traduzida
+  // (SPEC.md §5.3). Tratar esse link como quebrado obrigaria a traduzir o corpus
+  // inteiro numa passagem, que é o oposto da política de tradução progressiva.
+  test('aceita link de en-US para página ainda não traduzida', () => {
+    ok(check('check-links.mjs', {
+      'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n',
+      'docs/b.md': frontmatter({id: 'b'}) + '\n# B\n',
+      'i18n/en-US/docusaurus-plugin-content-docs/current/a.md':
+        frontmatter({id: 'a'}) + '\n# A\n\nSee [B](b.md).\n',
+    }));
+  });
+
+  test('ainda rejeita link de en-US para página que não existe em locale nenhum', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n',
+        'i18n/en-US/docusaurus-plugin-content-docs/current/a.md':
+          frontmatter({id: 'a'}) + '\n# A\n\nSee [ghost](ghost.md).\n',
+      }),
+      /link para arquivo inexistente/,
+    );
+  });
+
+  test('em pt-BR não há fallback: link quebrado continua quebrado', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\nVeja [b](b.md).\n',
+      }),
+      /link para arquivo inexistente/,
+    );
+  });
+
   test('aceita diagrama mermaid válido', () => {
     ok(check('check-links.mjs', {
       'docs/a.md': frontmatter({id: 'a'})
