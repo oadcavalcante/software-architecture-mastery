@@ -184,4 +184,21 @@ describe('check-terminology — falsos positivos sistêmicos', () => {
       /traduz "sharding" como "estilhaçamento"/,
     );
   });
+
+  // Homóglifo: "Strangler" com о cirílico passa por leitura humana e por
+  // corretor, e quebra busca e âncora. Apareceu numa tradução do glossário.
+  test('rejeita letra de outro alfabeto dentro de palavra latina', () => {
+    fails(
+      check('check-terminology.mjs', {
+        'docs/exemplo.md': doc('# X\n\nO padrão Str\u0430ngler Fig substitui aos poucos.\n'),
+      }),
+      /outro alfabeto/,
+    );
+  });
+
+  test('aceita a mesma palavra escrita só com letras latinas', () => {
+    ok(check('check-terminology.mjs', {
+      'docs/exemplo.md': doc('# X\n\nO padrão Strangler Fig substitui aos poucos.\n'),
+    }));
+  });
 });

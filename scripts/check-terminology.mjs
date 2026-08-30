@@ -138,10 +138,39 @@ function checkTranslatedDoc(doc, report) {
   }
 }
 
+/**
+ * Letra de outro alfabeto no meio de palavra latina.
+ *
+ * "Strangler" digitado com о cirílico é indistinguível de "Strangler" para o
+ * leitor, passa por revisão humana e por corretor ortográfico, e quebra busca e
+ * âncora. O risco é real num corpus bilíngue produzido em volume — este caso
+ * apareceu numa tradução do glossário.
+ *
+ * A verificação é de escrita mista dentro da mesma palavra: um documento inteiro
+ * em outro alfabeto seria legítimo; uma palavra latina com uma letra cirílica ou
+ * grega no meio, não.
+ */
+const MIXED_SCRIPT_WORD = /[A-Za-zÀ-ÿ]+[\u0370-\u03ff\u0400-\u04ff]|[\u0370-\u03ff\u0400-\u04ff][A-Za-zÀ-ÿ]+/u;
+
+function checkMixedScript(doc, report) {
+  for (const word of doc.body.split(/\s+/)) {
+    if (MIXED_SCRIPT_WORD.test(word)) {
+      const clean = word.replace(/[^\p{L}]/gu, '');
+      report.error(
+        doc.repoPath,
+        `letra de outro alfabeto dentro de palavra latina: "${clean}" — ` +
+          'invisível ao leitor, quebra busca e âncora',
+      );
+      return;
+    }
+  }
+}
+
 const report = new Report('terminology');
 const all = loadAll();
 
 for (const doc of all) {
+  checkMixedScript(doc, report);
   if (doc.locale === CANONICAL_LOCALE) checkCanonicalDoc(doc, report);
   else checkTranslatedDoc(doc, report);
 }
