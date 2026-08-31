@@ -356,7 +356,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Conceitos de SRE](docs/13-observability/sre-concepts.md) | concept | avançado | `observability` | 🟩 |
 | 🟩 | [Telemetria](docs/13-observability/telemetry.md) | concept | avançado | `observability` | 🟩 |
 | 🟩 | [Traces](docs/13-observability/traces.md) | concept | intermediário | `observability` | 🟩 |
-| 🟩 | [Blue-Green](docs/14-devops-and-platform/blue-green.md) | pattern | intermediário | `deployment-strategies` | ⬜ |
+| 🟩 | [Blue-Green](docs/14-devops-and-platform/blue-green.md) | pattern | intermediário | `deployment-strategies` | 🟩 |
 | 🟩 | [Canary](docs/14-devops-and-platform/canary.md) | pattern | avançado | `deployment-strategies` | 🟩 |
 | 🟩 | [Integração e Entrega Contínuas](docs/14-devops-and-platform/ci-cd.md) | concept | intermediário | `devops-and-platform` | 🟩 |
 | 🟩 | [Contêineres na Entrega](docs/14-devops-and-platform/containers-in-delivery.md) | concept | intermediário | `ci-cd` | ⬜ |
@@ -368,7 +368,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Plataformas Internas](docs/14-devops-and-platform/internal-developer-platforms.md) | concept | avançado | `platform-engineering` | 🟩 |
 | 🟩 | [Engenharia de Plataforma](docs/14-devops-and-platform/platform-engineering.md) | concept | avançado | `devops-and-platform` | ⬜ |
 | 🟩 | [Gestão de Releases](docs/14-devops-and-platform/release-management.md) | concept | intermediário | `ci-cd` | ⬜ |
-| 🟩 | [Implantação em Ondas](docs/14-devops-and-platform/rolling-deployments.md) | pattern | intermediário | `deployment-strategies` | ⬜ |
+| 🟩 | [Implantação em Ondas](docs/14-devops-and-platform/rolling-deployments.md) | pattern | intermediário | `deployment-strategies` | 🟩 |
 | 🟩 | [Segurança da Esteira](docs/14-devops-and-platform/supply-chain-security.md) | concept | avançado | `ci-cd` | ⬜ |
 | 🟩 | [Descrições de Arquitetura](docs/17-architecture-documentation/architecture-descriptions.md) | concept | avançado | `architecture-views` | ⬜ |
 | 🟩 | [Visões de Arquitetura](docs/17-architecture-documentation/architecture-views.md) | concept | avançado | `c4-model` | ⬜ |
