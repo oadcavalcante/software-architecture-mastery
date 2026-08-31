@@ -163,15 +163,15 @@ balanceador tira todas de serviço.
 
 ## Erros Comuns
 
-**Discutir algoritmo antes de verificação de saúde.**
+**Discutir algoritmo antes de verificação de saúde.** A escolha entre round robin e menor número de conexões muda pouco; mandar tráfego para instância doente muda tudo. A ordem da conversa está invertida na maioria dos times.
 
-**Uma verificação só, servindo a balanceador e a alerta.**
+**Uma verificação só, servindo a balanceador e a alerta.** São perguntas diferentes: o balanceador pergunta "posso mandar tráfego agora?" e o alerta pergunta "algo está errado?". Unificá-las produz ou remoção agressiva demais ou alerta tardio.
 
-**Não configurar aumento gradual nem desligamento gracioso.**
+**Não configurar aumento gradual nem desligamento gracioso.** A instância nova recebe carga plena antes de aquecer cache e conexões, e a que sai derruba as requisições em andamento. Os dois aparecem como erro do cliente durante toda implantação.
 
-**Usar afinidade em vez de remover estado local.**
+**Usar afinidade em vez de remover estado local.** A afinidade resolve o sintoma e preserva a causa: a instância continua insubstituível, o que reaparece como perda de sessão em cada falha e como desequilíbrio de carga.
 
-**Esquecer que o balanceador tem limite de capacidade.**
+**Esquecer que o balanceador tem limite de capacidade.** Ele é um componente com limite de conexões e de banda como qualquer outro — e é o ponto por onde todo o tráfego passa, então saturá-lo derruba o conjunto inteiro que ele deveria proteger.
 
 ## Exemplo Real
 

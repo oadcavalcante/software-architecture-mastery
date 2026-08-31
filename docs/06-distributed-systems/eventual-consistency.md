@@ -189,15 +189,15 @@ escrita perdida era a importante.
 
 ## Erros Comuns
 
-**Adotar sem decisão de negócio.**
+**Adotar sem decisão de negócio.** Quem aceita a janela de inconsistência é quem responde pela consequência dela. Engenharia informa o custo de fechá-la; não decide sozinha que ela é tolerável.
 
-**Não implementar garantias de sessão.**
+**Não implementar garantias de sessão.** Sem leia-suas-escritas, o usuário salva uma alteração, recarrega a página e vê o valor antigo — que é indistinguível de defeito, e é o relato de bug mais comum em sistemas eventualmente consistentes.
 
-**Não monitorar o atraso.**
+**Não monitorar o atraso.** A janela de replicação é um número que varia com a carga. Sem medi-lo, ninguém sabe se hoje ela é de milissegundos ou de minutos, e a suposição usada no projeto nunca é verificada.
 
-**Aceitar a resolução de conflito padrão sem entendê-la.**
+**Aceitar a resolução de conflito padrão sem entendê-la.** O padrão costuma ser último a escrever vence, que descarta dados silenciosamente — e a decisão de qual escrita perder acaba sendo tomada pelo relógio de uma máquina.
 
-**Não comunicar o atraso na interface.**
+**Não comunicar o atraso na interface.** "Processando" é honesto e barato; mostrar um valor desatualizado como se fosse definitivo transfere para o usuário uma incerteza que ele não tem como resolver.
 
 ## Exemplo Real
 

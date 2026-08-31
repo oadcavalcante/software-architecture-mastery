@@ -204,15 +204,15 @@ saiu.
 
 ## Erros Comuns
 
-**Assumir que o broker resolve.**
+**Assumir que o broker resolve.** A duplicata que importa nasce da retentativa do produtor e do reenvio após falha do consumidor — os dois pontos fora do alcance do broker.
 
-**Deduplicar pelo identificador da mensagem.**
+**Deduplicar pelo identificador da mensagem.** O produtor que reenvia gera um identificador novo para a mesma intenção de negócio. A chave precisa vir do domínio — o identificador do pedido, não o do envelope.
 
-**Verificar e processar em transações separadas.**
+**Verificar e processar em transações separadas.** Entre a consulta "já processei?" e a gravação existe uma janela em que a segunda cópia também consulta e também recebe não. Duas cópias concorrentes passam pela verificação.
 
-**Não considerar reprocessamento deliberado ao dimensionar a janela.**
+**Não considerar reprocessamento deliberado ao dimensionar a janela.** Uma janela de deduplicação de 24 horas bloqueia o reprocesso de sete dias que a correção de um defeito exige — ou o libera para duplicar tudo.
 
-**Não expirar as chaves.**
+**Não expirar as chaves.** O armazenamento de deduplicação cresce sem limite e vira, ele próprio, o gargalo do consumidor que deveria proteger.
 
 ## Exemplo Real
 

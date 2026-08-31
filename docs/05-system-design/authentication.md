@@ -171,15 +171,15 @@ forja identidade.
 
 ## Erros Comuns
 
-**Colocar dado sensível no token.**
+**Colocar dado sensível no token.** O conteúdo de um JWT é codificado, não cifrado: qualquer pessoa com o token lê tudo que há nele, incluindo o que foi posto ali "só para evitar uma consulta".
 
-**Expiração longa sem mecanismo de revogação.**
+**Expiração longa sem mecanismo de revogação.** Um token válido por 24 horas é um acesso de 24 horas para quem o roubou, e demitir alguém não encerra a sessão dessa pessoa.
 
-**Confiar em cabeçalho injetado sem verificar a origem.**
+**Confiar em cabeçalho injetado sem verificar a origem.** Se o serviço aceita `X-User-Id` porque "vem do gateway", qualquer chamada que alcance a rede interna passa a poder se declarar qualquer usuário.
 
-**Reusar o token do usuário entre serviços internos.**
+**Reusar o token do usuário entre serviços internos.** O token vaza para todos os serviços da cadeia, e cada um deles vira um ponto onde a credencial do usuário pode ser capturada ou reutilizada além do seu escopo.
 
-**Não planejar rotação de chave.**
+**Não planejar rotação de chave.** Quando a rotação vira urgente — suspeita de vazamento — o sistema que não a preparou precisa escolher entre invalidar todas as sessões de uma vez e conviver com a chave comprometida.
 
 ## Exemplo Real
 

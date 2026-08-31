@@ -193,15 +193,15 @@ limite, é um laço mais lento.
 
 ## Erros Comuns
 
-**Configurar e não alertar.**
+**Configurar e não alertar.** A fila enche em silêncio e a descoberta acontece quando um cliente reclama de um pedido que sumiu, semanas depois.
 
-**Não incluir o erro junto com a mensagem.**
+**Não incluir o erro junto com a mensagem.** Sem a exceção, o carimbo de tempo e a tentativa em que falhou, quem investiga precisa reproduzir o problema para descobrir o que aconteceu — e frequentemente não consegue.
 
-**Não definir dono.**
+**Não definir dono.** Uma fila de mensagens mortas sem responsável nomeado não é esvaziada por ninguém; ela vira um cemitério que todos veem no painel e ninguém abre.
 
-**Reprocessar sem idempotência.**
+**Reprocessar sem idempotência.** A mensagem chegou ali porque falhou depois de ter efeito parcial. Reenviá-la sem proteção repete o efeito que deu certo e duplica cobrança, estoque ou notificação.
 
-**Não medir há quanto tempo as mensagens estão lá.**
+**Não medir há quanto tempo as mensagens estão lá.** A contagem não distingue cinco mensagens de hoje de cinco paradas há dois meses, e são situações completamente diferentes. A idade da mais antiga é a métrica útil.
 
 ## Exemplo Real
 

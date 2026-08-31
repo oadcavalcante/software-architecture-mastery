@@ -194,15 +194,15 @@ vez; o efeito externo duplica mesmo assim.
 
 ## Erros Comuns
 
-**Assumir que a ferramenta resolve.**
+**Assumir que a ferramenta resolve.** Nenhum broker entrega exatamente uma vez de ponta a ponta: ele garante o próprio trecho, e o efeito no seu banco continua sendo responsabilidade sua.
 
-**Não ler o escopo da garantia anunciada.**
+**Não ler o escopo da garantia anunciada.** "Exatamente uma vez" costuma valer dentro do próprio sistema, entre partições que ele controla, e não para o consumidor que grava num banco externo.
 
-**Tratar idempotência como opcional.**
+**Tratar idempotência como opcional.** Ela é o que transforma ao menos uma vez em efeito único, e é a única defesa que não depende de nenhuma promessa de infraestrutura.
 
-**Não considerar no máximo uma vez onde ela caberia.**
+**Não considerar no máximo uma vez onde ela caberia.** Telemetria e métricas toleram perda, e aceitar isso explicitamente elimina retentativa, deduplicação e armazenamento de estado — uma economia grande que raramente é avaliada.
 
-**Confirmar antes de processar.**
+**Confirmar antes de processar.** Confirmar o recebimento e falhar em seguida converte ao menos uma vez em no máximo uma vez sem que ninguém tenha decidido isso, e a mensagem se perde silenciosamente.
 
 ## Exemplo Real
 
