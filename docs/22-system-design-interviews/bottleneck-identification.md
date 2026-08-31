@@ -186,15 +186,15 @@ a segunda resposta vale mais que a primeira.
 
 ## Quando Não Usar
 
-**Sem números propagados.**
+**Sem números propagados.** Sem levar a estimativa de carga até cada componente, a identificação do gargalo é palpite — e o entrevistador percebe.
 
-**Escalando tudo uniformemente.**
+**Escalando tudo uniformemente.** Dobrar todos os componentes gasta orçamento imaginário e não demonstra raciocínio; o valor está em apontar qual satura primeiro.
 
-**Resolvendo gargalos que não existem** na escala dada.
+**Resolvendo gargalos que não existem** na escala dada. Propor particionamento para um volume que cabe numa instância mostra reflexo, não análise.
 
-**Sem distinguir capacidade de estrutura.**
+**Sem distinguir capacidade de estrutura.** Falta de capacidade se resolve com mais máquina; problema estrutural, não. Confundi-los leva a propor escala onde a resposta era mudar o modelo.
 
-**Ignorando dependências externas.**
+**Ignorando dependências externas.** Limite de taxa de terceiro e cota de provedor costumam saturar antes da sua própria infraestrutura, e não são elásticos.
 
 E há um uso errado da própria técnica: buscar gargalo antes de o desenho estar completo. Analisar
 saturação de um fluxo pela metade produz conclusões sobre um sistema que não existe, e consome o

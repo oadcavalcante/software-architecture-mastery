@@ -220,15 +220,15 @@ informação.** Envolver cedo custa menos que convencer tarde.
 
 ## Erros Comuns
 
-**Não mapear** antes de começar.
+**Não mapear** antes de começar. Descobrir na véspera da decisão que uma área tinha poder de veto custa o trabalho inteiro.
 
-**Envolver segurança no fim.**
+**Envolver segurança no fim.** Chega como veto quando mudar já é caro. Consultada cedo, a mesma área entrega restrições que caberiam no desenho.
 
-**Apresentar tudo na moeda de engenharia.**
+**Apresentar tudo na moeda de engenharia.** Latência e acoplamento não movem quem aprova orçamento; receita, risco e prazo movem.
 
-**Não fazer as conversas individuais.**
+**Não fazer as conversas individuais.** Objeção descoberta na reunião grande vira disputa pública. Descoberta antes, vira ajuste.
 
-**Não dizer explicitamente** quem decide.
+**Não dizer explicitamente** quem decide. Sem isso, todos supõem que opinaram e decidiram — e a decisão é reaberta toda vez que alguém se sente ignorado.
 
 ## Exemplo Real
 

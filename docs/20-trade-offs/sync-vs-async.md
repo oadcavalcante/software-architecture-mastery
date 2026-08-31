@@ -264,15 +264,15 @@ A última é a alternativa mais barata quando o problema é apenas resiliência 
 
 ## Erros Comuns
 
-**Não calcular a disponibilidade composta** de uma cadeia.
+**Não calcular a disponibilidade composta** de uma cadeia. Cinco dependências síncronas a 99,9% entregam 99,5% ao usuário — e o número de cada uma parecia aceitável isoladamente.
 
-**Adotar assíncrono sem mudar o produto.**
+**Adotar assíncrono sem mudar o produto.** O estado intermediário precisa existir na interface e no vocabulário do negócio. Escondê-lo transfere a ambiguidade para o suporte.
 
-**Esquecer idempotência.**
+**Esquecer idempotência.** Entrega ao menos uma vez é o padrão, e sem proteção cada reentrega repete o efeito.
 
-**Não definir prazo para estado pendente.**
+**Não definir prazo para estado pendente.** Sem expiração, registros ficam pendentes para sempre e ninguém sabe se ainda estão sendo processados ou se morreram.
 
-**Tornar assíncrona uma consulta.**
+**Tornar assíncrona uma consulta.** Quem pergunta precisa da resposta agora; assincronia serve para trabalho, não para leitura.
 
 ## Exemplo Real
 

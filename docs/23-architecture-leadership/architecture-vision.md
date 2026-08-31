@@ -188,17 +188,17 @@ orientar decisão nenhuma.
 
 ## Quando Não Usar
 
-**Como declaração de adjetivos.**
+**Como declaração de adjetivos.** "Moderna, escalável e segura" não elimina nenhuma opção e não orienta nenhuma decisão.
 
-**Como diagrama detalhado do estado futuro.**
+**Como diagrama detalhado do estado futuro.** Detalhe demais envelhece em meses e transforma a visão em plano — que é outra coisa, com outro ciclo de revisão.
 
-**Sem o porquê.**
+**Sem o porquê.** Uma visão sem o problema que ela resolve não sobrevive à primeira pergunta difícil, e não pode ser reavaliada quando o contexto mudar.
 
-**Sem dizer o que não é.**
+**Sem dizer o que não é.** Sem fronteira declarada, cada time lê a visão como autorização para o que já queria fazer.
 
-**Sem dono e sem revisão.**
+**Sem dono e sem revisão.** Visão sem responsável não é atualizada, e uma visão desatualizada orienta na direção errada com a mesma autoridade.
 
-**Enunciada uma vez** e nunca repetida.
+**Enunciada uma vez** e nunca repetida. Ela precisa ser dita muitas vezes para virar critério compartilhado; enunciada num documento único, permanece desconhecida de quem decide no dia a dia.
 
 ## Alternativas
 

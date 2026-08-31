@@ -210,15 +210,15 @@ Compre quando:
 
 ## Quando Não Usar
 
-**Sem incluir custo de pessoal** na comparação.
+**Sem incluir custo de pessoal** na comparação. Construir consome engenheiros durante anos, não só no primeiro ano — e esse é quase sempre o maior item da conta.
 
-**Sem testar se a capacidade é mesmo diferenciadora.**
+**Sem testar se a capacidade é mesmo diferenciadora.** O teste é direto: um cliente escolheria a empresa por causa disso? Se não, construir é gastar a capacidade que diferenciaria em algo que não diferencia.
 
-**Construindo para evitar processo de compra.**
+**Construindo para evitar processo de compra.** A decisão passa a ser tomada pela burocracia, não pelo mérito — e o custo do atrito de compra é pago por anos de manutenção.
 
-**Comprando o que é o produto.**
+**Comprando o que é o produto.** Terceirizar o núcleo entrega ao fornecedor o ritmo de evolução daquilo que a empresa vende.
 
-**Sem avaliar custo de saída** do fornecedor.
+**Sem avaliar custo de saída** do fornecedor. É o que transforma uma decisão reversível em irreversível, e é a pergunta que precisa ser feita antes de assinar.
 
 ## Alternativas
 

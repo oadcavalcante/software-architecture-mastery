@@ -253,15 +253,15 @@ para o que varia, um só banco a operar.
 
 ## Erros Comuns
 
-**Decidir pela família de banco antes de listar os padrões de acesso.**
+**Decidir pela família de banco antes de listar os padrões de acesso.** Bancos orientados a chave exigem modelar a partir das consultas; escolher primeiro obriga a descobrir depois que a consulta necessária não é expressável.
 
-**Não perguntar se haverá consulta não prevista.**
+**Não perguntar se haverá consulta não prevista.** É a distinção decisiva: o relacional responde bem ao que ninguém antecipou; o desnormalizado, não.
 
-**Não contar o custo do segundo banco.**
+**Não contar o custo do segundo banco.** Backup, monitoramento, atualização e uma competência a manter no time são custo recorrente que não aparece na comparação de desempenho.
 
-**Ignorar JSON em banco relacional** como opção.
+**Ignorar JSON em banco relacional** como opção. Ela cobre boa parte do que se busca em documento sem abrir mão de transação, junção e consulta ad hoc — e raramente entra na lista.
 
-**Confundir problema de índice com problema de modelo.**
+**Confundir problema de índice com problema de modelo.** Trocar de banco por lentidão que um índice resolveria substitui uma tarde de trabalho por uma migração.
 
 ## Exemplo Real
 

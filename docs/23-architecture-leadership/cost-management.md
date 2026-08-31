@@ -217,15 +217,15 @@ frente à margem, o esforço de atribuição não se paga.
 
 ## Erros Comuns
 
-**Não estimar custo** em propostas arquiteturais.
+**Não estimar custo** em propostas arquiteturais. Proposta sem ordem de grandeza do custo operacional não pode ser comparada com as alternativas nem aprovada por quem paga.
 
-**Comparar fatura com fatura**, sem pessoas.
+**Comparar fatura com fatura**, sem pessoas. A opção mais barata em infraestrutura costuma ser a mais cara em plantão e manutenção, e a comparação que ignora isso escolhe errado.
 
-**Não medir unidade econômica.**
+**Não medir unidade econômica.** O custo total sobe quando a empresa cresce. Custo por pedido ou por usuário é o que distingue crescimento de desperdício.
 
-**Não revisitar decisões de retenção.**
+**Não revisitar decisões de retenção.** "Guardar tudo para sempre" é uma decisão de custo crescente tomada uma vez e nunca reexaminada.
 
-**Tratar toda redução como ganho.**
+**Tratar toda redução como ganho.** Cortar custo às custas de confiabilidade ou de velocidade de entrega transfere a despesa para outra linha, onde ela não é medida.
 
 ## Exemplo Real
 
