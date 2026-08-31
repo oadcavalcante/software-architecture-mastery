@@ -164,8 +164,8 @@ mas já tem índice publicado explicando o que virá.
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
 | 🟩 | [APIs](docs/05-system-design/apis.md) | concept | intermediário | `services` | 🟩 |
-| 🟩 | [Autenticação](docs/05-system-design/authentication.md) | concept | intermediário | `state-management` | ⬜ |
-| 🟩 | [Autorização](docs/05-system-design/authorization.md) | concept | intermediário | `authentication` | ⬜ |
+| 🟩 | [Autenticação](docs/05-system-design/authentication.md) | concept | intermediário | `state-management` | 🟩 |
+| 🟩 | [Autorização](docs/05-system-design/authorization.md) | concept | intermediário | `authentication` | 🟩 |
 | 🟩 | [Processamento em Background](docs/05-system-design/background-processing.md) | concept | intermediário | `queues` | 🟩 |
 | 🟩 | [Análise de Gargalos](docs/05-system-design/bottleneck-analysis.md) | concept | intermediário | `capacity-planning` | ⬜ |
 | 🟩 | [Cache](docs/05-system-design/caching.md) | concept | intermediário | `state-management` | 🟩 |
