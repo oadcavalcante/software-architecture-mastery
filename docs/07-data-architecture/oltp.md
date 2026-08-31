@@ -187,15 +187,15 @@ acelerar.
 
 ## Erros Comuns
 
-**Rodar relatório na base transacional.**
+**Rodar relatório na base transacional.** É a causa mais comum de lentidão inexplicada em horário comercial, e a mais fácil de descartar: basta olhar quais consultas longas rodam no pico.
 
-**Não separar as cargas até o sistema cair.**
+**Não separar as cargas até o sistema cair.** A separação é barata quando planejada e cara quando feita durante incidente, com o relatório já sendo cobrado pela diretoria.
 
-**Criar índice para toda consulta lenta sem avaliar o custo de escrita.**
+**Criar índice para toda consulta lenta sem avaliar o custo de escrita.** Cada índice é atualizado em toda inserção e atualização. Uma tabela com quinze índices tem escrita lenta, e o problema seguinte é atribuído ao banco, não à decisão que o causou.
 
-**Manter transação aberta durante chamada externa.**
+**Manter transação aberta durante chamada externa.** A transação segura bloqueios pelo tempo da resposta de terceiros — que pode ser o timeout inteiro. É como uma lentidão externa vira travamento interno.
 
-**Escolher armazenamento por reputação em vez do padrão de acesso.**
+**Escolher armazenamento por reputação em vez do padrão de acesso.** O que decide é a forma das consultas e a necessidade de transação, não a popularidade do produto no ano da escolha.
 
 ## Exemplo Real
 

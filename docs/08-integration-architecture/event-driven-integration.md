@@ -214,17 +214,17 @@ origem.
 
 ## Erros Comuns
 
-**Publicar o evento interno.**
+**Publicar o evento interno.** O evento de domínio carrega o modelo interno; publicá-lo faz cada consumidor depender dele, e o modelo passa a não poder mudar sem quebrar times que você não controla.
 
-**Nomear evento como comando.**
+**Nomear evento como comando.** `EnviarEmailDeBoasVindas` é uma ordem disfarçada: o publicador decidiu o que o consumidor faz. `ClienteCadastrado` deixa cada consumidor decidir se reage e como.
 
-**Não manter catálogo.**
+**Não manter catálogo.** Sem um lugar que liste os eventos, seus esquemas e quem os consome, ninguém consegue avaliar o impacto de uma mudança — e a avaliação acaba sendo feita em produção.
 
-**Não versionar.**
+**Não versionar.** O esquema vai mudar. Sem versão explícita e sem período de convivência, a mudança exige que todos os consumidores atualizem no mesmo instante — coordenação que o modelo por eventos existia para evitar.
 
-**Consumidor desserializando o evento inteiro.**
+**Consumidor desserializando o evento inteiro.** Exigir todos os campos faz o consumidor quebrar com a adição de um campo novo, que deveria ser mudança compatível. Ler só o que se usa é o que permite o publicador evoluir.
 
-**Confundir captura de mudanças do banco com integração por eventos.**
+**Confundir captura de mudanças do banco com integração por eventos.** Capturar alterações de tabela publica o esquema físico para fora. É acoplamento ao banco com aparência de evento — e o pior tipo, porque parece desacoplado.
 
 ## Exemplo Real
 

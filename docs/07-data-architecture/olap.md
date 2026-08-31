@@ -198,13 +198,13 @@ números dobram sem erro nenhum.
 
 ## Erros Comuns
 
-**Rodar analítico no transacional.**
+**Rodar analítico no transacional.** Uma varredura de meses de histórico compete por memória e disco com as transações do horário comercial, e degrada justamente o que não pode degradar.
 
-**Normalizar o modelo analítico.**
+**Normalizar o modelo analítico.** Normalização otimiza escrita e integridade; consulta analítica quer junções poucas e largas. Um modelo normalizado transforma uma pergunta simples numa junção de oito tabelas.
 
-**Montar plataforma analítica antes de o volume justificar.**
+**Montar plataforma analítica antes de o volume justificar.** Até certo tamanho, uma réplica de leitura com alguns índices responde tudo — sem carga, sem modelagem dimensional e sem mais um sistema para operar.
 
-**Não expor a data da última atualização nos painéis.**
+**Não expor a data da última atualização nos painéis.** Uma carga quebrada há três dias mostra exatamente a mesma tela de uma carga correta, e a decisão é tomada sobre dado velho sem que ninguém suspeite.
 
 **Carga sem idempotência.** Ver
 [idempotência](/06-distributed-systems/idempotency.md).

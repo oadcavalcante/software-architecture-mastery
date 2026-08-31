@@ -211,17 +211,17 @@ executado** é raro, e é o modo que passa despercebido por mais tempo.
 
 ## Erros Comuns
 
-**Não tornar reprocessável.**
+**Não tornar reprocessável.** Uma carga vai falhar no meio, e a operação normal depois disso é rodar de novo. Se rodar de novo duplica registros, a recuperação vira intervenção manual em produção.
 
-**Não monitorar o consumo da janela como tendência.**
+**Não monitorar o consumo da janela como tendência.** A carga que hoje leva duas horas de uma janela de seis chega ao limite por crescimento gradual. Sem a tendência, o aviso é a primeira noite em que ela não termina.
 
-**Não sobrepor a janela incremental.**
+**Não sobrepor a janela incremental.** Buscar exatamente desde a última execução perde registros gravados durante ela, por diferença de relógio ou por transação que confirmou depois. Sobrepor alguns minutos e depender de idempotência resolve.
 
-**Não definir política de falha parcial.**
+**Não definir política de falha parcial.** Cem mil registros e três inválidos: abortar tudo, ignorar os três, ou separá-los para revisão? Sem decisão prévia, cada execução resolve de um jeito.
 
-**Carregar tudo em memória.**
+**Carregar tudo em memória.** Funciona no volume atual e falha no dia em que a origem cresce — sem aviso prévio e sem que nada no código tenha mudado.
 
-**Não alertar sobre execução ausente.**
+**Não alertar sobre execução ausente.** O monitoramento vigia erro; um agendador que parou de disparar não produz erro nenhum, e a ausência é notada pelo dado desatualizado dias depois.
 
 ## Exemplo Real
 

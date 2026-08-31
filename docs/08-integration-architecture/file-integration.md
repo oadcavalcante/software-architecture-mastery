@@ -208,17 +208,17 @@ continua sendo o dado, e a chegada dele vira evento.
 
 ## Erros Comuns
 
-**Não escrever de forma atômica.**
+**Não escrever de forma atômica.** O consumidor encontra o arquivo pela metade e processa dados truncados. Escrever com nome temporário e renomear ao final elimina a janela.
 
-**Não registrar arquivos já processados.**
+**Não registrar arquivos já processados.** Um reenvio da origem ou uma releitura após falha reprocessa o mesmo conteúdo, e o efeito duplica.
 
-**Não alertar sobre ausência.**
+**Não alertar sobre ausência.** O arquivo que não chegou não gera erro em lugar nenhum. A verificação precisa ser pela expectativa — devia ter chegado até as 6h e não chegou.
 
-**Não conferir contagem e totais.**
+**Não conferir contagem e totais.** Transferência truncada produz arquivo sintaticamente válido com menos registros. Sem conferir o rodapé contra o processado, a perda é silenciosa.
 
-**Não fixar codificação e formato de data no contrato.**
+**Não fixar codificação e formato de data no contrato.** É onde a integração por arquivo quebra na prática: acento vira caractere inválido e 03/04 é lido como quatro de março de um lado e três de abril do outro.
 
-**Não definir retenção nem apagar os arquivos processados.**
+**Não definir retenção nem apagar os arquivos processados.** O diretório cresce até a listagem ficar lenta, e a varredura para achar o que é novo passa a custar mais que o processamento.
 
 ## Exemplo Real
 
