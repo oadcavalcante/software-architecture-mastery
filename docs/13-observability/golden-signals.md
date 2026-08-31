@@ -215,17 +215,17 @@ está fora do serviço — rede, cliente, dependência não instrumentada.
 
 ## Erros Comuns
 
-**Não separar latência de sucesso e de erro.**
+**Não separar latência de sucesso e de erro.** Erros costumam responder rápido, então uma alta na taxa de falha *melhora* a latência agregada — e o painel melhora enquanto o sistema piora.
 
-**Usar média.**
+**Usar média.** Ela esconde a cauda, que é onde estão os usuários afetados. Um sistema com média de 200 ms pode ter 5% acima de 3 segundos.
 
-**Medir CPU como saturação.**
+**Medir CPU como saturação.** Saturação é o recurso mais restrito, que frequentemente é pool de conexões, threads ou profundidade de fila. CPU costuma estar baixa quando o sistema já não aceita mais trabalho.
 
-**Não instrumentar chamadas de saída.**
+**Não instrumentar chamadas de saída.** Sem os quatro sinais nas dependências, o serviço aparece lento sem causa visível, e a investigação começa pelo lugar errado.
 
-**Não adaptar para filas e processamento em lote.**
+**Não adaptar para filas e processamento em lote.** Ali os sinais equivalentes são idade da mensagem mais antiga, taxa de conclusão e profundidade — aplicar latência de requisição não mede nada.
 
-**Não alertar sobre queda de tráfego.**
+**Não alertar sobre queda de tráfego.** Tráfego que despenca é sintoma de falha antes do sistema, e nenhuma métrica de erro acusa: tudo parece saudável porque ninguém está chegando.
 
 ## Exemplo Real
 

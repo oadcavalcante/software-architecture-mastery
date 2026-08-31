@@ -161,17 +161,17 @@ decida no coletor, e revise o que é coletado.
 
 ## Quando Não Usar
 
-**Instrumentação acoplada à biblioteca do fornecedor.**
+**Instrumentação acoplada à biblioteca do fornecedor.** Trocar de fornecedor passa a exigir tocar cada ponto instrumentado do código, o que na prática significa nunca trocar.
 
-**Emissão síncrona no caminho crítico.**
+**Emissão síncrona no caminho crítico.** A latência do coletor entra na latência da requisição, e uma lentidão no sistema de observabilidade vira lentidão no produto.
 
-**Sem limite de recursos** para buffers.
+**Sem limite de recursos** para buffers. Quando o coletor fica indisponível, o buffer cresce até consumir a memória da aplicação — e a telemetria derruba o que deveria observar.
 
-**Sem monitorar descarte.**
+**Sem monitorar descarte.** Telemetria descartada por saturação produz painéis incompletos que parecem completos, e a conclusão tirada deles é errada sem aviso.
 
-**Coletando o que ninguém consulta.**
+**Coletando o que ninguém consulta.** Custo de ingestão e armazenamento cresce com o volume, e a maior parte do que se coleta por precaução nunca é aberta.
 
-**Sem filtragem de dado sensível** antes de sair.
+**Sem filtragem de dado sensível** antes de sair. Uma vez enviado ao fornecedor, o dado pessoal saiu do seu perímetro — e frequentemente do país.
 
 ## Alternativas
 

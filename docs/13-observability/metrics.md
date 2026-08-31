@@ -221,17 +221,17 @@ subutilizada.
 
 ## Erros Comuns
 
-**Usar identificador como rótulo.**
+**Usar identificador como rótulo.** Identificador de usuário ou de pedido cria uma série temporal por valor. É a explosão de cardinalidade — o custo do sistema de métricas cresce sem limite e ele para de responder.
 
-**URL completa em vez de padrão de rota.**
+**URL completa em vez de padrão de rota.** `/pedidos/8231` gera uma série por pedido; `/pedidos/{id}` gera uma. É a forma mais comum de explodir cardinalidade sem perceber.
 
-**Média para latência.**
+**Média para latência.** Não é possível reconstruir percentis a partir de médias, então a informação da cauda é perdida no momento da coleta e não volta.
 
-**Não instrumentar métricas de negócio.**
+**Não instrumentar métricas de negócio.** Pedidos por minuto detecta incidente que nenhuma métrica técnica pega — como o fluxo que passou a falhar em silêncio no lado do cliente.
 
-**Não revisar métricas obsoletas.**
+**Não revisar métricas obsoletas.** Séries que ninguém consulta continuam sendo coletadas e armazenadas, e o custo cresce por acúmulo sem nenhum benefício.
 
-**Tentar investigar caso individual por métrica.**
+**Tentar investigar caso individual por métrica.** Métrica é agregado por construção. "Por que a requisição desse cliente falhou" é pergunta para log ou rastro.
 
 ## Exemplo Real
 

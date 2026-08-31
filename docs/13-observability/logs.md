@@ -236,17 +236,17 @@ expiraram.
 
 ## Erros Comuns
 
-**Log em texto livre.**
+**Log em texto livre.** Não é consultável nem agregável; responder "quantas vezes isso aconteceu para o cliente X" vira expressão regular sobre gigabytes.
 
-**Não usar evento canônico.**
+**Não usar evento canônico.** Vinte linhas espalhadas por requisição obrigam a reconstruir o que aconteceu. Uma linha larga por requisição, com tudo que importa, responde a maioria das perguntas sozinha.
 
-**Registrar sem motivo estruturado.**
+**Registrar sem motivo estruturado.** Sem campo de causa, agrupar falhas por motivo exige interpretar mensagem — e a mensagem muda quando alguém edita o texto.
 
-**Não filtrar dado sensível na origem.**
+**Não filtrar dado sensível na origem.** Uma vez enviado, o dado está no sistema de logs pelo tempo de retenção, com acesso mais amplo que o do sistema de origem. Filtrar depois não desfaz.
 
-**Amostrar uniformemente.**
+**Amostrar uniformemente.** Amostragem uniforme descarta erros na mesma proporção que sucessos — e são os erros que se quer investigar. Erro merece amostragem integral.
 
-**Usar logs para medir tendência.**
+**Usar logs para medir tendência.** Contar linhas para saber a taxa de erro é caro e impreciso. Log responde sobre um caso; métrica responde sobre o conjunto.
 
 ## Exemplo Real
 

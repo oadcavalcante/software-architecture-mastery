@@ -221,17 +221,17 @@ reexecução — ou ela cresce sem que ninguém perceba.
 
 ## Erros Comuns
 
-**Confundir esteira com integração contínua.**
+**Confundir esteira com integração contínua.** Ter build automatizado não é integrar continuamente. Integração contínua é todo mundo mesclando no tronco pelo menos uma vez por dia; sem isso, a esteira só automatiza a integração tardia.
 
-**Ramos de funcionalidade de semanas.**
+**Ramos de funcionalidade de semanas.** O conflito de mesclagem cresce com o tempo e com o número de ramos abertos, e a integração vira um evento arriscado em vez de rotina.
 
-**Tolerar testes instáveis.**
+**Tolerar testes instáveis.** Um teste que falha às vezes ensina o time a reexecutar sem olhar — e a partir daí a suíte inteira deixa de ser sinal.
 
-**Não medir o tempo da esteira.**
+**Não medir o tempo da esteira.** Acima de dez ou quinze minutos, as pessoas param de esperar o resultado e passam a agrupar mudanças, o que desfaz o benefício da integração frequente.
 
-**Não tornar migrações compatíveis.**
+**Não tornar migrações compatíveis.** Migração que quebra a versão anterior impede reversão. Expandir o esquema, migrar e só depois contrair é o que preserva a saída de emergência.
 
-**Automatizar a implantação sem automatizar a reversão.**
+**Automatizar a implantação sem automatizar a reversão.** Implantar rápido e reverter manualmente aumenta a exposição: encurta-se o caminho para o erro e mantém-se longo o caminho de volta.
 
 ## Exemplo Real
 

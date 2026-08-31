@@ -211,17 +211,17 @@ A última é o desenho mais robusto e o mais usado em sistemas maduros.
 
 ## Erros Comuns
 
-**Não aquecer o ambiente novo.**
+**Não aquecer o ambiente novo.** Receber cem por cento do tráfego com cache frio e conexões não estabelecidas produz um pico de latência exatamente no instante da troca.
 
-**Não verificar compatibilidade do estado.**
+**Não verificar compatibilidade do estado.** Os dois ambientes compartilham banco. Se a versão nova exige esquema que a antiga não entende, a reversão — que era o ponto do padrão — deixa de ser possível.
 
-**Trocar por DNS.**
+**Trocar por DNS.** O cache de resolução mantém clientes no ambiente antigo por dezenas de minutos, e a reversão sofre do mesmo atraso justamente quando a urgência é maior.
 
-**Não drenar.**
+**Não drenar.** Cortar o tráfego sem esperar as requisições em curso terminarem transforma cada troca num punhado de erros para usuários reais.
 
-**Deixar o ambiente inativo divergir.**
+**Deixar o ambiente inativo divergir.** Configuração, certificados e cotas do ambiente parado ficam para trás em silêncio, e a troca revela isso no pior momento.
 
-**Não desligar os consumidores assíncronos** do ambiente antigo.
+**Não desligar os consumidores assíncronos** do ambiente antigo. Os dois ambientes continuam processando a mesma fila, com versões diferentes do código — e o efeito depende de qual pegou a mensagem.
 
 ## Exemplo Real
 
