@@ -293,7 +293,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [SaaS](docs/09-cloud-architecture/saas.md) | concept | intermediário | `paas` | 🟩 |
 | 🟩 | [Serverless](docs/09-cloud-architecture/serverless.md) | concept | avançado | `managed-services` | 🟩 |
 | 🟩 | [Dependência de Fornecedor](docs/09-cloud-architecture/vendor-lock-in.md) | tradeoff | avançado | `managed-services` | 🟩 |
-| 🟩 | [Auditabilidade](docs/10-security/auditability.md) | concept | intermediário | `security` | ⬜ |
+| 🟩 | [Auditabilidade](docs/10-security/auditability.md) | concept | intermediário | `security` | 🟩 |
 | 🟩 | [Modelos de Autorização](docs/10-security/authz-models.md) | tradeoff | avançado | `identity` | 🟩 |
 | 🟩 | [Proteção de Dados](docs/10-security/data-protection.md) | concept | avançado | `security` | 🟩 |
 | 🟩 | [Criptografia](docs/10-security/encryption.md) | concept | avançado | `security` | 🟩 |
@@ -302,7 +302,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [JWT](docs/10-security/jwt.md) | concept | avançado | `oauth2` | 🟩 |
 | 🟩 | [Gestão de Chaves](docs/10-security/key-management.md) | concept | avançado | `encryption` | 🟩 |
 | 🟩 | [Menor Privilégio](docs/10-security/least-privilege.md) | concept | intermediário | `security` | 🟩 |
-| 🟩 | [Segurança de Rede](docs/10-security/network-security.md) | concept | intermediário | `security` | ⬜ |
+| 🟩 | [Segurança de Rede](docs/10-security/network-security.md) | concept | intermediário | `security` | 🟩 |
 | 🟩 | [OAuth 2.0](docs/10-security/oauth2.md) | concept | avançado | `identity` | 🟩 |
 | 🟩 | [OpenID Connect](docs/10-security/oidc.md) | concept | avançado | `oauth2` | 🟩 |
 | 🟩 | [Segredos](docs/10-security/secrets.md) | concept | intermediário | `security` | 🟩 |
