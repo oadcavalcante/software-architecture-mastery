@@ -10,7 +10,7 @@ Não é um catálogo de padrões. É o raciocínio que decide quando *não* usá
 [![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://software-architecture-mastery.vercel.app)
 <!-- BADGES:PROGRESS -->
 ![progresso](https://img.shields.io/badge/progresso-100%25-blue)
-![documentos](https://img.shields.io/badge/documentos-445%2F445-informational)
+![documentos](https://img.shields.io/badge/documentos-446%2F446-informational)
 <!-- /BADGES:PROGRESS -->
 ![Licença](https://img.shields.io/badge/conteúdo-CC%20BY--SA%204.0-green)
 ![Código](https://img.shields.io/badge/código-MIT-green)
@@ -87,7 +87,7 @@ código → design → sistemas → sistemas distribuídos → arquitetura → c
 <!-- PROGRESS:TABLE -->
 | Nível | Seção | Estado |
 |---|---|:-:|
-| 01 | Fundamentos | 🟩 22 tópicos |
+| 01 | Fundamentos | 🟩 23 tópicos |
 | 02 | Design de Software | 🟩 23 tópicos |
 | 02 | Design Patterns | 🟩 30 tópicos |
 | 02 | Domain-Driven Design | 🟩 19 tópicos |
@@ -169,7 +169,7 @@ Todo bug encontrado neles entrou como teste de regressão antes da correção.
 
 ## Como este projeto é construído
 
-O material é grande — 409 tópicos em 23 seções — e por isso a construção é
+O material é grande — centenas de documentos em 23 seções — e por isso a construção é
 organizada como um **loop**: cada iteração escreve **um** documento e o deixa
 verificado.
 

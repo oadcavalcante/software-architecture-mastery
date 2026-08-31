@@ -1,6 +1,6 @@
 ---
-id: 04-async-processing
-title: "Exercício 04 — Introduzir Processamento Assíncrono"
+id: 05-async-processing
+title: "Exercício 05 — Introduzir Processamento Assíncrono"
 sidebar_position: 2
 description: Tirar a chamada externa do caminho síncrono é fácil; o que ela deixa para trás é trabalho de produto.
 doc_type: exercise
@@ -10,19 +10,19 @@ status: complete
 objective: >
   Ao terminar, o leitor desenha um fluxo assíncrono com o estado intermediário e as
   consequências de produto explicitadas.
-prerequisites: [03-scaling-ecommerce]
+prerequisites: [04-scaling-ecommerce]
 related: [messaging, delivery-guarantees, idempotency, eventual-consistency]
 canonical_for: []
 content_version: 1
 last_reviewed: 2026-08-29
 ---
 
-# Exercício 04 — Introduzir Processamento Assíncrono
+# Exercício 05 — Introduzir Processamento Assíncrono
 
 :::info Continuação
 
 Este exercício executa a primeira correção que você identificou no
-[exercício 03](/06-distributed-systems/exercises/03-scaling-ecommerce.md): tirar a chamada ao adquirente de dentro da transação.
+[exercício 03](/06-distributed-systems/exercises/04-scaling-ecommerce.md): tirar a chamada ao adquirente de dentro da transação.
 
 :::
 
@@ -170,7 +170,7 @@ informação. O prazo precisa existir, ser curto, e ter ação ao vencer.
 
 ## Conceitos Relacionados
 
-- [Exercício 03](/06-distributed-systems/exercises/03-scaling-ecommerce.md) e [Exercício 05](/06-distributed-systems/exercises/05-partial-failure.md).
+- [Exercício 04](/06-distributed-systems/exercises/04-scaling-ecommerce.md) e [Exercício 06](/06-distributed-systems/exercises/06-partial-failure.md).
 - [Mensageria](/06-distributed-systems/messaging.md) e [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md).
 - [Idempotência](/06-distributed-systems/idempotency.md).
 - [Síncrono vs. Assíncrono](/20-trade-offs/sync-vs-async.md).

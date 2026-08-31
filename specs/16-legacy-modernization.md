@@ -27,7 +27,7 @@ Esta seção está completa quando os 13 tópicos abaixo existem com
 | 🟩 | `data-migration` |
 | 🟩 | `modernization-risk` |
 | 🟩 | `organizational-constraints` |
-| 🟩 | `07-modernize-legacy` |
+| 🟩 | `08-modernize-legacy` |
 
 ## Critério de conclusão
 

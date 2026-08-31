@@ -1,6 +1,6 @@
 ---
-id: 03-scaling-ecommerce
-title: "Exercício 03 — Escalar o E-commerce"
+id: 04-scaling-ecommerce
+title: "Exercício 04 — Escalar o E-commerce"
 sidebar_position: 1
 description: O mesmo sistema, 40 vezes maior — e a decisão do exercício 02 vira a restrição.
 doc_type: exercise
@@ -10,19 +10,19 @@ status: complete
 objective: >
   Ao terminar, o leitor identifica qual recurso satura primeiro e distingue decisão errada de
   decisão com prazo de validade vencido.
-prerequisites: [02-ecommerce-backend]
+prerequisites: [03-ecommerce-backend]
 related: [latency, availability, partitioning, hotspots]
 canonical_for: []
 content_version: 1
 last_reviewed: 2026-08-29
 ---
 
-# Exercício 03 — Escalar o E-commerce
+# Exercício 04 — Escalar o E-commerce
 
 :::info Continuação
 
 Este exercício usa o sistema que você projetou no
-[exercício 02](/05-system-design/exercises/02-ecommerce-backend.md). Releia as três
+[exercício 02](/05-system-design/exercises/03-ecommerce-backend.md). Releia as três
 decisões que você registrou como difíceis de reverter antes de continuar.
 
 :::
@@ -184,7 +184,7 @@ trabalho de produto.
 
 ## Conceitos Relacionados
 
-- [Exercício 02](/05-system-design/exercises/02-ecommerce-backend.md).
+- [Exercício 03](/05-system-design/exercises/03-ecommerce-backend.md).
 - [Timeouts](/06-distributed-systems/timeouts.md) e [Falha Parcial](/06-distributed-systems/partial-failure.md).
 - [Disponibilidade](/06-distributed-systems/availability.md).
 - [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md).

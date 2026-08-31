@@ -9,7 +9,7 @@ Não edite à mão — rode `npm run roadmap`.
 <!-- BEGIN:GENERATED — não edite à mão; rode `npm run roadmap` -->
 ## Panorama
 
-**445 de 445 documentos planejados escritos (100%).**
+**446 de 446 documentos planejados escritos (100%).**
 
 O denominador é o escopo definido em [SPEC.md §14](SPEC.md), não a contagem
 de arquivos existentes. Uma seção em 0% ainda não teve seus tópicos escritos,
@@ -18,7 +18,7 @@ mas já tem índice publicado explicando o que virá.
 | Seção | Nível | Escritos | Progresso |
 |---|---|---:|---|
 | `(raiz)` | — | 5 / 5 | `██████████` 100% |
-| `01-fundamentals` | 01 | 23 / 23 | `██████████` 100% |
+| `01-fundamentals` | 01 | 24 / 24 | `██████████` 100% |
 | `02-software-design` | 02 | 24 / 24 | `██████████` 100% |
 | `03-design-patterns` | 02 | 31 / 31 | `██████████` 100% |
 | `04-domain-driven-design` | 02 | 20 / 20 | `██████████` 100% |
@@ -67,6 +67,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Restrições](docs/01-fundamentals/constraints.md) | foundation | iniciante | `quality-attributes` | 🟩 |
 | 🟩 | [Acoplamento](docs/01-fundamentals/coupling.md) | concept | iniciante | `modularity` | 🟩 |
 | 🟩 | [Gestão de Dependências](docs/01-fundamentals/dependency-management.md) | concept | intermediário | `coupling` | 🟩 |
+| 🟩 | [Exercício 01 — Recuar até o Problema](docs/01-fundamentals/exercises/01-recuar-ate-o-problema.md) | exercise | iniciante | `problem-space` | ⬜ |
 | 🟩 | [Requisitos Funcionais](docs/01-fundamentals/functional-requirements.md) | foundation | iniciante | `problem-space` | 🟩 |
 | 🟩 | [Fundamentos](docs/01-fundamentals/index.md) | index | iniciante | — | 🟩 |
 | 🟩 | [Modularidade](docs/01-fundamentals/modularity.md) | concept | iniciante | `architecture-vs-design` | 🟩 |
@@ -93,7 +94,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Heurísticas de Design](docs/02-software-design/design-heuristics.md) | foundation | intermediário | `clean-code` | ⬜ |
 | 🟩 | [DRY](docs/02-software-design/dry.md) | concept | iniciante | `fundamentals` | ⬜ |
 | 🟩 | [Encapsulamento](docs/02-software-design/encapsulation.md) | concept | iniciante | `fundamentals` | ⬜ |
-| 🟩 | [Exercício 01 — Sistema de Biblioteca](docs/02-software-design/exercises/01-library-system.md) | exercise | iniciante | `modular-design` | ⬜ |
+| 🟩 | [Exercício 02 — Sistema de Biblioteca](docs/02-software-design/exercises/02-library-system.md) | exercise | iniciante | `modular-design` | ⬜ |
 | 🟩 | [Arquitetura Hexagonal](docs/02-software-design/hexagonal-architecture.md) | pattern | intermediário | `ports-and-adapters` | ⬜ |
 | 🟩 | [Design de Software](docs/02-software-design/index.md) | index | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Interfaces](docs/02-software-design/interfaces.md) | concept | intermediário | `encapsulation` | 🟩 |
@@ -172,7 +173,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [CDN](docs/05-system-design/cdn.md) | concept | iniciante | `caching` | ⬜ |
 | 🟩 | [Componentes](docs/05-system-design/components.md) | concept | intermediário | `system-decomposition` | ⬜ |
 | 🟩 | [Configuração](docs/05-system-design/configuration.md) | concept | iniciante | `components` | ⬜ |
-| 🟩 | [Exercício 02 — Backend de E-commerce](docs/05-system-design/exercises/02-ecommerce-backend.md) | exercise | intermediário | `system-decomposition` | ⬜ |
+| 🟩 | [Exercício 03 — Backend de E-commerce](docs/05-system-design/exercises/03-ecommerce-backend.md) | exercise | intermediário | `system-decomposition` | ⬜ |
 | 🟩 | [Armazenamento de Arquivos](docs/05-system-design/file-storage.md) | concept | iniciante | `state-management` | ⬜ |
 | 🟩 | [Design de Sistemas](docs/05-system-design/index.md) | index | intermediário | `design-patterns`, `domain-driven-design` | ⬜ |
 | 🟩 | [Balanceamento de Carga](docs/05-system-design/load-balancing.md) | concept | intermediário | `stateless-vs-stateful` | ⬜ |
@@ -210,9 +211,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Mensagens Duplicadas](docs/06-distributed-systems/duplicate-messages.md) | concept | intermediário | `delivery-guarantees`, `idempotency` | ⬜ |
 | 🟩 | [Sistemas Orientados a Eventos](docs/06-distributed-systems/event-driven-systems.md) | concept | avançado | `messaging` | ⬜ |
 | 🟩 | [Consistência Eventual](docs/06-distributed-systems/eventual-consistency.md) | concept | avançado | `consistency` | ⬜ |
-| 🟩 | [Exercício 03 — Escalar o E-commerce](docs/06-distributed-systems/exercises/03-scaling-ecommerce.md) | exercise | intermediário | `02-ecommerce-backend` | ⬜ |
-| 🟩 | [Exercício 04 — Introduzir Processamento Assíncrono](docs/06-distributed-systems/exercises/04-async-processing.md) | exercise | avançado | `03-scaling-ecommerce` | ⬜ |
-| 🟩 | [Exercício 05 — Lidar com Falhas Parciais](docs/06-distributed-systems/exercises/05-partial-failure.md) | exercise | avançado | `04-async-processing` | ⬜ |
+| 🟩 | [Exercício 04 — Escalar o E-commerce](docs/06-distributed-systems/exercises/04-scaling-ecommerce.md) | exercise | intermediário | `03-ecommerce-backend` | ⬜ |
+| 🟩 | [Exercício 05 — Introduzir Processamento Assíncrono](docs/06-distributed-systems/exercises/05-async-processing.md) | exercise | avançado | `04-scaling-ecommerce` | ⬜ |
+| 🟩 | [Exercício 06 — Lidar com Falhas Parciais](docs/06-distributed-systems/exercises/06-partial-failure.md) | exercise | avançado | `05-async-processing` | ⬜ |
 | 🟩 | [Detecção de Falha](docs/06-distributed-systems/failure-detection.md) | concept | avançado | `network-failure` | ⬜ |
 | 🟩 | [Idempotência](docs/06-distributed-systems/idempotency.md) | concept | avançado | `partial-failure` | ⬜ |
 | 🟩 | [Sistemas Distribuídos](docs/06-distributed-systems/index.md) | index | avançado | `system-design` | ⬜ |
@@ -329,7 +330,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Engenharia do Caos](docs/12-reliability/chaos-engineering.md) | concept | avançado | `reliability` | ⬜ |
 | 🟩 | [Circuit Breakers](docs/12-reliability/circuit-breakers.md) | pattern | intermediário | `retry-storms` | ⬜ |
 | 🟩 | [Planejamento de Recuperação](docs/12-reliability/disaster-recovery-planning.md) | concept | avançado | `rto` | ⬜ |
-| 🟩 | [Exercício 06 — Disponibilidade Multi-região](docs/12-reliability/exercises/06-multi-region.md) | exercise | avançado | `05-partial-failure` | ⬜ |
+| 🟩 | [Exercício 07 — Disponibilidade Multi-região](docs/12-reliability/exercises/07-multi-region.md) | exercise | avançado | `06-partial-failure` | ⬜ |
 | 🟩 | [Failover](docs/12-reliability/failover.md) | concept | avançado | `redundancy` | ⬜ |
 | 🟩 | [Tolerância a Falhas](docs/12-reliability/fault-tolerance.md) | concept | avançado | `reliability-basics` | ⬜ |
 | 🟩 | [Degradação Graciosa](docs/12-reliability/graceful-degradation.md) | pattern | intermediário | `reliability` | ⬜ |
@@ -441,7 +442,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Radar Tecnológico](docs/15-enterprise-architecture/technology-radar.md) | pattern | intermediário | `enterprise-architecture` | ⬜ |
 | 🟩 | [Arquitetura de Transição](docs/15-enterprise-architecture/transition-architecture.md) | concept | avançado | `target-architecture` | ⬜ |
 | 🟩 | [Migração de Dados](docs/16-legacy-modernization/data-migration.md) | concept | avançado | `legacy-modernization` | ⬜ |
-| 🟩 | [Exercício 07 — Modernizar um Legado](docs/16-legacy-modernization/exercises/07-modernize-legacy.md) | exercise | avançado | `migration-strategies` | ⬜ |
+| 🟩 | [Exercício 08 — Modernizar um Legado](docs/16-legacy-modernization/exercises/08-modernize-legacy.md) | exercise | avançado | `migration-strategies` | ⬜ |
 | 🟩 | [Modernização Incremental](docs/16-legacy-modernization/incremental-modernization.md) | concept | avançado | `migration-strategies` | ⬜ |
 | 🟩 | [Modernização de Legado](docs/16-legacy-modernization/index.md) | index | avançado | `enterprise-architecture` | ⬜ |
 | 🟩 | [Refatoração de Legado](docs/16-legacy-modernization/legacy-refactoring.md) | concept | avançado | `legacy-systems` | ⬜ |
@@ -480,7 +481,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Arquitetura entre Times](docs/23-architecture-leadership/cross-team-architecture.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
 | 🟩 | [Tomada de Decisão](docs/23-architecture-leadership/decision-making.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
 | 🟩 | [Arquitetura Evolutiva](docs/23-architecture-leadership/evolutionary-architecture.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
-| 🟩 | [Exercício 08 — Apresentar e Defender](docs/23-architecture-leadership/exercises/08-present-and-defend.md) | exercise | avançado | `communication` | ⬜ |
+| 🟩 | [Exercício 09 — Apresentar e Defender](docs/23-architecture-leadership/exercises/09-present-and-defend.md) | exercise | avançado | `communication` | ⬜ |
 | 🟩 | [Funções de Aptidão](docs/23-architecture-leadership/fitness-functions.md) | concept | avançado | `evolutionary-architecture` | ⬜ |
 | 🟩 | [Liderança em Arquitetura](docs/23-architecture-leadership/index.md) | index | avançado | `architecture-governance`, `enterprise-architecture` | ⬜ |
 | 🟩 | [Governança sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-governance.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |

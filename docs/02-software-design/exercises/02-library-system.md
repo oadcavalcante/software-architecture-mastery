@@ -1,6 +1,6 @@
 ---
-id: 01-library-system
-title: "Exercício 01 — Sistema de Biblioteca"
+id: 02-library-system
+title: "Exercício 02 — Sistema de Biblioteca"
 sidebar_position: 1
 description: O primeiro exercício do percurso — fronteiras, direção de dependência e o que acontece quando o requisito muda.
 doc_type: exercise
@@ -17,7 +17,7 @@ content_version: 1
 last_reviewed: 2026-08-29
 ---
 
-# Exercício 01 — Sistema de Biblioteca
+# Exercício 02 — Sistema de Biblioteca
 
 ## Contexto
 

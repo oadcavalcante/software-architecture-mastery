@@ -38,7 +38,7 @@ Esta seção está completa quando os 24 tópicos abaixo existem com
 | 🟩 | `capacity-planning` |
 | 🟩 | `bottleneck-analysis` |
 | 🟩 | `scalability-basics` |
-| 🟩 | `02-ecommerce-backend` |
+| 🟩 | `03-ecommerce-backend` |
 
 ## Critério de conclusão
 

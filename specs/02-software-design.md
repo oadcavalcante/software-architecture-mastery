@@ -37,7 +37,7 @@ Esta seção está completa quando os 23 tópicos abaixo existem com
 | 🟩 | `hexagonal-architecture` |
 | 🟩 | `onion-architecture` |
 | 🟩 | `clean-architecture` |
-| 🟩 | `01-library-system` |
+| 🟩 | `02-library-system` |
 
 ## Critério de conclusão
 

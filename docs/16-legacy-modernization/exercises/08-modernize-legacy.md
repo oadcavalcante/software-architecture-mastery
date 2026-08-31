@@ -1,6 +1,6 @@
 ---
-id: 07-modernize-legacy
-title: "Exercício 07 — Modernizar um Legado"
+id: 08-modernize-legacy
+title: "Exercício 08 — Modernizar um Legado"
 sidebar_position: 1
 description: Um sistema que funciona há dezenove anos, duas pessoas que sabem mexer nele, e nenhuma janela para parar.
 doc_type: exercise
@@ -17,7 +17,7 @@ content_version: 1
 last_reviewed: 2026-08-29
 ---
 
-# Exercício 07 — Modernizar um Legado
+# Exercício 08 — Modernizar um Legado
 
 ## Contexto
 

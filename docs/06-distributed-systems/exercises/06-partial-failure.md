@@ -1,6 +1,6 @@
 ---
-id: 05-partial-failure
-title: "Exercício 05 — Lidar com Falhas Parciais"
+id: 06-partial-failure
+title: "Exercício 06 — Lidar com Falhas Parciais"
 sidebar_position: 3
 description: Noventa e seis vezes por dia o sistema não sabe se cobrou — e assumir uma resposta é como se criam cobranças duplicadas.
 doc_type: exercise
@@ -10,19 +10,19 @@ status: complete
 objective: >
   Ao terminar, o leitor trata "não sabemos" como estado explícito e desenha a reconciliação que
   o resolve.
-prerequisites: [04-async-processing]
+prerequisites: [05-async-processing]
 related: [partial-failure, idempotency, retries, duplicate-messages]
 canonical_for: []
 content_version: 1
 last_reviewed: 2026-08-29
 ---
 
-# Exercício 05 — Lidar com Falhas Parciais
+# Exercício 06 — Lidar com Falhas Parciais
 
 :::info Continuação
 
 Este exercício resolve o caso `5c` que ficou aberto no
-[exercício 04](/06-distributed-systems/exercises/04-async-processing.md): a autorização é enviada e nenhuma resposta chega.
+[exercício 04](/06-distributed-systems/exercises/05-async-processing.md): a autorização é enviada e nenhuma resposta chega.
 
 :::
 
@@ -186,7 +186,7 @@ o argumento para renegociar o contrato com o adquirente.
 
 ## Conceitos Relacionados
 
-- [Exercício 04](/06-distributed-systems/exercises/04-async-processing.md) e [Exercício 06](/12-reliability/exercises/06-multi-region.md).
+- [Exercício 05](/06-distributed-systems/exercises/05-async-processing.md) e [Exercício 07](/12-reliability/exercises/07-multi-region.md).
 - [Falha Parcial](/06-distributed-systems/partial-failure.md) e [Idempotência](/06-distributed-systems/idempotency.md).
 - [Repetições](/06-distributed-systems/retries.md).
 - [Case: Plataforma de Pagamentos](/21-case-studies/payments.md).

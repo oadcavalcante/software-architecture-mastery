@@ -1,6 +1,6 @@
 ---
-id: 08-present-and-defend
-title: "Exercício 08 — Apresentar e Defender"
+id: 09-present-and-defend
+title: "Exercício 09 — Apresentar e Defender"
 sidebar_position: 1
 description: O último exercício — você tem a arquitetura certa e trinta minutos com quem controla o orçamento.
 doc_type: exercise
@@ -17,12 +17,12 @@ content_version: 1
 last_reviewed: 2026-08-29
 ---
 
-# Exercício 08 — Apresentar e Defender
+# Exercício 09 — Apresentar e Defender
 
 :::info O último do percurso
 
 Este exercício usa **a sua própria proposta** do
-[exercício 07](/16-legacy-modernization/exercises/07-modernize-legacy.md). Se você não o
+[exercício 07](/16-legacy-modernization/exercises/08-modernize-legacy.md). Se você não o
 fez, faça antes — não há o que apresentar sem ela.
 
 :::
@@ -203,7 +203,7 @@ uma venda. Conselhos aprovam propostas.
 
 ## Conceitos Relacionados
 
-- [Exercício 07](/16-legacy-modernization/exercises/07-modernize-legacy.md).
+- [Exercício 08](/16-legacy-modernization/exercises/08-modernize-legacy.md).
 - [Comunicação](/23-architecture-leadership/communication.md) e [Apresentações](/23-architecture-leadership/architecture-presentations.md).
 - [Gestão de Interessados](/23-architecture-leadership/stakeholder-management.md).
 - [Gestão de Custo](/23-architecture-leadership/cost-management.md).

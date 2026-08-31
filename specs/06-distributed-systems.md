@@ -50,9 +50,9 @@ Esta seção está completa quando os 38 tópicos abaixo existem com
 | 🟩 | `conflict-resolution` |
 | 🟩 | `clock-and-time` |
 | 🟩 | `failure-detection` |
-| 🟩 | `03-scaling-ecommerce` |
-| 🟩 | `04-async-processing` |
-| 🟩 | `05-partial-failure` |
+| 🟩 | `04-scaling-ecommerce` |
+| 🟩 | `05-async-processing` |
+| 🟩 | `06-partial-failure` |
 
 ## Critério de conclusão
 

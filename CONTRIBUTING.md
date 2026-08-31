@@ -110,12 +110,11 @@ sistemas reais precisam de fonte com autor e ano.
 
 ```bash
 npm test          # testes dos validadores
-npm run validate  # os cinco validadores de conteúdo
-npm run roadmap   # regenera as tabelas do ROADMAP
+npm run validate  # os cinco validadores de conteúdo + artefatos derivados em dia
 npm run build     # build nas duas locales
 ```
 
-O CI roda os quatro. `npm run build` falha em link interno quebrado — isso é
+O CI roda os três. `npm run build` falha em link interno quebrado — isso é
 proposital.
 
 ## Traduzindo
@@ -130,6 +129,12 @@ pt-BR é canônico e sempre avança primeiro. Traduzir nunca bloqueia conteúdo 
 3. Troque `content_version: N` por `translated_from_version: N`, com o mesmo N do
    canônico no momento da tradução.
 4. Traduza os rótulos dos diagramas Mermaid.
+5. Todo link para outro documento parte da raiz do conteúdo —
+   `/01-fundamentals/coupling.md`, nunca `./coupling.md` nem
+   `../01-fundamentals/coupling.md`. Link relativo resolve só a partir do
+   diretório do arquivo, e o documento migra de `docs/` para o diretório do
+   locale ao ser traduzido: a forma relativa quebra o build quando qualquer das
+   duas pontas é traduzida. `check-links` recusa e sugere a forma correta.
 
 O estado da tradução é derivado, nunca declarado à mão. Se o canônico avançar
 para a versão 4 e a tradução ficar em 3, o roadmap marca 🟨 automaticamente.

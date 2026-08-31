@@ -8,7 +8,7 @@ repositório e passa a listar trabalho já feito.
 
 | | |
 |---|---|
-| Escrito | 440 de 440 (100%) |
+| Escrito | 441 de 441 (100%) |
 | Seções pendentes | 0 de 23 |
 | Próxima tarefa | — nada pendente |
 

@@ -10,7 +10,7 @@ Not a catalog of patterns. The reasoning that decides when *not* to use them.
 [![Vercel](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://software-architecture-mastery.vercel.app)
 <!-- BADGES:PROGRESS -->
 ![progress](https://img.shields.io/badge/progress-100%25-blue)
-![documents](https://img.shields.io/badge/documents-445%2F445-informational)
+![documents](https://img.shields.io/badge/documents-446%2F446-informational)
 <!-- /BADGES:PROGRESS -->
 ![License](https://img.shields.io/badge/content-CC%20BY--SA%204.0-green)
 ![Code](https://img.shields.io/badge/code-MIT-green)
@@ -91,7 +91,7 @@ code → design → systems → distributed systems → architecture → enterpr
 <!-- PROGRESS:TABLE -->
 | Level | Section | Status |
 |---|---|:-:|
-| 01 | Foundation | 🟩 22 topics |
+| 01 | Foundation | 🟩 23 topics |
 | 02 | Software Design | 🟩 23 topics |
 | 02 | Design Patterns | 🟩 30 topics |
 | 02 | Domain-Driven Design | 🟩 19 topics |

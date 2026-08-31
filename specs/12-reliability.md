@@ -32,7 +32,7 @@ Esta seção está completa quando os 18 tópicos abaixo existem com
 | 🟩 | `bulkheads` |
 | 🟩 | `retry-storms` |
 | 🟩 | `chaos-engineering` |
-| 🟩 | `06-multi-region` |
+| 🟩 | `07-multi-region` |
 
 ## Critério de conclusão
 

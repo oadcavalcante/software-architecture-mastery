@@ -937,7 +937,7 @@ documentos de tópico, excluindo `index.md` e exercícios.
 | 11-scalability | 13 | 23-architecture-leadership | 23 |
 | 12-reliability | 17 | | |
 
-**Total ≈ 412 documentos de tópico em pt-BR**, mais ~23 índices de seção, ~40 exercícios,
+**Total ≈ 412 documentos de tópico em pt-BR**, mais ~23 índices de seção, 9 exercícios,
 6 ADRs de repositório e 5 ADRs didáticos. Dobrar para tradução completa en-US.
 
 Isso é um projeto grande. A §15 o divide em fases entregáveis, cada uma com valor
@@ -1156,14 +1156,15 @@ Fitness functions · Medição de resultados de arquitetura
 Exercícios progridem de simples a complexo, atravessando os níveis:
 
 ```text
-Exercício 01  Projetar um sistema simples de biblioteca              (Nível 02)
-Exercício 02  Projetar um backend de e-commerce                      (Nível 03)
-Exercício 03  Escalar o e-commerce para milhões de usuários          (Nível 03–04)
-Exercício 04  Introduzir processamento assíncrono                    (Nível 04)
-Exercício 05  Lidar com falhas parciais                              (Nível 04)
-Exercício 06  Projetar para disponibilidade multi-região             (Nível 05)
-Exercício 07  Modernizar uma arquitetura legada existente            (Nível 06)
-Exercício 08  Apresentar e defender a arquitetura para stakeholders  (Nível 07)
+Exercício 01  Recuar um pedido até o problema                        (Nível 01)
+Exercício 02  Projetar um sistema simples de biblioteca              (Nível 02)
+Exercício 03  Projetar um backend de e-commerce                      (Nível 03)
+Exercício 04  Escalar o e-commerce para milhões de usuários          (Nível 03–04)
+Exercício 05  Introduzir processamento assíncrono                    (Nível 04)
+Exercício 06  Lidar com falhas parciais                              (Nível 04)
+Exercício 07  Projetar para disponibilidade multi-região             (Nível 05)
+Exercício 08  Modernizar uma arquitetura legada existente            (Nível 06)
+Exercício 09  Apresentar e defender a arquitetura para stakeholders  (Nível 07)
 ```
 
 Os exercícios 02 a 06 compartilham o mesmo sistema, evoluindo-o — o leitor sente

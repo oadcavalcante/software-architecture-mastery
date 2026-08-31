@@ -1,6 +1,6 @@
 ---
-id: 02-ecommerce-backend
-title: "Exercício 02 — Backend de E-commerce"
+id: 03-ecommerce-backend
+title: "Exercício 03 — Backend de E-commerce"
 sidebar_position: 1
 description: O sistema que você vai carregar pelos próximos quatro exercícios — e as decisões que vai pagar neles.
 doc_type: exercise
@@ -17,7 +17,7 @@ content_version: 1
 last_reviewed: 2026-08-29
 ---
 
-# Exercício 02 — Backend de E-commerce
+# Exercício 03 — Backend de E-commerce
 
 :::info Este exercício tem sequência
 

@@ -33,7 +33,8 @@
         "architecture-characteristics",
         "architecture-principles",
         "architecture-as-decisions",
-        "architecture-evolution"
+        "architecture-evolution",
+        "01-recuar-ate-o-problema"
       ]
     },
     {
@@ -63,7 +64,7 @@
         "hexagonal-architecture",
         "onion-architecture",
         "clean-architecture",
-        "01-library-system"
+        "02-library-system"
       ]
     },
     {
@@ -157,7 +158,7 @@
         "capacity-planning",
         "bottleneck-analysis",
         "scalability-basics",
-        "02-ecommerce-backend"
+        "03-ecommerce-backend"
       ]
     },
     {
@@ -200,9 +201,9 @@
         "conflict-resolution",
         "clock-and-time",
         "failure-detection",
-        "03-scaling-ecommerce",
-        "04-async-processing",
-        "05-partial-failure"
+        "04-scaling-ecommerce",
+        "05-async-processing",
+        "06-partial-failure"
       ]
     },
     {
@@ -345,7 +346,7 @@
         "bulkheads",
         "retry-storms",
         "chaos-engineering",
-        "06-multi-region"
+        "07-multi-region"
       ]
     },
     {
@@ -430,7 +431,7 @@
         "data-migration",
         "modernization-risk",
         "organizational-constraints",
-        "07-modernize-legacy"
+        "08-modernize-legacy"
       ]
     },
     {
@@ -583,7 +584,7 @@
         "evolutionary-architecture",
         "fitness-functions",
         "measuring-architecture-outcomes",
-        "08-present-and-defend"
+        "09-present-and-defend"
       ]
     }
   ]

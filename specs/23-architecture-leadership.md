@@ -38,7 +38,7 @@ Esta seção está completa quando os 24 tópicos abaixo existem com
 | 🟩 | `evolutionary-architecture` |
 | 🟩 | `fitness-functions` |
 | 🟩 | `measuring-architecture-outcomes` |
-| 🟩 | `08-present-and-defend` |
+| 🟩 | `09-present-and-defend` |
 
 ## Critério de conclusão
 

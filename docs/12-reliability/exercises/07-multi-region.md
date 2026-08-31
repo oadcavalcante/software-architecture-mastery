@@ -1,6 +1,6 @@
 ---
-id: 06-multi-region
-title: "Exercício 06 — Disponibilidade Multi-região"
+id: 07-multi-region
+title: "Exercício 07 — Disponibilidade Multi-região"
 sidebar_position: 1
 description: A consistência forte escolhida no exercício 02 agora custa latência em toda escrita — e a conta é diária.
 doc_type: exercise
@@ -10,19 +10,19 @@ status: complete
 objective: >
   Ao terminar, o leitor decide o modelo de replicação por operação e reconhece o custo diário
   da coordenação entre regiões.
-prerequisites: [05-partial-failure]
+prerequisites: [06-partial-failure]
 related: [disaster-recovery-planning, graceful-degradation, availability, pacelc]
 canonical_for: []
 content_version: 1
 last_reviewed: 2026-08-29
 ---
 
-# Exercício 06 — Disponibilidade Multi-região
+# Exercício 07 — Disponibilidade Multi-região
 
 :::info Continuação e último do arco
 
 Este é o último exercício sobre o sistema que você projetou no
-[exercício 02](/05-system-design/exercises/02-ecommerce-backend.md). A decisão que ele
+[exercício 02](/05-system-design/exercises/03-ecommerce-backend.md). A decisão que ele
 testa é a mais antiga das três que você registrou lá.
 
 :::
@@ -188,7 +188,7 @@ há venda cruzada. A arquitetura só precisou não contrariar isso.
 
 ## Conceitos Relacionados
 
-- [Exercício 05](/06-distributed-systems/exercises/05-partial-failure.md).
+- [Exercício 06](/06-distributed-systems/exercises/06-partial-failure.md).
 - [Recuperação de Desastre](/12-reliability/disaster-recovery-planning.md).
 - [Degradação Graciosa](/12-reliability/graceful-degradation.md).
 - [PACELC](/06-distributed-systems/pacelc.md).
