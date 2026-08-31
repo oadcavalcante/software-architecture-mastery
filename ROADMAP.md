@@ -342,8 +342,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [RPO](docs/12-reliability/rpo.md) | foundation | intermediário | `reliability` | ⬜ |
 | 🟩 | [RTO](docs/12-reliability/rto.md) | foundation | intermediário | `reliability` | ⬜ |
 | 🟩 | [SLA](docs/12-reliability/sla.md) | concept | intermediário | `slo` | ⬜ |
-| 🟩 | [SLI](docs/12-reliability/sli.md) | concept | intermediário | `reliability` | ⬜ |
-| 🟩 | [SLO](docs/12-reliability/slo.md) | concept | avançado | `sli` | ⬜ |
+| 🟩 | [SLI](docs/12-reliability/sli.md) | concept | intermediário | `reliability` | 🟩 |
+| 🟩 | [SLO](docs/12-reliability/slo.md) | concept | avançado | `sli` | 🟩 |
 | 🟩 | [Alertas](docs/13-observability/alerting.md) | concept | avançado | `golden-signals` | ⬜ |
 | 🟩 | [Identificadores de Correlação](docs/13-observability/correlation-ids.md) | pattern | intermediário | `observability` | ⬜ |
 | 🟩 | [Painéis](docs/13-observability/dashboards.md) | concept | intermediário | `golden-signals` | ⬜ |
