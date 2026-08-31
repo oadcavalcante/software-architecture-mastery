@@ -169,15 +169,15 @@ internamente, e adotar um deles evita construir o roteamento e a operação.
 
 ## Erros Comuns
 
-**Shardar antes de precisar.**
+**Shardar antes de precisar.** Adiciona roteamento, impede junção e transação entre partições, e complica toda consulta — custo pago desde o primeiro dia por um limite que talvez nunca chegue.
 
-**Não usar shards lógicos.**
+**Não usar shards lógicos.** Mapear a chave direto para a máquina física amarra o número de partições ao número de servidores, e crescer passa a exigir remapear tudo. Muitas partições lógicas sobre poucas físicas tornam o crescimento uma mudança de tabela de roteamento.
 
-**Ignorar o desequilíbrio de inquilinos.**
+**Ignorar o desequilíbrio de inquilinos.** Particionar por cliente parece natural até o maior cliente sozinho exceder a capacidade de uma partição — e ele não pode ser dividido pela chave escolhida.
 
-**Espalhar o roteamento pela aplicação.**
+**Espalhar o roteamento pela aplicação.** Cada ponto que calcula em qual partição está o dado é um lugar a mudar quando o esquema de partição mudar, e um lugar onde a regra pode divergir.
 
-**Não planejar o rebalanceamento antes de precisar dele.**
+**Não planejar o rebalanceamento antes de precisar dele.** Quando uma partição satura, mover dados sob carga, sem parar escrita e sem perder consistência, é uma operação que precisa ter sido projetada. Improvisá-la no dia é como se perde dado.
 
 ## Exemplo Real
 

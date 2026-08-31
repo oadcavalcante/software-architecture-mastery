@@ -187,15 +187,15 @@ chamadas — e ela depende de qual custa mais no caso concreto.
 
 ## Erros Comuns
 
-**Escolher número redondo.**
+**Escolher número redondo.** Trinta segundos não vem de medição nenhuma; vem de ser um número confortável. O prazo precisa sair da distribuição de latência real da chamada.
 
-**Não medir o p99 antes de calibrar.**
+**Não medir o p99 antes de calibrar.** Um prazo abaixo da cauda normal transforma chamadas que teriam sucesso em erro, e o sistema passa a falhar sozinho sob carga que ele suportaria.
 
-**Não propagar o prazo.**
+**Não propagar o prazo.** Se o cliente já desistiu, todo trabalho a jusante é desperdício — e é desperdício justamente durante a sobrecarga, quando a capacidade é escassa.
 
-**Assumir que o timeout cancela o trabalho do outro lado.**
+**Assumir que o timeout cancela o trabalho do outro lado.** Ele encerra a espera, não a execução. O servidor continua processando e pode concluir o efeito que o cliente considera fracassado.
 
-**Configurar um só tipo.**
+**Configurar um só tipo.** Conexão, leitura e prazo total falham por motivos diferentes. Um prazo total generoso sem prazo de conexão deixa a chamada presa tentando alcançar uma máquina que não existe mais.
 
 ## Exemplo Real
 

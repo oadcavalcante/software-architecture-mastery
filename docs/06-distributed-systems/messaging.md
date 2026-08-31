@@ -183,15 +183,15 @@ lento alcançá-las.
 
 ## Erros Comuns
 
-**Escolher o modelo pela ferramenta disponível.**
+**Escolher o modelo pela ferramenta disponível.** Fila e log de eventos resolvem problemas diferentes — trabalho a executar uma vez versus fato que muitos leem no próprio ritmo. Usar o que já está instalado para os dois força um dos dois casos a um formato errado.
 
-**Não calibrar o tempo de visibilidade.**
+**Não calibrar o tempo de visibilidade.** Se ele é menor que o tempo de processamento, a mensagem reaparece para outro consumidor enquanto o primeiro ainda trabalha — e o efeito acontece duas vezes.
 
-**Não monitorar profundidade e idade da mensagem mais antiga.**
+**Não monitorar profundidade e idade da mensagem mais antiga.** As duas medem coisas distintas: profundidade acusa pico de entrada, idade acusa consumidor parado. Uma fila com dez mensagens paradas há duas horas é mais grave que uma com dez mil em escoamento.
 
-**Publicar dentro da transação sem outbox.**
+**Publicar dentro da transação sem outbox.** O banco e o broker não compartilham transação: um pode confirmar e o outro falhar, e o resultado é evento sem fato ou fato sem evento.
 
-**Usar o log como armazenamento de consulta.**
+**Usar o log como armazenamento de consulta.** Ele é otimizado para leitura sequencial por posição. Perguntar "qual o estado atual do pedido X" exige varrer, e a resposta piora à medida que o histórico cresce.
 
 ## Exemplo Real
 

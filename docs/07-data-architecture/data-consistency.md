@@ -198,15 +198,15 @@ Garantias fracas com reconciliação onde:
 
 ## Erros Comuns
 
-**Não declarar restrições no armazenamento.**
+**Não declarar restrições no armazenamento.** Validação só na aplicação falha quando há mais de um caminho de escrita — outro serviço, uma migração, uma correção manual. A restrição no banco é a única que ninguém contorna sem querer.
 
-**Não ter reconciliação.**
+**Não ter reconciliação.** Sistemas distribuídos divergem por falha parcial, e a divergência que ninguém procura só é descoberta pelo cliente. Um processo periódico que compara e reporta é barato e é o que transforma incidente em achado.
 
-**Tratar consistência como propriedade global do sistema.**
+**Tratar consistência como propriedade global do sistema.** Ela é escolhida por fluxo: saldo exige forte, contador de visualizações não. Declará-la no nível do sistema força o mais caro em toda parte ou o mais barato onde não cabe.
 
-**Confundir os três sentidos numa mesma discussão.**
+**Confundir os três sentidos numa mesma discussão.** O C do ACID, o C do CAP e consistência de leitura são coisas distintas com o mesmo nome. Duas pessoas podem concordar em tudo e discordar aparentemente, só por estarem em sentidos diferentes.
 
-**Adotar consistência eventual sem decisão de negócio.**
+**Adotar consistência eventual sem decisão de negócio.** A janela em que o dado está errado tem consequência para alguém, e quem responde por ela é quem precisa aceitá-la.
 
 ## Exemplo Real
 

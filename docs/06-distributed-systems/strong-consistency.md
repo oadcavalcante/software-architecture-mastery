@@ -188,15 +188,15 @@ vazão despenca.
 
 ## Erros Comuns
 
-**Adotar uniformemente.**
+**Adotar uniformemente.** Poucos fluxos de um sistema precisam de consistência forte — saldo, estoque, unicidade. Aplicá-la ao catálogo e ao histórico paga latência e disponibilidade por garantia que ninguém usa.
 
-**Não limitar o escopo por partição.**
+**Não limitar o escopo por partição.** Coordenação entre todos os nós custa muito mais que coordenação dentro de uma partição. Escolher a chave de forma que o invariante caiba numa só é o que torna a garantia pagável.
 
-**Confundir linearizabilidade com serializabilidade.**
+**Confundir linearizabilidade com serializabilidade.** A primeira é sobre ordem em tempo real de operações num objeto; a segunda, sobre equivalência a alguma ordem sequencial de transações. Um banco pode oferecer uma sem a outra, e o requisito costuma ser de uma delas só.
 
-**Não verificar o que o banco de fato garante na configuração usada.**
+**Não verificar o que o banco de fato garante na configuração usada.** O nível de isolamento padrão raramente é o mais forte, e ler de réplica frequentemente descarta a garantia que a escrita comprou.
 
-**Não medir o custo de latência da coordenação.**
+**Não medir o custo de latência da coordenação.** Cada escrita coordenada carrega pelo menos uma ida e volta entre réplicas. Entre zonas isso é alguns milissegundos; entre continentes, mais de cem — e o número muda quais requisitos de resposta são alcançáveis.
 
 ## Exemplo Real
 

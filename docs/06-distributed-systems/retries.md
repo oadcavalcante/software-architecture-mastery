@@ -202,15 +202,15 @@ segundos ocupam a conexão por 9 segundos.
 
 ## Erros Comuns
 
-**Configurar retentativa genérica sem distinguir o tipo de falha.**
+**Configurar retentativa genérica sem distinguir o tipo de falha.** Repetir um erro de validação nunca vai dar certo e só consome capacidade; repetir uma indisponibilidade momentânea quase sempre dá. Tratar os dois igual desperdiça no primeiro caso e atrasa a desistência no segundo.
 
-**Repetir `POST` sem chave de idempotência.**
+**Repetir `POST` sem chave de idempotência.** A primeira tentativa pode ter tido efeito e perdido só a resposta. Sem a chave, a repetição cria o segundo pedido — e a duplicação nasce exatamente do mecanismo que existia para dar confiabilidade.
 
-**Habilitar em cada serviço sem olhar a cadeia.**
+**Habilitar em cada serviço sem olhar a cadeia.** Três camadas com três tentativas cada produzem vinte e sete chamadas ao serviço do fim. A retentativa vira amplificação de carga justamente sobre quem já estava sobrecarregado.
 
-**Não implementar backoff.**
+**Não implementar backoff.** Repetir imediatamente e em intervalo fixo sincroniza todos os clientes na mesma janela, e o serviço em recuperação recebe uma onda no instante em que volta. Espera crescente com aleatoriedade dispersa isso.
 
-**Ignorar `Retry-After`.**
+**Ignorar `Retry-After`.** É o servidor dizendo quando estará pronto. Descartar essa informação e usar a própria política significa insistir contra quem já pediu para esperar.
 
 ## Exemplo Real
 
