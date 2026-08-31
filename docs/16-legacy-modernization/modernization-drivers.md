@@ -207,15 +207,15 @@ de conviver com ela.
 
 ## Quando Não Usar
 
-**Propondo a partir do sintoma técnico.**
+**Propondo a partir do sintoma técnico.** "O código está ruim" não é motivo de investimento para quem aprova orçamento; a consequência de negócio é.
 
-**Sem calcular o custo de não fazer.**
+**Sem calcular o custo de não fazer.** A comparação relevante não é com o ideal, é com continuar como está — e esse custo costuma ser o argumento mais forte.
 
-**Assumindo que o sistema inteiro precisa mudar.**
+**Assumindo que o sistema inteiro precisa mudar.** O motivo normalmente aponta para uma parte específica, e modernizar só ela é uma fração do custo.
 
-**Sem verificar se o motivo justifica a prioridade.**
+**Sem verificar se o motivo justifica a prioridade.** Motivo real não é o mesmo que motivo urgente; competir por orçamento exige mostrar por que agora.
 
-**Omitindo motivos legítimos** por parecerem frívolos.
+**Omitindo motivos legítimos** por parecerem frívolos. Dificuldade de contratar para uma tecnologia obsoleta é risco de continuidade concreto, e costuma ser silenciado por parecer menos sério que os técnicos.
 
 ## Alternativas
 

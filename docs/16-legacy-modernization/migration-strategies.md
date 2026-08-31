@@ -192,7 +192,7 @@ escolha padrão por reflexo.
 
 **Decidir por sistema inteiro** quando as partes têm problemas diferentes.
 
-**Substituir capacidade diferenciadora.**
+**Substituir capacidade diferenciadora.** Trocar por produto de mercado o que distingue a empresa nivela o processo ao do concorrente — e a customização para recuperar a diferença custa mais que ter construído.
 
 **Replataformar e parar aí**, quando o problema era outro.
 
@@ -233,29 +233,29 @@ investimento maior.
 
 ## Modos de Falha
 
-**Reconstruir o que deveria ser refatorado.**
+**Reconstruir o que deveria ser refatorado.** Quando o modelo está certo e só o código está ruim, reconstruir joga fora regras que funcionam e paga o risco inteiro da reescrita.
 
-**Refatorar o que tem modelo errado.**
+**Refatorar o que tem modelo errado.** Refatoração melhora a estrutura do código sobre o mesmo modelo de dados. Se o modelo é a causa, o resultado é código limpo com o problema intacto.
 
 **Substituir capacidade diferenciadora.**
 
-**Replataformar esperando que resolva problema de código.**
+**Replataformar esperando que resolva problema de código.** Mudar de infraestrutura reduz custo operacional e não toca em acoplamento nem em modelo.
 
-**Decidir por sistema inteiro.**
+**Decidir por sistema inteiro.** Partes diferentes têm diagnósticos diferentes, e uma decisão única desperdiça esforço numa metade e subdimensiona a outra.
 
-**Não considerar não fazer nada.**
+**Não considerar não fazer nada.** Sistema estável, barato e que ninguém precisa mudar não gera retorno ao ser modernizado — e é a opção que quase nunca entra na comparação.
 
 ## Erros Comuns
 
-**Escolher a estratégia antes do diagnóstico.**
+**Escolher a estratégia antes do diagnóstico.** A estratégia é consequência do problema — código ruim, modelo errado, plataforma cara. Escolhida antes, ela resolve o problema que não existia.
 
-**Assumir que o sistema é homogêneo.**
+**Assumir que o sistema é homogêneo.** Partes diferentes do mesmo sistema pedem estratégias diferentes; tratar tudo igual desperdiça esforço no que estava bom e subdimensiona o que estava ruim.
 
-**Não avaliar replataformar como primeiro passo.**
+**Não avaliar replataformar como primeiro passo.** É frequentemente barato, reduz custo operacional imediato e compra tempo para decidir o resto com calma.
 
-**Não verificar a fronteira do produto** ao substituir.
+**Não verificar a fronteira do produto** ao substituir. Se o produto de mercado não cobre exatamente a capacidade, o que sobra vira customização — e customização é o que torna a substituição mais cara que construir.
 
-**Não registrar a decisão de não fazer.**
+**Não registrar a decisão de não fazer.** Sem registro, a mesma proposta volta todo ano e a análise é refeita do zero, com o mesmo resultado.
 
 ## Exemplo Real
 

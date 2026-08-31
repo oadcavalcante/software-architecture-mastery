@@ -186,17 +186,17 @@ contra ela.
 
 ## Quando Não Usar
 
-**Sequenciando por dependência técnica.**
+**Sequenciando por dependência técnica.** Nada é útil até o fim, e projetos assim são interrompidos antes de entregar.
 
-**Com fatias horizontais.**
+**Com fatias horizontais.** Obrigam as duas arquiteturas a conviver em todas as funcionalidades ao mesmo tempo.
 
-**Com fatias longas demais.**
+**Com fatias longas demais.** A fatia vira um projeto grande e recupera todos os riscos que o incremento evitava.
 
-**Medindo progresso por percentual de código.**
+**Medindo progresso por percentual de código.** Esconde que a complexidade está concentrada no que falta, e o número dá falsa segurança.
 
-**Oportunista para mudanças estruturais.**
+**Oportunista para mudanças estruturais.** Melhorar o que se toca nunca alcança fronteira errada nem modelo de dados inadequado.
 
-**Sem limite na refatoração incidental.**
+**Sem limite na refatoração incidental.** Sem teto, a correção de uma linha vira uma semana e o time perde a previsibilidade que sustentava a estratégia.
 
 ## Alternativas
 
@@ -238,17 +238,17 @@ contra ela.
 
 ## Erros Comuns
 
-**Ordenar por conveniência técnica.**
+**Ordenar por conveniência técnica.** Começar pelo que é fácil de extrair produz progresso visível sem valor de negócio, e o apoio acaba antes de a parte difícil começar.
 
-**Fatiar horizontalmente.**
+**Fatiar horizontalmente.** Migrar uma camada de cada vez obriga a manter as duas arquiteturas conversando em todas as funcionalidades, e nenhuma delas fica pronta até o fim.
 
-**Não testar cada fatia contra o critério de defensabilidade.**
+**Não testar cada fatia contra o critério de defensabilidade.** Se a fatia não entrega algo que se sustenta sozinho, ela não pode ser interrompida — e interrupção é o cenário mais provável.
 
-**Comunicar progresso em percentual de código.**
+**Comunicar progresso em percentual de código.** "40% migrado" não diz nada ao negócio e esconde que os 60% restantes contêm toda a complexidade. Progresso se comunica em capacidade entregue.
 
-**Usar oportunista para problema estrutural.**
+**Usar oportunista para problema estrutural.** Melhorar o que se toca não corrige fronteira errada nem modelo de dados inadequado; esses exigem trabalho dirigido.
 
-**Não limitar o tamanho da fatia.**
+**Não limitar o tamanho da fatia.** Fatia longa demais volta a ser um projeto grande com todos os riscos que o incremento existia para evitar.
 
 ## Exemplo Real
 

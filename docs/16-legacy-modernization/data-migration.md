@@ -189,17 +189,17 @@ necessárias sempre que:
 
 ## Quando Não Usar
 
-**Sem perfilagem prévia.**
+**Sem perfilagem prévia.** Os dados que não encaixam aparecem na janela de corte, quando não há tempo de decidir o que fazer com eles.
 
-**Decidindo o destino dos dados inconsistentes durante a janela.**
+**Decidindo o destino dos dados inconsistentes durante a janela.** São decisões de negócio tomadas às três da manhã por quem não tem autoridade para tomá-las.
 
-**Sem ensaiar.**
+**Sem ensaiar.** A duração real só é conhecida por medição com volume real; sem ela, a janela combinada é um chute.
 
-**Com verificação apenas por contagem.**
+**Com verificação apenas por contagem.** Conteúdo trocado com contagem igual passa despercebido, e o erro é descoberto pelo cliente.
 
-**Sem plano de reversão.**
+**Sem plano de reversão.** Sem manter o sistema antigo consistente, o corte é irreversível — e a decisão de seguir em frente passa a ser tomada sob pressão, sem alternativa.
 
-**Sem decisão explícita sobre histórico.**
+**Sem decisão explícita sobre histórico.** Migrar tudo custa uma ordem de grandeza a mais e frequentemente não era necessário.
 
 ## Alternativas
 
