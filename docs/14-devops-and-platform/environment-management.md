@@ -75,7 +75,7 @@ mesclagem                    → ambiente destruído
 
 Isso resolve a disputa e traz um efeito colateral valioso: **força a infraestrutura a ser
 completamente declarada**, porque um ambiente criado do zero não tolera passos manuais.
-Ver [infraestrutura como código](infrastructure-as-code.md).
+Ver [infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md).
 
 O custo é o tempo de criação e o custo dos ambientes simultâneos — mitigado por
 capacidade reduzida e por destruição automática ao fim.
@@ -93,7 +93,7 @@ conformidade   os dados continuam sendo regulados
 desatualização a cópia envelhece e ninguém sabe o que ela representa
 ```
 
-Ver [proteção de dados](../10-security/data-protection.md).
+Ver [proteção de dados](/10-security/data-protection.md).
 
 As alternativas:
 
@@ -108,12 +108,12 @@ A terceira é subestimada: para a maioria dos testes, algumas centenas de regist
 escolhidos valem mais que milhões copiados.
 
 E, para testes de volume, dados sintéticos com a distribuição real — não uniforme. Ver
-[planejamento de capacidade](../11-scalability/scaling-capacity-planning.md).
+[planejamento de capacidade](/11-scalability/scaling-capacity-planning.md).
 
 ### Promoção, não reconstrução
 
 O mesmo artefato atravessa os ambientes. Ver
-[contêineres na entrega](containers-in-delivery.md).
+[contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md).
 
 O que muda entre ambientes é **apenas configuração**:
 
@@ -140,8 +140,8 @@ monitoramento de métricas de negócio
 implantação sombra
 ```
 
-Ver [canary](canary.md) e
-[observabilidade](../13-observability/index.md).
+Ver [canary](/14-devops-and-platform/canary.md) e
+[observabilidade](/13-observability/index.md).
 
 Isso não substitui os ambientes anteriores — reposiciona o que se espera deles. Eles
 pegam a maior parte dos problemas; produção pega os que dependem da realidade.
@@ -191,7 +191,7 @@ falsa; com disputa, ele produz atraso.
 - **Ambiente compartilhado com isolamento lógico** — namespaces ou prefixos, quando
   ambientes completos são caros.
 - **Testes de contrato** — reduzem a necessidade de ambiente integrado. Ver
-  [contratos de integração](../08-integration-architecture/integration-contracts.md).
+  [contratos de integração](/08-integration-architecture/integration-contracts.md).
 - **Substitutos de dependências** — em vez de instâncias reais de tudo.
 - **Verificação em produção** — canary, sombra, flags.
 
@@ -286,10 +286,10 @@ custavam mais que o único ambiente fiel que os substituiu.
 
 ## Conceitos Relacionados
 
-- [Infraestrutura como Código](infrastructure-as-code.md) — o que viabiliza efêmeros.
-- [Contêineres na Entrega](containers-in-delivery.md) — a promoção.
-- [Integração Contínua](ci-cd.md).
-- [Proteção de Dados](../10-security/data-protection.md) — os dados de teste.
+- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md) — o que viabiliza efêmeros.
+- [Contêineres na Entrega](/14-devops-and-platform/containers-in-delivery.md) — a promoção.
+- [Integração Contínua](/14-devops-and-platform/ci-cd.md).
+- [Proteção de Dados](/10-security/data-protection.md) — os dados de teste.
 
 ## Exercício Prático
 

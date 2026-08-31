@@ -69,7 +69,7 @@ continuam operando**.
 Se ambos aceitam escritas, os estados divergem e alguém resolve o conflito depois.
 Se apenas um aceita, é preciso decidir qual — e o outro fica indisponível.
 
-Esse é literalmente o dilema de [CAP](cap.md), e ele existe por causa de partição.
+Esse é literalmente o dilema de [CAP](/06-distributed-systems/cap.md), e ele existe por causa de partição.
 
 O erro comum é tratar partição como hipótese teórica. Ela acontece: falha de
 comutador, erro de configuração, atualização de firmware, zona de disponibilidade
@@ -95,7 +95,7 @@ Um nó que caiu é detectado e removido. Um nó **lento** continua respondendo �
 verificações de saúde, continua recebendo tráfego e continua entregando devagar.
 
 Isso propaga a lentidão para quem depende dele, e é a origem de boa parte das
-cascatas. Ver [circuit breakers](../12-reliability/index.md).
+cascatas. Ver [circuit breakers](/12-reliability/index.md).
 
 Detectar degradação exige medir latência, não apenas disponibilidade — e é por
 isso que verificação de saúde binária é insuficiente.
@@ -109,8 +109,8 @@ lentidão — e projetar assumindo qualquer uma delas produz defeito.
 
 Este documento não descreve uma técnica a aplicar. As decisões que ele informa:
 
-- Calibrar [timeouts](timeouts.md) sabendo que atraso e perda são indistinguíveis.
-- Projetar [idempotência](idempotency.md), porque duplicação vai acontecer.
+- Calibrar [timeouts](/06-distributed-systems/timeouts.md) sabendo que atraso e perda são indistinguíveis.
+- Projetar [idempotência](/06-distributed-systems/idempotency.md), porque duplicação vai acontecer.
 - Escolher entre disponibilidade e consistência sob partição.
 - Detectar degradação além de indisponibilidade.
 
@@ -132,7 +132,7 @@ duplicação em camadas acima.
 
 Não há alternativa a lidar com falha de rede num sistema distribuído. Há a
 alternativa de **não distribuir** — ver
-[monolito modular](../03-design-patterns/modular-monolith.md).
+[monolito modular](/03-design-patterns/modular-monolith.md).
 
 Dentro do distribuído, o que varia é a estratégia: tolerar e reconciliar, ou
 recusar operar durante a falha.
@@ -149,7 +149,7 @@ divergência a resolver — e recusar — com indisponibilidade.
 | Conflito a resolver | Sem conflito |
 | Adequado a domínios que toleram | Adequado a domínios que não toleram |
 
-Ver [CAP](cap.md) para o tratamento completo.
+Ver [CAP](/06-distributed-systems/cap.md) para o tratamento completo.
 
 ## Modos de Falha
 
@@ -177,7 +177,7 @@ achando que está no grupo.
 faz.
 
 **Retransmitir agressivamente sob congestionamento.** Piora exatamente a condição
-que causou a perda. Ver [backoff](backoff.md).
+que causou a perda. Ver [backoff](/06-distributed-systems/backoff.md).
 
 ## Exemplo Real
 
@@ -207,15 +207,15 @@ sem que o negócio soubesse. Para um sistema de saldo, era a troca errada.
 
 A correção foi reabilitar a exigência de maioria e aceitar 90 segundos de
 indisponibilidade em vez de divergência de saldo — desta vez com a decisão
-registrada em [ADR](../18-architecture-decisions/index.md), e com o negócio na
+registrada em [ADR](/18-architecture-decisions/index.md), e com o negócio na
 conversa.
 
 ## Conceitos Relacionados
 
-- [Falha Parcial](partial-failure.md) — a consequência para o projeto.
-- [CAP](cap.md) — a escolha sob partição.
-- [Detecção de Falha](failure-detection.md) — por que declarar morto é heurística.
-- [Timeouts](timeouts.md) — a única ferramenta disponível.
+- [Falha Parcial](/06-distributed-systems/partial-failure.md) — a consequência para o projeto.
+- [CAP](/06-distributed-systems/cap.md) — a escolha sob partição.
+- [Detecção de Falha](/06-distributed-systems/failure-detection.md) — por que declarar morto é heurística.
+- [Timeouts](/06-distributed-systems/timeouts.md) — a única ferramenta disponível.
 
 ## Exercício Prático
 

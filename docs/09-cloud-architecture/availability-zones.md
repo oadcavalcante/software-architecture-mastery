@@ -22,7 +22,7 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 Uma zona de disponibilidade é um datacenter — ou um conjunto deles — isolado dos
-demais dentro da mesma [região](regions.md): energia, refrigeração e rede
+demais dentro da mesma [região](/09-cloud-architecture/regions.md): energia, refrigeração e rede
 independentes.
 
 Zonas ficam próximas o suficiente para que a latência entre elas seja de poucos
@@ -64,12 +64,12 @@ complexidade    configuração             projeto
 A consequência prática: **replicação síncrona entre zonas é viável**; entre regiões,
 raramente. Isso é o que faz multi-zona ser padrão e multi-região ser exceção.
 
-Ver [PACELC](../06-distributed-systems/pacelc.md).
+Ver [PACELC](/06-distributed-systems/pacelc.md).
 
 ### Três zonas, não duas
 
 Duas zonas parecem suficientes e não são, por causa de
-[consenso](../06-distributed-systems/consensus.md): sistemas que precisam de
+[consenso](/06-distributed-systems/consensus.md): sistemas que precisam de
 maioria — bancos com eleição de líder, coordenadores, orquestradores — não
 conseguem formar maioria com metade fora.
 
@@ -92,7 +92,7 @@ A regra: a capacidade das zonas restantes precisa suportar o pico. Com três zon
 cada uma deve operar em torno de 60% ou menos — ou o escalonamento automático
 precisa ser rápido o bastante, o que raramente é durante um evento correlacionado.
 
-Ver [disponibilidade](../06-distributed-systems/availability.md).
+Ver [disponibilidade](/06-distributed-systems/availability.md).
 
 ### Tráfego entre zonas é cobrado
 
@@ -124,7 +124,7 @@ intermitente.
 
 Verificações de saúde que apenas checam se o processo responde não detectam isso, e
 o tráfego continua sendo enviado para uma zona doente. Ver
-[detecção de falhas](../06-distributed-systems/failure-detection.md).
+[detecção de falhas](/06-distributed-systems/failure-detection.md).
 
 Balanceamento sensível a taxa de erro e latência — não só a presença — é o que
 transforma degradação em remoção automática.
@@ -161,11 +161,11 @@ distribuir o estado não resolve.
 
 ## Alternativas
 
-- **[Multi-região](multi-region.md)** — para desastre regional; muito mais caro.
+- **[Multi-região](/09-cloud-architecture/multi-region.md)** — para desastre regional; muito mais caro.
 - **Cópia de segurança com restauração testada** — quando indisponibilidade
   temporária é aceitável.
 - **Serviços gerenciados que já são multi-zona** — transferem o problema. Ver
-  [serviços gerenciados](managed-services.md).
+  [serviços gerenciados](/09-cloud-architecture/managed-services.md).
 - **Zona única com recuperação rápida** — decisão legítima para sistemas de baixa
   criticidade, desde que explícita.
 
@@ -266,10 +266,10 @@ aparece no teste — ou no incidente.
 
 ## Conceitos Relacionados
 
-- [Regiões](regions.md) — o nível acima.
-- [Multi-Região](multi-region.md) — para desastre regional.
-- [Disponibilidade](../06-distributed-systems/availability.md).
-- [Consenso](../06-distributed-systems/consensus.md) — por que três, não duas.
+- [Regiões](/09-cloud-architecture/regions.md) — o nível acima.
+- [Multi-Região](/09-cloud-architecture/multi-region.md) — para desastre regional.
+- [Disponibilidade](/06-distributed-systems/availability.md).
+- [Consenso](/06-distributed-systems/consensus.md) — por que três, não duas.
 
 ## Exercício Prático
 

@@ -37,7 +37,7 @@ esse componente atravessa a fronteira da rede privada?
 
 ## Problema
 
-O diagrama de [contêiner](container-diagrams.md) é lógico. Ele mostra que existe uma API
+O diagrama de [contêiner](/17-architecture-documentation/container-diagrams.md) é lógico. Ele mostra que existe uma API
 de Pedidos. Não mostra que ela roda em seis instâncias distribuídas em três zonas, atrás
 de um balanceador, com o banco numa zona só.
 
@@ -48,7 +48,7 @@ falha afeta que zonas".
 
 **Ao avaliar disponibilidade**, quando a pergunta é se a redundância lógica corresponde a
 redundância física. Ver
-[disponibilidade](../06-distributed-systems/availability.md).
+[disponibilidade](/06-distributed-systems/availability.md).
 
 O caso clássico: três instâncias de um serviço, todas na mesma zona. O diagrama de
 contêiner mostra redundância; o de implantação mostra que ela é ilusória.
@@ -89,7 +89,7 @@ homologação     uma instância de cada, uma zona
 desenvolvimento tudo numa máquina
 ```
 
-Ver [gestão de ambientes](../14-devops-and-platform/environment-management.md).
+Ver [gestão de ambientes](/14-devops-and-platform/environment-management.md).
 
 Na prática, o de produção é o que se paga. Os outros raramente valem manutenção.
 
@@ -106,7 +106,7 @@ onde termina a criptografia em trânsito
 ```
 
 Isso o torna o artefato de referência para conversas de segurança. Ver
-[modelagem de ameaças](../10-security/threat-modeling.md) — o diagrama de
+[modelagem de ameaças](/10-security/threat-modeling.md) — o diagrama de
 implantação é a entrada natural para o exercício.
 
 ### Ele expõe redundância falsa
@@ -122,7 +122,7 @@ O uso de maior retorno: comparar a redundância pretendida com a real.
 
 Cada uma dessas foi encontrada em um sistema real por alguém que desenhou o diagrama e
 olhou. Ver
-[planejamento de recuperação de desastre](../12-reliability/disaster-recovery-planning.md).
+[planejamento de recuperação de desastre](/12-reliability/disaster-recovery-planning.md).
 
 ### Ele desatualiza — e a infraestrutura é declarada
 
@@ -132,8 +132,8 @@ topologia **já está declarada** em código de infraestrutura.
 Isso muda a equação de manutenção. Um diagrama desenhado à mão vai divergir do que o
 código de infraestrutura declara; um diagrama derivado dele não pode divergir.
 
-Ver [infraestrutura como código](../14-devops-and-platform/infrastructure-as-code.md) e
-[documentação viva](living-documentation.md).
+Ver [infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md) e
+[documentação viva](/17-architecture-documentation/living-documentation.md).
 
 ### Custo aparece aqui e em nenhum outro lugar
 
@@ -148,7 +148,7 @@ diagrama físico       quantas instâncias, em quantas zonas, por quanto tempo
 Isso o torna útil numa conversa que raramente tem artefato: a de custo de arquitetura.
 Uma decisão de redundância entre três zonas é uma decisão de disponibilidade e uma decisão
 de gasto, e o mesmo desenho sustenta as duas. Ver
-[arquitetura de custo](../09-cloud-architecture/cost-architecture.md).
+[arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
 A conversa fica mais concreta quando o requisito de disponibilidade aparece ao lado da
 topologia: pedir 99,99% é pedir uma topologia específica, com um custo específico. Sem o
@@ -264,7 +264,7 @@ de infraestrutura, não desenhado.
 
 **Verificação automática** de distribuição por zona, como parte da esteira: um grupo de
 escala com sub-rede única em sistema crítico falha a verificação. Ver
-[infraestrutura como código](../14-devops-and-platform/infrastructure-as-code.md).
+[infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md).
 
 **Revisão anual** de correspondência entre requisito de disponibilidade e topologia real.
 
@@ -277,10 +277,10 @@ num desenho, com o requisito ao lado.
 
 ## Conceitos Relacionados
 
-- [Diagramas de Contêiner](container-diagrams.md) — o nível lógico.
-- [Disponibilidade](../06-distributed-systems/availability.md).
-- [Infraestrutura como Código](../14-devops-and-platform/infrastructure-as-code.md).
-- [Modelagem de Ameaças](../10-security/threat-modeling.md).
+- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md) — o nível lógico.
+- [Disponibilidade](/06-distributed-systems/availability.md).
+- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md).
+- [Modelagem de Ameaças](/10-security/threat-modeling.md).
 
 ## Exercício Prático
 

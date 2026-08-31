@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Num sistema com [entrega ao menos uma vez](delivery-guarantees.md), a mesma
+Num sistema com [entrega ao menos uma vez](/06-distributed-systems/delivery-guarantees.md), a mesma
 mensagem chegará duas vezes. Não é hipótese — é certeza estatística ao longo do
 tempo.
 
@@ -51,7 +51,7 @@ correção de defeito num consumidor implica reprocessar.
 ### Duas estratégias
 
 **Idempotência da operação.** O efeito é o mesmo executando uma ou N vezes. Ver
-[idempotência](idempotency.md). É a solução mais robusta, porque não depende de
+[idempotência](/06-distributed-systems/idempotency.md). É a solução mais robusta, porque não depende de
 detectar a duplicata.
 
 **Deduplicação explícita.** Registrar identificadores já processados e descartar
@@ -253,10 +253,10 @@ comissionadas foram descartadas silenciosamente, e apenas as novas foram lançad
 
 ## Conceitos Relacionados
 
-- [Idempotência](idempotency.md) — a estratégia preferível.
-- [Garantias de Entrega](delivery-guarantees.md) — por que a duplicação é certa.
-- [Ordenação](ordering.md) — o problema irmão.
-- [Poison Messages](poison-messages.md).
+- [Idempotência](/06-distributed-systems/idempotency.md) — a estratégia preferível.
+- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md) — por que a duplicação é certa.
+- [Ordenação](/06-distributed-systems/ordering.md) — o problema irmão.
+- [Poison Messages](/06-distributed-systems/poison-messages.md).
 
 ## Exercício Prático
 

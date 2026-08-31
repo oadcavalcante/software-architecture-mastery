@@ -26,10 +26,10 @@ uma parte.
 
 É a única técnica que **escala escrita**: em vez de replicar toda escrita para todos os
 nós, cada escrita vai para um nó só. Ver
-[replicação para escala](scaling-replication.md).
+[replicação para escala](/11-scalability/scaling-replication.md).
 
 E é a mais cara e a mais difícil de reverter. É o último degrau da escada em
-[escala de banco de dados](database-scaling.md), e há razões para ele estar no fim.
+[escala de banco de dados](/11-scalability/database-scaling.md), e há razões para ele estar no fim.
 
 ## Problema
 
@@ -45,7 +45,7 @@ todos os nós.
 agregação.
 
 **Transações entre partições deixam de existir** — ou viram coordenação distribuída.
-Ver [transações distribuídas](../06-distributed-systems/distributed-transactions.md).
+Ver [transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
 ## Conceitos Centrais
 
@@ -56,7 +56,7 @@ critérios, em ordem:
 
 **A maioria das consultas filtra por ela?** Se não, elas vão a todos os nós.
 
-**Ela distribui uniformemente?** Se não, há [ponto quente](hotspots.md).
+**Ela distribui uniformemente?** Se não, há [ponto quente](/11-scalability/hotspots.md).
 
 **As operações que precisam ser atômicas caem na mesma partição?** Se não, transação
 distribuída.
@@ -79,7 +79,7 @@ concentra escrita quando a chave é crescente — o problema mais comum.
 **Composta.** Combina duas dimensões — cliente e período. Costuma ser a resposta quando
 nenhuma isolada serve.
 
-Ver [particionamento](../06-distributed-systems/partitioning.md) para os fundamentos.
+Ver [particionamento](/06-distributed-systems/partitioning.md) para os fundamentos.
 
 ### Consulta entre partições é o custo escondido
 
@@ -117,7 +117,7 @@ que só aparece quando é caro corrigir.
 Vale enumerar, porque a decisão precisa dos dois lados:
 
 **Transação entre partições.** Operações que tocam duas partições precisam de
-[saga](../06-distributed-systems/sagas.md) ou coordenação.
+[saga](/06-distributed-systems/sagas.md) ou coordenação.
 
 **Junção entre partições.** Deixa de existir no banco; vira código.
 
@@ -137,7 +137,7 @@ cliente precisa ser único, e a partição é por região.
 Uma alternativa frequentemente melhor: separar por domínio, em bancos independentes,
 antes de particionar horizontalmente.
 
-Ver [escala de banco de dados](database-scaling.md), degrau 9. A fronteira já existe no
+Ver [escala de banco de dados](/11-scalability/database-scaling.md), degrau 9. A fronteira já existe no
 negócio, as consultas que cruzam já são raras, e cada banco escala sozinho.
 
 Muitos casos levados ao particionamento seriam resolvidos assim, com menos custo
@@ -174,7 +174,7 @@ em tudo.
 ## Alternativas
 
 - **Dividir por domínio** — a alternativa mais frequentemente adequada.
-- **[Replicação](scaling-replication.md)** — se o limite é leitura.
+- **[Replicação](/11-scalability/scaling-replication.md)** — se o limite é leitura.
 - **Arquivar dados frios** — reduz o volume sem dividir.
 - **Reduzir a escrita** — agrupar, tornar assíncrona, eliminar a desnecessária.
 - **Banco relacional distribuído** — mantém o modelo e distribui, ao custo de latência
@@ -201,7 +201,7 @@ em tudo.
 
 **Chave errada.** Consultas em todas as partições.
 
-**Ponto quente.** Uma partição saturada. Ver [pontos quentes](hotspots.md).
+**Ponto quente.** Uma partição saturada. Ver [pontos quentes](/11-scalability/hotspots.md).
 
 **Rebalanceamento inviável.** A estratégia escolhida exige remapear tudo.
 
@@ -263,10 +263,10 @@ existiam no roteiro de produto e não entraram na análise.
 
 ## Conceitos Relacionados
 
-- [Replicação para Escala](scaling-replication.md) — o passo anterior.
-- [Pontos Quentes](hotspots.md) — o risco da chave.
-- [Escala de Banco de Dados](database-scaling.md) — a escada.
-- [Particionamento](../06-distributed-systems/partitioning.md) — os fundamentos.
+- [Replicação para Escala](/11-scalability/scaling-replication.md) — o passo anterior.
+- [Pontos Quentes](/11-scalability/hotspots.md) — o risco da chave.
+- [Escala de Banco de Dados](/11-scalability/database-scaling.md) — a escada.
+- [Particionamento](/06-distributed-systems/partitioning.md) — os fundamentos.
 
 ## Exercício Prático
 

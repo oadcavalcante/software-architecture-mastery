@@ -25,7 +25,7 @@ SOA — *Service-Oriented Architecture* — organiza a empresa em serviços de n
 reutilizáveis, com contratos formais e integração mediada por um barramento
 central.
 
-É a linhagem direta de [microsserviços](microservices.md), e entendê-la ajuda a
+É a linhagem direta de [microsserviços](/03-design-patterns/microservices.md), e entendê-la ajuda a
 entender por que microsserviços fazem certas escolhas — várias delas em reação ao
 que deu errado aqui.
 
@@ -118,15 +118,15 @@ muda de lugar.
 
 ## Alternativas
 
-- **[Microsserviços](microservices.md)** — para sistemas novos com times
+- **[Microsserviços](/03-design-patterns/microservices.md)** — para sistemas novos com times
   autônomos.
 - **API gateway** — roteamento e política sem orquestração nem transformação de
   negócio. Captura parte do valor do ESB sem a degeneração.
-- **[Arquitetura orientada a eventos](event-driven.md)** — canal simples,
+- **[Arquitetura orientada a eventos](/03-design-patterns/event-driven.md)** — canal simples,
   inteligência nas pontas.
 - **Anti-corruption layer por consumidor** — cada sistema traduz o que consome,
   em vez de um tradutor central. Ver
-  [DDD](../04-domain-driven-design/index.md).
+  [DDD](/04-domain-driven-design/index.md).
 
 ## Trade-offs
 
@@ -152,7 +152,7 @@ muda de lugar.
 **Contrato canônico impossível.** A tentativa de definir um modelo único para toda
 a empresa — "cliente canônico" — consome anos e não converge, porque cliente
 significa coisas diferentes em áreas diferentes. Ver
-[bounded context](../04-domain-driven-design/index.md).
+[bounded context](/04-domain-driven-design/index.md).
 
 ## Erros Comuns
 
@@ -211,12 +211,12 @@ uma decisão de governança, não de tecnologia.
 
 ## Conceitos Relacionados
 
-- [Microsserviços](microservices.md) — a reação a este modelo.
-- [Arquitetura Orientada a Eventos](event-driven.md) — tubos burros, pontas
+- [Microsserviços](/03-design-patterns/microservices.md) — a reação a este modelo.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — tubos burros, pontas
   inteligentes.
-- [Integração](../08-integration-architecture/index.md) — API gateway e service
+- [Integração](/08-integration-architecture/index.md) — API gateway e service
   mesh.
-- [Modernização de Legado](../16-legacy-modernization/index.md).
+- [Modernização de Legado](/16-legacy-modernization/index.md).
 
 ## Exercício Prático
 

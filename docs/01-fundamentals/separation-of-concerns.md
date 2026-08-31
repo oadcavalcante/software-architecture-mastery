@@ -49,7 +49,7 @@ precisam ser mantidas na cabeça.
 ### O eixo é a razão de mudança
 
 O critério operacional, e o mesmo que orienta
-[modularidade](modularity.md): duas coisas são assuntos distintos se mudam por
+[modularidade](/01-fundamentals/modularity.md): duas coisas são assuntos distintos se mudam por
 razões diferentes.
 
 Validação de formato muda quando o contrato de entrada muda. Regra de negócio
@@ -201,9 +201,9 @@ por ano.
 
 ## Conceitos Relacionados
 
-- [Modularidade](modularity.md) — a estrutura que materializa a separação.
-- [Coesão](cohesion.md) — a medida de se o que ficou junto pertence junto.
-- [Abstração](abstraction.md) — o mecanismo que torna a separação possível.
+- [Modularidade](/01-fundamentals/modularity.md) — a estrutura que materializa a separação.
+- [Coesão](/01-fundamentals/cohesion.md) — a medida de se o que ficou junto pertence junto.
+- [Abstração](/01-fundamentals/abstraction.md) — o mecanismo que torna a separação possível.
 
 ## Exercício Prático
 

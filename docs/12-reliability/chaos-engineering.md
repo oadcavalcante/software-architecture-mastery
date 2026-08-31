@@ -99,7 +99,7 @@ expirar certificado            verifica monitoramento
 
 **Adicionar latência é o mais revelador**, e o menos usado. Dependências raramente caem
 — elas ficam lentas —, e é esse cenário que os mecanismos de proteção costumam não
-cobrir. Ver [circuit breakers](circuit-breakers.md).
+cobrir. Ver [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ### Raio de alcance limitado não é opcional
 
@@ -128,14 +128,14 @@ Fazer caos sem eles é irresponsável:
 
 **Observabilidade.** Se você não consegue ver o efeito, o experimento não ensina nada e
 o dano pode passar despercebido. Ver
-[observabilidade](../13-observability/index.md).
+[observabilidade](/13-observability/index.md).
 
 **Capacidade de reverter.** Desligar o experimento precisa ser imediato.
 
 **Comunicação.** As pessoas de sobreaviso precisam saber que é experimento, ou vão
 tratar como incidente.
 
-**Um alvo de confiabilidade.** Sem [SLO](slo.md), não há critério para dizer se o
+**Um alvo de confiabilidade.** Sem [SLO](/12-reliability/slo.md), não há critério para dizer se o
 resultado foi aceitável.
 
 ### Não é só ferramenta
@@ -198,7 +198,7 @@ mais.
   de procedimento.
 - **Simulações de incidente** — ensaiar a resposta, com falha simulada.
 - **Testes de recuperação agendados** — exercitar failover e restauração
-  periodicamente. Ver [failover](failover.md).
+  periodicamente. Ver [failover](/12-reliability/failover.md).
 - **Testes de carga com falha** — combinar sobrecarga e indisponibilidade.
 
 A primeira é o ponto de partida certo para quem nunca fez: ela custa uma reunião e
@@ -270,12 +270,12 @@ Depois disso, os experimentos, em ordem:
 
 **Matar instância, em produção, uma de doze.** Falhou: requisições em andamento eram
 perdidas. O desligamento gracioso não estava configurado. Ver
-[ausência de estado](../11-scalability/statelessness.md).
+[ausência de estado](/11-scalability/statelessness.md).
 
 **Injetar 3 segundos de latência no serviço de prontuários, 1% do tráfego.** Falhou de
 forma reveladora: o circuit breaker não abriu, porque contava apenas erro — e o serviço
 respondia com sucesso, devagar. As requisições se acumularam. Ver
-[circuit breakers](circuit-breakers.md).
+[circuit breakers](/12-reliability/circuit-breakers.md).
 
 Esse foi o achado mais valioso do programa, e o cenário mais provável de acontecer
 sozinho.
@@ -285,7 +285,7 @@ funcionou, e a mensagem exibida ao usuário estava em inglês — um texto padr�
 traduzido, porque nunca tinha sido exibido.
 
 **Derrubar uma zona, fora do pico.** Falhou: as duas zonas restantes operavam a 75% e
-não absorveram. Ver [redundância](redundancy.md).
+não absorveram. Ver [redundância](/12-reliability/redundancy.md).
 
 **Failover de banco, em janela programada.** Funcionou em 40 segundos — e revelou que a
 aplicação não reconectava automaticamente, exigindo reinício das instâncias.
@@ -306,10 +306,10 @@ nunca terem sido executados.
 
 ## Conceitos Relacionados
 
-- [Degradação Graciosa](graceful-degradation.md) — o que se verifica.
-- [Failover](failover.md) — o exercício mais valioso.
-- [Redundância](redundancy.md) — a capacidade de absorção.
-- [Observabilidade](../13-observability/index.md) — o pré-requisito.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — o que se verifica.
+- [Failover](/12-reliability/failover.md) — o exercício mais valioso.
+- [Redundância](/12-reliability/redundancy.md) — a capacidade de absorção.
+- [Observabilidade](/13-observability/index.md) — o pré-requisito.
 
 ## Exercício Prático
 

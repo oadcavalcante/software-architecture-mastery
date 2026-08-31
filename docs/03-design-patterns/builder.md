@@ -70,7 +70,7 @@ existe depois de `construir()` — nunca há instância parcialmente montada.
 
 Isso resolve o *telescoping constructor* (uma cascata de construtores
 sobrecarregados) e o objeto mutável com acessadores. Ver
-[encapsulamento](../02-software-design/encapsulation.md).
+[encapsulamento](/02-software-design/encapsulation.md).
 
 ### O que decide entre os dois
 
@@ -191,11 +191,11 @@ consultá-lo como documentação.
 
 ## Conceitos Relacionados
 
-- [Factory Method](factory-method.md) — criação por subclasse.
-- [Abstract Factory](abstract-factory.md) — famílias de produtos.
-- [Composite](composite.md) — Builder é frequentemente usado para montar
+- [Factory Method](/03-design-patterns/factory-method.md) — criação por subclasse.
+- [Abstract Factory](/03-design-patterns/abstract-factory.md) — famílias de produtos.
+- [Composite](/03-design-patterns/composite.md) — Builder é frequentemente usado para montar
   estruturas compostas.
-- [Encapsulamento](../02-software-design/encapsulation.md) — a invariante que o
+- [Encapsulamento](/02-software-design/encapsulation.md) — a invariante que o
   builder protege.
 
 ## Exercício Prático

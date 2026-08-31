@@ -91,7 +91,7 @@ it jams on the first unforeseen case. Confusing the two produces the worst of bo
 ### Principles derive from characteristics
 
 A principle with no link to an
-[architecture characteristic](architecture-characteristics.md) is personal
+[architecture characteristic](/01-fundamentals/architecture-characteristics.md) is personal
 preference with borrowed authority.
 
 The chain is: business context determines the driving characteristics; the
@@ -230,9 +230,9 @@ which is where most architecture principles live.
 
 ## Related Concepts
 
-- [Architecture Characteristics](architecture-characteristics.md) — where
+- [Architecture Characteristics](/01-fundamentals/architecture-characteristics.md) — where
   principles derive from.
-- [Architecture as a Set of Decisions](architecture-as-decisions.md) — what
+- [Architecture as a Set of Decisions](/01-fundamentals/architecture-as-decisions.md) — what
   principles guide.
 - [Governance](/19-architecture-governance/index.md) — how principles operate
   across teams.

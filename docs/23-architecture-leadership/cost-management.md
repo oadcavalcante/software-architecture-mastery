@@ -43,7 +43,7 @@ Dois padrões.
 
 **Custo invisível na decisão.** A arquitetura é escolhida por critérios técnicos, e o custo
 aparece na fatura meses depois — quando mudá-la é caro. É a mesma dinâmica do case de
-[streaming](../21-case-studies/video-streaming.md), em que 96% do custo estava fora do
+[streaming](/21-case-studies/video-streaming.md), em que 96% do custo estava fora do
 datacenter e o esforço de engenharia estava no lugar errado.
 
 **Custo agregado sem atribuição.** A organização sabe que gasta R$ 30 milhões por ano em nuvem e
@@ -101,7 +101,7 @@ Isso é uma decisão de arquitetura com informação completa. Sem o número, el
 preferência técnica e o custo aparece depois.
 
 Incluir estimativa de custo em toda proposta arquitetural relevante é uma prática barata e rara.
-Ver [ADRs](../18-architecture-decisions/index.md).
+Ver [ADRs](/18-architecture-decisions/index.md).
 
 ### O custo operacional humano é o maior e o menos contado
 
@@ -112,8 +112,8 @@ pessoas          é maior, e não aparece em nenhuma conta de sistema
 
 Um componente que consome meio engenheiro em operação custa mais que a maior parte das linhas de
 infraestrutura, e essa comparação quase nunca é feita. Ver
-[gerenciado vs. autogerido](../20-trade-offs/managed-vs-self-hosted.md) e
-[build vs. buy](../20-trade-offs/build-vs-buy.md).
+[gerenciado vs. autogerido](/20-trade-offs/managed-vs-self-hosted.md) e
+[build vs. buy](/20-trade-offs/build-vs-buy.md).
 
 Trazer o custo de pessoal para a mesma tabela da fatura muda conclusões com frequência.
 
@@ -141,7 +141,7 @@ com medição    a distribuição costuma ser muito desigual
 
 Em quase toda organização, uma fração pequena dos componentes responde pela maior parte do custo.
 Otimizar o resto é esforço desperdiçado com aparência de rigor. Ver
-[desempenho vs. manutenibilidade](../20-trade-offs/performance-vs-maintainability.md).
+[desempenho vs. manutenibilidade](/20-trade-offs/performance-vs-maintainability.md).
 
 ### Nem todo custo deve ser reduzido
 
@@ -182,7 +182,7 @@ atribuição, ninguém age.
 
 - **Orçamento por time** — cada um recebe um teto e decide dentro dele; simples e eficaz.
 - **Custo como função de aptidão** — verificação automática que alerta quando o custo por unidade
-  ultrapassa um limite. Ver [funções de aptidão](fitness-functions.md).
+  ultrapassa um limite. Ver [funções de aptidão](/23-architecture-leadership/fitness-functions.md).
 - **Revisão periódica de maiores linhas** — atacar os 20% que respondem por 80%.
 - **Não gerir** — legítimo enquanto o custo for irrelevante frente à receita.
 
@@ -299,10 +299,10 @@ ninguém a tivesse revisitado.
 
 ## Conceitos Relacionados
 
-- [Gestão de Risco](risk-management.md).
-- [Custo vs. Confiabilidade](../20-trade-offs/cost-vs-reliability.md).
-- [Gerenciado vs. Autogerido](../20-trade-offs/managed-vs-self-hosted.md).
-- [Arquitetura de Custo](../09-cloud-architecture/cost-architecture.md).
+- [Gestão de Risco](/23-architecture-leadership/risk-management.md).
+- [Custo vs. Confiabilidade](/20-trade-offs/cost-vs-reliability.md).
+- [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md).
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
 
 ## Exercício Prático
 

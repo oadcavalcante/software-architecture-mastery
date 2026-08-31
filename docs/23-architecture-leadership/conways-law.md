@@ -105,7 +105,7 @@ sênior tem — e a que ele mais raramente pode acionar sozinho, porque exige a 
 engenharia.
 
 Por isso a proposta arquitetural e a proposta organizacional precisam andar juntas. Ver
-[arquitetura organizacional](organizational-architecture.md).
+[arquitetura organizacional](/23-architecture-leadership/organizational-architecture.md).
 
 ### Times por camada produzem sistemas por camada
 
@@ -137,7 +137,7 @@ Isso significa que o tamanho máximo de um componente coeso é limitado pelo tam
 consegue mantê-lo. Um componente que exige quinze pessoas vai se dividir — a única questão é se
 a divisão será desenhada ou emergente.
 
-Ver [topologias de time](team-topologies.md).
+Ver [topologias de time](/23-architecture-leadership/team-topologies.md).
 
 ### A lei prevê o futuro, não só explica o passado
 
@@ -216,7 +216,7 @@ desperdício de capital.
 
 - **Manter a divergência com disciplina** — fronteiras preservadas por verificação automática, a
   custo de esforço contínuo. Ver
-  [funções de aptidão](fitness-functions.md).
+  [funções de aptidão](/23-architecture-leadership/fitness-functions.md).
 - **Adaptar a arquitetura à organização** — desenhar o que a estrutura atual suporta, em vez do
   ideal.
 - **Mudar a comunicação sem mudar o organograma** — sobreposição de fuso, rituais compartilhados,
@@ -333,10 +333,10 @@ fronteira desenhada aqui, e eles conseguem mudá-la sem coordenar com outros?".
 
 ## Conceitos Relacionados
 
-- [Topologias de Time](team-topologies.md).
-- [Arquitetura Organizacional](organizational-architecture.md).
-- [Arquitetura entre Times](cross-team-architecture.md).
-- [Monólito vs. Microsserviços](../20-trade-offs/monolith-vs-microservices.md).
+- [Topologias de Time](/23-architecture-leadership/team-topologies.md).
+- [Arquitetura Organizacional](/23-architecture-leadership/organizational-architecture.md).
+- [Arquitetura entre Times](/23-architecture-leadership/cross-team-architecture.md).
+- [Monólito vs. Microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 
 ## Exercício Prático
 

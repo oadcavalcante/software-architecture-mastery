@@ -49,20 +49,20 @@ locais:
 que o comportamento está do lado errado da fronteira.
 
 **Shotgun surgery.** Uma mudança exige alterações pequenas em muitos lugares.
-Sinaliza [coesão](../01-fundamentals/cohesion.md) baixa: o conceito está
+Sinaliza [coesão](/01-fundamentals/cohesion.md) baixa: o conceito está
 espalhado.
 
 **Divergent change.** Uma classe muda por razões independentes. O oposto do
 anterior, e sinaliza responsabilidades misturadas.
 
 **Inappropriate intimacy.** Duas classes conhecem detalhes internas uma da outra.
-[Acoplamento](../01-fundamentals/coupling.md) no lugar errado.
+[Acoplamento](/01-fundamentals/coupling.md) no lugar errado.
 
 **Primitive obsession.** Conceitos de domínio representados por tipos primitivos.
 `String cpf` em vez de `Cpf`. Espalha validação e permite trocas silenciosas.
 
 **Speculative generality.** Abstração para necessidade que não chegou. Ver
-[YAGNI](yagni.md).
+[YAGNI](/02-software-design/yagni.md).
 
 **Long parameter list.** Frequentemente sinaliza que existe um conceito sem nome —
 os parâmetros que sempre andam juntos são um objeto.
@@ -76,7 +76,7 @@ A priorização correta cruza duas dimensões: **gravidade do smell** e **frequ�
 de alteração daquele arquivo**. A segunda é extraível do histórico de versão e
 quase nunca é consultada.
 
-Isso é a aplicação de juros de [dívida técnica](../01-fundamentals/technical-debt.md)
+Isso é a aplicação de juros de [dívida técnica](/01-fundamentals/technical-debt.md)
 ao nível de código.
 
 ### Smells estruturais não aparecem em ferramenta
@@ -198,12 +198,12 @@ oito de dez, e as responsabilidades continuam misturadas.
 
 ## Conceitos Relacionados
 
-- [Refatoração](refactoring.md) — como corrigir com segurança.
-- [Dívida Técnica](../01-fundamentals/technical-debt.md) — juros e priorização.
-- [Coesão](../01-fundamentals/cohesion.md) e
-  [Acoplamento](../01-fundamentals/coupling.md) — o que os smells estruturais
+- [Refatoração](/02-software-design/refactoring.md) — como corrigir com segurança.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md) — juros e priorização.
+- [Coesão](/01-fundamentals/cohesion.md) e
+  [Acoplamento](/01-fundamentals/coupling.md) — o que os smells estruturais
   sinalizam.
-- [Clean Code](clean-code.md) — o lado local.
+- [Clean Code](/02-software-design/clean-code.md) — o lado local.
 
 ## Os smells que valem discutir em revisão
 

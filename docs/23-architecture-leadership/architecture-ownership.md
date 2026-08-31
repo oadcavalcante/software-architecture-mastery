@@ -99,7 +99,7 @@ uma verificação automática que falha quando ele aponta para um time que não 
 uma pessoa desligada.
 
 Isso transforma órfãos de invisíveis em detectáveis. Ver
-[funções de aptidão](fitness-functions.md).
+[funções de aptidão](/23-architecture-leadership/fitness-functions.md).
 
 ### Todo componente implantado precisa de dono
 
@@ -154,7 +154,7 @@ Declarar um time como dono sem lhe dar capacidade produz propriedade nominal.
 
 A carga de propriedade é parte da carga cognitiva do time, e ela precisa ser contada no
 dimensionamento. Ver
-[topologias de time](team-topologies.md).
+[topologias de time](/23-architecture-leadership/team-topologies.md).
 
 Quando a carga excede a capacidade, as saídas são: transferir componentes, descomissionar
 componentes, ou aumentar o time. Ignorar produz propriedade que existe no papel.
@@ -310,10 +310,10 @@ declarar e verificar é toda a diferença entre um inventário e uma ficção.
 
 ## Conceitos Relacionados
 
-- [Topologias de Time](team-topologies.md) — a carga de propriedade.
-- [Arquitetura Organizacional](organizational-architecture.md).
-- [Funções de Aptidão](fitness-functions.md) — a verificação.
-- [Padrões](../19-architecture-governance/governance-standards.md).
+- [Topologias de Time](/23-architecture-leadership/team-topologies.md) — a carga de propriedade.
+- [Arquitetura Organizacional](/23-architecture-leadership/organizational-architecture.md).
+- [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md) — a verificação.
+- [Padrões](/19-architecture-governance/governance-standards.md).
 
 ## Exercício Prático
 

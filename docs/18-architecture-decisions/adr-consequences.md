@@ -112,7 +112,7 @@ Isso transforma a decisão em algo com **teste**. Sem esse sinal, uma decisão e
 permanece indefinidamente, porque ninguém definiu o que contaria como evidência contrária.
 
 E o sinal costuma ser diretamente instrumentável. Ver
-[observabilidade](../13-observability/index.md).
+[observabilidade](/13-observability/index.md).
 
 ### Consequências acontecem no tempo
 
@@ -143,7 +143,7 @@ coexistência."
 
 Isso é a reversibilidade da decisão registrada como consequência, e é o que informa quem
 vier depois sobre o custo real de mudar de ideia. Ver
-[contexto](adr-context.md).
+[contexto](/18-architecture-decisions/adr-context.md).
 
 ### Consequências não previstas, depois
 
@@ -308,10 +308,10 @@ conjunto — mais que os próprios ADRs. Eles ensinam algo que nenhum ADR isolad
 
 ## Conceitos Relacionados
 
-- [Decisão](adr-decision.md) — o que gera as consequências.
-- [Alternativas](adr-alternatives.md) — as consequências não escolhidas.
-- [Superação](superseding-decisions.md) — quando o sinal de alerta dispara.
-- [Observabilidade](../13-observability/index.md) — como instrumentar o sinal.
+- [Decisão](/18-architecture-decisions/adr-decision.md) — o que gera as consequências.
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — as consequências não escolhidas.
+- [Superação](/18-architecture-decisions/superseding-decisions.md) — quando o sinal de alerta dispara.
+- [Observabilidade](/13-observability/index.md) — como instrumentar o sinal.
 
 ## Exercício Prático
 

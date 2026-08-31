@@ -72,7 +72,7 @@ Reiniciar perde. Toda implantação vira perda de estado.
 E adicionar instância não distribui carga uniformemente, porque o estado já está
 em outro lugar.
 
-Ver [sem estado versus com estado](stateless-vs-stateful.md).
+Ver [sem estado versus com estado](/05-system-design/stateless-vs-stateful.md).
 
 ### Concentre o estado, mantenha o resto sem ele
 
@@ -237,11 +237,11 @@ de cabeçalho por carregamento.
 
 ## Conceitos Relacionados
 
-- [Sem Estado vs. Com Estado](stateless-vs-stateful.md) — a consequência para
+- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md) — a consequência para
   escala.
-- [Cache](caching.md) — o estado descartável.
-- [Balanceamento de Carga](load-balancing.md) — onde a afinidade aparece.
-- [Arquitetura de Dados](../07-data-architecture/index.md) — o estado persistente.
+- [Cache](/05-system-design/caching.md) — o estado descartável.
+- [Balanceamento de Carga](/05-system-design/load-balancing.md) — onde a afinidade aparece.
+- [Arquitetura de Dados](/07-data-architecture/index.md) — o estado persistente.
 
 ## Exercício Prático
 

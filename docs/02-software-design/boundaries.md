@@ -52,8 +52,8 @@ times diferentes, negociação.
 
 ### O critério é o eixo de mudança
 
-Igual ao de [modularidade](../01-fundamentals/modularity.md) e
-[coesão](../01-fundamentals/cohesion.md): coisas que mudam pela mesma razão ficam
+Igual ao de [modularidade](/01-fundamentals/modularity.md) e
+[coesão](/01-fundamentals/cohesion.md): coisas que mudam pela mesma razão ficam
 do mesmo lado.
 
 A verificação é empírica e barata. Olhe o histórico: se a maioria dos commits
@@ -68,7 +68,7 @@ quem.
 A regra que vale quase sempre: **a dependência aponta na direção da
 estabilidade.** O lado que muda menos é conhecido pelo que muda mais, e não o
 contrário. É o assunto de
-[direção de dependência](dependency-direction.md).
+[direção de dependência](/02-software-design/dependency-direction.md).
 
 ### Os níveis e seus custos
 
@@ -105,7 +105,7 @@ em que um lado muda sozinho.
 ### Nominal versus efetiva
 
 Uma fronteira que depende de lembrança será atravessada. Ver
-[arquitetura vs. implementação](../01-fundamentals/architecture-vs-implementation.md):
+[arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md):
 a lista de mecanismos, de convenção documentada até separação de processo, é uma
 escala de força, e revisão de código está no meio dela — não no topo.
 
@@ -224,11 +224,11 @@ Duas fronteiras propostas juntas, com a mesma justificativa. Uma estava certa.
 
 ## Conceitos Relacionados
 
-- [Modularidade](../01-fundamentals/modularity.md) — a estrutura resultante.
-- [Direção de Dependência](dependency-direction.md) — o lado que a fronteira
+- [Modularidade](/01-fundamentals/modularity.md) — a estrutura resultante.
+- [Direção de Dependência](/02-software-design/dependency-direction.md) — o lado que a fronteira
   permite conhecer.
-- [Camadas](layering.md) — um arranjo específico de fronteiras.
-- [Arquitetura vs. Implementação](../01-fundamentals/architecture-vs-implementation.md)
+- [Camadas](/02-software-design/layering.md) — um arranjo específico de fronteiras.
+- [Arquitetura vs. Implementação](/01-fundamentals/architecture-vs-implementation.md)
   — como impor.
 
 ## Exercício Prático

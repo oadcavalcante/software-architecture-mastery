@@ -34,7 +34,7 @@ Um padrão publicado sem as três é uma aspiração com aparência de regra —
 previsível: baixa adoção, contorno silencioso, e a área que o publicou reforçando obrigatoriedade
 como resposta a tudo.
 
-Ver [padrões em operação](../19-architecture-governance/governance-standards.md) para o ciclo de
+Ver [padrões em operação](/19-architecture-governance/governance-standards.md) para o ciclo de
 vida; aqui o foco é o que quem estabelece precisa entregar junto.
 
 ## Problema
@@ -106,7 +106,7 @@ Publicar um padrão sem fornecer o caminho é transferir todo o custo de adoçã
 enquanto quem publica arca apenas com a escrita. Essa assimetria é a causa mais comum de baixa
 adoção.
 
-Ver [engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ### Quem paga a migração precisa ter nome
 
@@ -172,7 +172,7 @@ Um padrão que referencia tecnologia descontinuada e continua sendo citado em re
 resultado previsível de publicar sem prazo.
 
 Vinte e quatro meses é um limite razoável. Ver
-[governança](leadership-governance.md).
+[governança](/23-architecture-leadership/leadership-governance.md).
 
 ## Modelo Mental
 
@@ -205,7 +205,7 @@ informação sobre o padrão.
 - **Recomendação permanente** — quando a obrigatoriedade não se justifica.
 - **Aplicar só a sistemas novos** — convergência por renovação, sem migração.
 - **Radar tecnológico** — sinaliza direção sem prescrever. Ver
-  [radar tecnológico](../15-enterprise-architecture/technology-radar.md).
+  [radar tecnológico](/15-enterprise-architecture/technology-radar.md).
 
 A primeira é a mais eficaz quando aplicável: um padrão que existe apenas como configuração padrão
 do gabarito não precisa ser lembrado nem verificado.
@@ -305,10 +305,10 @@ descumprimento silencioso, e a organização teria concluído que padrões não 
 
 ## Conceitos Relacionados
 
-- [Padrões em Operação](../19-architecture-governance/governance-standards.md).
-- [Padrões Corporativos](../15-enterprise-architecture/standards.md).
-- [Princípios](leadership-principles.md).
-- [Governança](leadership-governance.md).
+- [Padrões em Operação](/19-architecture-governance/governance-standards.md).
+- [Padrões Corporativos](/15-enterprise-architecture/standards.md).
+- [Princípios](/23-architecture-leadership/leadership-principles.md).
+- [Governança](/23-architecture-leadership/leadership-governance.md).
 
 ## Exercício Prático
 

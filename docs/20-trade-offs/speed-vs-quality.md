@@ -70,7 +70,7 @@ erosão              acúmulo não decidido, sem registro, sem prazo
 A diferença não está no código produzido — pode ser idêntico. Está no fato de alguém ter
 decidido, ter escrito quando desfazer, e ter um dono.
 
-Ver [dívida técnica](../01-fundamentals/technical-debt.md).
+Ver [dívida técnica](/01-fundamentals/technical-debt.md).
 
 Sem registro, um atalho é indistinguível de incompetência seis meses depois — inclusive para
 quem o tomou.
@@ -136,7 +136,7 @@ fronteira de módulo clara               devolve na terceira mudança
 Chamar essas de "qualidade" e tratá-las como custo é o erro conceitual central deste tema.
 Elas são infraestrutura de velocidade.
 
-Ver [entrega contínua](../14-devops-and-platform/ci-cd.md).
+Ver [entrega contínua](/14-devops-and-platform/ci-cd.md).
 
 ### A dívida cobra juros compostos
 
@@ -343,10 +343,10 @@ mais caros deixassem de parecer dívida e passassem a parecer arquitetura.
 
 ## Conceitos Relacionados
 
-- [Dívida Técnica](../01-fundamentals/technical-debt.md).
-- [Custo vs. Confiabilidade](cost-vs-reliability.md).
-- [Entrega Contínua](../14-devops-and-platform/ci-cd.md) — a qualidade que devolve tempo.
-- [Simplicidade vs. Flexibilidade](simplicity-vs-flexibility.md).
+- [Dívida Técnica](/01-fundamentals/technical-debt.md).
+- [Custo vs. Confiabilidade](/20-trade-offs/cost-vs-reliability.md).
+- [Entrega Contínua](/14-devops-and-platform/ci-cd.md) — a qualidade que devolve tempo.
+- [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
 
 ## Exercício Prático
 

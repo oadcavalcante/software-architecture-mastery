@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Particionamento divide os dados em subconjuntos disjuntos, cada um vivendo num nó
 diferente.
 
-Ele existe por uma razão que [replicação](replication.md) não resolve: **escalar
+Ele existe por uma razão que [replicação](/06-distributed-systems/replication.md) não resolve: **escalar
 escrita**. Réplicas multiplicam capacidade de leitura; para escrita, cada réplica
 recebe tudo.
 
@@ -81,7 +81,7 @@ A escolha da chave de partição determina três coisas de uma vez:
 **O que fica caro.** Operações que cruzam chaves exigem coordenação.
 
 **Como a carga distribui.** Uma chave com muito mais atividade concentra carga —
-o [hotspot](../11-scalability/index.md).
+o [hotspot](/11-scalability/index.md).
 
 O critério: **particione pela dimensão que a maioria das operações usa para
 filtrar**. Num sistema multi-inquilino, tipicamente o inquilino; num sistema de
@@ -130,7 +130,7 @@ alterado junto deve compartilhar a chave.
 ## Quando Não Usar
 
 **Antes de esgotar as alternativas.** Ver
-[estratégias de escalabilidade](../05-system-design/scalability-basics.md):
+[estratégias de escalabilidade](/05-system-design/scalability-basics.md):
 otimizar, escalar vertical e cachear vêm antes.
 
 **Quando não há dimensão natural.** Se as operações filtram por dimensões
@@ -143,13 +143,13 @@ ganho.
 não distribui carga.
 
 **Quando transações entre partições são requisito.** Elas viram
-[transações distribuídas](distributed-transactions.md), com o custo
+[transações distribuídas](/06-distributed-systems/distributed-transactions.md), com o custo
 correspondente.
 
 ## Alternativas
 
 - **Escala vertical** — mais alta do que se supõe, e sem custo estrutural.
-- **[Replicação](replication.md)** — se o gargalo é leitura.
+- **[Replicação](/06-distributed-systems/replication.md)** — se o gargalo é leitura.
 - **Arquivamento** — mover dados antigos para armazenamento mais barato reduz o
   volume ativo, frequentemente o suficiente.
 - **Particionamento lógico no mesmo nó** — tabelas particionadas por faixa dentro
@@ -228,10 +228,10 @@ consultas desde o primeiro dia.
 
 ## Conceitos Relacionados
 
-- [Sharding](sharding.md) — o caso de partições em instâncias separadas.
-- [Hotspots](../11-scalability/index.md) — o desequilíbrio da carga.
-- [Replicação](replication.md) — ortogonal e complementar.
-- [Escalabilidade](../11-scalability/index.md).
+- [Sharding](/06-distributed-systems/sharding.md) — o caso de partições em instâncias separadas.
+- [Hotspots](/11-scalability/index.md) — o desequilíbrio da carga.
+- [Replicação](/06-distributed-systems/replication.md) — ortogonal e complementar.
+- [Escalabilidade](/11-scalability/index.md).
 
 ## Exercício Prático
 

@@ -93,7 +93,7 @@ sistema crítico com um mantenedor       →  conhecimento distribuído
 34% do investimento em capacidade comum →  comprar o que não diferencia
 ```
 
-Ver [arquitetura do estado atual](current-state-architecture.md).
+Ver [arquitetura do estado atual](/15-enterprise-architecture/current-state-architecture.md).
 
 Essa derivação é o que permite defender o alvo: cada propriedade tem um problema
 associado, e o custo de não resolvê-lo é conhecido.
@@ -111,7 +111,7 @@ capacidades de apoio          alvo modesto — estável e barato basta
 capacidades comuns            alvo é comprar
 ```
 
-Ver [capacidades de negócio](business-capabilities.md).
+Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md).
 
 Isso evita o desperdício mais comum dos programas de modernização: aplicar o mesmo padrão
 de excelência técnica a sistemas que só precisam funcionar.
@@ -132,14 +132,14 @@ A segunda formulação permite que a resposta seja sim — com a consequência c
 registrada. E o acúmulo dessas decisões é informação: se muitas propostas se afastam do
 alvo, o alvo pode estar errado.
 
-Ver [princípios corporativos](enterprise-principles.md) — o mesmo mecanismo do registro
+Ver [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md) — o mesmo mecanismo do registro
 de exceções.
 
 ### Sem transição, é aspiração
 
 Um alvo sem caminho é uma declaração de que gostaríamos que as coisas fossem diferentes.
 
-Ver [arquitetura de transição](transition-architecture.md). É o documento que transforma
+Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md). É o documento que transforma
 o alvo em trabalho — e é o que mais frequentemente falta.
 
 ### O alvo precisa ser conhecido por quem decide no dia a dia
@@ -162,7 +162,7 @@ sem exigir que alguém o consulte.
 
 E a quarta fecha o ciclo: cada afastamento registrado é uma oportunidade de verificar se
 o alvo continua certo. Ver
-[decisões de arquitetura](../18-architecture-decisions/index.md).
+[decisões de arquitetura](/18-architecture-decisions/index.md).
 
 Um alvo que ninguém cita em decisões concretas, ao longo de um ano, não está orientando
 nada — independentemente de quão bem escrito esteja.
@@ -196,12 +196,12 @@ detalhado de três anos é ficção.
 ## Alternativas
 
 - **Princípios** — orientam sem descrever estado final. Ver
-  [princípios corporativos](enterprise-principles.md).
+  [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md).
 - **Direção por propriedade** — sem alvo formal, apenas as propriedades a perseguir.
 - **Alvo por capacidade** — em vez de um alvo organizacional único.
 - **Roteiro de curto prazo** — o que fazer nos próximos seis meses, revisado
   continuamente. Ver
-  [roteiros de arquitetura](architecture-roadmaps.md).
+  [roteiros de arquitetura](/15-enterprise-architecture/architecture-roadmaps.md).
 
 ## Trade-offs
 
@@ -296,10 +296,10 @@ mudanças de prioridade. O desenho anterior não tinha sobrevivido a nenhuma.
 
 ## Conceitos Relacionados
 
-- [Arquitetura do Estado Atual](current-state-architecture.md) — o ponto de partida.
-- [Arquitetura de Transição](transition-architecture.md) — o caminho.
-- [Roteiros de Arquitetura](architecture-roadmaps.md).
-- [Capacidades de Negócio](business-capabilities.md).
+- [Arquitetura do Estado Atual](/15-enterprise-architecture/current-state-architecture.md) — o ponto de partida.
+- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md) — o caminho.
+- [Roteiros de Arquitetura](/15-enterprise-architecture/architecture-roadmaps.md).
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md).
 
 ## Exercício Prático
 

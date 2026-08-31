@@ -173,9 +173,9 @@ architecture.
 
 ## Related Concepts
 
-- [Business Context](business-context.md) — where constraints come from.
-- [Solution Space](solution-space.md) — what they shrink.
-- [Quality Attributes](quality-attributes.md) — what is negotiable, by contrast.
+- [Business Context](/01-fundamentals/business-context.md) — where constraints come from.
+- [Solution Space](/01-fundamentals/solution-space.md) — what they shrink.
+- [Quality Attributes](/01-fundamentals/quality-attributes.md) — what is negotiable, by contrast.
 
 ## Practical Exercise
 

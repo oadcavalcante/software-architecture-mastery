@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Um SLA — acordo de nível de serviço — é um compromisso **contratual** sobre o nível de
 serviço, com consequência definida se ele não for cumprido.
 
-Ele é frequentemente confundido com [SLO](slo.md), e a diferença tem consequência
+Ele é frequentemente confundido com [SLO](/12-reliability/slo.md), e a diferença tem consequência
 prática:
 
 ```text
@@ -70,7 +70,7 @@ Muitos contratos só contam indisponibilidade total, o que significa que um serv
 inutilizável por lentidão está tecnicamente disponível.
 
 **Como é medido, e por quem.** Medição do fornecedor, do cliente, ou de um terceiro? O
-número muda substancialmente. Ver [SLI](sli.md).
+número muda substancialmente. Ver [SLI](/12-reliability/sli.md).
 
 **A janela.** 99,9% ao mês permite 43 minutos; ao ano, 8,8 horas concentradas num único
 evento. A mesma porcentagem, compromissos muito diferentes.
@@ -117,7 +117,7 @@ composto         ~99,79%
 ```
 
 Prometer 99,9% com essa composição é prometer o que não se controla. Ver
-[disponibilidade](../06-distributed-systems/availability.md).
+[disponibilidade](/06-distributed-systems/availability.md).
 
 Isso não impede prometer mais — impede prometer mais **sem reduzir a dependência
 síncrona**: cache, degradação, alternativa, ou tornar a chamada assíncrona.
@@ -135,8 +135,8 @@ limite de duração, você não tem compromisso nenhum.
 
 **A penalidade é irrelevante.** Planeje para a falha, não para o crédito.
 
-Ver [SaaS](../09-cloud-architecture/saas.md) e
-[dependência de fornecedor](../09-cloud-architecture/vendor-lock-in.md).
+Ver [SaaS](/09-cloud-architecture/saas.md) e
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ### Interno também pode ter acordo
 
@@ -175,7 +175,7 @@ isso é o sinal de que não há compromisso.
 
 ## Alternativas
 
-- **[SLO](slo.md) publicado** — transparência sem compromisso contratual. Suficiente
+- **[SLO](/12-reliability/slo.md) publicado** — transparência sem compromisso contratual. Suficiente
   para muitos produtos.
 - **Painel público de disponibilidade** — histórico visível, que constrói confiança
   melhor que uma promessa.
@@ -272,7 +272,7 @@ primeiro falha.
 identidade por até 15 minutos.
 
 **Degradação graciosa** para funcionalidades não essenciais. Ver
-[degradação graciosa](graceful-degradation.md).
+[degradação graciosa](/12-reliability/graceful-degradation.md).
 
 Depois disso, a disponibilidade real subiu para 99,93% — e o SLA de 99,5% passou a ter
 folga confortável.
@@ -283,10 +283,10 @@ de dez minutos que teria mostrado isso.
 
 ## Conceitos Relacionados
 
-- [SLO](slo.md) — o alvo interno.
-- [SLI](sli.md) — o que é medido.
-- [Disponibilidade](../06-distributed-systems/availability.md) — a composição.
-- [Degradação Graciosa](graceful-degradation.md) — como sustentar o número.
+- [SLO](/12-reliability/slo.md) — o alvo interno.
+- [SLI](/12-reliability/sli.md) — o que é medido.
+- [Disponibilidade](/06-distributed-systems/availability.md) — a composição.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — como sustentar o número.
 
 ## Exercício Prático
 

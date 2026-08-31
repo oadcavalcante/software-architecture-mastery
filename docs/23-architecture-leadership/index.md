@@ -58,7 +58,7 @@ arquitetura entre times e propriedade de arquitetura. Desenhar times é desenhar
 arquitetura; ignorar isso é projetar contra a corrente.
 
 **Sustentação.** Governança, princípios e padrões, retomados do
-[Nível 06](../19-architecture-governance/index.md) do ponto de vista de quem os
+[Nível 06](/19-architecture-governance/index.md) do ponto de vista de quem os
 estabelece.
 
 **Economia e risco.** Gestão de custo e de risco como responsabilidades

@@ -72,7 +72,7 @@ a consequência atravessa fronteira     → coordene
 a consequência é da organização        → centralize
 ```
 
-Ver [governança federada](../19-architecture-governance/federated-governance.md), onde esse
+Ver [governança federada](/19-architecture-governance/federated-governance.md), onde esse
 critério é desenvolvido para decisões.
 
 A pergunta operacional é sempre a mesma: **se der errado, quem paga?**
@@ -109,7 +109,7 @@ centralizar o mínimo compartilhado, descentralizar o resto
 
 A terceira linha é o modelo de plataforma: uma equipe central constrói a capacidade, e os
 times a usam quando quiserem, sem pedir. Ver
-[engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+[engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ### Centralizar capacidade é diferente de centralizar decisão
 
@@ -205,7 +205,7 @@ Descentralize quando:
 
 - **Plataforma** — capacidade central, uso descentralizado; o melhor arranjo quando viável.
 - **Federação** — decisão local com contrato central. Ver
-  [governança federada](../19-architecture-governance/federated-governance.md).
+  [governança federada](/19-architecture-governance/federated-governance.md).
 - **Centralização temporária** — construir central e distribuir quando maduro.
 - **Lista curta** — em vez de uma escolha central ou liberdade total, três opções aprovadas.
 
@@ -298,7 +298,7 @@ identidade. O time usa sem pedir; a coerência vem do caminho pavimentado, não 
 
 **Lista curta de tecnologias**, com três linguagens e um mecanismo de fila, com o custo de
 plantão e contratação declarado explicitamente como a razão. Fora da lista exige
-[exceção](../19-architecture-governance/exceptions.md) com prazo.
+[exceção](/19-architecture-governance/exceptions.md) com prazo.
 
 **Interfaces centralizadas, implementações locais**: formato de evento, protocolo síncrono,
 identidade e requisitos de observabilidade são centrais; tudo o mais é do time.
@@ -327,11 +327,11 @@ quanto custa desfazer a soma de decisões boas.
 
 ## Conceitos Relacionados
 
-- [Governança Federada](../19-architecture-governance/federated-governance.md).
-- [Engenharia de Plataforma](../14-devops-and-platform/platform-engineering.md).
-- [Monólito vs. Microsserviços](monolith-vs-microservices.md) — o mesmo eixo, aplicado à
+- [Governança Federada](/19-architecture-governance/federated-governance.md).
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md).
+- [Monólito vs. Microsserviços](/20-trade-offs/monolith-vs-microservices.md) — o mesmo eixo, aplicado à
   estrutura.
-- [Build vs. Buy](build-vs-buy.md).
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md).
 
 ## Exercício Prático
 

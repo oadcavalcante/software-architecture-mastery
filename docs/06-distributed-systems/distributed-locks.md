@@ -112,7 +112,7 @@ dele.
 Antes de coordenar, três perguntas:
 
 **A operação pode ser idempotente?** Se executar duas vezes é inofensivo, não há o
-que coordenar. Ver [idempotência](idempotency.md).
+que coordenar. Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 **O recurso pode impor a exclusão?** Uma restrição de unicidade no banco, ou uma
 atualização condicional, garante correção sem lock externo — e o banco já resolve
@@ -140,7 +140,7 @@ ao problema do prazo.
 - Coordenação por eficiência, evitando trabalho duplicado.
 - O recurso não oferece mecanismo próprio de exclusão.
 - A operação é pontual, não uma liderança contínua — para essa, ver
-  [eleição de líder](leader-election.md).
+  [eleição de líder](/06-distributed-systems/leader-election.md).
 
 ## Quando Não Usar
 
@@ -165,7 +165,7 @@ garantias melhores.
   otimista.
 - **Idempotência** — permitir execução múltipla.
 - **Particionamento** — eliminar a concorrência.
-- **[Eleição de líder](leader-election.md)** — para coordenação contínua em vez de
+- **[Eleição de líder](/06-distributed-systems/leader-election.md)** — para coordenação contínua em vez de
   pontual.
 
 ## Trade-offs
@@ -245,10 +245,10 @@ duas vezes?" — veio depois, e a resposta levou três dias.
 
 ## Conceitos Relacionados
 
-- [Eleição de Líder](leader-election.md) — o mesmo problema, com fencing.
-- [Consenso](consensus.md) — o que torna a aquisição confiável.
-- [Idempotência](idempotency.md) — a alternativa que costuma vencer.
-- [Falha Parcial](partial-failure.md).
+- [Eleição de Líder](/06-distributed-systems/leader-election.md) — o mesmo problema, com fencing.
+- [Consenso](/06-distributed-systems/consensus.md) — o que torna a aquisição confiável.
+- [Idempotência](/06-distributed-systems/idempotency.md) — a alternativa que costuma vencer.
+- [Falha Parcial](/06-distributed-systems/partial-failure.md).
 
 ## Exercício Prático
 

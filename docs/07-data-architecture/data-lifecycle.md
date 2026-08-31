@@ -90,12 +90,12 @@ Os obstáculos concretos:
 **Cópias.** O dado está no banco, na réplica, na cópia de segurança, no warehouse,
 no lake, no índice de busca, nos registros de aplicação.
 
-**Imutabilidade.** [Event sourcing](../06-distributed-systems/distributed-event-sourcing.md)
+**Imutabilidade.** [Event sourcing](/06-distributed-systems/distributed-event-sourcing.md)
 e lakes com arquivos imutáveis.
 
 **Desempenho.** Apagar milhões de linhas de uma tabela grande é operação de horas.
 
-O último é resolvido por [particionamento](data-partitioning.md). Os outros três
+O último é resolvido por [particionamento](/07-data-architecture/data-partitioning.md). Os outros três
 exigem decisão de arquitetura antes, não depois.
 
 ### Anonimizar como alternativa a apagar
@@ -129,7 +129,7 @@ Precisa ser projetado desde o início. Retroagir exige reescrever o histórico.
 Nada disso é possível sem saber onde os dados estão.
 
 Um inventário mínimo por conjunto: quais dados pessoais contém, qual a base legal,
-qual a retenção definida, quem é o [dono](data-ownership.md), quais são as cópias.
+qual a retenção definida, quem é o [dono](/07-data-architecture/data-ownership.md), quais são as cópias.
 
 Sem isso, uma solicitação de apagamento não pode ser atendida com honestidade — o
 que se responde é "apagamos onde achamos".
@@ -172,7 +172,7 @@ cumpre nada.
 - **Agregação** — guardar o resumo e descartar o detalhe.
 - **Criptografia por titular** — para armazenamentos imutáveis.
 - **Retenção por partição** — descarte instantâneo. Ver
-  [particionamento](data-partitioning.md).
+  [particionamento](/07-data-architecture/data-partitioning.md).
 
 ## Trade-offs
 
@@ -280,10 +280,10 @@ existisse desde o início.
 
 ## Conceitos Relacionados
 
-- [Propriedade do Dado](data-ownership.md) — quem decide a retenção.
-- [Particionamento de Dados](data-partitioning.md) — descarte eficiente.
-- [Data Lake](data-lakes.md) — onde o problema é mais difícil.
-- [Event Sourcing](../06-distributed-systems/distributed-event-sourcing.md).
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — quem decide a retenção.
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md) — descarte eficiente.
+- [Data Lake](/07-data-architecture/data-lakes.md) — onde o problema é mais difícil.
+- [Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md).
 
 ## Exercício Prático
 

@@ -68,7 +68,7 @@ condicionais.
 ### Participantes são contêineres, não classes
 
 O nível de abstração precisa ser explícito, e o mais útil costuma ser o de
-[contêiner](container-diagrams.md):
+[contêiner](/17-architecture-documentation/container-diagrams.md):
 
 ```text
 Portal → API de Pedidos → Serviço de Pagamento → Fila → Serviço de Estoque
@@ -76,7 +76,7 @@ Portal → API de Pedidos → Serviço de Pagamento → Fila → Serviço de Est
 
 Um diagrama de sequência entre classes existe e serve a outro propósito — discutir código,
 não arquitetura. Misturar os dois no mesmo desenho produz o mesmo problema de níveis
-misturados descrito no [modelo C4](c4-model.md).
+misturados descrito no [modelo C4](/17-architecture-documentation/c4-model.md).
 
 ### Síncrono, assíncrono e resposta
 
@@ -89,7 +89,7 @@ seta aberta       mensagem assíncrona — quem envia segue
 ```
 
 Isso importa porque a diferença define disponibilidade composta e latência acumulada. Ver
-[mensageria](../06-distributed-systems/messaging.md).
+[mensageria](/06-distributed-systems/messaging.md).
 
 Um fluxo com cinco chamadas síncronas encadeadas é visualmente óbvio num diagrama de
 sequência, e invisível num estrutural.
@@ -108,8 +108,8 @@ o cliente recebe o quê?
 
 Um diagrama de sequência do caminho de falha frequentemente revela que ninguém sabia a
 resposta. Ver
-[transações distribuídas](../06-distributed-systems/distributed-transactions.md) e
-[sagas](../06-distributed-systems/sagas.md).
+[transações distribuídas](/06-distributed-systems/distributed-transactions.md) e
+[sagas](/06-distributed-systems/sagas.md).
 
 ### Notação em texto
 
@@ -126,7 +126,7 @@ API -->> Portal: 201
 
 O texto é legível sozinho, versiona bem, e o layout automático de sequência é bom — ao
 contrário do de diagramas estruturais. Ver
-[documentação viva](living-documentation.md).
+[documentação viva](/17-architecture-documentation/living-documentation.md).
 
 ### Eles envelhecem por cenário
 
@@ -152,7 +152,7 @@ API → Banco            10 ms
 
 Isso torna discutível o que antes era abstrato: as duas chamadas síncronas no meio somam
 93% do tempo, e a pergunta "alguma delas pode ser assíncrona?" passa a ter um número ao
-lado. Ver [latência](../06-distributed-systems/latency.md).
+lado. Ver [latência](/06-distributed-systems/latency.md).
 
 ## Modelo Mental
 
@@ -181,11 +181,11 @@ lado. Ver [latência](../06-distributed-systems/latency.md).
 ## Alternativas
 
 - **Descrição numerada em texto** — para fluxos simples, mais rápida de escrever e ler.
-- **[Fluxo de dados](data-flow-diagrams.md)** — quando a pergunta é sobre o dado, não a
+- **[Fluxo de dados](/17-architecture-documentation/data-flow-diagrams.md)** — quando a pergunta é sobre o dado, não a
   ordem.
 - **Diagrama de estados** — quando o objeto tem ciclo de vida, e não um caminho.
 - **Rastreamento distribuído** — mostra a sequência real, não a pretendida. Ver
-  [rastreamento](../13-observability/distributed-tracing.md).
+  [rastreamento](/13-observability/distributed-tracing.md).
 
 A última merece nota: uma amostra de rastreamento é um diagrama de sequência gerado a
 partir do comportamento real, e frequentemente contradiz o desenhado.
@@ -256,14 +256,14 @@ O que saiu do exercício:
 
 **Compensação explícita** para o primeiro caso: autorização revertida quando a gravação
 falha, com registro. Ver
-[sagas](../06-distributed-systems/sagas.md).
+[sagas](/06-distributed-systems/sagas.md).
 
 **Publicação transacional** para o segundo — gravação e evento na mesma transação, com
 publicação posterior a partir da tabela. Ver
-[garantias de entrega](../06-distributed-systems/delivery-guarantees.md).
+[garantias de entrega](/06-distributed-systems/delivery-guarantees.md).
 
 **Idempotência** na autorização para o terceiro, com chave por pedido. Ver
-[idempotência](../06-distributed-systems/idempotency.md).
+[idempotência](/06-distributed-systems/idempotency.md).
 
 E uma prática que ficou: **todo fluxo crítico novo precisa de um diagrama de sequência do
 caminho de falha antes de ser implementado.** A pergunta "desenhe o que acontece se esta
@@ -277,11 +277,11 @@ diagramas que não conseguiram ser terminados.
 
 ## Conceitos Relacionados
 
-- [Diagramas de Contêiner](container-diagrams.md) — o nível dos participantes.
-- [Fluxo de Dados](data-flow-diagrams.md) — a alternativa centrada no dado.
-- [Rastreamento Distribuído](../13-observability/distributed-tracing.md) — a sequência
+- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md) — o nível dos participantes.
+- [Fluxo de Dados](/17-architecture-documentation/data-flow-diagrams.md) — a alternativa centrada no dado.
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a sequência
   real.
-- [Sagas](../06-distributed-systems/sagas.md).
+- [Sagas](/06-distributed-systems/sagas.md).
 
 ## Exercício Prático
 

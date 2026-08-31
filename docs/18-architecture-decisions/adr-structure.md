@@ -84,7 +84,7 @@ descontinuado   não vale mais, sem substituto
 ```
 
 É o único campo que muda depois da aceitação, e a mudança é sempre acréscimo. Ver
-[status](adr-status.md).
+[status](/18-architecture-decisions/adr-status.md).
 
 ### Contexto
 
@@ -100,7 +100,7 @@ os requisitos que a decisão precisa atender, com números
 
 O teste: alguém que não estava lá consegue entender por que a decisão era necessária, e
 sob que condições a resposta poderia ser outra? Ver
-[contexto](adr-context.md).
+[contexto](/18-architecture-decisions/adr-context.md).
 
 O erro característico é escrever contexto como introdução genérica — "estamos construindo
 um sistema de pedidos" — em vez de registrar as forças específicas.
@@ -116,7 +116,7 @@ Voz ativa, afirmativa, curta:
 Não "propõe-se", não "recomenda-se", não "avaliou-se". Uma decisão registrada em voz
 passiva ou condicional não é uma decisão.
 
-Ver [decisão](adr-decision.md).
+Ver [decisão](/18-architecture-decisions/adr-decision.md).
 
 É comum que esta seção tenha três linhas. Isso é correto — o volume está no contexto e nas
 consequências.
@@ -134,7 +134,7 @@ riscos       o que pode dar errado, e o sinal de alerta
 
 Uma seção de consequências só com pontos positivos é sinal de ADR escrito para convencer,
 não para registrar. Ver
-[consequências](adr-consequences.md).
+[consequências](/18-architecture-decisions/adr-consequences.md).
 
 ### Alternativas — o acréscimo que vale
 
@@ -148,7 +148,7 @@ sob que condição voltaria a ganhar
 ```
 
 A terceira linha é a que transforma o ADR em instrumento de revisão futura. Ver
-[alternativas](adr-alternatives.md).
+[alternativas](/18-architecture-decisions/adr-alternatives.md).
 
 ### Variantes de formato
 
@@ -318,10 +318,10 @@ justificavam um documento, antes não eram registradas de forma alguma.
 
 ## Conceitos Relacionados
 
-- [Contexto](adr-context.md) — a seção que carrega o valor.
-- [Decisão](adr-decision.md) — a mais curta.
-- [Alternativas](adr-alternatives.md) — o acréscimo essencial.
-- [Consequências](adr-consequences.md) — onde o custo é nomeado.
+- [Contexto](/18-architecture-decisions/adr-context.md) — a seção que carrega o valor.
+- [Decisão](/18-architecture-decisions/adr-decision.md) — a mais curta.
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — o acréscimo essencial.
+- [Consequências](/18-architecture-decisions/adr-consequences.md) — onde o custo é nomeado.
 
 ## Exercício Prático
 

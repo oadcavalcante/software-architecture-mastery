@@ -56,19 +56,19 @@ Formuladas por Kent Beck, em ordem de prioridade:
 
 A ordem é a parte que importa. Quando 3 e 4 conflitam com 2, a intenção vence —
 o que legitima duplicação que torna o código mais claro. É a versão mais enxuta
-de tudo o que [SOLID](solid.md) e [Clean Code](clean-code.md) tentam capturar.
+de tudo o que [SOLID](/02-software-design/solid.md) e [Clean Code](/02-software-design/clean-code.md) tentam capturar.
 
 ### Um conjunto operacional
 
 Heurísticas que aparecem repetidamente neste material, reunidas:
 
 **Coisas que mudam juntas ficam juntas.** A heurística de maior alcance. Orienta
-[modularidade](../01-fundamentals/modularity.md),
-[coesão](../01-fundamentals/cohesion.md),
-[fronteiras](boundaries.md) e [DRY](dry.md).
+[modularidade](/01-fundamentals/modularity.md),
+[coesão](/01-fundamentals/cohesion.md),
+[fronteiras](/02-software-design/boundaries.md) e [DRY](/02-software-design/dry.md).
 
 **Dependa na direção da estabilidade.** Ver
-[direção de dependência](dependency-direction.md).
+[direção de dependência](/02-software-design/dependency-direction.md).
 
 **Prefira a opção mais barata de abandonar.** Quando duas alternativas empatam, a
 reversibilidade decide.
@@ -154,10 +154,10 @@ ser verificada com dado.
 
 ## Conceitos Relacionados
 
-- [KISS](kiss.md) e [YAGNI](yagni.md) — duas heurísticas em detalhe.
-- [SOLID](solid.md) — cinco heurísticas frequentemente lidas como regras.
-- [Clean Code](clean-code.md) — o conjunto local.
-- [Trade-offs](../20-trade-offs/index.md) — o que fazer quando duas conflitam.
+- [KISS](/02-software-design/kiss.md) e [YAGNI](/02-software-design/yagni.md) — duas heurísticas em detalhe.
+- [SOLID](/02-software-design/solid.md) — cinco heurísticas frequentemente lidas como regras.
+- [Clean Code](/02-software-design/clean-code.md) — o conjunto local.
+- [Trade-offs](/20-trade-offs/index.md) — o que fazer quando duas conflitam.
 
 ## Exercício Prático
 

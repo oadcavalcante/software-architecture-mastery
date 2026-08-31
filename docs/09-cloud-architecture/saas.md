@@ -68,7 +68,7 @@ pode nunca ser atendida.
 
 **Disponibilidade dele.** Se ele cai, você cai — sem ação possível. Isso precisa
 entrar no seu cálculo de disponibilidade. Ver
-[disponibilidade](../06-distributed-systems/availability.md).
+[disponibilidade](/06-distributed-systems/availability.md).
 
 **Risco de continuidade.** Fornecedores são adquiridos, mudam de estratégia,
 encerram produtos.
@@ -81,15 +81,15 @@ O SaaS resolve a funcionalidade. Conectá-lo ao seu sistema é trabalho seu, e �
 subestimado:
 
 **Sincronização de dados** nos dois sentidos, com todos os problemas de
-[consistência](../07-data-architecture/data-consistency.md) que isso traz.
+[consistência](/07-data-architecture/data-consistency.md) que isso traz.
 
 **Identidade.** Provisionar e desprovisionar usuários.
 
 **Contrato.** A API dele muda no ritmo dele. Ver
-[contratos de integração](../08-integration-architecture/integration-contracts.md).
+[contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 **Anticorrupção.** O modelo dele não deveria entrar no seu. Ver
-[anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md).
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 Com muitos SaaS integrados, o custo de manter as integrações passa a ser
 significativo — e é uma despesa que ninguém orça na aquisição.
@@ -105,7 +105,7 @@ Antes de adotar, três perguntas:
 **Quanto tempo levaria migrar?**
 
 Um SaaS sem exportação decente é uma decisão quase irreversível. Ver
-[dependência de fornecedor](vendor-lock-in.md).
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ### Os dados continuam sendo sua responsabilidade
 
@@ -114,7 +114,7 @@ continua respondendo por eles.
 
 Isso significa avaliar onde o fornecedor armazena, o que ele faz com os dados, como
 ele trata solicitações de exclusão, e o que acontece se o contrato terminar. Ver
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 E significa que "está no fornecedor" não é resposta para uma auditoria.
 
@@ -244,10 +244,10 @@ consumiu mais tempo que a avaliação dos fornecedores.
 
 ## Conceitos Relacionados
 
-- [PaaS](paas.md) e [IaaS](iaas.md) — os modelos abaixo.
-- [Dependência de Fornecedor](vendor-lock-in.md).
-- [Contratos de Integração](../08-integration-architecture/integration-contracts.md).
-- [Ciclo de Vida do Dado](../07-data-architecture/data-lifecycle.md).
+- [PaaS](/09-cloud-architecture/paas.md) e [IaaS](/09-cloud-architecture/iaas.md) — os modelos abaixo.
+- [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md).
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md).
 
 ## Exercício Prático
 

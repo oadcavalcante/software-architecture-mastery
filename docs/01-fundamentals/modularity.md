@@ -90,7 +90,7 @@ graph TB
 Um diretório chamado `cobranca` não impede nada. Modularidade real exige que a
 fronteira seja imposta — por módulo de linguagem, análise estática ou teste de
 arquitetura. Ver
-[arquitetura vs. implementação](architecture-vs-implementation.md).
+[arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md).
 
 ### Modularidade tem níveis
 
@@ -147,7 +147,7 @@ implantação.
 - **Modularidade por convenção** — mais barata, e vale enquanto a equipe é
   estável e pequena; degrada com rotatividade.
 - **Separação por processo** — modularidade máxima, custo máximo. Ver
-  [microsserviços](../03-design-patterns/index.md).
+  [microsserviços](/03-design-patterns/index.md).
 
 ## Trade-offs
 
@@ -217,11 +217,11 @@ ruído.
 
 ## Conceitos Relacionados
 
-- [Acoplamento](coupling.md) e [Coesão](cohesion.md) — como se mede se a
+- [Acoplamento](/01-fundamentals/coupling.md) e [Coesão](/01-fundamentals/cohesion.md) — como se mede se a
   divisão está boa.
-- [Separação de Responsabilidades](separation-of-concerns.md) — o princípio que
+- [Separação de Responsabilidades](/01-fundamentals/separation-of-concerns.md) — o princípio que
   orienta onde dividir.
-- [Design Modular](../02-software-design/index.md) — a aplicação prática.
+- [Design Modular](/02-software-design/index.md) — a aplicação prática.
 
 ## Exercício Prático
 

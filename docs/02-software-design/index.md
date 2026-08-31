@@ -93,6 +93,6 @@ e passou a adicioná-la.
 
 ## Continua em
 
-[Design Patterns](../03-design-patterns/index.md) para as soluções recorrentes,
-e [Domain-Driven Design](../04-domain-driven-design/index.md) para quando a
+[Design Patterns](/03-design-patterns/index.md) para as soluções recorrentes,
+e [Domain-Driven Design](/04-domain-driven-design/index.md) para quando a
 complexidade do domínio, e não a técnica, é o que dita a estrutura.

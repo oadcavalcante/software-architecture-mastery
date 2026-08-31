@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Um padrão prescreve uma escolha específica: use esta biblioteca, este formato, esta
 convenção.
 
-Ele difere de um [princípio](enterprise-principles.md), que orienta julgamento sem
+Ele difere de um [princípio](/15-enterprise-architecture/enterprise-principles.md), que orienta julgamento sem
 determinar a escolha.
 
 E a propriedade que decide se ele funciona: **um padrão que precisa ser verificado por
@@ -57,7 +57,7 @@ padrão operacionalizado  a biblioteca vem no modelo de serviço
                       → não seguir exige esforço deliberado
 ```
 
-Ver [plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
+Ver [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
 A hierarquia de eficácia:
 
@@ -108,12 +108,12 @@ padrão     "use a versão 3 da biblioteca de contrato" vale por meses
 Isso exige revisão frequente, e um mecanismo de depreciação: um padrão substituído
 precisa de prazo de convivência e de caminho de migração.
 
-Ver [contratos de integração](../08-integration-architecture/integration-contracts.md) —
+Ver [contratos de integração](/08-integration-architecture/integration-contracts.md) —
 padrões internos merecem o mesmo tratamento que APIs.
 
 ### Exceção com registro, não proibição
 
-Como em [princípios](enterprise-principles.md): um padrão sem caminho de exceção produz
+Como em [princípios](/15-enterprise-architecture/enterprise-principles.md): um padrão sem caminho de exceção produz
 contorno silencioso.
 
 E o registro de exceções é o mecanismo de melhoria: se um padrão acumula exceções, ele
@@ -165,7 +165,7 @@ padrões.
 A alternativa que reduz o custo: quando o padrão pode ser aplicado pela plataforma —
 atualizando o modelo de serviço e propagando — a migração deixa de ser trabalho de cada
 time. Ver
-[plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
+[plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
 ### Padrões descontinuados precisam de rastreabilidade
 
@@ -181,7 +181,7 @@ o que falta migrar                  lista visível, priorizada
 quem é responsável pela migração    nomeado
 ```
 
-Ver [plataformas internas](../14-devops-and-platform/internal-developer-platforms.md) —
+Ver [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md) —
 quando a plataforma conhece o padrão de cada serviço, essa rastreabilidade é derivada e
 não exige manutenção.
 
@@ -239,9 +239,9 @@ automatize, ou aceite que ele é decorativo.
 
 - **Caminho pavimentado** — o padrão embutido, mais forte que qualquer documento.
 - **Verificação automatizada** — a esteira aplica.
-- **[Princípios](enterprise-principles.md)** — quando a escolha específica não importa,
+- **[Princípios](/15-enterprise-architecture/enterprise-principles.md)** — quando a escolha específica não importa,
   só a direção.
-- **[Radar tecnológico](technology-radar.md)** — recomendação com contexto, sem
+- **[Radar tecnológico](/15-enterprise-architecture/technology-radar.md)** — recomendação com contexto, sem
   obrigação.
 
 ## Trade-offs
@@ -338,10 +338,10 @@ existiam porque alguém, em algum momento, teve uma preferência e escreveu.
 
 ## Conceitos Relacionados
 
-- [Princípios Corporativos](enterprise-principles.md) — a orientação sem prescrição.
-- [Radar Tecnológico](technology-radar.md).
-- [Governança Corporativa](enterprise-governance.md).
-- [Plataformas Internas](../14-devops-and-platform/internal-developer-platforms.md).
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md) — a orientação sem prescrição.
+- [Radar Tecnológico](/15-enterprise-architecture/technology-radar.md).
+- [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md).
+- [Plataformas Internas](/14-devops-and-platform/internal-developer-platforms.md).
 
 ## Exercício Prático
 

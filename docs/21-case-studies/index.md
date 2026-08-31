@@ -88,7 +88,7 @@ progressão obrigatória entre eles.
 
 Leia **plataforma de pagamentos** e **processamento de eventos de alto volume**
 em algum momento, mesmo que fora do seu domínio: são os que mais exercitam o
-[Nível 04](../06-distributed-systems/index.md).
+[Nível 04](/06-distributed-systems/index.md).
 
 ## Como usar
 
@@ -105,5 +105,5 @@ que descartou tão bem quanto a que escolheu.
 
 ## Relacionado
 
-[Entrevistas de System Design](../22-system-design-interviews/index.md), que é o
+[Entrevistas de System Design](/22-system-design-interviews/index.md), que é o
 mesmo raciocínio sob pressão de tempo.

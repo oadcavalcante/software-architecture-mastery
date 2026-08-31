@@ -120,7 +120,7 @@ interno do lado de fora.
   invariante é garantida na construção.
 - **Registro transparente** — para dados sem regra.
 - **Objeto de valor** — encapsula significado sem esconder valor. Ver
-  [DDD](../04-domain-driven-design/index.md).
+  [DDD](/04-domain-driven-design/index.md).
 
 ## Trade-offs
 
@@ -198,14 +198,14 @@ visibilidade de linguagem basta. Num módulo, é preciso um mecanismo explícito
 módulo declarado, teste de arquitetura, análise de dependências — porque a maioria
 das linguagens não impõe fronteira de pacote com força suficiente.
 
-Ver [design modular](modular-design.md) para o contrato e
-[fronteiras](boundaries.md) para os mecanismos.
+Ver [design modular](/02-software-design/modular-design.md) para o contrato e
+[fronteiras](/02-software-design/boundaries.md) para os mecanismos.
 
 ## Conceitos Relacionados
 
-- [Interfaces](interfaces.md) — o contrato que o encapsulamento expõe.
-- [Abstração](../01-fundamentals/abstraction.md) — o princípio geral.
-- [Fronteiras](boundaries.md) — encapsulamento em escala maior.
+- [Interfaces](/02-software-design/interfaces.md) — o contrato que o encapsulamento expõe.
+- [Abstração](/01-fundamentals/abstraction.md) — o princípio geral.
+- [Fronteiras](/02-software-design/boundaries.md) — encapsulamento em escala maior.
 
 ## O objeto anêmico e por que ele persiste
 

@@ -29,7 +29,7 @@ cada byte armazenado aparecem na conta do mês seguinte.
 
 Isso torna custo um **atributo de qualidade** como latência ou disponibilidade —
 algo que se projeta, se mede e se degrada quando ninguém olha. Ver
-[atributos de qualidade](../01-fundamentals/quality-attributes.md).
+[atributos de qualidade](/01-fundamentals/quality-attributes.md).
 
 ## Problema
 
@@ -84,10 +84,10 @@ ligados 24 horas para uso de 8. Dois terços desperdiçados por definição.
 padrão é utilização entre 5% e 15%.
 
 **Transferência desnecessária.** Tráfego cruzando zonas por falta de preferência de
-roteamento. Ver [zonas de disponibilidade](availability-zones.md).
+roteamento. Ver [zonas de disponibilidade](/09-cloud-architecture/availability-zones.md).
 
 **Dados sem política de retenção.** Registros e cópias acumulando indefinidamente.
-Ver [ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+Ver [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 **Recursos órfãos.** Volumes de instâncias apagadas, endereços IP reservados,
 imagens antigas. Ninguém os vê porque não têm dono.
@@ -164,7 +164,7 @@ previsível por risco.
 **Reserva de capacidade de longo prazo** antes de o padrão de uso estabilizar.
 
 **Autogerir para economizar** sem contabilizar o tempo das pessoas. Ver
-[serviços gerenciados](managed-services.md).
+[serviços gerenciados](/09-cloud-architecture/managed-services.md).
 
 ## Alternativas
 
@@ -274,10 +274,10 @@ e ela era vista como burocracia antes disso.
 
 ## Conceitos Relacionados
 
-- [Serviços Gerenciados](managed-services.md) — a comparação de custo total.
-- [Serverless](serverless.md) — outro modelo de cobrança.
-- [Ciclo de Vida do Dado](../07-data-architecture/data-lifecycle.md) — retenção.
-- [Zonas de Disponibilidade](availability-zones.md) — transferência.
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md) — a comparação de custo total.
+- [Serverless](/09-cloud-architecture/serverless.md) — outro modelo de cobrança.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção.
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — transferência.
 
 ## Exercício Prático
 

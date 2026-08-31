@@ -28,8 +28,8 @@ Ports and Adapters, formulado por Alistair Cockburn em 2005, propõe uma regra
 > passa por **portas** que o núcleo define, e **adaptadores** que o mundo
 > implementa.
 
-É a formulação original da qual [Hexagonal](hexagonal-architecture.md),
-[Onion](onion-architecture.md) e [Clean Architecture](clean-architecture.md) são
+É a formulação original da qual [Hexagonal](/02-software-design/hexagonal-architecture.md),
+[Onion](/02-software-design/onion-architecture.md) e [Clean Architecture](/02-software-design/clean-architecture.md) são
 variações.
 
 ## Problema
@@ -51,7 +51,7 @@ separados**.
 
 Uma porta declara uma necessidade ou uma capacidade, no vocabulário do domínio.
 Ela pertence ao núcleo — ver
-[inversão de dependência](dependency-inversion.md).
+[inversão de dependência](/02-software-design/dependency-inversion.md).
 
 **Portas primárias** (ou de condução) são o que o mundo pode pedir ao núcleo:
 casos de uso.
@@ -105,10 +105,10 @@ consideravelmente; num sistema de poucos casos, isso domina.
 
 **Quando as portas viram espelho da infraestrutura.** Se `RepositorioDePedidos`
 tem `findByStatusIn` e devolve o tipo do ORM, o núcleo continua acoplado com
-cerimônia extra. Ver [interfaces](interfaces.md).
+cerimônia extra. Ver [interfaces](/02-software-design/interfaces.md).
 
 **Quando o time não sustenta a disciplina.** Sem
-[teste de arquitetura](../01-fundamentals/architecture-vs-implementation.md), a
+[teste de arquitetura](/01-fundamentals/architecture-vs-implementation.md), a
 regra é atravessada em meses e o sistema fica com o custo sem a propriedade.
 
 ## Alternativas
@@ -198,10 +198,10 @@ que quase nunca são exercitados.
 
 ## Conceitos Relacionados
 
-- [Hexagonal](hexagonal-architecture.md) — o mesmo padrão, outro nome.
-- [Onion](onion-architecture.md) e
-  [Clean Architecture](clean-architecture.md) — as variações.
-- [Inversão de Dependência](dependency-inversion.md) — o mecanismo.
+- [Hexagonal](/02-software-design/hexagonal-architecture.md) — o mesmo padrão, outro nome.
+- [Onion](/02-software-design/onion-architecture.md) e
+  [Clean Architecture](/02-software-design/clean-architecture.md) — as variações.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — o mecanismo.
 
 ## Exercício Prático
 

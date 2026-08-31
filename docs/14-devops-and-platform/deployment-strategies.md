@@ -41,7 +41,7 @@ A implantação é o momento de maior risco na vida de um sistema estável. Uma 
 dos incidentes é causada por mudança recente.
 
 Isso não significa implantar menos — o oposto, ver
-[integração contínua](ci-cd.md). Significa que **como** se implanta importa.
+[integração contínua](/14-devops-and-platform/ci-cd.md). Significa que **como** se implanta importa.
 
 Sem estratégia, a implantação é uma troca abrupta: a versão nova substitui a antiga, e
 se ela estiver errada, todos os usuários sentem, até alguém perceber e reverter.
@@ -59,8 +59,8 @@ canary       detecta o problema automaticamente e limita a exposição
              mais complexo, exige métricas comparáveis
 ```
 
-Ver [implantação em ondas](rolling-deployments.md),
-[blue-green](blue-green.md) e [canary](canary.md).
+Ver [implantação em ondas](/14-devops-and-platform/rolling-deployments.md),
+[blue-green](/14-devops-and-platform/blue-green.md) e [canary](/14-devops-and-platform/canary.md).
 
 A distinção central: **em ondas e blue-green são mecanismos de substituição; canary é um
 mecanismo de verificação.** Eles se combinam — uma implantação canary bem-sucedida
@@ -77,7 +77,7 @@ contrato de API      sem mudança incompatível
 estado compartilhado sessão, cache — legíveis por ambas
 ```
 
-Ver [evolução de esquema](../08-integration-architecture/schema-evolution.md).
+Ver [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 Sem isso, a única estratégia possível é parar tudo e trocar — que é o que se quer
 evitar.
@@ -117,7 +117,7 @@ testada      exercitada, não presumida
 A terceira é a que costuma falhar: reverter o código é fácil; reverter uma migração de
 banco que já rodou, não. É por isso que migrações compatíveis são pré-requisito.
 
-Ver [resiliência](../12-reliability/resilience.md) — reversibilidade vale mais que
+Ver [resiliência](/12-reliability/resilience.md) — reversibilidade vale mais que
 acerto.
 
 ### A escolha vem do risco
@@ -135,7 +135,7 @@ fração inicial valida; o resto vai gradualmente.
 
 ### Implantar não é liberar
 
-Ver [feature flags](feature-flags.md). Com flags, o código pode ir a produção desativado,
+Ver [feature flags](/14-devops-and-platform/feature-flags.md). Com flags, o código pode ir a produção desativado,
 e a liberação vira uma decisão separada, reversível em segundos.
 
 Isso muda o cálculo: a implantação passa a ser de baixo risco — o código novo não faz
@@ -172,7 +172,7 @@ resto é consequência.
 
 - **Implantação com parada** — legítima para sistemas que toleram janela, e muito mais
   simples.
-- **[Feature flags](feature-flags.md)** — separam implantar de liberar, reduzindo o risco
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — separam implantar de liberar, reduzindo o risco
   de ambos.
 - **Implantação sombra** — a versão nova recebe cópia do tráfego sem responder ao
   usuário. Verifica comportamento com risco zero, ao custo de dobrar a carga.
@@ -267,11 +267,11 @@ aconteceu, e ninguém tinha feito essa distinção.
 
 ## Conceitos Relacionados
 
-- [Blue-Green](blue-green.md), [Canary](canary.md),
-  [Implantação em Ondas](rolling-deployments.md).
-- [Feature Flags](feature-flags.md) — separar implantar de liberar.
-- [Integração Contínua](ci-cd.md).
-- [Evolução de Esquema](../08-integration-architecture/schema-evolution.md).
+- [Blue-Green](/14-devops-and-platform/blue-green.md), [Canary](/14-devops-and-platform/canary.md),
+  [Implantação em Ondas](/14-devops-and-platform/rolling-deployments.md).
+- [Feature Flags](/14-devops-and-platform/feature-flags.md) — separar implantar de liberar.
+- [Integração Contínua](/14-devops-and-platform/ci-cd.md).
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
 ## Exercício Prático
 

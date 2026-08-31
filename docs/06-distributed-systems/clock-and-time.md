@@ -70,11 +70,11 @@ diferentes, **não se pode concluir que A aconteceu depois**.
 
 A diferença entre os relógios pode ser maior que o intervalo real entre os
 eventos. É exatamente o cenário de
-[resolução de conflitos](conflict-resolution.md) por último a escrever vence.
+[resolução de conflitos](/06-distributed-systems/conflict-resolution.md) por último a escrever vence.
 
 Ordenação precisa vir de outro lugar: um contador da entidade, um número de
 sequência atribuído por um único ponto, ou a
-[partição](ordering.md).
+[partição](/06-distributed-systems/ordering.md).
 
 ### Relógios lógicos
 
@@ -86,7 +86,7 @@ contadores menores não implicam causalidade.
 
 **Vetor de versões.** Um contador por nó, mantido como vetor. Permite distinguir
 "A causou B" de "A e B foram concorrentes" — que é o que
-[detecção de conflito](conflict-resolution.md) exige.
+[detecção de conflito](/06-distributed-systems/conflict-resolution.md) exige.
 
 O vetor é mais caro em espaço e é o que de fato responde à pergunta útil.
 
@@ -135,7 +135,7 @@ qualquer comparação de tempo decorrido.
 **Relógio de parede para medir duração.**
 
 **Marca de tempo para resolver conflito.** Ver
-[resolução de conflitos](conflict-resolution.md).
+[resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
 
 **Assumir que os relógios estão sincronizados.** Verifique — a deriva acontece, e
 frequentemente sem alerta.
@@ -228,10 +228,10 @@ contestou — e a ausência de um contador central era conhecida por ninguém, p
 
 ## Conceitos Relacionados
 
-- [Ordenação](ordering.md) — onde relógio não serve.
-- [Resolução de Conflitos](conflict-resolution.md) — o mesmo problema.
-- [Timeouts](timeouts.md) — que precisam de relógio monotônico.
-- [Consenso](consensus.md) — que estabelece ordem sem depender de relógio.
+- [Ordenação](/06-distributed-systems/ordering.md) — onde relógio não serve.
+- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md) — o mesmo problema.
+- [Timeouts](/06-distributed-systems/timeouts.md) — que precisam de relógio monotônico.
+- [Consenso](/06-distributed-systems/consensus.md) — que estabelece ordem sem depender de relógio.
 
 ## Exercício Prático
 

@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Numa arquitetura orientada a eventos, componentes publicam fatos ocorridos e
 outros reagem a eles, sem que o publicador conheça os consumidores.
 
-É [Observer](observer.md) em escala de sistema, com uma diferença que muda tudo:
+É [Observer](/03-design-patterns/observer.md) em escala de sistema, com uma diferença que muda tudo:
 o canal é durável, e a entrega atravessa processos.
 
 ## Problema
@@ -55,7 +55,7 @@ o publicador continua sabendo o que deve acontecer.
 ### Orquestração e coreografia
 
 A decisão estrutural do estilo, e a mesma que aparece em
-[Mediator](mediator.md) versus [Observer](observer.md).
+[Mediator](/03-design-patterns/mediator.md) versus [Observer](/03-design-patterns/observer.md).
 
 **Orquestração** — um coordenador conhece o fluxo e aciona os passos. O fluxo
 está num lugar, é auditável e visualizável. O coordenador acopla.
@@ -85,7 +85,7 @@ Num sistema síncrono, a pilha de chamadas responde. Num orientado a eventos, é
 preciso correlacionar registros de vários serviços, ao longo do tempo, com o
 mesmo identificador.
 
-Isso torna [observabilidade](../13-observability/index.md) um pré-requisito, não
+Isso torna [observabilidade](/13-observability/index.md) um pré-requisito, não
 um complemento. Correlation ID atravessando todo evento não é opcional.
 
 ### As garantias herdadas
@@ -98,7 +98,7 @@ Ordem não garantida entre partições.
 Mensagens que sempre falham — *poison messages* — precisam de dead-letter queue.
 E consistência eventual entre os serviços.
 
-Ver [Nível 04](../06-distributed-systems/index.md). Nada disso é opcional; é o que
+Ver [Nível 04](/06-distributed-systems/index.md). Nada disso é opcional; é o que
 o estilo custa.
 
 ## Quando Usar
@@ -135,7 +135,7 @@ aparecer, e os defeitos são sutis.
 - **Orquestração explícita** — mantendo eventos, mas com um coordenador.
 - **Consulta agendada** — mais simples que evento quando a latência tolerada é
   alta.
-- **[Monolito modular](modular-monolith.md) com eventos internos** — o
+- **[Monolito modular](/03-design-patterns/modular-monolith.md) com eventos internos** — o
   desacoplamento lógico sem a rede.
 
 ## Trade-offs
@@ -227,11 +227,11 @@ tem responsabilidade legal e prazo contratual.
 
 ## Conceitos Relacionados
 
-- [Observer](observer.md) — a versão em processo.
-- [CQRS](cqrs.md) e [Event Sourcing](event-sourcing.md) — padrões que
+- [Observer](/03-design-patterns/observer.md) — a versão em processo.
+- [CQRS](/03-design-patterns/cqrs.md) e [Event Sourcing](/03-design-patterns/event-sourcing.md) — padrões que
   frequentemente acompanham.
-- [Sistemas Distribuídos](../06-distributed-systems/index.md) — as garantias.
-- [Integração](../08-integration-architecture/index.md) — os mecanismos.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md) — as garantias.
+- [Integração](/08-integration-architecture/index.md) — os mecanismos.
 
 ## Exercício Prático
 

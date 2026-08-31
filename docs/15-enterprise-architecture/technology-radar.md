@@ -101,7 +101,7 @@ contexto de quem os publica.
 Uma tecnologia em "adotar" numa consultoria com centenas de projetos pode ser
 inadequada numa organização com oito engenheiros — porque o custo operacional que a
 justifica lá não existe aqui. Ver
-[serviços gerenciados](../09-cloud-architecture/managed-services.md).
+[serviços gerenciados](/09-cloud-architecture/managed-services.md).
 
 O radar próprio responde: **o que funciona aqui, com o nosso time, o nosso volume e as
 nossas restrições?**
@@ -158,8 +158,8 @@ decisões estruturais.
 ## Alternativas
 
 - **Caminho pavimentado** — em vez de recomendar, oferecer pronto. Ver
-  [plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
-- **[Padrões](standards.md)** — quando a escolha específica é obrigatória.
+  [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
+- **[Padrões](/15-enterprise-architecture/standards.md)** — quando a escolha específica é obrigatória.
 - **Registro de decisões** — o histórico do que foi escolhido e por quê.
 - **Comunidade de prática** — o compartilhamento de aprendizado sem artefato formal.
 
@@ -248,7 +248,7 @@ seis promoções a experimentar, cinco a adotar, três para evitar.
 E uma mudança que veio depois: as tecnologias em "adotar" passaram a ser embutidas no
 caminho pavimentado da plataforma. Isso reduziu a necessidade de consultar o radar —
 usar a opção recomendada virou o caminho mais fácil. Ver
-[plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
+[plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
 O radar continuou útil para o que não pode ser embutido: as decisões estruturais e o
 registro do que foi tentado.
@@ -259,10 +259,10 @@ encontraram resposta útil, e seguiram.
 
 ## Conceitos Relacionados
 
-- [Padrões](standards.md) — a prescrição obrigatória.
-- [Princípios Corporativos](enterprise-principles.md).
-- [Estratégia Técnica](technical-strategy.md).
-- [Plataformas Internas](../14-devops-and-platform/internal-developer-platforms.md).
+- [Padrões](/15-enterprise-architecture/standards.md) — a prescrição obrigatória.
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
+- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md).
+- [Plataformas Internas](/14-devops-and-platform/internal-developer-platforms.md).
 
 ## Exercício Prático
 

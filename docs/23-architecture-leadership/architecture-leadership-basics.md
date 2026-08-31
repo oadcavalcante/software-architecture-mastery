@@ -78,7 +78,7 @@ está errado gasta as duas de uma vez; um que acerta repetidamente acumula uma r
 ser ouvido nas vezes em que a proposta é contraintuitiva.
 
 Isso torna a escolha de **quando insistir** uma competência de primeira ordem. Ver
-[influência técnica](technical-influence.md).
+[influência técnica](/23-architecture-leadership/technical-influence.md).
 
 ### Traduzir é metade do trabalho
 
@@ -98,7 +98,7 @@ diagrama; ela precisa da mesma decisão expressa em risco, custo e capacidade.
 
 Arquitetos que apresentam a versão técnica a todos os públicos concluem que "a diretoria não
 entende de tecnologia". O diagnóstico correto é o inverso. Ver
-[comunicação](communication.md).
+[comunicação](/23-architecture-leadership/communication.md).
 
 ### Decidir com informação insuficiente é o normal
 
@@ -112,8 +112,8 @@ opção — especialmente quando a decisão trava o trabalho de outras pessoas.
 
 A postura que funciona: decidir com o que se tem, declarar as premissas, registrar a condição que
 faria a decisão mudar, e seguir. Ver
-[tomada de decisão](decision-making.md) e
-[ADRs](../18-architecture-decisions/index.md).
+[tomada de decisão](/23-architecture-leadership/decision-making.md) e
+[ADRs](/18-architecture-decisions/index.md).
 
 ### A organização é uma restrição de arquitetura
 
@@ -124,8 +124,8 @@ Reconhecê-la muda o que se propõe: em vez de desenhar a arquitetura ideal e la
 organização não a suporte, o arquiteto sênior propõe a mudança organizacional junto com a
 arquitetural, ou desenha dentro do que a organização suporta.
 
-Ver [lei de Conway](conways-law.md) e
-[arquitetura organizacional](organizational-architecture.md).
+Ver [lei de Conway](/23-architecture-leadership/conways-law.md) e
+[arquitetura organizacional](/23-architecture-leadership/organizational-architecture.md).
 
 ### Manter as mãos no técnico
 
@@ -172,7 +172,7 @@ métrica certa    quantas decisões boas foram tomadas na organização,
 Um arquiteto cuja ausência trava a organização não construiu capacidade — construiu dependência.
 O trabalho inclui deixar critérios, princípios e precedentes que permitam a decisão acontecer sem
 ele. Ver
-[medição de resultados](measuring-architecture-outcomes.md).
+[medição de resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
 ## Modelo Mental
 
@@ -205,7 +205,7 @@ estar na sala.
 
 - **Arquitetura distribuída nos times** — sem papel dedicado, com decisões federadas e um fórum
   de coordenação. Funciona bem em organizações com cultura técnica forte. Ver
-  [governança federada](../19-architecture-governance/federated-governance.md).
+  [governança federada](/19-architecture-governance/federated-governance.md).
 - **Arquiteto embarcado** — dentro do time, sem escopo transversal; mais profundidade, menos
   alcance.
 - **Autoridade formal real** — organizações que a concedem obtêm decisão mais rápida e perdem
@@ -324,10 +324,10 @@ preferências de padronização que não afetavam risco, custo nem velocidade.
 
 ## Conceitos Relacionados
 
-- [Influência Técnica](technical-influence.md).
-- [Comunicação](communication.md).
-- [Lei de Conway](conways-law.md) — a restrição organizacional.
-- [Medição de Resultados](measuring-architecture-outcomes.md).
+- [Influência Técnica](/23-architecture-leadership/technical-influence.md).
+- [Comunicação](/23-architecture-leadership/communication.md).
+- [Lei de Conway](/23-architecture-leadership/conways-law.md) — a restrição organizacional.
+- [Medição de Resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
 ## Exercício Prático
 

@@ -59,7 +59,7 @@ graph TB
 Factory Method usa herança para variar a criação. Isso o amarra aos custos de
 herança: um eixo de variação, acoplamento à implementação da base, e uma classe
 nova para cada tipo de produto. Ver
-[composição vs. herança](../02-software-design/composition-vs-inheritance.md).
+[composição vs. herança](/02-software-design/composition-vs-inheritance.md).
 
 Em linguagens com funções de primeira classe, passar uma função de criação
 resolve o mesmo problema sem hierarquia — e é por isso que o padrão aparece com
@@ -93,7 +93,7 @@ Confundir os dois leva a criar hierarquias onde uma função bastaria.
 por subclasse, passar uma função de criação é mais simples e mais flexível — pode
 mudar em execução, e não exige hierarquia.
 
-**Quando há uma única implementação.** Ver [YAGNI](../02-software-design/yagni.md).
+**Quando há uma única implementação.** Ver [YAGNI](/02-software-design/yagni.md).
 Uma hierarquia de criadores com um criador concreto é indireção pura.
 
 **Quando o eixo de variação é mais de um.** Herança amarra a um; dois eixos
@@ -106,7 +106,7 @@ criação, o padrão perde a razão de existir.
 
 - **Função de fábrica** — a resposta na maioria dos casos.
 - **Função como parâmetro** — passar `() -> Produto` em vez de herdar.
-- **[Abstract Factory](abstract-factory.md)** — quando são famílias de produtos
+- **[Abstract Factory](/03-design-patterns/abstract-factory.md)** — quando são famílias de produtos
   relacionados, não um.
 - **Injeção de dependência** — receber o objeto pronto em vez de criá-lo.
 
@@ -186,11 +186,11 @@ indevido de padrões vem de aplicar a segunda o que foi projetado para a primeir
 
 ## Conceitos Relacionados
 
-- [Abstract Factory](abstract-factory.md) — famílias de produtos.
-- [Builder](builder.md) — construção em etapas.
-- [Template Method](template-method.md) — a mesma mecânica de herança aplicada ao
+- [Abstract Factory](/03-design-patterns/abstract-factory.md) — famílias de produtos.
+- [Builder](/03-design-patterns/builder.md) — construção em etapas.
+- [Template Method](/03-design-patterns/template-method.md) — a mesma mecânica de herança aplicada ao
   processo inteiro.
-- [Composição vs. Herança](../02-software-design/composition-vs-inheritance.md).
+- [Composição vs. Herança](/02-software-design/composition-vs-inheritance.md).
 
 ## Exercício Prático
 

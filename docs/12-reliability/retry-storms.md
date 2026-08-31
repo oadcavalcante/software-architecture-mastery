@@ -22,7 +22,7 @@ last_reviewed: 2026-08-28
 ## Visão Geral
 
 Retentativa é a defesa mais básica contra falha transitória. Ver
-[retentativas](../06-distributed-systems/retries.md).
+[retentativas](/06-distributed-systems/retries.md).
 
 Sob falha generalizada, ela vira o problema: todos os clientes repetem ao mesmo tempo,
 a carga sobre o destino degradado multiplica, e o sistema não consegue se recuperar —
@@ -67,7 +67,7 @@ E as demais precisam **não** repetir — o que exige que alguém verifique, por
 bibliotecas de cliente frequentemente repetem por padrão sem que ninguém tenha
 configurado.
 
-Ver [malha de serviço](../08-integration-architecture/service-mesh.md) — o caso em que a
+Ver [malha de serviço](/08-integration-architecture/service-mesh.md) — o caso em que a
 malha repete e a aplicação também.
 
 ### Orçamento de retentativa
@@ -98,7 +98,7 @@ sem variação   falha em massa → todos repetem em 1s, 2s, 4s → três picos 
 com variação   as tentativas se espalham no tempo
 ```
 
-Ver [backoff](../06-distributed-systems/backoff.md). Espera crescente sem variação é
+Ver [backoff](/06-distributed-systems/backoff.md). Espera crescente sem variação é
 pior que não ter espera nenhuma, porque cria a ilusão de proteção enquanto mantém a
 sincronização.
 
@@ -143,8 +143,8 @@ visível como profundidade crescente.
 
 Uma mensagem que falha e volta para a fila é processada de novo, falha de novo, e
 consome capacidade indefinidamente. Ver
-[poison messages](../06-distributed-systems/poison-messages.md) e
-[dead-letter queues](../06-distributed-systems/dead-letter-queues.md).
+[poison messages](/06-distributed-systems/poison-messages.md) e
+[dead-letter queues](/06-distributed-systems/dead-letter-queues.md).
 
 Limite de tentativas com destino final não é detalhe — é o que impede uma mensagem
 consumir a capacidade de toda a fila.
@@ -159,7 +159,7 @@ não é o número de tentativas — é a proporção delas.
 Retentativa é adequada quando:
 
 - A falha é plausivelmente transitória.
-- A operação é [idempotente](../06-distributed-systems/idempotency.md).
+- A operação é [idempotente](/06-distributed-systems/idempotency.md).
 - Há orçamento definido.
 - Existe espera com variação.
 - Apenas uma camada repete.
@@ -177,13 +177,13 @@ Retentativa é adequada quando:
 **Sem idempotência.**
 
 **Como resposta a sobrecarga.** Se o destino está saturado, repetir piora. Ver
-[circuit breaker](circuit-breakers.md).
+[circuit breaker](/12-reliability/circuit-breakers.md).
 
 ## Alternativas
 
-- **[Circuit breaker](circuit-breakers.md)** — parar de tentar quando a falha é
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — parar de tentar quando a falha é
   persistente. Complementa a retentativa.
-- **[Degradação graciosa](graceful-degradation.md)** — responder sem a dependência.
+- **[Degradação graciosa](/12-reliability/graceful-degradation.md)** — responder sem a dependência.
 - **Fila com atraso** — deixar a infraestrutura cuidar da repetição, com controle.
 - **Falhar rápido** — quando o orçamento de tempo do chamador não comporta espera.
 
@@ -268,7 +268,7 @@ automatizado que falha se uma biblioteca de cliente repetir por padrão.
 **Orçamento de 10%** por serviço, com recusa imediata acima disso.
 
 **Circuit breaker** no acesso ao banco de motoristas, com
-[degradação graciosa](graceful-degradation.md): sem o serviço, o aplicativo mostra
+[degradação graciosa](/12-reliability/graceful-degradation.md): sem o serviço, o aplicativo mostra
 motoristas do cache com aviso de atraso.
 
 **Descarte de carga** no gateway: acima de um limite, requisições são recusadas com
@@ -287,10 +287,10 @@ a degradação.
 
 ## Conceitos Relacionados
 
-- [Retentativas](../06-distributed-systems/retries.md) — os fundamentos.
-- [Backoff](../06-distributed-systems/backoff.md) — a variação.
-- [Circuit Breakers](circuit-breakers.md) — parar de tentar.
-- [Bulkheads](bulkheads.md) — conter a propagação.
+- [Retentativas](/06-distributed-systems/retries.md) — os fundamentos.
+- [Backoff](/06-distributed-systems/backoff.md) — a variação.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md) — parar de tentar.
+- [Bulkheads](/12-reliability/bulkheads.md) — conter a propagação.
 
 ## Exercício Prático
 

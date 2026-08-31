@@ -56,7 +56,7 @@ consultas diretas otimizadas; a escrita usa o modelo de domínio. Ainda
 transacionalmente consistente.
 
 **Grau 3 — réplica de leitura.** Mesmo esquema, servidor separado. Introduz atraso.
-Ver [replicação](replication.md).
+Ver [replicação](/06-distributed-systems/replication.md).
 
 **Grau 4 — armazenamento de leitura distinto.** Um banco diferente, com esquema
 próprio, alimentado por eventos. Consistência eventual, projeções a manter,
@@ -88,7 +88,7 @@ o tempo.
 No grau 3 ou 4, o usuário que executa uma ação e imediatamente consulta pode não ver
 o efeito.
 
-Ver [consistência eventual](eventual-consistency.md). As mitigações — atualização
+Ver [consistência eventual](/06-distributed-systems/eventual-consistency.md). As mitigações — atualização
 otimista, estado explícito, leitura direta do modelo de escrita para o próprio autor
 — precisam ser projetadas.
 
@@ -115,7 +115,7 @@ Eles aparecem juntos com frequência e são independentes.
 
 CQRS pode ser alimentado por captura de mudanças do banco, por eventos de
 integração, ou por processo em lote — sem
-[event sourcing](distributed-event-sourcing.md).
+[event sourcing](/06-distributed-systems/distributed-event-sourcing.md).
 
 Event sourcing praticamente exige CQRS. A recíproca não vale, e tratá-los como um
 pacote leva times a adotar dois padrões caros quando precisavam de um barato.
@@ -131,7 +131,7 @@ resolve o problema real.
 - Assimetria de carga grande, com necessidade de escalar separadamente.
 - Muitas visões distintas dos mesmos dados.
 - O modelo de domínio é complexo e as consultas ficam pesadas por causa dele.
-- Já há [event sourcing](distributed-event-sourcing.md).
+- Já há [event sourcing](/06-distributed-systems/distributed-event-sourcing.md).
 
 ## Quando Não Usar
 
@@ -148,7 +148,7 @@ resolve o problema real.
 **Por acompanhar event sourcing automaticamente.**
 
 **Sem monitoramento de atraso da projeção.** Ver
-[backpressure](backpressure.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 ## Alternativas
 
@@ -248,10 +248,10 @@ custado meses para resolver um problema de índice.
 
 ## Conceitos Relacionados
 
-- [Event Sourcing Distribuído](distributed-event-sourcing.md) — independente.
-- [Consistência Eventual](eventual-consistency.md) — a consequência.
-- [Replicação](replication.md) — o grau intermediário.
-- [Sistemas Orientados a Eventos](event-driven-systems.md) — como a projeção é
+- [Event Sourcing Distribuído](/06-distributed-systems/distributed-event-sourcing.md) — independente.
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) — a consequência.
+- [Replicação](/06-distributed-systems/replication.md) — o grau intermediário.
+- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md) — como a projeção é
   alimentada.
 
 ## Exercício Prático

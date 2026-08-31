@@ -59,7 +59,7 @@ documento — vaza informação e permite enumeração.
 
 O padrão robusto: um identificador interno opaco e imutável, com e-mail e documento
 como atributos que podem mudar. Ver
-[modelagem de dados](../07-data-architecture/data-modeling.md).
+[modelagem de dados](/07-data-architecture/data-modeling.md).
 
 ### Identidade de pessoa e de serviço são diferentes
 
@@ -116,14 +116,14 @@ redefine credencial sem verificação forte.
 Três padrões, com implicações diferentes:
 
 **Propagada no token.** A identidade viaja com a requisição, verificável por cada
-serviço. Ver [JWT](jwt.md).
+serviço. Ver [JWT](/10-security/jwt.md).
 
 **Consultada num serviço central.** Cada serviço pergunta quem é. Sempre atual, com
 custo de latência e uma dependência crítica.
 
 **Resolvida na borda.** O gateway autentica e injeta a identidade. Simples, e cria a
 premissa perigosa de que ninguém alcança os serviços sem passar por ele. Ver
-[fronteiras seguras](secure-boundaries.md).
+[fronteiras seguras](/10-security/secure-boundaries.md).
 
 A escolha mais comum e sólida é propagação com verificação em cada serviço — o
 serviço não confia em quem chama, confia na assinatura.
@@ -136,7 +136,7 @@ organização, administrador em outra.
 
 Sistemas que amarram permissão à identidade, em vez de à relação entre identidade e
 recurso, não conseguem expressar isso. Ver
-[modelos de autorização](authz-models.md).
+[modelos de autorização](/10-security/authz-models.md).
 
 ## Modelo Mental
 
@@ -172,7 +172,7 @@ disponível.
 
 - **Provedor de identidade gerenciado** — em vez de construir. Autenticação é
   trabalho especializado e não diferencia quase nenhum produto. Ver
-  [SaaS](../09-cloud-architecture/saas.md).
+  [SaaS](/09-cloud-architecture/saas.md).
 - **Federação corporativa** — para funcionários.
 - **Login social** — para consumidores, com a ressalva de depender do provedor.
 - **Certificados** — para identidade de serviço, sem segredo compartilhado.
@@ -267,10 +267,10 @@ ninguém tinha considerado.
 
 ## Conceitos Relacionados
 
-- [OAuth 2.0](oauth2.md) e [OpenID Connect](oidc.md) — os protocolos.
-- [JWT](jwt.md) — o formato de propagação.
-- [Modelos de Autorização](authz-models.md) — a pergunta seguinte.
-- [Autenticação](../05-system-design/authentication.md) — o nível de design de
+- [OAuth 2.0](/10-security/oauth2.md) e [OpenID Connect](/10-security/oidc.md) — os protocolos.
+- [JWT](/10-security/jwt.md) — o formato de propagação.
+- [Modelos de Autorização](/10-security/authz-models.md) — a pergunta seguinte.
+- [Autenticação](/05-system-design/authentication.md) — o nível de design de
   sistemas.
 
 ## Exercício Prático

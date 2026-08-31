@@ -86,7 +86,7 @@ acoplamento; entre serviços, cria uma biblioteca compartilhada, que acopla os
 ciclos de release de times diferentes.
 
 É por isso que um dos trade-offs recorrentes é
-[acoplamento versus duplicação](../20-trade-offs/index.md), e por que times
+[acoplamento versus duplicação](/20-trade-offs/index.md), e por que times
 maduros frequentemente **escolhem duplicar** entre bounded contexts.
 
 ## Onde a duplicação de conhecimento se esconde
@@ -118,8 +118,8 @@ e maior a chance de divergirem sem que ninguém perceba.
 ## Modelo Mental
 
 **Pergunte se os dois lugares mudam pela mesma razão.** É a mesma pergunta de
-[coesão](../01-fundamentals/cohesion.md) e
-[separação de responsabilidades](../01-fundamentals/separation-of-concerns.md),
+[coesão](/01-fundamentals/cohesion.md) e
+[separação de responsabilidades](/01-fundamentals/separation-of-concerns.md),
 aplicada a duplicação.
 
 ## Quando Usar
@@ -220,10 +220,10 @@ Os dois casos eram textualmente parecidos. Só um era conhecimento duplicado.
 
 ## Conceitos Relacionados
 
-- [Coesão](../01-fundamentals/cohesion.md) — a mesma pergunta sobre razão de mudança.
-- [Abstração](../01-fundamentals/abstraction.md) — o custo de abstrair cedo.
-- [Acoplamento vs. Duplicação](../20-trade-offs/index.md) — o trade-off em detalhe.
-- [Code Smells](code-smells.md) — como reconhecer os sintomas.
+- [Coesão](/01-fundamentals/cohesion.md) — a mesma pergunta sobre razão de mudança.
+- [Abstração](/01-fundamentals/abstraction.md) — o custo de abstrair cedo.
+- [Acoplamento vs. Duplicação](/20-trade-offs/index.md) — o trade-off em detalhe.
+- [Code Smells](/02-software-design/code-smells.md) — como reconhecer os sintomas.
 
 ## Exercício Prático
 

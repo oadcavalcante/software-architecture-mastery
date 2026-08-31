@@ -58,7 +58,7 @@ ninguém consegue dizer o que cada um faz em uma frase
 E o sintoma mais comum é a **carga cognitiva excessiva**: um time responsável por mais coisas do
 que consegue manter na cabeça. Ele não falha visivelmente — ele fica lento, propenso a erro, e
 resistente a mudança. Ver
-[engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+[engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 O segundo problema é o modo de interação errado: dois times em colaboração permanente, quando
 deveriam ter um contrato; ou um time oferecendo serviço quando o consumidor ainda não sabe o que
@@ -94,7 +94,7 @@ O modo de interação de uma plataforma é **serviço**: o time de fluxo consome
 pedir. Se ele precisa abrir um chamado e esperar, o modo real é colaboração assimétrica — e o
 gargalo é inevitável.
 
-Ver [centralização vs. descentralização](../20-trade-offs/centralization-vs-decentralization.md).
+Ver [centralização vs. descentralização](/20-trade-offs/centralization-vs-decentralization.md).
 
 ### Time habilitador é temporário por definição
 
@@ -318,10 +318,10 @@ trimestre — e nenhuma organização a media.
 
 ## Conceitos Relacionados
 
-- [Lei de Conway](conways-law.md).
-- [Arquitetura Organizacional](organizational-architecture.md).
-- [Propriedade de Arquitetura](architecture-ownership.md).
-- [Engenharia de Plataforma](../14-devops-and-platform/platform-engineering.md).
+- [Lei de Conway](/23-architecture-leadership/conways-law.md).
+- [Arquitetura Organizacional](/23-architecture-leadership/organizational-architecture.md).
+- [Propriedade de Arquitetura](/23-architecture-leadership/architecture-ownership.md).
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ## Exercício Prático
 

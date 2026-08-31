@@ -52,7 +52,7 @@ coordenação. Sem junção, não há operação que cruze partições.
 
 Isso é o que torna a escala horizontal trivial: dobrar a capacidade é adicionar
 nós e redistribuir chaves. Ver
-[particionamento](../06-distributed-systems/partitioning.md).
+[particionamento](/06-distributed-systems/partitioning.md).
 
 ### O desenho da chave é a modelagem inteira
 
@@ -77,7 +77,7 @@ Isso é mais relevante do que parece: substitui processo de limpeza, tabela de
 controle e o risco de crescimento indefinido. Sessões, cache e limites de
 requisição ficam corretos sem código.
 
-Ver [ciclo de vida do dado](data-lifecycle.md).
+Ver [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 ### Em memória ou persistente — decida com clareza
 
@@ -100,7 +100,7 @@ Incremento, adição a estrutura, definir-se-ausente. Essas primitivas resolvem
 contagem, fila simples, limite de requisição e bloqueio leve sem transação.
 
 Sobre bloqueio distribuído, porém, há uma armadilha conhecida — ver
-[locks distribuídos](../06-distributed-systems/distributed-locks.md).
+[locks distribuídos](/06-distributed-systems/distributed-locks.md).
 
 ### O valor é opaco
 
@@ -134,16 +134,16 @@ precisa perguntar algo que não seja "me dê a chave X", é o modelo errado.
 **Para agregação ou relatório.**
 
 **Quando o valor é grande e só um pedaço é usado.** Ver
-[documentos](document-databases.md).
+[documentos](/07-data-architecture/document-databases.md).
 
 **Para fila com garantias.** Funciona de forma aproximada e não oferece
 reentrega, ordenação nem
-[dead-letter](../06-distributed-systems/dead-letter-queues.md).
+[dead-letter](/06-distributed-systems/dead-letter-queues.md).
 
 ## Alternativas
 
-- **[Documento](document-databases.md)** — quando há consulta por campo.
-- **[Relacional](relational-databases.md)** — quando há relacionamento.
+- **[Documento](/07-data-architecture/document-databases.md)** — quando há consulta por campo.
+- **[Relacional](/07-data-architecture/relational-databases.md)** — quando há relacionamento.
 - **Cache local no processo** — quando o dado cabe e a consistência entre
   instâncias não importa; elimina uma ida à rede.
 - **Mensageria** — quando a necessidade é fila.
@@ -239,11 +239,11 @@ nunca tinha sido feita para o carrinho. Ela teria custado cinco minutos.
 
 ## Conceitos Relacionados
 
-- [Bancos de Documentos](document-databases.md) — quando há consulta.
-- [Ciclo de Vida do Dado](data-lifecycle.md) — expiração e retenção.
-- [Particionamento](../06-distributed-systems/partitioning.md) — como a escala
+- [Bancos de Documentos](/07-data-architecture/document-databases.md) — quando há consulta.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — expiração e retenção.
+- [Particionamento](/06-distributed-systems/partitioning.md) — como a escala
   funciona.
-- [Locks Distribuídos](../06-distributed-systems/distributed-locks.md).
+- [Locks Distribuídos](/06-distributed-systems/distributed-locks.md).
 
 ## Exercício Prático
 

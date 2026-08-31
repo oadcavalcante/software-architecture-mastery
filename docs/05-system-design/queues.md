@@ -55,7 +55,7 @@ barato que existe.
 
 Nenhum dos três é infinito — a fila tem limite, e o que acontece ao atingi-lo
 precisa ser decidido. Ver
-[backpressure](../06-distributed-systems/index.md).
+[backpressure](/06-distributed-systems/index.md).
 
 ### As três garantias que você herda
 
@@ -77,7 +77,7 @@ desequilíbrio se uma chave for muito ativa.
 
 **Mensagem envenenada.** Uma mensagem que sempre falha volta para a fila,
 indefinidamente, bloqueando o processamento. É o que exige
-[dead-letter queue](../06-distributed-systems/index.md): após N tentativas, a
+[dead-letter queue](/06-distributed-systems/index.md): após N tentativas, a
 mensagem sai para uma fila separada, com alerta.
 
 Uma fila sem dead-letter configurada trava no primeiro dado malformado.
@@ -132,12 +132,12 @@ instrumento.
 ## Alternativas
 
 - **Chamada síncrona** — quando a resposta importa.
-- **[Processamento em background](background-processing.md) no mesmo processo** —
+- **[Processamento em background](/05-system-design/background-processing.md) no mesmo processo** —
   para trabalho leve, sem componente adicional.
 - **Tabela como fila** — para volume baixo, usar o banco que já existe evita mais
   uma peça a operar.
 - **Evento publicado** — quando há vários interessados, não um consumidor. Ver
-  [arquitetura orientada a eventos](../03-design-patterns/event-driven.md).
+  [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
 
 ## Trade-offs
 
@@ -178,7 +178,7 @@ o propósito e não tem as garantias.
 
 **Publicar dentro da transação sem outbox.** A transação falha e a mensagem já foi
 publicada, ou vice-versa. Ver
-[evento de domínio](../04-domain-driven-design/domain-event.md).
+[evento de domínio](/04-domain-driven-design/domain-event.md).
 
 ## Exemplo Real
 
@@ -218,11 +218,11 @@ de subir — e todas as três estavam na documentação do serviço de fila.
 
 ## Conceitos Relacionados
 
-- [Request/Response](request-response.md) — o modelo que a fila substitui.
-- [Processamento em Background](background-processing.md) — o consumidor.
-- [Sistemas Distribuídos](../06-distributed-systems/index.md) — idempotência,
+- [Request/Response](/05-system-design/request-response.md) — o modelo que a fila substitui.
+- [Processamento em Background](/05-system-design/background-processing.md) — o consumidor.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md) — idempotência,
   ordem, dead-letter, backpressure.
-- [Rate Limiting](rate-limiting.md) — controlar o ritmo de consumo.
+- [Rate Limiting](/05-system-design/rate-limiting.md) — controlar o ritmo de consumo.
 
 ## Exercício Prático
 

@@ -99,7 +99,7 @@ ela, a decisão vira preferência.
 
 Se perder o cache quebra o sistema, ele não era cache — era um banco de dados sem
 durabilidade. Ver
-[gestão de estado](state-management.md).
+[gestão de estado](/05-system-design/state-management.md).
 
 O teste: limpe o cache em produção. Se o sistema sobrevive mais lento, é cache. Se
 quebra, era estado.
@@ -139,8 +139,8 @@ era gargalo.
 - **Otimizar a origem** — índice, consulta, desnormalização. Frequentemente
   suficiente e sem componente novo.
 - **Projeção de leitura** — um modelo mantido para consulta. Ver
-  [CQRS](../03-design-patterns/cqrs.md) de nível 2.
-- **[CDN](cdn.md)** — cache na borda, para conteúdo público.
+  [CQRS](/03-design-patterns/cqrs.md) de nível 2.
+- **[CDN](/05-system-design/cdn.md)** — cache na borda, para conteúdo público.
 - **Cache no cliente** — cabeçalhos HTTP fazem o navegador guardar; é o cache mais
   barato que existe e o menos usado deliberadamente.
 
@@ -235,7 +235,7 @@ barata é a que menos se usa deliberadamente.
 infraestrutura, e a requisição sequer sai da máquina. É o primeiro a configurar e
 o mais esquecido.
 
-**Na [CDN](cdn.md).** Perto do usuário, compartilhado entre todos. Só para
+**Na [CDN](/05-system-design/cdn.md).** Perto do usuário, compartilhado entre todos. Só para
 conteúdo idêntico para muitos.
 
 **No gateway.** Antes de chegar à aplicação. Útil para respostas públicas de API.
@@ -256,10 +256,10 @@ visível.
 
 ## Conceitos Relacionados
 
-- [Gestão de Estado](state-management.md) — cache como estado descartável.
-- [CDN](cdn.md) — cache na borda.
-- [Escalabilidade](../11-scalability/index.md) — cache como estratégia de escala.
-- [CQRS](../03-design-patterns/cqrs.md) — projeção como alternativa.
+- [Gestão de Estado](/05-system-design/state-management.md) — cache como estado descartável.
+- [CDN](/05-system-design/cdn.md) — cache na borda.
+- [Escalabilidade](/11-scalability/index.md) — cache como estratégia de escala.
+- [CQRS](/03-design-patterns/cqrs.md) — projeção como alternativa.
 
 ## Exercício Prático
 

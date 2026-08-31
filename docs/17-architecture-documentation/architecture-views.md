@@ -44,12 +44,12 @@ quem integra quer saber    quais contratos existem
 ```
 
 Um único diagrama tentando responder a todos vira ilegível para todos. É a mesma falha de
-misturar níveis de abstração descrita no [modelo C4](c4-model.md), agora entre dimensões e
+misturar níveis de abstração descrita no [modelo C4](/17-architecture-documentation/c4-model.md), agora entre dimensões e
 não entre níveis.
 
 O erro oposto também é comum: adotar um conjunto canônico de visões e produzir todas,
 independentemente de haver alguém interessado em cada uma. Isso gera documentos que ninguém
-lê — ver [princípios de documentação](documentation-principles.md).
+lê — ver [princípios de documentação](/17-architecture-documentation/documentation-principles.md).
 
 ## Conceitos Centrais
 
@@ -66,7 +66,7 @@ visão            a aplicação de um ponto de vista a um sistema concreto
 O ponto de vista é reutilizável entre sistemas; a visão é específica. Uma organização
 define poucos pontos de vista e produz muitas visões.
 
-Ver [descrições de arquitetura](architecture-descriptions.md), onde essa terminologia é
+Ver [descrições de arquitetura](/17-architecture-documentation/architecture-descriptions.md), onde essa terminologia é
 normativa.
 
 ### Interessados e preocupações
@@ -137,7 +137,7 @@ Tratá-las como visões separadas duplica informação. Tratá-las como **perspe
 lentes aplicadas sobre as visões existentes — evita a duplicação e produz uma pergunta
 útil: "o que cada visão diz sobre segurança?"
 
-Ver [atributos de qualidade](../01-fundamentals/quality-attributes.md).
+Ver [atributos de qualidade](/01-fundamentals/quality-attributes.md).
 
 ### Consistência entre visões
 
@@ -151,7 +151,7 @@ a visão de dados menciona armazenamentos que aparecem na física?
 
 Quanto mais visões, maior o custo de manter a consistência — e é por isso que o número
 deve ser o mínimo necessário. Visões geradas a partir de uma fonte comum resolvem parte do
-problema. Ver [documentação viva](living-documentation.md).
+problema. Ver [documentação viva](/17-architecture-documentation/living-documentation.md).
 
 ## Modelo Mental
 
@@ -180,7 +180,7 @@ grandes.
 
 ## Alternativas
 
-- **[Modelo C4](c4-model.md)** — quando a preocupação é só estrutural.
+- **[Modelo C4](/17-architecture-documentation/c4-model.md)** — quando a preocupação é só estrutural.
 - **arc42** — quando se quer uma estrutura pronta que vai além de diagramas.
 - **Documento único curto** — para sistemas pequenos, uma página com quatro seções.
 - **Documentação por pergunta** — organizar por questão frequente em vez de por visão.
@@ -258,7 +258,7 @@ escolhidas por uso medido, não por método.
 
 **Visão de dados sob demanda**, obrigatória apenas para sistemas que tratam dado pessoal
 ou financeiro. Ver
-[fluxo de dados](data-flow-diagrams.md).
+[fluxo de dados](/17-architecture-documentation/data-flow-diagrams.md).
 
 **Visões de processo e desenvolvimento** eliminadas como obrigatórias, produzidas quando
 alguém pedir.
@@ -269,7 +269,7 @@ obrigatórias durante a revisão.
 **Consistência verificada automaticamente** onde possível — a visão de implantação passou
 a ser derivada do código de infraestrutura, e um verificador compara os contêineres
 declarados na visão estrutural com os implantados. Ver
-[documentação viva](living-documentation.md).
+[documentação viva](/17-architecture-documentation/living-documentation.md).
 
 **Cenários reintroduzidos.** Cada sistema mantém dois ou três cenários percorridos através
 das visões, revisados anualmente. Foi o que passou a detectar lacunas.
@@ -283,10 +283,10 @@ de trabalho.
 
 ## Conceitos Relacionados
 
-- [Modelo C4](c4-model.md) — um conjunto de visões estruturais.
-- [Descrições de Arquitetura](architecture-descriptions.md) — a formalização.
-- [Princípios de Documentação](documentation-principles.md) — o leitor primeiro.
-- [Atributos de Qualidade](../01-fundamentals/quality-attributes.md) — as perspectivas.
+- [Modelo C4](/17-architecture-documentation/c4-model.md) — um conjunto de visões estruturais.
+- [Descrições de Arquitetura](/17-architecture-documentation/architecture-descriptions.md) — a formalização.
+- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md) — o leitor primeiro.
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — as perspectivas.
 
 ## Exercício Prático
 

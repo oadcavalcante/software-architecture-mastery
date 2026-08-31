@@ -220,8 +220,8 @@ record.
 
 ## Related Concepts
 
-- [Complexity](complexity.md) — the form accumulated debt takes.
-- [Architecture Evolution](architecture-evolution.md) — how the system changes over
+- [Complexity](/01-fundamentals/complexity.md) — the form accumulated debt takes.
+- [Architecture Evolution](/01-fundamentals/architecture-evolution.md) — how the system changes over
   time.
 - [ADRs](/18-architecture-decisions/index.md) — where deliberate debt is
   recorded.

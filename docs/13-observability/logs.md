@@ -133,8 +133,8 @@ nunca    senha, token, chave, número de cartão, documento completo
 cuidado  nome, e-mail, endereço, dados de saúde
 ```
 
-Ver [proteção de dados](../10-security/data-protection.md) e
-[segredos](../10-security/secrets.md).
+Ver [proteção de dados](/10-security/data-protection.md) e
+[segredos](/10-security/secrets.md).
 
 A filtragem precisa acontecer **na origem** — na biblioteca de registro, não no
 processamento posterior. Um dado que saiu do processo já vazou.
@@ -177,7 +177,7 @@ mais que trinta linhas com um campo cada.
 
 ## Quando Não Usar
 
-**Para medir tendência.** Use [métricas](metrics.md) — contar linhas de log é caro e
+**Para medir tendência.** Use [métricas](/13-observability/metrics.md) — contar linhas de log é caro e
 impreciso.
 
 **Para medir latência agregada.** Métricas fazem isso melhor.
@@ -194,10 +194,10 @@ impreciso.
 
 ## Alternativas
 
-- **[Métricas](metrics.md)** — para agregação e tendência, com custo constante.
-- **[Traces](traces.md)** — para entender o caminho e o tempo de uma requisição.
+- **[Métricas](/13-observability/metrics.md)** — para agregação e tendência, com custo constante.
+- **[Traces](/13-observability/traces.md)** — para entender o caminho e o tempo de uma requisição.
 - **Evento de auditoria** — quando o requisito é prova, não diagnóstico. Ver
-  [auditabilidade](../10-security/auditability.md).
+  [auditabilidade](/10-security/auditability.md).
 - **Amostragem por cauda** — decidir manter depois de saber o resultado, preservando os
   casos interessantes.
 
@@ -290,10 +290,10 @@ informação, era volume de linhas com pouca informação cada.
 
 ## Conceitos Relacionados
 
-- [Métricas](metrics.md) — para tendência.
-- [Traces](traces.md) — para o caminho.
-- [Identificadores de Correlação](correlation-ids.md) — o que conecta.
-- [Depurabilidade](debuggability.md).
+- [Métricas](/13-observability/metrics.md) — para tendência.
+- [Traces](/13-observability/traces.md) — para o caminho.
+- [Identificadores de Correlação](/13-observability/correlation-ids.md) — o que conecta.
+- [Depurabilidade](/13-observability/debuggability.md).
 
 ## Exercício Prático
 

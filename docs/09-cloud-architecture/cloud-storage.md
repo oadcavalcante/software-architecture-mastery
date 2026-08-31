@@ -27,7 +27,7 @@ Três modelos, com propriedades e preços muito diferentes:
 praticamente ilimitada, durabilidade altíssima, e não é um sistema de arquivos.
 
 **Blocos.** Discos virtuais anexados a uma máquina. Comportam-se como disco local,
-e pertencem a uma [zona](availability-zones.md).
+e pertencem a uma [zona](/09-cloud-architecture/availability-zones.md).
 
 **Arquivos.** Sistema de arquivos compartilhado, montável por várias máquinas.
 Conveniente e mais caro.
@@ -87,7 +87,7 @@ Regras que movem e apagam objetos automaticamente por idade são a forma mais ba
 de controlar custo de armazenamento.
 
 E são também onde o requisito de retenção precisa estar. Ver
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 Sem regras de ciclo de vida, o armazenamento só cresce — e é o item da fatura que
 cresce mais silenciosamente, porque não gera erro nem lentidão.
@@ -98,7 +98,7 @@ Com versionamento, sobrescrever ou apagar cria uma versão nova em vez de destru
 anterior.
 
 É a proteção contra apagamento acidental e contra ataque que cifra dados. Ver
-[recuperação de desastre](disaster-recovery.md).
+[recuperação de desastre](/09-cloud-architecture/disaster-recovery.md).
 
 Duas consequências a gerenciar: versões antigas ocupam espaço e são cobradas, e a
 regra de ciclo de vida precisa tratá-las explicitamente — do contrário, apagar não
@@ -257,10 +257,10 @@ configuração.
 
 ## Conceitos Relacionados
 
-- [Computação em Nuvem](cloud-compute.md).
-- [Arquitetura de Custo](cost-architecture.md).
-- [Ciclo de Vida do Dado](../07-data-architecture/data-lifecycle.md).
-- [Recuperação de Desastre](disaster-recovery.md).
+- [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md).
+- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md).
 
 ## Exercício Prático
 

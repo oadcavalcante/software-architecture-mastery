@@ -65,7 +65,7 @@ tela.
 
 O esquema é o contrato, e ele é executável — a validação acontece contra ele,
 não contra um documento. Ver
-[contratos de integração](integration-contracts.md).
+[contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 ### O problema de consulta em cascata
 
@@ -101,7 +101,7 @@ troca certa em API pública.
 
 ### Cache é o que se perde
 
-Em [REST](rest.md), cache de HTTP funciona: uma URL, um `GET`, um resultado
+Em [REST](/08-integration-architecture/rest.md), cache de HTTP funciona: uma URL, um `GET`, um resultado
 cacheável por qualquer intermediário.
 
 Em GraphQL, tudo é `POST` numa única URL, com o conteúdo variando. Nenhum
@@ -119,7 +119,7 @@ Uma consulta pode ter sucesso em parte dos campos e falhar em outros. A resposta
 traz dados e erros juntos, sempre com `200`.
 
 Isso é coerente com o modelo e significa que a classificação de erro volta para a
-aplicação — a mesma perda descrita em [REST](rest.md) quando tudo devolve `200`,
+aplicação — a mesma perda descrita em [REST](/08-integration-architecture/rest.md) quando tudo devolve `200`,
 só que aqui é inerente ao estilo.
 
 ### Onde ele mais rende
@@ -153,7 +153,7 @@ quando há muitos clientes com necessidades divergentes; não vale quando há um
 **Quando cache de HTTP é decisivo.** Conteúdo público de leitura intensa.
 
 **Para operações que não são consulta de dados.** Comandos e fluxos de trabalho
-cabem melhor em [REST](rest.md).
+cabem melhor em [REST](/08-integration-architecture/rest.md).
 
 **Sem limite de custo de consulta.** Em API exposta, é uma negação de serviço à
 espera.
@@ -164,15 +164,15 @@ espera.
 modelo interno em contrato público.
 
 **Para transferência em massa.** Ver
-[integração em lote](batch-integration.md).
+[integração em lote](/08-integration-architecture/batch-integration.md).
 
 ## Alternativas
 
-- **[REST](rest.md) com campos esparsos** — um parâmetro que seleciona campos
+- **[REST](/08-integration-architecture/rest.md) com campos esparsos** — um parâmetro que seleciona campos
   cobre boa parte da sobrebusca, sem mudar de estilo.
 - **Endpoint por tela** — o padrão "backend para frontend". Simples e explícito,
   ao custo de acoplar backend a telas.
-- **[gRPC](grpc.md)** — quando o consumo é conhecido e a eficiência importa.
+- **[gRPC](/08-integration-architecture/grpc.md)** — quando o consumo é conhecido e a eficiência importa.
 - **Consultas persistidas** — GraphQL sem a superfície de consulta aberta.
 
 ## Trade-offs
@@ -259,10 +259,10 @@ conteúdo público de leitura intensa, onde REST era estritamente melhor.
 
 ## Conceitos Relacionados
 
-- [REST](rest.md) — a comparação principal.
-- [gRPC](grpc.md) — a terceira opção síncrona.
-- [API Gateways](api-gateways.md) — onde limites costumam ser aplicados.
-- [Contratos de Integração](integration-contracts.md).
+- [REST](/08-integration-architecture/rest.md) — a comparação principal.
+- [gRPC](/08-integration-architecture/grpc.md) — a terceira opção síncrona.
+- [API Gateways](/08-integration-architecture/api-gateways.md) — onde limites costumam ser aplicados.
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
 
 ## Exercício Prático
 

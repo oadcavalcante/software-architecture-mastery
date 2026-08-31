@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-O [nível anterior](../19-architecture-governance/governance-principles.md) trata de como
+O [nível anterior](/19-architecture-governance/governance-principles.md) trata de como
 princípios operam no momento da decisão. Este trata de quem os **escreve** — e o trabalho de
 escrita tem três problemas próprios:
 
@@ -72,7 +72,7 @@ Isso produz princípios que descrevem o que a organização já faz — e a dife
 eles são reconhecidos imediatamente, e a discussão passa a ser sobre se o critério está certo, e
 não sobre se ele é o critério.
 
-Ver [ADRs](../18-architecture-decisions/index.md).
+Ver [ADRs](/18-architecture-decisions/index.md).
 
 Quando o acervo de decisões não existe, construí-lo vem antes de escrever princípios.
 
@@ -91,7 +91,7 @@ se for uma posição defensável, é princípio
 ```
 
 Todo princípio real abdica de algo bom. Se nada está sendo abdicado, não há escolha. Ver
-[princípios corporativos](../15-enterprise-architecture/enterprise-principles.md).
+[princípios corporativos](/15-enterprise-architecture/enterprise-principles.md).
 
 ### Implicações, não apenas o enunciado
 
@@ -158,7 +158,7 @@ por isso deixou de ser princípio.
 
 Removê-lo libera espaço na lista para um princípio que ainda decide algo. O caminho usual é
 promovê-lo a padrão verificado automaticamente, se aplicável. Ver
-[padrões](leadership-standards.md).
+[padrões](/23-architecture-leadership/leadership-standards.md).
 
 ### Revisão anual, com uma pergunta
 
@@ -199,7 +199,7 @@ implicações e precedência.
 - **Acervo de ADRs** — precedentes concretos ensinam o critério melhor que abstrações, e
   organizações com bom acervo precisam de menos princípios.
 - **Visão curta** — três a cinco afirmações que cobrem o essencial. Ver
-  [visão de arquitetura](architecture-vision.md).
+  [visão de arquitetura](/23-architecture-leadership/architecture-vision.md).
 - **Padrões** — quando a decisão é recorrente e o resultado previsível.
 - **Nada** — em times pequenos, o critério compartilhado é tácito e funciona.
 
@@ -300,10 +300,10 @@ A leitura dos ADRs custou uma pessoa por três dias.
 
 ## Conceitos Relacionados
 
-- [Princípios em Operação](../19-architecture-governance/governance-principles.md).
-- [Princípios Corporativos](../15-enterprise-architecture/enterprise-principles.md).
-- [Visão de Arquitetura](architecture-vision.md).
-- [Padrões](leadership-standards.md).
+- [Princípios em Operação](/19-architecture-governance/governance-principles.md).
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
+- [Visão de Arquitetura](/23-architecture-leadership/architecture-vision.md).
+- [Padrões](/23-architecture-leadership/leadership-standards.md).
 
 ## Exercício Prático
 

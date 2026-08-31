@@ -95,5 +95,5 @@ frequência do que a literatura sugere.
 
 ## Continua em
 
-[Nível 05 — Arquitetura](../07-data-architecture/index.md), onde essas
+[Nível 05 — Arquitetura](/07-data-architecture/index.md), onde essas
 propriedades passam a interagir com dados, integração, nuvem, segurança e custo.

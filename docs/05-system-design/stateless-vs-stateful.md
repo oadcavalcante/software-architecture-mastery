@@ -114,7 +114,7 @@ Com estado é necessário quando:
 - A latência de acesso ao estado é crítica e a rede não cabe.
 - O protocolo exige conexão contínua — streaming, WebSocket, jogos.
 - Há coordenação que exige um líder — ver
-  [eleição de líder](../06-distributed-systems/index.md).
+  [eleição de líder](/06-distributed-systems/index.md).
 
 ## Quando Não Usar
 
@@ -230,7 +230,7 @@ O custo aparece em três lugares. **Operações que atravessam partições** fic
 caras: combinar dados de duas chaves em instâncias diferentes exige coordenação.
 **Rebalanceamento** ao adicionar ou remover instância move estado, e é o momento
 mais delicado da operação. E **desequilíbrio** acontece se uma chave for muito mais
-ativa que as outras — o [hotspot](../11-scalability/index.md).
+ativa que as outras — o [hotspot](/11-scalability/index.md).
 
 Hash consistente reduz o custo do rebalanceamento: adicionar uma instância move
 apenas uma fração das chaves, não todas.
@@ -240,10 +240,10 @@ poderoso.** Use o primeiro onde couber e o segundo onde o estado for essencial.
 
 ## Conceitos Relacionados
 
-- [Gestão de Estado](state-management.md) — os tipos e onde cada um mora.
-- [Balanceamento de Carga](load-balancing.md) — onde a afinidade aparece.
-- [Escalabilidade](../11-scalability/index.md) — a consequência prática.
-- [Processamento em Background](background-processing.md) — o caso do agendador.
+- [Gestão de Estado](/05-system-design/state-management.md) — os tipos e onde cada um mora.
+- [Balanceamento de Carga](/05-system-design/load-balancing.md) — onde a afinidade aparece.
+- [Escalabilidade](/11-scalability/index.md) — a consequência prática.
+- [Processamento em Background](/05-system-design/background-processing.md) — o caso do agendador.
 
 ## Exercício Prático
 

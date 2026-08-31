@@ -34,7 +34,7 @@ verificação, transação, rascunho salvo.
 
 A solução ingênua é expor os campos para que alguém os leia e depois os escreva
 de volta. Isso destrói o
-[encapsulamento](../02-software-design/encapsulation.md): quem restaura passa a
+[encapsulamento](/02-software-design/encapsulation.md): quem restaura passa a
 conhecer a estrutura interna, e mudá-la quebra o mecanismo de restauração.
 
 Memento resolve com uma assimetria: o memento é **opaco para quem o guarda** e
@@ -58,7 +58,7 @@ serialização.
 
 ### Memento versus inverso lógico
 
-A mesma decisão que aparece em [Command](command.md).
+A mesma decisão que aparece em [Command](/03-design-patterns/command.md).
 
 **Memento** guarda o estado antes. Simples de acertar, caro em memória, e
 funciona para qualquer operação.
@@ -79,7 +79,7 @@ deltas na ordem certa.
 
 A prática comum é híbrida: um estado completo a cada N operações e deltas entre
 eles, que é a mesma estratégia de instantâneos usada em
-[event sourcing](event-sourcing.md).
+[event sourcing](/03-design-patterns/event-sourcing.md).
 
 ### O custo que ninguém orça
 
@@ -101,7 +101,7 @@ produção, e precisa ser estimado antes.
 
 **Quando o estado é grande e as operações são muitas.** A memória não fecha.
 
-**Quando inverso lógico é confiável e barato.** Ver [Command](command.md).
+**Quando inverso lógico é confiável e barato.** Ver [Command](/03-design-patterns/command.md).
 
 **Quando o estado inclui recursos externos.** Uma conexão, um arquivo aberto ou um
 efeito já enviado não são restauráveis por memento.
@@ -117,7 +117,7 @@ existe.
 - **Objetos imutáveis** — cada operação produz uma nova versão; a anterior é o
   memento, sem mecanismo. É a alternativa que dispensa o padrão.
 - **Inverso lógico** — mais econômico quando confiável.
-- **[Event sourcing](event-sourcing.md)** — guardar os eventos em vez do estado.
+- **[Event sourcing](/03-design-patterns/event-sourcing.md)** — guardar os eventos em vez do estado.
   Memento em escala de sistema.
 - **Versionamento na persistência** — quando o histórico já é gravado.
 
@@ -136,7 +136,7 @@ existe.
 **Consumo de memória crescente.** O modo dominante.
 
 **Memento com referência compartilhada.** Cópia rasa: restaurar não desfaz, porque
-o objeto interno é o mesmo. Ver [Prototype](prototype.md).
+o objeto interno é o mesmo. Ver [Prototype](/03-design-patterns/prototype.md).
 
 **Estado externo não restaurado.** O objeto volta ao estado anterior e o mundo
 não.
@@ -204,9 +204,9 @@ formato público**, com todas as obrigações que isso implica.
 
 ## Conceitos Relacionados
 
-- [Command](command.md) — desfazer por inverso lógico.
-- [Prototype](prototype.md) — o risco de cópia rasa.
-- [Event Sourcing](event-sourcing.md) — a ideia em escala de sistema.
+- [Command](/03-design-patterns/command.md) — desfazer por inverso lógico.
+- [Prototype](/03-design-patterns/prototype.md) — o risco de cópia rasa.
+- [Event Sourcing](/03-design-patterns/event-sourcing.md) — a ideia em escala de sistema.
 
 ## Exercício Prático
 

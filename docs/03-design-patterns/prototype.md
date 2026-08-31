@@ -80,7 +80,7 @@ que cada classe implemente clonagem.
 Uma operação de clonagem herdada é traiçoeira: uma subclasse que adiciona um campo
 mutável e não sobrescreve a clonagem produz cópias que compartilham esse campo.
 Nada avisa. É uma violação de
-[Liskov](../02-software-design/solid.md) que o compilador não detecta.
+[Liskov](/02-software-design/solid.md) que o compilador não detecta.
 
 ## Quando Usar
 
@@ -111,7 +111,7 @@ duas entidades com a mesma identidade.
 
 - **Imutabilidade com operações de derivação** — `pedido.comDesconto(x)` devolve
   uma nova instância. Substitui o padrão na maioria dos casos.
-- **[Builder](builder.md) a partir de um existente** — construir uma variante
+- **[Builder](/03-design-patterns/builder.md) a partir de um existente** — construir uma variante
   explicitamente.
 - **Cópia por serialização** — genérica, mais lenta, sem código por classe.
 - **Função de cópia explícita** — sem hierarquia, com o comportamento visível.
@@ -164,7 +164,7 @@ apontavam para o mesmo objeto de estilo.
 A correção não foi tornar a cópia profunda em tudo. Foi separar o que é
 compartilhável do que não é: estilo virou imutável e passou a ser compartilhado
 deliberadamente — o que também reduziu memória, no espírito de
-[Flyweight](flyweight.md). Geometria e texto passaram a ser copiados. Conexões
+[Flyweight](/03-design-patterns/flyweight.md). Geometria e texto passaram a ser copiados. Conexões
 não são copiadas, porque um elemento duplicado começa desconectado — que é a
 regra do domínio.
 
@@ -193,9 +193,9 @@ explica por que o padrão nomeado desapareceu enquanto a ideia permaneceu.
 
 ## Conceitos Relacionados
 
-- [Factory Method](factory-method.md) — criação por construção.
-- [Memento](memento.md) — captura de estado, com propósito diferente.
-- [Flyweight](flyweight.md) — compartilhamento deliberado em vez de cópia.
+- [Factory Method](/03-design-patterns/factory-method.md) — criação por construção.
+- [Memento](/03-design-patterns/memento.md) — captura de estado, com propósito diferente.
+- [Flyweight](/03-design-patterns/flyweight.md) — compartilhamento deliberado em vez de cópia.
 
 ## Exercício Prático
 

@@ -23,7 +23,7 @@ last_reviewed: 2026-08-29
 
 Cohesion is the degree to which the elements of a module belong together.
 
-Cohesion and [coupling](coupling.md) are not independent properties: they are the
+Cohesion and [coupling](/01-fundamentals/coupling.md) are not independent properties: they are the
 same decision seen from two sides. In deciding what goes inside a boundary, you
 simultaneously determine the cohesion of what stayed inside and the coupling with
 what stayed outside.
@@ -64,8 +64,8 @@ decided.
 ### The practical criterion
 
 The taxonomy is useful for diagnosis, but the operational criterion is the same
-as in [modularity](modularity.md) and
-[separation of concerns](separation-of-concerns.md):
+as in [modularity](/01-fundamentals/modularity.md) and
+[separation of concerns](/01-fundamentals/separation-of-concerns.md):
 
 > **Things that change for the same reason belong together.**
 
@@ -126,7 +126,7 @@ module in stable code that nobody has touched in a year is debt with no interest
 Fixing it has real cost and hypothetical benefit.
 
 **In disposable code.** The same reasoning as in
-[separation of concerns](separation-of-concerns.md).
+[separation of concerns](/01-fundamentals/separation-of-concerns.md).
 
 ## Alternatives
 
@@ -208,9 +208,9 @@ regulatory change would cross.
 
 ## Related Concepts
 
-- [Coupling](coupling.md) — the other face.
-- [Modularity](modularity.md) — the resulting structure.
-- [Separation of Concerns](separation-of-concerns.md) — the principle that guides
+- [Coupling](/01-fundamentals/coupling.md) — the other face.
+- [Modularity](/01-fundamentals/modularity.md) — the resulting structure.
+- [Separation of Concerns](/01-fundamentals/separation-of-concerns.md) — the principle that guides
   the split.
 
 ## Practical Exercise

@@ -57,7 +57,7 @@ externa oferece.
 ### Adapter é a defesa da fronteira
 
 Este é o uso arquiteturalmente relevante, e conecta diretamente com
-[Ports and Adapters](../02-software-design/ports-and-adapters.md): a porta é a
+[Ports and Adapters](/02-software-design/ports-and-adapters.md): a porta é a
 interface que o domínio define; o adaptador é quem a implementa falando com o
 mundo.
 
@@ -71,12 +71,12 @@ O de objeto compõe: o adaptador guarda uma referência ao adaptado. O de classe
 herda de ambos, e só existe em linguagens com herança múltipla.
 
 O de objeto é preferível pelos motivos usuais de
-[composição sobre herança](../02-software-design/composition-vs-inheritance.md).
+[composição sobre herança](/02-software-design/composition-vs-inheritance.md).
 
 ### Adapter versus Facade
 
 Confusão frequente. **Adapter** faz uma interface parecer outra — o alvo já
-existe e é definido por outro. **[Facade](facade.md)** cria uma interface nova e
+existe e é definido por outro. **[Facade](/03-design-patterns/facade.md)** cria uma interface nova e
 mais simples sobre um subsistema — ninguém a exigia antes.
 
 Adapter atende a um contrato existente; Facade inventa um.
@@ -102,7 +102,7 @@ biblioteca não isolou.
 
 **Como camada preventiva sobre tudo.** Adaptar bibliotecas estáveis da plataforma
 — coleções, datas — é custo sem benefício. Ver
-[YAGNI](../02-software-design/yagni.md).
+[YAGNI](/02-software-design/yagni.md).
 
 **Quando a incompatibilidade é semântica, não sintática.** Se a biblioteca tem um
 modelo conceitual diferente do seu, o adaptador vira um tradutor complexo que
@@ -113,10 +113,10 @@ casos de borda.
 
 - **Alinhar as interfaces** — quando você controla ambas.
 - **Anti-corruption layer** — o mesmo conceito em escala maior, entre sistemas.
-  Ver [DDD](../04-domain-driven-design/index.md).
+  Ver [DDD](/04-domain-driven-design/index.md).
 - **Usar o tipo externo diretamente** — quando a dependência é estável e o
   isolamento não se paga.
-- **[Facade](facade.md)** — quando o objetivo é simplificar, não compatibilizar.
+- **[Facade](/03-design-patterns/facade.md)** — quando o objetivo é simplificar, não compatibilizar.
 
 ## Trade-offs
 
@@ -167,7 +167,7 @@ armazenamento de objetos de provedores diferentes.
 Os três compartilham a característica que torna Adapter valioso: **a interface
 alvo foi projetada primeiro, independentemente das implementações**. Quando a
 interface é extraída de uma implementação existente, o resultado é um adaptador
-que só serve àquela — ver [interfaces](../02-software-design/interfaces.md).
+que só serve àquela — ver [interfaces](/02-software-design/interfaces.md).
 
 ## Exemplo Real
 
@@ -194,10 +194,10 @@ converter formatos.
 
 ## Conceitos Relacionados
 
-- [Facade](facade.md) — simplificar, não compatibilizar.
-- [Bridge](bridge.md) — separar abstração de implementação por projeto.
-- [Proxy](proxy.md) — mesma interface, comportamento adicional.
-- [Ports and Adapters](../02-software-design/ports-and-adapters.md).
+- [Facade](/03-design-patterns/facade.md) — simplificar, não compatibilizar.
+- [Bridge](/03-design-patterns/bridge.md) — separar abstração de implementação por projeto.
+- [Proxy](/03-design-patterns/proxy.md) — mesma interface, comportamento adicional.
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md).
 
 ## Exercício Prático
 

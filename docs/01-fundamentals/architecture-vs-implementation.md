@@ -107,7 +107,7 @@ em condição verificável. Quando alguém precisa violá-la, precisa alterar o 
 um import que passa despercebido.
 
 Essa é a ideia que reaparece no Nível 07 como
-[fitness function](../23-architecture-leadership/index.md).
+[fitness function](/23-architecture-leadership/index.md).
 
 ## Modelo Mental
 
@@ -183,10 +183,10 @@ sinal. Enquanto violar era silencioso, violar acontecia.
 
 ## Conceitos Relacionados
 
-- [Arquitetura vs. Design](architecture-vs-design.md) — a fronteira anterior.
-- [Gestão de Dependências](dependency-management.md) — o material de que o grafo
+- [Arquitetura vs. Design](/01-fundamentals/architecture-vs-design.md) — a fronteira anterior.
+- [Gestão de Dependências](/01-fundamentals/dependency-management.md) — o material de que o grafo
   real é feito.
-- [Dívida Técnica](technical-debt.md) — como a deriva se acumula e cobra juros.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md) — como a deriva se acumula e cobra juros.
 
 ## Exercício Prático
 

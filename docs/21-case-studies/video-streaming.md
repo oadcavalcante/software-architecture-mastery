@@ -504,10 +504,10 @@ operacional teria produzido um sistema com perda tolerada e uma divergência con
 
 ## Conceitos Relacionados
 
-- [CDN](../05-system-design/cdn.md).
-- [Cache](../05-system-design/caching.md).
-- [Case: Processamento de Eventos de Alto Volume](high-volume-events.md).
-- [Custo vs. Confiabilidade](../20-trade-offs/cost-vs-reliability.md).
+- [CDN](/05-system-design/cdn.md).
+- [Cache](/05-system-design/caching.md).
+- [Case: Processamento de Eventos de Alto Volume](/21-case-studies/high-volume-events.md).
+- [Custo vs. Confiabilidade](/20-trade-offs/cost-vs-reliability.md).
 
 ## Exercício Prático
 

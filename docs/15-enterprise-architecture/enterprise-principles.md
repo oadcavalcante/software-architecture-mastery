@@ -25,7 +25,7 @@ Um princípio corporativo é uma regra que orienta decisões tomadas por pessoas
 diferentes, em momentos diferentes, sem coordenação.
 
 Ele existe porque não é viável revisar toda decisão. Ver
-[níveis de arquitetura](architecture-levels.md).
+[níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
 E a maioria dos princípios escritos não orienta nada, por uma razão simples: eles são
 afirmações com que ninguém discorda.
@@ -93,7 +93,7 @@ coerência — que era o motivo de existir.
 ```
 
 Um conjunto grande é sintoma de que princípios estão sendo usados para o que
-[padrões](standards.md) resolvem melhor: princípios orientam julgamento; padrões
+[padrões](/15-enterprise-architecture/standards.md) resolvem melhor: princípios orientam julgamento; padrões
 prescrevem escolhas específicas.
 
 E eles envelhecem: um princípio que fez sentido quando a organização tinha 30
@@ -140,7 +140,7 @@ padrão     prescreve — "use a biblioteca Z para logs"
 regra      verifica — a esteira falha se não houver marcação
 ```
 
-Ver [padrões](standards.md).
+Ver [padrões](/15-enterprise-architecture/standards.md).
 
 Misturar os três produz um documento longo em que ninguém distingue o que é orientação
 do que é obrigação — e, na dúvida, tudo vira obrigação.
@@ -163,7 +163,7 @@ O que não funciona é ordenar os princípios por prioridade fixa: uma hierarqui
 transforma o segundo princípio em decoração, porque o primeiro sempre vence.
 
 O que funciona é registrar, quando a tensão aparece, qual venceu e por quê. Ver
-[decisões de arquitetura](../18-architecture-decisions/index.md).
+[decisões de arquitetura](/18-architecture-decisions/index.md).
 
 Depois de alguns registros, o padrão emerge — e ele é mais informativo que qualquer
 regra de precedência definida antecipadamente.
@@ -226,13 +226,13 @@ atrito sem propósito.
 
 ## Alternativas
 
-- **[Padrões](standards.md)** — quando a escolha específica importa.
+- **[Padrões](/15-enterprise-architecture/standards.md)** — quando a escolha específica importa.
 - **Caminho pavimentado** — o padrão embutido, sem depender de o time lembrar. Ver
-  [plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
+  [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 - **Verificação automatizada** — para o que pode ser checado.
 - **Registros de decisão** — o histórico do que foi decidido e por quê, que orienta por
   precedente. Ver
-  [decisões de arquitetura](../18-architecture-decisions/index.md).
+  [decisões de arquitetura](/18-architecture-decisions/index.md).
 
 A última é subestimada: um repositório de decisões passadas orienta melhor que princípios
 abstratos, porque traz o contexto junto.
@@ -332,10 +332,10 @@ precisava mudar.
 
 ## Conceitos Relacionados
 
-- [Padrões](standards.md) — a prescrição específica.
-- [Governança Corporativa](enterprise-governance.md).
-- [Níveis de Arquitetura](architecture-levels.md).
-- [Decisões de Arquitetura](../18-architecture-decisions/index.md).
+- [Padrões](/15-enterprise-architecture/standards.md) — a prescrição específica.
+- [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md).
+- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md).
+- [Decisões de Arquitetura](/18-architecture-decisions/index.md).
 
 ## Exercício Prático
 

@@ -69,47 +69,48 @@ function baseDirFor(locale) {
 }
 
 /**
- * Resolve um link Markdown como o Docusaurus resolve, e devolve o arquivo achado.
+ * Resolve um link Markdown como o Docusaurus resolve.
  *
- * A regra está em `resolveMarkdownLinkPathname` (@docusaurus/utils) e é
- * assimétrica — foi por não observá-la que a versão anterior deste arquivo
- * aprovava links que o build reprovava:
- *
- * - `./x.md` e `../x.md` resolvem SÓ a partir do diretório do próprio arquivo.
- *   Não há fallback para o locale canônico. Num documento traduzido, apontar
- *   assim para uma seção ainda não traduzida quebra o build.
- * - `/secao/x.md` resolve percorrendo os content paths na ordem em que o
- *   Docusaurus os monta: primeiro o diretório do locale, depois `docs/`. É a
- *   forma que sobrevive à tradução progressiva, e a que o link passa a apontar
- *   para a versão traduzida assim que ela existir.
- * - `secao/x.md`, sem prefixo, tenta o diretório do arquivo e depois os content
- *   paths. Funciona, mas a ordem é ambígua; preferimos a forma com barra.
- *
- * Devolve `null` quando nada resolve.
+ * `resolveMarkdownLinkPathname` (@docusaurus/utils) trata `/secao/x.md`
+ * percorrendo os content paths na ordem em que o plugin os monta: o diretório
+ * do locale primeiro, `docs/` depois. É a única forma que sobrevive à tradução
+ * progressiva — ver `checkFormaDeLink` para o porquê.
  */
-function resolveDocLink(doc, pathPart, here) {
-  const contentPaths = [baseDirFor(doc.locale), DOCS_DIR];
-  const dirs = pathPart.startsWith('/')
-    ? [...contentPaths, ROOT]
-    : /^\.\.?\//.test(pathPart)
-      ? [here]
-      : [here, ...contentPaths, ROOT];
-  return dirs.map((d) => join(d, pathPart)).find((c) => existsSync(c)) ?? null;
+function resolveDocLink(doc, pathPart) {
+  return [baseDirFor(doc.locale), DOCS_DIR, ROOT]
+    .map((dir) => join(dir, pathPart))
+    .find((c) => existsSync(c)) ?? null;
 }
 
 /**
- * Mensagem do caso específico em que o alvo existe, mas só no locale canônico.
+ * Recusa link interno relativo, em qualquer locale.
  *
- * Vale a pena distinguir: o autor não errou o caminho, errou a forma do link, e
- * dizer isso economiza a investigação inteira.
+ * Custou dois builds quebrados aprender que a regra vale nos dois sentidos.
+ * `./x.md` e `../x.md` resolvem só a partir do diretório do próprio arquivo, e o
+ * documento que responde por um id migra de `docs/` para o diretório do locale
+ * assim que é traduzido. Então um link relativo quebra quando QUALQUER das duas
+ * pontas é traduzida:
+ *
+ * - de traduzido para não traduzido: o alvo não existe no diretório do locale;
+ * - de não traduzido para traduzido: o alvo saiu de `docs/` no mapa de rotas.
+ *
+ * Como a tradução é progressiva e por lotes, todo link relativo é uma quebra
+ * agendada. A forma com barra funciona nos dois locales hoje e continua
+ * funcionando depois de traduzido.
  */
-function dicaDeForma(doc, pathPart, here) {
-  if (doc.locale === CANONICAL_LOCALE || pathPart.startsWith('/')) return '';
-  const canonico = join(DOCS_DIR, relative(baseDirFor(doc.locale), resolve(here, pathPart)));
-  if (!existsSync(canonico)) return '';
-  const raiz = '/' + relative(DOCS_DIR, canonico).split(/[\\/]/).join('/');
-  return ` — o arquivo existe em ${CANONICAL_LOCALE} mas não neste locale;`
-    + ` link relativo não cai para o canônico, use "${raiz}"`;
+function checkFormaDeLink(doc, pathPart, here, report) {
+  if (pathPart.startsWith('/')) return true;
+  const abs = resolve(here, pathPart);
+  const base = [baseDirFor(doc.locale), DOCS_DIR].find((b) => abs.startsWith(b));
+  const sugestao = base
+    ? `"/${relative(base, abs).split(/[\\/]/).join('/')}"`
+    : 'a forma com barra a partir da raiz do conteúdo';
+  report.error(
+    doc.repoPath,
+    `link interno relativo: ${pathPart} — quebra o build quando qualquer das `
+      + `pontas for traduzida; use ${sugestao}`,
+  );
+  return false;
 }
 
 function checkLinks(doc, byLocale, report) {
@@ -133,12 +134,10 @@ function checkLinks(doc, byLocale, report) {
 
     // Arquivo de documentação: precisa existir e a âncora precisa bater.
     if (/\.mdx?$/.test(pathPart)) {
-      const abs = resolveDocLink(doc, pathPart, here);
+      if (!checkFormaDeLink(doc, pathPart, here, report)) continue;
+      const abs = resolveDocLink(doc, pathPart);
       if (!abs) {
-        report.error(
-          doc.repoPath,
-          `link para arquivo inexistente: ${pathPart}${dicaDeForma(doc, pathPart, here)}`,
-        );
+        report.error(doc.repoPath, `link para arquivo inexistente: ${pathPart}`);
         continue;
       }
       if (anchorPart) {

@@ -90,7 +90,7 @@ graph TB
 A directory called `billing` prevents nothing. Real modularity requires the
 boundary to be enforced — by a language module, static analysis or an architecture
 test. See
-[architecture vs. implementation](architecture-vs-implementation.md).
+[architecture vs. implementation](/01-fundamentals/architecture-vs-implementation.md).
 
 ### Modularity has levels
 
@@ -219,9 +219,9 @@ had hidden — and which became an explicit decision to make, rather than noise.
 
 ## Related Concepts
 
-- [Coupling](coupling.md) and [Cohesion](cohesion.md) — how you measure whether
+- [Coupling](/01-fundamentals/coupling.md) and [Cohesion](/01-fundamentals/cohesion.md) — how you measure whether
   the division is good.
-- [Separation of Concerns](separation-of-concerns.md) — the principle that guides
+- [Separation of Concerns](/01-fundamentals/separation-of-concerns.md) — the principle that guides
   where to divide.
 - [Modular Design](/02-software-design/index.md) — the practical application.
 

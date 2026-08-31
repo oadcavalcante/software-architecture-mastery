@@ -88,7 +88,7 @@ objetos muito baratos de criar, a busca pode custar mais que a criação.
 ## Quando Não Usar
 
 **Sem medição.** O erro central. Aplicar por antecipação é
-[otimização prematura](../02-software-design/yagni.md) com custo estrutural.
+[otimização prematura](/02-software-design/yagni.md) com custo estrutural.
 
 **Quando o número de objetos é moderado.** Alguns milhares de objetos não
 justificam a complexidade em nenhuma plataforma moderna.
@@ -189,9 +189,9 @@ registrando a razão. É o trade-off do padrão, e ele foi pago.
 
 ## Conceitos Relacionados
 
-- [Prototype](prototype.md) — cópia em vez de compartilhamento.
-- [Singleton](singleton.md) — instância única, propósito diferente.
-- [Proxy](proxy.md) — frequentemente usado para carga sob demanda, uma
+- [Prototype](/03-design-patterns/prototype.md) — cópia em vez de compartilhamento.
+- [Singleton](/03-design-patterns/singleton.md) — instância única, propósito diferente.
+- [Proxy](/03-design-patterns/proxy.md) — frequentemente usado para carga sob demanda, uma
   alternativa a este padrão.
 
 ## Exercício Prático

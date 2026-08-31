@@ -504,12 +504,27 @@ não redefinido. Quando a reincidência exige contexto novo (ex.: consistência 
 vs. no Nível 07), o documento posterior abre com:
 
 ```markdown
-> Pré-requisito: [Consistência Eventual](../06-distributed-systems/eventual-consistency.md).
+> Pré-requisito: [Consistência Eventual](/06-distributed-systems/eventual-consistency.md).
 > Aqui o foco é o impacto em modelagem de dados, não a mecânica do protocolo.
 ```
 
 Front matter declara `canonical_for: [lista de termos]`. CI detecta dois documentos
 reivindicando o mesmo termo.
+
+#### Forma do link interno
+
+**Todo link para outro documento parte da raiz do conteúdo: `/06-distributed-systems/eventual-consistency.md`.**
+Nunca `./x.md` nem `../secao/x.md`. `check-links.mjs` recusa a forma relativa.
+
+A razão é a tradução progressiva. O Docusaurus resolve `./` e `../` só a partir do
+diretório do arquivo, e o documento que responde por um id migra de `docs/` para o
+diretório do locale assim que é traduzido. Um link relativo quebra o build quando
+qualquer das duas pontas é traduzida — de traduzido para não traduzido, o alvo não existe
+no locale; de não traduzido para traduzido, o alvo saiu de `docs/` no mapa de rotas.
+
+A forma com barra percorre os content paths na ordem do plugin — locale primeiro, `docs/`
+depois — e por isso funciona nos dois locales antes e depois da tradução. O custo é que
+esses links não resolvem na visualização de arquivo do GitHub; o site é o produto.
 
 ### 7.5 Padrões — regra específica
 

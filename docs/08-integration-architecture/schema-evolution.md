@@ -125,7 +125,7 @@ Cinco passos, meses de duração, e é a forma que não gera incidente. Times qu
 pulam para o passo 5 aprendem a sequência do jeito difícil.
 
 O passo 3 é o que exige saber quem consome. Ver
-[contratos de integração](integration-contracts.md).
+[contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 ### Registro de esquema é o gate
 
@@ -163,7 +163,7 @@ os dados antigos ficam para sempre.
 
 Isso significa que o código de leitura precisa entender todas as versões já
 gravadas, indefinidamente. Ver
-[event sourcing](../06-distributed-systems/distributed-event-sourcing.md).
+[event sourcing](/06-distributed-systems/distributed-event-sourcing.md).
 
 A técnica que sustenta isso é o conversor encadeado: cada versão sabe converter
 para a seguinte, e a leitura só conhece a última.
@@ -202,7 +202,7 @@ catálogo, não gate.
 
 - **Campo novo em vez de mudança** — resolve a maioria dos casos.
 - **Tradução na borda** — uma camada converte entre versões, isolando o núcleo.
-  Ver [anti-corruption layer](integration-anti-corruption.md).
+  Ver [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 - **Duplo preenchimento** — período em que os dois campos são escritos.
 - **Endpoint novo** — em vez de versionar toda a API, versionar a operação que
   mudou.
@@ -294,10 +294,10 @@ tinha passado a confiar nele como se garantisse as duas.
 
 ## Conceitos Relacionados
 
-- [Contratos de Integração](integration-contracts.md) — o contexto.
-- [Anti-Corruption Layer](integration-anti-corruption.md) — tradução na borda.
-- [Integração Orientada a Eventos](event-driven-integration.md).
-- [Event Sourcing](../06-distributed-systems/distributed-event-sourcing.md).
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md) — o contexto.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md) — tradução na borda.
+- [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md).
+- [Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md).
 
 ## Exercício Prático
 

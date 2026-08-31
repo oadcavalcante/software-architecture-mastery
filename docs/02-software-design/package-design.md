@@ -55,14 +55,14 @@ devem ser publicadas juntas, com um número de versão e notas de mudança.
 **CCP — Fechamento comum.**
 > Classes que mudam pelas mesmas razões, no mesmo momento, ficam no mesmo pacote.
 
-É [coesão](../01-fundamentals/cohesion.md) aplicada a pacotes. Minimiza o número
+É [coesão](/01-fundamentals/cohesion.md) aplicada a pacotes. Minimiza o número
 de pacotes que precisam ser publicados por causa de uma mudança.
 
 **CRP — Reúso comum.**
 > Classes que não são usadas juntas não devem ficar no mesmo pacote.
 
 O inverso do anterior, visto pelo consumidor: não force ninguém a depender do que
-não usa. É o **I** do [SOLID](solid.md) em escala de pacote.
+não usa. É o **I** do [SOLID](/02-software-design/solid.md) em escala de pacote.
 
 ### A tensão
 
@@ -110,7 +110,7 @@ um.
 
 **Quando tudo é publicado junto.** Num monolito com um artefato, os princípios de
 release não se aplicam. Ali a divisão relevante é de
-[módulo](modular-design.md), não de pacote.
+[módulo](/02-software-design/modular-design.md), não de pacote.
 
 **Como meta de pureza.** Perseguir CRP num sistema com dois consumidores internos
 produz fragmentação e coordenação sem benefício.
@@ -120,7 +120,7 @@ cinco pacotes que sempre sobem juntos com versões casadas, a separação piorou
 sistema.
 
 **Antes de haver consumidores reais.** Os princípios são sobre servir
-consumidores. Sem eles, é especulação — ver [YAGNI](yagni.md).
+consumidores. Sem eles, é especulação — ver [YAGNI](/02-software-design/yagni.md).
 
 ## Alternativas
 
@@ -148,7 +148,7 @@ consumidores. Sem eles, é especulação — ver [YAGNI](yagni.md).
 contradizem.
 
 **Pacote `common` na zona da dor.** Concreto, estável e do qual tudo depende. Ver
-[direção de dependência](dependency-direction.md).
+[direção de dependência](/02-software-design/dependency-direction.md).
 
 **Ciclo entre pacotes.** Impede ordem de build e extração.
 
@@ -163,7 +163,7 @@ oscilar entre agrupar e separar sem critério.
 **Confundir pacote com diretório.** O que importa é a unidade de publicação.
 
 **Criar pacote por camada técnica.** Reproduz o problema de
-[camadas](layering.md) no nível de release.
+[camadas](/02-software-design/layering.md) no nível de release.
 
 ## Exemplo Real
 
@@ -209,10 +209,10 @@ alvos de build do que polirepos têm artefatos.
 
 ## Conceitos Relacionados
 
-- [Design Modular](modular-design.md) — a divisão lógica que precede.
-- [Direção de Dependência](dependency-direction.md) — o grafo entre pacotes.
-- [Design de Componentes](component-design.md) — a unidade de implantação.
-- [Coesão](../01-fundamentals/cohesion.md) — o princípio geral por trás do CCP.
+- [Design Modular](/02-software-design/modular-design.md) — a divisão lógica que precede.
+- [Direção de Dependência](/02-software-design/dependency-direction.md) — o grafo entre pacotes.
+- [Design de Componentes](/02-software-design/component-design.md) — a unidade de implantação.
+- [Coesão](/01-fundamentals/cohesion.md) — o princípio geral por trás do CCP.
 
 ## Exercício Prático
 

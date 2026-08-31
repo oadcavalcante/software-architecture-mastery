@@ -65,7 +65,7 @@ pagamento. Para logística, guarda endereços e restrições de entrega. Nenhum 
 mais correto — cada um serve a um problema.
 
 Essa observação leva diretamente a
-[bounded context](bounded-context.md): modelos diferentes, com fronteiras
+[bounded context](/04-domain-driven-design/bounded-context.md): modelos diferentes, com fronteiras
 explícitas, em vez de um modelo único que serve mal a todos.
 
 ### O especialista de domínio é fonte, não cliente
@@ -86,7 +86,7 @@ Um sistema com regras de negócio triviais e desafios técnicos enormes — um
 processador de vídeo, um serviço de cache — não se beneficia de DDD. A
 complexidade está em outro lugar.
 
-Ver [complexidade](../01-fundamentals/complexity.md). Aplicar DDD onde a
+Ver [complexidade](/01-fundamentals/complexity.md). Aplicar DDD onde a
 complexidade não é de domínio adiciona indireção sem endereçar o problema real.
 
 ### O modelo vive no código
@@ -102,7 +102,7 @@ entendimento do domínio melhora. Não há fase de modelagem que termina.
 
 **Porque a tradução é onde o significado se perde.** Eliminar as conversões é o
 mecanismo central de DDD, e tudo o mais — [ubiquitous
-language](ubiquitous-language.md), [bounded context](bounded-context.md), os
+language](/04-domain-driven-design/ubiquitous-language.md), [bounded context](/04-domain-driven-design/bounded-context.md), os
 blocos táticos — serve a isso.
 
 **Porque distingue onde DDD se aplica.** Se a complexidade do sistema não é de
@@ -120,7 +120,7 @@ modelo, não o domínio. Modelar a partir das tabelas inverte a ordem.
 
 **Buscar um modelo único e completo.** Um modelo que tenta representar todo o
 domínio serve mal a todos os problemas. Ver
-[bounded context](bounded-context.md).
+[bounded context](/04-domain-driven-design/bounded-context.md).
 
 **Tratar o especialista como fonte de requisitos.** Ele é fonte de conhecimento;
 a diferença aparece na profundidade das conversas.
@@ -154,11 +154,11 @@ domínio faz.
 
 ## Conceitos Relacionados
 
-- [Subdomínio](subdomain.md) — a divisão do domínio.
-- [Ubiquitous Language](ubiquitous-language.md) — o mecanismo que elimina a
+- [Subdomínio](/04-domain-driven-design/subdomain.md) — a divisão do domínio.
+- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md) — o mecanismo que elimina a
   tradução.
-- [Bounded Context](bounded-context.md) — por que não há um modelo único.
-- [Espaço do Problema](../01-fundamentals/problem-space.md) — o conceito
+- [Bounded Context](/04-domain-driven-design/bounded-context.md) — por que não há um modelo único.
+- [Espaço do Problema](/01-fundamentals/problem-space.md) — o conceito
   correspondente no Nível 01.
 
 ## Exercício Prático

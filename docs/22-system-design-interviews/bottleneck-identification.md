@@ -48,7 +48,7 @@ ou qualquer ponto de coordenação.
 
 **Corrigir o gargalo errado.** O candidato otimiza o componente que ele conhece melhor, não o que
 satura. É o equivalente, em entrevista, do que
-[desempenho vs. manutenibilidade](../20-trade-offs/performance-vs-maintainability.md) descreve:
+[desempenho vs. manutenibilidade](/20-trade-offs/performance-vs-maintainability.md) descreve:
 otimizar sem medir.
 
 ## Conceitos Centrais
@@ -92,7 +92,7 @@ Numa entrevista, mencionar essa distinção é um sinal forte. A pergunta que a 
 vale ser feita ao próprio desenho: **existe algum ponto por onde todas as operações de um tipo
 precisam passar em ordem?** Se existe, ele é o teto do sistema.
 
-Ver [pontos quentes](../11-scalability/hotspots.md).
+Ver [pontos quentes](/11-scalability/hotspots.md).
 
 ### Distinga gargalo de capacidade
 
@@ -155,7 +155,7 @@ Reconhecer dependências externas como gargalo — e propor as correções dispo
 assíncrono, disjuntor, negociação de limite — é uma resposta madura que muitos candidatos não
 alcançam.
 
-Ver [disjuntores](../12-reliability/circuit-breakers.md).
+Ver [disjuntores](/12-reliability/circuit-breakers.md).
 
 ### Nem todo gargalo precisa ser resolvido
 
@@ -326,10 +326,10 @@ um arquiteto faz.
 
 ## Conceitos Relacionados
 
-- [Arquitetura de Alto Nível](high-level-architecture.md).
-- [Escala em Entrevista](interview-scaling.md).
-- [Pontos Quentes](../11-scalability/hotspots.md).
-- [Análise de Gargalo](../05-system-design/bottleneck-analysis.md).
+- [Arquitetura de Alto Nível](/22-system-design-interviews/high-level-architecture.md).
+- [Escala em Entrevista](/22-system-design-interviews/interview-scaling.md).
+- [Pontos Quentes](/11-scalability/hotspots.md).
+- [Análise de Gargalo](/05-system-design/bottleneck-analysis.md).
 
 ## Exercício Prático
 

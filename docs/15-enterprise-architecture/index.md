@@ -98,5 +98,5 @@ um arquiteto corporativo que só pode bloquear tem uma ferramenta e nenhuma infl
 
 ## Continua em
 
-[Modernização de Legado](../16-legacy-modernization/index.md), onde o estado atual
+[Modernização de Legado](/16-legacy-modernization/index.md), onde o estado atual
 encontra a realidade do que já existe.

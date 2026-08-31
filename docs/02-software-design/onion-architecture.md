@@ -25,7 +25,7 @@ Arquitetura Onion, formulada por Jeffrey Palermo em 2008, organiza o sistema em
 círculos concêntricos com o modelo de domínio no centro e uma única regra de
 dependência: **as setas apontam para dentro**.
 
-Compartilha a tese de [Ports and Adapters](ports-and-adapters.md). O que ela
+Compartilha a tese de [Ports and Adapters](/02-software-design/ports-and-adapters.md). O que ela
 acrescenta é **nomear as camadas internas**, distinguindo o modelo de domínio dos
 serviços que o orquestram.
 
@@ -82,7 +82,7 @@ repassa.
 
 - Quando o domínio tem regras que envolvem várias entidades e não cabem em
   nenhuma delas.
-- Quando o time já usa vocabulário de [DDD](../04-domain-driven-design/index.md) —
+- Quando o time já usa vocabulário de [DDD](/04-domain-driven-design/index.md) —
   os anéis mapeiam diretamente em entity, domain service e application service.
 - Quando distinguir orquestração de regra tem valor prático: as duas mudam por
   razões diferentes.
@@ -91,10 +91,10 @@ repassa.
 
 **Quando não há serviços de domínio reais.** Se todas as regras cabem nas
 entidades, o anel de serviços de domínio fica vazio ou repassa. Ver
-[camada anêmica](layering.md).
+[camada anêmica](/02-software-design/layering.md).
 
 **Em domínios simples.** As mesmas condições de
-[Ports and Adapters](ports-and-adapters.md): CRUD, canal único, sistemas
+[Ports and Adapters](/02-software-design/ports-and-adapters.md): CRUD, canal único, sistemas
 pequenos.
 
 **Quando o número de anéis vira meta.** Times criam os quatro por simetria, e dois
@@ -105,9 +105,9 @@ diretórios.
 
 ## Alternativas
 
-- **[Hexagonal](hexagonal-architecture.md)** — quando a distinção entre serviço de
+- **[Hexagonal](/02-software-design/hexagonal-architecture.md)** — quando a distinção entre serviço de
   domínio e de aplicação não agrega.
-- **[Clean Architecture](clean-architecture.md)** — vocabulário diferente para a
+- **[Clean Architecture](/02-software-design/clean-architecture.md)** — vocabulário diferente para a
   mesma estrutura, com ênfase em casos de uso.
 - **Camadas com inversão na persistência** — captura a maior parte do benefício
   com menos estrutura.
@@ -122,7 +122,7 @@ diretórios.
 | Risco de anel anêmico | Sem esse risco |
 
 Em relação a não usar nenhum dos dois, os trade-offs são os de
-[Ports and Adapters](ports-and-adapters.md).
+[Ports and Adapters](/02-software-design/ports-and-adapters.md).
 
 ## Modos de Falha
 
@@ -135,7 +135,7 @@ dados.
 
 **Modelo de domínio anêmico.** O modo de falha mais comum de todos os quatro
 padrões: entidades sem comportamento, toda a lógica nos serviços. Ver
-[encapsulamento](encapsulation.md).
+[encapsulamento](/02-software-design/encapsulation.md).
 
 **Anéis como diretórios sem regra imposta.**
 
@@ -177,12 +177,12 @@ regra que mais muda. Em outro sistema, com o anel vazio, ele não se justificari
 
 ## Conceitos Relacionados
 
-- [Ports and Adapters](ports-and-adapters.md) — a formulação base.
-- [Hexagonal](hexagonal-architecture.md) — o mesmo padrão, sem vocabulário
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — a formulação base.
+- [Hexagonal](/02-software-design/hexagonal-architecture.md) — o mesmo padrão, sem vocabulário
   interno.
-- [Clean Architecture](clean-architecture.md) — a variação com ênfase em casos de
+- [Clean Architecture](/02-software-design/clean-architecture.md) — a variação com ênfase em casos de
   uso.
-- [DDD tático](../04-domain-driven-design/index.md) — de onde vem o vocabulário
+- [DDD tático](/04-domain-driven-design/index.md) — de onde vem o vocabulário
   dos anéis.
 
 ## Exercício Prático

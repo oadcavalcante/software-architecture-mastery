@@ -78,8 +78,8 @@ regerando a partir do log.
 Consultar reproduzindo eventos não escala. A leitura acontece sobre **projeções** —
 visões materializadas construídas a partir do log.
 
-Isso torna [CQRS](distributed-cqrs.md) praticamente obrigatório, e traz
-[consistência eventual](eventual-consistency.md) entre escrita e leitura.
+Isso torna [CQRS](/06-distributed-systems/distributed-cqrs.md) praticamente obrigatório, e traz
+[consistência eventual](/06-distributed-systems/eventual-consistency.md) entre escrita e leitura.
 
 O ganho específico do event sourcing aqui: uma projeção nova pode ser construída
 retroativamente, sobre todo o histórico. É a capacidade que justifica o padrão em
@@ -213,7 +213,7 @@ reconstruída.
 sourcing é derivar o estado deles.
 
 A última confusão é frequente e leva times a acreditar que já fazem event sourcing
-quando fazem [comunicação por eventos](event-driven-systems.md).
+quando fazem [comunicação por eventos](/06-distributed-systems/event-driven-systems.md).
 
 ## Exemplo Real
 
@@ -252,10 +252,10 @@ tratá-la como padrão do sistema em vez de escolha para um domínio específico
 
 ## Conceitos Relacionados
 
-- [CQRS Distribuído](distributed-cqrs.md) — que vem junto.
-- [Sistemas Orientados a Eventos](event-driven-systems.md) — não é a mesma coisa.
-- [Consistência Eventual](eventual-consistency.md) — entre escrita e projeção.
-- [Ordenação](ordering.md) — o log depende dela.
+- [CQRS Distribuído](/06-distributed-systems/distributed-cqrs.md) — que vem junto.
+- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md) — não é a mesma coisa.
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) — entre escrita e projeção.
+- [Ordenação](/06-distributed-systems/ordering.md) — o log depende dela.
 
 ## Exercício Prático
 

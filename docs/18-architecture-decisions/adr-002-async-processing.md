@@ -22,13 +22,13 @@ last_reviewed: 2026-08-29
 :::note Exemplo didático
 
 Segundo de cinco ADRs do sistema fictício **Verano**. Este é o exemplo de decisão
-**superada** — ver [ADR-004](adr-004-kafka.md).
+**superada** — ver [ADR-004](/18-architecture-decisions/adr-004-kafka.md).
 
 :::
 
 | | |
 |---|---|
-| Status | **superado pelo [ADR-004](adr-004-kafka.md)** em 2025-07-31 |
+| Status | **superado pelo [ADR-004](/18-architecture-decisions/adr-004-kafka.md)** em 2025-07-31 |
 | | aceito em 2023-05-22 |
 | Sistema | Verano — plataforma de pedidos |
 | Autores | equipe de plataforma |
@@ -56,7 +56,7 @@ fora do ar em 2023 foram causados por ele.
 
 Restrições:
 
-- Estamos num [monólito modular](adr-001-modular-monolith.md) com PostgreSQL, sem
+- Estamos num [monólito modular](/18-architecture-decisions/adr-001-modular-monolith.md) com PostgreSQL, sem
   infraestrutura de mensageria e sem experiência operacional com ela.
 - Equipe de 12 pessoas, com o prazo de agosto de 2024 ainda vigente.
 - O plantão foi criado há dois meses e ainda está amadurecendo.
@@ -131,7 +131,7 @@ teste.
 ## Superação — 2025-07-31
 
 Em julho de 2025, três das quatro condições do sinal de alerta tinham sido atingidas. Ver
-[ADR-004](adr-004-kafka.md) para a decisão que substitui esta.
+[ADR-004](/18-architecture-decisions/adr-004-kafka.md) para a decisão que substitui esta.
 
 Este documento permanece como registro correto da decisão de 2023: para o contexto de
 25 pedidos/s, equipe sem experiência em mensageria e prazo contratual vigente, a fila em
@@ -151,11 +151,11 @@ arquiteturais frequentemente têm essa cara, e omiti-la produz surpresa.
 
 O status mostra a mecânica de superação: referência bidirecional, texto original intacto,
 e uma nota explicando que a decisão estava certa para o contexto dela. Ver
-[superação](superseding-decisions.md).
+[superação](/18-architecture-decisions/superseding-decisions.md).
 
 ## Conceitos Relacionados
 
-- [Status](adr-status.md) e [Superação](superseding-decisions.md).
-- [Alternativas](adr-alternatives.md) — a condição de reversão em ação.
-- [Processamento em Segundo Plano](../05-system-design/background-processing.md).
-- [ADR-004](adr-004-kafka.md) — o sucessor.
+- [Status](/18-architecture-decisions/adr-status.md) e [Superação](/18-architecture-decisions/superseding-decisions.md).
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — a condição de reversão em ação.
+- [Processamento em Segundo Plano](/05-system-design/background-processing.md).
+- [ADR-004](/18-architecture-decisions/adr-004-kafka.md) — o sucessor.

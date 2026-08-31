@@ -41,7 +41,7 @@ pool único de 200 conexões
   → o serviço inteiro para por causa de uma dependência
 ```
 
-Ver [circuit breakers](circuit-breakers.md) para a matemática. O ponto do bulkhead é
+Ver [circuit breakers](/12-reliability/circuit-breakers.md) para a matemática. O ponto do bulkhead é
 que ele resolve o mesmo problema por outro caminho — e sem depender de configuração
 correta de limiares.
 
@@ -77,7 +77,7 @@ requisições simultâneas = vazão × latência
   → pool de 25 dá folga sem permitir monopolizar
 ```
 
-Ver [desempenho versus escalabilidade](../11-scalability/performance-vs-scalability.md).
+Ver [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md).
 
 E a soma dos compartimentos pode exceder o total disponível, deliberadamente — o
 chamado excesso de reserva, apostando que nem todos saturam ao mesmo tempo. Isso
@@ -97,7 +97,7 @@ A cota pode ser de requisições, de conexões, de trabalhadores de fila ou de c
 de processamento.
 
 E os clientes de maior volume podem receber compartimento dedicado — o que também
-resolve [pontos quentes](../11-scalability/hotspots.md).
+resolve [pontos quentes](/11-scalability/hotspots.md).
 
 ### Fila também precisa de compartimento
 
@@ -106,7 +106,7 @@ mensagens atrasa todos os outros.
 
 Filas separadas por cliente ou por prioridade, com capacidade de consumo reservada,
 resolvem. Ver
-[escala dirigida por fila](../11-scalability/queue-based-scaling.md).
+[escala dirigida por fila](/11-scalability/queue-based-scaling.md).
 
 O erro comum é criar as filas e deixar todos os consumidores livres para pegar de
 qualquer uma — o que reproduz o problema, porque a fila cheia domina o consumo.
@@ -119,8 +119,8 @@ Se ela entra numa fila de espera pelo recurso, o isolamento se perde: a fila cre
 memória é consumida, e o dano volta a atravessar.
 
 Rejeitar preserva o compartimento e devolve o controle ao chamador, que pode degradar
-ou repetir com [backoff](../06-distributed-systems/backoff.md). Ver
-[backpressure](../06-distributed-systems/backpressure.md).
+ou repetir com [backoff](/06-distributed-systems/backoff.md). Ver
+[backpressure](/06-distributed-systems/backpressure.md).
 
 ### O isolamento tem que ser real
 
@@ -132,7 +132,7 @@ processos separados, mesma máquina → disco e rede compartilhados
 máquinas separadas, mesma zona     → energia e rede compartilhadas
 ```
 
-Ver [redundância](redundancy.md) — é o mesmo problema de correlação.
+Ver [redundância](/12-reliability/redundancy.md) — é o mesmo problema de correlação.
 
 Isso não significa que o isolamento parcial é inútil. Significa que ele protege contra
 um conjunto específico de falhas, e é preciso saber qual.
@@ -165,11 +165,11 @@ contra esgotamento de memória.
 
 ## Alternativas
 
-- **[Circuit breaker](circuit-breakers.md)** — para de chamar em vez de isolar.
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — para de chamar em vez de isolar.
   Complementares.
 - **Timeout agressivo** — reduz o tempo de posse do recurso.
 - **Limite de taxa** — controla na entrada. Ver
-  [rate limiting](../05-system-design/rate-limiting.md).
+  [rate limiting](/05-system-design/rate-limiting.md).
 - **Processos ou instâncias separados** — isolamento mais forte, custo maior.
 
 ## Trade-offs
@@ -266,10 +266,10 @@ tinha questionado.
 
 ## Conceitos Relacionados
 
-- [Circuit Breakers](circuit-breakers.md) — a proteção complementar.
-- [Tempestades de Retentativa](retry-storms.md).
-- [Backpressure](../06-distributed-systems/backpressure.md) — a rejeição.
-- [Pontos Quentes](../11-scalability/hotspots.md) — clientes desproporcionais.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md) — a proteção complementar.
+- [Tempestades de Retentativa](/12-reliability/retry-storms.md).
+- [Backpressure](/06-distributed-systems/backpressure.md) — a rejeição.
+- [Pontos Quentes](/11-scalability/hotspots.md) — clientes desproporcionais.
 
 ## Exercício Prático
 

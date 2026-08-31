@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Replicar é manter cópias do mesmo dado em nós diferentes.
 
 Os fundamentos — síncrona e assíncrona, líder e seguidores — estão em
-[replicação](../06-distributed-systems/replication.md). Este documento trata do
+[replicação](/06-distributed-systems/replication.md). Este documento trata do
 ângulo operacional: o que a replicação de fato protege, o que ela não protege, e
 as decisões que aparecem quando ela está em produção.
 
@@ -71,7 +71,7 @@ pior momento possível.
 ### O atraso é a métrica operacional central
 
 Toda replicação assíncrona tem atraso, e ele não é constante. Ver
-[consistência eventual](../06-distributed-systems/eventual-consistency.md).
+[consistência eventual](/06-distributed-systems/eventual-consistency.md).
 
 Três coisas que fazem o atraso disparar: carga de escrita alta, transação longa no
 primário, e reconstrução de índice na réplica.
@@ -91,7 +91,7 @@ relatório                  réplica, ou réplica dedicada
 ```
 
 A segunda linha é a que elimina a maior parte das queixas. Ver
-[consistência eventual](../06-distributed-systems/eventual-consistency.md).
+[consistência eventual](/06-distributed-systems/eventual-consistency.md).
 
 E há um detalhe operacional que morde: relatórios pesados numa réplica compartilhada
 aumentam o atraso dela para todo mundo. Réplica de relatório deve ser dedicada.
@@ -105,7 +105,7 @@ replicou se perde ao promover outra réplica.
 
 **Cérebro dividido.** O primário antigo volta e ainda se considera primário. Duas
 fontes aceitando escrita. Ver
-[eleição de líder](../06-distributed-systems/leader-election.md).
+[eleição de líder](/06-distributed-systems/leader-election.md).
 
 **Cache inconsistente.** A aplicação continua apontando para o endereço antigo.
 
@@ -127,7 +127,7 @@ que a exclusão chegue ali.
 ### Múltiplos primários exige plano de conflito
 
 Aceitar escrita em mais de um nó traz
-[conflitos](../06-distributed-systems/conflict-resolution.md), e a resolução
+[conflitos](/06-distributed-systems/conflict-resolution.md), e a resolução
 padrão descarta dados em silêncio.
 
 A pergunta antes de adotar: cada dado pode ter um dono único por região? Se puder,
@@ -151,7 +151,7 @@ proteções são necessárias e não se substituem.
 **Como substituto de cópia de segurança.**
 
 **Para escalar escrita.** Replicação não ajuda; ver
-[particionamento](data-partitioning.md).
+[particionamento](/07-data-architecture/data-partitioning.md).
 
 **Ler de réplica em operação crítica.**
 
@@ -166,9 +166,9 @@ proteções são necessárias e não se substituem.
 ## Alternativas
 
 - **Cópia de segurança com restauração testada** — para erro humano e corrupção.
-- **[Particionamento](data-partitioning.md)** — para escala de escrita.
+- **[Particionamento](/07-data-architecture/data-partitioning.md)** — para escala de escrita.
 - **Cache** — para reduzir leitura sem replicar.
-- **[CQRS](../06-distributed-systems/distributed-cqrs.md)** — projeção com modelo
+- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — projeção com modelo
   próprio em vez de cópia idêntica.
 
 ## Trade-offs
@@ -257,10 +257,10 @@ tinha se esgotado em "temos três réplicas".
 
 ## Conceitos Relacionados
 
-- [Replicação](../06-distributed-systems/replication.md) — os fundamentos.
-- [Particionamento de Dados](data-partitioning.md) — para escala de escrita.
-- [Consistência de Dados](data-consistency.md).
-- [Consistência Eventual](../06-distributed-systems/eventual-consistency.md).
+- [Replicação](/06-distributed-systems/replication.md) — os fundamentos.
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md) — para escala de escrita.
+- [Consistência de Dados](/07-data-architecture/data-consistency.md).
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md).
 
 ## Exercício Prático
 

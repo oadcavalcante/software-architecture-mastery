@@ -51,7 +51,7 @@ outra coisa.
 Nenhuma dessas propriedades é exclusiva. O que distingue o relacional é tê-las
 todas ao mesmo tempo, maduras:
 
-**Transações com garantias fortes.** Ver [transações](transactions.md).
+**Transações com garantias fortes.** Ver [transações](/07-data-architecture/transactions.md).
 
 **Consulta declarativa com otimizador.** Você descreve o resultado; o banco decide
 o plano. Isso significa que o mesmo código continua eficiente quando o volume ou
@@ -86,24 +86,24 @@ transações por segundo.
 
 A maioria dos sistemas que abandona o relacional por escala nunca chegou perto
 desse limite — e frequentemente o problema era
-[índice](indexing.md) ou mistura de cargas.
+[índice](/07-data-architecture/indexing.md) ou mistura de cargas.
 
 ### Onde ele genuinamente não serve
 
 Sendo específico, porque a lista é curta:
 
 **Escrita distribuída global.** Múltiplas regiões aceitando escrita para o mesmo
-dado. Ver [PACELC](../06-distributed-systems/pacelc.md).
+dado. Ver [PACELC](/06-distributed-systems/pacelc.md).
 
 **Volume extremo de escrita simples.** Telemetria, eventos, séries temporais em
 milhões por segundo.
 
 **Travessia de relacionamentos profundos.** Consultas de vários níveis de
-profundidade. Ver [bancos de grafo](graph-databases.md).
+profundidade. Ver [bancos de grafo](/07-data-architecture/graph-databases.md).
 
 **Documentos com estrutura genuinamente variável.** Quando não há esquema comum.
 
-**Analítico em grande escala.** Ver [colunar](column-stores.md).
+**Analítico em grande escala.** Ver [colunar](/07-data-architecture/column-stores.md).
 
 **Busca textual com relevância.** Índice invertido resolve; relacional não.
 
@@ -145,14 +145,14 @@ escolhe por comparação.**
 **Busca textual com relevância.**
 
 **Cache.** Um banco relacional como cache é desperdício; use um armazenamento
-[chave-valor](key-value-databases.md).
+[chave-valor](/07-data-architecture/key-value-databases.md).
 
 ## Alternativas
 
-- **[Documento](document-databases.md)** — agregados lidos inteiros.
-- **[Chave-valor](key-value-databases.md)** — acesso por chave, altíssima vazão.
-- **[Colunar](column-stores.md)** — analítico.
-- **[Grafo](graph-databases.md)** — relacionamentos como primeira classe.
+- **[Documento](/07-data-architecture/document-databases.md)** — agregados lidos inteiros.
+- **[Chave-valor](/07-data-architecture/key-value-databases.md)** — acesso por chave, altíssima vazão.
+- **[Colunar](/07-data-architecture/column-stores.md)** — analítico.
+- **[Grafo](/07-data-architecture/graph-databases.md)** — relacionamentos como primeira classe.
 - **Série temporal** — métricas e telemetria.
 - **Relacional distribuído** — mantém o modelo e distribui a escrita, ao custo de
   latência de coordenação.
@@ -223,7 +223,7 @@ consulta virou código.
 
 **Transações.** A operação de transferir uma remessa entre rotas tocava três
 documentos. Sem transação, foi preciso implementar
-[saga](../06-distributed-systems/sagas.md) com compensação — para uma operação
+[saga](/06-distributed-systems/sagas.md) com compensação — para uma operação
 que era uma transação de três linhas.
 
 Dois anos depois, o núcleo transacional voltou para relacional. O que permaneceu
@@ -236,10 +236,10 @@ de migração.
 
 ## Conceitos Relacionados
 
-- [NoSQL](nosql.md) — o termo e o que ele esconde.
-- [Transações](transactions.md) — a garantia principal.
-- [Normalização](normalization.md) — o modelo.
-- [Indexação](indexing.md) — o que costuma ser o problema real.
+- [NoSQL](/07-data-architecture/nosql.md) — o termo e o que ele esconde.
+- [Transações](/07-data-architecture/transactions.md) — a garantia principal.
+- [Normalização](/07-data-architecture/normalization.md) — o modelo.
+- [Indexação](/07-data-architecture/indexing.md) — o que costuma ser o problema real.
 
 ## Exercício Prático
 

@@ -38,7 +38,7 @@ fraca — uma revisão sem autoridade formal soa como uma revisão sem consequê
 A prática mostra o contrário: a autoridade de vetar é o que empurra a revisão para o fim,
 onde ela não tem mais o que melhorar.
 
-Ver [revisão de arquitetura](../15-enterprise-architecture/architecture-review.md) para os
+Ver [revisão de arquitetura](/15-enterprise-architecture/architecture-review.md) para os
 formatos; aqui o foco é a revisão como instrumento de governança.
 
 ## Problema
@@ -85,7 +85,7 @@ aconselhamento  melhora a decisão de quem segue
 
 No modelo de aconselhamento, a decisão permanece com o time, e o registro de que a
 orientação foi dada permanece com a revisão. Se o time seguir caminho diferente, isso é
-legítimo e fica registrado — no [ADR](../18-architecture-decisions/index.md), com a objeção
+legítimo e fica registrado — no [ADR](/18-architecture-decisions/index.md), com a objeção
 preservada.
 
 Esse registro é o que substitui a autoridade formal: não há veto, e há memória.
@@ -122,7 +122,7 @@ o que o time gostaria de discutir
 A última linha é a mais produtiva e a mais esquecida: perguntar ao time onde ele tem dúvida
 concentra a revisão no ponto de maior retorno.
 
-Ver [alternativas](../18-architecture-decisions/adr-alternatives.md).
+Ver [alternativas](/18-architecture-decisions/adr-alternatives.md).
 
 ### O produto da revisão
 
@@ -140,7 +140,7 @@ de peso desigual apresentados com a mesma ênfase, deixando o time sem critério
 priorização.
 
 E o registro dessa separação é o que permite avaliar a revisão depois — ver
-[medição](measuring-governance.md).
+[medição](/19-architecture-governance/measuring-governance.md).
 
 ### Quem participa
 
@@ -198,7 +198,7 @@ que não há mais nada a melhorar.
 
 ## Alternativas
 
-- **[Funções de aptidão](fitness-functions-governance.md)** — para o que é verificável, mais
+- **[Funções de aptidão](/19-architecture-governance/fitness-functions-governance.md)** — para o que é verificável, mais
   barato e mais confiável.
 - **Consulta voluntária** — sem agenda formal, sob demanda do time.
 - **Revisão por pares entre times** — sem papel central, com efeito de disseminação.
@@ -317,10 +317,10 @@ que estava sendo construído antes de estar construído.
 
 ## Conceitos Relacionados
 
-- [Fundamentos de Governança](governance-basics.md) — o ponto de intervenção.
-- [Revisão de Arquitetura](../15-enterprise-architecture/architecture-review.md) — formatos.
-- [Patologias](governance-pathologies.md) — o comitê que aprova tudo.
-- [Decisão](../18-architecture-decisions/adr-decision.md) — o registro da divergência.
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md) — o ponto de intervenção.
+- [Revisão de Arquitetura](/15-enterprise-architecture/architecture-review.md) — formatos.
+- [Patologias](/19-architecture-governance/governance-pathologies.md) — o comitê que aprova tudo.
+- [Decisão](/18-architecture-decisions/adr-decision.md) — o registro da divergência.
 
 ## Exercício Prático
 

@@ -60,7 +60,7 @@ exigem segredo armazenado.
 
 **Identidade de plataforma.** A aplicação assume um papel e recebe credenciais
 temporárias, rotacionadas automaticamente. Nada a guardar. Ver
-[identidade em nuvem](../09-cloud-architecture/cloud-identity.md).
+[identidade em nuvem](/09-cloud-architecture/cloud-identity.md).
 
 **Federação de identidade** para sistemas externos — esteiras de integração contínua
 podem autenticar sem chave estática.
@@ -137,7 +137,7 @@ desenvolvedor num alvo com acesso produtivo.
 
 Credenciais separadas por ambiente, com escopo restrito, contêm o problema. E dados
 de desenvolvimento não deveriam ser cópia de produção — ver
-[proteção de dados](data-protection.md).
+[proteção de dados](/10-security/data-protection.md).
 
 ## Modelo Mental
 
@@ -176,7 +176,7 @@ rotacionar tudo junto.
 - **Credenciais dinâmicas** — geradas sob demanda, curta duração.
 - **Certificados** com autoridade própria, em vez de senha.
 - **Cifragem envelopada** para segredos versionados junto ao código, quando não há
-  gerenciador. Ver [gestão de chaves](key-management.md).
+  gerenciador. Ver [gestão de chaves](/10-security/key-management.md).
 
 ## Trade-offs
 
@@ -210,7 +210,7 @@ rotacionar tudo junto.
 **Gerenciador indisponível.** A aplicação não sobe.
 
 **Segredo em imagem de contêiner.** Ver
-[contêineres](../09-cloud-architecture/containers.md).
+[contêineres](/09-cloud-architecture/containers.md).
 
 ## Erros Comuns
 
@@ -280,10 +280,10 @@ gerado nenhum alerta em dois anos.
 
 ## Conceitos Relacionados
 
-- [Gestão de Chaves](key-management.md) — o caso especial das chaves criptográficas.
-- [Menor Privilégio](least-privilege.md) — o escopo do que vaza.
-- [Confiança na Cadeia de Suprimentos](supply-chain-trust.md).
-- [Identidade em Nuvem](../09-cloud-architecture/cloud-identity.md).
+- [Gestão de Chaves](/10-security/key-management.md) — o caso especial das chaves criptográficas.
+- [Menor Privilégio](/10-security/least-privilege.md) — o escopo do que vaza.
+- [Confiança na Cadeia de Suprimentos](/10-security/supply-chain-trust.md).
+- [Identidade em Nuvem](/09-cloud-architecture/cloud-identity.md).
 
 ## Exercício Prático
 

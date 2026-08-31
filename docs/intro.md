@@ -109,17 +109,17 @@ feitas.
 ## Por onde começar
 
 Se você constrói software e quer entender arquitetura, comece pelo
-[Nível 01](01-fundamentals/index.md) e siga a ordem.
+[Nível 01](/01-fundamentals/index.md) e siga a ordem.
 
 Se você já é arquiteto e quer material específico, os
-[Trade-offs](20-trade-offs/index.md) e os [Case Studies](21-case-studies/index.md)
+[Trade-offs](/20-trade-offs/index.md) e os [Case Studies](/21-case-studies/index.md)
 são consultáveis isoladamente.
 
 Se você está se preparando para entrevistas,
-[System Design Interviews](22-system-design-interviews/index.md) é o método, e
+[System Design Interviews](/22-system-design-interviews/index.md) é o método, e
 os case studies são a versão sem pressão de tempo.
 
-E [Como usar](how-to-use.md) explica a estrutura fixa de cada documento, que é a
+E [Como usar](/how-to-use.md) explica a estrutura fixa de cada documento, que é a
 mesma em todos eles — o que permite ler por consulta sem perder o contexto.
 
 ## Teste de aceitação

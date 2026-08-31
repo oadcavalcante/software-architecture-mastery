@@ -81,11 +81,11 @@ ativação. Custa uma fração da espera quente e entrega RTO de dezenas de minu
 É o ponto de melhor relação entre custo e resultado para a maioria dos sistemas que
 precisam de mais que cópias, e é subutilizado.
 
-Ver [multi-região](multi-region.md) para os desenhos superiores.
+Ver [multi-região](/09-cloud-architecture/multi-region.md) para os desenhos superiores.
 
 ### Cópia de segurança não é replicação
 
-Ver [replicação de dados](../07-data-architecture/data-replication.md). A distinção
+Ver [replicação de dados](/07-data-architecture/data-replication.md). A distinção
 decide se você sobrevive a erro humano.
 
 Replicação copia tudo, inclusive o comando destrutivo. Cópia de segurança tem
@@ -173,13 +173,13 @@ Todo sistema precisa de alguma estratégia. O nível depende de:
 
 ## Alternativas
 
-- **Três [zonas de disponibilidade](availability-zones.md)** — cobre a maior parte
+- **Três [zonas de disponibilidade](/09-cloud-architecture/availability-zones.md)** — cobre a maior parte
   das falhas reais e não é recuperação de desastre.
 - **Cópias com automação de restauração** — o mínimo viável, e suficiente para
   muitos sistemas.
 - **Piloto aceso** — a melhor relação custo-benefício na faixa intermediária.
 - **Réplica atrasada** — proteção barata contra erro humano. Ver
-  [replicação de dados](../07-data-architecture/data-replication.md).
+  [replicação de dados](/07-data-architecture/data-replication.md).
 
 ## Trade-offs
 
@@ -278,10 +278,10 @@ havia documento. A auditoria nunca pediu um teste, e ninguém ofereceu.
 
 ## Conceitos Relacionados
 
-- [Multi-Região](multi-region.md) — os desenhos de RTO baixo.
-- [Zonas de Disponibilidade](availability-zones.md).
-- [Replicação de Dados](../07-data-architecture/data-replication.md).
-- [Confiabilidade](../12-reliability/index.md).
+- [Multi-Região](/09-cloud-architecture/multi-region.md) — os desenhos de RTO baixo.
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md).
+- [Replicação de Dados](/07-data-architecture/data-replication.md).
+- [Confiabilidade](/12-reliability/index.md).
 
 ## Exercício Prático
 

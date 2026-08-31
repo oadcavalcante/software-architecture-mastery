@@ -34,7 +34,7 @@ A distinção não é semântica. Ela decide se, durante um incidente, você con
 investigar — ou apenas confirmar que algo está errado.
 
 E ela importa porque os incidentes que causam dano são justamente os não antecipados.
-Ver [resiliência](../12-reliability/resilience.md). Se todos os cenários fossem
+Ver [resiliência](/12-reliability/resilience.md). Se todos os cenários fossem
 previstos, eles teriam sido tratados por mecanismo.
 
 O segundo problema é econômico. Telemetria custa — coleta, transporte, armazenamento,
@@ -101,5 +101,5 @@ plataforma.
 
 ## Continua em
 
-[DevOps e Plataforma](../14-devops-and-platform/index.md), onde a operação deixa de ser
+[DevOps e Plataforma](/14-devops-and-platform/index.md), onde a operação deixa de ser
 reativa e passa a ser desenhada.

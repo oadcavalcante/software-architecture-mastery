@@ -23,7 +23,7 @@ last_reviewed: 2026-08-28
 
 Balanceamento distribui requisições entre instâncias. Os fundamentos — camadas,
 verificação de saúde, algoritmos — estão em
-[balanceamento de carga](../05-system-design/load-balancing.md).
+[balanceamento de carga](/05-system-design/load-balancing.md).
 
 Aqui interessa o ângulo da escala: **distribuir uniformemente não é o objetivo**. O
 objetivo é que nenhuma instância fique saturada enquanto outras estão ociosas — e
@@ -44,7 +44,7 @@ ordens de grandeza diferentes.
 
 O resultado é distribuição nominalmente uniforme e carga real desigual — com uma
 instância saturada enquanto a média parece confortável. É o mesmo padrão de
-[pontos quentes](hotspots.md), na camada de balanceamento.
+[pontos quentes](/11-scalability/hotspots.md), na camada de balanceamento.
 
 ## Conceitos Centrais
 
@@ -84,16 +84,16 @@ Se um cliente manda dez vezes mais que os outros, a instância dele satura. E, o
 pior: instâncias novas adicionadas durante um pico não recebem tráfego nenhum, porque
 não há conexões novas sendo abertas.
 
-Ver [gRPC](../08-integration-architecture/grpc.md). As saídas são balanceamento de
+Ver [gRPC](/08-integration-architecture/grpc.md). As saídas são balanceamento de
 camada 7, balanceamento no cliente, ou
-[malha de serviço](../08-integration-architecture/service-mesh.md).
+[malha de serviço](/08-integration-architecture/service-mesh.md).
 
 ### Verificação de saúde rasa mantém instância doente na rotação
 
 Uma verificação que apenas confirma que o processo responde não detecta a instância
 degradada — lenta, com dependência fora, com disco cheio.
 
-Ver [detecção de falhas](../06-distributed-systems/failure-detection.md). O
+Ver [detecção de falhas](/06-distributed-systems/failure-detection.md). O
 balanceamento maduro considera taxa de erro e latência, não apenas presença.
 
 E há o efeito inverso, que é pior: uma verificação **profunda demais** — que consulta o
@@ -111,10 +111,10 @@ Quando todas as instâncias estão saturadas, o balanceador tem duas opções:
 repetem — e a carga aumenta.
 
 **Recusar.** O cliente recebe erro imediato e pode reagir — repetir com
-[backoff](../06-distributed-systems/backoff.md), degradar, avisar o usuário.
+[backoff](/06-distributed-systems/backoff.md), degradar, avisar o usuário.
 
 Sob saturação, recusar rápido preserva a capacidade para o que pode ser atendido. Ver
-[backpressure](../06-distributed-systems/backpressure.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 Um limite de fila no balanceador, com recusa acima dele, é o que impede o colapso por
 enfileiramento.
@@ -129,7 +129,7 @@ então remover.
 Isso precisa funcionar em três momentos: implantação, redução de capacidade e falha de
 verificação de saúde. Sem isso, cada evento de escalonamento — que deveria ser rotina —
 perde requisições. Ver
-[ausência de estado](statelessness.md).
+[ausência de estado](/11-scalability/statelessness.md).
 
 ### Instância nova precisa entrar devagar
 
@@ -169,16 +169,16 @@ não são equivalentes.
 **Remover instância sem drenar.**
 
 **Afinidade de sessão como solução permanente.** Ver
-[ausência de estado](statelessness.md).
+[ausência de estado](/11-scalability/statelessness.md).
 
 ## Alternativas
 
 - **Balanceamento no cliente** — o cliente conhece as instâncias e decide. Elimina um
   salto e resolve o problema de conexões persistentes.
-- **[Malha de serviço](../08-integration-architecture/service-mesh.md)** — balanceamento
+- **[Malha de serviço](/08-integration-architecture/service-mesh.md)** — balanceamento
   por requisição, com política central.
 - **Filas** — para trabalho assíncrono, a fila distribui melhor que qualquer
-  balanceador. Ver [escala dirigida por fila](queue-based-scaling.md).
+  balanceador. Ver [escala dirigida por fila](/11-scalability/queue-based-scaling.md).
 - **Roteamento por partição** — quando o estado é particionado, o roteamento segue a
   chave, não a carga.
 
@@ -278,10 +278,10 @@ desempenho.
 
 ## Conceitos Relacionados
 
-- [Escala Horizontal](horizontal-scaling.md) — o que ele viabiliza.
-- [Ausência de Estado](statelessness.md) — a afinidade.
-- [Balanceamento de Carga](../05-system-design/load-balancing.md) — os fundamentos.
-- [Malha de Serviço](../08-integration-architecture/service-mesh.md).
+- [Escala Horizontal](/11-scalability/horizontal-scaling.md) — o que ele viabiliza.
+- [Ausência de Estado](/11-scalability/statelessness.md) — a afinidade.
+- [Balanceamento de Carga](/05-system-design/load-balancing.md) — os fundamentos.
+- [Malha de Serviço](/08-integration-architecture/service-mesh.md).
 
 ## Exercício Prático
 

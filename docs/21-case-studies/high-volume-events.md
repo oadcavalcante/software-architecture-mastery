@@ -596,10 +596,10 @@ de chegar?".
 
 ## Conceitos Relacionados
 
-- [Case: Streaming de Vídeo](video-streaming.md) — o outro case dominado por volume.
-- [Mensageria](../06-distributed-systems/messaging.md).
-- [Garantias de Entrega](../06-distributed-systems/delivery-guarantees.md).
-- [Custo vs. Confiabilidade](../20-trade-offs/cost-vs-reliability.md).
+- [Case: Streaming de Vídeo](/21-case-studies/video-streaming.md) — o outro case dominado por volume.
+- [Mensageria](/06-distributed-systems/messaging.md).
+- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md).
+- [Custo vs. Confiabilidade](/20-trade-offs/cost-vs-reliability.md).
 
 ## Exercício Prático
 

@@ -100,7 +100,7 @@ zero.
 
 A padronização vale mais que a otimização individual.
 
-Se todos os serviços têm o mesmo painel — [sinais dourados](golden-signals.md), na mesma
+Se todos os serviços têm o mesmo painel — [sinais dourados](/13-observability/golden-signals.md), na mesma
 posição, com as mesmas escalas —, alguém que investiga um serviço desconhecido sabe onde
 olhar.
 
@@ -117,17 +117,17 @@ Métricas mudam de nome, serviços são removidos, gráficos param de funcionar.
 Um painel com três gráficos quebrados perde credibilidade inteiro — as pessoas param de
 confiar no que veem.
 
-A revisão periódica é a mesma dos [alertas](alerting.md): o que não é consultado, e o
+A revisão periódica é a mesma dos [alertas](/13-observability/alerting.md): o que não é consultado, e o
 que está quebrado.
 
 ### Painel não substitui alerta nem investigação livre
 
 **Não substitui alerta.** Ninguém fica olhando painéis. Ver
-[alertas](alerting.md).
+[alertas](/13-observability/alerting.md).
 
 **Não substitui consulta ad hoc.** O painel responde perguntas antecipadas; a
 investigação de um incidente novo exige formular perguntas que ninguém previu. Ver
-[depurabilidade](debuggability.md).
+[depurabilidade](/13-observability/debuggability.md).
 
 Um time que só consegue investigar pelo que está no painel tem monitoramento, não
 observabilidade.
@@ -183,7 +183,7 @@ o painel é uma coleção de gráficos.
 
 ## Alternativas
 
-- **[Alertas](alerting.md)** — para o que precisa de reação.
+- **[Alertas](/13-observability/alerting.md)** — para o que precisa de reação.
 - **Consulta ad hoc** — para perguntas novas.
 - **Relatório periódico** — para tendência que não precisa de tempo real.
 - **Painel gerado por modelo** — em vez de construído à mão.
@@ -270,10 +270,10 @@ correlação visual respondia a pergunta antes de qualquer investigação.
 
 ## Conceitos Relacionados
 
-- [Sinais Dourados](golden-signals.md) — o conteúdo padrão.
-- [Alertas](alerting.md) — o que não é painel.
-- [Métricas](metrics.md) — a fonte.
-- [Depurabilidade](debuggability.md) — o que o painel não cobre.
+- [Sinais Dourados](/13-observability/golden-signals.md) — o conteúdo padrão.
+- [Alertas](/13-observability/alerting.md) — o que não é painel.
+- [Métricas](/13-observability/metrics.md) — a fonte.
+- [Depurabilidade](/13-observability/debuggability.md) — o que o painel não cobre.
 
 ## Exercício Prático
 

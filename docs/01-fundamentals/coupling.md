@@ -85,7 +85,7 @@ Dois componentes acoplados no tempo precisam estar disponíveis simultaneamente.
 Uma chamada síncrona acopla no tempo; uma mensagem em fila não.
 
 Este é o eixo que domina arquitetura distribuída, e é o assunto de
-[integração](../08-integration-architecture/index.md). Trocar acoplamento
+[integração](/08-integration-architecture/index.md). Trocar acoplamento
 temporal por acoplamento de formato — a mensagem tem contrato — é a decisão
 central de sistemas orientados a eventos.
 
@@ -137,7 +137,7 @@ custo de navegação da indireção supera o benefício.
 ## Alternativas
 
 - **Duplicação deliberada** — quando duas partes coincidem hoje mas devem evoluir
-  separadamente. Ver [acoplamento vs. duplicação](../20-trade-offs/index.md).
+  separadamente. Ver [acoplamento vs. duplicação](/20-trade-offs/index.md).
 - **Acoplamento por contrato explícito** — manter a dependência, tornando-a
   versionada e negociada em vez de implícita.
 - **Inversão de dependência** — manter o acoplamento e inverter sua direção, o
@@ -170,7 +170,7 @@ outro serviço sem aviso.
 
 **Cascata de falha por acoplamento temporal.** Um serviço lento derruba os que o
 chamam de forma síncrona, que derrubam os seus chamadores. Ver
-[circuit breakers](../12-reliability/index.md).
+[circuit breakers](/12-reliability/index.md).
 
 **Acoplamento oculto por convenção.** Duas partes que concordam sobre um formato
 sem contrato explícito. Nada quebra na compilação; quebra em produção.
@@ -217,9 +217,9 @@ O mesmo instrumento — o histórico — respondeu às duas perguntas.
 
 ## Conceitos Relacionados
 
-- [Coesão](cohesion.md) — a outra face da mesma decisão.
-- [Modularidade](modularity.md) — onde traçar as fronteiras.
-- [Gestão de Dependências](dependency-management.md) — a direção do acoplamento.
+- [Coesão](/01-fundamentals/cohesion.md) — a outra face da mesma decisão.
+- [Modularidade](/01-fundamentals/modularity.md) — onde traçar as fronteiras.
+- [Gestão de Dependências](/01-fundamentals/dependency-management.md) — a direção do acoplamento.
 
 ## Exercício Prático
 

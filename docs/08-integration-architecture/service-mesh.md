@@ -72,7 +72,7 @@ configuração, não código.
 linguagens, com rotação, é trabalho considerável e propenso a erro.
 
 **Balanceamento por chamada.** Resolve o problema descrito em
-[gRPC](grpc.md): conexões longas e multiplexadas que fixam clientes a instâncias.
+[gRPC](/08-integration-architecture/grpc.md): conexões longas e multiplexadas que fixam clientes a instâncias.
 
 **Retentativa, timeout e disjuntor uniformes.**
 
@@ -115,7 +115,7 @@ resultado: 9 chamadas ao destino
 ```
 
 Em cadeias de três serviços, isso vira 27. Uma degradação leve no destino vira
-avalanche. Ver [retentativas](../06-distributed-systems/retries.md).
+avalanche. Ver [retentativas](/06-distributed-systems/retries.md).
 
 A regra: **repita numa camada só**, e saiba qual.
 
@@ -140,7 +140,7 @@ usando" e não por nenhuma das linhas acima.
 
 ### Ela não substitui o gateway
 
-Malha cuida do tráfego **entre** serviços. [Gateway](api-gateways.md) cuida do
+Malha cuida do tráfego **entre** serviços. [Gateway](/08-integration-architecture/api-gateways.md) cuida do
 tráfego que **entra**.
 
 São camadas diferentes, e coexistem na maioria dos desenhos.
@@ -156,7 +156,7 @@ problema correspondente quando não há.
 - Dezenas de serviços, em várias linguagens.
 - Criptografia mútua entre serviços é requisito.
 - Política de comunicação uniforme sem reimplantar.
-- Balanceamento por chamada — especialmente com [gRPC](grpc.md).
+- Balanceamento por chamada — especialmente com [gRPC](/08-integration-architecture/grpc.md).
 - Divisão de tráfego para implantação gradual.
 - Observabilidade entre serviços sem instrumentar cada um.
 - Já existe orquestração madura e time de plataforma.
@@ -171,7 +171,7 @@ problema correspondente quando não há.
 
 **Quando a latência adicional é inaceitável.**
 
-**Para tráfego de entrada.** Ver [gateway](api-gateways.md).
+**Para tráfego de entrada.** Ver [gateway](/08-integration-architecture/api-gateways.md).
 
 **Sem resolver a retentativa em camadas antes.**
 
@@ -273,10 +273,10 @@ custo operacional era real e o benefício não existia naquele contexto.
 
 ## Conceitos Relacionados
 
-- [API Gateways](api-gateways.md) — o tráfego de entrada.
-- [gRPC](grpc.md) — onde o balanceamento por chamada importa.
-- [Retentativas](../06-distributed-systems/retries.md) — o risco de multiplicação.
-- [Observabilidade](../13-observability/index.md).
+- [API Gateways](/08-integration-architecture/api-gateways.md) — o tráfego de entrada.
+- [gRPC](/08-integration-architecture/grpc.md) — onde o balanceamento por chamada importa.
+- [Retentativas](/06-distributed-systems/retries.md) — o risco de multiplicação.
+- [Observabilidade](/13-observability/index.md).
 
 ## Exercício Prático
 

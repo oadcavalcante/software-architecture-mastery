@@ -39,8 +39,8 @@ The functions are the same. The architectures have nothing in common.
 
 That means functional requirements delimit what the system has to be able to do,
 but the **how** is decided by something else: the
-[quality attributes](quality-attributes.md) and the
-[constraints](constraints.md).
+[quality attributes](/01-fundamentals/quality-attributes.md) and the
+[constraints](/01-fundamentals/constraints.md).
 
 The mistake that follows is common and expensive: gathering functional
 requirements rigorously, treating them as the complete specification, and
@@ -162,10 +162,10 @@ them is months.
 
 ## Related Concepts
 
-- [Non-Functional Requirements](non-functional-requirements.md) — the other half.
-- [Quality Attributes](quality-attributes.md) — what actually decides the
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — the other half.
+- [Quality Attributes](/01-fundamentals/quality-attributes.md) — what actually decides the
   architecture.
-- [Problem Space](problem-space.md) — where the requirements come from.
+- [Problem Space](/01-fundamentals/problem-space.md) — where the requirements come from.
 
 ## Practical Exercise
 

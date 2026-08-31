@@ -62,7 +62,7 @@ separadas.
 
 E sempre em **percentis**, nunca em média. A média de um serviço com 99% em 50 ms e 1%
 em 10 segundos é 149 ms — um número que não descreve a experiência de ninguém. Ver
-[latência](../06-distributed-systems/latency.md).
+[latência](/06-distributed-systems/latency.md).
 
 ### Tráfego: o denominador de tudo
 
@@ -78,7 +78,7 @@ com mil ou com um milhão de requisições.
 primeiro sinal de que algo quebrou antes do seu serviço.
 
 **Alimenta o dimensionamento.** Ver
-[planejamento de capacidade](../11-scalability/scaling-capacity-planning.md).
+[planejamento de capacidade](/11-scalability/scaling-capacity-planning.md).
 
 A segunda é subestimada: monitorar queda de tráfego detecta problemas que nenhum sinal
 de erro detecta, porque as requisições simplesmente não chegam.
@@ -92,7 +92,7 @@ implícito   resposta com código de sucesso e conteúdo errado
 ```
 
 Os implícitos são os que causam mais dano e os que menos aparecem. Ver
-[fundamentos de confiabilidade](../12-reliability/reliability-basics.md).
+[fundamentos de confiabilidade](/12-reliability/reliability-basics.md).
 
 Detectá-los exige verificação semântica: validar invariantes, comparar com fonte
 alternativa, contar respostas acima do limite de latência como falha.
@@ -118,7 +118,7 @@ cota externa      limite de terceiro
 ```
 
 A terceira linha merece destaque: conexões saturam antes da CPU na maioria dos sistemas.
-Ver [escala de banco de dados](../11-scalability/database-scaling.md).
+Ver [escala de banco de dados](/11-scalability/database-scaling.md).
 
 E saturação é o sinal **preditivo**: latência e erros indicam que o problema já está
 acontecendo; saturação indica que ele vai acontecer.
@@ -129,7 +129,7 @@ O erro de aplicação: medir os quatro apenas na borda.
 
 Cada serviço da cadeia precisa dos seus. Sem isso, sabe-se que a requisição está lenta e
 não onde ela gasta o tempo — ver
-[rastreamento distribuído](distributed-tracing.md).
+[rastreamento distribuído](/13-observability/distributed-tracing.md).
 
 E cada dependência externa também: latência, tráfego, erros e saturação das chamadas que
 você faz para fora. É onde a maior parte dos problemas se origina, e é o que costuma
@@ -149,7 +149,7 @@ lote            duração, fração da janela consumida, registros processados
 
 A **idade da mensagem mais antiga** é o equivalente de latência para filas, e é a medida
 mais útil delas. Ver
-[escala dirigida por fila](../11-scalability/queue-based-scaling.md).
+[escala dirigida por fila](/11-scalability/queue-based-scaling.md).
 
 ## Modelo Mental
 
@@ -160,7 +160,7 @@ o suficiente para começar a investigar.
 
 - Como instrumentação mínima de todo serviço.
 - Como ponto de partida quando não se sabe o que medir.
-- Como base para [alertas](alerting.md).
+- Como base para [alertas](/13-observability/alerting.md).
 - Em cada dependência externa.
 - Ao revisar a instrumentação existente, para encontrar lacunas.
 
@@ -184,7 +184,7 @@ o suficiente para começar a investigar.
   infraestrutura, complementa os sinais dourados, que são orientados a serviço.
 - **Método RED** — taxa, erros e duração. Essencialmente os sinais dourados sem
   saturação.
-- **[SLI](../12-reliability/sli.md)** — mede a experiência do usuário; os sinais
+- **[SLI](/12-reliability/sli.md)** — mede a experiência do usuário; os sinais
   dourados medem o serviço. São complementares, não substitutos.
 
 A última distinção importa: um SLI ruim com sinais dourados bons indica que o problema
@@ -274,10 +274,10 @@ faltavam as quatro medidas que respondem às primeiras perguntas de qualquer inc
 
 ## Conceitos Relacionados
 
-- [Métricas](metrics.md) — como implementá-los.
-- [Alertas](alerting.md) — o que fazer com eles.
-- [Painéis](dashboards.md).
-- [SLI](../12-reliability/sli.md) — a medida da experiência.
+- [Métricas](/13-observability/metrics.md) — como implementá-los.
+- [Alertas](/13-observability/alerting.md) — o que fazer com eles.
+- [Painéis](/13-observability/dashboards.md).
+- [SLI](/12-reliability/sli.md) — a medida da experiência.
 
 ## Exercício Prático
 

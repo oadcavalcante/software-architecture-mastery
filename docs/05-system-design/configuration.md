@@ -53,7 +53,7 @@ configuração — são código com uma camada de indireção.
 | **Segredo** | Configuração que não pode vazar | Cofre, injetado em execução |
 
 Segredo é configuração com requisito adicional: nunca em repositório, nunca em
-log, rotacionável. Ver [segredos](../10-security/index.md).
+log, rotacionável. Ver [segredos](/10-security/index.md).
 
 O erro frequente é tratar as três igual — constantes viram configuração
 desnecessária, e segredos viram variável de ambiente em arquivo versionado.
@@ -92,14 +92,14 @@ revisão e menos rastro.
 Vale para o que precisa mudar rápido — nível de log, chaves de funcionalidade. Não
 vale para o que muda raramente.
 
-Ver [feature flags](../14-devops-and-platform/index.md), que é um caso específico
+Ver [feature flags](/14-devops-and-platform/index.md), que é um caso específico
 com ferramentas próprias.
 
 ### Configuração não é ponto de extensão
 
 Um sistema que tenta absorver toda variação futura por configuração vira um motor
 genérico mal documentado. É a degeneração de
-[supporting domain](../04-domain-driven-design/supporting-domain.md).
+[supporting domain](/04-domain-driven-design/supporting-domain.md).
 
 O teste: quantos valores distintos este parâmetro já teve? Se sempre foi um, ele
 não estava capturando variação.
@@ -121,7 +121,7 @@ ambientes?** Se for um, é constante disfarçada.
 **Para o que não varia.** Constante no código é mais legível e não pode ser mal
 configurada.
 
-**Antecipando variação.** Ver [YAGNI](../02-software-design/yagni.md).
+**Antecipando variação.** Ver [YAGNI](/02-software-design/yagni.md).
 
 **Para regra de negócio.** Uma regra em arquivo de configuração fica fora do
 domínio, sem teste e sem revisão.
@@ -230,11 +230,11 @@ contêiner que não sobe, com mensagem que não menciona configuração.
 
 ## Conceitos Relacionados
 
-- [Gestão de Estado](state-management.md) — configuração é estado de inicialização.
-- [Segurança](../10-security/index.md) — gestão de segredos.
-- [DevOps e Plataforma](../14-devops-and-platform/index.md) — ambientes e feature
+- [Gestão de Estado](/05-system-design/state-management.md) — configuração é estado de inicialização.
+- [Segurança](/10-security/index.md) — gestão de segredos.
+- [DevOps e Plataforma](/14-devops-and-platform/index.md) — ambientes e feature
   flags.
-- [YAGNI](../02-software-design/yagni.md) — configuração especulativa.
+- [YAGNI](/02-software-design/yagni.md) — configuração especulativa.
 
 ## Exercício Prático
 

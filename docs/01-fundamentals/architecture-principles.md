@@ -91,7 +91,7 @@ trava no primeiro caso não previsto. Confundir os dois produz o pior dos dois.
 ### Princípios derivam de características
 
 Um princípio sem ligação com uma
-[característica arquitetural](architecture-characteristics.md) é preferência
+[característica arquitetural](/01-fundamentals/architecture-characteristics.md) é preferência
 pessoal com autoridade emprestada.
 
 A cadeia é: o contexto de negócio determina as características dirigentes; as
@@ -230,11 +230,11 @@ citada — que é onde a maioria dos princípios de arquitetura mora.
 
 ## Conceitos Relacionados
 
-- [Características Arquiteturais](architecture-characteristics.md) — de onde os
+- [Características Arquiteturais](/01-fundamentals/architecture-characteristics.md) — de onde os
   princípios derivam.
-- [Arquitetura como Conjunto de Decisões](architecture-as-decisions.md) — o que
+- [Arquitetura como Conjunto de Decisões](/01-fundamentals/architecture-as-decisions.md) — o que
   os princípios orientam.
-- [Governança](../19-architecture-governance/index.md) — como princípios operam
+- [Governança](/19-architecture-governance/index.md) — como princípios operam
   entre times.
 
 ## Exercício Prático

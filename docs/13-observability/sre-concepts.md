@@ -26,7 +26,7 @@ confiabilidade como problema de engenharia de software, não de administração 
 sistemas.
 
 Ela trouxe um conjunto de práticas e um vocabulário que se difundiram amplamente —
-[SLO](../12-reliability/slo.md), orçamento de erro, análise de incidente sem culpado,
+[SLO](/12-reliability/slo.md), orçamento de erro, análise de incidente sem culpado,
 redução de trabalho manual.
 
 E se difundiu também o padrão de adotar o **nome** sem as práticas: renomear o time de
@@ -59,7 +59,7 @@ sobreaviso sustentável        rotação, compensação, limite de interrupçõe
 Essas cinco não dependem de escala. Elas dependem de decisão organizacional, e são as
 que mais mudam o dia a dia de um time pequeno.
 
-Ver [SLO](../12-reliability/slo.md) e [alertas](alerting.md).
+Ver [SLO](/12-reliability/slo.md) e [alertas](/13-observability/alerting.md).
 
 ### O que depende de escala
 
@@ -136,14 +136,14 @@ acionamento, o mesmo alerta volta na semana seguinte.
 
 E o limite de interrupções é o que torna o excesso de alertas visível como problema, em
 vez de ser absorvido silenciosamente pelas pessoas. Ver
-[alertas](alerting.md).
+[alertas](/13-observability/alerting.md).
 
 ### Confiabilidade compete com funcionalidade
 
 O orçamento de erro existe para tornar essa competição explícita e resolvível por
 regra, em vez de por negociação política a cada trimestre.
 
-Ver [SLO](../12-reliability/slo.md). Sem ele, a discussão "precisamos estabilizar" contra
+Ver [SLO](/12-reliability/slo.md). Sem ele, a discussão "precisamos estabilizar" contra
 "precisamos entregar" se repete indefinidamente, e a segunda ganha por falta de
 argumento numérico da primeira.
 
@@ -180,7 +180,7 @@ sustentar orçamento de erro.
   organizações.
 - **Plataforma interna** — reduz o trabalho operacional de todos os times sem criar
   divisão. Ver
-  [DevOps e plataforma](../14-devops-and-platform/index.md).
+  [DevOps e plataforma](/14-devops-and-platform/index.md).
 - **Adoção parcial** — as cinco práticas que transferem, sem a estrutura.
 
 ## Trade-offs
@@ -271,10 +271,10 @@ causa.
 
 ## Conceitos Relacionados
 
-- [SLO](../12-reliability/slo.md) — o mecanismo central.
-- [Alertas](alerting.md) — o sobreaviso sustentável.
-- [Resiliência](../12-reliability/resilience.md) — o aprendizado.
-- [DevOps e Plataforma](../14-devops-and-platform/index.md).
+- [SLO](/12-reliability/slo.md) — o mecanismo central.
+- [Alertas](/13-observability/alerting.md) — o sobreaviso sustentável.
+- [Resiliência](/12-reliability/resilience.md) — o aprendizado.
+- [DevOps e Plataforma](/14-devops-and-platform/index.md).
 
 ## Exercício Prático
 

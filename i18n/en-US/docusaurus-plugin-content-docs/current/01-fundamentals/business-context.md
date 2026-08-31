@@ -101,7 +101,7 @@ regulated markets, grow or shrink teams.
 
 An architecture that was right for the context of three years ago may be wrong
 today without anything technical having changed. Recognizing that is the subject of
-[architecture evolution](architecture-evolution.md).
+[architecture evolution](/01-fundamentals/architecture-evolution.md).
 
 ## Mental Model
 
@@ -183,10 +183,10 @@ stakeholder had imagined, not the problem they had.
 
 ## Related Concepts
 
-- [Problem Space](problem-space.md) — how to separate problem from solution.
-- [Constraints](constraints.md) — what the context imposes and what is not
+- [Problem Space](/01-fundamentals/problem-space.md) — how to separate problem from solution.
+- [Constraints](/01-fundamentals/constraints.md) — what the context imposes and what is not
   negotiated.
-- [Non-Functional Requirements](non-functional-requirements.md) — the conversion
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — the conversion
   of context into a number.
 
 ## Practical Exercise

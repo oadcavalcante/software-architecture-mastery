@@ -52,7 +52,7 @@ a pergunta é sobre o efeito.
 **Ignorar falha parcial.** O candidato considera apenas "está no ar" ou "está fora", e não os
 estados intermediários: lento, respondendo com erro, respondendo errado, respondendo às vezes.
 Em sistemas distribuídos, esses estados são mais comuns que a queda completa. Ver
-[falha parcial](../06-distributed-systems/partial-failure.md).
+[falha parcial](/06-distributed-systems/partial-failure.md).
 
 **Degradação não desenhada.** "O sistema continua funcionando" — mas como, e com o quê? Um
 sistema que degrada sem desenho não degrada: ele falha de formas imprevistas.
@@ -124,7 +124,7 @@ não pode          a operação central do sistema
 
 Reconhecer que existe um núcleo sem degradação possível é maduro. Num sistema de pagamento, não
 existe modo degradado para autorizar: ou o razão registra, ou a operação é recusada. Ver o
-[case de pagamentos](../21-case-studies/payments.md).
+[case de pagamentos](/21-case-studies/payments.md).
 
 Dizer "aqui não há degradação; a operação falha explicitamente e o usuário é informado" é uma
 resposta melhor que inventar um caminho alternativo que criaria inconsistência.
@@ -156,8 +156,8 @@ Citar o mecanismo é comum; citar a condição é o que demonstra entendimento. 
 exponencial, mas só para operações idempotentes — para criação de recurso, preciso de chave de
 idempotência antes de poder repetir" é uma resposta que poucos dão.
 
-Ver [idempotência](../06-distributed-systems/idempotency.md) e
-[repetições](../06-distributed-systems/retries.md).
+Ver [idempotência](/06-distributed-systems/idempotency.md) e
+[repetições](/06-distributed-systems/retries.md).
 
 ### Cuidado com repetição que amplifica
 
@@ -322,14 +322,14 @@ tudo pode degradar.
 A resposta correta reconhece que isso é uma decisão de custo, não técnica: replicação
 multirregional resolve, custa mais, e o requisito de disponibilidade é o que decide se vale.
 Enunciar o trade-off em vez de propor a solução mais robusta é a resposta madura. Ver
-[custo vs. confiabilidade](../20-trade-offs/cost-vs-reliability.md).
+[custo vs. confiabilidade](/20-trade-offs/cost-vs-reliability.md).
 
 ## Conceitos Relacionados
 
-- [Falha Parcial](../06-distributed-systems/partial-failure.md).
-- [Disjuntores](../12-reliability/circuit-breakers.md).
-- [Degradação Graciosa](../12-reliability/graceful-degradation.md).
-- [Comunicação de Trade-offs](communicating-tradeoffs.md).
+- [Falha Parcial](/06-distributed-systems/partial-failure.md).
+- [Disjuntores](/12-reliability/circuit-breakers.md).
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md).
+- [Comunicação de Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md).
 
 ## Exercício Prático
 

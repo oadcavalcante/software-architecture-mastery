@@ -110,9 +110,9 @@ atrapalhar.
 ## Alternativas
 
 - **Lista simples** — quando a estrutura é rasa.
-- **[Visitor](visitor.md)** — quando as operações variam mais que os tipos de nó;
+- **[Visitor](/03-design-patterns/visitor.md)** — quando as operações variam mais que os tipos de nó;
   frequentemente usado junto com Composite.
-- **[Iterator](iterator.md)** — quando o percurso é a única necessidade.
+- **[Iterator](/03-design-patterns/iterator.md)** — quando o percurso é a única necessidade.
 - **Estrutura de dados sem hierarquia de classes** — uma árvore genérica com
   dados nos nós.
 
@@ -129,7 +129,7 @@ atrapalhar.
 ## Modos de Falha
 
 **Folha que lança exceção.** Consequência da variante transparente, e uma
-violação de [Liskov](../02-software-design/solid.md) declarada.
+violação de [Liskov](/02-software-design/solid.md) declarada.
 
 **Ciclo na estrutura.** Recursão infinita.
 
@@ -160,7 +160,7 @@ componentes. Renderizar, medir e propagar eventos são operações uniformes sob
 permissões, caminho.
 
 **Árvores sintáticas.** Uma expressão contém subexpressões; avaliar é recursivo.
-É onde Composite e [Visitor](visitor.md) aparecem juntos com mais frequência.
+É onde Composite e [Visitor](/03-design-patterns/visitor.md) aparecem juntos com mais frequência.
 
 **Estruturas de documento.** DOM em navegadores: nós que contêm nós, com
 operações uniformes.
@@ -194,9 +194,9 @@ ter sido feito desde o início.
 
 ## Conceitos Relacionados
 
-- [Decorator](decorator.md) — estrutura parecida, propósito diferente.
-- [Visitor](visitor.md) — operações sobre a estrutura.
-- [Iterator](iterator.md) — percurso.
+- [Decorator](/03-design-patterns/decorator.md) — estrutura parecida, propósito diferente.
+- [Visitor](/03-design-patterns/visitor.md) — operações sobre a estrutura.
+- [Iterator](/03-design-patterns/iterator.md) — percurso.
 
 ## Exercício Prático
 

@@ -46,7 +46,7 @@ hierarquia paralela.
 
 **Violação silenciosa de substituibilidade.** Uma subclasse que restringe o que a
 superclasse permite compila, passa nos testes, e quebra em produção quando chega
-por um caminho não previsto. É o **L** do [SOLID](solid.md).
+por um caminho não previsto. É o **L** do [SOLID](/02-software-design/solid.md).
 
 ## Conceitos Centrais
 
@@ -141,7 +141,7 @@ objeto injetado pode ficar tão difícil de seguir quanto uma hierarquia profund
   passar uma função é mais leve que ambas.
 - **Traits ou mixins** — em linguagens que os oferecem, ficam entre os dois.
 - **Duplicação** — para dois casos com semelhança superficial, ver
-  [DRY](dry.md).
+  [DRY](/02-software-design/dry.md).
 
 ## Trade-offs
 
@@ -224,10 +224,10 @@ para código seu, e não o lugar onde a lógica mora.
 
 ## Conceitos Relacionados
 
-- [SOLID](solid.md) — o princípio de substituição de Liskov.
-- [Encapsulamento](encapsulation.md) — o que a herança de implementação quebra.
-- [Interfaces](interfaces.md) — herança de contrato.
-- [Code Smells](code-smells.md) — como reconhecer hierarquias problemáticas.
+- [SOLID](/02-software-design/solid.md) — o princípio de substituição de Liskov.
+- [Encapsulamento](/02-software-design/encapsulation.md) — o que a herança de implementação quebra.
+- [Interfaces](/02-software-design/interfaces.md) — herança de contrato.
+- [Code Smells](/02-software-design/code-smells.md) — como reconhecer hierarquias problemáticas.
 
 ## Exercício Prático
 

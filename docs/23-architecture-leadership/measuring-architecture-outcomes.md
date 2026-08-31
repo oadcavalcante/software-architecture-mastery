@@ -84,7 +84,7 @@ da área de arquitetura — o que é exatamente a propriedade desejada.
 
 As quatro primeiras métricas de velocidade e estabilidade são as de entrega de software
 consolidadas pela pesquisa de desempenho organizacional. Ver
-[entrega contínua](../14-devops-and-platform/ci-cd.md).
+[entrega contínua](/14-devops-and-platform/ci-cd.md).
 
 ### Ligue cada iniciativa a um número, antes
 
@@ -126,7 +126,7 @@ segmentada por
 Um tempo médio de entrega de 8 dias pode esconder três domínios em 2 dias e um em 30. A média não
 aciona nada; a segmentação aponta onde atuar.
 
-Ver o [case de streaming](../21-case-studies/video-streaming.md), em que o p95 agregado parecia
+Ver o [case de streaming](/21-case-studies/video-streaming.md), em que o p95 agregado parecia
 bom e 8% dos usuários tinham experiência três vezes pior.
 
 ### Métricas de arquitetura vêm do que já existe
@@ -169,7 +169,7 @@ anual       efeito das iniciativas estratégicas — para a diretoria
 ```
 
 O público muda o recorte, não a fonte. Ver
-[comunicação](communication.md).
+[comunicação](/23-architecture-leadership/communication.md).
 
 ### Nem tudo é medível, e admitir isso protege as métricas
 
@@ -348,10 +348,10 @@ ajude a respondê-la foi removido.
 
 ## Conceitos Relacionados
 
-- [Funções de Aptidão](fitness-functions.md).
-- [Arquitetura Evolutiva](evolutionary-architecture.md).
-- [Gestão de Custo](cost-management.md).
-- [Medição de Governança](../19-architecture-governance/measuring-governance.md).
+- [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md).
+- [Arquitetura Evolutiva](/23-architecture-leadership/evolutionary-architecture.md).
+- [Gestão de Custo](/23-architecture-leadership/cost-management.md).
+- [Medição de Governança](/19-architecture-governance/measuring-governance.md).
 
 ## Exercício Prático
 

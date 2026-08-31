@@ -112,8 +112,8 @@ fragmentação do fluxo custa mais que o desacoplamento rende.
 - **Chamada direta** — quando há um interessado fixo.
 - **Fila de mensagens** — quando as reações devem ser assíncronas, duráveis e
   isoladas. Ver
-  [arquitetura orientada a eventos](event-driven.md).
-- **[Mediator](mediator.md)** — quando a coordenação entre vários objetos é o
+  [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
+- **[Mediator](/03-design-patterns/mediator.md)** — quando a coordenação entre vários objetos é o
   problema, e a ordem importa.
 - **Fluxos reativos** — bibliotecas que resolvem backpressure, erro e composição,
   que o Observer cru não trata.
@@ -168,7 +168,7 @@ modernas de interface é Observer sob o capô, com o ciclo de vida do registro
 gerenciado pelo framework — o que elimina o vazamento por construção.
 
 **Eventos de domínio dentro de um processo.** Um agregado publica; assinantes
-reagem. Ver [DDD](../04-domain-driven-design/index.md).
+reagem. Ver [DDD](/04-domain-driven-design/index.md).
 
 O ponto que os três primeiros ilustram: as soluções maduras não abandonaram o
 padrão — elas **adicionaram o que falta nele**, e o que falta é ciclo de vida,
@@ -196,9 +196,9 @@ não críticas**. Estoque e cobrança nunca foram nenhuma das duas coisas.
 
 ## Conceitos Relacionados
 
-- [Mediator](mediator.md) — coordenação com ordem.
-- [Command](command.md) — encapsular a reação como objeto.
-- [Arquitetura Orientada a Eventos](event-driven.md) — o padrão em escala de
+- [Mediator](/03-design-patterns/mediator.md) — coordenação com ordem.
+- [Command](/03-design-patterns/command.md) — encapsular a reação como objeto.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — o padrão em escala de
   sistema, com durabilidade.
 
 ## Exercício Prático

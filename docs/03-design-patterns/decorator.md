@@ -25,7 +25,7 @@ Decorator adiciona responsabilidades a um objeto dinamicamente, envolvendo-o em
 outro objeto que implementa a mesma interface.
 
 É a alternativa à herança para estender comportamento, e resolve o mesmo problema
-de explosão combinatória que [Bridge](bridge.md) resolve — por outro caminho.
+de explosão combinatória que [Bridge](/03-design-patterns/bridge.md) resolve — por outro caminho.
 
 ## Problema
 
@@ -84,7 +84,7 @@ Estruturalmente idênticos; a distinção é de intenção.
 
 **Decorator** adiciona comportamento que o cliente quer, e a composição é escolha
 dele.
-**[Proxy](proxy.md)** controla acesso ao objeto, e o cliente frequentemente nem
+**[Proxy](/03-design-patterns/proxy.md)** controla acesso ao objeto, e o cliente frequentemente nem
 sabe que existe.
 
 ## Quando Usar
@@ -116,10 +116,10 @@ aspectos fazem o mesmo com menos código e com ordem declarada em um lugar.
 
 - **Middleware ou interceptadores** — o mesmo conceito, com a ordem declarada
   explicitamente. Preferível em frameworks que os oferecem.
-- **[Strategy](strategy.md)** — quando o que varia é o algoritmo, não uma camada
+- **[Strategy](/03-design-patterns/strategy.md)** — quando o que varia é o algoritmo, não uma camada
   adicional.
 - **Composição direta** — passar as dependências e chamar na ordem.
-- **[Proxy](proxy.md)** — quando o objetivo é controlar acesso.
+- **[Proxy](/03-design-patterns/proxy.md)** — quando o objetivo é controlar acesso.
 
 ## Trade-offs
 
@@ -223,11 +223,11 @@ as quatro coisas.
 
 ## Conceitos Relacionados
 
-- [Proxy](proxy.md) — mesma estrutura, intenção de controle.
-- [Composite](composite.md) — estrutura recursiva parecida.
-- [Chain of Responsibility](chain-of-responsibility.md) — cadeia com semântica de
+- [Proxy](/03-design-patterns/proxy.md) — mesma estrutura, intenção de controle.
+- [Composite](/03-design-patterns/composite.md) — estrutura recursiva parecida.
+- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md) — cadeia com semântica de
   parada.
-- [Strategy](strategy.md) — variação de algoritmo.
+- [Strategy](/03-design-patterns/strategy.md) — variação de algoritmo.
 
 ## Exercício Prático
 

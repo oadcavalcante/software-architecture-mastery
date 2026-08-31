@@ -28,7 +28,7 @@ Ele responde à pergunta mais frequente de quem vai trabalhar no sistema: **onde
 mexo, e o que isso afeta?**
 
 E é o segundo diagrama de maior retorno, depois do
-[contexto](context-diagrams.md) — juntos, os dois cobrem a maior parte da necessidade
+[contexto](/17-architecture-documentation/context-diagrams.md) — juntos, os dois cobrem a maior parte da necessidade
 real de documentação estrutural.
 
 ## Problema
@@ -64,7 +64,7 @@ O teste: **é separadamente implantável, ou é um armazenamento?**
 Uma biblioteca compartilhada entre dois serviços não é contêiner — ela é detalhe interno
 de ambos. Uma fila é, porque tem existência própria e precisa ser provisionada.
 
-Ver [modelo C4](c4-model.md).
+Ver [modelo C4](/17-architecture-documentation/c4-model.md).
 
 ### Tecnologia e protocolo pertencem aqui
 
@@ -99,8 +99,8 @@ duas peças que sempre mudam juntas → provavelmente deveriam ser uma
 comunicação em cadeia longa        → disponibilidade composta ruim
 ```
 
-Ver [paisagens de integração](../15-enterprise-architecture/integration-landscapes.md) e
-[disponibilidade](../06-distributed-systems/availability.md).
+Ver [paisagens de integração](/15-enterprise-architecture/integration-landscapes.md) e
+[disponibilidade](/06-distributed-systems/availability.md).
 
 É comum que a primeira versão do diagrama gere desconforto — porque ela mostra a
 estrutura real, e não a pretendida.
@@ -114,7 +114,7 @@ Isso o torna a documentação de referência para ambiente de desenvolvimento, e
 critério de complexidade: um sistema cujo diagrama tem 14 contêineres é um sistema que
 exige 14 coisas rodando.
 
-Ver [gestão de ambientes](../14-devops-and-platform/environment-management.md).
+Ver [gestão de ambientes](/14-devops-and-platform/environment-management.md).
 
 ### Armazenamentos merecem atenção
 
@@ -129,7 +129,7 @@ se há acesso direto ao armazenamento de outro
 ```
 
 A última é a mais reveladora. Ver
-[propriedade do dado](../07-data-architecture/data-ownership.md) — um diagrama que mostra
+[propriedade do dado](/07-data-architecture/data-ownership.md) — um diagrama que mostra
 duas aplicações escrevendo no mesmo banco documenta um problema de fronteira.
 
 ### O escopo é um sistema
@@ -142,7 +142,7 @@ mistura escopos — o mesmo erro de misturar níveis.
 
 Quando a pergunta atravessa sistemas, o diagrama certo é o de contexto do conjunto, ou um
 de fluxo de dados. Ver
-[fluxo de dados](data-flow-diagrams.md).
+[fluxo de dados](/17-architecture-documentation/data-flow-diagrams.md).
 
 ### Quantidade de caixas é um diagnóstico
 
@@ -157,7 +157,7 @@ acima de 15          o custo operacional já é a característica dominante
 
 A pergunta que o diagrama provoca — "por que tantas peças?" — costuma ser mais valiosa que
 qualquer resposta que ele dê. Ver
-[granularidade de serviços](../05-system-design/service-boundaries.md): decompor em
+[granularidade de serviços](/05-system-design/service-boundaries.md): decompor em
 unidades implantáveis tem um custo que só fica visível quando ele é desenhado junto.
 
 E há uma assimetria que o desenho torna evidente: acrescentar um contêiner é uma decisão
@@ -192,9 +192,9 @@ permanente.
 
 ## Alternativas
 
-- **[Contexto](context-diagrams.md)** — quando a pergunta é externa.
-- **[Componente](component-diagrams.md)** — quando é sobre o interior de uma peça.
-- **[Implantação](deployment-diagrams.md)** — quando é sobre onde roda.
+- **[Contexto](/17-architecture-documentation/context-diagrams.md)** — quando a pergunta é externa.
+- **[Componente](/17-architecture-documentation/component-diagrams.md)** — quando é sobre o interior de uma peça.
+- **[Implantação](/17-architecture-documentation/deployment-diagrams.md)** — quando é sobre onde roda.
 - **Descrição textual** — para sistemas de duas ou três peças.
 
 ## Trade-offs
@@ -262,7 +262,7 @@ As decisões que saíram:
 
 **Acesso direto eliminado** ao longo de nove meses. Os três consumidores passaram a usar
 a API, com endpoints novos onde faltava. Ver
-[propriedade do dado](../07-data-architecture/data-ownership.md).
+[propriedade do dado](/07-data-architecture/data-ownership.md).
 
 **Fronteira revista.** O processo de conciliação, que só lia, foi movido para uma réplica
 de leitura dedicada — com contrato explícito sobre o esquema.
@@ -283,10 +283,10 @@ num diagrama com três setas convergindo para a mesma caixa.
 
 ## Conceitos Relacionados
 
-- [Modelo C4](c4-model.md).
-- [Diagramas de Contexto](context-diagrams.md) — o nível acima.
-- [Diagramas de Componente](component-diagrams.md) — o abaixo.
-- [Diagramas de Implantação](deployment-diagrams.md) — onde roda.
+- [Modelo C4](/17-architecture-documentation/c4-model.md).
+- [Diagramas de Contexto](/17-architecture-documentation/context-diagrams.md) — o nível acima.
+- [Diagramas de Componente](/17-architecture-documentation/component-diagrams.md) — o abaixo.
+- [Diagramas de Implantação](/17-architecture-documentation/deployment-diagrams.md) — onde roda.
 
 ## Exercício Prático
 

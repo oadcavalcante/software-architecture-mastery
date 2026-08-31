@@ -89,7 +89,7 @@ nome numa planilha.
 
 Isso significa que a divisão de dados tende a seguir a divisão de times, e que uma
 divisão que não corresponde à organização não se sustenta. Ver
-[bounded contexts](../04-domain-driven-design/bounded-context.md).
+[bounded contexts](/04-domain-driven-design/bounded-context.md).
 
 Quando o time dono não tem autonomia ou capacidade, a propriedade é nominal e o
 dado deteriora igual.
@@ -269,11 +269,11 @@ O problema era de responsabilidade, não de topologia.
 
 ## Conceitos Relacionados
 
-- [Consistência de Dados](data-consistency.md) — fonte da verdade.
-- [Modelagem de Dados](data-modeling.md).
-- [Bounded Context](../04-domain-driven-design/bounded-context.md) — a fronteira
+- [Consistência de Dados](/07-data-architecture/data-consistency.md) — fonte da verdade.
+- [Modelagem de Dados](/07-data-architecture/data-modeling.md).
+- [Bounded Context](/04-domain-driven-design/bounded-context.md) — a fronteira
   correspondente.
-- [Ciclo de Vida do Dado](data-lifecycle.md).
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md).
 
 ## Exercício Prático
 

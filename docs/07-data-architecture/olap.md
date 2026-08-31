@@ -22,7 +22,7 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 OLAP — processamento analítico em linha — descreve a carga oposta à
-[transacional](oltp.md): **poucas consultas, cada uma varrendo grandes volumes,
+[transacional](/07-data-architecture/oltp.md): **poucas consultas, cada uma varrendo grandes volumes,
 agregando, com tolerância a latência de segundos ou minutos**.
 
 Faturamento por região e mês. Comportamento de coorte ao longo de um ano. Ranking
@@ -40,7 +40,7 @@ Um esquema normalizado exige junções que, sobre milhões de registros, dominam
 tempo. Índices desenhados para seletividade não ajudam quem varre tudo.
 
 E, além da ineficiência, há a competição: a consulta analítica ocupa recursos que
-a operação precisa. Ver [OLTP](oltp.md).
+a operação precisa. Ver [OLTP](/07-data-architecture/oltp.md).
 
 ## Conceitos Centrais
 
@@ -62,7 +62,7 @@ passado não precisa dos dados de agora. Isso libera a arquitetura inteira.
 ### Armazenamento colunar muda a ordem de grandeza
 
 Uma consulta analítica típica lê poucas colunas de muitas linhas. Armazenamento
-[colunar](column-stores.md) guarda cada coluna junta, então ler duas colunas de
+[colunar](/07-data-architecture/column-stores.md) guarda cada coluna junta, então ler duas colunas de
 uma tabela de cinquenta lê apenas o que é preciso.
 
 O ganho não é marginal. Some-se a compressão — valores semelhantes adjacentes
@@ -70,8 +70,8 @@ comprimem muito bem — e a diferença costuma ser de uma a duas ordens de grand
 
 ### Desnormalizar é a escolha certa aqui
 
-O critério que vale em [OLTP](oltp.md) se inverte. Como não há escrita
-concorrente e as consultas varrem, [desnormalizar](denormalization.md) elimina
+O critério que vale em [OLTP](/07-data-architecture/oltp.md) se inverte. Como não há escrita
+concorrente e as consultas varrem, [desnormalizar](/07-data-architecture/denormalization.md) elimina
 junções sem custo de manutenção relevante.
 
 É a razão de modelos dimensionais — fato no centro, dimensões ao redor —
@@ -160,7 +160,7 @@ complexidade só se paga acima de certo volume.
 - **Réplica de leitura** — separa a carga sem mudar tecnologia. Suficiente para
   volumes moderados.
 - **Visão materializada** — pré-agregação sem plataforma separada.
-- **[Data warehouse](data-warehouses.md)** — quando há múltiplas fontes.
+- **[Data warehouse](/07-data-architecture/data-warehouses.md)** — quando há múltiplas fontes.
 - **Consulta direta sobre arquivos** — quando o volume é grande e a frequência
   baixa.
 
@@ -207,7 +207,7 @@ números dobram sem erro nenhum.
 **Não expor a data da última atualização nos painéis.**
 
 **Carga sem idempotência.** Ver
-[idempotência](../06-distributed-systems/idempotency.md).
+[idempotência](/06-distributed-systems/idempotency.md).
 
 ## Exemplo Real
 
@@ -244,10 +244,10 @@ interface e gerou a única consequência de negócio real das três.
 
 ## Conceitos Relacionados
 
-- [OLTP](oltp.md) — a carga oposta.
-- [Armazenamento Colunar](column-stores.md) — a tecnologia adequada.
-- [Data Warehouse](data-warehouses.md) — a plataforma.
-- [Desnormalização](denormalization.md) — o modelo.
+- [OLTP](/07-data-architecture/oltp.md) — a carga oposta.
+- [Armazenamento Colunar](/07-data-architecture/column-stores.md) — a tecnologia adequada.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md) — a plataforma.
+- [Desnormalização](/07-data-architecture/denormalization.md) — o modelo.
 
 ## Exercício Prático
 

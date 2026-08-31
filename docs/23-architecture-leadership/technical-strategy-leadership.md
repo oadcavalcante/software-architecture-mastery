@@ -34,7 +34,7 @@ A terceira parte é o que separa estratégia de lista de desejos, e é a que qua
 técnica tem. Um documento que diz o que a organização vai melhorar, sem dizer o que vai piorar ou
 ficar para trás, não é uma escolha — é uma declaração de que tudo é prioritário.
 
-Ver [estratégia técnica](../15-enterprise-architecture/technical-strategy.md) para a formulação
+Ver [estratégia técnica](/15-enterprise-architecture/technical-strategy.md) para a formulação
 corporativa; aqui o foco é o que a liderança arquitetural faz com ela.
 
 ## Problema
@@ -69,7 +69,7 @@ forte   "73% da capacidade de engenharia está em manutenção.
 Um diagnóstico que não incomoda ninguém geralmente não é diagnóstico — é descrição. E um que
 aponta a causa em vez do sintoma é o que torna a direção derivável.
 
-Ver [medição de resultados](measuring-architecture-outcomes.md).
+Ver [medição de resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
 ### Poucas frentes
 
@@ -110,7 +110,7 @@ conectado      "a operação omnicanal, aprovada para 2027, não é
 
 Isso muda a categoria da proposta: de melhoria técnica para pré-requisito de uma aposta já
 aprovada. Ver
-[comunicação](communication.md).
+[comunicação](/23-architecture-leadership/communication.md).
 
 Quando não existe aposta de negócio à qual se ligar, vale a pergunta desconfortável: a iniciativa
 técnica se justifica sozinha? Às vezes sim — risco regulatório, risco de conhecimento, custo
@@ -288,10 +288,10 @@ esperada de uma escolha, em vez de em problema.
 
 ## Conceitos Relacionados
 
-- [Estratégia Técnica](../15-enterprise-architecture/technical-strategy.md) — a formulação.
-- [Visão de Arquitetura](architecture-vision.md).
-- [Roadmaps Técnicos](technical-roadmaps.md).
-- [Gestão de Custo](cost-management.md).
+- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md) — a formulação.
+- [Visão de Arquitetura](/23-architecture-leadership/architecture-vision.md).
+- [Roadmaps Técnicos](/23-architecture-leadership/technical-roadmaps.md).
+- [Gestão de Custo](/23-architecture-leadership/cost-management.md).
 
 ## Exercício Prático
 

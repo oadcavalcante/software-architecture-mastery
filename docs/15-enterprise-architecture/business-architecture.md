@@ -97,7 +97,7 @@ O segundo permite conectar uma decisão técnica a um resultado verificável. O 
 não.
 
 E é o que permite avaliar depois se a decisão funcionou — ver
-[estratégia técnica](technical-strategy.md), na parte de apostas.
+[estratégia técnica](/15-enterprise-architecture/technical-strategy.md), na parte de apostas.
 
 ### O vocabulário precisa ser o do negócio
 
@@ -109,7 +109,7 @@ técnico   "microsserviço de cotação"
 negócio   "capacidade de cotar"
 ```
 
-Ver [linguagem ubíqua](../04-domain-driven-design/ubiquitous-language.md) — é o mesmo
+Ver [linguagem ubíqua](/04-domain-driven-design/ubiquitous-language.md) — é o mesmo
 princípio, aplicado no nível organizacional.
 
 E a validação é simples: alguém do negócio consegue ler o artefato e reconhecer a
@@ -126,7 +126,7 @@ decisões que importam.
 
 O papel da arquitetura corporativa é **facilitar e conectar** — trazer a lente que liga
 capacidades a sistemas e a custo. Ver
-[capacidades de negócio](business-capabilities.md).
+[capacidades de negócio](/15-enterprise-architecture/business-capabilities.md).
 
 ### O nível de detalhe adequado é baixo
 
@@ -176,7 +176,7 @@ acontece diretamente, e a formalização adiciona cerimônia sem benefício.
 
 ## Alternativas
 
-- **[Capacidades de negócio](business-capabilities.md)** — o subconjunto de maior
+- **[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md)** — o subconjunto de maior
   retorno, isoladamente útil.
 - **Mapeamento de fluxo de valor** — quando o problema é fluxo, não investimento.
 - **Objetivos e resultados-chave** — se a organização já os usa, conectar-se a eles é
@@ -280,10 +280,10 @@ que o negócio media. O mapeamento do fluxo levou três semanas e fez essa conex
 
 ## Conceitos Relacionados
 
-- [Capacidades de Negócio](business-capabilities.md) — o elemento central.
-- [Mapeamento de Capacidades](capability-mapping.md) — o método.
-- [Estratégia Técnica](technical-strategy.md) — a conexão com investimento.
-- [Linguagem Ubíqua](../04-domain-driven-design/ubiquitous-language.md).
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — o elemento central.
+- [Mapeamento de Capacidades](/15-enterprise-architecture/capability-mapping.md) — o método.
+- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md) — a conexão com investimento.
+- [Linguagem Ubíqua](/04-domain-driven-design/ubiquitous-language.md).
 
 ## Exercício Prático
 

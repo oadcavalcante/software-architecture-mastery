@@ -99,7 +99,7 @@ Adotar índice dedicado significa manter **duas cópias dos dados**. E isso traz
 tudo que uma projeção traz: consistência eventual, reprocessamento, e a
 possibilidade de divergência.
 
-É [CQRS](../03-design-patterns/cqrs.md) de nível 3, com outro nome. As mesmas
+É [CQRS](/03-design-patterns/cqrs.md) de nível 3, com outro nome. As mesmas
 perguntas se aplicam: quanto atraso é aceitável, e como reconstruir o índice do
 zero quando ele corromper.
 
@@ -227,10 +227,10 @@ própria.
 
 ## Conceitos Relacionados
 
-- [Paginação](pagination.md) — resultados de busca são paginados por cursor.
-- [Cache](caching.md) — buscas frequentes se beneficiam.
-- [CQRS](../03-design-patterns/cqrs.md) — o índice é uma projeção de leitura.
-- [Arquitetura de Dados](../07-data-architecture/index.md).
+- [Paginação](/05-system-design/pagination.md) — resultados de busca são paginados por cursor.
+- [Cache](/05-system-design/caching.md) — buscas frequentes se beneficiam.
+- [CQRS](/03-design-patterns/cqrs.md) — o índice é uma projeção de leitura.
+- [Arquitetura de Dados](/07-data-architecture/index.md).
 
 ## Exercício Prático
 

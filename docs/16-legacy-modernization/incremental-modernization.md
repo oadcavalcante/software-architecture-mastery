@@ -28,7 +28,7 @@ forma que parar em qualquer ponto deixe a organização melhor que antes.
 interrompida, e a diferença entre um interrompido com valor e um interrompido sem valor é
 a divisão.
 
-Ver [restrições organizacionais](organizational-constraints.md).
+Ver [restrições organizacionais](/16-legacy-modernization/organizational-constraints.md).
 
 ## Problema
 
@@ -61,7 +61,7 @@ entrega valor    alguém está mensuravelmente melhor
 O terceiro é o mais exigente e o que faz a diferença. Ele força a ordenação por valor, e
 não por conveniência técnica.
 
-Ver [arquitetura de transição](../15-enterprise-architecture/transition-architecture.md).
+Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 
 E ele tem uma consequência desconfortável: a ordem que entrega valor cedo é
 frequentemente mais trabalhosa que a ordem de construção natural — porque exige fazer
@@ -102,7 +102,7 @@ não incomodam.
 **Sobrevive a mudança de prioridade.** Não há programa para cancelar.
 
 O limite: ela não resolve problemas estruturais que exigem mudança coordenada. Ver
-[estratégias de migração](migration-strategies.md).
+[estratégias de migração](/16-legacy-modernization/migration-strategies.md).
 
 A combinação que funciona: oportunista para o contínuo, programa dedicado para o
 estrutural.
@@ -146,7 +146,7 @@ Isso força divisão mais fina, o que é trabalho — e é o que mantém o ciclo
 de aprendizado curto.
 
 E cabe na proporção acordada com o produto. Ver
-[restrições organizacionais](organizational-constraints.md).
+[restrições organizacionais](/16-legacy-modernization/organizational-constraints.md).
 
 ### A primeira fatia é mais cara, e isso precisa estar na estimativa
 
@@ -203,7 +203,7 @@ contra ela.
 - **Programa dedicado com marcos** — mais rápido, mais vulnerável.
 - **Modernização oportunista pura** — sem programa, mais lenta, mais resiliente.
 - **Congelar e construir ao lado** — o antigo para de evoluir. Ver
-  [reconstrução](rebuilding.md).
+  [reconstrução](/16-legacy-modernization/rebuilding.md).
 - **Contenção** — isolar em vez de modernizar.
 
 ## Trade-offs
@@ -234,7 +234,7 @@ contra ela.
 **Refatoração oportunista sem limite.** Mudanças pequenas viram grandes.
 
 **Coexistência que não termina.** Ver
-[strangler fig](strangler-fig.md).
+[strangler fig](/16-legacy-modernization/strangler-fig.md).
 
 ## Erros Comuns
 
@@ -278,7 +278,7 @@ fatia 11 casos especiais e desligamento                9 semanas
 ```
 
 Cada fatia atravessava todas as camadas para uma funcionalidade, e entrava em produção
-por [strangler fig](strangler-fig.md).
+por [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
 A primeira fatia levou 7 semanas — mais que o previsto, porque construiu a infraestrutura
 mínima junto. As seguintes aceleraram, reaproveitando.
@@ -303,10 +303,10 @@ ele se pagou duas vezes, nos dois eventos.
 
 ## Conceitos Relacionados
 
-- [Strangler Fig](strangler-fig.md) — o mecanismo.
-- [Arquitetura de Transição](../15-enterprise-architecture/transition-architecture.md).
-- [Restrições Organizacionais](organizational-constraints.md).
-- [Estratégias de Migração](migration-strategies.md).
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md) — o mecanismo.
+- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md).
+- [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
+- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md).
 
 ## Exercício Prático
 

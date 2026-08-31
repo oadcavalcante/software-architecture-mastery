@@ -112,7 +112,7 @@ bom    "4 engenheiros, 1 com plantão"
 Números datam a decisão de forma verificável. Daqui a dois anos, "400/s" pode ser comparado
 com a realidade; "volume alto" não.
 
-Ver [atributos de qualidade](../01-fundamentals/quality-attributes.md).
+Ver [atributos de qualidade](/01-fundamentals/quality-attributes.md).
 
 ### O que não se sabia
 
@@ -146,7 +146,7 @@ vier depois sobre quanto custa mudá-la.
 
 Decisões reversíveis merecem ser tomadas rápido e com pouca cerimônia; irreversíveis
 merecem o oposto. Ver
-[níveis de arquitetura](../15-enterprise-architecture/architecture-levels.md).
+[níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
 ### O contexto é datado por natureza
 
@@ -159,7 +159,7 @@ atualizáveis.
 ```
 
 Escrever no passado, com data explícita, é o hábito que preserva o valor. Ver
-[status](adr-status.md).
+[status](/18-architecture-decisions/adr-status.md).
 
 ### O contexto define o gatilho de revisão
 
@@ -301,7 +301,7 @@ ADR.
 
 Na primeira rodada de revisão, 7 dos 34 ADRs de decisões custosas tinham restrições que já
 não existiam. Dois foram superados. Ver
-[superação](superseding-decisions.md).
+[superação](/18-architecture-decisions/superseding-decisions.md).
 
 A lição registrada: o contexto original não era desonesto nem preguiçoso — ele parecia
 completo. A frase "requisitos editoriais específicos" descrevia com precisão o que todos
@@ -309,10 +309,10 @@ sabiam em 2021. O problema é que "todos sabiam" é exatamente a informação qu
 
 ## Conceitos Relacionados
 
-- [Estrutura do ADR](adr-structure.md).
-- [Alternativas](adr-alternatives.md) — a condição de reversão.
-- [Superação](superseding-decisions.md) — o que se faz quando o contexto muda.
-- [Atributos de Qualidade](../01-fundamentals/quality-attributes.md) — os números.
+- [Estrutura do ADR](/18-architecture-decisions/adr-structure.md).
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — a condição de reversão.
+- [Superação](/18-architecture-decisions/superseding-decisions.md) — o que se faz quando o contexto muda.
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — os números.
 
 ## Exercício Prático
 

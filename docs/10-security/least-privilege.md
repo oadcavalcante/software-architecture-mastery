@@ -105,7 +105,7 @@ Mesmo assim, identidades de serviço costumam receber permissões mais amplas, p
 
 Elas deveriam ser as mais restritas: escopo mínimo, credenciais de curta duração,
 sem permissão de alterar permissões. Ver
-[identidade em nuvem](../09-cloud-architecture/cloud-identity.md).
+[identidade em nuvem](/09-cloud-architecture/cloud-identity.md).
 
 ### Escalonamento de privilégio é sutil
 
@@ -120,7 +120,7 @@ implantar código em produção  o código roda com o privilégio do ambiente
 ```
 
 A última é frequentemente esquecida: quem controla a esteira controla o que roda em
-produção. Ver [confiança na cadeia de suprimentos](supply-chain-trust.md).
+produção. Ver [confiança na cadeia de suprimentos](/10-security/supply-chain-trust.md).
 
 Essas permissões merecem tratamento separado, e quase nunca pertencem a uma
 aplicação.
@@ -170,7 +170,7 @@ Formas de reduzir alcance sem reescrever toda a política:
 
 - **Elevação temporária** — o de maior retorno para acesso humano.
 - **Separação por conta ou ambiente** — fronteira mais robusta que política. Ver
-  [fronteiras seguras](secure-boundaries.md).
+  [fronteiras seguras](/10-security/secure-boundaries.md).
 - **Credenciais de curta duração** — reduz a janela de exploração.
 - **Análise automatizada de permissões** — compara concedido com usado.
 - **Aprovação de duas pessoas** para operações destrutivas.
@@ -269,10 +269,10 @@ lista de exceções.
 
 ## Conceitos Relacionados
 
-- [Fronteiras Seguras](secure-boundaries.md).
-- [Modelos de Autorização](authz-models.md) — como expressar as permissões.
-- [Identidade em Nuvem](../09-cloud-architecture/cloud-identity.md).
-- [Auditabilidade](auditability.md).
+- [Fronteiras Seguras](/10-security/secure-boundaries.md).
+- [Modelos de Autorização](/10-security/authz-models.md) — como expressar as permissões.
+- [Identidade em Nuvem](/09-cloud-architecture/cloud-identity.md).
+- [Auditabilidade](/10-security/auditability.md).
 
 ## Exercício Prático
 

@@ -33,7 +33,7 @@ proposta completa     "vamos separar em cinco serviços por domínio,
 ```
 
 A segunda é mais difícil de aprovar e é a única que descreve o que de fato precisa acontecer. A
-primeira produz o resultado do case do [nível anterior](conways-law.md): cinco serviços no papel e
+primeira produz o resultado do case do [nível anterior](/23-architecture-leadership/conways-law.md): cinco serviços no papel e
 um sistema acoplado na prática.
 
 ## Problema
@@ -93,7 +93,7 @@ ruim     time por projeto; a fronteira desaparece quando
 
 O terceiro caso merece atenção porque é o mais comum em organizações que operam por projeto: o
 sistema fica sem dono no dia em que o projeto encerra. Ver
-[propriedade de arquitetura](architecture-ownership.md).
+[propriedade de arquitetura](/23-architecture-leadership/architecture-ownership.md).
 
 ### Autonomia exige três coisas
 
@@ -111,7 +111,7 @@ capacidade sem autoridade produz um time que sabe o que fazer e precisa pedir pe
 frustração mais citada em pesquisas internas de engenharia.
 
 E a plataforma é o que torna as três viáveis sem duplicar tudo. Ver
-[topologias de time](team-topologies.md).
+[topologias de time](/23-architecture-leadership/team-topologies.md).
 
 ### O custo da reorganização é real e temporário
 
@@ -141,7 +141,7 @@ Isso significa que reorganizações precisam ser poucas e bem desenhadas. Um arq
 mudança de estrutura precisa ter alta confiança de que a fronteira proposta é a certa — porque a
 próxima correção vai custar muito mais que a primeira.
 
-Ver [contextos delimitados](../04-domain-driven-design/bounded-context.md) — a fronteira de
+Ver [contextos delimitados](/04-domain-driven-design/bounded-context.md) — a fronteira de
 domínio é a melhor evidência disponível.
 
 ### Fluxos de decisão são desenháveis
@@ -158,7 +158,7 @@ quanto tempo cada decisão leva
 
 Mapear isso frequentemente revela que a lentidão não é técnica nem de estrutura de times — é de
 quantidade de pessoas que precisam concordar. Ver
-[governança](leadership-governance.md).
+[governança](/23-architecture-leadership/leadership-governance.md).
 
 ### Distribuição geográfica é arquitetura
 
@@ -289,7 +289,7 @@ As mudanças, sem nenhuma reorganização:
 
 **Escolha de tecnologia delegada** aos times dentro de uma lista curta, com exceção registrada
 para fora dela. O comitê foi extinto. Ver
-[padrões](leadership-standards.md).
+[padrões](/23-architecture-leadership/leadership-standards.md).
 
 **Contratos entre times** deixaram de exigir aprovação gerencial; passaram a exigir apenas
 registro e verificação automática de compatibilidade.
@@ -322,10 +322,10 @@ bastam.
 
 ## Conceitos Relacionados
 
-- [Lei de Conway](conways-law.md).
-- [Topologias de Time](team-topologies.md).
-- [Propriedade de Arquitetura](architecture-ownership.md).
-- [Governança](leadership-governance.md) — o fluxo de decisão.
+- [Lei de Conway](/23-architecture-leadership/conways-law.md).
+- [Topologias de Time](/23-architecture-leadership/team-topologies.md).
+- [Propriedade de Arquitetura](/23-architecture-leadership/architecture-ownership.md).
+- [Governança](/23-architecture-leadership/leadership-governance.md) — o fluxo de decisão.
 
 ## Exercício Prático
 

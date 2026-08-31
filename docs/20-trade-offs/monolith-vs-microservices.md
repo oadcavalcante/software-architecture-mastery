@@ -79,7 +79,7 @@ Sem eles, o custo de cada serviço adicional é alto e recai sobre os times. Uma
 que adota microsserviços sem plataforma paga o custo da distribuição sem receber a
 autonomia.
 
-Ver [engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ### Fronteira instável é o principal impedimento
 
@@ -94,7 +94,7 @@ serviços, corrigi-la exige migrar dados, coordenar implantações e versionar c
 Isso favorece a sequência: **monólito modular primeiro, extração depois**, quando a
 fronteira tiver se provado estável ao longo de meses de mudança real.
 
-Ver [contextos delimitados](../04-domain-driven-design/bounded-context.md).
+Ver [contextos delimitados](/04-domain-driven-design/bounded-context.md).
 
 ### Tamanho do código não é o critério
 
@@ -123,7 +123,7 @@ custos da distribuição, e mantém a opção de extrair depois.
 
 O modo de falha é conhecido: sem verificação automática, as fronteiras erodem em 12 a 18
 meses. Com ela, não erodem. Ver
-[funções de aptidão](../19-architecture-governance/fitness-functions-governance.md).
+[funções de aptidão](/19-architecture-governance/fitness-functions-governance.md).
 
 ### Granularidade: quantos serviços
 
@@ -138,7 +138,7 @@ serviço por camada                    errado — acopla tudo em cada mudança
 
 Poucos serviços grandes erram menos que muitos serviços pequenos, porque cada fronteira é
 uma decisão que pode estar errada. Ver
-[fronteiras de serviço](../05-system-design/service-boundaries.md).
+[fronteiras de serviço](/05-system-design/service-boundaries.md).
 
 ### Sinais de escolha errada
 
@@ -334,11 +334,11 @@ dois anos depois e com custo muito maior.
 
 ## Conceitos Relacionados
 
-- [Microsserviços](../03-design-patterns/microservices.md) e
-  [Monólito Modular](../03-design-patterns/modular-monolith.md).
-- [Fronteiras de Serviço](../05-system-design/service-boundaries.md).
-- [Centralização vs. Descentralização](centralization-vs-decentralization.md).
-- [Síncrono vs. Assíncrono](sync-vs-async.md) — o custo que a divisão traz.
+- [Microsserviços](/03-design-patterns/microservices.md) e
+  [Monólito Modular](/03-design-patterns/modular-monolith.md).
+- [Fronteiras de Serviço](/05-system-design/service-boundaries.md).
+- [Centralização vs. Descentralização](/20-trade-offs/centralization-vs-decentralization.md).
+- [Síncrono vs. Assíncrono](/20-trade-offs/sync-vs-async.md) — o custo que a divisão traz.
 
 ## Exercício Prático
 

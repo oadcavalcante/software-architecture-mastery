@@ -84,5 +84,5 @@ E consegue superar uma decisão sua sem apagar o registro de tê-la tomado.
 
 ## Relacionado
 
-[Trade-offs](../20-trade-offs/index.md), que é o material de que a seção de
+[Trade-offs](/20-trade-offs/index.md), que é o material de que a seção de
 alternativas é feita.

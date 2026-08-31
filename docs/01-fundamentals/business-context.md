@@ -75,7 +75,7 @@ que o investimento precisa se pagar.
 **Organização.** Quantas pessoas, com que competências, distribuídas como. Uma
 arquitetura que exige competência que a empresa não tem e não vai contratar é
 uma arquitetura que não vai existir. Este fator retorna com força no
-[Nível 07](../23-architecture-leadership/index.md), via lei de Conway.
+[Nível 07](/23-architecture-leadership/index.md), via lei de Conway.
 
 ### As perguntas que extraem o contexto
 
@@ -99,7 +99,7 @@ estágio, entram em mercados regulados, crescem ou encolhem times.
 
 Uma arquitetura correta para o contexto de três anos atrás pode ser errada hoje
 sem que nada de técnico tenha mudado. Reconhecer isso é o assunto de
-[evolução da arquitetura](architecture-evolution.md).
+[evolução da arquitetura](/01-fundamentals/architecture-evolution.md).
 
 ## Modelo Mental
 
@@ -181,9 +181,9 @@ stakeholder tinha imaginado, não o problema que ele tinha.
 
 ## Conceitos Relacionados
 
-- [Espaço do Problema](problem-space.md) — como separar problema de solução.
-- [Restrições](constraints.md) — o que o contexto impõe e não se negocia.
-- [Requisitos Não-Funcionais](non-functional-requirements.md) — a conversão do
+- [Espaço do Problema](/01-fundamentals/problem-space.md) — como separar problema de solução.
+- [Restrições](/01-fundamentals/constraints.md) — o que o contexto impõe e não se negocia.
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — a conversão do
   contexto em número.
 
 ## Exercício Prático

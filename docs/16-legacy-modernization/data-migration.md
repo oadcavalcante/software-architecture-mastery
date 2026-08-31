@@ -86,7 +86,7 @@ Nenhuma dessas é decisão técnica. Descartar 4.000 registros inconsistentes é
 de negócio, com implicações — e ela precisa ser tomada por quem responde pelos dados,
 com antecedência.
 
-Ver [propriedade do dado](../07-data-architecture/data-ownership.md).
+Ver [propriedade do dado](/07-data-architecture/data-ownership.md).
 
 O erro característico: a equipe técnica decide sozinha, durante a janela, sob pressão de
 tempo.
@@ -123,7 +123,7 @@ idempotente   reexecutar não duplica
 incremental   migra só o que mudou desde a última execução
 ```
 
-Ver [idempotência](../06-distributed-systems/idempotency.md).
+Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 A repetibilidade permite ensaiar: rodar a migração completa em ambiente de teste,
 verificar, corrigir, repetir — até que a execução real seja rotina, não evento.
@@ -156,7 +156,7 @@ arquivar            o antigo vira arquivo somente leitura
 descartar           com verificação de requisito de retenção
 ```
 
-Ver [ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+Ver [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 A opção de manter o sistema antigo como arquivo somente leitura é frequentemente a mais
 barata — e ela colide com o objetivo de desligar o antigo, o que precisa ser reconhecido.
@@ -204,7 +204,7 @@ necessárias sempre que:
 ## Alternativas
 
 - **Coexistência sem migração** — o novo começa vazio, e o antigo permanece como fonte
-  do histórico. Ver [strangler fig](strangler-fig.md).
+  do histórico. Ver [strangler fig](/16-legacy-modernization/strangler-fig.md).
 - **Migração sob demanda** — o registro é migrado quando acessado pela primeira vez.
 - **Manter o antigo como arquivo** — somente leitura, sem migrar histórico.
 - **Migração incremental por fatia** — por cliente, por região, por período.
@@ -320,10 +320,10 @@ significativo se tivesse sido descartado como texto livre.
 
 ## Conceitos Relacionados
 
-- [Strangler Fig](strangler-fig.md) — a coexistência.
-- [Estratégias de Migração](migration-strategies.md).
-- [Risco de Modernização](modernization-risk.md).
-- [Consistência de Dados](../07-data-architecture/data-consistency.md).
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md) — a coexistência.
+- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md).
+- [Risco de Modernização](/16-legacy-modernization/modernization-risk.md).
+- [Consistência de Dados](/07-data-architecture/data-consistency.md).
 
 ## Exercício Prático
 

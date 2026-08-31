@@ -81,7 +81,7 @@ Na maior parte dos sistemas de negócio, a resposta é: ordem por entidade basta
 
 Escolher a chave para preservar ordem também determina a distribuição. Se uma
 chave for muito mais ativa, ela concentra carga numa partição — o
-[hotspot](../11-scalability/index.md).
+[hotspot](/11-scalability/index.md).
 
 Um sistema que particiona por `id_do_cliente` e tem um cliente corporativo com 40%
 do volume tem uma partição saturada e as outras ociosas.
@@ -107,7 +107,7 @@ parte dos casos de desordem sem nenhum mecanismo de espera.
 ### Marca de tempo não estabelece ordem
 
 Tentar ordenar por marca de tempo de máquinas diferentes não funciona — relógios
-divergem. Ver [relógio e tempo](clock-and-time.md).
+divergem. Ver [relógio e tempo](/06-distributed-systems/clock-and-time.md).
 
 A ordem precisa vir de um contador da entidade, de um número de sequência
 atribuído por quem produz, ou da partição.
@@ -241,10 +241,10 @@ transportador, onde dois parceiros grandes concentravam a carga.
 
 ## Conceitos Relacionados
 
-- [Mensageria](messaging.md) — o canal.
-- [Particionamento](partitioning.md) — a escolha da chave.
-- [Relógio e Tempo](clock-and-time.md) — por que marca de tempo não ordena.
-- [Mensagens Duplicadas](duplicate-messages.md).
+- [Mensageria](/06-distributed-systems/messaging.md) — o canal.
+- [Particionamento](/06-distributed-systems/partitioning.md) — a escolha da chave.
+- [Relógio e Tempo](/06-distributed-systems/clock-and-time.md) — por que marca de tempo não ordena.
+- [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md).
 
 ## Exercício Prático
 

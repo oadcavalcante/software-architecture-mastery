@@ -164,7 +164,7 @@ funciona na maior parte das vezes.
 **Contar com o padrão do banco sem saber qual é.**
 
 **Transação distribuída.** Ver
-[transações distribuídas](../06-distributed-systems/distributed-transactions.md) —
+[transações distribuídas](/06-distributed-systems/distributed-transactions.md) —
 outro problema, outro custo.
 
 ## Alternativas
@@ -262,10 +262,10 @@ acreditava estar protegido por isso. A palavra "transação" foi lida como
 
 ## Conceitos Relacionados
 
-- [Consistência de Dados](data-consistency.md) — o tema no nível do armazenamento.
-- [OLTP](oltp.md) — onde contenção aparece.
-- [Transações Distribuídas](../06-distributed-systems/distributed-transactions.md).
-- [Bancos Relacionais](relational-databases.md).
+- [Consistência de Dados](/07-data-architecture/data-consistency.md) — o tema no nível do armazenamento.
+- [OLTP](/07-data-architecture/oltp.md) — onde contenção aparece.
+- [Transações Distribuídas](/06-distributed-systems/distributed-transactions.md).
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md).
 
 ## Exercício Prático
 

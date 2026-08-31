@@ -19,7 +19,7 @@ last_reviewed: 2026-08-26
 
 # Design Modular
 
-> Pré-requisito: [Modularidade](../01-fundamentals/modularity.md) estabelece por
+> Pré-requisito: [Modularidade](/01-fundamentals/modularity.md) estabelece por
 > que dividir e qual é o critério. Aqui o foco é como executar a divisão num
 > sistema real: o que vai dentro de cada módulo, o que atravessa, e como o
 > contrato interno é definido.
@@ -60,7 +60,7 @@ capacidade *concessão de crédito* está espalhada pelas três entidades.
 
 A divisão que funciona é por **capacidade** — o que o negócio faz — e cada
 capacidade tem sua própria visão das entidades de que precisa. É a mesma ideia
-que o [DDD estratégico](../04-domain-driven-design/index.md) formaliza como
+que o [DDD estratégico](/04-domain-driven-design/index.md) formaliza como
 bounded context.
 
 ### Cada módulo tem estrutura interna completa
@@ -142,7 +142,7 @@ entidades tem o custo da divisão e nenhum benefício.
 - **Vertical slice por caso de uso** — divisão ainda mais fina, útil em sistemas
   com muitos casos independentes.
 - **Serviços separados** — quando há requisito de implantação ou escala
-  independente. Custa muito mais; ver [fronteiras](boundaries.md).
+  independente. Custa muito mais; ver [fronteiras](/02-software-design/boundaries.md).
 
 ## Trade-offs
 
@@ -165,7 +165,7 @@ entidades tem o custo da divisão e nenhum benefício.
 dependência universal.
 
 **Dependência circular entre módulos.** Ver
-[direção de dependência](dependency-direction.md).
+[direção de dependência](/02-software-design/dependency-direction.md).
 
 **Módulos que sempre mudam juntos.** A divisão está no eixo errado.
 
@@ -227,10 +227,10 @@ diminui.
 
 ## Conceitos Relacionados
 
-- [Modularidade](../01-fundamentals/modularity.md) — o conceito e o critério.
-- [Fronteiras](boundaries.md) — o que separa os módulos.
-- [Design de Pacotes](package-design.md) — a organização dentro de cada um.
-- [DDD estratégico](../04-domain-driven-design/index.md) — bounded context como
+- [Modularidade](/01-fundamentals/modularity.md) — o conceito e o critério.
+- [Fronteiras](/02-software-design/boundaries.md) — o que separa os módulos.
+- [Design de Pacotes](/02-software-design/package-design.md) — a organização dentro de cada um.
+- [DDD estratégico](/04-domain-driven-design/index.md) — bounded context como
   formalização da capacidade.
 
 ## Exercício Prático

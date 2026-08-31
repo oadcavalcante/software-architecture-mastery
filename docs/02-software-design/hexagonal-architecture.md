@@ -21,7 +21,7 @@ last_reviewed: 2026-08-26
 
 ## Visão Geral
 
-Arquitetura Hexagonal é o nome pelo qual [Ports and Adapters](ports-and-adapters.md)
+Arquitetura Hexagonal é o nome pelo qual [Ports and Adapters](/02-software-design/ports-and-adapters.md)
 se popularizou. **É o mesmo padrão** — Cockburn adotou os dois nomes, e o segundo
 é o que ele passou a preferir por ser mais descritivo.
 
@@ -88,7 +88,7 @@ Hexagonal, a persistência depende do domínio.
 
 ## Quando Usar
 
-As mesmas condições de [Ports and Adapters](ports-and-adapters.md): mais de um
+As mesmas condições de [Ports and Adapters](/02-software-design/ports-and-adapters.md): mais de um
 canal, valor recorrente em testar sem infraestrutura, dependências voláteis,
 domínio com lógica substancial.
 
@@ -114,7 +114,7 @@ principalmente uma decisão de vocabulário de time.
 
 ## Trade-offs
 
-Idênticos aos de [Ports and Adapters](ports-and-adapters.md). O nome não muda o
+Idênticos aos de [Ports and Adapters](/02-software-design/ports-and-adapters.md). O nome não muda o
 custo.
 
 O único trade-off próprio do nome é de comunicação: "hexagonal" é mais
@@ -148,7 +148,7 @@ imposta.
 
 Um time adotou hexagonal num serviço novo e, seis meses depois, tinha dezenove imports de `infra`
 dentro de `dominio` — o caso descrito em
-[arquitetura vs. implementação](../01-fundamentals/architecture-vs-implementation.md), onde a
+[arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md), onde a
 lição é sobre a distância entre a arquitetura declarada e a implementada.
 
 O que interessa aqui é o que veio depois, porque ele responde à pergunta específica do padrão:
@@ -197,11 +197,11 @@ supunha. O padrão sem mecanismo de verificação tem meia-vida de meses.
 
 ## Conceitos Relacionados
 
-- [Ports and Adapters](ports-and-adapters.md) — a formulação original e o
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — a formulação original e o
   tratamento completo.
-- [Onion](onion-architecture.md) e
-  [Clean Architecture](clean-architecture.md) — as variações.
-- [Camadas](layering.md) — o arranjo que este padrão substitui.
+- [Onion](/02-software-design/onion-architecture.md) e
+  [Clean Architecture](/02-software-design/clean-architecture.md) — as variações.
+- [Camadas](/02-software-design/layering.md) — o arranjo que este padrão substitui.
 
 ## Exercício Prático
 

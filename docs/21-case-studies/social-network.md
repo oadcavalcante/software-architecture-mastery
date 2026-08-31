@@ -317,13 +317,13 @@ listas mais consultadas. O grafo é lido intensamente pelo Distribuidor, e a dec
 um banco de grafos foi tomada por não haver consulta de travessia: as perguntas são "quem segue
 X" e "de que comunidades Y participa", ambas de um salto.
 
-Ver [SQL vs. NoSQL](../20-trade-offs/sql-vs-nosql.md) — o padrão de acesso é conhecido e raso,
+Ver [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md) — o padrão de acesso é conhecido e raso,
 o que não justifica um segundo tipo de banco.
 
 **Contagem de interações.** Contadores aproximados para publicações com alto volume, exatos
 abaixo de um limiar. Uma publicação com 400 mil reações não precisa de contagem exata, e mantê-la
 exata cria contenção severa. Ver
-[pontos quentes](../11-scalability/hotspots.md).
+[pontos quentes](/11-scalability/hotspots.md).
 
 O limiar entre contagem exata e aproximada foi fixado em 5 mil interações, e a escolha tem
 justificativa de produto: acima desse número, nenhum usuário distingue 5 200 de 5 240, e a
@@ -461,7 +461,7 @@ etapa 4   caminho antigo vira modo de degradação
 
 A etapa 2 durou seis semanas e encontrou 9 classes de divergência, das quais 6 eram defeitos do
 caminho novo e 3 eram comportamentos não documentados do antigo — o mesmo padrão observado no
-case de [núcleo bancário](banking.md), em contexto completamente diferente.
+case de [núcleo bancário](/21-case-studies/banking.md), em contexto completamente diferente.
 
 A recorrência desse padrão em dois domínios sem nenhuma relação sugere que ele é uma propriedade
 do método, e não dos sistemas: sempre que dois caminhos produzem o mesmo resultado e são
@@ -542,10 +542,10 @@ diferente é o que tornou o problema visível.
 
 ## Conceitos Relacionados
 
-- [Pontos Quentes](../11-scalability/hotspots.md).
-- [SQL vs. NoSQL](../20-trade-offs/sql-vs-nosql.md).
-- [Case: Plataforma de Mensageria](messaging-platform.md).
-- [Cache](../05-system-design/caching.md).
+- [Pontos Quentes](/11-scalability/hotspots.md).
+- [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md).
+- [Case: Plataforma de Mensageria](/21-case-studies/messaging-platform.md).
+- [Cache](/05-system-design/caching.md).
 
 ## Exercício Prático
 

@@ -126,7 +126,7 @@ A distinção entre autor e decisor importa em organizações grandes, onde quem
 frequentemente não é quem decide. E o registro de consultados protege contra a leitura
 posterior de que a decisão foi unilateral.
 
-Ver [governança](../19-architecture-governance/index.md).
+Ver [governança](/19-architecture-governance/index.md).
 
 ### Discordância registrada
 
@@ -206,7 +206,7 @@ afirmativa.
 - **Decisão implícita no título** — para casos triviais, o título já é a decisão, e a seção
   detalha o escopo.
 - **Referência a um padrão** — quando a decisão é adotar algo já definido em outro lugar.
-  Ver [padrões](../15-enterprise-architecture/standards.md).
+  Ver [padrões](/15-enterprise-architecture/standards.md).
 
 ## Trade-offs
 
@@ -271,7 +271,7 @@ interpretações distintas do ADR encontradas em entrevistas      5
 Os quatro primeiros eram os mais problemáticos: consultas síncronas simples tinham sido
 convertidas em pares de eventos requisição-resposta, com correlação manual e tempo de
 resposta de segundos. Ver
-[integração orientada a eventos](../08-integration-architecture/event-driven-integration.md).
+[integração orientada a eventos](/08-integration-architecture/event-driven-integration.md).
 
 A investigação mostrou que o ADR original tinha sido escrito depois de uma discussão em que
 o escopo **estava claro para os presentes**: eventos para propagação de mudança de estado
@@ -306,10 +306,10 @@ do documento.
 
 ## Conceitos Relacionados
 
-- [Estrutura do ADR](adr-structure.md).
-- [Contexto](adr-context.md) — o que justifica.
-- [Consequências](adr-consequences.md) — o que se aceita.
-- [Status](adr-status.md) — proposto contra aceito.
+- [Estrutura do ADR](/18-architecture-decisions/adr-structure.md).
+- [Contexto](/18-architecture-decisions/adr-context.md) — o que justifica.
+- [Consequências](/18-architecture-decisions/adr-consequences.md) — o que se aceita.
+- [Status](/18-architecture-decisions/adr-status.md) — proposto contra aceito.
 
 ## Exercício Prático
 

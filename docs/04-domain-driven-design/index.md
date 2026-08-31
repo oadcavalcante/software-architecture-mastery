@@ -89,5 +89,5 @@ E consegue dizer não a DDD tático sem culpa, no subdomínio em que ele não se
 
 ## Continua em
 
-[Nível 03 — Design de Sistemas](../05-system-design/index.md), onde as
+[Nível 03 — Design de Sistemas](/05-system-design/index.md), onde as
 fronteiras de domínio começam a virar fronteiras de processo e de implantação.

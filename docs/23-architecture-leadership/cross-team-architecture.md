@@ -48,7 +48,7 @@ problema de integração.
 
 **Alguém decide e ninguém adota.** Um arquiteto ou um time decide unilateralmente, os demais não
 participaram, e a decisão é ignorada em silêncio. Ver
-[exceções](../19-architecture-governance/exceptions.md) — o descumprimento invisível é a forma
+[exceções](/19-architecture-governance/exceptions.md) — o descumprimento invisível é a forma
 usual.
 
 **Decide-se por escalada.** A discordância sobe para um gestor comum, que decide sem contexto
@@ -75,7 +75,7 @@ consequência compartilhada  precisa de coordenação
 consequência organizacional precisa de decisão central
 ```
 
-Ver [governança federada](../19-architecture-governance/federated-governance.md).
+Ver [governança federada](/19-architecture-governance/federated-governance.md).
 
 Coordenar decisões locais é o erro que transforma arquitetura em burocracia. Cada coordenação
 desnecessária consome atenção e reduz a disposição dos times a coordenar quando importa.
@@ -92,7 +92,7 @@ Essa divisão é o que permite coordenação com pouco atrito. Discutir a implem
 outro time consome tempo, gera resistência e não melhora o resultado — o contrato é o que importa
 para quem está do outro lado.
 
-Ver [contratos de integração](../08-integration-architecture/integration-contracts.md).
+Ver [contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 ### Traga os times antes de propor
 
@@ -126,7 +126,7 @@ materializar. Torna a decisão revisável com base em evidência em vez de em no
 ao time discordante o reconhecimento de que sua posição foi considerada — o que reduz
 significativamente o descumprimento silencioso.
 
-Ver [decisão em ADR](../18-architecture-decisions/adr-decision.md).
+Ver [decisão em ADR](/18-architecture-decisions/adr-decision.md).
 
 ### A adoção precisa ser acompanhada
 
@@ -141,7 +141,7 @@ convergida      sistemas antigos migraram
 
 Acompanhar o progresso nessa escala é parte do trabalho, e é o que distingue uma decisão de uma
 declaração. Ver
-[padrões](leadership-standards.md).
+[padrões](/23-architecture-leadership/leadership-standards.md).
 
 E o acompanhamento tem um efeito adicional: ele revela quando a decisão está errada. Baixa adoção
 voluntária costuma ser informação sobre a decisão, não sobre a disciplina dos times.
@@ -170,7 +170,7 @@ Isso significa que reduzir a necessidade de coordenação é frequentemente melh
 melhor. Uma fronteira arquitetural bem escolhida elimina a coordenação; um processo eficiente
 apenas a torna mais barata.
 
-Ver [lei de Conway](conways-law.md) — quando a coordenação é constante entre dois times, a
+Ver [lei de Conway](/23-architecture-leadership/conways-law.md) — quando a coordenação é constante entre dois times, a
 fronteira provavelmente está no lugar errado.
 
 ## Modelo Mental
@@ -309,10 +309,10 @@ partir daí, a conversa deixou de ser sobre se devia haver um padrão e passou a
 
 ## Conceitos Relacionados
 
-- [Influência Técnica](technical-influence.md).
-- [Negociação de Trade-offs](negotiating-tradeoffs.md).
-- [Lei de Conway](conways-law.md).
-- [Governança Federada](../19-architecture-governance/federated-governance.md).
+- [Influência Técnica](/23-architecture-leadership/technical-influence.md).
+- [Negociação de Trade-offs](/23-architecture-leadership/negotiating-tradeoffs.md).
+- [Lei de Conway](/23-architecture-leadership/conways-law.md).
+- [Governança Federada](/19-architecture-governance/federated-governance.md).
 
 ## Exercício Prático
 

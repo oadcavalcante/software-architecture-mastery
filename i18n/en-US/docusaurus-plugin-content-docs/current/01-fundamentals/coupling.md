@@ -219,9 +219,9 @@ The same instrument — the history — answered both questions.
 
 ## Related Concepts
 
-- [Cohesion](cohesion.md) — the other face of the same decision.
-- [Modularity](modularity.md) — where to draw the boundaries.
-- [Dependency Management](dependency-management.md) — the direction of coupling.
+- [Cohesion](/01-fundamentals/cohesion.md) — the other face of the same decision.
+- [Modularity](/01-fundamentals/modularity.md) — where to draw the boundaries.
+- [Dependency Management](/01-fundamentals/dependency-management.md) — the direction of coupling.
 
 ## Practical Exercise
 

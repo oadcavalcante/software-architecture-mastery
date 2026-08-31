@@ -88,7 +88,7 @@ E as renúncias precisam ser **nomeadas**. "Não vamos modernizar os sistemas de
 próximos 18 meses" é uma decisão que alguém vai contestar — e é exatamente por isso que
 ela precisa estar escrita.
 
-Ver [capacidades de negócio](business-capabilities.md) — a classificação por
+Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md) — a classificação por
 diferenciação é o critério que sustenta a renúncia.
 
 ### Coerência entre as ações
@@ -137,7 +137,7 @@ Isso permite revisar com base em evidência, em vez de defender a posição. E t
 explícito o que precisa ser verdade — que é o que costuma estar errado quando a
 estratégia falha.
 
-Ver [decisões de arquitetura](../18-architecture-decisions/index.md).
+Ver [decisões de arquitetura](/18-architecture-decisions/index.md).
 
 ### O horizonte e a revisão
 
@@ -225,11 +225,11 @@ escolhido.
 ## Alternativas
 
 - **Princípios** — orientam decisão sem definir prioridade de investimento. Ver
-  [princípios corporativos](enterprise-principles.md).
+  [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md).
 - **Roteiro** — o que fazer e quando, sem o porquê. Ver
-  [roteiros de arquitetura](architecture-roadmaps.md).
+  [roteiros de arquitetura](/15-enterprise-architecture/architecture-roadmaps.md).
 - **Arquitetura alvo** — o estado desejado, sem a escolha de onde investir. Ver
-  [arquitetura alvo](target-architecture.md).
+  [arquitetura alvo](/15-enterprise-architecture/target-architecture.md).
 
 Os três são complementares: a estratégia diz por que e onde; o alvo, para onde; o
 roteiro, quando.
@@ -340,10 +340,10 @@ pedido de cada área. Nenhuma delas era errada. O erro foi não escolher.
 
 ## Conceitos Relacionados
 
-- [Arquitetura Alvo](target-architecture.md) — para onde.
-- [Roteiros de Arquitetura](architecture-roadmaps.md) — quando.
-- [Capacidades de Negócio](business-capabilities.md) — o critério de foco.
-- [Princípios Corporativos](enterprise-principles.md).
+- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md) — para onde.
+- [Roteiros de Arquitetura](/15-enterprise-architecture/architecture-roadmaps.md) — quando.
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — o critério de foco.
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
 
 ## Exercício Prático
 

@@ -29,7 +29,7 @@ aplicações significava dar a senha de uma para a outra.
 
 E ele **não é um protocolo de autenticação**, apesar de ser usado como tal na maior
 parte das implementações. Essa confusão é a fonte de vulnerabilidades reais, e é o
-motivo de [OpenID Connect](oidc.md) existir.
+motivo de [OpenID Connect](/10-security/oidc.md) existir.
 
 ## Problema
 
@@ -92,7 +92,7 @@ identidade do usuário com suas próprias regras.
 Confundir os dois produz o erro estrutural mais comum: tratar a presença de um
 escopo como autorização suficiente. Um token com `faturas:ler` não autoriza ler as
 faturas de outro usuário. Ver
-[modelos de autorização](authz-models.md).
+[modelos de autorização](/10-security/authz-models.md).
 
 Escopo é o teto do que a aplicação pode pedir; autorização é o que ela de fato pode
 naquele recurso.
@@ -107,7 +107,7 @@ um token obtido para uma aplicação sendo apresentado a outra, que o aceita com
 "login bem-sucedido".
 
 O que faltava era um token que afirmasse identidade, com destinatário declarado.
-Isso é [OpenID Connect](oidc.md), construído sobre OAuth exatamente para isso.
+Isso é [OpenID Connect](/10-security/oidc.md), construído sobre OAuth exatamente para isso.
 
 ### Token de acesso curto, token de renovação longo
 
@@ -117,7 +117,7 @@ renovação  dias a meses — usado só para obter novos tokens de acesso
 ```
 
 A duração curta do token de acesso limita a janela de um vazamento, já que revogar
-tokens autocontidos é difícil. Ver [JWT](jwt.md).
+tokens autocontidos é difícil. Ver [JWT](/10-security/jwt.md).
 
 O token de renovação precisa de cuidado próprio: para clientes públicos,
 **rotação** — cada uso emite um novo e invalida o anterior — permite detectar
@@ -157,7 +157,7 @@ usuário, precisa de OpenID Connect.
 
 ## Quando Não Usar
 
-**Para autenticação.** Use [OpenID Connect](oidc.md).
+**Para autenticação.** Use [OpenID Connect](/10-security/oidc.md).
 
 **Fluxo implícito.** Desencorajado.
 
@@ -174,7 +174,7 @@ sem escopo variável, não precisa de OAuth — a complexidade não se paga.
 
 ## Alternativas
 
-- **[OpenID Connect](oidc.md)** — quando a pergunta é identidade.
+- **[OpenID Connect](/10-security/oidc.md)** — quando a pergunta é identidade.
 - **Chave de API** — integração simples, sem delegação.
 - **TLS mútuo** — identidade de serviço por certificado, sem token.
 - **Token de acesso de curta duração emitido internamente** — quando as duas pontas
@@ -260,7 +260,7 @@ precisaram atualizar o cadastro.
 
 **Autorização no servidor de recurso.** A conta passou a ser derivada da relação
 entre o usuário do token e o recurso, nunca do parâmetro. Ver
-[fronteiras seguras](secure-boundaries.md).
+[fronteiras seguras](/10-security/secure-boundaries.md).
 
 **Verificação de destinatário** obrigatória em todos os serviços.
 
@@ -273,10 +273,10 @@ escopo certo significava poder acessar o recurso pedido.
 
 ## Conceitos Relacionados
 
-- [OpenID Connect](oidc.md) — a camada de identidade.
-- [JWT](jwt.md) — o formato usual do token.
-- [Identidade](identity.md).
-- [Modelos de Autorização](authz-models.md) — o que o escopo não resolve.
+- [OpenID Connect](/10-security/oidc.md) — a camada de identidade.
+- [JWT](/10-security/jwt.md) — o formato usual do token.
+- [Identidade](/10-security/identity.md).
+- [Modelos de Autorização](/10-security/authz-models.md) — o que o escopo não resolve.
 
 ## Exercício Prático
 

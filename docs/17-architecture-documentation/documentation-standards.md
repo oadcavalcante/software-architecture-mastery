@@ -27,7 +27,7 @@ definidas: **o que é obrigatório, quem é dono, e quando precisa ser atualizad
 A dificuldade é que a política tende a um de dois extremos. Sem política, cada time
 documenta de um jeito e a maioria não documenta. Com política pesada, produz-se volume que
 ninguém lê — ver
-[princípios de documentação](documentation-principles.md).
+[princípios de documentação](/17-architecture-documentation/documentation-principles.md).
 
 O ponto que funciona é estreito: **poucas obrigações, com dono e gatilho, verificadas
 automaticamente onde possível.**
@@ -84,7 +84,7 @@ A terceira forma é a que resiste: o dono é um papel dentro de um time, e o pap
 por alguém nomeado a cada momento.
 
 Documento sem dono é documento que apodrece. Ver
-[propriedade e responsabilidade](../19-architecture-governance/index.md).
+[propriedade e responsabilidade](/19-architecture-governance/index.md).
 
 ### Gatilho, não cadência
 
@@ -151,7 +151,7 @@ Nem tudo é verificável, e o que é deve ser. O último item é o mais valioso 
 implementado: detectar texto de gabarito não substituído pega a maior parte do
 preenchimento por dever.
 
-Ver [documentação viva](living-documentation.md).
+Ver [documentação viva](/17-architecture-documentation/living-documentation.md).
 
 ### Exigência proporcional à criticidade
 
@@ -204,7 +204,7 @@ um sistema crítico não merecem a mesma exigência.
 - **Exemplo de referência** — apontar um sistema bem documentado como padrão a imitar
   costuma funcionar melhor que uma norma escrita.
 - **Geração automática** — elimina a política onde é aplicável. Ver
-  [documentação viva](living-documentation.md).
+  [documentação viva](/17-architecture-documentation/living-documentation.md).
 - **Revisão por pares** — o padrão emerge da revisão em vez de ser prescrito.
 
 A segunda é a mais subestimada: "documente como o sistema de pagamentos" comunica mais
@@ -312,10 +312,10 @@ conformidade dos cinco restantes.
 
 ## Conceitos Relacionados
 
-- [Princípios de Documentação](documentation-principles.md).
-- [Documentação Viva](living-documentation.md) — o que pode ser gerado.
-- [Descrições de Arquitetura](architecture-descriptions.md).
-- [Governança](../19-architecture-governance/index.md) — onde a política vive.
+- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md).
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — o que pode ser gerado.
+- [Descrições de Arquitetura](/17-architecture-documentation/architecture-descriptions.md).
+- [Governança](/19-architecture-governance/index.md) — onde a política vive.
 
 ## Exercício Prático
 

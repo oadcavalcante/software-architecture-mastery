@@ -127,7 +127,7 @@ conhecida e pequena, o relacional é melhor em tudo o mais.
 
 **Para carga transacional geral.**
 
-**Para agregação sobre grandes volumes.** Ver [colunar](column-stores.md).
+**Para agregação sobre grandes volumes.** Ver [colunar](/07-data-architecture/column-stores.md).
 
 **Quando o volume de escrita é alto.**
 
@@ -138,7 +138,7 @@ tem.
 
 ## Alternativas
 
-- **[Relacional](relational-databases.md) com consulta recursiva** — bancos
+- **[Relacional](/07-data-architecture/relational-databases.md) com consulta recursiva** — bancos
   relacionais expressam travessia recursiva; para profundidade moderada, funciona
   bem e evita uma tecnologia.
 - **Tabela de fechamento transitivo** — pré-calcular os caminhos quando a
@@ -228,9 +228,9 @@ fonte da verdade.
 
 ## Conceitos Relacionados
 
-- [Bancos Relacionais](relational-databases.md) — a comparação principal.
-- [NoSQL](nosql.md) — a categoria.
-- [Modelagem de Dados](data-modeling.md).
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md) — a comparação principal.
+- [NoSQL](/07-data-architecture/nosql.md) — a categoria.
+- [Modelagem de Dados](/07-data-architecture/data-modeling.md).
 
 ## Exercício Prático
 

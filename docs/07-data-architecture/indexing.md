@@ -163,7 +163,7 @@ frequentemente um composto substitui três simples.
   nada.
 - **Atualizar estatísticas.** Plano ruim com índice correto.
 - **Visão materializada** — para agregações repetidas.
-- **[Particionamento](data-partitioning.md)** — descarta partições inteiras antes
+- **[Particionamento](/07-data-architecture/data-partitioning.md)** — descarta partições inteiras antes
   de qualquer índice.
 - **Índice invertido** — para busca textual com relevância.
 
@@ -248,10 +248,10 @@ diz?".
 
 ## Conceitos Relacionados
 
-- [OLTP](oltp.md) — onde índice é decisivo.
-- [Bancos Relacionais](relational-databases.md).
-- [Desnormalização](denormalization.md) — verifique índice antes.
-- [Particionamento de Dados](data-partitioning.md) — complementa.
+- [OLTP](/07-data-architecture/oltp.md) — onde índice é decisivo.
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md).
+- [Desnormalização](/07-data-architecture/denormalization.md) — verifique índice antes.
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md) — complementa.
 
 ## Exercício Prático
 

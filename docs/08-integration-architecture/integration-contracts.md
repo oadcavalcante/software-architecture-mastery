@@ -165,7 +165,7 @@ semana; o contrato precisa ser verificável.
   publicação.
 - **Teste de contrato dirigido pelo consumidor** — dentro da organização.
 - **Versionamento explícito** — quando conviver é inevitável. Ver
-  [evolução de esquema](schema-evolution.md).
+  [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 ## Trade-offs
 
@@ -264,11 +264,11 @@ garantido.
 
 ## Conceitos Relacionados
 
-- [Evolução de Esquema](schema-evolution.md) — como o contrato muda.
-- [Anti-Corruption Layer](integration-anti-corruption.md) — proteção contra
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md) — como o contrato muda.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md) — proteção contra
   contrato alheio.
-- [REST](rest.md), [GraphQL](graphql.md), [gRPC](grpc.md) — onde o contrato vive.
-- [Propriedade do Dado](../07-data-architecture/data-ownership.md).
+- [REST](/08-integration-architecture/rest.md), [GraphQL](/08-integration-architecture/graphql.md), [gRPC](/08-integration-architecture/grpc.md) — onde o contrato vive.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md).
 
 ## Exercício Prático
 

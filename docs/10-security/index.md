@@ -100,5 +100,5 @@ eventualmente acontece.
 
 ## Continua em
 
-[Escalabilidade](../11-scalability/index.md), onde as fronteiras que você desenhou
+[Escalabilidade](/11-scalability/index.md), onde as fronteiras que você desenhou
 aqui passam a ser testadas por volume.

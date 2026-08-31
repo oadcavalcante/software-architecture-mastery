@@ -87,7 +87,7 @@ depois do pivô → só pode avançar; falhas exigem repetição, não compensa�
 
 Depois do pivô, a saga precisa **avançar até completar**, com repetição
 persistente. Isso muda o requisito: os passos posteriores precisam ser
-[idempotentes](idempotency.md) e eventualmente bem-sucedidos.
+[idempotentes](/06-distributed-systems/idempotency.md) e eventualmente bem-sucedidos.
 
 ### Coreografia e orquestração
 
@@ -119,10 +119,10 @@ intermediário permanente — exatamente o que a saga deveria evitar.
 ### Compensação também falha
 
 A compensação é uma chamada de rede, e pode falhar como qualquer outra. Ela precisa
-de [repetição](retries.md) e de [idempotência](idempotency.md).
+de [repetição](/06-distributed-systems/retries.md) e de [idempotência](/06-distributed-systems/idempotency.md).
 
 E precisa de destino final: se a compensação falha repetidamente, algo precisa
-alertar. Ver [fila de mensagens mortas](dead-letter-queues.md).
+alertar. Ver [fila de mensagens mortas](/06-distributed-systems/dead-letter-queues.md).
 
 ## Modelo Mental
 
@@ -147,7 +147,7 @@ creditado é intolerável, mesmo por segundos.
 a transação resolve.
 
 **Para operações de dois passos triviais.** A caixa de saída transacional pode ser
-suficiente. Ver [transações distribuídas](distributed-transactions.md).
+suficiente. Ver [transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
 **Sem estado durável.** Uma saga que não sobrevive a reinício é pior que nada.
 
@@ -155,7 +155,7 @@ suficiente. Ver [transações distribuídas](distributed-transactions.md).
 
 ## Alternativas
 
-- **[Transação distribuída](distributed-transactions.md)** — quando a atomicidade é
+- **[Transação distribuída](/06-distributed-systems/distributed-transactions.md)** — quando a atomicidade é
   inegociável e as condições permitem.
 - **Caixa de saída transacional** — para o caso simples de banco + evento.
 - **Reunir os dados** — transação local se a fronteira permitir.
@@ -249,11 +249,11 @@ conciliação financeira mensal sem que ninguém ligasse à saga.
 
 ## Conceitos Relacionados
 
-- [Transações Distribuídas](distributed-transactions.md) — a alternativa.
-- [Idempotência](idempotency.md) — requisito.
-- [Sistemas Orientados a Eventos](event-driven-systems.md) — onde a coreografia
+- [Transações Distribuídas](/06-distributed-systems/distributed-transactions.md) — a alternativa.
+- [Idempotência](/06-distributed-systems/idempotency.md) — requisito.
+- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md) — onde a coreografia
   vive.
-- [Filas de Mensagens Mortas](dead-letter-queues.md) — para compensação que falha.
+- [Filas de Mensagens Mortas](/06-distributed-systems/dead-letter-queues.md) — para compensação que falha.
 
 ## Exercício Prático
 

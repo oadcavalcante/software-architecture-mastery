@@ -173,9 +173,9 @@ inteira.
 
 ## Conceitos Relacionados
 
-- [Contexto de Negócio](business-context.md) — de onde as restrições vêm.
-- [Espaço da Solução](solution-space.md) — o que elas reduzem.
-- [Atributos de Qualidade](quality-attributes.md) — o que é negociável, em
+- [Contexto de Negócio](/01-fundamentals/business-context.md) — de onde as restrições vêm.
+- [Espaço da Solução](/01-fundamentals/solution-space.md) — o que elas reduzem.
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — o que é negociável, em
   contraste.
 
 ## Exercício Prático

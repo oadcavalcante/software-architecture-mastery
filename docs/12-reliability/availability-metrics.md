@@ -108,7 +108,7 @@ Uma indisponibilidade de 10 minutos de madrugada e outra de 10 minutos no pico c
 igual na primeira, e muito diferente na segunda.
 
 A medida por requisição reflete melhor o impacto no usuário, e é a forma usada em
-[SLI](sli.md). A medida por tempo é mais comum em contratos, porque é mais fácil de
+[SLI](/12-reliability/sli.md). A medida por tempo é mais comum em contratos, porque é mais fácil de
 verificar.
 
 Saber qual está sendo usada muda a interpretação do número.
@@ -120,7 +120,7 @@ O modelo binário — disponível ou não — não descreve o que acontece na pr
 O comum é: uma funcionalidade fora, o resto funcionando; lentidão que torna o uso
 inviável sem gerar erro; um subconjunto de usuários afetado.
 
-Ver [degradação graciosa](graceful-degradation.md). Medir apenas indisponibilidade
+Ver [degradação graciosa](/12-reliability/graceful-degradation.md). Medir apenas indisponibilidade
 total esconde a maior parte do impacto real.
 
 A saída é medir por jornada, com limiar de latência — o que transforma "está no ar" em
@@ -132,7 +132,7 @@ Três informações que precisam acompanhar qualquer porcentagem:
 
 **A janela.** 99,9% ao mês e ao ano são compromissos muito diferentes.
 
-**O ponto de medição.** Servidor, borda ou cliente. Ver [SLI](sli.md).
+**O ponto de medição.** Servidor, borda ou cliente. Ver [SLI](/12-reliability/sli.md).
 
 **O que conta como indisponível.** Erro total, lentidão, degradação parcial.
 
@@ -168,7 +168,7 @@ três separados.
 ## Quando Usar
 
 - Para acompanhar tendência ao longo do tempo.
-- Como base para [SLO](slo.md) e [SLA](sla.md).
+- Como base para [SLO](/12-reliability/slo.md) e [SLA](/12-reliability/sla.md).
 - Para comparar componentes e priorizar investimento.
 - Em comunicação com o negócio.
 
@@ -189,7 +189,7 @@ incomparáveis.
 
 ## Alternativas
 
-- **[SLI](sli.md) por jornada** — mede a experiência, não o tempo de atividade.
+- **[SLI](/12-reliability/sli.md) por jornada** — mede a experiência, não o tempo de atividade.
 - **Contagem de usuários afetados por minuto** — combina alcance e duração numa medida
   que o negócio entende.
 - **Contagem de incidentes por severidade** — mais legível que média em amostras
@@ -286,10 +286,10 @@ decomposição levou uma tarde para revelar isso.
 
 ## Conceitos Relacionados
 
-- [SLI](sli.md) — a forma que mede experiência.
-- [SLO](slo.md) — o alvo.
-- [Disponibilidade](../06-distributed-systems/availability.md) — a composição.
-- [Fundamentos de Confiabilidade](reliability-basics.md).
+- [SLI](/12-reliability/sli.md) — a forma que mede experiência.
+- [SLO](/12-reliability/slo.md) — o alvo.
+- [Disponibilidade](/06-distributed-systems/availability.md) — a composição.
+- [Fundamentos de Confiabilidade](/12-reliability/reliability-basics.md).
 
 ## Exercício Prático
 

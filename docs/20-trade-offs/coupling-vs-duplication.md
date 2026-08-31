@@ -55,7 +55,7 @@ Cada passo foi razoável. O resultado é pior que a duplicação original em tod
 mais difícil de ler, mais difícil de mudar, e agora com risco de que uma mudança para
 atender a um chamador quebre outro.
 
-Ver [DRY](../02-software-design/dry.md).
+Ver [DRY](/02-software-design/dry.md).
 
 O erro oposto existe e é menos comum em código, e mais comum entre serviços: a mesma regra
 de negócio implementada em quatro lugares, divergindo silenciosamente, com quatro
@@ -99,7 +99,7 @@ acoplamento  n dependentes → cada mudança precisa considerar n contextos,
 E o custo do acoplamento é diferido: ele não aparece na extração, aparece na primeira vez em
 que um dos usos precisa divergir. É por isso que a decisão parece boa por meses.
 
-Ver [acoplamento](../01-fundamentals/coupling.md).
+Ver [acoplamento](/01-fundamentals/coupling.md).
 
 ### Regra de três
 
@@ -113,7 +113,7 @@ A justificativa não é numerológica: com um caso, a estrutura é adivinhação
 variação é uma hipótese; com três, o eixo real fica visível.
 
 Extrair no segundo caso produz abstrações com a forma do primeiro. Ver
-[simplicidade vs. flexibilidade](simplicity-vs-flexibility.md).
+[simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
 
 ### Entre serviços, o cálculo muda
 
@@ -132,7 +132,7 @@ Por isso, **entre serviços, a tolerância a duplicação deve ser maior**. Dupl
 dados entre dois serviços com contextos diferentes é frequentemente a decisão correta, e é
 o que o desenho por contextos delimitados prescreve.
 
-Ver [contextos delimitados](../04-domain-driven-design/bounded-context.md).
+Ver [contextos delimitados](/04-domain-driven-design/bounded-context.md).
 
 ### Duplicação com sincronia declarada
 
@@ -219,7 +219,7 @@ Prefira **duplicar** quando:
 - **Extrair só o núcleo estável** — a parte que comprovadamente não varia; deixar o resto
   duplicado.
 - **Contrato em vez de código** — compartilhar o esquema e não a implementação. Ver
-  [contratos de integração](../08-integration-architecture/integration-contracts.md).
+  [contratos de integração](/08-integration-architecture/integration-contracts.md).
 - **Verificação automática de divergência** — testes que comparam os comportamentos das
   cópias, sem uni-las.
 
@@ -333,10 +333,10 @@ era um sinal, e nenhum foi lido como tal.
 
 ## Conceitos Relacionados
 
-- [Acoplamento](../01-fundamentals/coupling.md) e [DRY](../02-software-design/dry.md).
-- [Contextos Delimitados](../04-domain-driven-design/bounded-context.md).
-- [Simplicidade vs. Flexibilidade](simplicity-vs-flexibility.md).
-- [Monólito vs. Microsserviços](monolith-vs-microservices.md).
+- [Acoplamento](/01-fundamentals/coupling.md) e [DRY](/02-software-design/dry.md).
+- [Contextos Delimitados](/04-domain-driven-design/bounded-context.md).
+- [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
+- [Monólito vs. Microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 
 ## Exercício Prático
 

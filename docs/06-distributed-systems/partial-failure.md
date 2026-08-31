@@ -66,11 +66,11 @@ adicional multiplica os estados a considerar.**
 ### As três respostas possíveis
 
 **Compensar.** Desfazer o que já foi feito. Estornar a cobrança, liberar o
-estoque. É o que [sagas](sagas.md) formalizam, e exige que cada passo tenha
+estoque. É o que [sagas](/06-distributed-systems/sagas.md) formalizam, e exige que cada passo tenha
 inverso — o que nem sempre existe. Um e-mail enviado não se desenvia.
 
 **Retomar.** Persistir o progresso e continuar depois. Exige estado intermediário
-durável e passos [idempotentes](idempotency.md).
+durável e passos [idempotentes](/06-distributed-systems/idempotency.md).
 
 **Aceitar e reconciliar.** Deixar inconsistente e corrigir por um processo
 separado, que compara os lados e resolve. É a resposta usual quando compensar é
@@ -86,7 +86,7 @@ morrer no meio. O estado precisa ser persistido a cada passo, ou não há como
 retomar nem reconciliar.
 
 É o que transforma "uma função que chama três serviços" numa máquina de estados
-persistida. Ver [State](../03-design-patterns/state.md).
+persistida. Ver [State](/03-design-patterns/state.md).
 
 ### Falha parcial não exige microsserviços
 
@@ -171,7 +171,7 @@ problema.
 **Compensação que falha.** O estorno não passa, e agora há duas coisas erradas.
 
 **Reconciliação que não roda.** O processo para e ninguém percebe. Ver
-[processamento em background](../05-system-design/background-processing.md).
+[processamento em background](/05-system-design/background-processing.md).
 
 **Retomada não idempotente.** Reexecuta um passo que já tinha completado.
 
@@ -228,10 +228,10 @@ sabia que existiam, porque só as que geravam reclamação eram descobertas.
 
 ## Conceitos Relacionados
 
-- [Falha de Rede](network-failure.md) — a origem.
-- [Idempotência](idempotency.md) — o que torna a retomada segura.
-- [Sagas](sagas.md) — a formalização da compensação.
-- [Transações Distribuídas](distributed-transactions.md) — a alternativa e seu
+- [Falha de Rede](/06-distributed-systems/network-failure.md) — a origem.
+- [Idempotência](/06-distributed-systems/idempotency.md) — o que torna a retomada segura.
+- [Sagas](/06-distributed-systems/sagas.md) — a formalização da compensação.
+- [Transações Distribuídas](/06-distributed-systems/distributed-transactions.md) — a alternativa e seu
   custo.
 
 ## Exercício Prático

@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Failover é a troca do componente principal para uma cópia reserva quando o principal
 falha.
 
-É o que transforma [redundância](redundancy.md) de diagrama em disponibilidade real. E
+É o que transforma [redundância](/12-reliability/redundancy.md) de diagrama em disponibilidade real. E
 é o momento mais arriscado da vida de um sistema redundante: um failover mal executado
 causa mais dano que a falha original.
 
@@ -68,7 +68,7 @@ preço é o tempo de resposta humana.
 
 O meio-termo comum: automático com histerese — exigir falha sustentada por um período,
 não um pico instantâneo. Ver
-[detecção de falhas](../06-distributed-systems/failure-detection.md).
+[detecção de falhas](/06-distributed-systems/failure-detection.md).
 
 ### Cérebro dividido é o pior resultado
 
@@ -81,7 +81,7 @@ pode não se resolver.
 Os mecanismos que impedem:
 
 **Maioria.** Só assume quem tem o voto da maioria dos nós. Por isso três, não dois. Ver
-[consenso](../06-distributed-systems/consensus.md).
+[consenso](/06-distributed-systems/consensus.md).
 
 **Isolamento do antigo.** O primário anterior é impedido de aceitar escrita — por
 revogação de credencial, por regra de rede, ou por desligamento.
@@ -100,7 +100,7 @@ atraso de replicação de 2s no momento da falha
   → até 2 segundos de escritas confirmadas ao usuário, perdidas
 ```
 
-Isso precisa ser conhecido e aceito. Ver [RPO](rpo.md).
+Isso precisa ser conhecido e aceito. Ver [RPO](/12-reliability/rpo.md).
 
 E precisa ser comunicado: transações confirmadas ao usuário que deixaram de existir
 geram um problema de negócio, não apenas técnico.
@@ -136,7 +136,7 @@ faltar.
 
 ### Exercitar é a única verificação que vale
 
-Ver [engenharia do caos](chaos-engineering.md). O failover precisa ser executado
+Ver [engenharia do caos](/12-reliability/chaos-engineering.md). O failover precisa ser executado
 periodicamente, em produção, em janela controlada.
 
 A primeira execução encontra problemas. A terceira ou quarta, geralmente não. E o tempo
@@ -155,7 +155,7 @@ regularmente, e falha se for só documentado.
 
 - Existe redundância com cópia reserva.
 - A indisponibilidade tem custo que justifica a complexidade.
-- Há requisito de tempo de recuperação. Ver [RTO](rto.md).
+- Há requisito de tempo de recuperação. Ver [RTO](/12-reliability/rto.md).
 - Manutenção precisa acontecer sem parada.
 
 ## Quando Não Usar
@@ -175,9 +175,9 @@ regularmente, e falha se for só documentado.
 ## Alternativas
 
 - **Ativo-ativo** — sem troca a executar; o caminho de recuperação é o normal. Ver
-  [redundância](redundancy.md).
+  [redundância](/12-reliability/redundancy.md).
 - **Recuperação rápida** — reiniciar ou recriar o componente, em vez de trocar.
-- **[Degradação graciosa](graceful-degradation.md)** — operar sem o componente.
+- **[Degradação graciosa](/12-reliability/graceful-degradation.md)** — operar sem o componente.
 - **Failover manual com procedimento ensaiado** — mais lento e mais previsível.
 
 ## Trade-offs
@@ -277,11 +277,11 @@ o banco.
 
 ## Conceitos Relacionados
 
-- [Redundância](redundancy.md) — o pré-requisito.
-- [Engenharia do Caos](chaos-engineering.md) — o exercício.
-- [Eleição de Líder](../06-distributed-systems/leader-election.md) — o cérebro
+- [Redundância](/12-reliability/redundancy.md) — o pré-requisito.
+- [Engenharia do Caos](/12-reliability/chaos-engineering.md) — o exercício.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md) — o cérebro
   dividido.
-- [RPO](rpo.md) — o que se perde.
+- [RPO](/12-reliability/rpo.md) — o que se perde.
 
 ## Exercício Prático
 

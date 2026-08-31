@@ -69,14 +69,14 @@ Duas estratégias:
 cada comando implemente corretamente o seu — inclusive nos casos de borda.
 
 **Estado anterior** — o comando guarda o estado antes de executar e o restaura.
-Ver [Memento](memento.md). Mais simples de acertar, e mais caro em memória.
+Ver [Memento](/03-design-patterns/memento.md). Mais simples de acertar, e mais caro em memória.
 
 A escolha depende do tamanho do estado e de quão confiável precisa ser.
 
 ### Command e CQRS
 
 O padrão dá nome ao lado de escrita de
-[CQRS](cqrs.md): comandos alteram estado e não devolvem dados; consultas
+[CQRS](/03-design-patterns/cqrs.md): comandos alteram estado e não devolvem dados; consultas
 devolvem dados e não alteram.
 
 Essa separação de intenção é útil mesmo sem adotar CQRS como arquitetura.
@@ -109,7 +109,7 @@ Uma função capturando o contexto é um comando.
 ## Alternativas
 
 - **Função ou closure** — quando não é preciso mais que executar depois.
-- **[Memento](memento.md)** — para desfazer por restauração de estado.
+- **[Memento](/03-design-patterns/memento.md)** — para desfazer por restauração de estado.
 - **Registro de eventos** — quando o objetivo é auditoria, gravar o que aconteceu
   pode ser mais simples que reificar a ação.
 - **Fila de mensagens** — quando a operação precisa atravessar processos.
@@ -192,9 +192,9 @@ Não há resposta única para o padrão inteiro.
 
 ## Conceitos Relacionados
 
-- [Memento](memento.md) — captura de estado para restauração.
-- [State](state.md) — comandos frequentemente disparam transições.
-- [CQRS](cqrs.md) — a separação comando/consulta em escala de arquitetura.
+- [Memento](/03-design-patterns/memento.md) — captura de estado para restauração.
+- [State](/03-design-patterns/state.md) — comandos frequentemente disparam transições.
+- [CQRS](/03-design-patterns/cqrs.md) — a separação comando/consulta em escala de arquitetura.
 
 ## Exercício Prático
 

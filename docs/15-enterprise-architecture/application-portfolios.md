@@ -89,7 +89,7 @@ A segunda linha de saúde é a que costuma dominar o risco real e a que menos ap
 avaliações técnicas: um sistema moderno com um único mantenedor é mais frágil que um
 sistema antigo com cinco.
 
-Ver [capacidades de negócio](business-capabilities.md) — o mapeamento a capacidades é o
+Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md) — o mapeamento a capacidades é o
 que dá a dimensão de valor.
 
 ### Custo total, não custo de infraestrutura
@@ -104,7 +104,7 @@ oportunidade     o que não é feito porque este sistema consome atenção
 A terceira linha é frequentemente maior que a primeira e quase nunca é contabilizada: um
 sistema com 15 integrações custa manutenção em 15 lugares, não só no dele.
 
-Ver [paisagens de integração](integration-landscapes.md).
+Ver [paisagens de integração](/15-enterprise-architecture/integration-landscapes.md).
 
 E o custo é o que torna a decisão de aposentar defensável: sem número, "vamos desligar"
 é uma proposta de risco sem ganho visível.
@@ -114,7 +114,7 @@ E o custo é o que torna a decisão de aposentar defensável: sem número, "vamo
 Ela enfrenta três obstáculos:
 
 **Ninguém sabe quem usa.** A resposta é observar, não perguntar. Ver
-[arquitetura do estado atual](current-state-architecture.md).
+[arquitetura do estado atual](/15-enterprise-architecture/current-state-architecture.md).
 
 **O risco é assimétrico.** Desligar e quebrar algo é visível; manter ligado é invisível.
 
@@ -149,7 +149,7 @@ derivado      inventário, custo, versões, incidentes, uso
 julgamento    valor, criticidade, saúde qualitativa, propriedade
 ```
 
-Ver [arquitetura do estado atual](current-state-architecture.md). O que é derivado se
+Ver [arquitetura do estado atual](/15-enterprise-architecture/current-state-architecture.md). O que é derivado se
 mantém; o que exige julgamento é revisado periodicamente, e muda devagar.
 
 Um portfólio inteiramente preenchido à mão desatualiza em meses.
@@ -204,10 +204,10 @@ risco que ninguém nomeou.
 
 ## Alternativas
 
-- **[Capacidades de negócio](business-capabilities.md)** — a lente de negócio, sem o
+- **[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md)** — a lente de negócio, sem o
   detalhe por aplicação.
 - **Catálogo de serviços** — derivado, técnico, sem avaliação. Ver
-  [plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
+  [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 - **Avaliação sob demanda** — avaliar apenas o que está em discussão, em vez de tudo.
 
 A última é econômica: um portfólio completo de 200 aplicações custa caro para manter, e
@@ -309,10 +309,10 @@ porque nenhuma estava quebrando.
 
 ## Conceitos Relacionados
 
-- [Capacidades de Negócio](business-capabilities.md) — a dimensão de valor.
-- [Arquitetura do Estado Atual](current-state-architecture.md).
-- [Paisagens de Integração](integration-landscapes.md) — o custo escondido.
-- [Modernização de Legado](../16-legacy-modernization/index.md).
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — a dimensão de valor.
+- [Arquitetura do Estado Atual](/15-enterprise-architecture/current-state-architecture.md).
+- [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md) — o custo escondido.
+- [Modernização de Legado](/16-legacy-modernization/index.md).
 
 ## Exercício Prático
 

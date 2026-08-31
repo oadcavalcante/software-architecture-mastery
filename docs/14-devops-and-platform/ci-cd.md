@@ -61,7 +61,7 @@ Isso é incompatível com ramos de funcionalidade que vivem semanas. E a objeç�
 — "mas a funcionalidade não está pronta" — tem resposta:
 
 **Integrar não é liberar.** Código incompleto pode estar no ramo principal, desde que
-não seja alcançável. Ver [feature flags](feature-flags.md).
+não seja alcançável. Ver [feature flags](/14-devops-and-platform/feature-flags.md).
 
 **Dividir a mudança.** A maioria das funcionalidades pode ser entregue em fatias que não
 quebram nada — estrutura primeiro, comportamento depois.
@@ -107,7 +107,7 @@ migrações compatíveis      esquema evolui sem quebrar a versão anterior
 A última é a mais esquecida e a que mais impede: uma migração que exige que código e
 banco mudem juntos torna a implantação um evento coordenado, e a reversão impossível.
 
-Ver [evolução de esquema](../08-integration-architecture/schema-evolution.md).
+Ver [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 ### Implantação contínua é uma decisão, não o objetivo
 
@@ -141,7 +141,7 @@ em produção        testes de fumaça, canary, monitoramento
 O princípio: falhe o mais cedo e o mais barato possível. E aceite que parte da
 verificação acontece **em produção** — o que muda a postura sobre reversibilidade.
 
-Ver [canary](canary.md).
+Ver [canary](/14-devops-and-platform/canary.md).
 
 ### Testes instáveis destroem a prática
 
@@ -186,7 +186,7 @@ reexecução — ou ela cresce sem que ninguém perceba.
 - **Ramos de curta duração** — um a dois dias, integrados rapidamente. Meio-termo
   praticável.
 - **Desenvolvimento baseado em tronco com flags** — a forma que sustenta integração
-  diária. Ver [feature flags](feature-flags.md).
+  diária. Ver [feature flags](/14-devops-and-platform/feature-flags.md).
 
 ## Trade-offs
 
@@ -274,7 +274,7 @@ antes de qualquer outra coisa. O tempo quebrado caiu para menos de 20 minutos po
 semana.
 
 **Fatias menores.** Treinamento sobre expansão e contração, e uso de
-[feature flags](feature-flags.md) para integrar código incompleto. A duração média dos
+[feature flags](/14-devops-and-platform/feature-flags.md) para integrar código incompleto. A duração média dos
 ramos caiu de 17 dias para 1,4.
 
 **Migrações compatíveis** obrigatórias, verificadas em revisão.
@@ -289,10 +289,10 @@ como detalhe de infraestrutura.
 
 ## Conceitos Relacionados
 
-- [Estratégias de Implantação](deployment-strategies.md).
-- [Feature Flags](feature-flags.md) — o que permite integrar sem liberar.
-- [Gestão de Ambientes](environment-management.md).
-- [Evolução de Esquema](../08-integration-architecture/schema-evolution.md).
+- [Estratégias de Implantação](/14-devops-and-platform/deployment-strategies.md).
+- [Feature Flags](/14-devops-and-platform/feature-flags.md) — o que permite integrar sem liberar.
+- [Gestão de Ambientes](/14-devops-and-platform/environment-management.md).
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
 ## Exercício Prático
 

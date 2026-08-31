@@ -98,7 +98,7 @@ dimensão não serem.
 arquivos — o pior caso possível.
 
 Não é ajuste ausente. É o layout funcionando ao contrário do que a carga precisa.
-Ver [OLTP](oltp.md).
+Ver [OLTP](/07-data-architecture/oltp.md).
 
 ### Escrita em lote é o modo natural
 
@@ -117,7 +117,7 @@ linhas e poucas colunas ganha; quem lê uma linha inteira perde.
 
 ## Quando Usar
 
-- Carga analítica sobre grandes volumes. Ver [OLAP](olap.md).
+- Carga analítica sobre grandes volumes. Ver [OLAP](/07-data-architecture/olap.md).
 - Tabelas largas com consultas que usam poucas colunas.
 - Dados históricos, escritos em lote, raramente atualizados.
 - Agregação sobre milhões ou bilhões de linhas.
@@ -225,10 +225,10 @@ duas coisas. O requisito real de frescor era diário.
 
 ## Conceitos Relacionados
 
-- [OLAP](olap.md) — a carga que ele serve.
-- [OLTP](oltp.md) — a carga que ele não serve.
-- [Data Warehouse](data-warehouses.md) — onde ele costuma viver.
-- [Particionamento de Dados](data-partitioning.md) — complementa o descarte de
+- [OLAP](/07-data-architecture/olap.md) — a carga que ele serve.
+- [OLTP](/07-data-architecture/oltp.md) — a carga que ele não serve.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md) — onde ele costuma viver.
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md) — complementa o descarte de
   blocos.
 
 ## Exercício Prático

@@ -38,8 +38,8 @@ as mesmas. As arquiteturas não têm nada em comum.
 
 Isso significa que requisitos funcionais delimitam o que o sistema precisa
 conseguir fazer, mas o **como** é decidido por outra coisa: os
-[atributos de qualidade](quality-attributes.md) e as
-[restrições](constraints.md).
+[atributos de qualidade](/01-fundamentals/quality-attributes.md) e as
+[restrições](/01-fundamentals/constraints.md).
 
 O erro que decorre daí é comum e caro: levantar requisitos funcionais com rigor,
 tratá-los como a especificação completa, e descobrir na primeira semana de
@@ -76,7 +76,7 @@ podem cair. Funcionalidades que mudam juntas e compartilham vocabulário tendem 
 pertencer ao mesmo módulo; as que mudam por razões independentes, a módulos
 separados.
 
-Esse é o insumo que o [DDD estratégico](../04-domain-driven-design/index.md)
+Esse é o insumo que o [DDD estratégico](/04-domain-driven-design/index.md)
 transforma em bounded contexts.
 
 ### Casos de exceção são requisito, não detalhe
@@ -150,17 +150,17 @@ As respostas mudam a arquitetura de forma direta. Se cancelar só é possível a
 do pagamento, uma operação simples resolve. Se é possível após captura e envio,
 o sistema precisa de estorno, de reversão de estoque e de coordenação com a
 transportadora — o que provavelmente significa uma
-[saga](../06-distributed-systems/index.md), com tudo o que ela custa.
+[saga](/06-distributed-systems/index.md), com tudo o que ela custa.
 
 O mesmo enunciado de uma linha cobre os dois casos. A diferença arquitetural
 entre eles é de meses.
 
 ## Conceitos Relacionados
 
-- [Requisitos Não-Funcionais](non-functional-requirements.md) — a outra metade.
-- [Atributos de Qualidade](quality-attributes.md) — o que de fato decide a
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — a outra metade.
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — o que de fato decide a
   arquitetura.
-- [Espaço do Problema](problem-space.md) — de onde os requisitos vêm.
+- [Espaço do Problema](/01-fundamentals/problem-space.md) — de onde os requisitos vêm.
 
 ## Exercício Prático
 

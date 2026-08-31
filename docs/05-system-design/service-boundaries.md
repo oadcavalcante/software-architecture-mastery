@@ -58,7 +58,7 @@ muito diferentes do resto.
 
 Sem uma delas, um módulo entrega o mesmo isolamento lógico por uma fração do
 custo. Ver
-[design de componentes](../02-software-design/component-design.md).
+[design de componentes](/02-software-design/component-design.md).
 
 ### O histórico responde melhor que a intuição
 
@@ -81,12 +81,12 @@ Essa medição custa minutos e quase nunca é feita antes da decisão.
 ### Bounded context é o candidato natural
 
 As fronteiras de [bounded
-context](../04-domain-driven-design/bounded-context.md) são as melhores candidatas,
+context](/04-domain-driven-design/bounded-context.md) são as melhores candidatas,
 porque derivam de como o negócio se divide — e negócios se dividem de forma mais
 estável que tecnologias.
 
 Mas nem todo bounded context precisa virar serviço. A conclusão do
-[monolito modular](../03-design-patterns/modular-monolith.md): a fronteira lógica
+[monolito modular](/03-design-patterns/modular-monolith.md): a fronteira lógica
 vale sempre; a física, só com uma das quatro razões.
 
 ### Dados definem a fronteira, não código
@@ -99,13 +99,13 @@ esquema sem contrato, que é pior que acoplamento de código.
 
 Isso implica que decidir a fronteira é decidir a partição dos dados. E é a parte
 mais difícil: separar código é refatoração; separar dados envolve migração,
-consistência eventual e frequentemente [sagas](../06-distributed-systems/index.md).
+consistência eventual e frequentemente [sagas](/06-distributed-systems/index.md).
 
 ### Extraia um de cada vez, com razão registrada
 
 A estratégia que funciona: começar como módulos, deixar as fronteiras se provarem,
 e extrair **um serviço por vez**, cada um com a razão documentada em
-[ADR](../18-architecture-decisions/index.md).
+[ADR](/18-architecture-decisions/index.md).
 
 Se não há razão específica, o módulo fica onde está.
 
@@ -169,7 +169,7 @@ caro fazer o inverso.** Isso recomenda errar para o lado de menos serviços.
 **Fronteira no eixo errado.** Toda mudança de negócio atravessa.
 
 **Cadeia síncrona longa.** Disponibilidade multiplicada, latência somada. Ver
-[serviços](services.md).
+[serviços](/05-system-design/services.md).
 
 **Extração sem migração de dados.** O serviço novo continua lendo o banco antigo.
 
@@ -220,12 +220,12 @@ migração de dados nos dois casos.
 
 ## Conceitos Relacionados
 
-- [Serviços](services.md) — o que uma fronteira cria.
-- [Decomposição](system-decomposition.md) — a divisão lógica que precede.
-- [Bounded Context](../04-domain-driven-design/bounded-context.md) — o candidato
+- [Serviços](/05-system-design/services.md) — o que uma fronteira cria.
+- [Decomposição](/05-system-design/system-decomposition.md) — a divisão lógica que precede.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md) — o candidato
   natural.
-- [Microsserviços](../03-design-patterns/microservices.md) — o estilo.
-- [Monolito Modular](../03-design-patterns/modular-monolith.md) — a alternativa
+- [Microsserviços](/03-design-patterns/microservices.md) — o estilo.
+- [Monolito Modular](/03-design-patterns/modular-monolith.md) — a alternativa
   padrão.
 
 ## Exercício Prático

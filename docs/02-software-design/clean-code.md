@@ -61,7 +61,7 @@ Três regras que se sustentam:
   de classe usado em vinte lugares não.
 - **O vocabulário é o do domínio.** Se o negócio diz "apólice", o código diz
   `apolice`. Ver
-  [ubiquitous language](../04-domain-driven-design/index.md).
+  [ubiquitous language](/04-domain-driven-design/index.md).
 
 ### Funções
 
@@ -138,7 +138,7 @@ código estável é custo sem retorno.
 - **Testes como documentação** — um teste bem nomeado comunica intenção melhor que
   muitos comentários.
 - **Tipos expressivos** — um tipo `Cpf` comunica mais que um `String` bem nomeado.
-- **[Heurísticas de design](design-heuristics.md)** — critérios mais estruturais
+- **[Heurísticas de design](/02-software-design/design-heuristics.md)** — critérios mais estruturais
   e menos sujeitos a interpretação.
 
 ## Trade-offs
@@ -213,10 +213,10 @@ justamente o que a próxima pessoa lê para entender a intenção do código.
 
 ## Conceitos Relacionados
 
-- [Code Smells](code-smells.md) — os sinais de que algo precisa de atenção.
-- [Refatoração](refactoring.md) — como mudar sem quebrar.
-- [Heurísticas de Design](design-heuristics.md) — critérios mais estruturais.
-- [Abstração](../01-fundamentals/abstraction.md) — quando extrair compensa.
+- [Code Smells](/02-software-design/code-smells.md) — os sinais de que algo precisa de atenção.
+- [Refatoração](/02-software-design/refactoring.md) — como mudar sem quebrar.
+- [Heurísticas de Design](/02-software-design/design-heuristics.md) — critérios mais estruturais.
+- [Abstração](/01-fundamentals/abstraction.md) — quando extrair compensa.
 
 ## Exercício Prático
 

@@ -46,7 +46,7 @@ transfere de custo do cliente para o servidor — que é a parte omitida na
 comparação usual.
 
 **Os estilos assíncronos.** Integração por mensageria e por eventos, apoiadas em
-[sistemas distribuídos](../06-distributed-systems/index.md). Webhooks tratados
+[sistemas distribuídos](/06-distributed-systems/index.md). Webhooks tratados
 como o que são: uma integração assíncrona em que a outra ponta é um servidor
 que você não controla.
 
@@ -93,5 +93,5 @@ frequente do que a literatura sugere.
 
 ## Continua em
 
-[Arquitetura em Nuvem](../09-cloud-architecture/index.md), onde essas decisões
+[Arquitetura em Nuvem](/09-cloud-architecture/index.md), onde essas decisões
 passam a interagir com o que a plataforma oferece e cobra.

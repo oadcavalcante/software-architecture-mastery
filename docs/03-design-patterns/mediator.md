@@ -58,7 +58,7 @@ Cada colega notifica o mediador; ele decide o que fazer e aciona os outros.
 
 Confusão frequente, e a distinção é prática.
 
-**[Observer](observer.md)** — o sujeito anuncia e não sabe quem reage. As reações
+**[Observer](/03-design-patterns/observer.md)** — o sujeito anuncia e não sabe quem reage. As reações
 são independentes e a ordem não importa.
 
 **Mediator** — conhece todos e coordena. A ordem e as dependências entre as
@@ -105,7 +105,7 @@ ao domínio.
 **Quando há poucos objetos.** Três componentes com duas regras não precisam de
 mediador.
 
-**Quando as reações são independentes.** Use [Observer](observer.md), que é mais
+**Quando as reações são independentes.** Use [Observer](/03-design-patterns/observer.md), que é mais
 simples.
 
 **Quando o mediador conheceria detalhes internos dos colegas.** Isso não reduz
@@ -119,11 +119,11 @@ trezentas linhas é agravar o problema, não usar o padrão.
 
 ## Alternativas
 
-- **[Observer](observer.md)** — reações independentes.
-- **[Facade](facade.md)** — quando o objetivo é simplificar acesso, não coordenar
+- **[Observer](/03-design-patterns/observer.md)** — reações independentes.
+- **[Facade](/03-design-patterns/facade.md)** — quando o objetivo é simplificar acesso, não coordenar
   interação.
 - **Máquina de estados** — quando a coordenação é sobre transições. Ver
-  [State](state.md).
+  [State](/03-design-patterns/state.md).
 - **Serviço de aplicação** — quando a coordenação é de caso de uso, o lugar dela é
   ali.
 
@@ -176,7 +176,7 @@ entre si; falam com a torre.
 
 **Orquestradores de fluxo.** Um coordenador que aciona serviços na ordem e trata
 falhas — é Mediator em escala de sistema, e a alternativa é coreografia. Ver
-[arquitetura orientada a eventos](event-driven.md).
+[arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
 
 O último traz a distinção mais importante do padrão em escala: **orquestração
 versus coreografia**. Mediator é orquestração — um centro que sabe. Observer é
@@ -208,9 +208,9 @@ negócio migrar para o coordenador — que é o modo de degeneração previsto.
 
 ## Conceitos Relacionados
 
-- [Observer](observer.md) — coreografia em vez de orquestração.
-- [Facade](facade.md) — simplificar acesso, não coordenar.
-- [State](state.md) — quando a coordenação é sobre transições.
+- [Observer](/03-design-patterns/observer.md) — coreografia em vez de orquestração.
+- [Facade](/03-design-patterns/facade.md) — simplificar acesso, não coordenar.
+- [State](/03-design-patterns/state.md) — quando a coordenação é sobre transições.
 
 ## Exercício Prático
 

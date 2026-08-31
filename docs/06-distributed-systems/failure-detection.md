@@ -36,13 +36,13 @@ Sistemas precisam saber quem está vivo: para rotear tráfego, para eleger líde
 para redistribuir trabalho, para decidir se uma réplica ainda conta.
 
 A única evidência disponível é ausência de resposta dentro de um prazo. E ausência
-de resposta é o [silêncio](network-failure.md) — que é compatível com tudo.
+de resposta é o [silêncio](/06-distributed-systems/network-failure.md) — que é compatível com tudo.
 
 Isso produz dois erros possíveis, e eles são opostos:
 
 **Falso positivo.** Declarar morto um nó saudável e lento. O trabalho dele é
 redistribuído desnecessariamente, e ele pode continuar operando — o que produz
-[cérebro dividido](leader-election.md).
+[cérebro dividido](/06-distributed-systems/leader-election.md).
 
 **Falso negativo.** Continuar enviando tráfego para um nó morto. Requisições
 falham até a detecção acontecer.
@@ -103,7 +103,7 @@ Mesmo com detecção perfeita, existe a janela entre a falha e a detecção. Dur
 ela, requisições falham.
 
 E mesmo depois de detectar, o nó suspeito pode voltar sem saber que foi removido —
-razão pela qual [fencing](leader-election.md) é necessário e detecção não basta.
+razão pela qual [fencing](/06-distributed-systems/leader-election.md) é necessário e detecção não basta.
 
 **Detecção reduz a janela; ela não elimina a necessidade de tolerar o erro.**
 
@@ -113,7 +113,7 @@ Um nó que responde ao batimento e processa devagar passa em qualquer detector
 baseado em vivacidade.
 
 Detectar degradação exige medir **latência e taxa de erro**, não apenas presença.
-Ver [falha de rede](network-failure.md).
+Ver [falha de rede](/06-distributed-systems/network-failure.md).
 
 Isso é o que torna verificação de saúde binária insuficiente, e por que
 balanceadores modernos consideram latência ao distribuir.
@@ -154,7 +154,7 @@ latência maior por natureza.
 - **Detecção indireta** — perguntar a terceiros.
 - **Circuit breaker** — em vez de decidir se o nó está vivo, decidir se vale
   continuar chamando. Ver
-  [confiabilidade](../12-reliability/index.md).
+  [confiabilidade](/12-reliability/index.md).
 
 A última muda a pergunta de forma útil: em vez de "ele está vivo?", "as chamadas
 estão funcionando?" — que é o que de fato importa e é diretamente observável.
@@ -201,7 +201,7 @@ dos outros.
 
 **Verificação de saúde profunda derrubando tudo.** Quando ela depende de uma
 dependência comum. Ver
-[balanceamento de carga](../05-system-design/load-balancing.md).
+[balanceamento de carga](/05-system-design/load-balancing.md).
 
 ## Erros Comuns
 
@@ -254,10 +254,10 @@ resposta para uma pausa de 4 segundos e para uma máquina morta**.
 
 ## Conceitos Relacionados
 
-- [Falha de Rede](network-failure.md) — por que o silêncio é ambíguo.
-- [Eleição de Líder](leader-election.md) — o consumidor mais crítico da detecção.
-- [Timeouts](timeouts.md) — o mecanismo básico.
-- [Consenso](consensus.md).
+- [Falha de Rede](/06-distributed-systems/network-failure.md) — por que o silêncio é ambíguo.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md) — o consumidor mais crítico da detecção.
+- [Timeouts](/06-distributed-systems/timeouts.md) — o mecanismo básico.
+- [Consenso](/06-distributed-systems/consensus.md).
 
 ## Exercício Prático
 

@@ -47,7 +47,7 @@ reconstruir — sem passar pelo diagnóstico.
 ```
 
 Cada um desses gasta muito para não resolver o problema real. Ver
-[motivadores de modernização](modernization-drivers.md).
+[motivadores de modernização](/16-legacy-modernization/modernization-drivers.md).
 
 ## Conceitos Centrais
 
@@ -62,8 +62,8 @@ capacidade não diferenciadora         substituir
 nada limita de fato                   não fazer nada
 ```
 
-Ver [replataforma](replatforming.md), [refatoração](legacy-refactoring.md),
-[reconstrução](rebuilding.md) e [substituição](replacing.md).
+Ver [replataforma](/16-legacy-modernization/replatforming.md), [refatoração](/16-legacy-modernization/legacy-refactoring.md),
+[reconstrução](/16-legacy-modernization/rebuilding.md) e [substituição](/16-legacy-modernization/replacing.md).
 
 A linha do meio é a que mais confunde: código difícil de mudar frequentemente é tratado
 como caso de reconstrução, quando refatoração incremental resolve por uma fração do
@@ -100,7 +100,7 @@ a integração com parceiros infraestrutura antiga → replataformar
 os relatórios             capacidade comum        → substituir
 ```
 
-Ver [modernização incremental](incremental-modernization.md).
+Ver [modernização incremental](/16-legacy-modernization/incremental-modernization.md).
 
 Decidir por sistema inteiro é o que produz projetos grandes demais. Decidir por parte
 produz um plano com escopo proporcional ao problema.
@@ -119,15 +119,15 @@ implantação mais frequente
 Isso reduz o custo de tudo o que vier depois — inclusive de reconstruir, se for o caso.
 
 E entrega valor cedo, o que sustenta apoio para o trabalho mais longo. Ver
-[restrições organizacionais](organizational-constraints.md).
+[restrições organizacionais](/16-legacy-modernization/organizational-constraints.md).
 
 ### Substituir exige avaliar a fronteira
 
 Um produto de mercado traz a fronteira do fornecedor, que raramente coincide com o
 domínio da organização.
 
-Ver [arquitetura de aplicação](../15-enterprise-architecture/application-architecture.md)
-e [SaaS](../09-cloud-architecture/saas.md).
+Ver [arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md)
+e [SaaS](/09-cloud-architecture/saas.md).
 
 Isso produz duas situações que precisam ser avaliadas antes: o produto faz mais que o
 necessário — e a duplicação precisa ser resolvida — ou faz menos, e o resto precisa ser
@@ -135,7 +135,7 @@ construído em volta.
 
 E há o critério de diferenciação: substituir uma capacidade diferenciadora por um produto
 que os concorrentes também usam elimina a diferenciação. Ver
-[capacidades de negócio](../15-enterprise-architecture/business-capabilities.md).
+[capacidades de negócio](/15-enterprise-architecture/business-capabilities.md).
 
 ### Não fazer nada precisa ser avaliado explicitamente
 
@@ -149,7 +149,7 @@ faz sentido   o sistema atende, é estável, ninguém precisa mudá-lo
 
 O que a torna uma decisão, e não omissão: registrá-la, com as razões e um prazo de
 revisão. Ver
-[motivadores de modernização](modernization-drivers.md).
+[motivadores de modernização](/16-legacy-modernization/modernization-drivers.md).
 
 ### A estratégia pode mudar durante a execução
 
@@ -171,7 +171,7 @@ compromisso público com a abordagem inicial, que transforma a mudança em admis
 O que facilita: tratar a escolha como hipótese revisável desde o início, com pontos
 definidos de reavaliação — tipicamente após a primeira fatia, quando o entendimento do
 sistema é qualitativamente maior. Ver
-[modernização incremental](incremental-modernization.md).
+[modernização incremental](/16-legacy-modernization/incremental-modernization.md).
 
 ## Modelo Mental
 
@@ -207,7 +207,7 @@ Além das cinco, três abordagens intermediárias:
 
 - **Contenção** — isolar o legado com uma camada de tradução, para que ele não limite o
   entorno. Ver
-  [anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md).
+  [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 - **Congelar** — o sistema para de evoluir; funcionalidade nova é construída fora.
 - **Encapsular** — expor o legado por uma interface moderna, sem mudá-lo.
 
@@ -306,10 +306,10 @@ tratava como homogêneo um sistema cujas partes tinham problemas completamente d
 
 ## Conceitos Relacionados
 
-- [Replataforma](replatforming.md), [Refatoração](legacy-refactoring.md),
-  [Reconstrução](rebuilding.md), [Substituição](replacing.md).
-- [Motivadores de Modernização](modernization-drivers.md) — o diagnóstico.
-- [Modernização Incremental](incremental-modernization.md).
+- [Replataforma](/16-legacy-modernization/replatforming.md), [Refatoração](/16-legacy-modernization/legacy-refactoring.md),
+  [Reconstrução](/16-legacy-modernization/rebuilding.md), [Substituição](/16-legacy-modernization/replacing.md).
+- [Motivadores de Modernização](/16-legacy-modernization/modernization-drivers.md) — o diagnóstico.
+- [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md).
 
 ## Exercício Prático
 

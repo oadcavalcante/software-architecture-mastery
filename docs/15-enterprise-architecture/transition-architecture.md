@@ -80,7 +80,7 @@ quando e como o velho é desligado
 
 A primeira linha é a que mais causa dano quando fica implícita: dois sistemas escrevendo
 o mesmo dado, sem uma fonte definida, produzem divergência que ninguém detecta. Ver
-[consistência de dados](../07-data-architecture/data-consistency.md).
+[consistência de dados](/07-data-architecture/data-consistency.md).
 
 E a última é a que mais frequentemente não acontece: o sistema antigo permanece ligado
 "por precaução", indefinidamente, com o custo de manter os dois.
@@ -95,7 +95,7 @@ sombra             o novo processa em paralelo sem responder, para comparar
 divisão por fatia  um segmento de usuários, uma região, um tipo de operação
 ```
 
-Ver [modernização de legado](../16-legacy-modernization/index.md) para o tratamento
+Ver [modernização de legado](/16-legacy-modernization/index.md) para o tratamento
 completo.
 
 A escolha depende do risco e da reversibilidade: sombra é a mais segura e a mais cara;
@@ -280,10 +280,10 @@ utilizável. O que travava não era técnico — era que o único momento de val
 
 ## Conceitos Relacionados
 
-- [Arquitetura Alvo](target-architecture.md) — o destino.
-- [Arquitetura do Estado Atual](current-state-architecture.md).
-- [Roteiros de Arquitetura](architecture-roadmaps.md).
-- [Modernização de Legado](../16-legacy-modernization/index.md).
+- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md) — o destino.
+- [Arquitetura do Estado Atual](/15-enterprise-architecture/current-state-architecture.md).
+- [Roteiros de Arquitetura](/15-enterprise-architecture/architecture-roadmaps.md).
+- [Modernização de Legado](/16-legacy-modernization/index.md).
 
 ## Exercício Prático
 

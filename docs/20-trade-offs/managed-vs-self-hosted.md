@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-O par é a versão de infraestrutura de [construir vs. comprar](build-vs-buy.md), e tem o
+O par é a versão de infraestrutura de [construir vs. comprar](/20-trade-offs/build-vs-buy.md), e tem o
 mesmo viés: o custo do trabalho próprio é sistematicamente omitido da comparação.
 
 ```text
@@ -80,7 +80,7 @@ tempo de aprendizado inicial, amortizado
 Times que fazem essa medição pela primeira vez costumam se surpreender: componentes que
 "não dão trabalho" consomem de 10 a 30 horas por mês quando o tempo é contabilizado.
 
-Ver [custo vs. confiabilidade](cost-vs-reliability.md).
+Ver [custo vs. confiabilidade](/20-trade-offs/cost-vs-reliability.md).
 
 ### O prêmio compra confiabilidade que você não construiria
 
@@ -125,8 +125,8 @@ A distinção do meio é importante e frequentemente ignorada: um serviço geren
 um protocolo padrão tem custo de saída muito menor que um com interface própria — mesmo
 sendo do mesmo fornecedor.
 
-Ver [aprisionamento](../09-cloud-architecture/vendor-lock-in.md) e
-[nativo vs. portável](cloud-native-vs-portable.md).
+Ver [aprisionamento](/09-cloud-architecture/vendor-lock-in.md) e
+[nativo vs. portável](/20-trade-offs/cloud-native-vs-portable.md).
 
 ### Carga cognitiva é um recurso finito
 
@@ -139,7 +139,7 @@ o efeito é invisível e cumulativo
 Uma equipe de 8 pessoas operando cinco componentes de infraestrutura tem uma fração
 significativa da sua capacidade fora do produto — e é uma fração que ninguém orça.
 
-Ver [engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ### Sinais de escolha errada
 
@@ -339,10 +339,10 @@ nenhuma das duas.
 
 ## Conceitos Relacionados
 
-- [Serviços Gerenciados](../09-cloud-architecture/managed-services.md).
-- [Build vs. Buy](build-vs-buy.md) — o mesmo eixo, aplicado a software.
-- [Nativo vs. Portável](cloud-native-vs-portable.md).
-- [Engenharia de Plataforma](../14-devops-and-platform/platform-engineering.md).
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — o mesmo eixo, aplicado a software.
+- [Nativo vs. Portável](/20-trade-offs/cloud-native-vs-portable.md).
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ## Exercício Prático
 

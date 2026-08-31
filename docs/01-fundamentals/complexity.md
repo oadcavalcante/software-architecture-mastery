@@ -157,7 +157,7 @@ executadas.
 incompreensível porque as interações não estão em lugar nenhum.
 
 **Abstração que não esconde.** Adiciona nível sem reduzir o que é preciso saber.
-Ver [abstração](abstraction.md).
+Ver [abstração](/01-fundamentals/abstraction.md).
 
 **Complexidade operacional invisível.** A arquitetura é elegante no diagrama e
 exige três pessoas para operar. O custo não aparece no código.
@@ -211,9 +211,9 @@ um lado da conta, e medir custou uma tarde.
 
 ## Conceitos Relacionados
 
-- [Abstração](abstraction.md) — a ferramenta que reduz ou adiciona complexidade.
-- [Dívida Técnica](technical-debt.md) — complexidade acidental acumulada.
-- [Trade-offs](../20-trade-offs/index.md) — a contabilidade dos dois lados.
+- [Abstração](/01-fundamentals/abstraction.md) — a ferramenta que reduz ou adiciona complexidade.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md) — complexidade acidental acumulada.
+- [Trade-offs](/20-trade-offs/index.md) — a contabilidade dos dois lados.
 
 ## Exercício Prático
 

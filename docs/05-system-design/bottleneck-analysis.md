@@ -221,7 +221,7 @@ cache. Se a maior parte está fora, o problema não é o seu código.
 
 **Dois.** Quantas consultas por requisição? Um número que cresce com a quantidade
 de itens exibidos é o N+1 clássico. Ver
-[Proxy](../03-design-patterns/proxy.md).
+[Proxy](/03-design-patterns/proxy.md).
 
 **Três.** Alguma consulta percorre a tabela? O plano de execução responde. Índice
 ausente é a causa mais frequente e a mais barata de corrigir.
@@ -241,11 +241,11 @@ resposta menos provável.
 
 ## Conceitos Relacionados
 
-- [Planejamento de Capacidade](capacity-planning.md) — a estimativa que antecede.
-- [Escalabilidade Básica](scalability-basics.md) — o que fazer com o gargalo
+- [Planejamento de Capacidade](/05-system-design/capacity-planning.md) — a estimativa que antecede.
+- [Escalabilidade Básica](/05-system-design/scalability-basics.md) — o que fazer com o gargalo
   identificado.
-- [Observabilidade](../13-observability/index.md) — os instrumentos.
-- [Hotspots](../11-scalability/index.md) — quando o gargalo é uma chave, não um
+- [Observabilidade](/13-observability/index.md) — os instrumentos.
+- [Hotspots](/11-scalability/index.md) — quando o gargalo é uma chave, não um
   recurso.
 
 ## Exercício Prático

@@ -36,7 +36,7 @@ Raramente é malícia; quase sempre é bug.
 
 **Retentativa em cascata.** Um serviço lento faz clientes repetirem, o que aumenta
 a carga, o que o deixa mais lento. Ver
-[retry storms](../12-reliability/index.md).
+[retry storms](/12-reliability/index.md).
 
 **Uso desigual.** Um cliente grande consome o que estava dimensionado para todos.
 
@@ -101,7 +101,7 @@ situação. Sem ele, o rate limiting pode aumentar a carga em vez de reduzir.
 Rejeitar é uma escolha. As alternativas:
 
 **Enfileirar.** Aceitar e processar depois, quando o trabalho é assíncrono. Ver
-[filas](queues.md).
+[filas](/05-system-design/queues.md).
 
 **Degradar.** Servir uma versão mais barata da resposta.
 
@@ -125,7 +125,7 @@ resposta é "todos".
 ## Quando Não Usar
 
 **Entre serviços internos confiáveis, sem necessidade.** Adiciona um ponto de
-falha e uma configuração a errar. Ali, [backpressure](../06-distributed-systems/index.md)
+falha e uma configuração a errar. Ali, [backpressure](/06-distributed-systems/index.md)
 e circuit breaker resolvem melhor.
 
 **Como substituto de capacidade.** Se o limite precisa ser tão baixo que
@@ -143,7 +143,7 @@ inviabiliza o uso legítimo, o problema é dimensionamento.
 - **Priorização e descarte de carga** — rejeitar o menos importante primeiro.
 - **Cotas por período longo** — mensal em vez de por segundo, quando o que importa
   é consumo total.
-- **[Backpressure](../06-distributed-systems/index.md)** — o mecanismo entre
+- **[Backpressure](/06-distributed-systems/index.md)** — o mecanismo entre
   componentes internos.
 
 ## Trade-offs
@@ -174,7 +174,7 @@ serviço.
 ## Erros Comuns
 
 **Contar em memória local.** Ver
-[sem estado vs. com estado](stateless-vs-stateful.md).
+[sem estado vs. com estado](/05-system-design/stateless-vs-stateful.md).
 
 **Não retornar `Retry-After`.**
 
@@ -224,10 +224,10 @@ precisavam.
 
 ## Conceitos Relacionados
 
-- [Balanceamento de Carga](load-balancing.md) — frequentemente no mesmo ponto.
-- [Filas](queues.md) — enfileirar em vez de rejeitar.
-- [Confiabilidade](../12-reliability/index.md) — retry storms e descarte de carga.
-- [Segurança](../10-security/index.md) — proteção contra abuso.
+- [Balanceamento de Carga](/05-system-design/load-balancing.md) — frequentemente no mesmo ponto.
+- [Filas](/05-system-design/queues.md) — enfileirar em vez de rejeitar.
+- [Confiabilidade](/12-reliability/index.md) — retry storms e descarte de carga.
+- [Segurança](/10-security/index.md) — proteção contra abuso.
 
 ## Exercício Prático
 

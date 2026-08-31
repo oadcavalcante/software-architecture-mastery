@@ -49,7 +49,7 @@ them also have to be held in your head.
 ### The axis is the reason for change
 
 The operational criterion, and the same one that guides
-[modularity](modularity.md): two things are distinct subjects if they change for
+[modularity](/01-fundamentals/modularity.md): two things are distinct subjects if they change for
 different reasons.
 
 Format validation changes when the input contract changes. A business rule
@@ -207,10 +207,10 @@ times a year.
 
 ## Related Concepts
 
-- [Modularity](modularity.md) — the structure that materializes the separation.
-- [Cohesion](cohesion.md) — the measure of whether what stayed together belongs
+- [Modularity](/01-fundamentals/modularity.md) — the structure that materializes the separation.
+- [Cohesion](/01-fundamentals/cohesion.md) — the measure of whether what stayed together belongs
   together.
-- [Abstraction](abstraction.md) — the mechanism that makes separation possible.
+- [Abstraction](/01-fundamentals/abstraction.md) — the mechanism that makes separation possible.
 
 ## Practical Exercise
 

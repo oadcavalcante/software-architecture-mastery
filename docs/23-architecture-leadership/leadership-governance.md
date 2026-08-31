@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-O [nível anterior](../19-architecture-governance/index.md) descreve como a governança opera. Este
+O [nível anterior](/19-architecture-governance/index.md) descreve como a governança opera. Este
 documento trata de quem a **cria** — e a diferença é grande, porque o criador tem uma
 responsabilidade que o operador não tem:
 
@@ -74,7 +74,7 @@ a data de validade             no máximo 24 meses
 Os dois últimos são os que faltam em quase todo mecanismo existente. Sem dono, ele não é ajustado;
 sem validade, ele é permanente por omissão.
 
-Ver [medição de governança](../19-architecture-governance/measuring-governance.md).
+Ver [medição de governança](/19-architecture-governance/measuring-governance.md).
 
 ### Escolha o ponto de intervenção mais cedo viável
 
@@ -94,7 +94,7 @@ em comitê       alguém percebe semanas depois
 ```
 
 Um mecanismo humano criado quando um automático era viável custa para sempre. Ver
-[fundamentos de governança](../19-architecture-governance/governance-basics.md).
+[fundamentos de governança](/19-architecture-governance/governance-basics.md).
 
 ### Meta de remoção anual
 
@@ -160,7 +160,7 @@ o que eles verificam para dentro da plataforma, do gabarito e da esteira.
 
 Uma área de governança cujo sucesso é medido por número de mecanismos operados tem o incentivo
 invertido. Ver
-[engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+[engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ## Modelo Mental
 
@@ -189,10 +189,10 @@ remoção, porque adicionar tem dono e remover não tem.
 
 - **Plataforma** — mover a propriedade para o caminho pavimentado, eliminando o mecanismo.
 - **Função de aptidão** — verificação automática em vez de humana. Ver
-  [funções de aptidão](fitness-functions.md).
+  [funções de aptidão](/23-architecture-leadership/fitness-functions.md).
 - **Registro sem aprovação** — para riscos baixos, visibilidade basta.
 - **Nada** — aceitar o risco formalmente é uma resposta legítima. Ver
-  [gestão de risco](risk-management.md).
+  [gestão de risco](/23-architecture-leadership/risk-management.md).
 
 ## Trade-offs
 
@@ -288,10 +288,10 @@ pressão é por agir, não por desenhar.
 
 ## Conceitos Relacionados
 
-- [Governança](../19-architecture-governance/index.md) — a operação.
-- [Princípios](leadership-principles.md).
-- [Padrões](leadership-standards.md).
-- [Funções de Aptidão](fitness-functions.md).
+- [Governança](/19-architecture-governance/index.md) — a operação.
+- [Princípios](/23-architecture-leadership/leadership-principles.md).
+- [Padrões](/23-architecture-leadership/leadership-standards.md).
+- [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md).
 
 ## Exercício Prático
 

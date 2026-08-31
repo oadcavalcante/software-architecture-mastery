@@ -44,7 +44,7 @@ E uma parte precisa de tecnologia diferente por razão legítima.
 
 Microsserviços resolvem os quatro. O custo é substituir chamadas de função por
 rede — e com isso herdar todo o
-[Nível 04](../06-distributed-systems/index.md).
+[Nível 04](/06-distributed-systems/index.md).
 
 ## Conceitos Centrais
 
@@ -87,7 +87,7 @@ mais comum de fracasso.
 "Micro" é o adjetivo mais enganoso do nome. Não há tamanho correto.
 
 O critério é a fronteira de negócio — um [bounded
-context](../04-domain-driven-design/index.md) — e o tamanho é o que ela produzir.
+context](/04-domain-driven-design/index.md) — e o tamanho é o que ela produzir.
 Serviços pequenos demais geram acoplamento por chamadas encadeadas, que é o
 monolito distribuído.
 
@@ -100,7 +100,7 @@ Compartilhar banco entre serviços produz todo o acoplamento de um monolito, com
 todo o custo de distribuição, e sem contrato. É a pior combinação possível.
 
 A consequência é que consistência entre serviços passa a ser eventual, e
-transações viram [sagas](../06-distributed-systems/index.md).
+transações viram [sagas](/06-distributed-systems/index.md).
 
 ## Quando Usar
 
@@ -114,7 +114,7 @@ transações viram [sagas](../06-distributed-systems/index.md).
 
 **Quando o domínio ainda não está entendido.** Fronteira errada entre serviços é a
 correção mais cara que existe. Comece como
-[monolito modular](modular-monolith.md).
+[monolito modular](/03-design-patterns/modular-monolith.md).
 
 **Com time pequeno.** Abaixo de algumas dezenas de pessoas, o custo operacional
 por pessoa é desproporcional.
@@ -131,10 +131,10 @@ negócio, não decidido pela engenharia.
 
 ## Alternativas
 
-- **[Monolito modular](modular-monolith.md)** — o default correto.
+- **[Monolito modular](/03-design-patterns/modular-monolith.md)** — o default correto.
 - **Extração seletiva** — monolito modular com os poucos serviços que têm razão.
   O arranjo mais comum em sistemas maduros.
-- **[SOA](soa.md)** — serviços maiores, com integração centralizada.
+- **[SOA](/03-design-patterns/soa.md)** — serviços maiores, com integração centralizada.
 - **Serverless por função** — granularidade ainda menor, com custos próprios.
 
 ## Trade-offs
@@ -155,7 +155,7 @@ indisponidade mútua derruba tudo. Custo de distribuição, nenhum benefício.
 
 **Cascata síncrona.** Uma requisição atravessa sete serviços; a falha de um
 derruba a cadeia. Ver
-[circuit breakers](../12-reliability/index.md).
+[circuit breakers](/12-reliability/index.md).
 
 **Granularidade excessiva.** Mais serviços do que o time consegue operar.
 
@@ -190,7 +190,7 @@ exigência externa, e não por escolha técnica.
 
 O que a literatura de casos mostra de forma consistente: as adoções bem-sucedidas
 partiram de sistemas existentes cujas fronteiras já eram conhecidas, e não de
-projetos novos. Ver [MonolithFirst](modular-monolith.md).
+projetos novos. Ver [MonolithFirst](/03-design-patterns/modular-monolith.md).
 
 ## Exemplo Real
 
@@ -218,11 +218,11 @@ estava.
 
 ## Conceitos Relacionados
 
-- [Monolito Modular](modular-monolith.md) — o ponto de partida.
-- [Arquitetura Orientada a Eventos](event-driven.md) — comunicação assíncrona
+- [Monolito Modular](/03-design-patterns/modular-monolith.md) — o ponto de partida.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — comunicação assíncrona
   entre serviços.
-- [Sistemas Distribuídos](../06-distributed-systems/index.md) — o que se herda.
-- [SOA](soa.md) — a linhagem anterior.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md) — o que se herda.
+- [SOA](/03-design-patterns/soa.md) — a linhagem anterior.
 
 ## Exercício Prático
 

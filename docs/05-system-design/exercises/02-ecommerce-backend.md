@@ -105,7 +105,7 @@ Sua resposta está boa se:
 
 - **O número de unidades implantáveis é pequeno.** Com 1.200 pedidos/dia e seis engenheiros sem
   plataforma, mais de duas ou três é custo sem retorno. Ver
-  [monólito vs. microsserviços](../../20-trade-offs/monolith-vs-microservices.md).
+  [monólito vs. microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 - **A reserva de estoque tem consistência forte.** Vender o que não existe é o erro caro deste
   domínio, e o volume permite transação local.
 - **Você declarou o que acontece quando o adquirente não responde.** Não "vai dar erro" —
@@ -171,7 +171,7 @@ A segunda é a que os exercícios 03, 04 e 05 vão atacar. Guarde-a.
 
 ## Conceitos Relacionados
 
-- [Decomposição de Sistemas](../system-decomposition.md).
-- [Fronteiras de Serviço](../service-boundaries.md).
-- [Gestão de Estado](../state-management.md).
-- [Monólito vs. Microsserviços](../../20-trade-offs/monolith-vs-microservices.md).
+- [Decomposição de Sistemas](/05-system-design/system-decomposition.md).
+- [Fronteiras de Serviço](/05-system-design/service-boundaries.md).
+- [Gestão de Estado](/05-system-design/state-management.md).
+- [Monólito vs. Microsserviços](/20-trade-offs/monolith-vs-microservices.md).

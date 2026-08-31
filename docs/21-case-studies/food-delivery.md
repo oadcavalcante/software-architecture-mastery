@@ -341,7 +341,7 @@ superfície de uso indevido de endereços de clientes, que é um risco real da c
 O mapeamento de fluxo de dado pessoal identificou que o histórico de posição, cruzado com
 pedidos, permite reconstruir a rotina de um cliente. A retenção de 90 dias e a segregação do
 histórico de posição do domínio de pedido são consequência direta desse mapeamento. Ver
-[diagramas de fluxo de dados](../17-architecture-documentation/data-flow-diagrams.md).
+[diagramas de fluxo de dados](/17-architecture-documentation/data-flow-diagrams.md).
 
 ## Escalabilidade
 
@@ -494,7 +494,7 @@ Vale notar o que a redução de custo permitiu, além da economia em si: os R$ 1
 liberados financiaram integralmente as Fases 2 a 4, o que tornou o projeto autossustentado a
 partir do quarto mês. Essa foi uma escolha deliberada de sequenciamento — começar pela fase que
 paga as seguintes, em vez de pela que entrega mais valor de produto. É o mesmo raciocínio de
-ordem de extração do case de [e-commerce](ecommerce.md), aplicado a um critério diferente.
+ordem de extração do case de [e-commerce](/21-case-studies/ecommerce.md), aplicado a um critério diferente.
 
 ## O que este case ensina
 
@@ -516,11 +516,11 @@ resolveria — e reconhecer isso evitou meses de otimização no lugar errado.
 
 ## Conceitos Relacionados
 
-- [Case: Ride-Sharing](ride-sharing.md) — o mesmo problema de coordenação, com outras
+- [Case: Ride-Sharing](/21-case-studies/ride-sharing.md) — o mesmo problema de coordenação, com outras
   restrições.
-- [Case: Logística](logistics.md).
-- [Pontos Quentes](../11-scalability/hotspots.md).
-- [Degradação Graciosa](../12-reliability/graceful-degradation.md).
+- [Case: Logística](/21-case-studies/logistics.md).
+- [Pontos Quentes](/11-scalability/hotspots.md).
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md).
 
 ## Exercício Prático
 

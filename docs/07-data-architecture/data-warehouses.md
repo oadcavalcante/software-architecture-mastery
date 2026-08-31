@@ -25,7 +25,7 @@ Um data warehouse reúne dados de múltiplas fontes operacionais num modelo pró
 desenhado para análise.
 
 A palavra-chave é **múltiplas**. Se há uma única fonte, uma réplica ou um
-armazenamento [colunar](column-stores.md) resolvem sem a complexidade.
+armazenamento [colunar](/07-data-architecture/column-stores.md) resolvem sem a complexidade.
 
 O que o warehouse acrescenta é a integração: cruzar vendas do sistema comercial,
 custos do financeiro e atendimento do suporte — sistemas que não se conhecem e
@@ -58,7 +58,7 @@ fato_vendas          dimensões
   valor
 ```
 
-O modelo é deliberadamente [desnormalizado](denormalization.md): a dimensão
+O modelo é deliberadamente [desnormalizado](/07-data-architecture/denormalization.md): a dimensão
 produto repete categoria e marca em vez de referenciá-las.
 
 Isso evita junções em cadeia e torna as consultas legíveis por quem não é
@@ -100,7 +100,7 @@ fatos de novo, os números dobram — sem erro, sem alerta.
 
 O padrão que funciona: apagar a partição do período e recarregar, em vez de
 inserir incrementalmente. Ver
-[idempotência](../06-distributed-systems/idempotency.md).
+[idempotência](/06-distributed-systems/idempotency.md).
 
 ### Linhagem e confiança
 
@@ -114,7 +114,7 @@ O que sustenta a confiança:
 **Data de atualização visível** em todo relatório.
 
 **Reconciliação com a fonte.** Comparação periódica de totais. Ver
-[consistência de dados](data-consistency.md).
+[consistência de dados](/07-data-architecture/data-consistency.md).
 
 **Definições publicadas.** O que exatamente conta como "cliente ativo".
 
@@ -149,7 +149,7 @@ uma só, você não precisa de um.
 **Quando o volume não justifica.**
 
 **Para análise exploratória de dados brutos não estruturados.** Ver
-[data lake](data-lakes.md).
+[data lake](/07-data-architecture/data-lakes.md).
 
 **Sem dono das definições de negócio.** Vira mais uma fonte discordante.
 
@@ -160,9 +160,9 @@ uma só, você não precisa de um.
 ## Alternativas
 
 - **Réplica de leitura** — quando a fonte é uma.
-- **[Colunar](column-stores.md) direto** — sem camada de integração.
-- **[Data lake](data-lakes.md)** — para dados brutos e exploração.
-- **[Lakehouse](data-lakehouses.md)** — a combinação.
+- **[Colunar](/07-data-architecture/column-stores.md) direto** — sem camada de integração.
+- **[Data lake](/07-data-architecture/data-lakes.md)** — para dados brutos e exploração.
+- **[Lakehouse](/07-data-architecture/data-lakehouses.md)** — a combinação.
 - **Consulta federada** — consultar as fontes onde estão, sem mover; evita a carga
   ao custo de desempenho e de carga nos sistemas de origem.
 
@@ -252,10 +252,10 @@ planilhas paralelas "para conferir".
 
 ## Conceitos Relacionados
 
-- [OLAP](olap.md) — a carga.
-- [Colunar](column-stores.md) — o armazenamento típico.
-- [Data Lake](data-lakes.md) e [Lakehouse](data-lakehouses.md).
-- [Desnormalização](denormalization.md) — o modelo.
+- [OLAP](/07-data-architecture/olap.md) — a carga.
+- [Colunar](/07-data-architecture/column-stores.md) — o armazenamento típico.
+- [Data Lake](/07-data-architecture/data-lakes.md) e [Lakehouse](/07-data-architecture/data-lakehouses.md).
+- [Desnormalização](/07-data-architecture/denormalization.md) — o modelo.
 
 ## Exercício Prático
 

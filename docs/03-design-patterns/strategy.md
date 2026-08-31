@@ -65,7 +65,7 @@ comportamento sem tocar o contexto.
 
 ### Strategy é composição sobre herança aplicada
 
-O que [Template Method](template-method.md) faz com herança, Strategy faz com
+O que [Template Method](/03-design-patterns/template-method.md) faz com herança, Strategy faz com
 composição — e por isso herda as vantagens: variação em execução, sem
 acoplamento à implementação da base, e múltiplos eixos combináveis.
 
@@ -159,7 +159,7 @@ lugares que escolhem a estratégia.
 **Achar que elimina o condicional.** Ele é movido para a seleção; o ganho é
 existir uma vez.
 
-**Confundir com [State](state.md).** Strategy é escolhida de fora; State muda
+**Confundir com [State](/03-design-patterns/state.md).** Strategy é escolhida de fora; State muda
 sozinho conforme o objeto evolui.
 
 ## Onde ele aparece na prática
@@ -201,10 +201,10 @@ Nem todo caso precisa de uma classe.
 
 ## Conceitos Relacionados
 
-- [State](state.md) — parecido, com transição interna.
-- [Template Method](template-method.md) — a versão com herança.
-- [Bridge](bridge.md) — duas dimensões, não uma.
-- [Composição vs. Herança](../02-software-design/composition-vs-inheritance.md).
+- [State](/03-design-patterns/state.md) — parecido, com transição interna.
+- [Template Method](/03-design-patterns/template-method.md) — a versão com herança.
+- [Bridge](/03-design-patterns/bridge.md) — duas dimensões, não uma.
+- [Composição vs. Herança](/02-software-design/composition-vs-inheritance.md).
 
 ## Exercício Prático
 

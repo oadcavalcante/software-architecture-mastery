@@ -67,17 +67,17 @@ ou que tolera segundos de latência — vale perguntar se aquilo é mesmo OLTP.
 
 ### O modelo normalizado serve bem
 
-Para essa assinatura, [normalização](normalization.md) é adequada: as operações
+Para essa assinatura, [normalização](/07-data-architecture/normalization.md) é adequada: as operações
 tocam poucos registros, então o custo de junção é baixo, e evitar duplicação
 elimina uma classe de inconsistência.
 
-É o inverso do que [OLAP](olap.md) precisa, e é por isso que os dois modelos
+É o inverso do que [OLAP](/07-data-architecture/olap.md) precisa, e é por isso que os dois modelos
 divergem.
 
 ### Índice é a diferença entre milissegundos e segundos
 
 Como o acesso é seletivo — buscar um pedido, os pedidos de um cliente —
-[índice](indexing.md) adequado é o que mantém a latência.
+[índice](/07-data-architecture/indexing.md) adequado é o que mantém a latência.
 
 Sem ele, cada operação varre a tabela, e a degradação é proporcional ao
 crescimento dos dados: o sistema funciona bem por meses e piora sozinho.
@@ -87,7 +87,7 @@ crescimento dos dados: o sistema funciona bem por meses e piora sozinho.
 Diferente de OLAP, OLTP escreve muito. Isso traz contenção: duas operações sobre
 o mesmo registro serializam.
 
-Por isso [transações](transactions.md) e níveis de isolamento importam aqui e
+Por isso [transações](/07-data-architecture/transactions.md) e níveis de isolamento importam aqui e
 quase não importam em analítico. E por isso o gargalo de um sistema OLTP maduro
 raramente é CPU — é bloqueio, contenção de índice e latência de gravação.
 
@@ -96,7 +96,7 @@ raramente é CPU — é bloqueio, contenção de índice e latência de gravaç�
 A resposta arquitetural para "o relatório derruba o sistema" não é otimizar o
 relatório. É tirá-lo dali.
 
-Uma [réplica de leitura](data-replication.md), um armazenamento analítico
+Uma [réplica de leitura](/07-data-architecture/data-replication.md), um armazenamento analítico
 separado, ou uma projeção — qualquer uma remove a competição.
 
 Manter as duas cargas no mesmo lugar por simplicidade funciona até certo volume,
@@ -143,7 +143,7 @@ modelo, índice, isolamento — decorre disso.
 
 ## Quando Não Usar
 
-**Para relatório e análise.** Ver [OLAP](olap.md) — a carga é oposta em todas as
+**Para relatório e análise.** Ver [OLAP](/07-data-architecture/olap.md) — a carga é oposta em todas as
 dimensões.
 
 **Para varredura de grandes volumes.** Agregações sobre o histórico inteiro.
@@ -155,9 +155,9 @@ deixou de ser opcional.
 
 ## Alternativas
 
-- **[OLAP](olap.md)** — para a carga analítica.
+- **[OLAP](/07-data-architecture/olap.md)** — para a carga analítica.
 - **Réplica de leitura** — separação barata, mesmo modelo.
-- **[CQRS](../06-distributed-systems/distributed-cqrs.md)** — modelos separados.
+- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — modelos separados.
 - **Cache** — para leitura repetida de dados quentes.
 
 ## Trade-offs
@@ -228,10 +228,10 @@ quando era mistura de cargas.
 
 ## Conceitos Relacionados
 
-- [OLAP](olap.md) — a carga oposta.
-- [Indexação](indexing.md) — o que sustenta a latência.
-- [Transações](transactions.md) — isolamento e contenção.
-- [Normalização](normalization.md) — o modelo adequado.
+- [OLAP](/07-data-architecture/olap.md) — a carga oposta.
+- [Indexação](/07-data-architecture/indexing.md) — o que sustenta a latência.
+- [Transações](/07-data-architecture/transactions.md) — isolamento e contenção.
+- [Normalização](/07-data-architecture/normalization.md) — o modelo adequado.
 
 ## Exercício Prático
 

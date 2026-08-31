@@ -26,7 +26,7 @@ operar depois de um evento que a redundância normal não cobre: perda de regiã
 corrupção de dados, apagamento acidental, ataque com criptografia.
 
 As estratégias técnicas estão em
-[recuperação de desastre](../09-cloud-architecture/disaster-recovery.md). Aqui interessa
+[recuperação de desastre](/09-cloud-architecture/disaster-recovery.md). Aqui interessa
 o **plano**: o que ele precisa cobrir além dos dados, quem decide, e por que ele só
 existe se for exercitado.
 
@@ -61,7 +61,7 @@ critério de conclusão     como se sabe que terminou
 ```
 
 O item de segredos merece destaque: se eles estão apenas no ambiente que caiu, a
-recuperação não acontece. Ver [segredos](../10-security/secrets.md).
+recuperação não acontece. Ver [segredos](/10-security/secrets.md).
 
 ### Autoridade precisa estar definida antes
 
@@ -85,7 +85,7 @@ Nomes, não papéis genéricos.
 
 ### Priorizar o que volta primeiro
 
-Nem tudo precisa voltar junto. Ver [RTO](rto.md) por função.
+Nem tudo precisa voltar junto. Ver [RTO](/12-reliability/rto.md) por função.
 
 ```text
 essencial     aceitar pedidos, autorizar transações
@@ -96,7 +96,7 @@ adiável       relatórios, integrações de baixa criticidade
 Restaurar o essencial primeiro reduz o impacto, e essa priorização precisa estar
 decidida antes — durante o incidente, ela vira negociação sob pressão.
 
-Ver [degradação graciosa](graceful-degradation.md): operar reduzido é um estado
+Ver [degradação graciosa](/12-reliability/graceful-degradation.md): operar reduzido é um estado
 legítimo, e frequentemente o correto.
 
 ### Os cenários não são intercambiáveis
@@ -115,7 +115,7 @@ Os dois últimos são os que mais divergem: reconstruir num ambiente possivelmen
 comprometido exige premissas diferentes — não se restaura para a mesma infraestrutura,
 e as credenciais não são reutilizadas.
 
-Ver [confiança na cadeia de suprimentos](../10-security/supply-chain-trust.md).
+Ver [confiança na cadeia de suprimentos](/10-security/supply-chain-trust.md).
 
 ### O exercício é o plano
 
@@ -128,7 +128,7 @@ exercício completo       recuperação de ponta a ponta, cronometrada
 ```
 
 A progressão importa: o de mesa custa uma reunião e costuma encontrar mais do que se
-espera. O completo é o único que verifica o [RTO](rto.md).
+espera. O completo é o único que verifica o [RTO](/12-reliability/rto.md).
 
 E a frequência importa mais que a profundidade: um exercício parcial trimestral vale
 mais que um completo a cada três anos.
@@ -171,9 +171,9 @@ Cópia offline, atualizada, com acesso definido. É trivial e frequentemente aus
 ## Alternativas
 
 - **Alta disponibilidade** — evita chegar ao cenário. Ver
-  [redundância](redundancy.md). Não substitui: ela não cobre erro humano nem
+  [redundância](/12-reliability/redundancy.md). Não substitui: ela não cobre erro humano nem
   corrupção.
-- **[Failover](failover.md) automatizado** — para os cenários previstos.
+- **[Failover](/12-reliability/failover.md) automatizado** — para os cenários previstos.
 - **Réplica atrasada** — proteção barata contra erro humano.
 - **Exercícios de mesa** — o mínimo viável quando o exercício completo não é possível.
 
@@ -279,11 +279,11 @@ perfeitamente. Ele nunca tinha sido escrito para ser usado — apenas para exist
 
 ## Conceitos Relacionados
 
-- [RTO](rto.md) e [RPO](rpo.md) — os alvos.
-- [Failover](failover.md) — o mecanismo.
-- [Recuperação de Desastre](../09-cloud-architecture/disaster-recovery.md) — as
+- [RTO](/12-reliability/rto.md) e [RPO](/12-reliability/rpo.md) — os alvos.
+- [Failover](/12-reliability/failover.md) — o mecanismo.
+- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md) — as
   estratégias.
-- [Engenharia do Caos](chaos-engineering.md) — a verificação.
+- [Engenharia do Caos](/12-reliability/chaos-engineering.md) — a verificação.
 
 ## Exercício Prático
 

@@ -57,7 +57,7 @@ interpretadas — formato quebrado, esquema desconhecido. Distinto do próximo.
 
 **Canal de mensagens mortas.** Destino para mensagens válidas que falharam no
 processamento. Ver
-[filas de mensagens mortas](../06-distributed-systems/dead-letter-queues.md).
+[filas de mensagens mortas](/06-distributed-systems/dead-letter-queues.md).
 
 A distinção entre os dois últimos é útil e raramente feita: mensagem que **não se
 entende** e mensagem que **não se conseguiu processar** exigem tratamento
@@ -71,7 +71,7 @@ Como a mensagem chega a quem deve tratá-la.
 
 **Roteador por conteúdo.** Examina a mensagem e escolhe o destino. É o padrão mais
 usado, e o que mais acumula regra de negócio — vale a mesma vigilância descrita em
-[API gateways](api-gateways.md).
+[API gateways](/08-integration-architecture/api-gateways.md).
 
 **Filtro.** Descarta o que não interessa àquele consumidor.
 
@@ -92,7 +92,7 @@ A terceira linha é a que se esquece, e o resultado é um agregador que segura
 conjuntos incompletos para sempre, consumindo memória.
 
 **Sequenciador.** Restaura a ordem de mensagens que chegaram fora de sequência. Ver
-[ordenação](../06-distributed-systems/ordering.md) — inclusive o custo de buffer e
+[ordenação](/06-distributed-systems/ordering.md) — inclusive o custo de buffer e
 o prazo de lacuna.
 
 **Lista de destinatários.** Envia a mesma mensagem para uma lista calculada.
@@ -105,7 +105,7 @@ Combina lista de destinatários com agregador, e herda os problemas dos dois.
 Como a mensagem muda de forma.
 
 **Tradutor de mensagens.** Converte de um formato para outro. É a peça de
-[anti-corruption layer](integration-anti-corruption.md).
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 **Enriquecedor.** Acrescenta dados buscados em outro lugar. O custo escondido: ele
 introduz uma dependência síncrona no meio de um fluxo assíncrono — se a fonte de
@@ -134,7 +134,7 @@ internos.
 **Consumidor seletivo.** Consome apenas mensagens que casam com um critério.
 
 **Consumidor idempotente.** Detecta e descarta duplicatas. Ver
-[mensagens duplicadas](../06-distributed-systems/duplicate-messages.md).
+[mensagens duplicadas](/06-distributed-systems/duplicate-messages.md).
 
 **Ativador de serviço.** Conecta um canal a um serviço que não conhece mensageria.
 
@@ -152,7 +152,7 @@ reprocessamento.
 
 **Mensagem de teste.** Injetar mensagens sintéticas periodicamente para verificar
 que o fluxo está vivo — o equivalente a monitorar ausência descrito em
-[integração em lote](batch-integration.md).
+[integração em lote](/08-integration-architecture/batch-integration.md).
 
 ## Quando usar este catálogo
 
@@ -173,7 +173,7 @@ implementam o catálogo inteiro costumam trazer, junto, uma linguagem de
 configuração própria e um ponto central que acumula regra de negócio.
 
 **Sem os fundamentos.** Estes padrões pressupõem
-[idempotência](../06-distributed-systems/idempotency.md), tratamento de
+[idempotência](/06-distributed-systems/idempotency.md), tratamento de
 duplicatas e monitoramento de consumidor. Sem isso, nenhum deles funciona.
 
 ## Erros Comuns
@@ -234,10 +234,10 @@ implementação existir.
 
 ## Conceitos Relacionados
 
-- [Integração por Mensageria](messaging-integration.md) — a base.
-- [Integração Orientada a Eventos](event-driven-integration.md).
-- [Anticorrupção na Integração](integration-anti-corruption.md) — o tradutor.
-- [Ordenação](../06-distributed-systems/ordering.md) — o sequenciador.
+- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md) — a base.
+- [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md).
+- [Anticorrupção na Integração](/08-integration-architecture/integration-anti-corruption.md) — o tradutor.
+- [Ordenação](/06-distributed-systems/ordering.md) — o sequenciador.
 
 ## Exercício Prático
 

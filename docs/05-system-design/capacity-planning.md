@@ -133,7 +133,7 @@ milhões — porque cada faixa tem uma arquitetura diferente.
 - Antes de decidir a arquitetura de um sistema novo.
 - Ao avaliar se uma decisão de escala se justifica.
 - Em entrevista de system design — ver
-  [estimativa de capacidade](../22-system-design-interviews/index.md).
+  [estimativa de capacidade](/22-system-design-interviews/index.md).
 - Ao dimensionar infraestrutura e orçamento.
 - Antes de adotar qualquer componente distribuído.
 
@@ -148,7 +148,7 @@ custa tempo.
 escolha não elimina nada.
 
 **Projetando para escala imaginada.** Ver
-[YAGNI](../02-software-design/yagni.md). Dimensione para o horizonte previsível,
+[YAGNI](/02-software-design/yagni.md). Dimensione para o horizonte previsível,
 com caminho para crescer.
 
 ## Alternativas
@@ -247,7 +247,7 @@ não precisam ser exatos — precisam ser a ordem certa.
 
 A última linha é a que mais decide arquitetura: nenhuma otimização de código
 compensa a distância física, e é por isso que
-[CDN](cdn.md) e multi-região existem.
+[CDN](/05-system-design/cdn.md) e multi-região existem.
 
 **Vazão típica de uma instância**
 
@@ -267,11 +267,11 @@ para descartar, não para dimensionar.
 
 ## Conceitos Relacionados
 
-- [Análise de Gargalos](bottleneck-analysis.md) — onde o limite aparece.
-- [Escalabilidade Básica](scalability-basics.md) — o que fazer com o resultado.
-- [Cálculos de Guardanapo](../22-system-design-interviews/index.md) — a técnica em
+- [Análise de Gargalos](/05-system-design/bottleneck-analysis.md) — onde o limite aparece.
+- [Escalabilidade Básica](/05-system-design/scalability-basics.md) — o que fazer com o resultado.
+- [Cálculos de Guardanapo](/22-system-design-interviews/index.md) — a técnica em
   entrevista.
-- [Arquitetura de Custo](../09-cloud-architecture/index.md).
+- [Arquitetura de Custo](/09-cloud-architecture/index.md).
 
 ## Exercício Prático
 

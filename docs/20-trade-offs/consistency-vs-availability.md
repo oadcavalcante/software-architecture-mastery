@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-O par vem do [teorema CAP](../06-distributed-systems/cap.md), e é o mais citado e o mais mal
+O par vem do [teorema CAP](/06-distributed-systems/cap.md), e é o mais citado e o mais mal
 aplicado da arquitetura distribuída.
 
 Duas correções antes de qualquer discussão:
@@ -111,7 +111,7 @@ navegação     continua funcionando
 ```
 
 A diferença entre degradação escolhida e falha é que a primeira foi desenhada, testada e
-comunicada. Ver [degradação graciosa](../12-reliability/graceful-degradation.md).
+comunicada. Ver [degradação graciosa](/12-reliability/graceful-degradation.md).
 
 ### A reconciliação é parte da decisão
 
@@ -128,7 +128,7 @@ quanto tempo de divergência
 
 Sem esse desenho, "escolhemos disponibilidade" é escolher o problema sem escolher a
 solução. Ver
-[resolução de conflitos](../06-distributed-systems/conflict-resolution.md).
+[resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
 
 ### PACELC: a escolha que existe todo dia
 
@@ -143,7 +143,7 @@ sem partição → latência ou consistência
 Manter consistência forte entre réplicas distantes custa latência em toda operação, todos os
 dias. Essa é, na prática, a decisão que mais afeta os usuários.
 
-Ver [PACELC](../06-distributed-systems/pacelc.md).
+Ver [PACELC](/06-distributed-systems/pacelc.md).
 
 ### Sinais de escolha errada
 
@@ -218,7 +218,7 @@ desenho.
 - **Limite de risco** — aceitar divergência até um teto e endurecer além dele: sobrevender
   até 2% do estoque, recusar acima.
 - **Confirmação assíncrona** — aceitar a operação e confirmar por notificação. Ver
-  [síncrono vs. assíncrono](sync-vs-async.md).
+  [síncrono vs. assíncrono](/20-trade-offs/sync-vs-async.md).
 
 A terceira é subutilizada e frequentemente a melhor: ela captura a maior parte da receita da
 disponibilidade com uma fração do risco.
@@ -333,11 +333,11 @@ foi a separação por categoria, que ninguém tinha proposto enquanto o dilema e
 
 ## Conceitos Relacionados
 
-- [Teorema CAP](../06-distributed-systems/cap.md) e
-  [PACELC](../06-distributed-systems/pacelc.md).
-- [Consistência Forte vs. Eventual](strong-vs-eventual-consistency.md).
-- [Resolução de Conflitos](../06-distributed-systems/conflict-resolution.md).
-- [Degradação Graciosa](../12-reliability/graceful-degradation.md).
+- [Teorema CAP](/06-distributed-systems/cap.md) e
+  [PACELC](/06-distributed-systems/pacelc.md).
+- [Consistência Forte vs. Eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
+- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md).
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md).
 
 ## Exercício Prático
 

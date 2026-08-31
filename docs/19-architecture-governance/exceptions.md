@@ -83,7 +83,7 @@ e mais a existência: a data é o que força a reavaliação.
 
 E a expiração precisa ser **automática**: no dia seguinte ao vencimento, o sistema aparece
 como desvio, com alerta ao dono. Sem isso, a renovação depende de alguém lembrar, e ninguém
-lembra. Ver [conformidade](compliance.md).
+lembra. Ver [conformidade](/19-architecture-governance/compliance.md).
 
 ### O que uma exceção precisa registrar
 
@@ -124,7 +124,7 @@ a migração nunca terá prioridade    → aceite formalmente e registre como d�
 ```
 
 Manter a ficção de que é temporária custa esforço de renovação e distorce as métricas de
-conformidade. Ver [padrões](governance-standards.md).
+conformidade. Ver [padrões](/19-architecture-governance/governance-standards.md).
 
 ### O conjunto de exceções é diagnóstico
 
@@ -203,7 +203,7 @@ do mesmo jeito — só que invisível.
 - **Corrigir o padrão** — quando as exceções são muitas.
 - **Aceitar como dívida** — quando a convergência não vai acontecer, registrá-la como
   dívida é mais honesto que renovar exceção. Ver
-  [dívida técnica](../01-fundamentals/technical-debt.md).
+  [dívida técnica](/01-fundamentals/technical-debt.md).
 - **Padrão como recomendação** — se a exceção é a regra, ele não deveria ser obrigatório.
 
 ## Trade-offs
@@ -317,10 +317,10 @@ nunca tinha sido o número de exceções.
 
 ## Conceitos Relacionados
 
-- [Padrões](governance-standards.md) — o que gera exceção.
-- [Conformidade](compliance.md) — a expiração automática.
-- [Patologias](governance-pathologies.md) — o processo que empurra ao silêncio.
-- [Dívida Técnica](../01-fundamentals/technical-debt.md).
+- [Padrões](/19-architecture-governance/governance-standards.md) — o que gera exceção.
+- [Conformidade](/19-architecture-governance/compliance.md) — a expiração automática.
+- [Patologias](/19-architecture-governance/governance-pathologies.md) — o processo que empurra ao silêncio.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md).
 
 ## Exercício Prático
 

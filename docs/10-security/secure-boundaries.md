@@ -63,7 +63,7 @@ As quatro últimas são as menos consideradas, e três delas estão entre os vet
 mais cresceram.
 
 Marcá-las num diagrama é o produto principal de uma
-[modelagem de ameaças](threat-modeling.md).
+[modelagem de ameaças](/10-security/threat-modeling.md).
 
 ### Validar na borda não dispensa validar dentro
 
@@ -110,7 +110,7 @@ ou um novo, escrito por alguém que não sabia da premissa — passa qualquer
 identificador.
 
 A regra: **autorização é responsabilidade de quem detém o recurso**, não de quem
-pede. Ver [modelos de autorização](authz-models.md).
+pede. Ver [modelos de autorização](/10-security/authz-models.md).
 
 ### Isolamento entre inquilinos é fronteira, não filtro
 
@@ -137,7 +137,7 @@ padrão.
 
 Toda fronteira relevante deveria registrar as travessias negadas, e algumas as
 aceitas. É o que permite detectar tentativa sistemática. Ver
-[auditabilidade](auditability.md).
+[auditabilidade](/10-security/auditability.md).
 
 ## Modelo Mental
 
@@ -171,13 +171,13 @@ iguais; cada camada precisa impedir algo diferente.
 
 ## Alternativas
 
-- **[Confiança zero](zero-trust.md)** — a formulação que elimina o perímetro
+- **[Confiança zero](/10-security/zero-trust.md)** — a formulação que elimina o perímetro
   implícito.
 - **Segmentação de rede** — fronteira na camada de rede. Ver
-  [segurança de rede](network-security.md).
+  [segurança de rede](/10-security/network-security.md).
 - **Isolamento por processo ou por conta** — mais forte que por configuração.
 - **Cifragem por cliente** — a fronteira passa a ser a chave. Ver
-  [gestão de chaves](key-management.md).
+  [gestão de chaves](/10-security/key-management.md).
 
 ## Trade-offs
 
@@ -275,10 +275,10 @@ porque ali não havia fronteira nenhuma.
 
 ## Conceitos Relacionados
 
-- [Modelagem de Ameaças](threat-modeling.md) — onde as fronteiras são desenhadas.
-- [Confiança Zero](zero-trust.md).
-- [Menor Privilégio](least-privilege.md).
-- [Modelos de Autorização](authz-models.md).
+- [Modelagem de Ameaças](/10-security/threat-modeling.md) — onde as fronteiras são desenhadas.
+- [Confiança Zero](/10-security/zero-trust.md).
+- [Menor Privilégio](/10-security/least-privilege.md).
+- [Modelos de Autorização](/10-security/authz-models.md).
 
 ## Exercício Prático
 

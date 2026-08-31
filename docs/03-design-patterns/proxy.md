@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Proxy fornece um substituto que controla o acesso a outro objeto, implementando a
 mesma interface.
 
-O que distingue Proxy de [Decorator](decorator.md) — estruturalmente idênticos —
+O que distingue Proxy de [Decorator](/03-design-patterns/decorator.md) — estruturalmente idênticos —
 é a intenção: Decorator adiciona comportamento que o cliente quer; Proxy controla
 acesso, e o cliente frequentemente não sabe que ele existe.
 
@@ -71,7 +71,7 @@ falha, sem considerar latência.
 latência é zero, a banda é infinita. Um proxy remoto convida ativamente a
 acreditar nelas.
 
-Ver [sistemas distribuídos](../06-distributed-systems/index.md).
+Ver [sistemas distribuídos](/06-distributed-systems/index.md).
 
 ### O proxy virtual e o problema N+1
 
@@ -114,7 +114,7 @@ mede, cacheia e valida virou uma pilha de decoradores mal nomeada.
 
 - **Carga explícita** — `repositorio.buscarComCliente(id)` em vez de proxy
   virtual. Mais verboso e sem surpresa.
-- **[Decorator](decorator.md)** — quando o comportamento é escolha do cliente.
+- **[Decorator](/03-design-patterns/decorator.md)** — quando o comportamento é escolha do cliente.
 - **Cliente assíncrono explícito** — para chamadas remotas.
 - **Verificação de permissão no ponto de entrada** — visível e auditável.
 
@@ -172,7 +172,7 @@ frequentemente invisível para quem escreve o código.
 
 **Malhas de serviço.** O *sidecar* é um proxy de rede: intercepta o tráfego para
 aplicar política, telemetria e repetição. Ver
-[service mesh](../08-integration-architecture/index.md).
+[service mesh](/08-integration-architecture/index.md).
 
 O último é o caso em que a transparência funciona bem, e vale entender por quê: o
 proxy opera na camada de rede, onde o desenvolvedor **já sabe** que está fazendo
@@ -198,10 +198,10 @@ O custo passou a ser visível na consulta, que é onde ele deve estar.
 
 ## Conceitos Relacionados
 
-- [Decorator](decorator.md) — mesma estrutura, intenção diferente.
-- [Adapter](adapter.md) — muda a interface.
-- [Facade](facade.md) — simplifica um subsistema.
-- [Sistemas Distribuídos](../06-distributed-systems/index.md) — por que a
+- [Decorator](/03-design-patterns/decorator.md) — mesma estrutura, intenção diferente.
+- [Adapter](/03-design-patterns/adapter.md) — muda a interface.
+- [Facade](/03-design-patterns/facade.md) — simplifica um subsistema.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md) — por que a
   transparência remota é perigosa.
 
 ## Exercício Prático

@@ -61,8 +61,8 @@ implantação frequente       lotes menores, reversão viável
 custo menor                 frequentemente, ao sair de infraestrutura própria
 ```
 
-Ver [infraestrutura como código](../14-devops-and-platform/infrastructure-as-code.md) e
-[gestão de ambientes](../14-devops-and-platform/environment-management.md).
+Ver [infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md) e
+[gestão de ambientes](/14-devops-and-platform/environment-management.md).
 
 Cada um desses reduz o custo de mudanças futuras. É por isso que ela costuma ser o
 primeiro passo correto, mesmo quando não é o objetivo final.
@@ -79,7 +79,7 @@ velocidade de desenvolvimento não muda por si
 ```
 
 Uma aplicação difícil de mudar continua difícil de mudar depois de replataformada. Ver
-[refatoração de legado](legacy-refactoring.md).
+[refatoração de legado](/16-legacy-modernization/legacy-refactoring.md).
 
 Times que esperam que a mudança de infraestrutura resolva problemas de código ficam
 frustrados — e a frustração desacredita uma estratégia que fez exatamente o que deveria.
@@ -90,7 +90,7 @@ Mover sem mudar é a decisão correta para sair de um datacenter no prazo, ou pa
 custo rapidamente.
 
 E ela precisa de continuação. Ver
-[cloud native](../09-cloud-architecture/cloud-native.md).
+[cloud native](/09-cloud-architecture/cloud-native.md).
 
 Uma aplicação movida para nuvem sem adquirir as propriedades que a nuvem pressupõe —
 ausência de estado, descartabilidade, configuração externa — roda lá e não aproveita
@@ -111,7 +111,7 @@ estado fora do disco local    permite mais de uma instância
 verificação de saúde          permite balanceamento e recuperação
 ```
 
-Ver [ausência de estado](../11-scalability/statelessness.md).
+Ver [ausência de estado](/11-scalability/statelessness.md).
 
 As cinco são pequenas e destravam desproporcionalmente. Fazer a replataforma sem elas
 produz um sistema na nuvem que ainda precisa ser tratado como servidor único.
@@ -129,7 +129,7 @@ A terceira é a que mais surpreende: sistemas antigos acumulam dependências nã
 documentadas — um diretório compartilhado, um processo que roda numa máquina esquecida,
 uma tarefa agendada que ninguém sabia que existia.
 
-Ver [arquitetura do estado atual](../15-enterprise-architecture/current-state-architecture.md).
+Ver [arquitetura do estado atual](/15-enterprise-architecture/current-state-architecture.md).
 
 O controle: operar em paralelo por um período, com o antigo ainda disponível, antes de
 desligar.
@@ -141,7 +141,7 @@ Uma expectativa comum e frequentemente frustrada: replataformar para nuvem reduz
 Ela reduz quando o dimensionamento é revisto. Movida como está — com a mesma capacidade
 provisionada de um datacenter, onde o hardware já estava pago —, ela costuma custar mais.
 
-Ver [arquitetura de custo](../09-cloud-architecture/cost-architecture.md).
+Ver [arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
 O redimensionamento com base em utilização real é parte da replataforma, não uma
 otimização posterior.
@@ -198,9 +198,9 @@ seguintes.
 
 ## Alternativas
 
-- **[Refatoração](legacy-refactoring.md)** — quando o problema é o código.
-- **[Reconstrução](rebuilding.md)** — quando o modelo está errado.
-- **[Substituição](replacing.md)** — quando há produto de mercado.
+- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)** — quando o problema é o código.
+- **[Reconstrução](/16-legacy-modernization/rebuilding.md)** — quando o modelo está errado.
+- **[Substituição](/16-legacy-modernization/replacing.md)** — quando há produto de mercado.
 - **Manter onde está** — quando a infraestrutura atende e não há prazo.
 
 ## Trade-offs
@@ -283,7 +283,7 @@ existia — esteira automatizada, ambientes reproduzíveis, telemetria centraliz
 
 E a segunda fase, planejada desde o início, começou no mês 16: refatoração e substituição
 das aplicações que a análise de portfólio indicava. Ver
-[portfólio de aplicações](../15-enterprise-architecture/application-portfolios.md).
+[portfólio de aplicações](/15-enterprise-architecture/application-portfolios.md).
 
 A lição registrada: a replataforma não melhorou nenhuma aplicação. Ela tornou
 possível melhorá-las — o que, antes, exigia uma janela de manutenção e um procedimento
@@ -291,10 +291,10 @@ manual para cada mudança.
 
 ## Conceitos Relacionados
 
-- [Estratégias de Migração](migration-strategies.md).
-- [Cloud Native](../09-cloud-architecture/cloud-native.md) — a segunda fase.
-- [Infraestrutura como Código](../14-devops-and-platform/infrastructure-as-code.md).
-- [Ausência de Estado](../11-scalability/statelessness.md).
+- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md).
+- [Cloud Native](/09-cloud-architecture/cloud-native.md) — a segunda fase.
+- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md).
+- [Ausência de Estado](/11-scalability/statelessness.md).
 
 ## Exercício Prático
 

@@ -59,7 +59,7 @@ Três perguntas que substituem a impressão:
 3. **Quantas coisas mudam** se eu mudar uma?
 
 A terceira é a mais reveladora, e é a mesma de
-[acoplamento](../01-fundamentals/coupling.md). Complexidade e acoplamento não são
+[acoplamento](/01-fundamentals/coupling.md). Complexidade e acoplamento não são
 conceitos distintos vistos de perto — são o mesmo fenômeno medido de ângulos
 diferentes.
 
@@ -77,7 +77,7 @@ simultaneamente é a certa.
 Uma decisão pode simplificar uma parte e complicar o conjunto. Extrair um serviço
 simplifica cada lado e adiciona rede, implantação e falha parcial ao todo.
 
-Ver [complexidade](../01-fundamentals/complexity.md): o erro é contabilizar um
+Ver [complexidade](/01-fundamentals/complexity.md): o erro é contabilizar um
 lado só.
 
 ## Modelo Mental
@@ -106,7 +106,7 @@ não é simples; ele exportou a complexidade.
 
 **Quando o problema é genuinamente complexo.** Complexidade essencial não some
 por preferência. Ver
-[complexidade](../01-fundamentals/complexity.md).
+[complexidade](/01-fundamentals/complexity.md).
 
 **Quando fácil é o critério disfarçado.** Escolher o familiar pode ser certo, mas
 o argumento é redução de risco de execução, não simplicidade.
@@ -200,9 +200,9 @@ times olha para simplicidade.
 
 ## Conceitos Relacionados
 
-- [Complexidade](../01-fundamentals/complexity.md) — a contabilidade dos dois lados.
-- [YAGNI](yagni.md) — o mesmo princípio aplicado a funcionalidade.
-- [Heurísticas de Design](design-heuristics.md) — critérios verificáveis.
+- [Complexidade](/01-fundamentals/complexity.md) — a contabilidade dos dois lados.
+- [YAGNI](/02-software-design/yagni.md) — o mesmo princípio aplicado a funcionalidade.
+- [Heurísticas de Design](/02-software-design/design-heuristics.md) — critérios verificáveis.
 
 ## Exercício Prático
 

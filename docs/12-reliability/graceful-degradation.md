@@ -71,7 +71,7 @@ sozinho, e a decisão padrão é propagar o erro.
 **Omitir.** O bloco não aparece. Adequado para o opcional.
 
 **Servir dado velho.** Cache expirado é melhor que nada, e frequentemente
-imperceptível. Ver [cache para escala](../11-scalability/scaling-cache.md).
+imperceptível. Ver [cache para escala](/11-scalability/scaling-cache.md).
 
 **Valor padrão.** Frete calculado por tabela fixa quando a transportadora não responde.
 
@@ -79,7 +79,7 @@ imperceptível. Ver [cache para escala](../11-scalability/scaling-cache.md).
 avançados.
 
 **Aceitar e processar depois.** A operação entra em fila. Ver
-[processamento assíncrono](../11-scalability/async-processing.md).
+[processamento assíncrono](/11-scalability/async-processing.md).
 
 **Somente leitura.** O sistema para de aceitar escrita e continua servindo consultas.
 Frequentemente a degradação mais valiosa e a menos implementada.
@@ -111,7 +111,7 @@ Duas práticas que resolvem:
 **Testar o caminho degradado** como parte da suíte, não só o caminho feliz.
 
 **Exercitar em produção**, desligando dependências não essenciais em janela controlada.
-Ver [engenharia do caos](chaos-engineering.md).
+Ver [engenharia do caos](/12-reliability/chaos-engineering.md).
 
 ### Degradação também é proteção
 
@@ -120,7 +120,7 @@ Além de melhorar a experiência sob falha, degradar **preserva capacidade**.
 Sob sobrecarga, desligar funcionalidades opcionais libera recursos para as essenciais.
 Isso é descarte de carga seletivo, e é mais inteligente que rejeitar requisições
 uniformemente. Ver
-[backpressure](../06-distributed-systems/backpressure.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 Ter um interruptor por funcionalidade — acionável sem implantação — é o que torna isso
 operacional durante um incidente.
@@ -132,7 +132,7 @@ Nem tudo degrada. Vale ser explícito:
 **Operações financeiras.** Não se cobra com valor aproximado.
 
 **Verificações de segurança.** Uma autorização que falha não pode virar permissão. Ver
-[modos de falha de segurança](../10-security/security-failure-modes.md).
+[modos de falha de segurança](/10-security/security-failure-modes.md).
 
 **Dados que controlam recurso finito.** Estoque, assento, cota.
 
@@ -169,8 +169,8 @@ vender o que não existe.
 ## Alternativas
 
 - **Redundância** — evita a falha em vez de degradar. Mais caro.
-- **[Circuit breaker](circuit-breakers.md)** — para de tentar e degrada rápido.
-- **[Bulkhead](bulkheads.md)** — isola para que a falha não alcance.
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — para de tentar e degrada rápido.
+- **[Bulkhead](/12-reliability/bulkheads.md)** — isola para que a falha não alcance.
 - **Falhar rápido com mensagem clara** — quando degradar não é possível.
 
 Circuit breaker e degradação são complementares: o primeiro detecta que a dependência
@@ -282,10 +282,10 @@ produto nem engenharia a consideravam sua.
 
 ## Conceitos Relacionados
 
-- [Circuit Breakers](circuit-breakers.md) — detecta e aciona a degradação.
-- [Bulkheads](bulkheads.md) — impede a propagação.
-- [SLO](slo.md) — o alvo que a degradação ajuda a sustentar.
-- [Backpressure](../06-distributed-systems/backpressure.md) — descarte seletivo.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md) — detecta e aciona a degradação.
+- [Bulkheads](/12-reliability/bulkheads.md) — impede a propagação.
+- [SLO](/12-reliability/slo.md) — o alvo que a degradação ajuda a sustentar.
+- [Backpressure](/06-distributed-systems/backpressure.md) — descarte seletivo.
 
 ## Exercício Prático
 

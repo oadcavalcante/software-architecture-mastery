@@ -117,7 +117,7 @@ particionamento. Adicionar multi-tenancy a um esquema com três anos de dados n�
 não custa mais, YAGNI não se aplica — não há economia a fazer.
 
 **Em decisões de alto custo de reversão.** Ver
-[o que é arquitetura](../01-fundamentals/what-is-software-architecture.md). YAGNI
+[o que é arquitetura](/01-fundamentals/what-is-software-architecture.md). YAGNI
 é mais seguro quanto mais barato for mudar de ideia.
 
 **Quando a "generalização" é higiene básica.** Tratar erro, validar entrada e
@@ -195,10 +195,10 @@ de adicionar depois e o outro não.
 
 ## Conceitos Relacionados
 
-- [KISS](kiss.md) — o mesmo espírito aplicado a estrutura.
-- [Abstração](../01-fundamentals/abstraction.md) — o custo da generalização
+- [KISS](/02-software-design/kiss.md) — o mesmo espírito aplicado a estrutura.
+- [Abstração](/01-fundamentals/abstraction.md) — o custo da generalização
   prematura.
-- [Complexidade](../01-fundamentals/complexity.md) — o que a especulação adiciona.
+- [Complexidade](/01-fundamentals/complexity.md) — o que a especulação adiciona.
 
 ## Exercício Prático
 

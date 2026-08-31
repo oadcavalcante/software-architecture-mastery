@@ -60,7 +60,7 @@ disponibilidade do conjunto é o produto das individuais, e a latência é a som
 
 Trocar síncrono por assíncrono não remove acoplamento — troca acoplamento
 temporal por acoplamento de formato. Ver
-[filas](queues.md).
+[filas](/05-system-design/queues.md).
 
 ### O que precisa ser síncrono
 
@@ -83,7 +83,7 @@ indefinidamente e esgota recursos — e a falha se propaga para cima.
 
 O timeout precisa ser **menor** que o do chamador, senão ele desiste antes e a
 cadeia trabalha para ninguém. Ver
-[timeouts](../06-distributed-systems/index.md).
+[timeouts](/06-distributed-systems/index.md).
 
 E o timeout não resolve a ambiguidade central: quando ele estoura, você não sabe
 se a operação aconteceu.
@@ -95,7 +95,7 @@ precisa de preço, estoque e avaliações pode responder sem as avaliações.
 
 Separar o que é essencial do que é enriquecimento permite degradar em vez de
 falhar. Ver
-[degradação graciosa](../12-reliability/index.md).
+[degradação graciosa](/12-reliability/index.md).
 
 ## Modelo Mental
 
@@ -117,7 +117,7 @@ sincronizar — nada disso precisa bloquear a resposta.
 
 **Quando a operação é demorada.** Uma requisição HTTP que espera trinta segundos
 consome conexão, esgota pool e frequentemente estoura em algum proxy no caminho.
-Ver [processamento em background](background-processing.md).
+Ver [processamento em background](/05-system-design/background-processing.md).
 
 **Quando o destino é instável.** Chamar sincronamente um serviço menos disponível
 que você rebaixa a sua disponibilidade ao nível dele.
@@ -129,11 +129,11 @@ absorve.
 
 ## Alternativas
 
-- **[Fila](queues.md)** — desacopla no tempo, ao custo de duplicação e ordem.
-- **[Processamento em background](background-processing.md)** — responder aceito e
+- **[Fila](/05-system-design/queues.md)** — desacopla no tempo, ao custo de duplicação e ordem.
+- **[Processamento em background](/05-system-design/background-processing.md)** — responder aceito e
   processar depois.
 - **Evento** — quando vários interessados reagem. Ver
-  [arquitetura orientada a eventos](../03-design-patterns/event-driven.md).
+  [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
 - **Requisição com resposta diferida** — devolver um identificador de operação e
   um caminho para consultar o resultado.
 
@@ -208,7 +208,7 @@ emissão fiscal tem prazo legal de horas, não de milissegundos — ninguém tin
 verificado isso antes.
 
 Além disso, todas as chamadas ganharam timeout explícito, e a de pagamento ganhou
-[circuit breaker](../12-reliability/index.md).
+[circuit breaker](/12-reliability/index.md).
 
 O que mudou não foi tecnologia. Foi perguntar, para cada chamada, se o resultado
 era necessário para responder — e três das quatro não eram.
@@ -246,10 +246,10 @@ sem olhar a cadeia inteira.
 
 ## Conceitos Relacionados
 
-- [APIs](apis.md) — o contrato da chamada.
-- [Filas](queues.md) — o modelo assíncrono.
-- [Processamento em Background](background-processing.md) — operações longas.
-- [Sistemas Distribuídos](../06-distributed-systems/index.md) — timeouts,
+- [APIs](/05-system-design/apis.md) — o contrato da chamada.
+- [Filas](/05-system-design/queues.md) — o modelo assíncrono.
+- [Processamento em Background](/05-system-design/background-processing.md) — operações longas.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md) — timeouts,
   retentativa e idempotência.
 
 ## Exercício Prático

@@ -62,7 +62,7 @@ mês 18    prioridade nova, orçamento realocado
 
 O que sustenta apoio não é comunicação de progresso — é **entrega de valor visível**.
 
-Ver [arquitetura de transição](../15-enterprise-architecture/transition-architecture.md).
+Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 Um programa cujo primeiro valor aparece no mês 14 vai enfrentar essa erosão sem defesa.
 
 E o patrocinador precisa ser mais de um: programas apoiados por uma única pessoa morrem
@@ -79,7 +79,7 @@ a pessoa é alocada em outra coisa   → o projeto trava
 a pessoa resiste                    → ver adiante
 ```
 
-Ver [sistemas legados](legacy-systems.md).
+Ver [sistemas legados](/16-legacy-modernization/legacy-systems.md).
 
 O tratamento: transferência de conhecimento como **primeira etapa do projeto**, não como
 consequência. Testes de caracterização, documentação, e pareamento.
@@ -121,7 +121,7 @@ modelo que funciona modernização e produto em paralelo, com proporção acorda
 A proporção — algo como 70% produto e 30% modernização — é mais lenta e sobrevive.
 
 E ela exige que a modernização seja fatiada em incrementos que cabem nessa proporção. Ver
-[modernização incremental](incremental-modernization.md).
+[modernização incremental](/16-legacy-modernization/incremental-modernization.md).
 
 ### Estimativa e a natureza do trabalho
 
@@ -147,7 +147,7 @@ descobertas vão mudar o plano, ou cada mudança será lida como falha de execu�
 Uma modernização que muda fronteiras de sistema sem mudar fronteiras de time produz uma
 estrutura que não se sustenta.
 
-Ver [arquitetura de aplicação](../15-enterprise-architecture/application-architecture.md).
+Ver [arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md).
 
 E o inverso: manter um time dedicado à modernização, separado dos times de produto,
 produz um sistema novo que ninguém quer receber — porque não foi construído por quem vai
@@ -188,7 +188,7 @@ Esta análise deveria preceder qualquer programa de modernização, especialment
 
 - **Fatias menores** — reduzem exposição a mudança de prioridade.
 - **Modernização oportunista** — modernizar o que se toca, sem programa dedicado. Ver
-  [modernização incremental](incremental-modernization.md).
+  [modernização incremental](/16-legacy-modernization/incremental-modernization.md).
 - **Contenção** — isolar o legado em vez de substituí-lo, quando o apoio não existe.
 - **Adiar** — decisão legítima quando as condições organizacionais não estão dadas.
 
@@ -296,10 +296,10 @@ ninguém tinha considerado escopo do projeto.
 
 ## Conceitos Relacionados
 
-- [Risco de Modernização](modernization-risk.md).
-- [Modernização Incremental](incremental-modernization.md).
-- [Motivadores de Modernização](modernization-drivers.md).
-- [Liderança em Arquitetura](../23-architecture-leadership/index.md).
+- [Risco de Modernização](/16-legacy-modernization/modernization-risk.md).
+- [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md).
+- [Motivadores de Modernização](/16-legacy-modernization/modernization-drivers.md).
+- [Liderança em Arquitetura](/23-architecture-leadership/index.md).
 
 ## Exercício Prático
 

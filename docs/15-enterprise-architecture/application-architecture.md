@@ -62,8 +62,8 @@ por organograma  cada área tem o seu sistema
 ```
 
 O critério que funciona: **fronteira segue o domínio**. Ver
-[bounded context](../04-domain-driven-design/bounded-context.md) e
-[capacidades de negócio](business-capabilities.md).
+[bounded context](/04-domain-driven-design/bounded-context.md) e
+[capacidades de negócio](/15-enterprise-architecture/business-capabilities.md).
 
 Uma fronteira bem traçada tem a propriedade de que a maioria das mudanças de negócio
 cabe dentro de um sistema.
@@ -97,8 +97,8 @@ dois sistemas que escrevem na mesma entidade
   → ou um deles não deveria escrever
 ```
 
-Ver [arquitetura de dados corporativa](enterprise-data-architecture.md) e
-[propriedade do dado](../07-data-architecture/data-ownership.md).
+Ver [arquitetura de dados corporativa](/15-enterprise-architecture/enterprise-data-architecture.md) e
+[propriedade do dado](/07-data-architecture/data-ownership.md).
 
 A recíproca também vale: se dois sistemas nunca compartilham dados e nunca precisam
 conversar, a separação está correta.
@@ -116,11 +116,11 @@ não separar quando  a mudança quase sempre atravessa
                  a separação existe apenas por preferência arquitetural
 ```
 
-Ver [monolito modular](../03-design-patterns/modular-monolith.md).
+Ver [monolito modular](/03-design-patterns/modular-monolith.md).
 
 Uma organização com muitos sistemas pequenos e muitas integrações pode ter custo maior
 que com menos sistemas maiores. Ver
-[paisagens de integração](integration-landscapes.md).
+[paisagens de integração](/15-enterprise-architecture/integration-landscapes.md).
 
 ### Responsabilidade precisa ser declarada
 
@@ -150,8 +150,8 @@ outro lugar — e a decisão sobre qual usar precisa ser tomada, ou surge duplic
 **O produto faz menos.** Uma parte do domínio fica fora, e precisa ser construída em
 volta.
 
-Ver [SaaS](../09-cloud-architecture/saas.md) e
-[anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md) —
+Ver [SaaS](/09-cloud-architecture/saas.md) e
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md) —
 a camada de tradução é o que impede a fronteira do fornecedor de entrar no domínio.
 
 ### Fronteira de sistema e fronteira de time se influenciam
@@ -163,7 +163,7 @@ Isso significa que um sistema mantido por dois times tende a desenvolver uma fro
 interna que espelha a divisão — e que dois sistemas mantidos pelo mesmo time tendem a
 acoplar, porque nada impede.
 
-Ver [Team Topologies](../14-devops-and-platform/platform-engineering.md) para o
+Ver [Team Topologies](/14-devops-and-platform/platform-engineering.md) para o
 tratamento organizacional.
 
 A consequência prática é que redesenhar fronteiras de sistema sem ajustar as fronteiras
@@ -203,9 +203,9 @@ está no lugar errado.
 
 ## Alternativas
 
-- **[Bounded context](../04-domain-driven-design/bounded-context.md)** — o mesmo
+- **[Bounded context](/04-domain-driven-design/bounded-context.md)** — o mesmo
   raciocínio, com o método de DDD.
-- **[Capacidades de negócio](business-capabilities.md)** — a lente de negócio para
+- **[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md)** — a lente de negócio para
   agrupar.
 - **Manter como está** — decisão legítima quando o custo de reorganizar supera o de
   conviver.
@@ -304,10 +304,10 @@ sentido quando o negócio passou a variar por serviço, e ninguém revisitou.
 
 ## Conceitos Relacionados
 
-- [Portfólio de Aplicações](application-portfolios.md).
-- [Paisagens de Integração](integration-landscapes.md).
-- [Bounded Context](../04-domain-driven-design/bounded-context.md).
-- [Arquitetura de Dados Corporativa](enterprise-data-architecture.md).
+- [Portfólio de Aplicações](/15-enterprise-architecture/application-portfolios.md).
+- [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md).
+- [Bounded Context](/04-domain-driven-design/bounded-context.md).
+- [Arquitetura de Dados Corporativa](/15-enterprise-architecture/enterprise-data-architecture.md).
 
 ## Exercício Prático
 

@@ -92,7 +92,7 @@ O último é o mais contraintuitivo. Uma abstração criada para facilitar mudan
 frequentemente **dificulta** mudanças não previstas, porque ela fixa o eixo ao longo do qual
 a variação é permitida.
 
-Ver [complexidade](../01-fundamentals/complexity.md).
+Ver [complexidade](/01-fundamentals/complexity.md).
 
 ### A flexibilidade certa vem do segundo caso
 
@@ -108,7 +108,7 @@ casos, não antecipável a partir de um.
 Construir a partir de um caso produz uma abstração com a forma daquele caso — que é
 exatamente o que não serve quando o segundo aparece.
 
-Ver [acoplamento contra duplicação](coupling-vs-duplication.md).
+Ver [acoplamento contra duplicação](/20-trade-offs/coupling-vs-duplication.md).
 
 ### Custo de adaptar depois nem sempre é alto
 
@@ -202,7 +202,7 @@ sistema inteiro. A decisão é ponto a ponto.
 
 - **Costura mínima** — nomear a fronteira sem criar abstração; barata e reversível.
 - **Adiar com registro** — construir simples e registrar em
-  [ADR](../18-architecture-decisions/index.md) o que faria a decisão mudar.
+  [ADR](/18-architecture-decisions/index.md) o que faria a decisão mudar.
 - **Isolar em vez de generalizar** — concentrar o específico num lugar é mais barato que
   torná-lo genérico.
 - **Regra de três** — esperar o terceiro caso antes de abstrair.
@@ -310,10 +310,10 @@ provedor será diferente?", cuja resposta honesta era "nada".
 
 ## Conceitos Relacionados
 
-- [Complexidade](../01-fundamentals/complexity.md) — o que a flexibilidade acrescenta.
-- [YAGNI](../02-software-design/yagni.md) — o princípio correspondente.
-- [Abstração vs. Complexidade](abstraction-vs-complexity.md).
-- [Acoplamento vs. Duplicação](coupling-vs-duplication.md) — a regra de três.
+- [Complexidade](/01-fundamentals/complexity.md) — o que a flexibilidade acrescenta.
+- [YAGNI](/02-software-design/yagni.md) — o princípio correspondente.
+- [Abstração vs. Complexidade](/20-trade-offs/abstraction-vs-complexity.md).
+- [Acoplamento vs. Duplicação](/20-trade-offs/coupling-vs-duplication.md) — a regra de três.
 
 ## Exercício Prático
 

@@ -116,11 +116,11 @@ ao ambiente produtivo.
 
 Consequências:
 
-**Menor privilégio.** Ver [menor privilégio](least-privilege.md). Uma esteira que
+**Menor privilégio.** Ver [menor privilégio](/10-security/least-privilege.md). Uma esteira que
 pode implantar em produção não deveria poder alterar políticas de acesso.
 
 **Credenciais efêmeras.** Federação em vez de chave estática. Ver
-[segredos](secrets.md).
+[segredos](/10-security/secrets.md).
 
 **Isolamento entre execuções.** Uma execução de um ramo qualquer não deveria alcançar
 segredos de produção.
@@ -177,7 +177,7 @@ alertas paralisa — e o time passa a ignorar todos.
 - **Registro interno espelhado** — dependências aprovadas, sem buscar do público
   diretamente. Resolve confusão de nomes e dá controle sobre o que entra.
 - **Imagens base mínimas** — menos componentes, menos superfície. Ver
-  [contêineres](../09-cloud-architecture/containers.md).
+  [contêineres](/09-cloud-architecture/containers.md).
 - **Fixar por resumo criptográfico** em vez de por etiqueta.
 - **Reduzir dependências** — a mais eficaz e a menos considerada. Uma biblioteca
   adicionada para uma função de três linhas traz sua árvore inteira.
@@ -281,10 +281,10 @@ era conhecida — e que ninguém tinha avaliado como fronteira de confiança.
 
 ## Conceitos Relacionados
 
-- [Segredos](secrets.md) — o que a esteira acessa.
-- [Menor Privilégio](least-privilege.md) — o escopo da esteira.
-- [Contêineres](../09-cloud-architecture/containers.md) — imagens base.
-- [Fronteiras Seguras](secure-boundaries.md).
+- [Segredos](/10-security/secrets.md) — o que a esteira acessa.
+- [Menor Privilégio](/10-security/least-privilege.md) — o escopo da esteira.
+- [Contêineres](/09-cloud-architecture/containers.md) — imagens base.
+- [Fronteiras Seguras](/10-security/secure-boundaries.md).
 
 ## Exercício Prático
 

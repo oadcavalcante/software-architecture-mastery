@@ -58,7 +58,7 @@ gerenciado, esse alguém é do provedor.
 trabalho contínuo e obrigatório. Adiar acumula risco.
 
 **Cópia de segurança testada.** Não a que existe — a que já foi restaurada. Ver
-[replicação de dados](../07-data-architecture/data-replication.md).
+[replicação de dados](/07-data-architecture/data-replication.md).
 
 **Conhecimento profundo.** Ajustar um banco sob carga exige experiência específica
 que a maioria dos times não tem e não deveria precisar ter.
@@ -82,7 +82,7 @@ sua aplicação precisa tolerar isso.
 **Diagnóstico profundo.** Sem acesso à máquina, certos problemas viram ticket de
 suporte em vez de investigação.
 
-**Portabilidade.** Ver [dependência de fornecedor](vendor-lock-in.md).
+**Portabilidade.** Ver [dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ### A pergunta que decide
 
@@ -105,12 +105,12 @@ Ele reduz o trabalho, não a responsabilidade:
 serviços têm retenção padrão curta.
 
 **Multi-zona costuma ser opcional.** Ver
-[zonas de disponibilidade](availability-zones.md).
+[zonas de disponibilidade](/09-cloud-architecture/availability-zones.md).
 
 **Limites e cotas existem** e param a aplicação quando atingidos.
 
 **Modelagem e consulta continuam suas.** Serviço gerenciado não conserta índice
-ausente. Ver [indexação](../07-data-architecture/indexing.md).
+ausente. Ver [indexação](/07-data-architecture/indexing.md).
 
 **O provedor tem incidentes.** E você não tem o que fazer além de esperar — o que
 precisa estar no plano.
@@ -123,7 +123,7 @@ gerenciado               o provedor opera, você configura
 sem servidor             o provedor opera e escala, você não vê capacidade
 ```
 
-O terceiro grau leva a lógica ao extremo. Ver [serverless](serverless.md).
+O terceiro grau leva a lógica ao extremo. Ver [serverless](/09-cloud-architecture/serverless.md).
 
 A escolha não precisa ser uniforme: um sistema pode ter banco gerenciado, cache
 gerenciado e um componente especializado autogerido, porque só esse último tem
@@ -153,7 +153,7 @@ configuração.
 **Em escala onde a diferença paga um time**, com os números verificados.
 
 **Quando a dependência é inaceitável.** Ver
-[dependência de fornecedor](vendor-lock-in.md).
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 **Sem verificar cópia de segurança, retenção e multi-zona.**
 
@@ -164,8 +164,8 @@ configuração.
 - **Autogerido** — controle total, trabalho total.
 - **Gerenciado por terceiro** — não pelo provedor de nuvem; reduz a dependência de
   um único fornecedor mantendo o benefício operacional.
-- **[Serverless](serverless.md)** — o grau seguinte.
-- **Código aberto com operador** — no [Kubernetes](kubernetes.md), automatiza parte
+- **[Serverless](/09-cloud-architecture/serverless.md)** — o grau seguinte.
+- **Código aberto com operador** — no [Kubernetes](/09-cloud-architecture/kubernetes.md), automatiza parte
   da operação sem sair do controle. Custo intermediário, e alguém ainda precisa
   operar o operador.
 
@@ -196,7 +196,7 @@ configuração.
 **Versão descontinuada.** Migração forçada com prazo do provedor.
 
 **Custo crescendo silenciosamente.** Ver
-[arquitetura de custo](cost-architecture.md).
+[arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
 ## Erros Comuns
 
@@ -257,10 +257,10 @@ mesma planilha, porque ele já estava pago.
 
 ## Conceitos Relacionados
 
-- [Dependência de Fornecedor](vendor-lock-in.md) — o outro lado.
-- [Serverless](serverless.md) — o grau seguinte.
-- [Arquitetura de Custo](cost-architecture.md).
-- [Zonas de Disponibilidade](availability-zones.md) — o que verificar.
+- [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md) — o outro lado.
+- [Serverless](/09-cloud-architecture/serverless.md) — o grau seguinte.
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — o que verificar.
 
 ## Exercício Prático
 

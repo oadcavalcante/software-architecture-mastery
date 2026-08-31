@@ -25,7 +25,7 @@ O core domain é o subdomínio onde a empresa se diferencia — a razão pela qu
 clientes a escolhem em vez do concorrente.
 
 É onde o melhor esforço de engenharia deve ir, e é o único lugar onde
-[DDD tático](tactical-ddd.md) costuma se pagar.
+[DDD tático](/04-domain-driven-design/tactical-ddd.md) costuma se pagar.
 
 ## O Problema
 
@@ -73,7 +73,7 @@ Uma vez identificado, as decisões seguem:
 mais difícil, e é o que a análise recomenda.
 
 **Modelagem cuidadosa com o especialista.** Conversas frequentes, refinamento
-contínuo, [ubiquitous language](ubiquitous-language.md) rigorosa.
+contínuo, [ubiquitous language](/04-domain-driven-design/ubiquitous-language.md) rigorosa.
 
 **DDD tático.** Agregados, objetos de valor, eventos de domínio — os padrões que
 não se pagam em outros lugares se pagam aqui.
@@ -95,7 +95,7 @@ core é o desperdício mais caro que uma empresa de software comete, e o mais
 invisível — porque o trabalho feito é de boa qualidade.
 
 **Porque determina onde a complexidade é justificável.** Ver
-[complexidade](../01-fundamentals/complexity.md). No core, complexidade essencial
+[complexidade](/01-fundamentals/complexity.md). No core, complexidade essencial
 merece ser modelada com cuidado. Fora dele, a mesma complexidade deveria ser
 evitada ou comprada.
 
@@ -152,11 +152,11 @@ melhor capacidade estava alocada.
 
 ## Conceitos Relacionados
 
-- [Subdomínio](subdomain.md) — a classificação.
-- [Supporting](supporting-domain.md) e [Generic](generic-domain.md) — os outros
+- [Subdomínio](/04-domain-driven-design/subdomain.md) — a classificação.
+- [Supporting](/04-domain-driven-design/supporting-domain.md) e [Generic](/04-domain-driven-design/generic-domain.md) — os outros
   tipos.
-- [DDD Tático](tactical-ddd.md) — o que só se paga aqui.
-- [Contexto de Negócio](../01-fundamentals/business-context.md).
+- [DDD Tático](/04-domain-driven-design/tactical-ddd.md) — o que só se paga aqui.
+- [Contexto de Negócio](/01-fundamentals/business-context.md).
 
 ## Exercício Prático
 

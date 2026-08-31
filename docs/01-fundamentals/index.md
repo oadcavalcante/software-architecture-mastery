@@ -93,6 +93,6 @@ perguntar "certa para quê, sob quais restrições?".
 
 ## Continua em
 
-[Nível 02 — Design de Software](../02-software-design/index.md), onde esses
+[Nível 02 — Design de Software](/02-software-design/index.md), onde esses
 conceitos deixam de ser vocabulário e passam a ser critério de estruturação
 de código.

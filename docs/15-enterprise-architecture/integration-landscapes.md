@@ -76,13 +76,13 @@ evento                    acopla formato, não disponibilidade
 arquivo                   acoplamento mínimo, latência alta
 ```
 
-Ver [arquitetura de integração](../08-integration-architecture/index.md).
+Ver [arquitetura de integração](/08-integration-architecture/index.md).
 
 Os dois primeiros são os que mais aparecem em paisagens antigas e os que mais travam:
 eles tornam o modelo interno de um sistema um contrato público, impedindo qualquer
 refatoração.
 
-Ver [propriedade do dado](../07-data-architecture/data-ownership.md).
+Ver [propriedade do dado](/07-data-architecture/data-ownership.md).
 
 ### A paisagem real difere da declarada
 
@@ -98,7 +98,7 @@ consumidores de API que ninguém sabe que existem
 
 A forma de encontrar é observar: registros de acesso ao banco, tráfego de rede,
 rastreamento distribuído. Ver
-[rastreamento distribuído](../13-observability/distributed-tracing.md).
+[rastreamento distribuído](/13-observability/distributed-tracing.md).
 
 O achado típico: entre 30% e 50% mais integrações que as documentadas.
 
@@ -114,7 +114,7 @@ implantar independentemente.
 
 **Cadeias longas.** Uma requisição que atravessa seis sistemas tem disponibilidade
 composta ruim. Ver
-[disponibilidade](../06-distributed-systems/availability.md).
+[disponibilidade](/06-distributed-systems/availability.md).
 
 **Duplicação de caminho.** Quatro integrações transportando o mesmo dado entre os mesmos
 sistemas, feitas em momentos diferentes.
@@ -136,7 +136,7 @@ investigar um problema  exige envolver os dois
 ```
 
 Um sistema com trinta integrações é um sistema cujo time negocia com muitos outros. Ver
-[contratos de integração](../08-integration-architecture/integration-contracts.md).
+[contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 Isso explica por que times com muitas dependências entregam devagar — e por que reduzir
 integrações é uma intervenção de velocidade, não apenas de arquitetura.
@@ -161,7 +161,7 @@ fronteiras melhores        menos necessidade de conversar
 
 A última é a mais profunda: uma paisagem complexa frequentemente reflete fronteiras de
 sistema mal traçadas. Ver
-[bounded context](../04-domain-driven-design/bounded-context.md).
+[bounded context](/04-domain-driven-design/bounded-context.md).
 
 ## Modelo Mental
 
@@ -193,7 +193,7 @@ organizá-las.
 - **Mapa de dependências derivado** — automático, real, sempre atual.
 - **Análise por sistema** — o que cada um consome e expõe, sem o mapa global.
 - **Catálogo de contratos** — o que é publicado, quem consome. Ver
-  [contratos de integração](../08-integration-architecture/integration-contracts.md).
+  [contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 ## Trade-offs
 
@@ -290,10 +290,10 @@ não do que está documentado.
 
 ## Conceitos Relacionados
 
-- [Portfólio de Aplicações](application-portfolios.md).
-- [Arquitetura de Integração](../08-integration-architecture/index.md).
-- [Propriedade do Dado](../07-data-architecture/data-ownership.md).
-- [Arquitetura do Estado Atual](current-state-architecture.md).
+- [Portfólio de Aplicações](/15-enterprise-architecture/application-portfolios.md).
+- [Arquitetura de Integração](/08-integration-architecture/index.md).
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md).
+- [Arquitetura do Estado Atual](/15-enterprise-architecture/current-state-architecture.md).
 
 ## Exercício Prático
 

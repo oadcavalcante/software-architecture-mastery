@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 State permite que um objeto altere seu comportamento quando seu estado interno
 muda, de modo que ele pareça mudar de classe.
 
-Estruturalmente é quase idêntico a [Strategy](strategy.md). A diferença que
+Estruturalmente é quase idêntico a [Strategy](/03-design-patterns/strategy.md). A diferença que
 importa: **em Strategy, quem escolhe é o cliente; em State, a transição acontece
 dentro, em resposta a eventos.**
 
@@ -208,9 +208,9 @@ condição espalhada impedia.
 
 ## Conceitos Relacionados
 
-- [Strategy](strategy.md) — mesma estrutura, escolha externa.
-- [Command](command.md) — encapsular a transição como objeto.
-- [Memento](memento.md) — capturar e restaurar estado.
+- [Strategy](/03-design-patterns/strategy.md) — mesma estrutura, escolha externa.
+- [Command](/03-design-patterns/command.md) — encapsular a transição como objeto.
+- [Memento](/03-design-patterns/memento.md) — capturar e restaurar estado.
 
 ## Exercício Prático
 

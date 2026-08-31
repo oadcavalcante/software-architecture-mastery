@@ -166,8 +166,8 @@ a month of re-analysis.
 
 ## Related Concepts
 
-- [Problem Space](problem-space.md) — what comes first.
-- [Constraints](constraints.md) — what shrinks the space.
+- [Problem Space](/01-fundamentals/problem-space.md) — what comes first.
+- [Constraints](/01-fundamentals/constraints.md) — what shrinks the space.
 - [Trade-offs](/20-trade-offs/index.md) — the comparison criterion.
 
 ## Practical Exercise

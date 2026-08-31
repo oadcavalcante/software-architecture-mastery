@@ -69,7 +69,7 @@ endpoint.
 
 **Conexão persistente** — WebSocket ou eventos do servidor. Bom para interface,
 e cria estado de conexão. Ver
-[sem estado vs. com estado](stateless-vs-stateful.md).
+[sem estado vs. com estado](/05-system-design/stateless-vs-stateful.md).
 
 **Notificação assíncrona** — e-mail ou mensagem. Adequado para trabalho longo,
 de minutos ou horas.
@@ -79,7 +79,7 @@ de minutos ou horas.
 ### Os três disparadores
 
 **Por evento.** Algo aconteceu e dispara o trabalho. É o caso mais comum e o mais
-alinhado com [filas](queues.md).
+alinhado com [filas](/05-system-design/queues.md).
 
 **Agendado.** Executa em horários definidos. O erro clássico aqui é implementar o
 agendamento em memória do serviço — com várias instâncias, cada uma dispara.
@@ -227,10 +227,10 @@ background sem alerta de ausência troca uma falha ruidosa por uma silenciosa.
 
 ## Conceitos Relacionados
 
-- [Filas](queues.md) — o mecanismo de entrega.
-- [Request/Response](request-response.md) — o modelo que se abandona.
-- [Observabilidade](../13-observability/index.md) — como saber o que aconteceu.
-- [Confiabilidade](../12-reliability/index.md) — retentativa e retomada.
+- [Filas](/05-system-design/queues.md) — o mecanismo de entrega.
+- [Request/Response](/05-system-design/request-response.md) — o modelo que se abandona.
+- [Observabilidade](/13-observability/index.md) — como saber o que aconteceu.
+- [Confiabilidade](/12-reliability/index.md) — retentativa e retomada.
 
 ## Exercício Prático
 

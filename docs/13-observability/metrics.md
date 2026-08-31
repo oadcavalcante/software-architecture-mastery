@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Métricas são números agregados ao longo do tempo: quantas requisições, qual latência,
 quanta memória.
 
-A propriedade que as distingue de [logs](logs.md): o custo é **constante em relação ao
+A propriedade que as distingue de [logs](/13-observability/logs.md): o custo é **constante em relação ao
 tráfego**. Um contador que registra um milhão de requisições ocupa o mesmo espaço que um
 que registra dez.
 
@@ -86,7 +86,7 @@ Isso exige que os histogramas sejam agregados corretamente — somando os interv
 os percentis calculados. Sistemas que armazenam apenas o percentil calculado por
 instância não permitem agregação correta.
 
-Ver [latência](../06-distributed-systems/latency.md).
+Ver [latência](/06-distributed-systems/latency.md).
 
 ### Cardinalidade é o custo
 
@@ -106,7 +106,7 @@ E há um efeito de composição: dois rótulos de cardinalidade média multiplic
 valores em um e cem no outro produzem dez mil séries.
 
 Quando a pergunta genuinamente exige alta cardinalidade — "quais clientes específicos
-estão sofrendo?" —, a resposta são [logs](logs.md) ou [traces](traces.md), não
+estão sofrendo?" —, a resposta são [logs](/13-observability/logs.md) ou [traces](/13-observability/traces.md), não
 métricas.
 
 ### Agregação perde informação, irreversivelmente
@@ -136,7 +136,7 @@ errada, ou um botão sumiu da interface.
 E são as que comunicam com o negócio. Um alerta de "pedidos caíram 40% em relação ao
 esperado para este horário" é acionável e compreensível por todos.
 
-Ver [sinais dourados](golden-signals.md) e [SLI](../12-reliability/sli.md).
+Ver [sinais dourados](/13-observability/golden-signals.md) e [SLI](/12-reliability/sli.md).
 
 ### Métricas envelhecem
 
@@ -155,9 +155,9 @@ que separa as duas.
 ## Quando Usar
 
 - Tendência ao longo do tempo.
-- [Alertas](alerting.md).
-- [Painéis](dashboards.md).
-- [SLI](../12-reliability/sli.md).
+- [Alertas](/13-observability/alerting.md).
+- [Painéis](/13-observability/dashboards.md).
+- [SLI](/12-reliability/sli.md).
 - Dimensionamento e planejamento de capacidade.
 - Métricas de negócio.
 
@@ -177,8 +177,8 @@ que separa as duas.
 
 ## Alternativas
 
-- **[Logs](logs.md)** — para contexto individual e cardinalidade alta.
-- **[Traces](traces.md)** — para o caminho e a decomposição do tempo.
+- **[Logs](/13-observability/logs.md)** — para contexto individual e cardinalidade alta.
+- **[Traces](/13-observability/traces.md)** — para o caminho e a decomposição do tempo.
 - **Eventos agregáveis** — armazenar eventos ricos e agregar na consulta, em vez de
   agregar na coleta. Custa mais armazenamento e preserva a capacidade de fazer
   perguntas novas.
@@ -272,10 +272,10 @@ proteção que o sistema de métricas oferecia e ninguém tinha configurado.
 
 ## Conceitos Relacionados
 
-- [Logs](logs.md) — para o individual.
-- [Traces](traces.md) — para o caminho.
-- [Sinais Dourados](golden-signals.md) — o que instrumentar.
-- [Alertas](alerting.md).
+- [Logs](/13-observability/logs.md) — para o individual.
+- [Traces](/13-observability/traces.md) — para o caminho.
+- [Sinais Dourados](/13-observability/golden-signals.md) — o que instrumentar.
+- [Alertas](/13-observability/alerting.md).
 
 ## Exercício Prático
 

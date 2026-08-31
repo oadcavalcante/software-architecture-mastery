@@ -97,5 +97,5 @@ E reconhece que os obstáculos decisivos costumam ser organizacionais — e que 
 
 ## Continua em
 
-[Governança de Arquitetura](../19-architecture-governance/index.md), onde a questão passa
+[Governança de Arquitetura](/19-architecture-governance/index.md), onde a questão passa
 a ser como sustentar decisões ao longo do tempo.

@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-OpenID Connect é uma camada fina sobre [OAuth 2.0](oauth2.md) que acrescenta o que
+OpenID Connect é uma camada fina sobre [OAuth 2.0](/10-security/oauth2.md) que acrescenta o que
 faltava: **um token que afirma identidade**.
 
 Onde OAuth entrega um token de acesso — "o portador pode fazer X" —, OpenID Connect
@@ -61,7 +61,7 @@ compreendida.
 
 ### As afirmações que precisam ser verificadas
 
-Um token de identidade é um [JWT](jwt.md) assinado, e recebê-lo não basta — ele
+Um token de identidade é um [JWT](/10-security/jwt.md) assinado, e recebê-lo não basta — ele
 precisa ser validado:
 
 ```text
@@ -164,7 +164,7 @@ emitido.** As duas afirmações são o que torna a autenticação segura.
 
 ## Alternativas
 
-- **[OAuth 2.0](oauth2.md) puro** — quando a necessidade é acesso delegado, não
+- **[OAuth 2.0](/10-security/oauth2.md) puro** — quando a necessidade é acesso delegado, não
   identidade.
 - **SAML** — federação corporativa em ambientes que já o usam. Mais verboso, muito
   estabelecido.
@@ -265,10 +265,10 @@ teria custado.
 
 ## Conceitos Relacionados
 
-- [OAuth 2.0](oauth2.md) — a base.
-- [JWT](jwt.md) — o formato do token de identidade.
-- [Identidade](identity.md).
-- [Fronteiras Seguras](secure-boundaries.md).
+- [OAuth 2.0](/10-security/oauth2.md) — a base.
+- [JWT](/10-security/jwt.md) — o formato do token de identidade.
+- [Identidade](/10-security/identity.md).
+- [Fronteiras Seguras](/10-security/secure-boundaries.md).
 
 ## Exercício Prático
 

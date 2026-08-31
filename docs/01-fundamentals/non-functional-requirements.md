@@ -185,10 +185,10 @@ custo, sem perder nada que o negócio precisasse.
 
 ## Conceitos Relacionados
 
-- [Atributos de Qualidade](quality-attributes.md) — a taxonomia por trás destes
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — a taxonomia por trás destes
   requisitos.
-- [Restrições](constraints.md) — o que não é negociável.
-- [Confiabilidade](../12-reliability/index.md) — onde SLI, SLO e SLA formalizam
+- [Restrições](/01-fundamentals/constraints.md) — o que não é negociável.
+- [Confiabilidade](/12-reliability/index.md) — onde SLI, SLO e SLA formalizam
   isto.
 
 ## Exercício Prático

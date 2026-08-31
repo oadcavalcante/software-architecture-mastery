@@ -140,7 +140,7 @@ levemente atrasado" — demonstra maturidade sem consumir tempo.
 ### Anote e volte
 
 Escreva os requisitos em um canto do quadro, funcionais de um lado e não funcionais do outro. Ver
-[funcionais contra não funcionais](functional-vs-nonfunctional.md).
+[funcionais contra não funcionais](/22-system-design-interviews/functional-vs-nonfunctional.md).
 
 Isso serve a três propósitos: mantém você honesto sobre o que prometeu resolver; permite ao
 entrevistador ver que você não esqueceu nada; e dá algo a que voltar quando o tempo apertar —
@@ -295,10 +295,10 @@ e passa a exigir verificação, o que introduz contenção e um caminho de erro 
 
 ## Conceitos Relacionados
 
-- [Funcionais vs. Não Funcionais](functional-vs-nonfunctional.md).
-- [Estrutura da Entrevista](interview-structure.md) — o orçamento de tempo.
-- [Erros Comuns](interview-common-mistakes.md).
-- [Comunicação de Trade-offs](communicating-tradeoffs.md).
+- [Funcionais vs. Não Funcionais](/22-system-design-interviews/functional-vs-nonfunctional.md).
+- [Estrutura da Entrevista](/22-system-design-interviews/interview-structure.md) — o orçamento de tempo.
+- [Erros Comuns](/22-system-design-interviews/interview-common-mistakes.md).
+- [Comunicação de Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md).
 
 ## Exercício Prático
 

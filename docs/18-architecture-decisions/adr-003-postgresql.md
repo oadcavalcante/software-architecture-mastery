@@ -151,12 +151,12 @@ banco de documentos.
 
 A decisão é **não fazer algo**. Sem este ADR, a proposta de banco de documentos voltaria a
 cada seis meses, com a mesma discussão — que é exatamente o custo que ADRs evitam. Ver
-[por que ADRs importam](why-adrs-matter.md).
+[por que ADRs importam](/18-architecture-decisions/why-adrs-matter.md).
 
 As consequências negativas incluem algo desconfortável de escrever: **a equipe do módulo
 discorda e vai conviver com uma solução que considera inferior**. Registrar isso é mais
 honesto que apresentar consenso. Ver
-[decisão](adr-decision.md).
+[decisão](/18-architecture-decisions/adr-decision.md).
 
 Uma das alternativas foi descartada **agora**, mas explicitamente marcada como a próxima
 opção natural — o que orienta quem vier depois sobre para onde a decisão tende.
@@ -166,7 +166,7 @@ em minutos.
 
 ## Conceitos Relacionados
 
-- [Decisão](adr-decision.md) — decisões de não fazer.
-- [Consequências](adr-consequences.md).
-- [Bancos Relacionais](../07-data-architecture/relational-databases.md).
-- [Bancos de Documentos](../07-data-architecture/document-databases.md).
+- [Decisão](/18-architecture-decisions/adr-decision.md) — decisões de não fazer.
+- [Consequências](/18-architecture-decisions/adr-consequences.md).
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md).
+- [Bancos de Documentos](/07-data-architecture/document-databases.md).

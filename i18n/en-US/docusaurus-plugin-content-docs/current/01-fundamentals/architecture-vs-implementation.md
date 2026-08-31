@@ -186,10 +186,10 @@ absence of a signal. While violating was silent, violating happened.
 
 ## Related Concepts
 
-- [Architecture vs. Design](architecture-vs-design.md) — the previous boundary.
-- [Dependency Management](dependency-management.md) — the material the real graph
+- [Architecture vs. Design](/01-fundamentals/architecture-vs-design.md) — the previous boundary.
+- [Dependency Management](/01-fundamentals/dependency-management.md) — the material the real graph
   is made of.
-- [Technical Debt](technical-debt.md) — how drift accumulates and charges
+- [Technical Debt](/01-fundamentals/technical-debt.md) — how drift accumulates and charges
   interest.
 
 ## Practical Exercise

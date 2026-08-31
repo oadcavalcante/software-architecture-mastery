@@ -109,7 +109,7 @@ depois            dividir onde houver razão: perfil de carga
 
 Desenhar seis microsserviços desde o início é o erro mais comum em entrevistas de nível
 intermediário. Ele sinaliza que a divisão veio de um modelo mental e não do problema. Ver
-[monólito vs. microsserviços](../20-trade-offs/monolith-vs-microservices.md).
+[monólito vs. microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 
 A resposta forte quando o entrevistador pergunta "e microsserviços?": "dividiria se tivéssemos
 times independentes precisando implantar separado, ou se algum componente tivesse perfil de
@@ -126,7 +126,7 @@ aplicação → banco          600/s de leitura, 120/s de escrita
 
 Anotar os números transforma o desenho num instrumento de análise: fica visível onde a carga se
 concentra, e a próxima pergunta — "o que satura primeiro?" — tem resposta imediata. Ver
-[identificação de gargalo](bottleneck-identification.md).
+[identificação de gargalo](/22-system-design-interviews/bottleneck-identification.md).
 
 ### Complete o fluxo antes de aprofundar
 
@@ -310,10 +310,10 @@ apareceu quando foi pedida.
 
 ## Conceitos Relacionados
 
-- [Identificação de Gargalo](bottleneck-identification.md) — o passo seguinte.
-- [Escala em Entrevista](interview-scaling.md).
-- [Monólito vs. Microsserviços](../20-trade-offs/monolith-vs-microservices.md).
-- [Componentes](../05-system-design/components.md).
+- [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md) — o passo seguinte.
+- [Escala em Entrevista](/22-system-design-interviews/interview-scaling.md).
+- [Monólito vs. Microsserviços](/20-trade-offs/monolith-vs-microservices.md).
+- [Componentes](/05-system-design/components.md).
 
 ## Exercício Prático
 

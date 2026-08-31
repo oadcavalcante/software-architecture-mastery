@@ -87,7 +87,7 @@ A maior parte do valor está nas atômicas e contínuas, que são baratas. As ho
 disparadas cobrem propriedades que só existem no conjunto, e por isso são as que descobrem
 os problemas mais caros.
 
-Ver [observabilidade](../13-observability/index.md) — várias funções holísticas são
+Ver [observabilidade](/13-observability/index.md) — várias funções holísticas são
 consultas sobre dados que já estão sendo coletados.
 
 ### Falhar ou avisar
@@ -103,7 +103,7 @@ exclusões cresce até a regra não valer mais.
 
 A escolha correta depende de uma pergunta: **se isto falhar, é sempre um erro?** Se a
 resposta for "às vezes é legítimo", a verificação deveria avisar, não bloquear — e o caso
-legítimo deveria virar [exceção registrada](exceptions.md).
+legítimo deveria virar [exceção registrada](/19-architecture-governance/exceptions.md).
 
 ### A função precisa dizer o que fazer
 
@@ -130,7 +130,7 @@ a complexidade se justifica?
 ```
 
 Nenhuma dessas é mensurável. Elas permanecem no território de
-[revisão](governance-review.md) e de julgamento humano — e é por isso que funções de aptidão
+[revisão](/19-architecture-governance/governance-review.md) e de julgamento humano — e é por isso que funções de aptidão
 substituem parte da governança, não toda.
 
 A repartição útil: a verificação automática libera a atenção humana para as perguntas que só
@@ -194,13 +194,13 @@ verificação perde credibilidade e passa a ser contornada por reflexo.
 ## Alternativas
 
 - **Controle preventivo** — impedir em vez de detectar; melhor quando o ambiente permite.
-- **[Revisão](governance-review.md)** — para o que exige julgamento.
-- **[Conformidade contínua](compliance.md)** — o mesmo mecanismo, com foco regulatório.
+- **[Revisão](/19-architecture-governance/governance-review.md)** — para o que exige julgamento.
+- **[Conformidade contínua](/19-architecture-governance/compliance.md)** — o mesmo mecanismo, com foco regulatório.
 - **Relatório periódico** — quando a propriedade é tendência e não evento.
 
 A primeira é sempre preferível quando aplicável: uma malha que rejeita tráfego não
 autenticado torna a verificação correspondente desnecessária. Ver
-[fundamentos de governança](governance-basics.md).
+[fundamentos de governança](/19-architecture-governance/governance-basics.md).
 
 ## Trade-offs
 
@@ -313,10 +313,10 @@ dois terços do problema antes de qualquer bloqueio.
 
 ## Conceitos Relacionados
 
-- [Fundamentos de Governança](governance-basics.md) — o ponto de intervenção.
-- [Conformidade](compliance.md) — o mesmo mecanismo, foco regulatório.
-- [Exceções](exceptions.md) — o que fazer com o caso legítimo.
-- [Evolução da Arquitetura](../01-fundamentals/architecture-evolution.md).
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md) — o ponto de intervenção.
+- [Conformidade](/19-architecture-governance/compliance.md) — o mesmo mecanismo, foco regulatório.
+- [Exceções](/19-architecture-governance/exceptions.md) — o que fazer com o caso legítimo.
+- [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md).
 
 ## Exercício Prático
 

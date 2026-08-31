@@ -95,8 +95,8 @@ A regra prática de Vernon: **modifique um agregado por transação.**
 
 Quando uma operação precisa alterar dois, isso é sinal de que as fronteiras estão
 erradas — ou de que a consistência entre eles é eventual, e a coordenação deve ser
-por [evento de domínio](domain-event.md) ou por
-[saga](../06-distributed-systems/index.md).
+por [evento de domínio](/04-domain-driven-design/domain-event.md) ou por
+[saga](/06-distributed-systems/index.md).
 
 ### Concorrência
 
@@ -121,7 +121,7 @@ consistentes na mesma transação na maioria dos negócios — e assumir que pre
 produz o agregado grande.
 
 **Em subdomínios de apoio ou genéricos.** Ver
-[DDD tático](tactical-ddd.md).
+[DDD tático](/04-domain-driven-design/tactical-ddd.md).
 
 **Quando o conjunto é grande ou cresce sem limite.** Um agregado com uma coleção
 que cresce indefinidamente — histórico, log, mensagens — é inviável.
@@ -134,8 +134,8 @@ menores ganham.
 
 - **Agregados menores com consistência eventual** — a resposta mais frequente.
 - **Serviço de domínio** — quando a regra envolve vários agregados. Ver
-  [domain service](domain-service.md).
-- **[Saga](../06-distributed-systems/index.md)** — quando a coordenação atravessa
+  [domain service](/04-domain-driven-design/domain-service.md).
+- **[Saga](/06-distributed-systems/index.md)** — quando a coordenação atravessa
   fronteiras transacionais.
 - **Modelo sem agregados** — legítimo fora do core.
 
@@ -221,10 +221,10 @@ os pedidos abertos — e o problema teria voltado.
 
 ## Conceitos Relacionados
 
-- [Entity](entity.md) — a raiz é uma.
-- [Value Object](value-object.md) — o que compõe o agregado.
-- [Domain Event](domain-event.md) — a coordenação entre agregados.
-- [Repository](repository.md) — um por agregado.
+- [Entity](/04-domain-driven-design/entity.md) — a raiz é uma.
+- [Value Object](/04-domain-driven-design/value-object.md) — o que compõe o agregado.
+- [Domain Event](/04-domain-driven-design/domain-event.md) — a coordenação entre agregados.
+- [Repository](/04-domain-driven-design/repository.md) — um por agregado.
 
 ## Exercício Prático
 

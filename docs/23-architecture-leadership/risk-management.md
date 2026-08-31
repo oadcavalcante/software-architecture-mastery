@@ -140,7 +140,7 @@ Sem ele, cada decisão de risco é negociada do zero.
 ```
 
 Um apetite declarado transforma discussões recorrentes em verificações. Ver
-[custo vs. confiabilidade](../20-trade-offs/cost-vs-reliability.md).
+[custo vs. confiabilidade](/20-trade-offs/cost-vs-reliability.md).
 
 ### Riscos de conhecimento são os mais subestimados
 
@@ -154,7 +154,7 @@ idade média da equipe que o mantém
 Esses números raramente são medidos, e são a origem de uma classe de crise que não tem solução
 rápida: quando o risco se materializa, não há como comprar a competência de volta.
 
-Ver o [case de modernização](../21-case-studies/legacy-modernization-case.md), em que o risco de
+Ver o [case de modernização](/21-case-studies/legacy-modernization-case.md), em que o risco de
 conhecimento — nove pessoas, seis se aposentando — foi o que motivou um projeto de sete anos.
 
 ### Revise em cadência, com o número
@@ -197,11 +197,11 @@ resposta legítima, melhor que deixar aberto.
 ## Alternativas
 
 - **Modelagem de ameaças** — para riscos de segurança, com método próprio. Ver
-  [modelagem de ameaças](../10-security/threat-modeling.md).
+  [modelagem de ameaças](/10-security/threat-modeling.md).
 - **Análise pré-mortem** — imaginar que o projeto falhou e listar as causas; barata e eficaz para
   descobrir riscos que a análise formal não encontra.
 - **Orçamento de erro** — para risco de disponibilidade, mais operacional e mais acionável. Ver
-  [confiabilidade](../12-reliability/reliability-basics.md).
+  [confiabilidade](/12-reliability/reliability-basics.md).
 - **Exercícios de falha** — descobrir riscos executando, não listando.
 
 A segunda é subestimada: uma pré-mortem de uma hora com o time costuma produzir mais riscos reais
@@ -311,10 +311,10 @@ nenhuma.
 
 ## Conceitos Relacionados
 
-- [Tomada de Decisão](decision-making.md).
-- [Gestão de Custo](cost-management.md).
-- [Custo vs. Confiabilidade](../20-trade-offs/cost-vs-reliability.md).
-- [Modelagem de Ameaças](../10-security/threat-modeling.md).
+- [Tomada de Decisão](/23-architecture-leadership/decision-making.md).
+- [Gestão de Custo](/23-architecture-leadership/cost-management.md).
+- [Custo vs. Confiabilidade](/20-trade-offs/cost-vs-reliability.md).
+- [Modelagem de Ameaças](/10-security/threat-modeling.md).
 
 ## Exercício Prático
 

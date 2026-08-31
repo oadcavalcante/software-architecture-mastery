@@ -50,7 +50,7 @@ Distinção que causa confusão constante:
 
 **Subdomínio** é uma divisão do **problema** — do negócio, tal como ele é.
 
-**[Bounded context](bounded-context.md)** é uma divisão da **solução** — do
+**[Bounded context](/04-domain-driven-design/bounded-context.md)** é uma divisão da **solução** — do
 software que você constrói.
 
 O ideal é que cada subdomínio corresponda a um bounded context. Na prática, um
@@ -66,9 +66,9 @@ A classificação que orienta a decisão de investimento:
 
 | Tipo | O que é | Decisão |
 |---|---|---|
-| [Core](core-domain.md) | Onde a empresa se diferencia | Invista o melhor esforço |
-| [Supporting](supporting-domain.md) | Necessário, específico, não diferencia | Construa de forma simples |
-| [Generic](generic-domain.md) | Necessário, resolvido pelo mercado | Compre ou adote pronto |
+| [Core](/04-domain-driven-design/core-domain.md) | Onde a empresa se diferencia | Invista o melhor esforço |
+| [Supporting](/04-domain-driven-design/supporting-domain.md) | Necessário, específico, não diferencia | Construa de forma simples |
+| [Generic](/04-domain-driven-design/generic-domain.md) | Necessário, resolvido pelo mercado | Compre ou adote pronto |
 
 O erro mais comum é tratar tudo como core.
 
@@ -105,7 +105,7 @@ engenharia significativa.
 informa é onde alocá-la — e essa é uma decisão de negócio, não técnica.
 
 **Porque orienta onde aplicar DDD tático.** Os padrões táticos são caros e só se
-pagam no core. Ver [DDD tático](tactical-ddd.md).
+pagam no core. Ver [DDD tático](/04-domain-driven-design/tactical-ddd.md).
 
 **Porque expõe desalinhamento.** Quando o subdomínio core do negócio é o que
 recebe menos investimento, isso é um problema estratégico que a análise torna
@@ -178,11 +178,11 @@ anualmente. É um documento de meia página que orienta decisões por anos.
 
 ## Conceitos Relacionados
 
-- [Core Domain](core-domain.md), [Supporting](supporting-domain.md) e
-  [Generic](generic-domain.md) — os três tipos.
-- [Bounded Context](bounded-context.md) — a divisão da solução.
-- [Domínio](domain.md) — o todo.
-- [Contexto de Negócio](../01-fundamentals/business-context.md).
+- [Core Domain](/04-domain-driven-design/core-domain.md), [Supporting](/04-domain-driven-design/supporting-domain.md) e
+  [Generic](/04-domain-driven-design/generic-domain.md) — os três tipos.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md) — a divisão da solução.
+- [Domínio](/04-domain-driven-design/domain.md) — o todo.
+- [Contexto de Negócio](/01-fundamentals/business-context.md).
 
 ## Exercício Prático
 

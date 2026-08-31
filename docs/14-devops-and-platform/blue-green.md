@@ -35,7 +35,7 @@ um roteamento a inverter.
 Reverter uma implantação convencional significa implantar a versão anterior — o que leva
 o mesmo tempo da implantação original, sob pressão, com o sistema degradado.
 
-Ver [estratégias de implantação](deployment-strategies.md). Para mudanças de alto risco,
+Ver [estratégias de implantação](/14-devops-and-platform/deployment-strategies.md). Para mudanças de alto risco,
 ou onde a janela de degradação é cara, esse tempo é inaceitável.
 
 Blue-green troca capacidade por tempo: mantendo o ambiente antigo intacto, a volta é
@@ -53,7 +53,7 @@ malha de serviço   troca de rota — segundos, com granularidade
 
 A primeira opção anula boa parte do valor: se a reversão depende de propagação de DNS,
 ela não é instantânea. Ver
-[regiões](../09-cloud-architecture/regions.md).
+[regiões](/09-cloud-architecture/regions.md).
 
 O tempo de vida do registro precisa ser curto, ou a troca deve acontecer numa camada
 abaixo.
@@ -66,12 +66,12 @@ ainda não otimizado.
 Trocar 100% do tráfego para ele produz um pico de latência e, frequentemente, uma queda
 — que é lida como "a versão nova está ruim", quando o problema é o ambiente frio.
 
-Ver [cache para escala](../11-scalability/scaling-cache.md).
+Ver [cache para escala](/11-scalability/scaling-cache.md).
 
 O que resolve: aquecimento antes da troca — tráfego sintético, ou uma fração pequena de
 tráfego real por alguns minutos.
 
-Esse último caso, na prática, é um canary curto. Ver [canary](canary.md).
+Esse último caso, na prática, é um canary curto. Ver [canary](/14-devops-and-platform/canary.md).
 
 ### O estado compartilhado é a restrição real
 
@@ -91,7 +91,7 @@ Este é o ponto que mais frequentemente torna blue-green menos instantâneo do q
 promete. A troca de roteamento é imediata; a compatibilidade do estado é trabalho de
 modelagem.
 
-Ver [evolução de esquema](../08-integration-architecture/schema-evolution.md).
+Ver [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 ### Requisições em andamento
 
@@ -123,7 +123,7 @@ fica ocioso.
 
 O custo dela é o tempo de criação, e a exigência de que a infraestrutura seja
 completamente declarada. Ver
-[infraestrutura como código](infrastructure-as-code.md).
+[infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md).
 
 ### O que ele não faz
 
@@ -133,7 +133,7 @@ Ele torna a reversão barata. Alguém — ou algo — ainda precisa perceber que
 está errada.
 
 Para mudanças cujo problema não é óbvio, ele precisa ser combinado com verificação. Ver
-[canary](canary.md).
+[canary](/14-devops-and-platform/canary.md).
 
 E há um risco associado: a facilidade de reverter pode reduzir o cuidado na verificação
 prévia, com a lógica de "se der errado a gente volta". Isso funciona para o que é
@@ -168,10 +168,10 @@ compatibilidade do estado compartilhado é o que precisa ser projetado.
 
 ## Alternativas
 
-- **[Canary](canary.md)** — detecta, expõe menos, exige volume.
-- **[Implantação em ondas](rolling-deployments.md)** — sem capacidade extra, reversão
+- **[Canary](/14-devops-and-platform/canary.md)** — detecta, expõe menos, exige volume.
+- **[Implantação em ondas](/14-devops-and-platform/rolling-deployments.md)** — sem capacidade extra, reversão
   gradual.
-- **[Feature flags](feature-flags.md)** — reversão instantânea sem duplicar ambiente,
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — reversão instantânea sem duplicar ambiente,
   para mudanças de comportamento.
 - **Blue-green com canary na troca** — trocar gradualmente em vez de de uma vez,
   combinando os dois.
@@ -263,10 +263,10 @@ passa por roteamento.
 
 ## Conceitos Relacionados
 
-- [Estratégias de Implantação](deployment-strategies.md).
-- [Canary](canary.md) — a detecção que falta.
-- [Infraestrutura como Código](infrastructure-as-code.md) — o ambiente efêmero.
-- [Evolução de Esquema](../08-integration-architecture/schema-evolution.md).
+- [Estratégias de Implantação](/14-devops-and-platform/deployment-strategies.md).
+- [Canary](/14-devops-and-platform/canary.md) — a detecção que falta.
+- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md) — o ambiente efêmero.
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
 ## Exercício Prático
 

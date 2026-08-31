@@ -36,7 +36,7 @@ produz decomposições que refletem a familiaridade de quem desenha, não o prob
 Três padrões de decomposição ruim aparecem com regularidade.
 
 **Por camada técnica.** API, serviço, dados. Reproduz no nível de sistema o
-problema que [camadas](../02-software-design/layering.md) já tem no nível de
+problema que [camadas](/02-software-design/layering.md) já tem no nível de
 código: toda mudança de negócio atravessa tudo.
 
 **Por entidade.** Um componente por substantivo do domínio. A capacidade de
@@ -72,8 +72,8 @@ mudar.
 
 A ordem importa. Decidir a decomposição física antes de a lógica se provar produz
 fronteiras de alto custo no lugar errado. Ver
-[fronteiras](../02-software-design/boundaries.md) e
-[design de componentes](../02-software-design/component-design.md).
+[fronteiras](/02-software-design/boundaries.md) e
+[design de componentes](/02-software-design/component-design.md).
 
 O caminho seguro: decomponha logicamente, imponha as fronteiras dentro de um
 processo, e promova a componente separado o que tiver razão.
@@ -112,10 +112,10 @@ decida o que vira processo separado.**
 decomposição custa mais navegação do que economiza em contenção.
 
 **Antes de entender o domínio.** Fronteira errada é pior que fronteira ausente.
-Ver [bounded context](../04-domain-driven-design/bounded-context.md).
+Ver [bounded context](/04-domain-driven-design/bounded-context.md).
 
 **Copiando o organograma sem verificar.** A [lei de
-Conway](../23-architecture-leadership/index.md) descreve o que acontece, não o
+Conway](/23-architecture-leadership/index.md) descreve o que acontece, não o
 que deveria acontecer.
 
 **Decompondo fisicamente por default.** Módulos primeiro.
@@ -123,7 +123,7 @@ que deveria acontecer.
 ## Alternativas
 
 - **Monolito com módulos internos** — a resposta na maioria dos casos. Ver
-  [monolito modular](../03-design-patterns/modular-monolith.md).
+  [monolito modular](/03-design-patterns/modular-monolith.md).
 - **Sistema único sem divisão** — legítimo em sistemas pequenos.
 - **Decomposição parcial** — separar apenas o que tem requisito distinto,
   mantendo o resto junto.
@@ -216,11 +216,11 @@ qualquer um deles é comprovadamente errada, e isso já paga o exercício.
 
 ## Conceitos Relacionados
 
-- [Componentes](components.md) — as partes resultantes.
-- [Fronteiras de Serviço](service-boundaries.md) — onde separar processos.
-- [Design Modular](../02-software-design/modular-design.md) — a execução em
+- [Componentes](/05-system-design/components.md) — as partes resultantes.
+- [Fronteiras de Serviço](/05-system-design/service-boundaries.md) — onde separar processos.
+- [Design Modular](/02-software-design/modular-design.md) — a execução em
   código.
-- [Bounded Context](../04-domain-driven-design/bounded-context.md) — o critério de
+- [Bounded Context](/04-domain-driven-design/bounded-context.md) — o critério de
   domínio.
 
 ## Exercício Prático

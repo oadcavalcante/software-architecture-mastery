@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::info Continuação
 
 Este exercício resolve o caso `5c` que ficou aberto no
-[exercício 04](04-async-processing.md): a autorização é enviada e nenhuma resposta chega.
+[exercício 04](/06-distributed-systems/exercises/04-async-processing.md): a autorização é enviada e nenhuma resposta chega.
 
 :::
 
@@ -151,7 +151,7 @@ verificando", não uma cobrança nova.
 
 Essa é a parte que a maioria erra ao projetar: permitir a retentativa do cliente enquanto o
 estado é ambíguo. Ver
-[idempotência](../idempotency.md).
+[idempotência](/06-distributed-systems/idempotency.md).
 
 **O que o cliente vê** importa tanto quanto o mecanismo. "Estamos confirmando seu pagamento,
 isso leva até 30 minutos" é honesto e tolerável. Silêncio produz reenvio, e reenvio é como as
@@ -186,7 +186,7 @@ o argumento para renegociar o contrato com o adquirente.
 
 ## Conceitos Relacionados
 
-- [Exercício 04](04-async-processing.md) e [Exercício 06](../../12-reliability/exercises/06-multi-region.md).
-- [Falha Parcial](../partial-failure.md) e [Idempotência](../idempotency.md).
-- [Repetições](../retries.md).
-- [Case: Plataforma de Pagamentos](../../21-case-studies/payments.md).
+- [Exercício 04](/06-distributed-systems/exercises/04-async-processing.md) e [Exercício 06](/12-reliability/exercises/06-multi-region.md).
+- [Falha Parcial](/06-distributed-systems/partial-failure.md) e [Idempotência](/06-distributed-systems/idempotency.md).
+- [Repetições](/06-distributed-systems/retries.md).
+- [Case: Plataforma de Pagamentos](/21-case-studies/payments.md).

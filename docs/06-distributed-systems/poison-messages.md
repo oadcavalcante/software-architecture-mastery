@@ -52,7 +52,7 @@ codificação errada.
 
 **Mudança de esquema.** O produtor passou a enviar um formato que o consumidor não
 entende. Ver
-[evolução de schema](../08-integration-architecture/index.md).
+[evolução de schema](/08-integration-architecture/index.md).
 
 **Defeito no consumidor.** Um caso não previsto que sempre lança.
 
@@ -85,7 +85,7 @@ como estratégia única.
 ### Limite de tentativas é obrigatório
 
 Toda mensagem precisa de um contador. Após N tentativas, ela sai da fila principal
-para uma [dead-letter queue](dead-letter-queues.md).
+para uma [dead-letter queue](/06-distributed-systems/dead-letter-queues.md).
 
 Sem limite, o laço é infinito. Com limite mas sem dead-letter, a mensagem é
 descartada silenciosamente — o que troca um problema visível por um invisível.
@@ -139,7 +139,7 @@ sem chance de sucesso.
 
 ## Alternativas
 
-- **[Dead-letter queue](dead-letter-queues.md)** — a resposta padrão.
+- **[Dead-letter queue](/06-distributed-systems/dead-letter-queues.md)** — a resposta padrão.
 - **Fila de reprocessamento com atraso** — para falhas ambíguas, tentar de novo
   daqui a horas em vez de descartar.
 - **Validação no produtor** — impedir que a mensagem malformada entre. É a
@@ -228,10 +228,10 @@ inteiramente evitável com configuração padrão de boa prática.
 
 ## Conceitos Relacionados
 
-- [Dead-Letter Queues](dead-letter-queues.md) — para onde a mensagem vai.
-- [Retries](retries.md) — a classificação de falha.
-- [Mensageria](messaging.md) — o canal.
-- [Ordenação](ordering.md) — por que o bloqueio é pior com ordem.
+- [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md) — para onde a mensagem vai.
+- [Retries](/06-distributed-systems/retries.md) — a classificação de falha.
+- [Mensageria](/06-distributed-systems/messaging.md) — o canal.
+- [Ordenação](/06-distributed-systems/ordering.md) — por que o bloqueio é pior com ordem.
 
 ## Exercício Prático
 

@@ -33,7 +33,7 @@ O teste mais eficiente cabe numa pergunta — **alguém defenderia o inverso?**
  onde a capacidade é diferencial competitivo" o inverso é defensável → princípio
 ```
 
-Ver [princípios corporativos](../15-enterprise-architecture/enterprise-principles.md) para
+Ver [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md) para
 a formulação; aqui o foco é como eles operam no momento da decisão, e o que fazer quando
 dois deles apontam para lados opostos.
 
@@ -83,7 +83,7 @@ inverso: "escrevemos código ruim" → absurdo → slogan
 Todo princípio real é uma escolha entre coisas boas. Se não há nada bom sendo abdicado, não
 há princípio.
 
-Ver [trade-offs](../20-trade-offs/index.md).
+Ver [trade-offs](/20-trade-offs/index.md).
 
 ### Princípio precisa de implicação
 
@@ -135,7 +135,7 @@ padrão      é cumprido ou não — não cumprir exige exceção registrada
 Isso significa que "abrimos exceção ao princípio X" é uma frase mal formada. Princípio se
 pondera contra outro princípio, com justificativa. Padrão se descumpre, com registro.
 
-Ver [padrões](governance-standards.md) e [exceções](exceptions.md).
+Ver [padrões](/19-architecture-governance/governance-standards.md) e [exceções](/19-architecture-governance/exceptions.md).
 
 ### Quando um princípio deveria virar padrão
 
@@ -160,7 +160,7 @@ E o sinal de saúde não é o número: é a **citação em decisões reais**. Um
 aparece num ADR ou numa revisão não está operando, independentemente de quão bem escrito
 esteja.
 
-Ver [medição](measuring-governance.md).
+Ver [medição](/19-architecture-governance/measuring-governance.md).
 
 ### Princípios precisam de revisão
 
@@ -202,9 +202,9 @@ precedência, quem decide é o poder.
 
 ## Alternativas
 
-- **[Padrões](governance-standards.md)** — quando a decisão já é conhecida.
+- **[Padrões](/19-architecture-governance/governance-standards.md)** — quando a decisão já é conhecida.
 - **Gabaritos** — o princípio embutido no ponto de partida.
-- **[ADRs](../18-architecture-decisions/index.md)** — precedente concreto vale mais que
+- **[ADRs](/18-architecture-decisions/index.md)** — precedente concreto vale mais que
   abstração; um conjunto de decisões bem registradas ensina o critério da organização.
 - **Nada** — em times pequenos, o critério compartilhado é tácito e funciona.
 
@@ -302,7 +302,7 @@ tecnologia que entra no plantão compartilhado               → padronização 
 
 **Dois princípios promovidos a padrão.** As ponderações se repetiam com o mesmo resultado —
 escolha de banco relacional e de protocolo de integração síncrona. Ver
-[padrões](governance-standards.md).
+[padrões](/19-architecture-governance/governance-standards.md).
 
 **Revisão anual** com a pergunta única: as condições que produziram este princípio ainda
 valem?
@@ -327,11 +327,11 @@ o único momento em que um princípio serve.
 
 ## Conceitos Relacionados
 
-- [Princípios Corporativos](../15-enterprise-architecture/enterprise-principles.md) — a
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md) — a
   formulação.
-- [Padrões](governance-standards.md) — quando prescrever.
-- [Revisão](governance-review.md) — onde o princípio é aplicado.
-- [Trade-offs](../20-trade-offs/index.md) — o que todo princípio abdica.
+- [Padrões](/19-architecture-governance/governance-standards.md) — quando prescrever.
+- [Revisão](/19-architecture-governance/governance-review.md) — onde o princípio é aplicado.
+- [Trade-offs](/20-trade-offs/index.md) — o que todo princípio abdica.
 
 ## Exercício Prático
 

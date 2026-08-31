@@ -50,20 +50,20 @@ aplicar o tático.
 
 Cinco conceitos, na ordem em que se aplicam:
 
-**[Domínio](domain.md) e [subdomínio](subdomain.md).** Entender o negócio e
+**[Domínio](/04-domain-driven-design/domain.md) e [subdomínio](/04-domain-driven-design/subdomain.md).** Entender o negócio e
 dividi-lo em áreas.
 
-**Classificação** em [core](core-domain.md),
-[supporting](supporting-domain.md) e [generic](generic-domain.md). Decidir onde
+**Classificação** em [core](/04-domain-driven-design/core-domain.md),
+[supporting](/04-domain-driven-design/supporting-domain.md) e [generic](/04-domain-driven-design/generic-domain.md). Decidir onde
 investir, onde simplificar e o que comprar.
 
-**[Bounded context](bounded-context.md).** Definir as fronteiras do modelo — a
+**[Bounded context](/04-domain-driven-design/bounded-context.md).** Definir as fronteiras do modelo — a
 decisão de maior consequência arquitetural.
 
-**[Ubiquitous language](ubiquitous-language.md).** Estabelecer o vocabulário
+**[Ubiquitous language](/04-domain-driven-design/ubiquitous-language.md).** Estabelecer o vocabulário
 dentro de cada fronteira.
 
-**[Context mapping](context-mapping.md).** Nomear os relacionamentos entre
+**[Context mapping](/04-domain-driven-design/context-mapping.md).** Nomear os relacionamentos entre
 contextos, incluindo a dimensão organizacional.
 
 ### Ele produz decisões de arquitetura
@@ -80,7 +80,7 @@ concreta:
 
 A segunda linha é a mais importante: **as fronteiras de contexto são as melhores
 candidatas a fronteiras de serviço.** Ver
-[microsserviços](../03-design-patterns/microservices.md).
+[microsserviços](/03-design-patterns/microservices.md).
 
 ### Ele quase sempre se paga
 
@@ -111,7 +111,7 @@ de contexto errada custa anos; um agregado mal desenhado custa uma refatoração
 tático é aplicado uniformemente — e desperdiçado em quatro quintos do sistema.
 
 **Porque conecta arquitetura a negócio.** É a ponte entre
-[contexto de negócio](../01-fundamentals/business-context.md) e estrutura de
+[contexto de negócio](/01-fundamentals/business-context.md) e estrutura de
 software, e o vocabulário que permite discutir uma com quem entende a outra.
 
 ## Erros Comuns
@@ -170,11 +170,11 @@ tivesse vindo primeiro.
 
 ## Conceitos Relacionados
 
-- [Bounded Context](bounded-context.md) — a decisão central.
-- [Subdomínio](subdomain.md) — a divisão do problema.
-- [Context Mapping](context-mapping.md) — os relacionamentos.
-- [DDD Tático](tactical-ddd.md) — o que vem depois.
-- [Arquitetura Corporativa](../15-enterprise-architecture/index.md) — o mesmo
+- [Bounded Context](/04-domain-driven-design/bounded-context.md) — a decisão central.
+- [Subdomínio](/04-domain-driven-design/subdomain.md) — a divisão do problema.
+- [Context Mapping](/04-domain-driven-design/context-mapping.md) — os relacionamentos.
+- [DDD Tático](/04-domain-driven-design/tactical-ddd.md) — o que vem depois.
+- [Arquitetura Corporativa](/15-enterprise-architecture/index.md) — o mesmo
   raciocínio acima do sistema.
 
 ## Exercício Prático

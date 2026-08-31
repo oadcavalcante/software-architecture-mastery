@@ -51,11 +51,11 @@ disfarçada de configuração.
 
 **Líder único.** Um nó aceita escritas e as propaga. Simples, sem conflito de
 escrita, e o líder é gargalo de escrita e ponto de falha — mitigado por
-[eleição de líder](leader-election.md).
+[eleição de líder](/06-distributed-systems/leader-election.md).
 
 **Múltiplos líderes.** Vários nós aceitam escritas, tipicamente um por região.
 Escrita local e rápida, e **conflitos são inevitáveis** — a mesma linha alterada
-em dois lugares. Ver [resolução de conflitos](conflict-resolution.md).
+em dois lugares. Ver [resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
 
 **Sem líder.** Qualquer nó aceita escrita e leitura; a consistência vem de exigir
 quóruns. Alta disponibilidade, e a aplicação lida com versões concorrentes.
@@ -92,7 +92,7 @@ N = 3, W = 1, R = 1  →  1 + 1 < 3  ✗ pode ler dado velho
 ```
 
 O ajuste de W e R move o sistema no espectro entre latência e consistência — que é
-exatamente o "else" de [PACELC](pacelc.md).
+exatamente o "else" de [PACELC](/06-distributed-systems/pacelc.md).
 
 ### Atraso de replicação é a métrica que falta
 
@@ -113,7 +113,7 @@ líder antigo pare de aceitar escritas, e lidar com escritas que ele aceitou e n
 propagou.
 
 O terceiro ponto é onde os dados se perdem, e o segundo é onde o
-[cérebro dividido](network-failure.md) nasce.
+[cérebro dividido](/06-distributed-systems/network-failure.md) nasce.
 
 ## Modelo Mental
 
@@ -136,7 +136,7 @@ confirmação assíncrona perde transações confirmadas ao cliente.
 resolução padrão — último a escrever vence — descarta dados silenciosamente.
 
 **Ler de réplica em operação que não tolera atraso.** Ver
-[consistência](consistency.md).
+[consistência](/06-distributed-systems/consistency.md).
 
 **Replicação como substituto de backup.** Ela propaga o erro: um `DELETE` acidental
 é replicado em milissegundos. Backup protege contra erro humano; replicação, não.
@@ -146,7 +146,7 @@ resolução padrão — último a escrever vence — descarta dados silenciosame
 ## Alternativas
 
 - **Backup e restauração** — para durabilidade, não para disponibilidade.
-- **[Particionamento](partitioning.md)** — para escala de escrita, que replicação
+- **[Particionamento](/06-distributed-systems/partitioning.md)** — para escala de escrita, que replicação
   não resolve.
 - **Cache** — para escala de leitura, mais barato que réplica em alguns casos.
 - **Nó único com recuperação rápida** — legítimo quando o RTO permite.
@@ -230,10 +230,10 @@ que teriam causado incidente numa falha real.
 
 ## Conceitos Relacionados
 
-- [Particionamento](partitioning.md) — a outra forma de distribuir dados.
-- [Eleição de Líder](leader-election.md) — como o failover escolhe.
-- [Resolução de Conflitos](conflict-resolution.md) — com múltiplos líderes.
-- [Consistência](consistency.md) — o que a leitura observa.
+- [Particionamento](/06-distributed-systems/partitioning.md) — a outra forma de distribuir dados.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md) — como o failover escolhe.
+- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md) — com múltiplos líderes.
+- [Consistência](/06-distributed-systems/consistency.md) — o que a leitura observa.
 
 ## Exercício Prático
 

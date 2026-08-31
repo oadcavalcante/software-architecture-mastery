@@ -101,8 +101,8 @@ Ter uma cópia extra não basta se as restantes não aguentam a carga.
   um cai → os dois restantes ficam a 90% → aguentam
 ```
 
-Ver [zonas de disponibilidade](../09-cloud-architecture/availability-zones.md) e
-[planejamento de capacidade](../11-scalability/scaling-capacity-planning.md).
+Ver [zonas de disponibilidade](/09-cloud-architecture/availability-zones.md) e
+[planejamento de capacidade](/11-scalability/scaling-capacity-planning.md).
 
 A folga é parte da redundância. Sem ela, a redundância existe no diagrama e não na
 operação.
@@ -123,7 +123,7 @@ implementações do mesmo sistema raramente se justifica fora de contextos de se
 crítica.
 
 As três primeiras são praticáveis, com custo crescente. Ver
-[multi-região](../09-cloud-architecture/multi-region.md).
+[multi-região](/09-cloud-architecture/multi-region.md).
 
 ### Implantação gradual é redundância no tempo
 
@@ -145,12 +145,12 @@ cópias.
 Vale a franqueza: mais cópias significam mais coisas para dar errado.
 
 **Cérebro dividido.** Duas cópias se consideram principais. Ver
-[eleição de líder](../06-distributed-systems/leader-election.md).
+[eleição de líder](/06-distributed-systems/leader-election.md).
 
 **Divergência de configuração.** As cópias deixam de ser idênticas.
 
 **Falha no failover.** O mecanismo de troca não funciona quando acionado. Ver
-[failover](failover.md).
+[failover](/12-reliability/failover.md).
 
 **Complexidade de diagnóstico.** Comportamento inconsistente entre cópias.
 
@@ -187,7 +187,7 @@ a lista do que ela não resolve.
 
 - **Recuperação rápida** — em vez de evitar a falha, encurtar o tempo de retomada.
   Frequentemente mais barato e suficiente.
-- **[Degradação graciosa](graceful-degradation.md)** — operar com menos.
+- **[Degradação graciosa](/12-reliability/graceful-degradation.md)** — operar com menos.
 - **Implantação gradual** — contra a classe de falha mais comum.
 - **Simplificar** — menos componentes falham menos. É a alternativa menos citada e
   frequentemente a correta.
@@ -285,10 +285,10 @@ resposta tinha sete itens.
 
 ## Conceitos Relacionados
 
-- [Failover](failover.md) — o mecanismo de troca.
-- [Tolerância a Falhas](fault-tolerance.md).
-- [Zonas de Disponibilidade](../09-cloud-architecture/availability-zones.md).
-- [Disponibilidade](../06-distributed-systems/availability.md) — a matemática.
+- [Failover](/12-reliability/failover.md) — o mecanismo de troca.
+- [Tolerância a Falhas](/12-reliability/fault-tolerance.md).
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md).
+- [Disponibilidade](/06-distributed-systems/availability.md) — a matemática.
 
 ## Exercício Prático
 

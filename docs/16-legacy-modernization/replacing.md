@@ -24,8 +24,8 @@ last_reviewed: 2026-08-28
 Substituir é trocar o sistema próprio por um produto de mercado.
 
 O critério que decide é o mesmo de construir ou comprar: **isto nos diferencia?** Ver
-[SaaS](../09-cloud-architecture/saas.md) e
-[capacidades de negócio](../15-enterprise-architecture/business-capabilities.md).
+[SaaS](/09-cloud-architecture/saas.md) e
+[capacidades de negócio](/15-enterprise-architecture/business-capabilities.md).
 
 E o risco característico não é a decisão — é a execução: a customização que se acumula
 até o produto custar mais que o sistema que ele substituiu.
@@ -80,7 +80,7 @@ volume e escala             o produto suporta o volume real?
 
 O item de regras específicas é o que mais frequentemente inviabiliza: sistemas antigos
 acumulam exceções que nenhum produto genérico prevê. Ver
-[sistemas legados](legacy-systems.md).
+[sistemas legados](/16-legacy-modernization/legacy-systems.md).
 
 E a avaliação precisa acontecer com dados reais, não com demonstração — que é sempre
 feita com o caso feliz.
@@ -88,7 +88,7 @@ feita com o caso feliz.
 ### A fronteira do fornecedor entra na organização
 
 Um produto tem a fronteira que o fornecedor escolheu. Ver
-[arquitetura de aplicação](../15-enterprise-architecture/application-architecture.md).
+[arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md).
 
 Se ela não coincide com o domínio da organização:
 
@@ -98,11 +98,11 @@ produto faz menos   uma parte do domínio fica fora, construída em volta
 ```
 
 A primeira exige decisão de propriedade de dados. Ver
-[propriedade do dado](../07-data-architecture/data-ownership.md).
+[propriedade do dado](/07-data-architecture/data-ownership.md).
 
 E a proteção contra o modelo do fornecedor entrar no resto do sistema é a camada de
 tradução. Ver
-[anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md).
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 ### O custo total inclui mais que a licença
 
@@ -119,7 +119,7 @@ saída                       se um dia for preciso
 
 O último item merece avaliação antes de assinar: como os dados saem, em qual formato,
 com qual completude. Ver
-[dependência de fornecedor](../09-cloud-architecture/vendor-lock-in.md).
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ### Substituir capacidade diferenciadora elimina a diferenciação
 
@@ -134,7 +134,7 @@ O teste: **os clientes escolhem a organização por causa disto?** Se sim, const
 ### O antigo precisa ser desligado
 
 Como em qualquer migração, a coexistência tende a permanecer. Ver
-[strangler fig](strangler-fig.md).
+[strangler fig](/16-legacy-modernization/strangler-fig.md).
 
 O caso específico da substituição: o sistema antigo frequentemente permanece "para
 consulta do histórico", indefinidamente — com custo de licença, infraestrutura e
@@ -142,7 +142,7 @@ segurança.
 
 A decisão sobre histórico precisa ser explícita: migrar, arquivar em formato acessível,
 ou manter o antigo com data de desligamento. Ver
-[migração de dados](data-migration.md).
+[migração de dados](/16-legacy-modernization/data-migration.md).
 
 ## Modelo Mental
 
@@ -173,11 +173,11 @@ acumulada anula o benefício de comprar.
 
 ## Alternativas
 
-- **[Reconstrução](rebuilding.md)** — quando a capacidade diferencia.
+- **[Reconstrução](/16-legacy-modernization/rebuilding.md)** — quando a capacidade diferencia.
 - **Produto com extensão** — um produto que oferece pontos de extensão suportados, em vez
   de customização.
 - **Substituição parcial** — comprar a parte comum, manter o diferencial.
-- **[Refatoração](legacy-refactoring.md)** — quando o sistema atende e o problema é
+- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)** — quando o sistema atende e o problema é
   interno.
 
 A terceira é frequentemente a melhor: comprar o que é comum e construir o que distingue,
@@ -278,10 +278,10 @@ do produto.
 
 ## Conceitos Relacionados
 
-- [Estratégias de Migração](migration-strategies.md).
-- [SaaS](../09-cloud-architecture/saas.md) — construir ou comprar.
-- [Anti-Corruption Layer](../08-integration-architecture/integration-anti-corruption.md).
-- [Migração de Dados](data-migration.md).
+- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md).
+- [SaaS](/09-cloud-architecture/saas.md) — construir ou comprar.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
+- [Migração de Dados](/16-legacy-modernization/data-migration.md).
 
 ## Exercício Prático
 

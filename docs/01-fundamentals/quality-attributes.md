@@ -175,11 +175,11 @@ O que separa as duas não está em nenhum documento de requisitos funcionais.
 
 ## Conceitos Relacionados
 
-- [Requisitos Não-Funcionais](non-functional-requirements.md) — como expressá-los
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — como expressá-los
   de forma verificável.
-- [Características Arquiteturais](architecture-characteristics.md) — a
+- [Características Arquiteturais](/01-fundamentals/architecture-characteristics.md) — a
   formulação alternativa do mesmo conceito.
-- [Trade-offs](../20-trade-offs/index.md) — a análise dos conflitos, em detalhe.
+- [Trade-offs](/20-trade-offs/index.md) — a análise dos conflitos, em detalhe.
 
 ## Exercício Prático
 

@@ -63,8 +63,8 @@ regra de negócio perdida          → testes de caracterização
 obrigação regulatória descumprida → mapeamento explícito de requisitos
 ```
 
-Ver [migração de dados](data-migration.md) e
-[sistemas legados](legacy-systems.md).
+Ver [migração de dados](/16-legacy-modernization/data-migration.md) e
+[sistemas legados](/16-legacy-modernization/legacy-systems.md).
 
 ### Os riscos técnicos característicos
 
@@ -80,7 +80,7 @@ integração quebrada               contrato verificado, consumidores mapeados
 
 O terceiro e o quarto são os que mais frequentemente aparecem como surpresa, e ambos são
 detectáveis antes por observação. Ver
-[arquitetura do estado atual](../15-enterprise-architecture/current-state-architecture.md).
+[arquitetura do estado atual](/15-enterprise-architecture/current-state-architecture.md).
 
 ### Os riscos de execução
 
@@ -97,7 +97,7 @@ O primeiro é o mais previsível: toda modernização recebe pedidos de melhoria
 
 ### Os riscos organizacionais
 
-Ver [restrições organizacionais](organizational-constraints.md).
+Ver [restrições organizacionais](/16-legacy-modernization/organizational-constraints.md).
 
 ```text
 apoio evaporando         valor cedo, múltiplos patrocinadores
@@ -125,7 +125,7 @@ período de suspensão        desligado, recuperável, antes de descartar
 
 A primeira é a de maior valor e a menos usada: fazer o novo processar o tráfego real, sem
 efeito, e comparar. Ver
-[estratégias de implantação](../14-devops-and-platform/deployment-strategies.md).
+[estratégias de implantação](/14-devops-and-platform/deployment-strategies.md).
 
 Ela transforma "acreditamos que está equivalente" em evidência.
 
@@ -139,7 +139,7 @@ não fazer   degradação, mantenedor que sai, obrigação não atendida,
             capacidade que não pode ser entregue
 ```
 
-Ver [motivadores de modernização](modernization-drivers.md).
+Ver [motivadores de modernização](/16-legacy-modernization/modernization-drivers.md).
 
 Registrar os dois lados é o que permite a decisão informada — e é o que falta quando a
 proposta é rejeitada por parecer arriscada demais.
@@ -220,7 +220,7 @@ merece controle desproporcional.
 Formas de reduzir risco antes de qualquer controle:
 
 - **Escopo menor.** Modernizar a parte que causa o problema. Ver
-  [estratégias de migração](migration-strategies.md).
+  [estratégias de migração](/16-legacy-modernization/migration-strategies.md).
 - **Fatias menores.** Reduzem exposição por passo.
 - **Contenção em vez de substituição** — isolar o legado, sem mexer nele.
 - **Adiar** — quando as condições não estão dadas.
@@ -320,10 +320,10 @@ projeto — que era o modelo usado.
 
 ## Conceitos Relacionados
 
-- [Migração de Dados](data-migration.md) — o risco irreversível principal.
-- [Restrições Organizacionais](organizational-constraints.md).
-- [Modernização Incremental](incremental-modernization.md) — o controle estrutural.
-- [Confiabilidade](../12-reliability/index.md).
+- [Migração de Dados](/16-legacy-modernization/data-migration.md) — o risco irreversível principal.
+- [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
+- [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md) — o controle estrutural.
+- [Confiabilidade](/12-reliability/index.md).
 
 ## Exercício Prático
 

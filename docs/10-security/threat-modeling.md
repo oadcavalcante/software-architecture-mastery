@@ -75,7 +75,7 @@ Não é o diagrama de arquitetura bonito. É um esboço com:
 **Fronteiras de confiança** — as linhas que separam níveis de confiança diferentes.
 
 As fronteiras são o ponto. **Toda ameaça interessante atravessa uma delas.** Ver
-[fronteiras seguras](secure-boundaries.md).
+[fronteiras seguras](/10-security/secure-boundaries.md).
 
 ### STRIDE dá vocabulário para a pergunta 2
 
@@ -293,10 +293,10 @@ entrava e saía.
 
 ## Conceitos Relacionados
 
-- [Fronteiras Seguras](secure-boundaries.md) — o que o diagrama marca.
-- [Menor Privilégio](least-privilege.md) — a resposta mais comum.
-- [Modos de Falha de Segurança](security-failure-modes.md).
-- [Proteção de Dados](data-protection.md) — a resposta "eliminar".
+- [Fronteiras Seguras](/10-security/secure-boundaries.md) — o que o diagrama marca.
+- [Menor Privilégio](/10-security/least-privilege.md) — a resposta mais comum.
+- [Modos de Falha de Segurança](/10-security/security-failure-modes.md).
+- [Proteção de Dados](/10-security/data-protection.md) — a resposta "eliminar".
 
 ## Exercício Prático
 

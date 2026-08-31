@@ -97,7 +97,7 @@ a maioria dos casos com uma fração do custo e da operação.
 justifica, e raramente justifica.
 
 A recomendação prática: serviço gerenciado, salvo exigência específica. Ver
-[serviços gerenciados](../09-cloud-architecture/managed-services.md).
+[serviços gerenciados](/09-cloud-architecture/managed-services.md).
 
 ### Separação de deveres
 
@@ -125,7 +125,7 @@ pessoas.
 
 ### Chave de assinatura merece tratamento à parte
 
-Uma chave que assina [tokens](jwt.md), artefatos ou atualizações tem uma propriedade
+Uma chave que assina [tokens](/10-security/jwt.md), artefatos ou atualizações tem uma propriedade
 diferente: comprometê-la permite **forjar**, não apenas ler.
 
 Um atacante com a chave de assinatura de tokens emite tokens válidos para qualquer
@@ -133,7 +133,7 @@ usuário, com qualquer permissão, e nenhuma verificação detecta.
 
 Por isso essas chaves justificam proteção maior, rotação mais frequente e suporte a
 múltiplas chaves válidas — para que a rotação não invalide tudo de uma vez. Ver
-[confiança na cadeia de suprimentos](supply-chain-trust.md).
+[confiança na cadeia de suprimentos](/10-security/supply-chain-trust.md).
 
 ## Modelo Mental
 
@@ -170,7 +170,7 @@ Gestão explícita é necessária sempre que houver cifragem. Prioridade quando:
 
 - **Serviço gerenciado de chaves** — o padrão razoável.
 - **Cifragem transparente da plataforma** — quando o modelo de ameaça é acesso ao
-  meio. Ver [criptografia](encryption.md).
+  meio. Ver [criptografia](/10-security/encryption.md).
 - **Tokenização** — o dado sai do sistema; a chave deixa de ser problema local.
 - **Não cifrar e não guardar** — a única forma de não ter chave para gerenciar.
 
@@ -264,10 +264,10 @@ nenhuma das propriedades que a cifragem deveria entregar.
 
 ## Conceitos Relacionados
 
-- [Criptografia](encryption.md) — o que a chave protege.
-- [Segredos](secrets.md) — a categoria mais ampla.
-- [Proteção de Dados](data-protection.md).
-- [JWT](jwt.md) — chaves de assinatura.
+- [Criptografia](/10-security/encryption.md) — o que a chave protege.
+- [Segredos](/10-security/secrets.md) — a categoria mais ampla.
+- [Proteção de Dados](/10-security/data-protection.md).
+- [JWT](/10-security/jwt.md) — chaves de assinatura.
 
 ## Exercício Prático
 

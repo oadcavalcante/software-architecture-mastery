@@ -114,7 +114,7 @@ Uma visão sem razão vira regra arbitrária, e regras arbitrárias são contorn
 ```
 
 O número é o que sustenta a afirmação. Ver
-[comunicação](communication.md).
+[comunicação](/23-architecture-leadership/communication.md).
 
 ### Deixe o caminho aberto
 
@@ -128,7 +128,7 @@ Confundir os três é o erro estrutural mais comum. Uma visão que prescreve o c
 autonomia que a torna escalável — e o valor da visão está justamente em permitir que muitas
 pessoas decidam bem sem coordenar.
 
-Ver [roadmaps técnicos](technical-roadmaps.md).
+Ver [roadmaps técnicos](/23-architecture-leadership/technical-roadmaps.md).
 
 ### Descreva também o que não é
 
@@ -151,7 +151,7 @@ sem revisão    orienta com premissas de outra época
 Uma visão criada em 2021 para uma organização de seis times pode ser ativamente prejudicial numa
 de trinta. Revisão anual, com a pergunta "as condições que produziram isto ainda valem?", basta.
 
-Ver [princípios](leadership-principles.md).
+Ver [princípios](/23-architecture-leadership/leadership-principles.md).
 
 ### Comunicada muitas vezes, em muitos lugares
 
@@ -203,11 +203,11 @@ orientar decisão nenhuma.
 ## Alternativas
 
 - **Princípios** — mais granulares, orientam julgamento em situações específicas. Ver
-  [princípios](leadership-principles.md).
+  [princípios](/23-architecture-leadership/leadership-principles.md).
 - **Conjunto de ADRs** — precedentes concretos ensinam o critério da organização melhor que
   abstrações.
 - **Arquitetura alvo** — o diagrama do estado futuro, útil como complemento e não como visão. Ver
-  [arquitetura alvo](../15-enterprise-architecture/target-architecture.md).
+  [arquitetura alvo](/15-enterprise-architecture/target-architecture.md).
 - **Nada** — em organizações pequenas, a conversa resolve, e uma visão formal é cerimônia.
 
 ## Trade-offs
@@ -317,10 +317,10 @@ critérios que a organização já usava, enunciados de forma lembrável.
 
 ## Conceitos Relacionados
 
-- [Estratégia Técnica](technical-strategy-leadership.md).
-- [Roadmaps Técnicos](technical-roadmaps.md).
-- [Princípios](leadership-principles.md).
-- [Arquitetura Alvo](../15-enterprise-architecture/target-architecture.md).
+- [Estratégia Técnica](/23-architecture-leadership/technical-strategy-leadership.md).
+- [Roadmaps Técnicos](/23-architecture-leadership/technical-roadmaps.md).
+- [Princípios](/23-architecture-leadership/leadership-principles.md).
+- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md).
 
 ## Exercício Prático
 

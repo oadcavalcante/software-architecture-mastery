@@ -25,7 +25,7 @@ Uma fábrica de domínio encapsula a criação de agregados ou objetos de valor 
 construção é complexa o bastante para não caber num construtor.
 
 É um conceito diferente do
-[Factory Method do GoF](../03-design-patterns/factory-method.md): aqui o problema
+[Factory Method do GoF](/03-design-patterns/factory-method.md): aqui o problema
 não é variação de tipo por subclasse, e sim garantir que um agregado nasça
 válido e completo.
 
@@ -51,7 +51,7 @@ O contrato: o que sai da fábrica satisfaz todas as invariantes. Não existe est
 intermediário inválido visível.
 
 Isso é a mesma garantia que o
-[Builder](../03-design-patterns/builder.md) de parâmetros oferece, com uma
+[Builder](/03-design-patterns/builder.md) de parâmetros oferece, com uma
 diferença: a fábrica de domínio aplica **regras de negócio** na criação, não apenas
 monta.
 
@@ -79,7 +79,7 @@ A terceira é a menos frequente e a que o vocabulário costuma sugerir primeiro.
 
 ### Reconstituição não é criação
 
-Distinção que evita confusão com o [repositório](repository.md).
+Distinção que evita confusão com o [repositório](/04-domain-driven-design/repository.md).
 
 **Criar** é dar origem a um agregado novo: as regras de criação se aplicam, um
 identificador é gerado, eventos podem ser registrados.
@@ -112,7 +112,7 @@ resolve. A fábrica adiciona indireção.
 camada anêmica.
 
 **Quando o problema é legibilidade de parâmetros.** Ali um
-[Builder](../03-design-patterns/builder.md) serve melhor — ele resolve
+[Builder](/03-design-patterns/builder.md) serve melhor — ele resolve
 verbosidade, não regra de criação.
 
 ## Alternativas
@@ -120,7 +120,7 @@ verbosidade, não regra de criação.
 - **Construtor com validação** — o caso mais comum.
 - **Método de fábrica nomeado no agregado** — `Assinatura.anual(plano)`,
   `Assinatura.mensal(plano)`. Expressa as variantes sem classe separada.
-- **[Builder](../03-design-patterns/builder.md)** — para muitos parâmetros
+- **[Builder](/03-design-patterns/builder.md)** — para muitos parâmetros
   opcionais.
 - **Criação no agregado pai** — quando ele tem a informação.
 
@@ -237,11 +237,11 @@ publicados a cada leitura do banco.
 
 ## Conceitos Relacionados
 
-- [Aggregate](aggregate.md) — o que a fábrica cria.
-- [Repository](repository.md) — a reconstituição, em contraste.
-- [Factory Method](../03-design-patterns/factory-method.md) — o padrão do GoF,
+- [Aggregate](/04-domain-driven-design/aggregate.md) — o que a fábrica cria.
+- [Repository](/04-domain-driven-design/repository.md) — a reconstituição, em contraste.
+- [Factory Method](/03-design-patterns/factory-method.md) — o padrão do GoF,
   que resolve outro problema.
-- [Builder](../03-design-patterns/builder.md) — quando o problema é verbosidade.
+- [Builder](/03-design-patterns/builder.md) — quando o problema é verbosidade.
 
 ## Exercício Prático
 

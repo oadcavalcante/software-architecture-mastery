@@ -62,7 +62,7 @@ não tem poder de negociação. Barato e acopla completamente.
 
 **Anti-corruption layer.** O consumidor traduz o modelo alheio para o seu. Custa
 manutenção e preserva a independência. Ver
-[anti-corruption layer](anti-corruption-layer.md).
+[anti-corruption layer](/04-domain-driven-design/anti-corruption-layer.md).
 
 **Serviço aberto (*open host service*)** com **linguagem publicada.** O fornecedor
 publica um protocolo estável para muitos consumidores. É a resposta quando há
@@ -136,9 +136,9 @@ conversas, não alternativa a elas.
 - **Diagrama de integração técnica** — mostra as conexões e não a relação de
   poder. Complementar, não substituto.
 - **Team Topologies** — a análise organizacional correspondente. Ver
-  [Nível 07](../23-architecture-leadership/index.md).
+  [Nível 07](/23-architecture-leadership/index.md).
 - **Cenário de integração corporativo** — o mapa em escala de empresa. Ver
-  [Nível 06](../15-enterprise-architecture/index.md).
+  [Nível 06](/15-enterprise-architecture/index.md).
 
 ## Trade-offs
 
@@ -215,10 +215,10 @@ e o custo ter dono.
 
 ## Conceitos Relacionados
 
-- [Bounded Context](bounded-context.md) — o que se mapeia.
-- [Anti-Corruption Layer](anti-corruption-layer.md) — um dos padrões, em detalhe.
-- [DDD Estratégico](strategic-ddd.md) — a síntese.
-- [Integração](../08-integration-architecture/index.md) — os mecanismos.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md) — o que se mapeia.
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — um dos padrões, em detalhe.
+- [DDD Estratégico](/04-domain-driven-design/strategic-ddd.md) — a síntese.
+- [Integração](/08-integration-architecture/index.md) — os mecanismos.
 
 ## Exercício Prático
 

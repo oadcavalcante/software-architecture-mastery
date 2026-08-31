@@ -105,7 +105,7 @@ não isso.
 
 E design é o que torna a arquitetura real. Uma fronteira que existe no diagrama
 e não é imposta no código não existe. É por isso que
-[arquitetura sem bom design é ficção](../02-software-design/index.md).
+[arquitetura sem bom design é ficção](/02-software-design/index.md).
 
 ## Modelo Mental
 
@@ -130,7 +130,7 @@ vira comitê — ou surpresa — decisões de alcance amplo aparecem prontas.
 **Determina o que se registra.** Decisão de design fica no código: um leitor
 atento reconstrói o raciocínio. Decisão arquitetural precisa de registro
 explícito, porque o contexto que a justificou não está visível em lugar nenhum
-do código. É a base dos [ADRs](../18-architecture-decisions/index.md).
+do código. É a base dos [ADRs](/18-architecture-decisions/index.md).
 
 **Determina onde a revisão vale a pena.** Revisar todo design exaustivamente não
 escala. Revisar arquitetura sempre vale, porque o erro se espalha.
@@ -179,11 +179,11 @@ O enquadramento não mudou a escolha. Mudou o que veio junto com ela.
 
 ## Conceitos Relacionados
 
-- [O que é Arquitetura de Software](what-is-software-architecture.md) — o
+- [O que é Arquitetura de Software](/01-fundamentals/what-is-software-architecture.md) — o
   critério de custo de reversão, que é o outro lado desta distinção.
-- [Arquitetura vs. Implementação](architecture-vs-implementation.md) — a outra
+- [Arquitetura vs. Implementação](/01-fundamentals/architecture-vs-implementation.md) — a outra
   fronteira, e a mais mal compreendida das duas.
-- [Acoplamento](coupling.md) — a métrica com que alcance se mede na prática.
+- [Acoplamento](/01-fundamentals/coupling.md) — a métrica com que alcance se mede na prática.
 
 ## Exercício Prático
 

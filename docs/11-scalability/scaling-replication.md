@@ -30,8 +30,8 @@ escala de escrita   não — toda escrita vai para todas as réplicas
 ```
 
 Os fundamentos estão em
-[replicação](../06-distributed-systems/replication.md) e
-[replicação de dados](../07-data-architecture/data-replication.md). Aqui interessa o
+[replicação](/06-distributed-systems/replication.md) e
+[replicação de dados](/07-data-architecture/data-replication.md). Aqui interessa o
 cálculo de escala e o que ele revela sobre o limite.
 
 ## Problema
@@ -67,7 +67,7 @@ Isso define o teto: replicação escala leitura até o ponto em que a escrita, a
 toda parte, consome os nós.
 
 Quando esse ponto chega, a resposta é
-[particionamento](scaling-partitioning.md) — que divide a escrita em vez de
+[particionamento](/11-scalability/scaling-partitioning.md) — que divide a escrita em vez de
 multiplicá-la.
 
 ### Classificar as leituras é o trabalho
@@ -82,7 +82,7 @@ relatório           réplica dedicada
 ```
 
 A segunda linha é a que elimina a maior parte das queixas de "salvei e não aparece". Ver
-[consistência eventual](../06-distributed-systems/eventual-consistency.md).
+[consistência eventual](/06-distributed-systems/eventual-consistency.md).
 
 Sem essa classificação, duas coisas ruins acontecem: ou tudo vai para o primário — e a
 replicação não escala nada — ou tudo vai para réplica, e operações críticas decidem
@@ -94,7 +94,7 @@ Uma consulta analítica pesada numa réplica que também serve tráfego de usuá
 atraso dela para todo mundo, e compete por recursos.
 
 Réplica de relatório deve ser dedicada. É a mesma lógica de separar
-[OLTP de OLAP](../07-data-architecture/oltp.md), aplicada dentro da camada de
+[OLTP de OLAP](/07-data-architecture/oltp.md), aplicada dentro da camada de
 réplicas.
 
 ### O atraso precisa entrar na decisão de roteamento
@@ -106,7 +106,7 @@ para leituras sensíveis, ou saem completamente.
 
 Sem isso, uma réplica que travou continua recebendo tráfego e servindo dados
 congelados. Ver
-[detecção de falhas](../06-distributed-systems/failure-detection.md).
+[detecção de falhas](/06-distributed-systems/failure-detection.md).
 
 ### Réplica não é apenas para escala
 
@@ -117,7 +117,7 @@ Se todas as réplicas estão dimensionadas no limite servindo leitura, a promoç
 delas acontece num nó já saturado, no pior momento possível.
 
 O dimensionamento precisa reservar folga para esse cenário. Ver
-[planejamento de capacidade](scaling-capacity-planning.md).
+[planejamento de capacidade](/11-scalability/scaling-capacity-planning.md).
 
 ### Cache antes de réplica
 
@@ -127,8 +127,8 @@ Para dados lidos repetidamente, cache é mais barato e mais rápido que adiciona
 réplicas — e não sofre amplificação de escrita.
 
 A ordem prática: cache primeiro, réplica para o que o cache não cobre. Ver
-[cache para escala](scaling-cache.md) e a escada em
-[escala de banco de dados](database-scaling.md).
+[cache para escala](/11-scalability/scaling-cache.md) e a escada em
+[escala de banco de dados](/11-scalability/database-scaling.md).
 
 ## Modelo Mental
 
@@ -159,9 +159,9 @@ ponto em que a escrita, aplicada em toda parte, consome os nós.
 
 ## Alternativas
 
-- **[Cache](scaling-cache.md)** — mais barato para leitura repetida.
-- **[Particionamento](scaling-partitioning.md)** — quando o limite é escrita.
-- **[CQRS](../06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
+- **[Cache](/11-scalability/scaling-cache.md)** — mais barato para leitura repetida.
+- **[Particionamento](/11-scalability/scaling-partitioning.md)** — quando o limite é escrita.
+- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
   próprio, otimizado.
 - **Visão materializada** — pré-cálculo no próprio banco.
 
@@ -250,10 +250,10 @@ mesma — adicionar uma réplica. Ninguém tinha calculado a amplificação de e
 
 ## Conceitos Relacionados
 
-- [Escala de Banco de Dados](database-scaling.md) — a escada.
-- [Particionamento para Escala](scaling-partitioning.md) — quando a escrita satura.
-- [Cache para Escala](scaling-cache.md) — antes da réplica.
-- [Replicação](../06-distributed-systems/replication.md) — os fundamentos.
+- [Escala de Banco de Dados](/11-scalability/database-scaling.md) — a escada.
+- [Particionamento para Escala](/11-scalability/scaling-partitioning.md) — quando a escrita satura.
+- [Cache para Escala](/11-scalability/scaling-cache.md) — antes da réplica.
+- [Replicação](/06-distributed-systems/replication.md) — os fundamentos.
 
 ## Exercício Prático
 

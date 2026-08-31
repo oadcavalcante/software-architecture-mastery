@@ -121,7 +121,7 @@ agora.** A primeira é verificação de saúde e importa mais.
 todas as instâncias estão lentas pela mesma razão, adicionar mais não resolve.
 
 **Com afinidade de sessão como padrão.** Ela é contorno para estado local. Ver
-[sem estado vs. com estado](stateless-vs-stateful.md).
+[sem estado vs. com estado](/05-system-design/stateless-vs-stateful.md).
 
 **Sem verificação de saúde configurada.** É o pior dos mundos: tráfego enviado
 para instâncias mortas.
@@ -131,7 +131,7 @@ para instâncias mortas.
 - **DNS com múltiplos registros** — distribuição grosseira, sem verificação de
   saúde, com cache do cliente atrapalhando.
 - **Descoberta de serviço no cliente** — o cliente escolhe a instância. Comum em
-  [service mesh](../08-integration-architecture/index.md).
+  [service mesh](/08-integration-architecture/index.md).
 - **Fila** — quando o trabalho pode ser assíncrono, a fila distribui sozinha e
   absorve pico.
 
@@ -234,11 +234,11 @@ para dentro, onde o custo por requisição importa mais que a inteligência.
 
 ## Conceitos Relacionados
 
-- [Sem Estado vs. Com Estado](stateless-vs-stateful.md) — pré-requisito para
+- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md) — pré-requisito para
   distribuir livremente.
-- [Rate Limiting](rate-limiting.md) — outra função frequentemente no mesmo ponto.
-- [Confiabilidade](../12-reliability/index.md) — verificação de saúde e degradação.
-- [Escalabilidade](../11-scalability/index.md).
+- [Rate Limiting](/05-system-design/rate-limiting.md) — outra função frequentemente no mesmo ponto.
+- [Confiabilidade](/12-reliability/index.md) — verificação de saúde e degradação.
+- [Escalabilidade](/11-scalability/index.md).
 
 ## Exercício Prático
 

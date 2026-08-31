@@ -98,7 +98,7 @@ modelo B   lista materializada por usuário, mantida na escrita
 
 A escolha entre A e B não é sobre elegância — é sobre a razão entre leitura e escrita, e sobre a
 distribuição de seguidores. Ver o
-[case de rede social](../21-case-studies/social-network.md).
+[case de rede social](/21-case-studies/social-network.md).
 
 Fazer essa derivação em voz alta é o conteúdo da avaliação.
 
@@ -152,7 +152,7 @@ E a frase que demonstra maturidade:
 ```
 
 Três armazenamentos, cada um com uma razão. Ver
-[SQL vs. NoSQL](../20-trade-offs/sql-vs-nosql.md).
+[SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md).
 
 ### Cuidado com poliglota gratuito
 
@@ -166,7 +166,7 @@ Cada um custa operação, competência e consistência entre eles.
 ```
 
 Justificar por que **não** adotar algo vale tanto quanto justificar por que adotar. Ver
-[gerenciado vs. autogerido](../20-trade-offs/managed-vs-self-hosted.md) para o custo operacional.
+[gerenciado vs. autogerido](/20-trade-offs/managed-vs-self-hosted.md) para o custo operacional.
 
 ### Particionamento: só quando o número pede
 
@@ -200,7 +200,7 @@ quentes.
  é tratar as contas grandes de forma diferente."
 ```
 
-Ver [pontos quentes](../11-scalability/hotspots.md).
+Ver [pontos quentes](/11-scalability/hotspots.md).
 
 ## Modelo Mental
 
@@ -343,10 +343,10 @@ ponto.
 
 ## Conceitos Relacionados
 
-- [Desenho de API](interview-api-design.md).
-- [SQL vs. NoSQL](../20-trade-offs/sql-vs-nosql.md).
-- [Modelagem de Dados](../07-data-architecture/data-modeling.md).
-- [Pontos Quentes](../11-scalability/hotspots.md).
+- [Desenho de API](/22-system-design-interviews/interview-api-design.md).
+- [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md).
+- [Modelagem de Dados](/07-data-architecture/data-modeling.md).
+- [Pontos Quentes](/11-scalability/hotspots.md).
 
 ## Exercício Prático
 

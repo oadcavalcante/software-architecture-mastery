@@ -95,14 +95,14 @@ por cliente **e** por período, em vez de só por cliente.
 
 **Resumo criptográfico da chave.** Distribui uniformemente, e elimina a capacidade de
 consultar por intervalo. Ver
-[particionamento](../06-distributed-systems/partitioning.md).
+[particionamento](/06-distributed-systems/partitioning.md).
 
 **Isolamento do quente.** Os poucos clientes com volume desproporcional recebem
 partição ou infraestrutura dedicada. É a solução mais simples de operar e a mais
 usada em plataformas maduras.
 
 **Cache na frente.** Para leitura, um cache absorve a chave quente antes que ela
-chegue ao armazenamento. Ver [cache para escala](scaling-cache.md).
+chegue ao armazenamento. Ver [cache para escala](/11-scalability/scaling-cache.md).
 
 **Operação relativa.** Um contador atualizado com incremento, em vez de ler-somar-
 gravar, remove a contenção sem mudar a distribuição.
@@ -133,7 +133,7 @@ Aqui a dispersão não é de chave — é de modelagem. Um contador único vira 
 parciais somados na leitura. Um saldo vira um livro de movimentações, com o saldo
 derivado.
 
-Ver [transações](../07-data-architecture/transactions.md) — é a mesma contenção,
+Ver [transações](/07-data-architecture/transactions.md) — é a mesma contenção,
 vista pelo ângulo da escala.
 
 ## Modelo Mental
@@ -172,7 +172,7 @@ concentração doer.
 - **Modelagem sem contenção** — contadores parciais, livro de movimentações.
 - **Limite de taxa por chave** — não resolve a distribuição, e impede que uma chave
   consuma toda a capacidade. Ver
-  [rate limiting](../05-system-design/rate-limiting.md).
+  [rate limiting](/05-system-design/rate-limiting.md).
 
 ## Trade-offs
 
@@ -277,10 +277,10 @@ métrica agregada, que era o único número disponível.
 
 ## Conceitos Relacionados
 
-- [Particionamento para Escala](scaling-partitioning.md).
-- [Desempenho versus Escalabilidade](performance-vs-scalability.md).
-- [Escala de Banco de Dados](database-scaling.md).
-- [Particionamento](../06-distributed-systems/partitioning.md) — os fundamentos.
+- [Particionamento para Escala](/11-scalability/scaling-partitioning.md).
+- [Desempenho versus Escalabilidade](/11-scalability/performance-vs-scalability.md).
+- [Escala de Banco de Dados](/11-scalability/database-scaling.md).
+- [Particionamento](/06-distributed-systems/partitioning.md) — os fundamentos.
 
 ## Exercício Prático
 

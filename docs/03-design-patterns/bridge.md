@@ -71,7 +71,7 @@ interface, em outro nível de granularidade.
 
 Distinção que causa confusão constante.
 
-**[Adapter](adapter.md)** é aplicado depois, para compatibilizar coisas que já
+**[Adapter](/03-design-patterns/adapter.md)** é aplicado depois, para compatibilizar coisas que já
 existem e não foram projetadas para trabalhar juntas.
 
 **Bridge** é projetado antes, para que duas hierarquias possam evoluir separadas.
@@ -82,7 +82,7 @@ A diferença é de intenção e de momento: Adapter conserta; Bridge previne.
 
 Também confundido, e a distinção é mais sutil.
 
-**[Strategy](strategy.md)** troca um algoritmo. A interface da estratégia
+**[Strategy](/03-design-patterns/strategy.md)** troca um algoritmo. A interface da estratégia
 representa uma decisão isolada, geralmente com um método.
 
 **Bridge** separa duas dimensões estruturais. O implementador costuma ter várias
@@ -102,10 +102,10 @@ dimensão de implementação — e em quantas operações a interface tem.
 ## Quando Não Usar
 
 **Quando há uma dimensão só de variação.** Herança simples ou
-[Strategy](strategy.md) resolvem, e Bridge adiciona uma hierarquia sem motivo.
+[Strategy](/03-design-patterns/strategy.md) resolvem, e Bridge adiciona uma hierarquia sem motivo.
 
 **Quando uma das dimensões tem uma implementação só.** O produto ainda não
-explodiu; ver [YAGNI](../02-software-design/yagni.md).
+explodiu; ver [YAGNI](/02-software-design/yagni.md).
 
 **Preventivamente.** É um dos padrões mais caros de aplicar cedo, porque exige
 projetar a interface do implementador — as operações primitivas certas — sem
@@ -118,7 +118,7 @@ compatibilidade.
 
 ## Alternativas
 
-- **[Strategy](strategy.md)** — quando o que varia é um algoritmo.
+- **[Strategy](/03-design-patterns/strategy.md)** — quando o que varia é um algoritmo.
 - **Composição simples** — passar a dependência sem hierarquia formal de
   abstração.
 - **Herança** — enquanto houver uma dimensão só.
@@ -221,9 +221,9 @@ uma afirmação sobre o histórico, não sobre a intuição.
 
 ## Conceitos Relacionados
 
-- [Adapter](adapter.md) — compatibilizar o que já existe.
-- [Strategy](strategy.md) — variar um algoritmo.
-- [Abstract Factory](abstract-factory.md) — frequentemente usado para criar o par
+- [Adapter](/03-design-patterns/adapter.md) — compatibilizar o que já existe.
+- [Strategy](/03-design-patterns/strategy.md) — variar um algoritmo.
+- [Abstract Factory](/03-design-patterns/abstract-factory.md) — frequentemente usado para criar o par
   abstração-implementador coerente.
 
 ## Exercício Prático

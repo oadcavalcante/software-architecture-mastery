@@ -72,8 +72,8 @@ Margem é o que dá **opções** durante o incidente. Ela custa — capacidade o
 caminhos alternativos a manter — e é o que separa um sistema que degrada de um que
 colapsa.
 
-Ver [planejamento de capacidade](../11-scalability/scaling-capacity-planning.md) e
-[degradação graciosa](graceful-degradation.md).
+Ver [planejamento de capacidade](/11-scalability/scaling-capacity-planning.md) e
+[degradação graciosa](/12-reliability/graceful-degradation.md).
 
 ### Reversibilidade vale mais que acerto
 
@@ -106,7 +106,7 @@ procedimentos ensaiados   reduzem a carga cognitiva no momento errado
 autoridade clara          quem decide o quê, sem escalada
 ```
 
-Ver [observabilidade](../13-observability/index.md). A diferença entre monitoramento e
+Ver [observabilidade](/13-observability/index.md). A diferença entre monitoramento e
 observabilidade é exatamente essa: o primeiro responde perguntas previstas, a segunda
 permite formular perguntas novas — que é o que o cenário desconhecido exige.
 
@@ -135,7 +135,7 @@ Perseguir ausência de falha leva a fragilidade: sistemas otimizados para o caso
 esperado, sem margem, sem alternativas, que funcionam perfeitamente até encontrarem o
 inesperado.
 
-Ver [SLO](slo.md) — o orçamento de erro é a expressão formal dessa ideia: falha é
+Ver [SLO](/12-reliability/slo.md) — o orçamento de erro é a expressão formal dessa ideia: falha é
 esperada e orçada.
 
 ## Modelo Mental
@@ -272,10 +272,10 @@ configuração — que custou dois dias para implementar.
 
 ## Conceitos Relacionados
 
-- [Tolerância a Falhas](fault-tolerance.md) — o previsto.
-- [Engenharia do Caos](chaos-engineering.md) — como descobrir o imprevisto.
-- [Degradação Graciosa](graceful-degradation.md) — a margem em forma de funcionalidade.
-- [Observabilidade](../13-observability/index.md).
+- [Tolerância a Falhas](/12-reliability/fault-tolerance.md) — o previsto.
+- [Engenharia do Caos](/12-reliability/chaos-engineering.md) — como descobrir o imprevisto.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — a margem em forma de funcionalidade.
+- [Observabilidade](/13-observability/index.md).
 
 ## Exercício Prático
 

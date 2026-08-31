@@ -107,8 +107,8 @@ fornecer um gabarito com observabilidade já configurada
   → a adoção acontece sem nenhuma conversa
 ```
 
-Ver [engenharia de plataforma](../14-devops-and-platform/platform-engineering.md) e
-[fundamentos de governança](../19-architecture-governance/governance-basics.md).
+Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md) e
+[fundamentos de governança](/19-architecture-governance/governance-basics.md).
 
 Um arquiteto que percebe que está repetindo o mesmo argumento deveria parar de argumentar e
 começar a construir — o caminho pavimentado é o argumento que não precisa ser dito.
@@ -287,10 +287,10 @@ decidir, em vez de depois.
 
 ## Conceitos Relacionados
 
-- [Fundamentos de Liderança](architecture-leadership-basics.md).
-- [Comunicação](communication.md).
-- [Arquitetura entre Times](cross-team-architecture.md).
-- [Fundamentos de Governança](../19-architecture-governance/governance-basics.md) — o ponto de
+- [Fundamentos de Liderança](/23-architecture-leadership/architecture-leadership-basics.md).
+- [Comunicação](/23-architecture-leadership/communication.md).
+- [Arquitetura entre Times](/23-architecture-leadership/cross-team-architecture.md).
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md) — o ponto de
   intervenção.
 
 ## Exercício Prático

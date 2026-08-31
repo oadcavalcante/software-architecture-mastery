@@ -19,7 +19,7 @@ last_reviewed: 2026-08-26
 
 # Direção de Dependência
 
-> Pré-requisito: [Gestão de Dependências](../01-fundamentals/dependency-management.md)
+> Pré-requisito: [Gestão de Dependências](/01-fundamentals/dependency-management.md)
 > estabelece a regra de depender na direção da estabilidade. Aqui o foco é a
 > aplicação em nível de pacote: como detectar ciclos, como quebrá-los, e as
 > métricas que dizem se a direção está certa.
@@ -66,7 +66,7 @@ ficam invisíveis porque nada reclama por padrão.
 Duas técnicas, e a escolha entre elas revela o que estava errado.
 
 **Inversão.** Introduzir uma abstração num dos pacotes e fazer o outro
-implementá-la. Ver [inversão de dependência](dependency-inversion.md).
+implementá-la. Ver [inversão de dependência](/02-software-design/dependency-inversion.md).
 
 **Extração.** Se A e B dependem um do outro por causa de um conjunto de elementos
 comuns, extrair esses elementos para um pacote C do qual ambos dependem.
@@ -229,11 +229,11 @@ metade, param por prioridade, e a metade corrigida degrada de volta em um ano.
 
 ## Conceitos Relacionados
 
-- [Gestão de Dependências](../01-fundamentals/dependency-management.md) — a regra
+- [Gestão de Dependências](/01-fundamentals/dependency-management.md) — a regra
   geral de direção.
-- [Design de Pacotes](package-design.md) — como agrupar antes de conectar.
-- [Inversão de Dependência](dependency-inversion.md) — uma das técnicas.
-- [Fronteiras](boundaries.md) — o que a direção atravessa.
+- [Design de Pacotes](/02-software-design/package-design.md) — como agrupar antes de conectar.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — uma das técnicas.
+- [Fronteiras](/02-software-design/boundaries.md) — o que a direção atravessa.
 
 ## Exercício Prático
 

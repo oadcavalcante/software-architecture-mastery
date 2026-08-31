@@ -28,7 +28,7 @@ depender de ninguém.
 A palavra que define é *autosserviço*. Uma plataforma em que criar um ambiente exige
 abrir um chamado não é plataforma — é uma equipe de infraestrutura com nome novo.
 
-Ver [engenharia de plataforma](platform-engineering.md) para a disciplina; aqui, o que
+Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md) para a disciplina; aqui, o que
 ela entrega e como.
 
 ## Problema
@@ -82,8 +82,8 @@ auditoria                 quem criou o quê
 A terceira linha é o mecanismo mais eficaz: se o modelo padrão já vem com limites,
 telemetria, marcação e permissões mínimas, a conformidade acontece sem esforço.
 
-Ver [menor privilégio](../10-security/least-privilege.md) e
-[arquitetura de custo](../09-cloud-architecture/cost-architecture.md).
+Ver [menor privilégio](/10-security/least-privilege.md) e
+[arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
 ### O catálogo é o que torna a organização navegável
 
@@ -102,7 +102,7 @@ quem depende deste serviço? o que quebra se eu mudar isto?
 E ele só se mantém atualizado se for **derivado**, não preenchido à mão. Um catálogo que
 depende de alguém atualizar está desatualizado em três meses.
 
-Ver [propriedade do dado](../07-data-architecture/data-ownership.md) — é o mesmo
+Ver [propriedade do dado](/07-data-architecture/data-ownership.md) — é o mesmo
 princípio aplicado a serviços.
 
 ### O modelo de interação decide a adoção
@@ -115,7 +115,7 @@ declaração no repositório  versionada, revisável, integrada ao fluxo
 
 A terceira é a que sustenta o uso diário: o time declara o que precisa num arquivo, junto
 com o código, e a plataforma converge. Ver
-[infraestrutura como código](infrastructure-as-code.md).
+[infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md).
 
 O portal é complementar — para descobrir o que existe e para ações raras.
 
@@ -150,7 +150,7 @@ convivência das duas versões
 acompanhamento de quem ainda usa
 ```
 
-Ver [contratos de integração](../08-integration-architecture/integration-contracts.md).
+Ver [contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 Plataformas que quebram os times sem aviso perdem a confiança — e a recuperação leva
 muito mais tempo que a quebra.
@@ -187,7 +187,7 @@ controle precisa estar no código, não numa pessoa.
   pelos times.
 - **Bibliotecas e módulos compartilhados** — padrões em código, sem plataforma.
 - **Plataforma comercial** — comprar. Ver
-  [SaaS](../09-cloud-architecture/saas.md).
+  [SaaS](/09-cloud-architecture/saas.md).
 - **Time de habilitação** — capacitar em vez de abstrair.
 
 A primeira é subestimada: um repositório modelo bem mantido, com esteira, telemetria e
@@ -296,10 +296,10 @@ atrito.
 
 ## Conceitos Relacionados
 
-- [Engenharia de Plataforma](platform-engineering.md) — a disciplina.
-- [Gestão de Ambientes](environment-management.md).
-- [Infraestrutura como Código](infrastructure-as-code.md).
-- [Menor Privilégio](../10-security/least-privilege.md) — os padrões do modelo.
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md) — a disciplina.
+- [Gestão de Ambientes](/14-devops-and-platform/environment-management.md).
+- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md).
+- [Menor Privilégio](/10-security/least-privilege.md) — os padrões do modelo.
 
 ## Exercício Prático
 

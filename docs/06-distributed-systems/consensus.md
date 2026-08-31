@@ -91,7 +91,7 @@ escala horizontalmente: adicionar nós **piora** a latência, porque a maioria f
 maior.
 
 **Indisponibilidade sob partição.** O lado minoritário não decide nada. Ver
-[CAP](cap.md).
+[CAP](/06-distributed-systems/cap.md).
 
 Por isso consenso é usado para o **plano de controle** — quem é o líder, qual a
 configuração — e raramente para o plano de dados, onde o volume é alto.
@@ -154,10 +154,10 @@ construção.
 - **Banco com transação** — para muitos casos, uma transação num banco único dá a
   garantia necessária sem cluster de consenso.
 - **Operações comutativas** — evitar a necessidade. Ver
-  [resolução de conflitos](conflict-resolution.md).
+  [resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
 - **Idempotência** — permitir execução múltipla em vez de garantir única.
 - **Bloqueio com prazo e fencing** — mais fraco e suficiente para coordenação
-  pontual. Ver [locks distribuídos](distributed-locks.md).
+  pontual. Ver [locks distribuídos](/06-distributed-systems/distributed-locks.md).
 
 ## Trade-offs
 
@@ -230,10 +230,10 @@ executar duas vezes?", e ela vem antes de qualquer discussão sobre algoritmo.
 
 ## Conceitos Relacionados
 
-- [Eleição de Líder](leader-election.md) — a aplicação mais comum.
-- [Locks Distribuídos](distributed-locks.md) — a alternativa mais fraca.
-- [CAP](cap.md) — por que consenso é CP.
-- [Idempotência](idempotency.md) — o que frequentemente dispensa consenso.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md) — a aplicação mais comum.
+- [Locks Distribuídos](/06-distributed-systems/distributed-locks.md) — a alternativa mais fraca.
+- [CAP](/06-distributed-systems/cap.md) — por que consenso é CP.
+- [Idempotência](/06-distributed-systems/idempotency.md) — o que frequentemente dispensa consenso.
 
 ## Exercício Prático
 

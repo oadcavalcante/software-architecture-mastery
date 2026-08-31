@@ -79,7 +79,7 @@ onde a maioria das adoções desvia.
 
 Quando o fluxo vai de dentro para fora — o caso de uso precisa apresentar um
 resultado — a dependência ainda precisa apontar para dentro. A solução é a mesma
-[inversão de dependência](dependency-inversion.md): o caso de uso define a
+[inversão de dependência](/02-software-design/dependency-inversion.md): o caso de uso define a
 interface de saída, e o apresentador a implementa.
 
 É o ponto mais elaborado do padrão e o menos adotado na prática.
@@ -111,7 +111,7 @@ tipos internos vazam em meses.
 
 ## Alternativas
 
-- **[Hexagonal](hexagonal-architecture.md) ou [Onion](onion-architecture.md)** —
+- **[Hexagonal](/02-software-design/hexagonal-architecture.md) ou [Onion](/02-software-design/onion-architecture.md)** —
   a mesma tese com menos prescrição sobre o que atravessa.
 - **Camadas com inversão só na persistência** — o arranjo pragmático que captura a
   maior parte do valor.
@@ -145,7 +145,7 @@ domínio é o sinal.
 devolve o tipo diretamente — desvio comum e, na maioria dos casos, aceitável.
 
 **Regra sem verificação.** Ver
-[arquitetura vs. implementação](../01-fundamentals/architecture-vs-implementation.md).
+[arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md).
 
 ## Erros Comuns
 
@@ -157,7 +157,7 @@ justifica.
 **Tratar como distinto de Hexagonal e Onion.** A tese é a mesma; a diferença é
 ênfase e prescrição.
 
-**Confundir com [camadas](layering.md).** Camadas não têm a Regra da Dependência.
+**Confundir com [camadas](/02-software-design/layering.md).** Camadas não têm a Regra da Dependência.
 
 **Não decidir explicitamente o que fica de fora.** A adoção parcial é legítima —
 desde que declarada, e não resultado de erosão.
@@ -185,11 +185,11 @@ onde protege algo, e não existe onde não protegia nada.
 
 ## Conceitos Relacionados
 
-- [Ports and Adapters](ports-and-adapters.md) — a formulação original.
-- [Hexagonal](hexagonal-architecture.md) e
-  [Onion](onion-architecture.md) — as variações.
-- [Camadas](layering.md) — o contraste.
-- [Inversão de Dependência](dependency-inversion.md) — o mecanismo central.
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — a formulação original.
+- [Hexagonal](/02-software-design/hexagonal-architecture.md) e
+  [Onion](/02-software-design/onion-architecture.md) — as variações.
+- [Camadas](/02-software-design/layering.md) — o contraste.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — o mecanismo central.
 
 ## Exercício Prático
 

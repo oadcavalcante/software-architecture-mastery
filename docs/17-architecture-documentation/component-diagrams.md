@@ -24,7 +24,7 @@ last_reviewed: 2026-08-29
 Um diagrama de componente mostra o **interior de um contêiner**: os agrupamentos lógicos
 de código e como eles se relacionam.
 
-É o terceiro nível do [modelo C4](c4-model.md), e o primeiro cuja necessidade precisa ser
+É o terceiro nível do [modelo C4](/17-architecture-documentation/c4-model.md), e o primeiro cuja necessidade precisa ser
 justificada. Contexto e contêiner quase sempre valem a pena. Componente, raramente.
 
 A razão é econômica: ele descreve o que muda mais rápido, e por isso desatualiza mais
@@ -81,7 +81,7 @@ componente   muda a cada refatoração interna               — semanas
 
 O diagrama de componente tem a **meia-vida mais curta** dos três, e o mesmo custo de
 manutenção manual. Ver
-[princípios de documentação](documentation-principles.md).
+[princípios de documentação](/17-architecture-documentation/documentation-principles.md).
 
 Um diagrama desatualizado neste nível é ativamente prejudicial: ele afirma uma estrutura
 com precisão suficiente para ser seguida, e está errado.
@@ -100,7 +100,7 @@ para argumentar uma decisão de fronteira
 
 O último é o mais legítimo: um diagrama desenhado para embasar uma decisão é descartável
 por natureza — ele vive na
-[ADR](../18-architecture-decisions/index.md), datado, e não precisa ser
+[ADR](/18-architecture-decisions/index.md), datado, e não precisa ser
 mantido.
 
 ### A alternativa é gerar
@@ -115,7 +115,7 @@ o layout é automático e às vezes ruim
 só mostra o que existe, não o que se pretende
 ```
 
-Ver [documentação viva](living-documentation.md). Este é o nível onde geração tem o maior
+Ver [documentação viva](/17-architecture-documentation/living-documentation.md). Este é o nível onde geração tem o maior
 retorno, porque é o nível que mais desatualiza.
 
 E há uma condição: gerar só funciona se o código tiver estrutura reconhecível. Um projeto
@@ -134,7 +134,7 @@ um README curto por contêiner com o mapa em texto
 Uma estrutura de pastas bem nomeada responde "onde mexo" sem nenhum diagrama, e nunca
 desatualiza, porque é o próprio código.
 
-Ver [desenho modular](../02-software-design/modular-design.md).
+Ver [desenho modular](/02-software-design/modular-design.md).
 
 ### Um contêiner por vez
 
@@ -155,7 +155,7 @@ um componente que aparece em tudo            provável classe-deus
 
 Nesses casos o diagrama vira insumo de refatoração, e cumpre sua função melhor do que
 cumpriria se ficasse bonito. Ver
-[desenho modular](../02-software-design/modular-design.md).
+[desenho modular](/02-software-design/modular-design.md).
 
 ## Modelo Mental
 
@@ -274,10 +274,10 @@ documentar menos.
 
 ## Conceitos Relacionados
 
-- [Modelo C4](c4-model.md).
-- [Diagramas de Contêiner](container-diagrams.md) — o nível acima.
-- [Documentação Viva](living-documentation.md) — a saída para este nível.
-- [Princípios de Documentação](documentation-principles.md) — a meia-vida.
+- [Modelo C4](/17-architecture-documentation/c4-model.md).
+- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md) — o nível acima.
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — a saída para este nível.
+- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md) — a meia-vida.
 
 ## Exercício Prático
 

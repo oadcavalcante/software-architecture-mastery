@@ -22,7 +22,7 @@ last_reviewed: 2026-08-28
 ## Visão Geral
 
 Os fundamentos de dados estão em
-[arquitetura de dados](../07-data-architecture/index.md). Aqui interessa o que muda no
+[arquitetura de dados](/07-data-architecture/index.md). Aqui interessa o que muda no
 nível organizacional: **dados que atravessam sistemas**.
 
 A decisão central é de propriedade — qual sistema é a fonte da verdade de cada dado — e
@@ -70,7 +70,7 @@ Isso não significa banco único — significa **autoridade única**. Cópias po
 para desempenho ou autonomia; elas são derivadas, e a divergência se resolve sempre a
 favor da fonte.
 
-Ver [propriedade do dado](../07-data-architecture/data-ownership.md).
+Ver [propriedade do dado](/07-data-architecture/data-ownership.md).
 
 A decisão de qual sistema é o registro de cada entidade é o núcleo desta área, e ela
 frequentemente não existe — os sistemas se estabeleceram como fonte por acidente
@@ -120,7 +120,7 @@ integrações mantidas apenas para sincronizar
 oportunidades perdidas por não conseguir responder perguntas
 ```
 
-Ver [paisagens de integração](integration-landscapes.md) — uma fração alta das
+Ver [paisagens de integração](/15-enterprise-architecture/integration-landscapes.md) — uma fração alta das
 integrações de uma organização existe apenas para propagar dados que estão duplicados.
 
 ### Fluxo importa tanto quanto propriedade
@@ -152,7 +152,7 @@ medição contínua               não uma auditoria anual
 processo de correção           quem corrige, em quanto tempo
 ```
 
-Ver [consistência de dados](../07-data-architecture/data-consistency.md) — a
+Ver [consistência de dados](/07-data-architecture/data-consistency.md) — a
 reconciliação periódica é o mecanismo que torna a qualidade verificável.
 
 ### Dados analíticos precisam de propriedade também
@@ -160,8 +160,8 @@ reconciliação periódica é o mecanismo que torna a qualidade verificável.
 O mesmo raciocínio se aplica aos dados analíticos: um warehouse alimentado por
 transformações sem dono produz números que ninguém pode defender.
 
-Ver [data warehouse](../07-data-architecture/data-warehouses.md) e
-[propriedade do dado](../07-data-architecture/data-ownership.md).
+Ver [data warehouse](/07-data-architecture/data-warehouses.md) e
+[propriedade do dado](/07-data-architecture/data-ownership.md).
 
 A ideia de tratar dados analíticos como produto, com dono e contrato, resolve o mesmo
 problema no lado analítico.
@@ -294,10 +294,10 @@ fonte levou quatro meses de negociação, e ela era o pré-requisito de tudo.
 
 ## Conceitos Relacionados
 
-- [Propriedade do Dado](../07-data-architecture/data-ownership.md) — os fundamentos.
-- [Paisagens de Integração](integration-landscapes.md) — o custo da propagação.
-- [Arquitetura de Aplicação](application-architecture.md).
-- [Consistência de Dados](../07-data-architecture/data-consistency.md).
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — os fundamentos.
+- [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md) — o custo da propagação.
+- [Arquitetura de Aplicação](/15-enterprise-architecture/application-architecture.md).
+- [Consistência de Dados](/07-data-architecture/data-consistency.md).
 
 ## Exercício Prático
 

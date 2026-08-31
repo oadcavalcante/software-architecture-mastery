@@ -88,7 +88,7 @@ código que existe foi escrito sob ela. Apagá-la torna o presente inexplicável
 ### Nem toda decisão merece registro
 
 O critério é o de
-[o que é arquitetura](what-is-software-architecture.md): custo de reversão.
+[o que é arquitetura](/01-fundamentals/what-is-software-architecture.md): custo de reversão.
 
 Decisões baratas de reverter não precisam de registro — o código é a
 documentação suficiente. Decisões caras precisam, porque alguém vai querer
@@ -164,11 +164,11 @@ serviço de outra área.
 
 ## Conceitos Relacionados
 
-- [O que é Arquitetura](what-is-software-architecture.md) — o critério de quais
+- [O que é Arquitetura](/01-fundamentals/what-is-software-architecture.md) — o critério de quais
   decisões merecem registro.
-- [Espaço da Solução](solution-space.md) — de onde as alternativas vêm.
-- [ADRs](../18-architecture-decisions/index.md) — o formato prático de registro.
-- [Evolução da Arquitetura](architecture-evolution.md) — o que acontece quando o
+- [Espaço da Solução](/01-fundamentals/solution-space.md) — de onde as alternativas vêm.
+- [ADRs](/18-architecture-decisions/index.md) — o formato prático de registro.
+- [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md) — o que acontece quando o
   contexto muda.
 
 ## Exercício Prático

@@ -108,12 +108,12 @@ reversa às vezes ficam mais legíveis com índice.
 
 **Quando o percurso precisa de contexto de posição.** Se o cliente precisa saber
 onde está na estrutura — profundidade, caminho, ancestrais — a abstração de
-sequência plana não serve. Ver [Visitor](visitor.md).
+sequência plana não serve. Ver [Visitor](/03-design-patterns/visitor.md).
 
 ## Alternativas
 
 - **Recursos da linguagem** — geradores, fluxos, laços de iteração.
-- **[Visitor](visitor.md)** — quando o percurso precisa distinguir tipos de nó.
+- **[Visitor](/03-design-patterns/visitor.md)** — quando o percurso precisa distinguir tipos de nó.
 - **Devolver uma coleção imutável** — mais simples quando o conjunto é pequeno e
   cabe em memória.
 - **Callback** — iteração interna sem hierarquia.
@@ -149,7 +149,7 @@ ser fechado; a interface clássica não obriga.
 **Esquecer de fechar iteradores sobre recursos.**
 
 **Assumir que a iteração é barata.** Um iterador preguiçoso sobre banco pode
-disparar uma consulta por elemento — o mesmo N+1 de [Proxy](proxy.md).
+disparar uma consulta por elemento — o mesmo N+1 de [Proxy](/03-design-patterns/proxy.md).
 
 ## Onde ele aparece na prática
 
@@ -191,9 +191,9 @@ declarar, cada consumidor assumiria uma coisa.
 
 ## Conceitos Relacionados
 
-- [Composite](composite.md) — iterar sobre estrutura em árvore.
-- [Visitor](visitor.md) — percurso com distinção de tipo.
-- [Proxy](proxy.md) — o risco de percurso que dispara consultas.
+- [Composite](/03-design-patterns/composite.md) — iterar sobre estrutura em árvore.
+- [Visitor](/03-design-patterns/visitor.md) — percurso com distinção de tipo.
+- [Proxy](/03-design-patterns/proxy.md) — o risco de percurso que dispara consultas.
 
 ## Exercício Prático
 

@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Uma descrição de arquitetura é o **artefato consolidado** que reúne as
-[visões](architecture-views.md), as decisões, as restrições e a justificativa de um
+[visões](/17-architecture-documentation/architecture-views.md), as decisões, as restrições e a justificativa de um
 sistema num único lugar.
 
 É o formato mais completo de documentação arquitetural, e o de pior reputação — porque a
@@ -69,7 +69,7 @@ riscos e dívidas       o que se sabe que está errado
 Os dois últimos são os que mais faltam e os que mais valem. Uma descrição que só afirma
 acertos não é confiável.
 
-Ver [atributos de qualidade](../01-fundamentals/quality-attributes.md) para o item de
+Ver [atributos de qualidade](/01-fundamentals/quality-attributes.md) para o item de
 qualidades — "o sistema deve ser escalável" não é um requisito.
 
 ### arc42
@@ -117,7 +117,7 @@ a estrutura mudar — porque ela informa se a mudança contradiz uma restrição
 "descartamos W porque V"           evita revisitar
 ```
 
-Este é o argumento para [ADRs](../18-architecture-decisions/index.md), e a razão de a
+Este é o argumento para [ADRs](/18-architecture-decisions/index.md), e a razão de a
 descrição consolidada apontar para elas em vez de duplicá-las.
 
 ### Escrever depois, não antes
@@ -137,7 +137,7 @@ Descrições organizadas por projeto se multiplicam e envelhecem: três projetos
 sistema produzem três documentos, cada um descrevendo um momento.
 
 A descrição pertence ao **sistema**, tem dono, e é atualizada por qualquer projeto que a
-afete. Ver [padrões de documentação](documentation-standards.md).
+afete. Ver [padrões de documentação](/17-architecture-documentation/documentation-standards.md).
 
 ## Modelo Mental
 
@@ -170,7 +170,7 @@ descartadas, é publicidade.
 
 - **Conjunto de ADRs** — a justificativa, incremental, sem documento consolidado.
 - **README estruturado** — para sistemas pequenos, cinco seções bastam.
-- **[Visões](architecture-views.md) avulsas** — quando só a estrutura importa.
+- **[Visões](/17-architecture-documentation/architecture-views.md) avulsas** — quando só a estrutura importa.
 - **Página de entrada com índice** — a descrição como um índice para artefatos que já
   existem, sem conteúdo próprio.
 
@@ -249,13 +249,13 @@ A reformulação:
 aplicáveis — o que reduziu a extensão média de 40 para 14 páginas.
 
 **Decisões movidas para ADRs**, referenciadas pela descrição em vez de copiadas. Ver
-[decisões de arquitetura](../18-architecture-decisions/index.md).
+[decisões de arquitetura](/18-architecture-decisions/index.md).
 
 **Seção de riscos obrigatória e não vazia.** Uma descrição sem riscos registrados é
 devolvida — a premissa sendo que todo sistema tem algum.
 
 **Qualidades com números.** Cada requisito de qualidade precisa de metrificação e fonte.
-Ver [atributos de qualidade](../01-fundamentals/quality-attributes.md).
+Ver [atributos de qualidade](/01-fundamentals/quality-attributes.md).
 
 **Revisão anual com dono nomeado**, não aprovação única na entrada.
 
@@ -271,10 +271,10 @@ racional.
 
 ## Conceitos Relacionados
 
-- [Visões de Arquitetura](architecture-views.md) — o conteúdo estrutural.
-- [Decisões de Arquitetura](../18-architecture-decisions/index.md) — a justificativa.
-- [Padrões de Documentação](documentation-standards.md) — a política.
-- [Princípios de Documentação](documentation-principles.md).
+- [Visões de Arquitetura](/17-architecture-documentation/architecture-views.md) — o conteúdo estrutural.
+- [Decisões de Arquitetura](/18-architecture-decisions/index.md) — a justificativa.
+- [Padrões de Documentação](/17-architecture-documentation/documentation-standards.md) — a política.
+- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md).
 
 ## Exercício Prático
 

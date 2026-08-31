@@ -55,14 +55,14 @@ mais comum.
 Três propriedades. Faltando qualquer uma, é apenas um monolito.
 
 **Módulos por capacidade de negócio**, não por camada técnica. Ver
-[design modular](../02-software-design/modular-design.md).
+[design modular](/02-software-design/modular-design.md).
 
 **Contrato explícito entre módulos.** Cada um publica uma interface estreita e
 esconde suas entidades, seu esquema e suas dependências.
 
 **Fronteiras impostas por mecanismo.** Teste de arquitetura, módulo de linguagem
 ou análise estática. Sem isso, as fronteiras erodem — ver
-[arquitetura vs. implementação](../01-fundamentals/architecture-vs-implementation.md).
+[arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md).
 
 ### Dados por módulo
 
@@ -115,7 +115,7 @@ custo real.
 
 ## Alternativas
 
-- **[Microsserviços](microservices.md)** — quando o isolamento operacional é
+- **[Microsserviços](/03-design-patterns/microservices.md)** — quando o isolamento operacional é
   necessário.
 - **Monolito sem módulos** — legítimo em sistemas pequenos e de vida curta.
 - **Extração seletiva** — monolito modular com um ou dois serviços extraídos por
@@ -208,12 +208,12 @@ toda fronteira lógica precisava ser uma fronteira de processo.
 
 ## Conceitos Relacionados
 
-- [Microsserviços](microservices.md) — quando o isolamento operacional é
+- [Microsserviços](/03-design-patterns/microservices.md) — quando o isolamento operacional é
   necessário.
-- [Design Modular](../02-software-design/modular-design.md) — como executar a
+- [Design Modular](/02-software-design/modular-design.md) — como executar a
   divisão.
-- [Fronteiras](../02-software-design/boundaries.md) — os níveis e seus custos.
-- [Design de Componentes](../02-software-design/component-design.md) — quando
+- [Fronteiras](/02-software-design/boundaries.md) — os níveis e seus custos.
+- [Design de Componentes](/02-software-design/component-design.md) — quando
   promover um módulo.
 
 ## Exercício Prático

@@ -90,7 +90,7 @@ trabalho em segundo plano  herda do que o disparou
 O caso de fila é o mais importante e o mais frequentemente omitido: a cadeia de
 investigação quebra exatamente no ponto em que ela ficaria mais difícil de reconstruir
 manualmente. Ver
-[integração por mensageria](../08-integration-architecture/messaging-integration.md).
+[integração por mensageria](/08-integration-architecture/messaging-integration.md).
 
 ### Um identificador não basta
 
@@ -107,7 +107,7 @@ A distinção entre os dois primeiros importa: uma operação de negócio pode e
 várias requisições — uma retentativa, uma chamada assíncrona subsequente. O de
 requisição as separa; o de correlação as reúne.
 
-Ver [rastreamento distribuído](distributed-tracing.md), que formaliza isso com trace e
+Ver [rastreamento distribuído](/13-observability/distributed-tracing.md), que formaliza isso com trace e
 span.
 
 ### Precisa estar em tudo que é emitido
@@ -136,7 +136,7 @@ erro exibidas ao usuário, tickets de suporte.
 
 Usar o documento do cliente ou o e-mail como identificador espalha dado pessoal por
 toda essa superfície. Ver
-[proteção de dados](../10-security/data-protection.md).
+[proteção de dados](/10-security/data-protection.md).
 
 O identificador deve ser opaco e sem significado.
 
@@ -169,7 +169,7 @@ história separada.
 
 ## Alternativas
 
-- **[Rastreamento distribuído](distributed-tracing.md)** — a versão completa, com
+- **[Rastreamento distribuído](/13-observability/distributed-tracing.md)** — a versão completa, com
   estrutura de chamadas e tempos. Correlação é o subconjunto mínimo dele.
 - **Correlação por horário e usuário** — o que se faz sem identificador. Lento,
   impreciso e inviável em volume.
@@ -264,10 +264,10 @@ de tempo gasto em investigação. Nenhuma ferramenta foi comprada.
 
 ## Conceitos Relacionados
 
-- [Rastreamento Distribuído](distributed-tracing.md) — a versão completa.
-- [Logs](logs.md) — onde o identificador precisa aparecer.
-- [Depurabilidade](debuggability.md).
-- [Auditabilidade](../10-security/auditability.md).
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a versão completa.
+- [Logs](/13-observability/logs.md) — onde o identificador precisa aparecer.
+- [Depurabilidade](/13-observability/debuggability.md).
+- [Auditabilidade](/10-security/auditability.md).
 
 ## Exercício Prático
 

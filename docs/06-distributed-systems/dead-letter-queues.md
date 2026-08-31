@@ -87,8 +87,8 @@ Isso é reprocessamento — e algumas delas podem ter sido **parcialmente
 processadas** antes de falhar. Se o consumidor gravou algo e falhou depois,
 reprocessar duplica.
 
-Ver [idempotência](idempotency.md) e
-[mensagens duplicadas](duplicate-messages.md). Reprocessar sem elas troca um
+Ver [idempotência](/06-distributed-systems/idempotency.md) e
+[mensagens duplicadas](/06-distributed-systems/duplicate-messages.md). Reprocessar sem elas troca um
 problema por outro.
 
 ### Uma dead-letter por fila, não uma global
@@ -151,7 +151,7 @@ tratamento.
 
 **Para falhas transitórias.** Uma indisponibilidade de banco não deveria mandar
 mensagens para dead-letter — deveria haver retentativa com
-[backoff](backoff.md). Se a dead-letter enche durante uma queda de dependência, a
+[backoff](/06-distributed-systems/backoff.md). Se a dead-letter enche durante uma queda de dependência, a
 classificação de falha está errada.
 
 ## Alternativas
@@ -246,10 +246,10 @@ organizacional do mecanismo.
 
 ## Conceitos Relacionados
 
-- [Poison Messages](poison-messages.md) — o que vai para lá.
-- [Idempotência](idempotency.md) — necessária para reprocessar.
-- [Retries](retries.md) — a classificação que decide o que vai.
-- [Observabilidade](../13-observability/index.md) — alerta e métrica.
+- [Poison Messages](/06-distributed-systems/poison-messages.md) — o que vai para lá.
+- [Idempotência](/06-distributed-systems/idempotency.md) — necessária para reprocessar.
+- [Retries](/06-distributed-systems/retries.md) — a classificação que decide o que vai.
+- [Observabilidade](/13-observability/index.md) — alerta e métrica.
 
 ## Exercício Prático
 

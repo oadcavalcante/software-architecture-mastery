@@ -25,7 +25,7 @@ Integração orientada a eventos é publicar **fatos** que outros sistemas podem
 consumir, sem que o publicador saiba quem são.
 
 Os fundamentos estão em
-[sistemas orientados a eventos](../06-distributed-systems/event-driven-systems.md).
+[sistemas orientados a eventos](/06-distributed-systems/event-driven-systems.md).
 Aqui o foco é o que muda quando o evento atravessa a fronteira de um sistema para
 outro: ele deixa de ser detalhe interno e vira **contrato público**.
 
@@ -59,7 +59,7 @@ evento de integração publicado para fora, estável, versionado
 ```
 
 O evento de integração é **traduzido** a partir do interno, numa camada
-deliberada. Ver [anti-corruption layer](integration-anti-corruption.md).
+deliberada. Ver [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 Isso parece cerimônia até a primeira vez que o modelo interno precisa mudar. Times
 que publicam o evento interno direto descobrem, em geral no segundo ano, que não
@@ -83,7 +83,7 @@ fato**, e o fino traz o estado **atual** na hora da consulta. Para auditoria e
 para processamento histórico, a primeira é a correta — o preço no momento do
 pedido não é o preço de hoje.
 
-Ver [normalização](../07-data-architecture/normalization.md).
+Ver [normalização](/07-data-architecture/normalization.md).
 
 ### Nomear no passado, e no vocabulário do negócio
 
@@ -105,7 +105,7 @@ se eu mudar isto?**
 
 Junto com o registro de esquema — que recusa mudanças incompatíveis na publicação
 — é o que permite evoluir eventos sem incidente. Ver
-[evolução de esquema](schema-evolution.md).
+[evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 ### O consumidor não deve confiar no que não precisa
 
@@ -126,7 +126,7 @@ Dois sistemas publicando eventos relacionados não têm ordem garantida entre si
 O consumidor precisa tolerar isso — tipicamente guardando o evento fora de
 sequência ou consultando o estado atual em vez de assumir a ordem.
 
-Ver [ordenação](../06-distributed-systems/ordering.md).
+Ver [ordenação](/06-distributed-systems/ordering.md).
 
 ## Modelo Mental
 
@@ -154,14 +154,14 @@ versionamento e depreciação que qualquer endpoint público.
 **Sem registro de esquema.** A primeira mudança quebra alguém.
 
 **Sem monitoramento de consumidor.** Ver
-[integração por mensageria](messaging-integration.md).
+[integração por mensageria](/08-integration-architecture/messaging-integration.md).
 
 **Como escolha global.** A mistura com integração síncrona é o desenho correto.
 
 ## Alternativas
 
-- **[REST](rest.md)** — quando a resposta é necessária.
-- **[Webhooks](webhooks.md)** — eventos para fora da organização, sem exigir que
+- **[REST](/08-integration-architecture/rest.md)** — quando a resposta é necessária.
+- **[Webhooks](/08-integration-architecture/webhooks.md)** — eventos para fora da organização, sem exigir que
   o parceiro consuma seu intermediário.
 - **Captura de mudanças do banco** — publicar a partir do log do banco, sem tocar
   a aplicação. Rápido de adotar, e publica o modelo interno — com todo o
@@ -245,7 +245,7 @@ refatoração ficou parada por sete meses.
 paciente, porque o objeto interno tinha esses campos. Quatro sistemas passaram a
 armazenar dados que não precisavam. Numa solicitação de exclusão, foi preciso
 rastrear as quatro cópias. Ver
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 **Consumidor desconhecido.** Uma mudança de campo quebrou um sistema de business
 intelligence que ninguém sabia que consumia o tópico.
@@ -278,10 +278,10 @@ custo de não tê-la foi sete meses de uma mudança de negócio bloqueada.
 
 ## Conceitos Relacionados
 
-- [Sistemas Orientados a Eventos](../06-distributed-systems/event-driven-systems.md).
-- [Integração por Mensageria](messaging-integration.md).
-- [Anti-Corruption Layer](integration-anti-corruption.md) — onde a tradução vive.
-- [Evolução de Esquema](schema-evolution.md).
+- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md).
+- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md).
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md) — onde a tradução vive.
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
 ## Exercício Prático
 

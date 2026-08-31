@@ -44,7 +44,7 @@ O sintoma aparece tarde:
 "o que mudou ontem?"                 não há registro
 ```
 
-Ver [IaaS](../09-cloud-architecture/iaas.md). O problema não é a criação inicial — é
+Ver [IaaS](/09-cloud-architecture/iaas.md). O problema não é a criação inicial — é
 tudo o que vem depois.
 
 ## Conceitos Centrais
@@ -59,7 +59,7 @@ declarativo  "o ambiente deve ter isto; convirja para lá"
 A diferença prática: o declarativo é **idempotente** — aplicar duas vezes produz o mesmo
 resultado — e permite calcular a diferença entre o desejado e o real antes de agir.
 
-Ver [Kubernetes](../09-cloud-architecture/kubernetes.md), que aplica o mesmo princípio a
+Ver [Kubernetes](/09-cloud-architecture/kubernetes.md), que aplica o mesmo princípio a
 contêineres.
 
 Isso muda a operação: em vez de executar passos, altera-se a declaração e revisa-se o
@@ -83,7 +83,7 @@ O que sustenta a ausência de desvio:
 **Detecção contínua.** Comparar o real com o declarado periodicamente e alertar.
 
 **Acesso restrito.** Alteração manual em produção exige permissão elevada e temporária.
-Ver [menor privilégio](../10-security/least-privilege.md).
+Ver [menor privilégio](/10-security/least-privilege.md).
 
 **Caminho fácil.** Se alterar pela declaração leva 40 minutos e pelo console leva 2, as
 pessoas vão pelo console. O atrito é o que produz o desvio.
@@ -104,7 +104,7 @@ cifrado                ele contém identificadores e, às vezes, segredos
 ```
 
 O último ponto merece atenção: valores sensíveis que passam pela declaração acabam no
-estado, em texto legível. Ver [segredos](../10-security/secrets.md).
+estado, em texto legível. Ver [segredos](/10-security/secrets.md).
 
 ### Modularizar, com moderação
 
@@ -120,7 +120,7 @@ O critério: um módulo deve remover repetição real, não antecipar variação
 
 E módulos precisam ser versionados: um módulo compartilhado alterado sem versão muda o
 comportamento de todos os ambientes que o usam, simultaneamente. Ver
-[redundância](../12-reliability/redundancy.md) — é o mesmo problema de correlação.
+[redundância](/12-reliability/redundancy.md) — é o mesmo problema de correlação.
 
 ### Aplicar em produção é implantação
 
@@ -166,7 +166,7 @@ duas, e ela precisa ser medida.
 - Onde a recriação precisa ser possível.
 - Onde há auditoria sobre mudanças de infraestrutura.
 - Para ambientes efêmeros. Ver
-  [gestão de ambientes](environment-management.md).
+  [gestão de ambientes](/14-devops-and-platform/environment-management.md).
 
 ## Quando Não Usar
 
@@ -189,10 +189,10 @@ duas, e ela precisa ser medida.
 - **Ferramentas de configuração de servidor** — para o que roda dentro da máquina, em
   vez de os recursos de nuvem.
 - **Imagens pré-construídas** — o ambiente vem pronto na imagem, e a infraestrutura só a
-  instancia. Ver [contêineres na entrega](containers-in-delivery.md).
+  instancia. Ver [contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md).
 - **Interfaces de plataforma** — o desenvolvedor declara a intenção e a plataforma
   traduz. Ver
-  [plataformas internas](internal-developer-platforms.md).
+  [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
 A última é a evolução natural em organizações grandes: nem todo time precisa escrever
 infraestrutura.
@@ -265,7 +265,7 @@ As mudanças:
 está declarado e diverge. A primeira execução produziu a lista dos 34.
 
 **Acesso ao console restrito** em produção, com elevação temporária e justificativa. Ver
-[menor privilégio](../10-security/least-privilege.md).
+[menor privilégio](/10-security/least-privilege.md).
 
 **Caminho rápido.** A queixa das pessoas era legítima: aplicar uma mudança declarada
 levava 25 minutos entre revisão, plano e aplicação. A esteira foi otimizada para 4
@@ -286,10 +286,10 @@ sintoma de atrito, não de indisciplina.
 
 ## Conceitos Relacionados
 
-- [Gestão de Ambientes](environment-management.md).
-- [Contêineres na Entrega](containers-in-delivery.md).
-- [Blue-Green](blue-green.md) — o ambiente efêmero.
-- [IaaS](../09-cloud-architecture/iaas.md).
+- [Gestão de Ambientes](/14-devops-and-platform/environment-management.md).
+- [Contêineres na Entrega](/14-devops-and-platform/containers-in-delivery.md).
+- [Blue-Green](/14-devops-and-platform/blue-green.md) — o ambiente efêmero.
+- [IaaS](/09-cloud-architecture/iaas.md).
 
 ## Exercício Prático
 

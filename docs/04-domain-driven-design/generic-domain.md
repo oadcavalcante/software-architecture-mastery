@@ -74,7 +74,7 @@ defender indefinidamente.
 Adotar solução externa traz o modelo dela para dentro. Sem isolamento, os tipos
 do fornecedor se espalham e a substituição futura fica cara.
 
-A defesa é uma [anti-corruption layer](anti-corruption-layer.md): a solução
+A defesa é uma [anti-corruption layer](/04-domain-driven-design/anti-corruption-layer.md): a solução
 externa fica atrás de uma interface no seu vocabulário, e o resto do sistema não
 a conhece.
 
@@ -173,7 +173,7 @@ de dependência, incidentes. Este número raramente é conhecido e costuma ser m
 que a intuição.
 
 **Estime o custo de migrar.** Aqui o isolamento importa: se há
-[anti-corruption layer](anti-corruption-layer.md), a migração é local; se não há,
+[anti-corruption layer](/04-domain-driven-design/anti-corruption-layer.md), a migração é local; se não há,
 é um projeto.
 
 A quarta estimativa é o que trava a maioria das migrações — e é consequência de uma
@@ -185,10 +185,10 @@ construir envelhecer.
 
 ## Conceitos Relacionados
 
-- [Subdomínio](subdomain.md) — a classificação.
-- [Core Domain](core-domain.md) — onde construir sempre.
-- [Anti-Corruption Layer](anti-corruption-layer.md) — como isolar o que se adota.
-- [Build vs. Buy](../20-trade-offs/index.md) — o trade-off em detalhe.
+- [Subdomínio](/04-domain-driven-design/subdomain.md) — a classificação.
+- [Core Domain](/04-domain-driven-design/core-domain.md) — onde construir sempre.
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — como isolar o que se adota.
+- [Build vs. Buy](/20-trade-offs/index.md) — o trade-off em detalhe.
 
 ## Exercício Prático
 

@@ -107,7 +107,7 @@ Em vez de abstrair tudo ou nada, isolar o que é caro de trocar:
 domínio não deveria importar nada específico.
 
 **Adaptador nas fronteiras** dos serviços de alto acoplamento — ver
-[anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md).
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 Isso custa pouco e preserva a maior parte da opção. Abstrair também a infraestrutura
 custa muito e preserva o resto.
@@ -125,7 +125,7 @@ de conhecimento.
 **Transferência entre nuvens.** Cara e lenta.
 
 **Complexidade de dados.** Consistência entre provedores é o problema difícil de
-[sistemas distribuídos](../06-distributed-systems/index.md), agravado.
+[sistemas distribuídos](/06-distributed-systems/index.md), agravado.
 
 Ela se justifica em poucos casos: exigência regulatória explícita, aquisição que
 juntou dois ambientes, ou dependência de um serviço específico de cada um.
@@ -174,7 +174,7 @@ renovação de contrato.
 
 - **Portabilidade seletiva** — isolar o que é caro, aceitar o resto.
 - **Serviços de código aberto gerenciados** — o motor é portável; a operação, não.
-- **[Contêineres](containers.md)** — reduzem a dependência da camada de computação
+- **[Contêineres](/09-cloud-architecture/containers.md)** — reduzem a dependência da camada de computação
   a custo baixo.
 - **Estratégia de saída documentada** — em vez de portabilidade técnica, um plano:
   o que seria preciso, quanto tempo, quanto custa. Barato e frequentemente
@@ -272,10 +272,10 @@ A conta de quatro anos de portabilidade não exercida foi o que mudou a conversa
 
 ## Conceitos Relacionados
 
-- [Serviços Gerenciados](managed-services.md) — a decisão que gera dependência.
-- [Serverless](serverless.md) — o grau mais alto.
-- [Cloud Native](cloud-native.md).
-- [Trade-offs](../20-trade-offs/index.md).
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md) — a decisão que gera dependência.
+- [Serverless](/09-cloud-architecture/serverless.md) — o grau mais alto.
+- [Cloud Native](/09-cloud-architecture/cloud-native.md).
+- [Trade-offs](/20-trade-offs/index.md).
 
 ## Exercício Prático
 

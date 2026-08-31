@@ -100,7 +100,7 @@ Arredondar para potências de dez e para números redondos é esperado e demonst
 Ninguém espera precisão; espera-se ordem de grandeza correta e aritmética que possa ser feita
 falando.
 
-Ver [cálculo de guardanapo](back-of-envelope.md) para as referências de tamanho e latência.
+Ver [cálculo de guardanapo](/22-system-design-interviews/back-of-envelope.md) para as referências de tamanho e latência.
 
 ### Faça o cálculo em voz alta
 
@@ -310,10 +310,10 @@ distribuição geográfica. A arquitetura não muda — a capacidade muda. Recon
 
 ## Conceitos Relacionados
 
-- [Cálculo de Guardanapo](back-of-envelope.md) — as referências.
-- [Funcionais vs. Não Funcionais](functional-vs-nonfunctional.md).
-- [Identificação de Gargalo](bottleneck-identification.md).
-- [Planejamento de Capacidade](../05-system-design/capacity-planning.md) — a versão sem pressão
+- [Cálculo de Guardanapo](/22-system-design-interviews/back-of-envelope.md) — as referências.
+- [Funcionais vs. Não Funcionais](/22-system-design-interviews/functional-vs-nonfunctional.md).
+- [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md).
+- [Planejamento de Capacidade](/05-system-design/capacity-planning.md) — a versão sem pressão
   de tempo.
 
 ## Exercício Prático

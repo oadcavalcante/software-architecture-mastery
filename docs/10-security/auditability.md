@@ -77,7 +77,7 @@ As propriedades necessárias:
 **Escrita permitida, exclusão negada.** Nem administradores apagam.
 
 **Armazenamento separado.** Conta ou ambiente distinto do sistema auditado. Ver
-[identidade em nuvem](../09-cloud-architecture/cloud-identity.md).
+[identidade em nuvem](/09-cloud-architecture/cloud-identity.md).
 
 **Verificação de integridade.** Encadeamento por resumo, ou assinatura, permitindo
 detectar alteração.
@@ -110,7 +110,7 @@ tipicamente significa um ano ou mais para eventos de segurança, e o que a regul
 exigir para os demais.
 
 E os registros antigos podem ir para armazenamento frio. Ver
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 ### O registro não pode conter o que ele protege
 
@@ -122,7 +122,7 @@ padrão recorrente: dados protegidos no banco, expostos em texto legível no sis
 registros.
 
 A regra: registrar **identificadores e ações**, não conteúdo. E filtrar credenciais na
-origem. Ver [segredos](secrets.md).
+origem. Ver [segredos](/10-security/secrets.md).
 
 ### Detecção exige alertas, não relatórios
 
@@ -179,7 +179,7 @@ alto — audite o que importa.
   infraestrutura; usar isso é mais barato e mais confiável que reimplementar.
 - **Captura de mudanças do banco** — para rastrear alterações de dados sem instrumentar
   a aplicação.
-- **[Event sourcing](../06-distributed-systems/distributed-event-sourcing.md)** — o
+- **[Event sourcing](/06-distributed-systems/distributed-event-sourcing.md)** — o
   histórico é o modelo, e a auditoria vem junto.
 - **Versionamento temporal** — para saber como um registro estava em cada momento.
 
@@ -215,7 +215,7 @@ alto — audite o que importa.
 **Auditoria desligada.** Por configuração, por custo, por engano.
 
 **Relógio errado.** Correlacionar eventos entre sistemas fica impossível. Ver
-[relógio e tempo](../06-distributed-systems/clock-and-time.md).
+[relógio e tempo](/06-distributed-systems/clock-and-time.md).
 
 ## Erros Comuns
 
@@ -261,7 +261,7 @@ A reformulação:
 
 **Identidade individual obrigatória.** Contas compartilhadas eliminadas; acesso
 administrativo por elevação temporária, nominal. Ver
-[menor privilégio](least-privilege.md).
+[menor privilégio](/10-security/least-privilege.md).
 
 **Registro de leitura** para dados sensíveis de clientes, com identificador do registro
 acessado.
@@ -284,10 +284,10 @@ investigação fez.
 
 ## Conceitos Relacionados
 
-- [Modos de Falha de Segurança](security-failure-modes.md).
-- [Menor Privilégio](least-privilege.md) — identidade individual.
-- [Proteção de Dados](data-protection.md).
-- [Observabilidade](../13-observability/index.md) — o parente próximo, com outro
+- [Modos de Falha de Segurança](/10-security/security-failure-modes.md).
+- [Menor Privilégio](/10-security/least-privilege.md) — identidade individual.
+- [Proteção de Dados](/10-security/data-protection.md).
+- [Observabilidade](/13-observability/index.md) — o parente próximo, com outro
   propósito.
 
 ## Exercício Prático

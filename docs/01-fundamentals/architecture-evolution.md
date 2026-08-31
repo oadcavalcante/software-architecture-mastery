@@ -60,7 +60,7 @@ usuários a um milhão.
 Enquadrar a mudança como correção de erro torna a conversa política. Enquadrar
 como resposta a mudança de contexto torna a conversa técnica — e é essa a
 formulação correta, desde que o
-[registro das decisões](architecture-as-decisions.md) exista para sustentá-la.
+[registro das decisões](/01-fundamentals/architecture-as-decisions.md) exista para sustentá-la.
 
 ### Sinais de que precisa mudar
 
@@ -75,7 +75,7 @@ Sinais observáveis, e não impressões:
   consegue apontar uma correção local.
 
 O último é o mais decisivo, e o que exige ter as
-[características](architecture-characteristics.md) declaradas para ser percebido.
+[características](/01-fundamentals/architecture-characteristics.md) declaradas para ser percebido.
 
 ### Projetar para ser mudado
 
@@ -85,13 +85,13 @@ mudar seja possível sem reescrever.
 Três coisas produzem isso, e as três já foram vistas neste nível:
 
 **Fronteiras impostas**, para que uma mudança possa ser contida. Ver
-[arquitetura vs. implementação](architecture-vs-implementation.md).
+[arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md).
 
 **Decisões registradas**, para que se saiba o que se está mudando e por quê.
 
 **Verificação automatizada** das propriedades que importam, para que a degradação
 seja visível antes de ser estrutural. É a ideia de fitness function, que reaparece
-no [Nível 07](../23-architecture-leadership/index.md).
+no [Nível 07](/23-architecture-leadership/index.md).
 
 ### Evolução incremental vence reescrita
 
@@ -101,7 +101,7 @@ novo erra em produção, e o valor só chega no fim — quando o orçamento acab
 
 Mudança incremental entrega valor antes de estar completa e pode ser revertida em
 qualquer ponto. É o assunto de
-[modernização de legado](../16-legacy-modernization/index.md), e o padrão
+[modernização de legado](/16-legacy-modernization/index.md), e o padrão
 principal é o strangler fig.
 
 ## Por Que Isso Importa
@@ -168,13 +168,13 @@ cada vez por um sinal específico, e pode mudar de novo.
 
 ## Conceitos Relacionados
 
-- [Arquitetura como Conjunto de Decisões](architecture-as-decisions.md) — o que
+- [Arquitetura como Conjunto de Decisões](/01-fundamentals/architecture-as-decisions.md) — o que
   permite reavaliar.
-- [Dívida Técnica](technical-debt.md) — o que se acumula quando a evolução não
+- [Dívida Técnica](/01-fundamentals/technical-debt.md) — o que se acumula quando a evolução não
   acontece.
-- [Modernização de Legado](../16-legacy-modernization/index.md) — a evolução em
+- [Modernização de Legado](/16-legacy-modernization/index.md) — a evolução em
   sistemas que não podem parar.
-- [Liderança em Arquitetura](../23-architecture-leadership/index.md) —
+- [Liderança em Arquitetura](/23-architecture-leadership/index.md) —
   arquitetura evolutiva e fitness functions.
 
 ## Exercício Prático

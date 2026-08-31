@@ -60,7 +60,7 @@ assumir. Usado em despacho de requisição e tratamento de exceção.
 
 **Todos processam.** Cada elo faz algo e repassa; ninguém interrompe. É o modelo
 de middleware — autenticação, registro, compressão. Estruturalmente idêntico a
-[Decorator](decorator.md), e a diferença de nome é histórica.
+[Decorator](/03-design-patterns/decorator.md), e a diferença de nome é histórica.
 
 Confundir as duas produz cadeias em que alguém interrompe sem querer, ou em que
 todos processam quando só um deveria.
@@ -81,7 +81,7 @@ falha invisível.
 A ordem dos tratadores determina o comportamento e normalmente não está declarada
 em lugar nenhum além da montagem da cadeia.
 
-O mesmo problema de [Decorator](decorator.md), e com a mesma correção: a montagem
+O mesmo problema de [Decorator](/03-design-patterns/decorator.md), e com a mesma correção: a montagem
 deve estar num lugar, não distribuída.
 
 ## Quando Usar
@@ -113,7 +113,7 @@ em fluxo crítico, isso custa.
 - **Middleware com ordem declarada** — para a semântica de "todos processam".
 - **Condicional explícito** — quando há poucos tratadores estáveis, e a
   legibilidade importa mais que o desacoplamento.
-- **[Mediator](mediator.md)** — quando a coordenação é entre objetos, não uma
+- **[Mediator](/03-design-patterns/mediator.md)** — quando a coordenação é entre objetos, não uma
   cadeia linear.
 
 ## Trade-offs
@@ -215,9 +215,9 @@ tratador precisa fazer algo depois que os seguintes terminarem.
 
 ## Conceitos Relacionados
 
-- [Decorator](decorator.md) — mesma estrutura, semântica de "todos processam".
-- [Command](command.md) — o que trafega pela cadeia pode ser um comando.
-- [Mediator](mediator.md) — coordenação não linear.
+- [Decorator](/03-design-patterns/decorator.md) — mesma estrutura, semântica de "todos processam".
+- [Command](/03-design-patterns/command.md) — o que trafega pela cadeia pode ser um comando.
+- [Mediator](/03-design-patterns/mediator.md) — coordenação não linear.
 
 ## Exercício Prático
 

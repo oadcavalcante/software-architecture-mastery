@@ -84,7 +84,7 @@ confirmação de projeção — e todas adicionam complexidade.
 ### CQRS não exige event sourcing
 
 Confusão frequente. Os dois aparecem juntos porque
-[event sourcing](event-sourcing.md) produz naturalmente um fluxo para atualizar
+[event sourcing](/03-design-patterns/event-sourcing.md) produz naturalmente um fluxo para atualizar
 projeções, mas são independentes: CQRS funciona com estado tradicional, e event
 sourcing pode existir sem CQRS.
 
@@ -210,11 +210,11 @@ Os dois níveis coexistem no mesmo sistema, cada um onde se paga.
 
 ## Conceitos Relacionados
 
-- [Command](command.md) — a origem do vocabulário.
-- [Event Sourcing](event-sourcing.md) — frequentemente combinado, independente.
-- [Arquitetura Orientada a Eventos](event-driven.md) — o mecanismo de
+- [Command](/03-design-patterns/command.md) — a origem do vocabulário.
+- [Event Sourcing](/03-design-patterns/event-sourcing.md) — frequentemente combinado, independente.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — o mecanismo de
   sincronização.
-- [Arquitetura de Dados](../07-data-architecture/index.md).
+- [Arquitetura de Dados](/07-data-architecture/index.md).
 
 ## Exercício Prático
 

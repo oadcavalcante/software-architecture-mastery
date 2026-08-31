@@ -38,7 +38,7 @@ tornar configurável aquilo.
 
 Cada melhoria é defensável isoladamente. O acúmulo produz um subsistema elaborado
 que resolve muito bem um problema que não diferencia a empresa em nada — enquanto
-o [core](core-domain.md) recebe menos atenção.
+o [core](/04-domain-driven-design/core-domain.md) recebe menos atenção.
 
 Não é falta de competência. É ausência de um critério que diga "aqui, bom o
 bastante é o alvo".
@@ -61,11 +61,11 @@ tática custa e só se paga onde a regra é genuinamente complexa e muda com
 frequência.
 
 Num supporting domain, um serviço direto com acesso a dados costuma ser a resposta
-correta. Ver [DDD tático](tactical-ddd.md).
+correta. Ver [DDD tático](/04-domain-driven-design/tactical-ddd.md).
 
 ### Candidatos a se tornarem generic
 
-Um supporting domain hoje pode virar [generic](generic-domain.md) amanhã, quando
+Um supporting domain hoje pode virar [generic](/04-domain-driven-design/generic-domain.md) amanhã, quando
 alguém lançar um produto que o resolva.
 
 Vale monitorar: gestão de contratos, aprovação de despesas, controle de acesso
@@ -98,7 +98,7 @@ supporting domain é um mês disponível onde importa.
 **Alocar os melhores engenheiros.**
 
 **Generalizar preventivamente.** Ver
-[YAGNI](../02-software-design/yagni.md). Um supporting domain raramente precisa
+[YAGNI](/02-software-design/yagni.md). Um supporting domain raramente precisa
 absorver variação futura.
 
 **Não reavaliar se virou generic.**
@@ -164,10 +164,10 @@ elegância tem valor onde a flexibilidade tem valor — e ali ela não tem.
 
 ## Conceitos Relacionados
 
-- [Subdomínio](subdomain.md) — a classificação.
-- [Core Domain](core-domain.md) — onde investir.
-- [Generic Domain](generic-domain.md) — o que comprar.
-- [YAGNI](../02-software-design/yagni.md) — o princípio que se aplica aqui com
+- [Subdomínio](/04-domain-driven-design/subdomain.md) — a classificação.
+- [Core Domain](/04-domain-driven-design/core-domain.md) — onde investir.
+- [Generic Domain](/04-domain-driven-design/generic-domain.md) — o que comprar.
+- [YAGNI](/02-software-design/yagni.md) — o princípio que se aplica aqui com
   força.
 
 ## Exercício Prático

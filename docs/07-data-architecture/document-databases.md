@@ -85,7 +85,7 @@ modelagem.
 ### Duplicação é escolha, não descuido
 
 Como não há junção eficiente, dados referenciados costumam ser copiados para
-dentro do documento. Ver [desnormalização](denormalization.md).
+dentro do documento. Ver [desnormalização](/07-data-architecture/denormalization.md).
 
 A pergunta que decide: quando o valor original muda, os documentos que o copiaram
 precisam mudar?
@@ -137,18 +137,18 @@ documento acaba estourando o limite de tamanho.
 **Quando a integridade referencial importa.** Não há chave estrangeira.
 
 **Como substituto genérico do relacional.** Ver
-[bancos relacionais](relational-databases.md).
+[bancos relacionais](/07-data-architecture/relational-databases.md).
 
 **Para acesso puro por chave com altíssima vazão.** Ver
-[chave-valor](key-value-databases.md), mais simples e mais rápido.
+[chave-valor](/07-data-architecture/key-value-databases.md), mais simples e mais rápido.
 
 **Sem nenhuma validação de estrutura.** O esquema implícito vai divergir.
 
 ## Alternativas
 
-- **[Relacional](relational-databases.md)** — com coluna de documento, que combina
+- **[Relacional](/07-data-architecture/relational-databases.md)** — com coluna de documento, que combina
   esquema declarado e flexibilidade localizada.
-- **[Chave-valor](key-value-databases.md)** — quando não há consulta por conteúdo.
+- **[Chave-valor](/07-data-architecture/key-value-databases.md)** — quando não há consulta por conteúdo.
 - **Índice invertido** — quando a necessidade é busca com relevância.
 
 A primeira merece destaque: bancos relacionais modernos indexam campos dentro de
@@ -225,10 +225,10 @@ junto" — e não por como o dado muda.
 
 ## Conceitos Relacionados
 
-- [NoSQL](nosql.md) — a categoria e seus problemas.
-- [Bancos Relacionais](relational-databases.md) — a comparação principal.
-- [Desnormalização](denormalization.md) — a duplicação como decisão.
-- [Modelagem de Dados](data-modeling.md).
+- [NoSQL](/07-data-architecture/nosql.md) — a categoria e seus problemas.
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md) — a comparação principal.
+- [Desnormalização](/07-data-architecture/denormalization.md) — a duplicação como decisão.
+- [Modelagem de Dados](/07-data-architecture/data-modeling.md).
 
 ## Exercício Prático
 

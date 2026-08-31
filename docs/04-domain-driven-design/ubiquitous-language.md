@@ -29,7 +29,7 @@ viram convenção de nomenclatura e os bounded contexts viram diretórios.
 
 ## Problema
 
-O problema que ela resolve é o mesmo de [domínio](domain.md): a tradução.
+O problema que ela resolve é o mesmo de [domínio](/04-domain-driven-design/domain.md): a tradução.
 
 Quando o especialista diz "carência", o desenvolvedor escreve `waitingPeriod`, o
 banco tem `dt_ini_cob`, e a tela mostra "prazo de espera", existem quatro
@@ -58,7 +58,7 @@ peça que ele explique o que ela faz.
 ### A linguagem é por contexto
 
 Não existe uma linguagem para a empresa inteira. Existe uma por
-[bounded context](bounded-context.md).
+[bounded context](/04-domain-driven-design/bounded-context.md).
 
 "Apólice" em subscrição e em cobrança são conceitos diferentes com o mesmo nome, e
 está correto que sejam — desde que a fronteira entre os contextos seja explícita.
@@ -93,7 +93,7 @@ não está funcionando.**
 ## Quando Usar
 
 - Sempre, dentro de um bounded context com complexidade de domínio.
-- Especialmente no [core domain](core-domain.md), onde a precisão importa mais.
+- Especialmente no [core domain](/04-domain-driven-design/core-domain.md), onde a precisão importa mais.
 - Quando há mais de uma pessoa envolvida, o que é sempre.
 
 ## Quando Não Usar
@@ -205,7 +205,7 @@ há três explicações possíveis.
 
 **Contextos diferentes.** Os dois estão certos dentro das suas áreas, e o termo
 tem dois significados legítimos. Isso é uma fronteira de
-[bounded context](bounded-context.md) sendo revelada, e é o caso mais comum.
+[bounded context](/04-domain-driven-design/bounded-context.md) sendo revelada, e é o caso mais comum.
 
 **Distinção não nomeada.** Existe um conceito intermediário que nenhum dos dois
 nomeou, e cada um está usando o termo para uma parte dele. A conversa que
@@ -224,11 +224,11 @@ informação que a divergência carregava.
 
 ## Conceitos Relacionados
 
-- [Domínio](domain.md) — o problema da tradução.
-- [Bounded Context](bounded-context.md) — a fronteira da linguagem.
-- [Entity](entity.md) e [Value Object](value-object.md) — onde a linguagem se
+- [Domínio](/04-domain-driven-design/domain.md) — o problema da tradução.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md) — a fronteira da linguagem.
+- [Entity](/04-domain-driven-design/entity.md) e [Value Object](/04-domain-driven-design/value-object.md) — onde a linguagem se
   materializa.
-- [Política Terminológica](../i18n-terminology.md) — a aplicação deste princípio
+- [Política Terminológica](/i18n-terminology.md) — a aplicação deste princípio
   a este próprio repositório.
 
 ## Exercício Prático

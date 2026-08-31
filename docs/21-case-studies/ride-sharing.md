@@ -32,7 +32,7 @@ A **Levo** é uma plataforma de transporte por aplicativo que opera em 34 cidade
 com 2,1 milhões de passageiros ativos mensais e 380 mil motoristas cadastrados, dos quais cerca
 de 96 mil ficam online em um dia típico.
 
-O produto tem uma diferença essencial em relação ao [delivery](food-delivery.md): aqui os dois
+O produto tem uma diferença essencial em relação ao [delivery](/21-case-studies/food-delivery.md): aqui os dois
 lados do casamento se movem, e o passageiro está esperando fisicamente na rua. Um erro de
 atribuição não gera comida fria — gera alguém parado num ponto por vinte minutos.
 
@@ -318,7 +318,7 @@ uma ferramenta de visualização, registros de aplicação com coordenadas, e um
 homologação carregado com cópia de produção. Os quatro foram tratados, e a lição foi registrada:
 dado sensível vaza para onde ninguém procurou, e o mapeamento precisa ser exaustivo antes de
 declarar retenção. Ver
-[diagramas de fluxo de dados](../17-architecture-documentation/data-flow-diagrams.md).
+[diagramas de fluxo de dados](/17-architecture-documentation/data-flow-diagrams.md).
 
 **Corrida.** PostgreSQL, máquina de estados explícita, consistência forte. O volume é baixo — 16
 por segundo em média — e a correção é crítica: uma corrida atribuída a dois motoristas é um
@@ -544,10 +544,10 @@ pressão.
 
 ## Conceitos Relacionados
 
-- [Case: Delivery de Comida](food-delivery.md) — o mesmo problema, outras restrições.
-- [Case: Logística](logistics.md).
-- [Pontos Quentes](../11-scalability/hotspots.md).
-- [Degradação Graciosa](../12-reliability/graceful-degradation.md).
+- [Case: Delivery de Comida](/21-case-studies/food-delivery.md) — o mesmo problema, outras restrições.
+- [Case: Logística](/21-case-studies/logistics.md).
+- [Pontos Quentes](/11-scalability/hotspots.md).
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md).
 
 ## Exercício Prático
 

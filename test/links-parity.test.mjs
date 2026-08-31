@@ -13,17 +13,39 @@ const translated = (id, version, body) =>
   frontmatter({id, content_version: undefined, translated_from_version: version}) + '\n' + body;
 
 describe('check-links', () => {
-  test('aceita link relativo para arquivo existente', () => {
+  test('aceita link com barra para arquivo existente', () => {
     ok(check('check-links.mjs', {
-      'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\nVeja [B](./b.md).\n',
+      'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\nVeja [B](/b.md).\n',
       'docs/b.md': frontmatter({id: 'b'}) + '\n# B\n',
     }));
   });
 
+  // A forma relativa é recusada mesmo quando o arquivo existe: ela funciona
+  // hoje e quebra no lote de tradução que mover qualquer das pontas.
+  test('rejeita link interno relativo ainda que o alvo exista', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\nVeja [B](./b.md).\n',
+        'docs/b.md': frontmatter({id: 'b'}) + '\n# B\n',
+      }),
+      /link interno relativo: \.\/b\.md/,
+    );
+  });
+
+  test('rejeita link relativo que sobe de seção, sugerindo a forma com barra', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/01-a/x.md': frontmatter({id: 'x'}) + '\n# X\n\n[Y](../02-b/y.md)\n',
+        'docs/02-b/y.md': frontmatter({id: 'y'}) + '\n# Y\n',
+      }),
+      /use "\/02-b\/y\.md"/,
+    );
+  });
+
   test('rejeita link para arquivo inexistente', () => {
     fails(
-      check('check-links.mjs', {'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\n[X](./x.md)\n'}),
-      /link para arquivo inexistente: \.\/x\.md/,
+      check('check-links.mjs', {'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\n[X](/x.md)\n'}),
+      /link para arquivo inexistente: \/x\.md/,
     );
   });
 
@@ -46,10 +68,10 @@ describe('check-links', () => {
   test('valida âncora em outro documento', () => {
     fails(
       check('check-links.mjs', {
-        'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\n[b](./b.md#fantasma)\n',
+        'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\n[b](/b.md#fantasma)\n',
         'docs/b.md': frontmatter({id: 'b'}) + '\n# B\n\n## Real\n',
       }),
-      /âncora inexistente em \.\/b\.md/,
+      /âncora inexistente em \/b\.md/,
     );
   });
 
@@ -66,7 +88,7 @@ describe('check-links', () => {
         'i18n/en-US/docusaurus-plugin-content-docs/current/01-a/x.md':
           translated('x', 1, '# X\n\nSee [Y](../02-b/y.md).\n'),
       }),
-      /link relativo não cai para o canônico, use "\/02-b\/y\.md"/,
+      /link interno relativo: \.\.\/02-b\/y\.md/,
     );
   });
 
@@ -188,7 +210,7 @@ describe('check-links', () => {
       'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n',
       'docs/b.md': frontmatter({id: 'b'}) + '\n# B\n',
       'i18n/en-US/docusaurus-plugin-content-docs/current/a.md':
-        frontmatter({id: 'a'}) + '\n# A\n\nSee [B](b.md).\n',
+        frontmatter({id: 'a'}) + '\n# A\n\nSee [B](/b.md).\n',
     }));
   });
 
@@ -197,7 +219,7 @@ describe('check-links', () => {
       check('check-links.mjs', {
         'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n',
         'i18n/en-US/docusaurus-plugin-content-docs/current/a.md':
-          frontmatter({id: 'a'}) + '\n# A\n\nSee [ghost](ghost.md).\n',
+          frontmatter({id: 'a'}) + '\n# A\n\nSee [ghost](/ghost.md).\n',
       }),
       /link para arquivo inexistente/,
     );
@@ -206,7 +228,7 @@ describe('check-links', () => {
   test('em pt-BR não há fallback: link quebrado continua quebrado', () => {
     fails(
       check('check-links.mjs', {
-        'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\nVeja [b](b.md).\n',
+        'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\nVeja [b](/b.md).\n',
       }),
       /link para arquivo inexistente/,
     );

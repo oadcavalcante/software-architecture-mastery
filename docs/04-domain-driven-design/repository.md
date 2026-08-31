@@ -36,7 +36,7 @@ testá-la exige um banco.
 
 O repositório resolve invertendo a dependência: a interface pertence ao domínio, a
 implementação à infraestrutura. Ver
-[inversão de dependência](../02-software-design/dependency-inversion.md).
+[inversão de dependência](/02-software-design/dependency-inversion.md).
 
 ## Conceitos Centrais
 
@@ -47,7 +47,7 @@ repositório.**
 
 Objetos internos são acessados através da raiz. Um `ItemDePedidoRepository`
 permite alterar um item sem passar pelo pedido — o que anula a proteção da
-invariante que o [agregado](aggregate.md) existe para dar.
+invariante que o [agregado](/04-domain-driven-design/aggregate.md) existe para dar.
 
 ### Repositório não é DAO
 
@@ -80,7 +80,7 @@ Repositórios devolvem agregados completos, com todas as invariantes carregadas.
 tela que mostra cinco campos de cem pedidos não precisa de cem agregados — precisa
 de uma projeção.
 
-Ver [CQRS](../03-design-patterns/cqrs.md) de nível 2: leitura vai direto ao banco,
+Ver [CQRS](/03-design-patterns/cqrs.md) de nível 2: leitura vai direto ao banco,
 com uma consulta que devolve exatamente o que a tela precisa.
 
 Insistir em usar o repositório para leitura é a origem do agregado grande e do
@@ -107,7 +107,7 @@ vazam. Reconhecer onde ela vaza é parte de usar o padrão bem.
 **Para leitura de tela.** Use projeção direta.
 
 **Em subdomínios de apoio ou genéricos.** Acesso direto ao banco costuma ser a
-resposta correta ali. Ver [DDD tático](tactical-ddd.md).
+resposta correta ali. Ver [DDD tático](/04-domain-driven-design/tactical-ddd.md).
 
 **Quando o ORM já oferece a abstração.** Alguns ORMs implementam o padrão de
 unidade de trabalho e repositório; envolver isso em outro repositório adiciona
@@ -164,7 +164,7 @@ domínio.
 **Usar para leitura.**
 
 **Deixar a interface no pacote de infraestrutura.** Anula a inversão. Ver
-[inversão de dependência](../02-software-design/dependency-inversion.md).
+[inversão de dependência](/02-software-design/dependency-inversion.md).
 
 ## Exemplo Real
 
@@ -203,10 +203,10 @@ critério dizendo o que pertence ao repositório e o que não.
 
 ## Conceitos Relacionados
 
-- [Aggregate](aggregate.md) — a unidade que o repositório acessa.
-- [Factory](factory.md) — a criação, em contraste com a recuperação.
-- [Inversão de Dependência](../02-software-design/dependency-inversion.md).
-- [CQRS](../03-design-patterns/cqrs.md) — a leitura por outro caminho.
+- [Aggregate](/04-domain-driven-design/aggregate.md) — a unidade que o repositório acessa.
+- [Factory](/04-domain-driven-design/factory.md) — a criação, em contraste com a recuperação.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md).
+- [CQRS](/03-design-patterns/cqrs.md) — a leitura por outro caminho.
 
 ## Exercício Prático
 

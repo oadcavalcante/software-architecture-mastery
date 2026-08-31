@@ -85,7 +85,7 @@ uma obrigação de manutenção — e decidir se ela vale.
 
 A regra prática: **documente à mão o que envelhece devagar; derive o que envelhece
 rápido.** Ver
-[documentação viva](living-documentation.md).
+[documentação viva](/17-architecture-documentation/living-documentation.md).
 
 ### O porquê é o que só a escrita humana captura
 
@@ -105,7 +105,7 @@ que restrição levou a esta escolha
 o que foi tentado e não funcionou
 ```
 
-Ver [decisões de arquitetura](../18-architecture-decisions/index.md).
+Ver [decisões de arquitetura](/18-architecture-decisions/index.md).
 
 Um comentário de três linhas explicando por que um trecho estranho existe vale mais que
 uma página descrevendo o que ele faz — porque o que ele faz está ali, e o porquê não.
@@ -205,7 +205,7 @@ só a escrita humana captura.
 
 - **Código legível** — nomes e estrutura que dispensam explicação do que faz.
 - **Testes como especificação** — descrevem o comportamento de forma verificável. Ver
-  [refatoração de legado](../16-legacy-modernization/legacy-refactoring.md).
+  [refatoração de legado](/16-legacy-modernization/legacy-refactoring.md).
 - **Registros de decisão** — o porquê, no formato próprio.
 - **Sessões de transferência** — quando o conhecimento é tácito e a escrita não captura.
 
@@ -284,10 +284,10 @@ contexto, contêineres, decisões relevantes, e o que operar precisa saber.
 
 **Diagramas derivados** onde possível: dependências a partir do rastreamento, topologia a
 partir da infraestrutura declarada. Ver
-[documentação viva](living-documentation.md).
+[documentação viva](/17-architecture-documentation/living-documentation.md).
 
 **Registros de decisão** para o porquê, no repositório. Ver
-[decisões de arquitetura](../18-architecture-decisions/index.md).
+[decisões de arquitetura](/18-architecture-decisions/index.md).
 
 **Data de revisão visível** em cada documento, com alerta acima de doze meses.
 
@@ -308,10 +308,10 @@ acervo que ninguém consultava e em que ninguém confiava.
 
 ## Conceitos Relacionados
 
-- [Documentação Viva](living-documentation.md) — como manter.
-- [Visões de Arquitetura](architecture-views.md) — organizar por leitor.
-- [Qualidade de Diagrama](diagram-quality.md).
-- [Decisões de Arquitetura](../18-architecture-decisions/index.md) — o porquê.
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — como manter.
+- [Visões de Arquitetura](/17-architecture-documentation/architecture-views.md) — organizar por leitor.
+- [Qualidade de Diagrama](/17-architecture-documentation/diagram-quality.md).
+- [Decisões de Arquitetura](/18-architecture-decisions/index.md) — o porquê.
 
 ## Exercício Prático
 

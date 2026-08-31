@@ -189,11 +189,11 @@ discussion of preference into a question with a verifiable answer.
 
 ## Related Concepts
 
-- [Architecture vs. Design](architecture-vs-design.md) — where the boundary sits,
+- [Architecture vs. Design](/01-fundamentals/architecture-vs-design.md) — where the boundary sits,
   and why it is contextual.
-- [Architecture as a Set of Decisions](architecture-as-decisions.md) — the direct
+- [Architecture as a Set of Decisions](/01-fundamentals/architecture-as-decisions.md) — the direct
   consequence of this definition.
-- [Architecture Evolution](architecture-evolution.md) — what to do when the cost
+- [Architecture Evolution](/01-fundamentals/architecture-evolution.md) — what to do when the cost
   of reversal changes over time.
 
 ## Practical Exercise

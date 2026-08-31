@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Sharding é [particionamento](partitioning.md) em que cada partição vive numa
+Sharding é [particionamento](/06-distributed-systems/partitioning.md) em que cada partição vive numa
 **instância separada** de banco, com seus próprios recursos.
 
 A distinção parece sutil e não é: quando a partição vira um servidor, o custo sai
@@ -112,7 +112,7 @@ mesma; o que muda é que cada partição passa a ter um custo operacional própr
 
 - O volume de escrita ou de dados excede o que uma instância comporta, medido.
 - As alternativas de escala foram esgotadas. Ver
-  [estratégias de escalabilidade](../05-system-design/scalability-basics.md).
+  [estratégias de escalabilidade](/05-system-design/scalability-basics.md).
 - Existe uma chave natural pela qual quase todas as operações filtram.
 - A equipe consegue operar N bancos em vez de um.
 
@@ -125,7 +125,7 @@ que a intuição sugere.
 aplicação supera o ganho.
 
 **Quando transações entre shards são requisito.** Elas viram
-[transações distribuídas](distributed-transactions.md).
+[transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
 **Sem shards lógicos.** Rebalancear com mapeamento direto para instâncias físicas
 é significativamente mais doloroso.
@@ -136,7 +136,7 @@ internamente, e adotar um deles evita construir o roteamento e a operação.
 ## Alternativas
 
 - **Escala vertical** — o degrau anterior, quase sempre não esgotado.
-- **[Replicação](replication.md)** — se o gargalo é leitura.
+- **[Replicação](/06-distributed-systems/replication.md)** — se o gargalo é leitura.
 - **Arquivamento** — reduzir o volume ativo.
 - **Banco distribuído** — delegar o sharding ao produto.
 - **Particionamento lógico numa instância** — melhora manutenção sem distribuir.
@@ -215,10 +215,10 @@ que ninguém leu antes de implementar.
 
 ## Conceitos Relacionados
 
-- [Particionamento](partitioning.md) — o conceito e a escolha da chave.
-- [Replicação](replication.md) — cada shard precisa das suas réplicas.
-- [Hotspots](../11-scalability/index.md) — o desequilíbrio.
-- [Escalabilidade de Banco](../11-scalability/index.md).
+- [Particionamento](/06-distributed-systems/partitioning.md) — o conceito e a escolha da chave.
+- [Replicação](/06-distributed-systems/replication.md) — cada shard precisa das suas réplicas.
+- [Hotspots](/11-scalability/index.md) — o desequilíbrio.
+- [Escalabilidade de Banco](/11-scalability/index.md).
 
 ## Exercício Prático
 

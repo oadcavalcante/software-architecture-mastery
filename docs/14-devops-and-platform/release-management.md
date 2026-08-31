@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Gestão de releases é a coordenação em torno do que vai para os usuários: o que entra,
 quando, com qual comunicação, e o que acontece se der errado.
 
-Com [entrega contínua](ci-cd.md), boa parte da coordenação tradicional deixa de fazer
+Com [entrega contínua](/14-devops-and-platform/ci-cd.md), boa parte da coordenação tradicional deixa de fazer
 sentido — e frequentemente permanece por hábito.
 
 O trabalho é separar as duas coisas: a **coordenação que ainda é necessária** e a
@@ -52,7 +52,7 @@ liberar     os usuários podem usar a funcionalidade
 anunciar    os usuários sabem que ela existe
 ```
 
-Sem [feature flags](feature-flags.md), as três acontecem juntas — e a coordenação
+Sem [feature flags](/14-devops-and-platform/feature-flags.md), as três acontecem juntas — e a coordenação
 precisa acontecer no momento da implantação, que é o momento técnico mais delicado.
 
 Com flags, elas se separam: o código vai a produção quando estiver pronto, a liberação
@@ -92,7 +92,7 @@ não faz sentido  congelamento longo, que acumula lote grande
 O paradoxo: quanto mais longo o congelamento, mais arriscada a implantação que o segue —
 porque ela carrega semanas de mudanças de uma vez, exatamente o oposto de lotes pequenos.
 
-Ver [integração contínua](ci-cd.md).
+Ver [integração contínua](/14-devops-and-platform/ci-cd.md).
 
 A alternativa que funciona: em vez de congelar, aumentar o rigor — canary obrigatório,
 aprovação adicional, janelas de menor tráfego. As mudanças continuam pequenas.
@@ -128,7 +128,7 @@ histórico de implantações.
 
 O último caso é o mais restritivo: versões antigas de aplicativo móvel permanecem em uso
 por meses, e o servidor precisa suportá-las. Ver
-[contratos de integração](../08-integration-architecture/integration-contracts.md).
+[contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 ### O plano de reversão precisa ser o padrão
 
@@ -141,8 +141,8 @@ autoridade clara — quem decide
 comunicação prevista
 ```
 
-Ver [estratégias de implantação](deployment-strategies.md) e
-[resiliência](../12-reliability/resilience.md).
+Ver [estratégias de implantação](/14-devops-and-platform/deployment-strategies.md) e
+[resiliência](/12-reliability/resilience.md).
 
 Se cada release precisa de um plano de reversão específico, a reversão não está
 resolvida — está sendo improvisada a cada vez.
@@ -201,9 +201,9 @@ coordenação é pequeno e específico.
 
 ## Alternativas
 
-- **[Feature flags](feature-flags.md)** — separam liberação de implantação, removendo a
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — separam liberação de implantação, removendo a
   maior parte da coordenação.
-- **[Canary](canary.md)** — reduz o risco sem coordenação humana.
+- **[Canary](/14-devops-and-platform/canary.md)** — reduz o risco sem coordenação humana.
 - **Liberação progressiva por segmento** — internos, beta, geral.
 - **Aprovação por classe de risco** — só o que é arriscado passa por aprovação.
 
@@ -310,10 +310,10 @@ concentrava risco em vez de reduzi-lo.
 
 ## Conceitos Relacionados
 
-- [Integração Contínua](ci-cd.md).
-- [Feature Flags](feature-flags.md) — a separação central.
-- [Estratégias de Implantação](deployment-strategies.md).
-- [Canary](canary.md).
+- [Integração Contínua](/14-devops-and-platform/ci-cd.md).
+- [Feature Flags](/14-devops-and-platform/feature-flags.md) — a separação central.
+- [Estratégias de Implantação](/14-devops-and-platform/deployment-strategies.md).
+- [Canary](/14-devops-and-platform/canary.md).
 
 ## Exercício Prático
 

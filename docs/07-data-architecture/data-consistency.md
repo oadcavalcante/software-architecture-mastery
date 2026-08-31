@@ -67,7 +67,7 @@ processo, pertence à aplicação.
 
 ### Isolamento: dentro de um armazenamento
 
-É o domínio de [transações](transactions.md) e níveis de isolamento.
+É o domínio de [transações](/07-data-architecture/transactions.md) e níveis de isolamento.
 
 O ponto relevante aqui: isolamento é uma garantia **local ao armazenamento**. Ele
 não diz nada sobre o que acontece entre dois bancos, entre dois serviços, ou entre
@@ -75,8 +75,8 @@ o banco e o índice de busca.
 
 ### Replicação: entre cópias
 
-É onde [consistência eventual](../06-distributed-systems/eventual-consistency.md)
-e [forte](../06-distributed-systems/strong-consistency.md) vivem.
+É onde [consistência eventual](/06-distributed-systems/eventual-consistency.md)
+e [forte](/06-distributed-systems/strong-consistency.md) vivem.
 
 A decisão prática é por operação, não por sistema: ler o saldo antes de debitar
 exige consistência forte; listar o histórico tolera atraso.
@@ -89,7 +89,7 @@ O caso menos discutido e o mais comum na prática.
 
 Quando o pedido está num serviço e o estoque em outro, nenhuma garantia de banco
 cobre a relação entre eles. A coerência precisa ser construída — com
-[sagas](../06-distributed-systems/sagas.md), com eventos, com reconciliação.
+[sagas](/06-distributed-systems/sagas.md), com eventos, com reconciliação.
 
 E precisa ser **verificada**, porque toda estratégia falha eventualmente.
 
@@ -159,10 +159,10 @@ Garantias fracas com reconciliação onde:
 
 ## Alternativas
 
-- **[Transação](transactions.md) local** — quando os dados cabem no mesmo
+- **[Transação](/07-data-architecture/transactions.md) local** — quando os dados cabem no mesmo
   armazenamento, a garantia sai de graça.
 - **Reunir os dados** — a fronteira de serviço pode estar no lugar errado.
-- **[Saga](../06-distributed-systems/sagas.md) com compensação.**
+- **[Saga](/06-distributed-systems/sagas.md) com compensação.**
 - **Reconciliação periódica** — para divergências raras e corrigíveis.
 - **Garantias de sessão** — resolvem a percepção do usuário a custo baixo.
 
@@ -251,10 +251,10 @@ problema — e nenhuma decisão saía.
 
 ## Conceitos Relacionados
 
-- [Transações](transactions.md) — o sentido de isolamento.
-- [Replicação de Dados](data-replication.md) — o sentido de replicação.
-- [Consistência](../06-distributed-systems/consistency.md) — o espectro completo.
-- [Propriedade do Dado](data-ownership.md) — quem é a fonte autoritativa.
+- [Transações](/07-data-architecture/transactions.md) — o sentido de isolamento.
+- [Replicação de Dados](/07-data-architecture/data-replication.md) — o sentido de replicação.
+- [Consistência](/06-distributed-systems/consistency.md) — o espectro completo.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — quem é a fonte autoritativa.
 
 ## Exercício Prático
 

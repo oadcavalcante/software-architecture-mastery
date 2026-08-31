@@ -25,7 +25,7 @@ Uma entidade é um objeto definido por sua **identidade**, não por seus atribut
 Dois pedidos com exatamente os mesmos dados são pedidos diferentes se têm
 identificadores diferentes.
 
-A distinção entre entidade e [objeto de valor](value-object.md) é a primeira
+A distinção entre entidade e [objeto de valor](/04-domain-driven-design/value-object.md) é a primeira
 decisão de modelagem tática, e ela vem do domínio — não de conveniência técnica.
 
 ## Problema
@@ -63,7 +63,7 @@ entidade existir.
 
 Uma das decisões de maior custo de reversão do sistema, e frequentemente tomada
 por quem escreve a primeira migração. Ver
-[o que é arquitetura](../01-fundamentals/what-is-software-architecture.md).
+[o que é arquitetura](/01-fundamentals/what-is-software-architecture.md).
 
 | Estratégia | Vantagem | Custo |
 |---|---|---|
@@ -92,7 +92,7 @@ implementações de DDD adota.
 
 Uma entidade com apenas campos e acessadores é o modelo anêmico. As regras que
 protegem sua invariante pertencem a ela. Ver
-[encapsulamento](../02-software-design/encapsulation.md).
+[encapsulamento](/02-software-design/encapsulation.md).
 
 ## Quando Usar
 
@@ -104,7 +104,7 @@ protegem sua invariante pertencem a ela. Ver
 ## Quando Não Usar
 
 **Quando o objeto é definido pelos seus valores.** Dinheiro, endereço, período,
-coordenada. Ver [objeto de valor](value-object.md).
+coordenada. Ver [objeto de valor](/04-domain-driven-design/value-object.md).
 
 **Quando a identidade não tem significado no domínio.** Se ninguém pergunta "qual
 deles?", provavelmente não é entidade.
@@ -113,11 +113,11 @@ deles?", provavelmente não é entidade.
 mais seguros; se nada muda ao longo do tempo, não force identidade.
 
 **Em subdomínios de apoio ou genéricos.** A cerimônia de modelagem tática não se
-paga fora do [core](core-domain.md).
+paga fora do [core](/04-domain-driven-design/core-domain.md).
 
 ## Alternativas
 
-- **[Objeto de valor](value-object.md)** — quando os atributos definem.
+- **[Objeto de valor](/04-domain-driven-design/value-object.md)** — quando os atributos definem.
 - **Registro transparente** — para dados sem invariante nem identidade.
 - **Identificador simples** — quando basta referenciar sem carregar o objeto.
 
@@ -186,10 +186,10 @@ manutenção e de locação próprios.
 
 ## Conceitos Relacionados
 
-- [Value Object](value-object.md) — a outra metade da decisão.
-- [Aggregate](aggregate.md) — como entidades se agrupam.
-- [Repository](repository.md) — como são recuperadas.
-- [Encapsulamento](../02-software-design/encapsulation.md).
+- [Value Object](/04-domain-driven-design/value-object.md) — a outra metade da decisão.
+- [Aggregate](/04-domain-driven-design/aggregate.md) — como entidades se agrupam.
+- [Repository](/04-domain-driven-design/repository.md) — como são recuperadas.
+- [Encapsulamento](/02-software-design/encapsulation.md).
 
 ## Exercício Prático
 

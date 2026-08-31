@@ -129,7 +129,7 @@ interromper no meio deixa o código pior que no início.
 
 **Quando o problema é arquitetural.** Uma fronteira no lugar errado não se corrige
 com extração de método. Ver
-[modernização de legado](../16-legacy-modernization/index.md).
+[modernização de legado](/16-legacy-modernization/index.md).
 
 **Sem critério de parada declarado.** Ver acima.
 
@@ -177,7 +177,7 @@ aparece semanas depois e ninguém liga à mudança estrutural.
 **Não declarar quando termina.** Convite a não terminar.
 
 **Escolher pelo que incomoda, não pelo que custa.** Ver
-[code smells](code-smells.md).
+[code smells](/02-software-design/code-smells.md).
 
 **Tratar como evento em vez de prática.** Refatoração contínua, associada a
 mudanças reais, rende mais que trimestres dedicados.
@@ -236,10 +236,10 @@ esforço grande vem da vontade de fazer de uma vez, e é normalmente a opção p
 
 ## Conceitos Relacionados
 
-- [Code Smells](code-smells.md) — o que indica onde refatorar.
-- [Dívida Técnica](../01-fundamentals/technical-debt.md) — como priorizar.
-- [Clean Code](clean-code.md) — o alvo local.
-- [Modernização de Legado](../16-legacy-modernization/index.md) — quando o
+- [Code Smells](/02-software-design/code-smells.md) — o que indica onde refatorar.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md) — como priorizar.
+- [Clean Code](/02-software-design/clean-code.md) — o alvo local.
+- [Modernização de Legado](/16-legacy-modernization/index.md) — quando o
   problema é maior que refatoração.
 
 ## Exercício Prático

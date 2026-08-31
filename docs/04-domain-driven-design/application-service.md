@@ -76,7 +76,7 @@ comporta, se a carência já passou — negócio, e pertence ao domínio.
 
 O serviço de aplicação define onde a transação começa e termina. Isso o torna
 responsável por uma decisão arquitetural: **um agregado por transação**, conforme
-[aggregate](aggregate.md).
+[aggregate](/04-domain-driven-design/aggregate.md).
 
 Quando um caso de uso precisa alterar dois agregados, é aqui que a decisão
 aparece — coordenar por evento, aceitar consistência eventual, ou reconhecer que
@@ -84,9 +84,9 @@ as fronteiras estão erradas.
 
 ### Ele é o caso de uso
 
-Em [Clean Architecture](../02-software-design/clean-architecture.md), o serviço de
+Em [Clean Architecture](/02-software-design/clean-architecture.md), o serviço de
 aplicação corresponde ao interator de caso de uso. Em
-[Ports and Adapters](../02-software-design/ports-and-adapters.md), ele implementa
+[Ports and Adapters](/02-software-design/ports-and-adapters.md), ele implementa
 a porta primária.
 
 Um serviço de aplicação por caso de uso — `CancelarPedido`, `ConfirmarPagamento`
@@ -104,11 +104,11 @@ vale em qualquer lugar.
 
 **Quando não há coordenação real.** Uma consulta simples que devolve dados não
 precisa passar por um serviço de aplicação — pode ir direto de uma projeção de
-leitura ao controlador. Ver [CQRS](../03-design-patterns/cqrs.md) de nível 2.
+leitura ao controlador. Ver [CQRS](/03-design-patterns/cqrs.md) de nível 2.
 
 **Como camada obrigatória por simetria.** Serviços de aplicação que apenas
 repassam para o repositório são camada anêmica. Ver
-[camadas](../02-software-design/layering.md).
+[camadas](/02-software-design/layering.md).
 
 **Em subdomínios genéricos ou de apoio.** A separação entre os anéis raramente se
 paga fora do core.
@@ -121,7 +121,7 @@ está no domínio: falta uma entidade ou um serviço de domínio que a acolha.
 - **Controlador chamando o domínio diretamente** — adequado em casos de uso
   triviais e em subdomínios simples.
 - **Comando com manipulador** — a mesma ideia com outro vocabulário. Ver
-  [Command](../03-design-patterns/command.md).
+  [Command](/03-design-patterns/command.md).
 - **Consulta direta** — para leitura, sem passar pelo domínio.
 
 ## Trade-offs
@@ -196,11 +196,11 @@ sabia.
 
 ## Conceitos Relacionados
 
-- [Domain Service](domain-service.md) — onde a regra entre agregados mora.
-- [Aggregate](aggregate.md) — a fronteira transacional.
-- [Clean Architecture](../02-software-design/clean-architecture.md) — o caso de
+- [Domain Service](/04-domain-driven-design/domain-service.md) — onde a regra entre agregados mora.
+- [Aggregate](/04-domain-driven-design/aggregate.md) — a fronteira transacional.
+- [Clean Architecture](/02-software-design/clean-architecture.md) — o caso de
   uso como círculo.
-- [Ports and Adapters](../02-software-design/ports-and-adapters.md).
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md).
 
 ## Exercício Prático
 

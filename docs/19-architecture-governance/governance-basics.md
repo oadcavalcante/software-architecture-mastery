@@ -40,7 +40,7 @@ depois             inspeciona o que já foi feito
 Quase toda governança ruim intervém no terceiro ponto. Quase toda governança boa
 intervém no primeiro.
 
-Ver [governança corporativa](../15-enterprise-architecture/enterprise-governance.md) para
+Ver [governança corporativa](/15-enterprise-architecture/enterprise-governance.md) para
 o desenho do fluxo em escala organizacional; aqui o foco é o mecanismo em si.
 
 ## Problema
@@ -82,7 +82,7 @@ consumido por doze sistemas não pode ser.
 O erro comum é aplicar o mesmo grau de coordenação a todas as decisões. Isso produz ou
 gargalo em tudo, ou divergência em tudo.
 
-Ver [níveis de arquitetura](../15-enterprise-architecture/architecture-levels.md).
+Ver [níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
 ### Ponto de intervenção
 
@@ -117,7 +117,7 @@ Uma governança madura tem os três, em proporção: a maior parte prevenida, um
 detectada, uma fração pequena corrigida. Uma governança degenerada tem quase tudo no
 terceiro nível — que é o mais caro e o mais tarde.
 
-Ver [engenharia de plataforma](../14-devops-and-platform/platform-engineering.md): o
+Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md): o
 caminho pavimentado é governança preventiva com outro nome.
 
 ### Proporcionalidade ao risco
@@ -147,7 +147,7 @@ o que aconteceria se ele fosse removido?
 ```
 
 A quarta e a quinta perguntas são as que raramente têm resposta. Ver
-[medição](measuring-governance.md).
+[medição](/19-architecture-governance/measuring-governance.md).
 
 ### Orientar é diferente de aprovar
 
@@ -160,14 +160,14 @@ A diferença aparece na assimetria de informação: quem aprova tem menos contex
 problema específico e mais sobre o histórico da organização. Usar essa segunda vantagem
 como conselho é útil; usá-la como veto desperdiça a primeira.
 
-Ver [revisão](governance-review.md).
+Ver [revisão](/19-architecture-governance/governance-review.md).
 
 ### Governança se aplica também a si mesma
 
 Um mecanismo é uma decisão arquitetural: tem contexto, alternativas, consequências e
 validade.
 
-Registrá-lo como [ADR](../18-architecture-decisions/index.md), com sinal de alerta e
+Registrá-lo como [ADR](/18-architecture-decisions/index.md), com sinal de alerta e
 revisão periódica, é o que impede que mecanismos criados para um problema de 2021
 continuem cobrando pedágio em 2026 sobre um problema que não existe mais.
 
@@ -200,7 +200,7 @@ da plataforma — e um caminho errado que não existe não precisa ser inspecion
 ## Alternativas
 
 - **Plataforma e gabaritos** — governança embutida, sem processo.
-- **[Funções de aptidão](fitness-functions-governance.md)** — verificação contínua e
+- **[Funções de aptidão](/19-architecture-governance/fitness-functions-governance.md)** — verificação contínua e
   automática.
 - **Comunidade de prática** — coerência por convergência voluntária, sem autoridade.
 - **Nada, com registro** — só ADRs, deixando a coerência emergir.
@@ -277,12 +277,12 @@ A reformulação foi feita pelo critério de ponto de intervenção:
 
 **Segurança movida para o ambiente.** Autenticação entre serviços passou a ser imposta pela
 malha; um serviço sem identidade válida não recebe tráfego. Deixou de ser assunto de
-revisão. Ver [zero trust](../10-security/zero-trust.md).
+revisão. Ver [zero trust](/10-security/zero-trust.md).
 
 **Formatos compartilhados movidos para a esteira.** Esquemas de evento e contratos de API
 passaram a ser verificados automaticamente contra o registro central, com quebra de
 compatibilidade falhando a construção. Ver
-[evolução de esquema](../08-integration-architecture/schema-evolution.md).
+[evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 **Comitê extinto**, substituído por dois mecanismos:
 
@@ -294,7 +294,7 @@ compatibilidade falhando a construção. Ver
 
 **Gabaritos de serviço** com autenticação, monitoração, rastreamento e política de
 repetição já configurados. Ver
-[engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+[engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 Vinte meses depois:
 
@@ -316,11 +316,11 @@ A leitura que a equipe faz: o comitê nunca foi o problema. O problema era que e
 
 ## Conceitos Relacionados
 
-- [Governança Corporativa](../15-enterprise-architecture/enterprise-governance.md) — o
+- [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md) — o
   fluxo em escala.
-- [Funções de Aptidão](fitness-functions-governance.md) — a intervenção automatizada.
-- [Patologias](governance-pathologies.md) — os modos de degeneração.
-- [Engenharia de Plataforma](../14-devops-and-platform/platform-engineering.md).
+- [Funções de Aptidão](/19-architecture-governance/fitness-functions-governance.md) — a intervenção automatizada.
+- [Patologias](/19-architecture-governance/governance-pathologies.md) — os modos de degeneração.
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ## Exercício Prático
 

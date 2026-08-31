@@ -52,7 +52,7 @@ tinha nenhum dos sintomas.
 A formulação correta é sobre **razão de mudança**, não sobre "fazer uma coisa
 só". A leitura errada leva a fragmentar código sem critério; a correta remete
 diretamente a
-[separação de responsabilidades](../01-fundamentals/separation-of-concerns.md).
+[separação de responsabilidades](/01-fundamentals/separation-of-concerns.md).
 
 Martin refinou depois: a razão de mudança é um *ator* — quem pede a mudança. Uma
 classe que muda por pedido do time fiscal e do time de relatórios tem dois atores
@@ -102,7 +102,7 @@ Interfaces largas acoplam implementadores a comportamento irrelevante.
 > depender de abstrações.
 
 É o mais arquitetural dos cinco e o assunto de
-[inversão de dependência](dependency-inversion.md), onde o detalhe que mais se
+[inversão de dependência](/02-software-design/dependency-inversion.md), onde o detalhe que mais se
 erra — de que lado a interface mora — é tratado.
 
 **Sintoma:** a regra de negócio importa o driver do banco.
@@ -173,7 +173,7 @@ caso torce a abstração.
 **Violação de L silenciosa.** Compila, passa nos testes de unidade, quebra em
 produção quando o subtipo chega por um caminho não previsto.
 
-**Interface de um por D.** Ver [abstração](../01-fundamentals/abstraction.md).
+**Interface de um por D.** Ver [abstração](/01-fundamentals/abstraction.md).
 
 ## Erros Comuns
 
@@ -211,11 +211,11 @@ foi removida.
 
 ## Conceitos Relacionados
 
-- [Separação de Responsabilidades](../01-fundamentals/separation-of-concerns.md)
+- [Separação de Responsabilidades](/01-fundamentals/separation-of-concerns.md)
   — o princípio do qual S é um caso.
-- [Inversão de Dependência](dependency-inversion.md) — o D, em detalhe.
-- [Interfaces](interfaces.md) — o I, em detalhe.
-- [Heurísticas de Design](design-heuristics.md) — alternativas mais enxutas.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — o D, em detalhe.
+- [Interfaces](/02-software-design/interfaces.md) — o I, em detalhe.
+- [Heurísticas de Design](/02-software-design/design-heuristics.md) — alternativas mais enxutas.
 
 ## Exercício Prático
 

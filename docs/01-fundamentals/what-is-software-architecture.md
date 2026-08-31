@@ -184,11 +184,11 @@ discussão de preferência em uma pergunta com resposta verificável.
 
 ## Conceitos Relacionados
 
-- [Arquitetura vs. Design](architecture-vs-design.md) — onde fica a fronteira,
+- [Arquitetura vs. Design](/01-fundamentals/architecture-vs-design.md) — onde fica a fronteira,
   e por que ela é contextual.
-- [Arquitetura como Conjunto de Decisões](architecture-as-decisions.md) — a
+- [Arquitetura como Conjunto de Decisões](/01-fundamentals/architecture-as-decisions.md) — a
   consequência direta desta definição.
-- [Evolução da Arquitetura](architecture-evolution.md) — o que fazer quando o
+- [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md) — o que fazer quando o
   custo de reversão muda com o tempo.
 
 ## Exercício Prático

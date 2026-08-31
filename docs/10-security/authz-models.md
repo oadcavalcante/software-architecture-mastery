@@ -147,7 +147,7 @@ Vale repetir, porque é o erro estrutural mais comum: um serviço que aceita
 
 A decisão precisa ser tomada por quem detém o recurso, com base na identidade
 verificada do token — nunca em parâmetro. Ver
-[fronteiras seguras](secure-boundaries.md).
+[fronteiras seguras](/10-security/secure-boundaries.md).
 
 ### Negar por padrão
 
@@ -155,7 +155,7 @@ A política deve ser: nada é permitido a menos que uma regra permita.
 
 O contrário — permitir salvo negação explícita — significa que uma regra esquecida
 abre acesso em vez de fechá-lo. Ver
-[modos de falha de segurança](security-failure-modes.md).
+[modos de falha de segurança](/10-security/security-failure-modes.md).
 
 ## Modelo Mental
 
@@ -225,7 +225,7 @@ relacional escala mal.
 **Autorização por parâmetro do chamador.**
 
 **Permissão concedida e não revisada.** Ver
-[menor privilégio](least-privilege.md).
+[menor privilégio](/10-security/least-privilege.md).
 
 **Atributos desatualizados.** A decisão usa um valor antigo.
 
@@ -301,10 +301,10 @@ não existiam.
 
 ## Conceitos Relacionados
 
-- [Menor Privilégio](least-privilege.md) — o princípio.
-- [Identidade](identity.md) — a pergunta anterior.
-- [Fronteiras Seguras](secure-boundaries.md) — onde a decisão é aplicada.
-- [Autorização](../05-system-design/authorization.md) — o nível de design de
+- [Menor Privilégio](/10-security/least-privilege.md) — o princípio.
+- [Identidade](/10-security/identity.md) — a pergunta anterior.
+- [Fronteiras Seguras](/10-security/secure-boundaries.md) — onde a decisão é aplicada.
+- [Autorização](/05-system-design/authorization.md) — o nível de design de
   sistemas.
 
 ## Exercício Prático

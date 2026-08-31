@@ -142,15 +142,15 @@ título; qual exemplar satisfaz a reserva é decisão do sistema no momento da d
 por exemplar cria filas por objeto físico e produz a situação absurda de alguém esperando o
 exemplar 3 enquanto o 7 está na prateleira.
 
-Ver [desenho modular](../modular-design.md), [fronteiras](../boundaries.md) e
-[direção de dependência](../dependency-direction.md).
+Ver [desenho modular](/02-software-design/modular-design.md), [fronteiras](/02-software-design/boundaries.md) e
+[direção de dependência](/02-software-design/dependency-direction.md).
 
 :::
 
 ## Conceitos Relacionados
 
-- [Desenho Modular](../modular-design.md).
-- [Fronteiras](../boundaries.md).
-- [Direção de Dependência](../dependency-direction.md).
-- [Acoplamento](../../01-fundamentals/coupling.md) e
-  [Coesão](../../01-fundamentals/cohesion.md).
+- [Desenho Modular](/02-software-design/modular-design.md).
+- [Fronteiras](/02-software-design/boundaries.md).
+- [Direção de Dependência](/02-software-design/dependency-direction.md).
+- [Acoplamento](/01-fundamentals/coupling.md) e
+  [Coesão](/01-fundamentals/cohesion.md).

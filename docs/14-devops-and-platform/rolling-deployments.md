@@ -64,7 +64,7 @@ antes de derrubar a antiga, preservando a capacidade total.
 A configuração segura para serviços com pouca folga: excedente positivo, indisponível
 zero. Isso custa capacidade temporária e não reduz a capacidade de atendimento.
 
-Ver [planejamento de capacidade](../11-scalability/scaling-capacity-planning.md).
+Ver [planejamento de capacidade](/11-scalability/scaling-capacity-planning.md).
 
 ### A verificação de saúde decide o ritmo
 
@@ -78,7 +78,7 @@ profunda demais  depende de outros serviços
                → uma dependência lenta trava a implantação inteira
 ```
 
-Ver [Kubernetes](../09-cloud-architecture/kubernetes.md) — a distinção entre verificar
+Ver [Kubernetes](/09-cloud-architecture/kubernetes.md) — a distinção entre verificar
 que o processo vive e verificar que ele pode receber tráfego.
 
 A verificação de prontidão precisa considerar o aquecimento: uma instância que subiu
@@ -96,7 +96,7 @@ sessão e cache  formatos compatíveis
 contrato        sem mudança incompatível
 ```
 
-Ver [evolução de esquema](../08-integration-architecture/schema-evolution.md).
+Ver [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 Isso não é diferente das outras estratégias graduais, e aqui a coexistência dura mais —
 o tempo total da implantação, que pode ser de dezenas de minutos em ambientes grandes.
@@ -117,11 +117,11 @@ tempo limite total — se não concluir, para e alerta
 A segunda é a que distingue: parar por saúde da instância pega falhas de inicialização;
 parar por métrica do serviço pega a versão que sobe bem e responde errado.
 
-Ainda assim, isso é detecção grosseira comparada a [canary](canary.md).
+Ainda assim, isso é detecção grosseira comparada a [canary](/14-devops-and-platform/canary.md).
 
 ### A reversão é outra implantação em ondas
 
-Diferente de [blue-green](blue-green.md), reverter não é trocar um roteamento — é
+Diferente de [blue-green](/14-devops-and-platform/blue-green.md), reverter não é trocar um roteamento — é
 substituir as instâncias de novo, no mesmo ritmo.
 
 ```text
@@ -129,10 +129,10 @@ implantação de 12 minutos → reversão de 12 minutos
 ```
 
 Isso importa na conta do tempo de recuperação. Ver
-[RTO](../12-reliability/rto.md).
+[RTO](/12-reliability/rto.md).
 
 Onde a reversão precisa ser mais rápida, a estratégia é outra — ou a implantação em
-ondas é combinada com [feature flags](feature-flags.md), que revertem em segundos.
+ondas é combinada com [feature flags](/14-devops-and-platform/feature-flags.md), que revertem em segundos.
 
 ### O tamanho da onda é um trade-off simples
 
@@ -156,7 +156,7 @@ rapidamente — protege contra indisponibilidade durante a troca.
 - Mudanças rotineiras, de baixo risco.
 - Onde não há capacidade para duplicar o ambiente.
 - Serviços sem estado, com muitas instâncias.
-- Como etapa final após um [canary](canary.md) aprovado.
+- Como etapa final após um [canary](/14-devops-and-platform/canary.md) aprovado.
 
 ## Quando Não Usar
 
@@ -174,9 +174,9 @@ rapidamente — protege contra indisponibilidade durante a troca.
 
 ## Alternativas
 
-- **[Blue-green](blue-green.md)** — reversão instantânea, capacidade duplicada.
-- **[Canary](canary.md)** — detecção automática.
-- **[Feature flags](feature-flags.md)** — reversão em segundos, sem tocar na
+- **[Blue-green](/14-devops-and-platform/blue-green.md)** — reversão instantânea, capacidade duplicada.
+- **[Canary](/14-devops-and-platform/canary.md)** — detecção automática.
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — reversão em segundos, sem tocar na
   implantação.
 - **Ondas com primeira instância observada** — o meio-termo barato entre ondas e canary.
 
@@ -270,10 +270,10 @@ ninguém tinha revisado desde a criação do serviço.
 
 ## Conceitos Relacionados
 
-- [Estratégias de Implantação](deployment-strategies.md).
-- [Blue-Green](blue-green.md) e [Canary](canary.md).
-- [Kubernetes](../09-cloud-architecture/kubernetes.md) — verificações de saúde.
-- [Planejamento de Capacidade](../11-scalability/scaling-capacity-planning.md).
+- [Estratégias de Implantação](/14-devops-and-platform/deployment-strategies.md).
+- [Blue-Green](/14-devops-and-platform/blue-green.md) e [Canary](/14-devops-and-platform/canary.md).
+- [Kubernetes](/09-cloud-architecture/kubernetes.md) — verificações de saúde.
+- [Planejamento de Capacidade](/11-scalability/scaling-capacity-planning.md).
 
 ## Exercício Prático
 

@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-O par é vizinho de [consistência vs. disponibilidade](consistency-vs-availability.md) e
+O par é vizinho de [consistência vs. disponibilidade](/20-trade-offs/consistency-vs-availability.md) e
 diferente dele. Ali, a escolha aparece durante uma partição. Aqui, ela aparece **todos os
 dias**, em operação normal:
 
@@ -109,7 +109,7 @@ consistência de prefixo         vê-se um estado consistente, possivelmente ant
 A segunda evita o efeito mais desconcertante da replicação: o valor "voltar no tempo" ao
 alternar de réplica.
 
-Ver [consistência](../06-distributed-systems/consistency.md).
+Ver [consistência](/06-distributed-systems/consistency.md).
 
 ### O custo da coordenação é diário
 
@@ -121,7 +121,7 @@ quórum de escrita                    latência do nó mais lento do quórum
 
 Isso é pago em **toda** operação, todos os dias — não apenas durante falhas. É a razão de
 o PACELC ser mais relevante no dia a dia que o CAP. Ver
-[PACELC](../06-distributed-systems/pacelc.md).
+[PACELC](/06-distributed-systems/pacelc.md).
 
 ### Convergência precisa ser observável
 
@@ -135,7 +135,7 @@ processo de reconciliação, com registro
 O terceiro item é o mais esquecido: atraso alto é detectável por métrica; divergência
 permanente — uma escrita perdida — não aparece como atraso. Ela exige comparação periódica.
 
-Ver [observabilidade](../13-observability/index.md).
+Ver [observabilidade](/13-observability/index.md).
 
 ### O produto precisa participar
 
@@ -339,11 +339,11 @@ E o segundo achado foi a divergência de 11 dias: ela existia porque a monitora�
 
 ## Conceitos Relacionados
 
-- [Consistência Eventual](../06-distributed-systems/eventual-consistency.md) e
-  [Consistência Forte](../06-distributed-systems/strong-consistency.md).
-- [Consistência vs. Disponibilidade](consistency-vs-availability.md).
-- [PACELC](../06-distributed-systems/pacelc.md).
-- [Síncrono vs. Assíncrono](sync-vs-async.md).
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) e
+  [Consistência Forte](/06-distributed-systems/strong-consistency.md).
+- [Consistência vs. Disponibilidade](/20-trade-offs/consistency-vs-availability.md).
+- [PACELC](/06-distributed-systems/pacelc.md).
+- [Síncrono vs. Assíncrono](/20-trade-offs/sync-vs-async.md).
 
 ## Exercício Prático
 

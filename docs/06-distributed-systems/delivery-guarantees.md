@@ -42,7 +42,7 @@ Se ele reenvia até ser confirmado, ela nunca se perde — e a confirmação pod
 perder, causando reenvio de algo já entregue: **ao menos uma vez**.
 
 Não há terceira opção no nível do canal. É consequência direta do
-[terceiro resultado](distributed-fundamentals.md): quando a confirmação não chega,
+[terceiro resultado](/06-distributed-systems/distributed-fundamentals.md): quando a confirmação não chega,
 o produtor não sabe se a mensagem chegou.
 
 A tentação é procurar uma ferramenta que resolva. Ela não pode — o problema é do
@@ -58,7 +58,7 @@ precisaria da confirmação. Se a confirmação se perde, ele não sabe.
 Qualquer decisão que ele tome — reenviar ou não — pode estar errada.
 
 Isso não é limitação de engenharia. É o mesmo resultado que torna
-[idempotência](idempotency.md) necessária.
+[idempotência](/06-distributed-systems/idempotency.md) necessária.
 
 ### O que as ferramentas de fato oferecem
 
@@ -238,10 +238,10 @@ que causou o incidente.
 
 ## Conceitos Relacionados
 
-- [Idempotência](idempotency.md) — o que torna ao menos uma vez seguro.
-- [Mensagens Duplicadas](duplicate-messages.md) — o tratamento prático.
-- [Mensageria](messaging.md) — o canal.
-- [Falha Parcial](partial-failure.md).
+- [Idempotência](/06-distributed-systems/idempotency.md) — o que torna ao menos uma vez seguro.
+- [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md) — o tratamento prático.
+- [Mensageria](/06-distributed-systems/messaging.md) — o canal.
+- [Falha Parcial](/06-distributed-systems/partial-failure.md).
 
 ## Exercício Prático
 

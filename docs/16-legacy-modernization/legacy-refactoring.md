@@ -45,7 +45,7 @@ comportamento desconhecido  ninguém sabe o que deveria acontecer
 ```
 
 A tentação, diante disso, é reescrever. Ver
-[reconstrução](rebuilding.md) — ela é mais cara e mais arriscada do que parece.
+[reconstrução](/16-legacy-modernization/rebuilding.md) — ela é mais cara e mais arriscada do que parece.
 
 ## Conceitos Centrais
 
@@ -104,7 +104,7 @@ ruim   "vamos refatorar o módulo de faturamento"
 bom    "vamos mudar o cálculo de desconto; primeiro, caracterizamos e isolamos"
 ```
 
-Ver [modernização incremental](incremental-modernization.md).
+Ver [modernização incremental](/16-legacy-modernization/incremental-modernization.md).
 
 Isso concentra o esforço onde ele rende: os módulos que mudam com frequência são os que
 causam custo. Os que não mudam podem permanecer feios indefinidamente.
@@ -159,7 +159,7 @@ o código está bom o suficiente para a mudança que precisa ser feita
 Perseguir o ideal transforma uma mudança de dois dias numa de duas semanas, e a revisão
 fica impossível.
 
-Ver [modernização incremental](incremental-modernization.md) — o limite da refatoração
+Ver [modernização incremental](/16-legacy-modernization/incremental-modernization.md) — o limite da refatoração
 oportunista.
 
 ## Modelo Mental
@@ -179,7 +179,7 @@ depois.
 
 **Quando o modelo de domínio está errado.** Refatorar organiza melhor algo que não
 deveria existir daquela forma. Ver
-[reconstrução](rebuilding.md).
+[reconstrução](/16-legacy-modernization/rebuilding.md).
 
 **Sem testes de caracterização**, em código sem cobertura.
 
@@ -191,9 +191,9 @@ deveria existir daquela forma. Ver
 
 ## Alternativas
 
-- **[Reconstrução](rebuilding.md)** — quando o modelo está errado.
+- **[Reconstrução](/16-legacy-modernization/rebuilding.md)** — quando o modelo está errado.
 - **Contenção** — isolar o legado atrás de uma interface, sem melhorá-lo por dentro. Ver
-  [anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md).
+  [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 - **Congelar** — parar de mudar o módulo, construir o novo fora.
 - **Não fazer nada** — quando o módulo não muda.
 
@@ -289,10 +289,10 @@ comportamentos desconhecidos — incluindo o acordo comercial ativo.
 
 ## Conceitos Relacionados
 
-- [Sistemas Legados](legacy-systems.md) — o conhecimento embutido.
-- [Reconstrução](rebuilding.md) — quando refatorar não basta.
-- [Modernização Incremental](incremental-modernization.md).
-- [Refatoração](../02-software-design/refactoring.md) — os fundamentos.
+- [Sistemas Legados](/16-legacy-modernization/legacy-systems.md) — o conhecimento embutido.
+- [Reconstrução](/16-legacy-modernization/rebuilding.md) — quando refatorar não basta.
+- [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md).
+- [Refatoração](/02-software-design/refactoring.md) — os fundamentos.
 
 ## Exercício Prático
 

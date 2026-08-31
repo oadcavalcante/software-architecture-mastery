@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::info Continuação e último do arco
 
 Este é o último exercício sobre o sistema que você projetou no
-[exercício 02](../../05-system-design/exercises/02-ecommerce-backend.md). A decisão que ele
+[exercício 02](/05-system-design/exercises/02-ecommerce-backend.md). A decisão que ele
 testa é a mais antiga das três que você registrou lá.
 
 :::
@@ -188,7 +188,7 @@ há venda cruzada. A arquitetura só precisou não contrariar isso.
 
 ## Conceitos Relacionados
 
-- [Exercício 05](../../06-distributed-systems/exercises/05-partial-failure.md).
-- [Recuperação de Desastre](../disaster-recovery-planning.md).
-- [Degradação Graciosa](../graceful-degradation.md).
-- [PACELC](../../06-distributed-systems/pacelc.md).
+- [Exercício 05](/06-distributed-systems/exercises/05-partial-failure.md).
+- [Recuperação de Desastre](/12-reliability/disaster-recovery-planning.md).
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md).
+- [PACELC](/06-distributed-systems/pacelc.md).

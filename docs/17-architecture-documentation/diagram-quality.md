@@ -77,7 +77,7 @@ poucos elementos — três ou quatro formas bastam
 significado estável
 ```
 
-Ver [modelo C4](c4-model.md) — ele não prescreve notação, e prescreve consistência
+Ver [modelo C4](/17-architecture-documentation/c4-model.md) — ele não prescreve notação, e prescreve consistência
 semântica.
 
 Um conjunto pequeno de convenções, documentado uma vez e reusado, é o que torna diagramas
@@ -111,7 +111,7 @@ autor ou dono quem responde por ele
 
 A data é a que mais importa: um diagrama sem data é confiável indefinidamente, o que é
 exatamente o problema. Ver
-[princípios de documentação](documentation-principles.md).
+[princípios de documentação](/17-architecture-documentation/documentation-principles.md).
 
 ### Menos elementos
 
@@ -143,7 +143,7 @@ Linhas que se cruzam são o defeito visual mais comum, e frequentemente indicam 
 disposição não foi pensada — ou que há elementos demais.
 
 Ferramentas de geração automática produzem layouts razoáveis e nem sempre bons. Ver
-[documentação viva](living-documentation.md) — o trade-off entre layout controlado e
+[documentação viva](/17-architecture-documentation/living-documentation.md) — o trade-off entre layout controlado e
 diagrama derivado é real.
 
 ### O que não colocar
@@ -298,7 +298,7 @@ espessuras de linha, cada uma com significado fixo.
 **Diagramas gerados a partir de texto**, versionados no repositório — o que resolveu a
 data e a existência: um diagrama de sistema desativado desaparece quando o repositório é
 arquivado. Ver
-[documentação viva](living-documentation.md).
+[documentação viva](/17-architecture-documentation/living-documentation.md).
 
 **Teste de leitura** incorporado à revisão: um diagrama novo é lido por alguém de fora
 antes de ser publicado.
@@ -312,10 +312,10 @@ de revisão.
 
 ## Conceitos Relacionados
 
-- [Princípios de Documentação](documentation-principles.md).
-- [Modelo C4](c4-model.md) — a consistência semântica.
-- [Documentação Viva](living-documentation.md) — diagramas gerados.
-- [Padrões de Documentação](documentation-standards.md).
+- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md).
+- [Modelo C4](/17-architecture-documentation/c4-model.md) — a consistência semântica.
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — diagramas gerados.
+- [Padrões de Documentação](/17-architecture-documentation/documentation-standards.md).
 
 ## Exercício Prático
 

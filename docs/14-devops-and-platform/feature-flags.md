@@ -39,7 +39,7 @@ se removem sozinhas.
 Sem flags, implantar é liberar. Isso força três coisas ruins:
 
 **Ramos de longa duração**, porque código incompleto não pode ir para o ramo principal.
-Ver [integração contínua](ci-cd.md).
+Ver [integração contínua](/14-devops-and-platform/ci-cd.md).
 
 **Reversão por implantação**, que leva minutos ou mais e desfaz tudo que veio junto.
 
@@ -116,7 +116,7 @@ desempenho    avaliação local, não uma chamada de rede por verificação
 
 O terceiro item é o mais consequente: se o serviço de flags fica indisponível e o
 padrão é "ativo", uma funcionalidade incompleta vai a produção. Ver
-[modos de falha de segurança](../10-security/security-failure-modes.md).
+[modos de falha de segurança](/10-security/security-failure-modes.md).
 
 O padrão seguro para flags de liberação é **desativado**; para flags de operação, é o
 último estado conhecido.
@@ -133,7 +133,7 @@ Flags reduzem o **alcance** do erro, não a probabilidade dele. Uma funcionalida
 quebrada liberada para 1% dos usuários quebra para 1% dos usuários.
 
 Elas são complementares à verificação, não alternativas. Ver
-[canary](canary.md) — a diferença é que canary compara métricas automaticamente e
+[canary](/14-devops-and-platform/canary.md) — a diferença é que canary compara métricas automaticamente e
 reverte, enquanto uma flag apenas expõe.
 
 ### Estado de flags é configuração de produção
@@ -163,7 +163,7 @@ de prazo; as permanentes precisam de justificativa.
 - Integrar código incompleto ao ramo principal.
 - Liberar progressivamente para frações de usuários.
 - Desligar funcionalidade durante incidente. Ver
-  [degradação graciosa](../12-reliability/graceful-degradation.md).
+  [degradação graciosa](/12-reliability/graceful-degradation.md).
 - Experimentar variantes.
 - Migrar entre implementações, com caminho de volta.
 
@@ -187,7 +187,7 @@ de prazo; as permanentes precisam de justificativa.
 
 - **Ramos de curta duração** — para mudanças pequenas, integrar em um dia dispensa a
   flag.
-- **[Canary](canary.md)** — expõe gradualmente com comparação automática de métricas.
+- **[Canary](/14-devops-and-platform/canary.md)** — expõe gradualmente com comparação automática de métricas.
 - **Configuração por ambiente** — quando a diferença é entre ambientes, não entre
   usuários.
 - **Regra de negócio modelada** — para o que é permanente e depende do plano ou do
@@ -290,10 +290,10 @@ tinha dono.
 
 ## Conceitos Relacionados
 
-- [Integração Contínua](ci-cd.md) — o que as flags habilitam.
-- [Canary](canary.md) — a liberação com comparação automática.
-- [Gestão de Releases](release-management.md).
-- [Degradação Graciosa](../12-reliability/graceful-degradation.md) — as flags de
+- [Integração Contínua](/14-devops-and-platform/ci-cd.md) — o que as flags habilitam.
+- [Canary](/14-devops-and-platform/canary.md) — a liberação com comparação automática.
+- [Gestão de Releases](/14-devops-and-platform/release-management.md).
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — as flags de
   operação.
 
 ## Exercício Prático

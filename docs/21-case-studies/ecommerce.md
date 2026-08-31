@@ -225,7 +225,7 @@ prazo de mudança           cai por capacidade extraída
 complexidade transitória   alta — dois sistemas coexistindo por ~3 anos
 ```
 
-Ver [estrangulamento](../16-legacy-modernization/strangler-fig.md).
+Ver [estrangulamento](/16-legacy-modernization/strangler-fig.md).
 
 ## Análise de Trade-offs
 
@@ -351,20 +351,20 @@ Adaptador de ERP
 
 O **adaptador de ERP** merece destaque: ele existe porque o ERP não tem API de reserva, e
 concentra toda a tradução entre o modelo de estoque da Vertena e o do fornecedor. Ver
-[anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md).
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 A arquitetura é um **monólito modular** para catálogo, promoções, carrinho e pedido — os
 quatro compartilham modelo de domínio e mudam juntos —, com disponibilidade, reserva e
 pagamento como serviços separados por terem perfis de carga e de disponibilidade distintos.
 
 Sete unidades implantáveis, não vinte. Ver
-[monólito vs. microsserviços](../20-trade-offs/monolith-vs-microservices.md).
+[monólito vs. microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 
 ## Dados
 
 **PostgreSQL como banco primário** de todos os serviços, com esquema por módulo e sem acesso
 cruzado. A decisão foi tomada com a análise de
-[SQL vs. NoSQL](../20-trade-offs/sql-vs-nosql.md): os padrões de acesso do catálogo são
+[SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md): os padrões de acesso do catálogo são
 conhecidos, mas a área comercial faz perguntas não previstas o tempo todo, e o volume está
 muito abaixo do limiar em que o relacional exige trabalho.
 
@@ -385,7 +385,7 @@ confirmada é consistência forte, sem exceção.
 
 Essa separação é a resposta ao conflito entre RF-1 (vitrine, tolerante) e RF-2 (reserva,
 intolerante) — dois requisitos sobre o mesmo dado com necessidades opostas de consistência.
-Ver [consistência forte vs. eventual](../20-trade-offs/strong-vs-eventual-consistency.md).
+Ver [consistência forte vs. eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
 
 **Índice de busca** alimentado a partir do catálogo por eventos, com janela de 2 minutos.
 Ele existe porque busca facetada sobre 380 mil SKUs com atributos variáveis é o caso em que
@@ -441,7 +441,7 @@ projetados no desenho inicial que previa cancelamento simples.
 **Com adquirentes de pagamento.** Assíncrona, com aceite síncrono. O pedido é aceito em menos
 de 400 ms e a autorização ocorre em segundo plano, porque a disponibilidade composta com
 três adquirentes externos não atinge o requisito de 99,95% no modo síncrono. Ver
-[síncrono vs. assíncrono](../20-trade-offs/sync-vs-async.md).
+[síncrono vs. assíncrono](/20-trade-offs/sync-vs-async.md).
 
 **Entre serviços internos.** Eventos de domínio para propagação de estado — estoque
 alterado, pedido criado, pagamento autorizado — sobre um mecanismo de mensageria gerenciado.
@@ -472,12 +472,12 @@ comunicação interna       autenticação mútua imposta pela malha; um serviç
 O ponto de maior atenção é a autorização por loja: 1.400 unidades com operadores que não
 devem ver o estoque das outras. A regra é aplicada no serviço, não na interface, e é
 verificada por teste automatizado a cada mudança. Ver
-[modelos de autorização](../10-security/authz-models.md).
+[modelos de autorização](/10-security/authz-models.md).
 
 O mapeamento de fluxo de dado pessoal encontrou, durante o projeto, três pontos de repouso
 não previstos: registros de aplicação com CPF, o ambiente de homologação com cópia de
 produção, e uma exportação diária para uma ferramenta de análise. Ver
-[diagramas de fluxo de dados](../17-architecture-documentation/data-flow-diagrams.md).
+[diagramas de fluxo de dados](/17-architecture-documentation/data-flow-diagrams.md).
 
 ## Escalabilidade
 
@@ -507,7 +507,7 @@ prefere previsibilidade na data mais importante do ano.
 ## Confiabilidade
 
 O requisito de 99,95% no fluxo de compra foi decomposto por componente, e não aplicado
-uniformemente. Ver [custo vs. confiabilidade](../20-trade-offs/cost-vs-reliability.md).
+uniformemente. Ver [custo vs. confiabilidade](/20-trade-offs/cost-vs-reliability.md).
 
 ```text
 componente          alvo       degradação quando indisponível
@@ -660,10 +660,10 @@ bidirecional adia a decisão e cobra em divergência.
 
 ## Conceitos Relacionados
 
-- [Estrangulamento](../16-legacy-modernization/strangler-fig.md) — o padrão da migração.
-- [Anti-Corruption Layer](../08-integration-architecture/integration-anti-corruption.md).
-- [Monólito vs. Microsserviços](../20-trade-offs/monolith-vs-microservices.md).
-- [Consistência Forte vs. Eventual](../20-trade-offs/strong-vs-eventual-consistency.md).
+- [Estrangulamento](/16-legacy-modernization/strangler-fig.md) — o padrão da migração.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
+- [Monólito vs. Microsserviços](/20-trade-offs/monolith-vs-microservices.md).
+- [Consistência Forte vs. Eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
 
 ## Exercício Prático
 

@@ -59,7 +59,7 @@ Se dois componentes escrevem na mesma tabela, eles não são dois — são um, d
 em dois lugares, com o acoplamento escondido no banco.
 
 Essa é a regra que mais separa uma decomposição real de uma nominal. Ver
-[design modular](../02-software-design/modular-design.md).
+[design modular](/02-software-design/modular-design.md).
 
 ### O tipo do componente importa
 
@@ -83,7 +83,7 @@ sobre o sistema.
 A distinção entre componentes com e sem estado atravessa todas as decisões
 seguintes: escala, implantação, recuperação de falha, balanceamento.
 
-Ver [sem estado versus com estado](stateless-vs-stateful.md). A recomendação
+Ver [sem estado versus com estado](/05-system-design/stateless-vs-stateful.md). A recomendação
 antecipada: concentre o estado em poucos componentes e mantenha o resto sem
 estado.
 
@@ -121,7 +121,7 @@ a mesma aparência esconde o que importa.
 ## Alternativas
 
 - **Modelo C4** — níveis de zoom com semântica definida por nível. Ver
-  [documentação de arquitetura](../17-architecture-documentation/index.md).
+  [documentação de arquitetura](/17-architecture-documentation/index.md).
 - **Diagrama de sequência** — quando a pergunta é sobre comportamento no tempo,
   não sobre estrutura.
 - **Diagrama de implantação** — quando a pergunta é onde as coisas rodam.
@@ -146,7 +146,7 @@ ele.
 **Componente invisível no desenho.** Bancos e filas omitidos escondem os gargalos.
 
 **Tipo não declarado.** Chamada de rede parecendo chamada local — o mesmo problema
-que [Proxy](../03-design-patterns/proxy.md) introduz.
+que [Proxy](/03-design-patterns/proxy.md) introduz.
 
 **Componente sem modo de falha definido.** Ninguém sabe o que acontece quando ele
 cai.
@@ -195,7 +195,7 @@ Três práticas que aumentam a vida útil.
 **Documente no nível em que a mudança é rara.** Um diagrama que mostra quatro
 serviços e o banco continua correto por anos. Um que mostra classes está errado no
 mês seguinte. Os níveis de contêiner e componente do
-[modelo C4](../17-architecture-documentation/index.md) existem exatamente para
+[modelo C4](/17-architecture-documentation/index.md) existem exatamente para
 essa separação.
 
 **Declare o tipo de cada caixa.** Módulo, processo, serviço gerenciado,
@@ -213,10 +213,10 @@ propósitos distintos envelhecem mais devagar que um que faz tudo.
 
 ## Conceitos Relacionados
 
-- [Decomposição](system-decomposition.md) — como as partes surgem.
-- [Serviços](services.md) — componentes com processo próprio.
-- [APIs](apis.md) — o contrato entre eles.
-- [Design de Componentes](../02-software-design/component-design.md) — quando
+- [Decomposição](/05-system-design/system-decomposition.md) — como as partes surgem.
+- [Serviços](/05-system-design/services.md) — componentes com processo próprio.
+- [APIs](/05-system-design/apis.md) — o contrato entre eles.
+- [Design de Componentes](/02-software-design/component-design.md) — quando
   promover a implantável.
 
 ## Exercício Prático

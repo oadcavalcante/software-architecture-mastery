@@ -35,7 +35,7 @@ e sim        desenhar para que mudar seja barato, e proteger
              as características que não podem se perder no caminho
 ```
 
-Ver [evolução da arquitetura](../01-fundamentals/architecture-evolution.md) para o conceito; aqui
+Ver [evolução da arquitetura](/01-fundamentals/architecture-evolution.md) para o conceito; aqui
 o foco é o que a liderança faz para que a evolução aconteça de forma guiada em vez de por deriva.
 
 ## Problema
@@ -50,7 +50,7 @@ elas erodiram
 ```
 
 O padrão é o mesmo descrito em
-[velocidade vs. qualidade](../20-trade-offs/speed-vs-quality.md): decisões individuais corretas
+[velocidade vs. qualidade](/20-trade-offs/speed-vs-quality.md): decisões individuais corretas
 produzindo um resultado agregado que ninguém escolheu.
 
 E há o erro oposto: congelar a arquitetura. Uma organização que trata mudança arquitetural como
@@ -84,7 +84,7 @@ exemplos de dimensão protegida
 ```
 
 Poucas — três a sete — e escolhidas por consequência. Cada uma vira um mecanismo de verificação.
-Ver [funções de aptidão](fitness-functions.md).
+Ver [funções de aptidão](/23-architecture-leadership/fitness-functions.md).
 
 O que não está na lista pode se degradar, e isso é uma escolha consciente em vez de um descuido.
 
@@ -101,7 +101,7 @@ acoplamento baixo, testes que dão confiança, implantação automatizada, e cap
 Nada disso é específico de arquitetura evolutiva — o que é específico é tratá-los como
 investimento em capacidade de mudar, e não como higiene.
 
-Ver [entrega contínua](../14-devops-and-platform/ci-cd.md).
+Ver [entrega contínua](/14-devops-and-platform/ci-cd.md).
 
 ### Reversibilidade vale mais que previsão
 
@@ -129,7 +129,7 @@ pequena e
 Isso vale para arquitetura tanto quanto para código. Uma migração feita em fatias, cada uma
 reversível, é mais lenta em soma e muito mais segura — e permite que o plano sobreviva a
 interrupções. Ver
-[roadmaps técnicos](technical-roadmaps.md).
+[roadmaps técnicos](/23-architecture-leadership/technical-roadmaps.md).
 
 ### Deixe caminhos abertos onde a incerteza é alta
 
@@ -139,7 +139,7 @@ onde é incerto                preserve a opção, se for barato
 ```
 
 Preservar opção tem custo, e ele precisa ser pequeno para valer. Ver
-[simplicidade vs. flexibilidade](../20-trade-offs/simplicity-vs-flexibility.md) — a assimetria é a
+[simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md) — a assimetria é a
 mesma: comprar opcionalidade cara para um futuro incerto raramente se paga.
 
 O que se paga quase sempre: isolar a dependência incerta num lugar identificável, sem generalizar.
@@ -159,7 +159,7 @@ tempo entre decisão e produção
 A quarta linha é a mais reveladora: componentes que sempre mudam juntos indicam uma fronteira
 errada, e essa informação está no histórico do repositório sem que ninguém a extraia.
 
-Ver [medição de resultados](measuring-architecture-outcomes.md).
+Ver [medição de resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
 ### Nem tudo deve evoluir
 
@@ -202,7 +202,7 @@ meio entre deriva e congelamento.
 - **Reescrita planejada** — em alguns casos, aceitar que o sistema tem vida útil e planejar a
   substituição é mais barato que mantê-lo evolutivo.
 - **Congelar e isolar** — manter o sistema como está, com fronteiras claras, e construir o novo
-  ao lado. Ver [estrangulamento](../16-legacy-modernization/strangler-fig.md).
+  ao lado. Ver [estrangulamento](/16-legacy-modernization/strangler-fig.md).
 
 A segunda é subestimada: nem todo sistema merece o investimento em evolutibilidade, e reconhecer
 isso é uma decisão econômica válida.
@@ -279,7 +279,7 @@ tempo entre implantações abaixo de 3 dias
 ```
 
 Cada uma virou verificação na esteira, introduzida em modo de aviso e depois bloqueante. Ver
-[funções de aptidão](fitness-functions.md).
+[funções de aptidão](/23-architecture-leadership/fitness-functions.md).
 
 **Fronteiras corrigidas por evidência.** Os 11 pares que mudavam juntos foram avaliados: 7 foram
 fundidos, 3 tiveram a fronteira redesenhada, e 1 se mostrou uma coincidência de projeto.
@@ -313,10 +313,10 @@ precisão que nenhuma análise de desenho tinha alcançado.
 
 ## Conceitos Relacionados
 
-- [Evolução da Arquitetura](../01-fundamentals/architecture-evolution.md).
-- [Funções de Aptidão](fitness-functions.md) — o mecanismo.
-- [Medição de Resultados](measuring-architecture-outcomes.md).
-- [Simplicidade vs. Flexibilidade](../20-trade-offs/simplicity-vs-flexibility.md).
+- [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md).
+- [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md) — o mecanismo.
+- [Medição de Resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
+- [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
 
 ## Exercício Prático
 

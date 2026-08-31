@@ -97,7 +97,7 @@ alternativa, e a condição em que se pretendia pagar se perdeu.
 
 O registro mínimo: o que foi feito, o que teria sido feito com mais tempo, e
 **sob qual condição vale pagar**. Isso pertence a um
-[ADR](../18-architecture-decisions/index.md) quando a dívida é arquitetural.
+[ADR](/18-architecture-decisions/index.md) quando a dívida é arquitetural.
 
 ## Modelo Mental
 
@@ -216,10 +216,10 @@ A diferença não estava na qualidade da decisão original. Estava no registro.
 
 ## Conceitos Relacionados
 
-- [Complexidade](complexity.md) — a forma que a dívida acumulada assume.
-- [Evolução da Arquitetura](architecture-evolution.md) — como o sistema muda ao
+- [Complexidade](/01-fundamentals/complexity.md) — a forma que a dívida acumulada assume.
+- [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md) — como o sistema muda ao
   longo do tempo.
-- [ADRs](../18-architecture-decisions/index.md) — onde a dívida deliberada é
+- [ADRs](/18-architecture-decisions/index.md) — onde a dívida deliberada é
   registrada.
 
 ## Exercício Prático

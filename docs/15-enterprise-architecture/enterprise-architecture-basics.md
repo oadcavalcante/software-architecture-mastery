@@ -79,10 +79,10 @@ dados       informação, propriedade, fluxo
 tecnologia  infraestrutura, plataformas, padrões técnicos
 ```
 
-Ver [arquitetura de negócio](business-architecture.md),
-[de aplicação](application-architecture.md),
-[de dados](enterprise-data-architecture.md) e
-[de tecnologia](technology-architecture.md).
+Ver [arquitetura de negócio](/15-enterprise-architecture/business-architecture.md),
+[de aplicação](/15-enterprise-architecture/application-architecture.md),
+[de dados](/15-enterprise-architecture/enterprise-data-architecture.md) e
+[de tecnologia](/15-enterprise-architecture/technology-architecture.md).
 
 A utilidade das camadas é permitir que uma conversa aconteça no nível certo. Uma
 discussão de investimento acontece na camada de negócio; uma de integração, na de
@@ -90,7 +90,7 @@ aplicação.
 
 E a camada de dados é onde as decisões de maior alcance vivem — propriedade e fluxo de
 informação atravessam tudo. Ver
-[propriedade do dado](../07-data-architecture/data-ownership.md).
+[propriedade do dado](/07-data-architecture/data-ownership.md).
 
 ### Por que a reputação é ruim
 
@@ -142,7 +142,7 @@ orçamento, um catálogo de sistemas alimentado pela esteira, um radar tecnológ
 revisado trimestralmente.
 
 Artefato sem uso morre. Ver
-[documentação de arquitetura](../17-architecture-documentation/index.md).
+[documentação de arquitetura](/17-architecture-documentation/index.md).
 
 ### Ela não é o oposto de autonomia
 
@@ -151,7 +151,7 @@ Uma falsa oposição comum: ou os times decidem, ou há arquitetura corporativa.
 O desenho que funciona combina os dois: decisões descem ao máximo, e a arquitetura
 corporativa cuida do que genuinamente atravessa — com **restrições e critérios**, não com
 aprovações caso a caso. Ver
-[níveis de arquitetura](architecture-levels.md).
+[níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
 ## Erros Comuns
 
@@ -193,21 +193,21 @@ por sistema, pesquisável, com o que foi decidido e por quê.
 
 **"Não sei o que quebra se eu mudar isto."** Um mapa de dependências, derivado do
 rastreamento distribuído. Ver
-[rastreamento distribuído](../13-observability/distributed-tracing.md).
+[rastreamento distribuído](/13-observability/distributed-tracing.md).
 
 **"Não sei quanto custa isto."** Custo por capacidade, derivado da marcação de recursos.
-Ver [arquitetura de custo](../09-cloud-architecture/cost-architecture.md).
+Ver [arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
 Nenhum desses é aprovação. Todos são informação que só a função com visão de conjunto
 consegue produzir.
 
 Os padrões de 40 itens viraram 6 princípios, e o restante virou caminho pavimentado na
 plataforma. Ver
-[princípios corporativos](enterprise-principles.md).
+[princípios corporativos](/15-enterprise-architecture/enterprise-principles.md).
 
 O estado-alvo de três anos virou uma direção de doze meses, com arquitetura de transição
 explícita. Ver
-[arquitetura de transição](transition-architecture.md).
+[arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 
 A avaliação posterior aponta: o trabalho da consultoria não estava tecnicamente errado. Ele
 foi produzido como entregável, e não como serviço contínuo aos times — e por isso morreu
@@ -215,10 +215,10 @@ na entrega.
 
 ## Conceitos Relacionados
 
-- [Níveis de Arquitetura](architecture-levels.md) — a alocação de decisões.
-- [Capacidades de Negócio](business-capabilities.md) — a ferramenta central.
-- [Princípios Corporativos](enterprise-principles.md).
-- [Estratégia Técnica](technical-strategy.md).
+- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md) — a alocação de decisões.
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — a ferramenta central.
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
+- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md).
 
 ## Exercício Prático
 

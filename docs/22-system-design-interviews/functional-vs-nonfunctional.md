@@ -123,7 +123,7 @@ por quanto tempo".
 
 A forma de torná-la concreta é a mesma: exigir uma janela em unidade de tempo. "Eventualmente
 consistente" não é requisito; "até 30 segundos de atraso, aceitável" é. Ver
-[consistência forte vs. eventual](../20-trade-offs/strong-vs-eventual-consistency.md).
+[consistência forte vs. eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
 
 ### Diferenciar por operação, não pelo sistema
 
@@ -140,8 +140,8 @@ operação demonstra que você entende que disponibilidade tem preço, e permite
 desenhada mais tarde.
 
 O mesmo vale para consistência, latência e durabilidade. Ver
-[custo vs. confiabilidade](../20-trade-offs/cost-vs-reliability.md) e
-[consistência vs. disponibilidade](../20-trade-offs/consistency-vs-availability.md).
+[custo vs. confiabilidade](/20-trade-offs/cost-vs-reliability.md) e
+[consistência vs. disponibilidade](/20-trade-offs/consistency-vs-availability.md).
 
 ### Prioridade explícita
 
@@ -312,7 +312,7 @@ custo por leitura        → feed materializado, não montagem na leitura
 Cinco decisões de arquitetura, todas derivadas de requisitos não funcionais. Nenhuma veio dos
 funcionais.
 
-Ver o [case de rede social](../21-case-studies/social-network.md) para a versão longa dessa
+Ver o [case de rede social](/21-case-studies/social-network.md) para a versão longa dessa
 análise.
 
 **Pergunta de acompanhamento provável:** "e se o requisito fosse de 2 segundos em vez de 30?"
@@ -323,10 +323,10 @@ que o avaliador quer ter.
 
 ## Conceitos Relacionados
 
-- [Clarificação de Requisitos](requirement-clarification.md).
-- [Estimativa em Entrevista](capacity-estimation.md) — os números.
-- [Comunicação de Trade-offs](communicating-tradeoffs.md) — a prioridade declarada.
-- [Atributos de Qualidade](../01-fundamentals/quality-attributes.md).
+- [Clarificação de Requisitos](/22-system-design-interviews/requirement-clarification.md).
+- [Estimativa em Entrevista](/22-system-design-interviews/capacity-estimation.md) — os números.
+- [Comunicação de Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md) — a prioridade declarada.
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md).
 
 ## Exercício Prático
 

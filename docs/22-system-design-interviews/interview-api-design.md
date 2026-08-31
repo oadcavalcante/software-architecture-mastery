@@ -92,7 +92,7 @@ GET /urls/{codigo} → {cliques}
 ```
 
 Cada uma dessas observações leva segundos e produz uma consequência para o modelo de dados. Ver
-[modelagem na entrevista](interview-data-modeling.md).
+[modelagem na entrevista](/22-system-design-interviews/interview-data-modeling.md).
 
 ### Separe as operações por perfil
 
@@ -115,7 +115,7 @@ agregados.
 
 Fazer isso em voz alta demonstra que você entende que operações do mesmo sistema têm requisitos
 diferentes. Ver
-[funcionais vs. não funcionais](functional-vs-nonfunctional.md).
+[funcionais vs. não funcionais](/22-system-design-interviews/functional-vs-nonfunctional.md).
 
 E esse agrupamento é o que permite, mais adiante, propor degradação desenhada com naturalidade:
 se o grupo de baixo volume ficar indisponível, o sistema continua servindo o que importa. Um
@@ -145,7 +145,7 @@ assíncrono  POST /relatorios  →  202 {id_tarefa}
 Reconhecer qual operação é longa e propor o padrão de aceite com consulta posterior demonstra
 maturidade, e abre a conversa sobre estado intermediário — que é uma boa conversa de ter.
 
-Ver [síncrono vs. assíncrono](../20-trade-offs/sync-vs-async.md).
+Ver [síncrono vs. assíncrono](/20-trade-offs/sync-vs-async.md).
 
 ### Mencione o que você não vai detalhar
 
@@ -307,14 +307,14 @@ follow como operação simples
 
 A resposta abre uma decisão real: consulta periódica, conexão persistente, ou notificação. E
 cada uma tem consequência de escala — com 300 milhões de usuários, conexões persistentes são um
-subsistema próprio. Ver o [case de mensageria](../21-case-studies/messaging-platform.md).
+subsistema próprio. Ver o [case de mensageria](/21-case-studies/messaging-platform.md).
 
 ## Conceitos Relacionados
 
-- [Modelagem na Entrevista](interview-data-modeling.md).
-- [Arquitetura de Alto Nível](high-level-architecture.md).
-- [Contratos de Integração](../08-integration-architecture/integration-contracts.md).
-- [APIs](../05-system-design/apis.md).
+- [Modelagem na Entrevista](/22-system-design-interviews/interview-data-modeling.md).
+- [Arquitetura de Alto Nível](/22-system-design-interviews/high-level-architecture.md).
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
+- [APIs](/05-system-design/apis.md).
 
 ## Exercício Prático
 

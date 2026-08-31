@@ -112,7 +112,7 @@ forte   "tivemos 41 horas de indisponibilidade no último ano,
 Adjetivos são interpretáveis e descartáveis. Números são discutíveis, e uma discussão sobre
 números é uma conversa produtiva — ainda que ela conclua que o número está errado.
 
-Ver [medição de resultados](measuring-architecture-outcomes.md).
+Ver [medição de resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
 ### Nomeie o que acontece se nada for feito
 
@@ -141,7 +141,7 @@ engenharia             desenho, trade-off, consequência técnica
 Cada público tem uma unidade em que pensa. Traduzir para ela não é manipulação — é a condição
 para a informação ser utilizável por quem a recebe.
 
-Ver [gestão de interessados](stakeholder-management.md).
+Ver [gestão de interessados](/23-architecture-leadership/stakeholder-management.md).
 
 ### Escrever antes de apresentar
 
@@ -297,10 +297,10 @@ para não ser lido como interesse próprio.
 
 ## Conceitos Relacionados
 
-- [Apresentações](architecture-presentations.md).
-- [Gestão de Interessados](stakeholder-management.md).
-- [Influência Técnica](technical-influence.md).
-- [Medição de Resultados](measuring-architecture-outcomes.md).
+- [Apresentações](/23-architecture-leadership/architecture-presentations.md).
+- [Gestão de Interessados](/23-architecture-leadership/stakeholder-management.md).
+- [Influência Técnica](/23-architecture-leadership/technical-influence.md).
+- [Medição de Resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
 ## Exercício Prático
 

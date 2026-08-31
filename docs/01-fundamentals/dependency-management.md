@@ -128,7 +128,7 @@ dois módulos de domínio que mudam na mesma cadência adiciona indireção sem
 comprar nada.
 
 **Quando a inversão exige uma abstração que não se sustenta.** Ver
-[abstração](abstraction.md). Se a interface precisa expor detalhes do
+[abstração](/01-fundamentals/abstraction.md). Se a interface precisa expor detalhes do
 implementador para ser útil, a inversão é nominal.
 
 **Quando a dependência é trivialmente substituível.** Uma biblioteca de
@@ -220,9 +220,9 @@ Na migração seguinte, dois anos depois, um arquivo mudou.
 
 ## Conceitos Relacionados
 
-- [Acoplamento](coupling.md) — do que as dependências são feitas.
-- [Abstração](abstraction.md) — o mecanismo da inversão, e seu custo.
-- [Arquitetura vs. Implementação](architecture-vs-implementation.md) — como
+- [Acoplamento](/01-fundamentals/coupling.md) — do que as dependências são feitas.
+- [Abstração](/01-fundamentals/abstraction.md) — o mecanismo da inversão, e seu custo.
+- [Arquitetura vs. Implementação](/01-fundamentals/architecture-vs-implementation.md) — como
   impor a direção decidida.
 
 ## Exercício Prático

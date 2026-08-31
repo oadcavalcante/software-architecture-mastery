@@ -183,11 +183,11 @@ The framing did not change the choice. It changed what came with it.
 
 ## Related Concepts
 
-- [What Software Architecture Is](what-is-software-architecture.md) — the
+- [What Software Architecture Is](/01-fundamentals/what-is-software-architecture.md) — the
   cost-of-reversal criterion, which is the other side of this distinction.
-- [Architecture vs. Implementation](architecture-vs-implementation.md) — the
+- [Architecture vs. Implementation](/01-fundamentals/architecture-vs-implementation.md) — the
   other boundary, and the more misunderstood of the two.
-- [Coupling](coupling.md) — the measure by which reach is assessed in practice.
+- [Coupling](/01-fundamentals/coupling.md) — the measure by which reach is assessed in practice.
 
 ## Practical Exercise
 

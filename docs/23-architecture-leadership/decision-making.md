@@ -65,7 +65,7 @@ irreversível na prática    analise a fundo, envolva quem responde
 Jeff Bezos chamou as duas pontas de decisões de mão única e de mão dupla. A observação útil não é
 a taxonomia — é que a maior parte das decisões é de mão dupla e recebe tratamento de mão única.
 
-Ver [contexto em ADR](../18-architecture-decisions/adr-context.md).
+Ver [contexto em ADR](/18-architecture-decisions/adr-context.md).
 
 ### O custo de adiar é calculável
 
@@ -115,7 +115,7 @@ quem tem autoridade      não necessariamente deve decidir
 Um arquiteto que decide o que um time deveria decidir rouba contexto e cria dependência. Um time
 que decide o que atravessa times cria divergência.
 
-Ver [governança federada](../19-architecture-governance/federated-governance.md).
+Ver [governança federada](/19-architecture-governance/federated-governance.md).
 
 ### Registre a condição de revisão
 
@@ -127,8 +127,8 @@ Ver [governança federada](../19-architecture-governance/federated-governance.md
 Isso muda a natureza da decisão: ela deixa de ser permanente e passa a ser condicional. A revisão
 futura vira verificação de uma condição, e não uma nova discussão.
 
-Ver [alternativas em ADR](../18-architecture-decisions/adr-alternatives.md) e
-[superação](../18-architecture-decisions/superseding-decisions.md).
+Ver [alternativas em ADR](/18-architecture-decisions/adr-alternatives.md) e
+[superação](/18-architecture-decisions/superseding-decisions.md).
 
 ### Decisões que preservam opção valem mais
 
@@ -143,7 +143,7 @@ Diante de incerteza real, uma decisão que mantém caminhos abertos vale mais qu
 
 Isso é diferente de adiar: a decisão é tomada, e ela é escolhida por preservar flexibilidade onde
 a incerteza é alta. Ver
-[simplicidade vs. flexibilidade](../20-trade-offs/simplicity-vs-flexibility.md).
+[simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
 
 ### Não decidir é uma decisão
 
@@ -303,10 +303,10 @@ o adiamento não era sobre informação.
 
 ## Conceitos Relacionados
 
-- [Negociação de Trade-offs](negotiating-tradeoffs.md).
-- [Gestão de Risco](risk-management.md).
-- [Contexto em ADR](../18-architecture-decisions/adr-context.md) — reversibilidade.
-- [Superação](../18-architecture-decisions/superseding-decisions.md).
+- [Negociação de Trade-offs](/23-architecture-leadership/negotiating-tradeoffs.md).
+- [Gestão de Risco](/23-architecture-leadership/risk-management.md).
+- [Contexto em ADR](/18-architecture-decisions/adr-context.md) — reversibilidade.
+- [Superação](/18-architecture-decisions/superseding-decisions.md).
 
 ## Exercício Prático
 

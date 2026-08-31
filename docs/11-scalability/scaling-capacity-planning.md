@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Planejamento de capacidade responde: **quando vamos precisar de mais, e de quanto?**
 
 Os fundamentos estão em
-[capacity planning](../05-system-design/capacity-planning.md). Aqui interessa o ângulo
+[capacity planning](/05-system-design/capacity-planning.md). Aqui interessa o ângulo
 da escala: como saber que o limite está próximo **antes** de atingi-lo, e quanta folga
 manter.
 
@@ -103,13 +103,13 @@ Um teste que não reproduz a realidade produz confiança falsa. Os erros que inv
 
 **Distribuição uniforme.** Tráfego real é desigual — poucos clientes concentram
 volume, algumas chaves são muito mais acessadas. Um teste uniforme não encontra
-[pontos quentes](hotspots.md).
+[pontos quentes](/11-scalability/hotspots.md).
 
 **Dados sintéticos pequenos.** Consultas rápidas em mil linhas e lentas em dez
 milhões.
 
 **Cache quente.** Testar com cache preenchido esconde a carga real na origem. Ver
-[cache para escala](scaling-cache.md).
+[cache para escala](/11-scalability/scaling-cache.md).
 
 **Sem concorrência de escrita.** Testes de leitura não encontram contenção.
 
@@ -151,7 +151,7 @@ capacidade contratada de um parceiro
 Esses limites costumam ter prazo de negociação em semanas, e são descobertos ao serem
 atingidos. Inventariá-los e incluí-los no modelo é barato e evita a surpresa mais
 constrangedora do planejamento. Ver
-[regiões](../09-cloud-architecture/regions.md).
+[regiões](/09-cloud-architecture/regions.md).
 
 ## Modelo Mental
 
@@ -178,7 +178,7 @@ semanas, o alerta precisa vir com oito.
 **Planejar sem revisar o modelo.** As razões mudam com o produto.
 
 **Dimensionar pela média.** Ver
-[computação em nuvem](../09-cloud-architecture/cloud-compute.md).
+[computação em nuvem](/09-cloud-architecture/cloud-compute.md).
 
 **Ignorar limites de terceiros.**
 
@@ -187,7 +187,7 @@ semanas, o alerta precisa vir com oito.
 - **Elasticidade automática** — para variação previsível, com as ressalvas de tempo de
   provisionamento.
 - **Descarte de carga** — proteger o essencial quando a capacidade acaba. Ver
-  [backpressure](../06-distributed-systems/backpressure.md).
+  [backpressure](/06-distributed-systems/backpressure.md).
 - **Degradação graciosa** — operar com menos em vez de parar.
 - **Escalonamento programado** — para picos conhecidos, melhor que qualquer reação.
 
@@ -281,10 +281,10 @@ alerta disparasse — porque nenhuma métrica olhava a razão entre negócio e r
 
 ## Conceitos Relacionados
 
-- [Desempenho versus Escalabilidade](performance-vs-scalability.md).
-- [Pontos Quentes](hotspots.md) — o que teste uniforme não encontra.
-- [Capacity Planning](../05-system-design/capacity-planning.md) — os fundamentos.
-- [Backpressure](../06-distributed-systems/backpressure.md) — o descarte.
+- [Desempenho versus Escalabilidade](/11-scalability/performance-vs-scalability.md).
+- [Pontos Quentes](/11-scalability/hotspots.md) — o que teste uniforme não encontra.
+- [Capacity Planning](/05-system-design/capacity-planning.md) — os fundamentos.
+- [Backpressure](/06-distributed-systems/backpressure.md) — o descarte.
 
 ## Exercício Prático
 

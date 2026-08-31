@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Uma operação é idempotente quando executá-la uma vez ou várias produz o mesmo
 efeito.
 
-É a propriedade que torna [retentativa](retries.md) segura — e como a retentativa
+É a propriedade que torna [retentativa](/06-distributed-systems/retries.md) segura — e como a retentativa
 é inevitável em sistemas distribuídos, idempotência não é otimização: é
 requisito.
 
@@ -33,7 +33,7 @@ seguintes pressupõe que as operações a jusante são idempotentes.
 
 ## Problema
 
-O [terceiro resultado](distributed-fundamentals.md) de uma chamada de rede é "não
+O [terceiro resultado](/06-distributed-systems/distributed-fundamentals.md) de uma chamada de rede é "não
 sei". Quando o timeout estoura, a operação pode ter acontecido ou não.
 
 Diante disso há duas opções, e ambas são ruins sem idempotência:
@@ -125,9 +125,9 @@ sorte com o tempo entre as execuções, não é idempotente.
 ## Quando Usar
 
 - Qualquer operação que possa ser repetida — o que inclui toda chamada de rede.
-- Consumidores de [fila](../05-system-design/queues.md), sem exceção.
+- Consumidores de [fila](/05-system-design/queues.md), sem exceção.
 - Endpoints de API que alteram estado.
-- Passos de uma [saga](sagas.md) ou de um processo retomável.
+- Passos de uma [saga](/06-distributed-systems/sagas.md) ou de um processo retomável.
 - Processamento em lote que pode ser reexecutado.
 
 ## Quando Não Usar
@@ -156,7 +156,7 @@ fato inofensivo.
 - **Tornar a operação absoluta** — reformular de "some 50" para "defina 150". Nem
   sempre possível e é a solução mais limpa quando é.
 - **Transação distribuída** — cara, e evita o problema em vez de tratá-lo. Ver
-  [transações distribuídas](distributed-transactions.md).
+  [transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
 ## Trade-offs
 
@@ -233,10 +233,10 @@ início, em vez de correção depois do incidente.
 
 ## Conceitos Relacionados
 
-- [Falha Parcial](partial-failure.md) — o problema que ela resolve.
-- [Retries](retries.md) — o que ela torna seguro.
-- [Mensagens Duplicadas](duplicate-messages.md) — o caso em filas.
-- [Garantias de Entrega](delivery-guarantees.md) — por que ao menos uma vez é o
+- [Falha Parcial](/06-distributed-systems/partial-failure.md) — o problema que ela resolve.
+- [Retries](/06-distributed-systems/retries.md) — o que ela torna seguro.
+- [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md) — o caso em filas.
+- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md) — por que ao menos uma vez é o
   padrão.
 
 ## Exercício Prático

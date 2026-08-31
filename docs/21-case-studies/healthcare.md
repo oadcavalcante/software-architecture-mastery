@@ -368,7 +368,7 @@ operadoras e ao sistema público.
 Adotar o padrão internamente foi considerado e descartado: os padrões do setor são desenhados
 para troca, não para operação, e modelar o prontuário interno neles teria produzido um sistema
 mais complexo e mais lento. O Gateway isola essa tradução. Ver
-[anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md).
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 ## Segurança
 
@@ -559,10 +559,10 @@ concilia segurança do dado e segurança do paciente.
 
 ## Conceitos Relacionados
 
-- [Case: Corporativo Multi-inquilino](multi-tenant-enterprise.md).
-- [Case: Modernização de Legado](legacy-modernization-case.md).
-- [Proteção de Dados](../10-security/data-protection.md).
-- [Diagramas de Fluxo de Dados](../17-architecture-documentation/data-flow-diagrams.md).
+- [Case: Corporativo Multi-inquilino](/21-case-studies/multi-tenant-enterprise.md).
+- [Case: Modernização de Legado](/21-case-studies/legacy-modernization-case.md).
+- [Proteção de Dados](/10-security/data-protection.md).
+- [Diagramas de Fluxo de Dados](/17-architecture-documentation/data-flow-diagrams.md).
 
 ## Exercício Prático
 

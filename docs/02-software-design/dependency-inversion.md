@@ -48,7 +48,7 @@ toca a regra. E o mais instável — a tecnologia — é dependido pelo mais est
 a política.
 
 Isso inverte a regra que
-[gestão de dependências](../01-fundamentals/dependency-management.md) estabelece:
+[gestão de dependências](/01-fundamentals/dependency-management.md) estabelece:
 dependa na direção da estabilidade.
 
 ## Conceitos Centrais
@@ -97,7 +97,7 @@ Se a interface tem `findByStatusIn` e devolve o tipo do ORM, ela é o repositór
 com outro nome. O domínio continua acoplado às decisões da persistência, agora
 com um arquivo a mais.
 
-Ver [interfaces](interfaces.md): quem define é o consumidor.
+Ver [interfaces](/02-software-design/interfaces.md): quem define é o consumidor.
 
 ### Inversão não é injeção
 
@@ -135,7 +135,7 @@ três lugares não precisa de camada; trocá-la direto custa menos que mantê-la
 abstraída.
 
 **Em sistemas pequenos com implementação única.** Ver
-[YAGNI](yagni.md) e [abstração](../01-fundamentals/abstraction.md).
+[YAGNI](/02-software-design/yagni.md) e [abstração](/01-fundamentals/abstraction.md).
 
 **Quando aplicada indiscriminadamente.** Um sistema em que tudo é interface é um
 sistema em que ninguém encontra o código que executa.
@@ -241,10 +241,10 @@ que vêm.
 
 ## Conceitos Relacionados
 
-- [Interfaces](interfaces.md) — quem define e com que vocabulário.
-- [Direção de Dependência](dependency-direction.md) — a regra geral.
-- [Arquitetura Hexagonal](hexagonal-architecture.md) — a aplicação sistemática.
-- [SOLID](solid.md) — o princípio D.
+- [Interfaces](/02-software-design/interfaces.md) — quem define e com que vocabulário.
+- [Direção de Dependência](/02-software-design/dependency-direction.md) — a regra geral.
+- [Arquitetura Hexagonal](/02-software-design/hexagonal-architecture.md) — a aplicação sistemática.
+- [SOLID](/02-software-design/solid.md) — o princípio D.
 
 ## Exercício Prático
 

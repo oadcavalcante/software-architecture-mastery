@@ -62,7 +62,7 @@ efeito     custo de espera sem benefício; times trazem o já implementado
 saída      mover para aconselhamento cedo; portão só para poucas classes
 ```
 
-Ver [revisão](governance-review.md).
+Ver [revisão](/19-architecture-governance/governance-review.md).
 
 ### Conformidade teatral
 
@@ -73,7 +73,7 @@ efeito     confiança indevida; risco real desconhecido
 saída      verificação contínua sobre estado real
 ```
 
-Ver [conformidade](compliance.md).
+Ver [conformidade](/19-architecture-governance/compliance.md).
 
 ### Padrão sem caminho
 
@@ -93,7 +93,7 @@ efeito     esforço de renovação e métricas distorcidas
 saída      corrigir o padrão, restringir escopo, ou aceitar como dívida
 ```
 
-Ver [exceções](exceptions.md).
+Ver [exceções](/19-architecture-governance/exceptions.md).
 
 ### Governança sem dono
 
@@ -139,7 +139,7 @@ efeito     ruído; os itens que importam ficam invisíveis
 saída      classificar por risco; entregar ao time, não ao comitê
 ```
 
-Ver [medição](measuring-governance.md).
+Ver [medição](/19-architecture-governance/measuring-governance.md).
 
 ### Governança como poder
 
@@ -220,7 +220,7 @@ patologia.
 - **Suspensão temporária** — em vez de remover, suspender por um trimestre e observar.
 - **Redução de escopo** — manter o mecanismo apenas para a classe de risco que o justifica.
 - **Mudança de ponto de intervenção** — quase sempre melhor que remover. Ver
-  [fundamentos](governance-basics.md).
+  [fundamentos](/19-architecture-governance/governance-basics.md).
 - **Substituição por automação** — o mecanismo humano vira verificação.
 
 A primeira é a mais subutilizada e a mais informativa: ela produz evidência em vez de
@@ -304,7 +304,7 @@ foram restabelecidos — um relatório de exposição de dados e uma verificaç�
 — agora com dono e com escopo reduzido.
 
 **11 mecanismos convertidos em verificação automática**, movendo o ponto de intervenção. Ver
-[funções de aptidão](fitness-functions-governance.md).
+[funções de aptidão](/19-architecture-governance/fitness-functions-governance.md).
 
 **8 mecanismos com escopo reduzido** para a classe de risco que os justificava — o mais
 significativo passou de "todo projeto" para "projetos com dado regulado ou compromisso
@@ -339,10 +339,10 @@ exatamente o que faltava.
 
 ## Conceitos Relacionados
 
-- [Fundamentos de Governança](governance-basics.md) — o ponto de intervenção.
-- [Revisão](governance-review.md) — o comitê que aprova tudo.
-- [Conformidade](compliance.md) — a conformidade teatral.
-- [Medição](measuring-governance.md) — como saber se um mecanismo funciona.
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md) — o ponto de intervenção.
+- [Revisão](/19-architecture-governance/governance-review.md) — o comitê que aprova tudo.
+- [Conformidade](/19-architecture-governance/compliance.md) — a conformidade teatral.
+- [Medição](/19-architecture-governance/measuring-governance.md) — como saber se um mecanismo funciona.
 
 ## Exercício Prático
 

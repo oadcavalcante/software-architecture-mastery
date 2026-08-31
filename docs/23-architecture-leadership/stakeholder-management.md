@@ -84,7 +84,7 @@ Descobrir a moeda de alguém não é manipulação — é a condição para a co
 a mesma proposta a todos na moeda de engenharia produz seis conversas em que cinco pessoas não
 conseguem avaliar nada.
 
-Ver [comunicação](communication.md).
+Ver [comunicação](/23-architecture-leadership/communication.md).
 
 ### Resistência é informação
 
@@ -280,10 +280,10 @@ quatro meses.
 
 ## Conceitos Relacionados
 
-- [Comunicação](communication.md).
-- [Negociação de Trade-offs](negotiating-tradeoffs.md).
-- [Influência Técnica](technical-influence.md).
-- [Visões de Arquitetura](../17-architecture-documentation/architecture-views.md) — interessados
+- [Comunicação](/23-architecture-leadership/communication.md).
+- [Negociação de Trade-offs](/23-architecture-leadership/negotiating-tradeoffs.md).
+- [Influência Técnica](/23-architecture-leadership/technical-influence.md).
+- [Visões de Arquitetura](/17-architecture-documentation/architecture-views.md) — interessados
   e preocupações.
 
 ## Exercício Prático

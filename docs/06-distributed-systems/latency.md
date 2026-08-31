@@ -92,7 +92,7 @@ cauda importa mais que reduzir a média em sistemas com muitas chamadas.
 
 A última linha é física — a velocidade da luz em fibra dá cerca de 200 km/ms, e o
 caminho nunca é reto. Nenhuma otimização de código compensa distância, e é por isso
-que [CDN](../05-system-design/cdn.md) e multi-região existem.
+que [CDN](/05-system-design/cdn.md) e multi-região existem.
 
 ### Latência sob carga não é linear
 
@@ -108,7 +108,7 @@ inutilizável a 90% — não porque algo quebrou, mas porque a fila cresceu.
 Um sistema que responde consistentemente em 500 ms é mais fácil de projetar do que
 um que responde entre 50 ms e 3 segundos.
 
-Latência previsível permite calibrar [timeouts](timeouts.md), dimensionar pools e
+Latência previsível permite calibrar [timeouts](/06-distributed-systems/timeouts.md), dimensionar pools e
 prometer prazos. Latência variável obriga a dimensionar para o pior caso, e o pior
 caso é desconhecido.
 
@@ -122,7 +122,7 @@ demora para quantos".
 Este documento informa:
 
 - Definir requisitos de desempenho em percentil, não em média.
-- Calibrar [timeouts](timeouts.md) a partir do percentil real.
+- Calibrar [timeouts](/06-distributed-systems/timeouts.md) a partir do percentil real.
 - Decidir se paralelizar chamadas ajuda ou piora.
 - Avaliar se uma arquitetura multi-região é necessária.
 
@@ -142,10 +142,10 @@ paralelas reduz a latência média e piora o percentil alto.
 Para reduzir latência percebida, quando otimizar não basta:
 
 - **Cache** — evitar a operação. Ver
-  [cache](../05-system-design/caching.md).
+  [cache](/05-system-design/caching.md).
 - **Proximidade** — CDN, réplica regional.
 - **Assíncrono** — responder antes de completar. Ver
-  [request/response](../05-system-design/request-response.md).
+  [request/response](/05-system-design/request-response.md).
 - **Requisição de reserva** — enviar a mesma requisição a duas réplicas e usar a
   primeira resposta. Reduz a cauda ao custo de trabalho duplicado.
 - **Degradar** — servir resposta parcial em vez de esperar a lenta.
@@ -224,10 +224,10 @@ A média nunca tinha sido o problema, e por isso o painel nunca mostrou nada.
 
 ## Conceitos Relacionados
 
-- [Timeouts](timeouts.md) — calibrados a partir da distribuição.
-- [Falha de Rede](network-failure.md) — a origem da variabilidade.
-- [Análise de Gargalos](../05-system-design/bottleneck-analysis.md).
-- [Observabilidade](../13-observability/index.md) — como medir.
+- [Timeouts](/06-distributed-systems/timeouts.md) — calibrados a partir da distribuição.
+- [Falha de Rede](/06-distributed-systems/network-failure.md) — a origem da variabilidade.
+- [Análise de Gargalos](/05-system-design/bottleneck-analysis.md).
+- [Observabilidade](/13-observability/index.md) — como medir.
 
 ## Exercício Prático
 

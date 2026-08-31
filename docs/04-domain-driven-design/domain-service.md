@@ -33,7 +33,7 @@ Nem toda regra cabe numa entidade.
 
 "Transferir valor entre duas contas" envolve duas contas e não pertence a nenhuma
 delas — colocá-la em `Conta` faria uma conta conhecer e modificar outra, o que
-viola a fronteira do [agregado](aggregate.md).
+viola a fronteira do [agregado](/04-domain-driven-design/aggregate.md).
 
 "Calcular elegibilidade" pode depender de três agregados diferentes.
 
@@ -61,9 +61,9 @@ Faltando qualquer um dos três, é outra coisa.
 ### Serviço de domínio versus serviço de aplicação
 
 A distinção que mais causa confusão, e a razão de
-[Onion](../02-software-design/onion-architecture.md) nomear os dois anéis.
+[Onion](/02-software-design/onion-architecture.md) nomear os dois anéis.
 
-| | Serviço de domínio | [Serviço de aplicação](application-service.md) |
+| | Serviço de domínio | [Serviço de aplicação](/04-domain-driven-design/application-service.md) |
 |---|---|---|
 | Contém | Regra de negócio | Orquestração |
 | Conhece infraestrutura | Não | Sim |
@@ -89,7 +89,7 @@ que descobrir onde ela pertence na entidade.
 
 O resultado é o modelo anêmico — entidades sem comportamento e serviços com toda
 a lógica. Ver
-[encapsulamento](../02-software-design/encapsulation.md).
+[encapsulamento](/02-software-design/encapsulation.md).
 
 A verificação: antes de criar um serviço de domínio, pergunte se a regra
 envolve genuinamente mais de um agregado. Se envolve um só, ela pertence a ele.
@@ -122,9 +122,9 @@ ali.
 - **Objeto de valor com comportamento** — quando a regra é sobre um conceito, não
   sobre entidades.
 - **Método de fábrica** — quando a regra é de criação. Ver
-  [factory](factory.md).
+  [factory](/04-domain-driven-design/factory.md).
 - **Política como objeto** — uma regra encapsulada como
-  [Strategy](../03-design-patterns/strategy.md), quando há variantes.
+  [Strategy](/03-design-patterns/strategy.md), quando há variantes.
 
 ## Trade-offs
 
@@ -186,7 +186,7 @@ tarifa, persistir, controlar a transação, publicar o evento — tudo isso foi 
 serviço de aplicação.
 
 **Efeitos.** Auditoria e notificação viraram consumidores de
-[evento de domínio](domain-event.md), fora do fluxo transacional.
+[evento de domínio](/04-domain-driven-design/domain-event.md), fora do fluxo transacional.
 
 O resultado mais relevante não foi a organização. Foi que `CalculadoraDeTarifa`
 passou a ter 40 testes de unidade que rodam em milissegundos, cobrindo
@@ -198,10 +198,10 @@ ciclo de alteração caiu de dias para horas.
 
 ## Conceitos Relacionados
 
-- [Application Service](application-service.md) — a orquestração.
-- [Aggregate](aggregate.md) — onde a maior parte das regras pertence.
-- [Entity](entity.md) — o lugar padrão de uma regra.
-- [Arquitetura Onion](../02-software-design/onion-architecture.md) — o
+- [Application Service](/04-domain-driven-design/application-service.md) — a orquestração.
+- [Aggregate](/04-domain-driven-design/aggregate.md) — onde a maior parte das regras pertence.
+- [Entity](/04-domain-driven-design/entity.md) — o lugar padrão de uma regra.
+- [Arquitetura Onion](/02-software-design/onion-architecture.md) — o
   vocabulário dos anéis.
 
 ## Exercício Prático

@@ -131,7 +131,7 @@ minuto e não pode ser versionado, a CDN atrapalha.
 
 - **Cache no navegador** — cabeçalhos HTTP, sem componente algum. É o cache mais
   barato e o primeiro a configurar.
-- **[Cache](caching.md) na aplicação** — para dado dinâmico compartilhado.
+- **[Cache](/05-system-design/caching.md) na aplicação** — para dado dinâmico compartilhado.
 - **Réplica de leitura por região** — quando o conteúdo é dinâmico mas
   regionalizado.
 
@@ -231,10 +231,10 @@ precisar de acesso direto, e essa exceção precisa ser explícita em vez de aci
 
 ## Conceitos Relacionados
 
-- [Cache](caching.md) — o conceito geral.
-- [Balanceamento de Carga](load-balancing.md) — distribuição na origem.
-- [Nuvem](../09-cloud-architecture/index.md) — regiões e rede.
-- [Segurança](../10-security/index.md) — o risco de vazamento por cache.
+- [Cache](/05-system-design/caching.md) — o conceito geral.
+- [Balanceamento de Carga](/05-system-design/load-balancing.md) — distribuição na origem.
+- [Nuvem](/09-cloud-architecture/index.md) — regiões e rede.
+- [Segurança](/10-security/index.md) — o risco de vazamento por cache.
 
 ## Exercício Prático
 

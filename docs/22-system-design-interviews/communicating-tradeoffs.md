@@ -122,7 +122,7 @@ que ela informa.
 
 Amarrar cada trade-off a um requisito levantado na clarificação fecha o ciclo da entrevista e
 demonstra que o método foi seguido, não decorado. Ver
-[funcionais vs. não funcionais](functional-vs-nonfunctional.md).
+[funcionais vs. não funcionais](/22-system-design-interviews/functional-vs-nonfunctional.md).
 
 ### Ofereça a alternativa que você não escolheu
 
@@ -139,7 +139,7 @@ demonstra que o método foi seguido, não decorado. Ver
 
 Apresentar a alternativa com seus méritos reais — e não como espantalho — é o sinal mais forte de
 maturidade técnica. Ver
-[alternativas em ADR](../18-architecture-decisions/adr-alternatives.md).
+[alternativas em ADR](/18-architecture-decisions/adr-alternatives.md).
 
 ### Discorde com base, e mude de ideia com base
 
@@ -314,11 +314,11 @@ sobre comunicação de decisão.
 
 ## Conceitos Relacionados
 
-- [Estrutura da Entrevista](interview-structure.md).
-- [Alternativas em ADR](../18-architecture-decisions/adr-alternatives.md) — a mesma disciplina,
+- [Estrutura da Entrevista](/22-system-design-interviews/interview-structure.md).
+- [Alternativas em ADR](/18-architecture-decisions/adr-alternatives.md) — a mesma disciplina,
   por escrito.
-- [Trade-offs](../20-trade-offs/index.md) — o material de argumentação.
-- [Erros Comuns](interview-common-mistakes.md).
+- [Trade-offs](/20-trade-offs/index.md) — o material de argumentação.
+- [Erros Comuns](/22-system-design-interviews/interview-common-mistakes.md).
 
 ## Exercício Prático
 

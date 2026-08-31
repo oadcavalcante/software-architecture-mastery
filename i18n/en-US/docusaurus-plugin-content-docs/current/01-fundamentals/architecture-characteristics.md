@@ -22,7 +22,7 @@ last_reviewed: 2026-08-30
 ## Overview
 
 Architecture characteristics are the
-[quality attributes](quality-attributes.md) the architecture must explicitly
+[quality attributes](/01-fundamentals/quality-attributes.md) the architecture must explicitly
 support — the ones that actually drive structural decisions.
 
 The distinction from the older term is not one of meaning but of use: "quality
@@ -87,7 +87,7 @@ cost — are rarely the ones of its fifth — availability, maintainability.
 
 Reviewing the list periodically is what stops the architecture from staying
 optimized for what used to matter. See
-[architecture evolution](architecture-evolution.md).
+[architecture evolution](/01-fundamentals/architecture-evolution.md).
 
 ## Why This Matters
 
@@ -151,9 +151,9 @@ criterion.
 
 ## Related Concepts
 
-- [Quality Attributes](quality-attributes.md) — the taxonomy the characteristics
+- [Quality Attributes](/01-fundamentals/quality-attributes.md) — the taxonomy the characteristics
   are selected from.
-- [Architecture Principles](architecture-principles.md) — how characteristics
+- [Architecture Principles](/01-fundamentals/architecture-principles.md) — how characteristics
   become guidance for distributed decisions.
 - [Trade-offs](/20-trade-offs/index.md) — what happens when two characteristics
   conflict.

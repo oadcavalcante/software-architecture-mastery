@@ -71,7 +71,7 @@ O teste: **para cada opção descartada, sob qual mudança de restrição ela
 venceria?** Se não existe tal mudança, não era opção.
 
 Essa exigência aparece como regra nos
-[case studies](../21-case-studies/index.md) deste material justamente porque é o
+[case studies](/21-case-studies/index.md) deste material justamente porque é o
 que separa análise de justificativa retroativa.
 
 ### O custo de abandonar decide os empates
@@ -165,9 +165,9 @@ mês de reanálise.
 
 ## Conceitos Relacionados
 
-- [Espaço do Problema](problem-space.md) — o que precede.
-- [Restrições](constraints.md) — o que reduz o espaço.
-- [Trade-offs](../20-trade-offs/index.md) — o critério de comparação.
+- [Espaço do Problema](/01-fundamentals/problem-space.md) — o que precede.
+- [Restrições](/01-fundamentals/constraints.md) — o que reduz o espaço.
+- [Trade-offs](/20-trade-offs/index.md) — o critério de comparação.
 
 ## Exercício Prático
 

@@ -127,7 +127,7 @@ Inverting a dependency is worth it when:
 modules that change at the same cadence adds indirection and buys nothing.
 
 **When the inversion requires an abstraction that does not hold up.** See
-[abstraction](abstraction.md). If the interface has to expose the implementer's
+[abstraction](/01-fundamentals/abstraction.md). If the interface has to expose the implementer's
 details to be useful, the inversion is nominal.
 
 **When the dependency is trivially replaceable.** A date-formatting library used in
@@ -219,9 +219,9 @@ At the next migration, two years later, one file changed.
 
 ## Related Concepts
 
-- [Coupling](coupling.md) — what dependencies are made of.
-- [Abstraction](abstraction.md) — the mechanism of inversion, and its cost.
-- [Architecture vs. Implementation](architecture-vs-implementation.md) — how to
+- [Coupling](/01-fundamentals/coupling.md) — what dependencies are made of.
+- [Abstraction](/01-fundamentals/abstraction.md) — the mechanism of inversion, and its cost.
+- [Architecture vs. Implementation](/01-fundamentals/architecture-vs-implementation.md) — how to
   enforce the decided direction.
 
 ## Practical Exercise

@@ -177,9 +177,9 @@ all at once, and without knowing where the boundaries should fall.
 
 ## Related Concepts
 
-- [Solution Space](solution-space.md) — the other side.
-- [Business Context](business-context.md) — where problems come from.
-- [Functional Requirements](functional-requirements.md) — the formalization of
+- [Solution Space](/01-fundamentals/solution-space.md) — the other side.
+- [Business Context](/01-fundamentals/business-context.md) — where problems come from.
+- [Functional Requirements](/01-fundamentals/functional-requirements.md) — the formalization of
   what the system has to do.
 
 ## Practical Exercise

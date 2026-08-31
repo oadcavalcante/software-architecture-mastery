@@ -43,7 +43,7 @@ existir.
 **No disco local:** o arquivo só existe naquela instância. Escalar
 horizontalmente quebra, reiniciar em contêiner perde, e o backup vira
 responsabilidade de quem cuida da máquina. Ver
-[sem estado vs. com estado](stateless-vs-stateful.md).
+[sem estado vs. com estado](/05-system-design/stateless-vs-stateful.md).
 
 A resposta usual é **armazenamento de objetos**: um serviço que guarda blobs por
 chave, com durabilidade, e serve diretamente por HTTP.
@@ -87,7 +87,7 @@ permissão específica, e o cliente fala direto com o armazenamento.
 A aplicação decide e autoriza; ela não transporta.
 
 Para download, o mesmo: URL assinada com prazo curto, servida por
-[CDN](cdn.md) quando o conteúdo é público.
+[CDN](/05-system-design/cdn.md) quando o conteúdo é público.
 
 ### O ciclo de vida precisa ser decidido
 
@@ -109,7 +109,7 @@ Tratar arquivos como imutáveis — nova versão é uma chave nova — elimina u
 de problemas: cache pode ser eterno, não há corrida entre leitura e escrita, e o
 histórico existe de graça.
 
-É a mesma razão pela qual [CDN](cdn.md) funciona melhor com URL versionada.
+É a mesma razão pela qual [CDN](/05-system-design/cdn.md) funciona melhor com URL versionada.
 
 ## Modelo Mental
 
@@ -236,11 +236,11 @@ que falharam no meio. Ninguém sabia que existiam.
 
 ## Conceitos Relacionados
 
-- [Gestão de Estado](state-management.md) — arquivos como estado persistente.
-- [CDN](cdn.md) — servir arquivos públicos na borda.
-- [Sem Estado vs. Com Estado](stateless-vs-stateful.md) — por que disco local
+- [Gestão de Estado](/05-system-design/state-management.md) — arquivos como estado persistente.
+- [CDN](/05-system-design/cdn.md) — servir arquivos públicos na borda.
+- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md) — por que disco local
   quebra.
-- [Nuvem](../09-cloud-architecture/index.md) — classes de armazenamento e custo.
+- [Nuvem](/09-cloud-architecture/index.md) — classes de armazenamento e custo.
 
 ## Exercício Prático
 

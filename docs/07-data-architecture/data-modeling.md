@@ -113,7 +113,7 @@ diferentes é um defeito de modelagem, não de documentação.
 
 O vocabulário do modelo deve ser o do domínio, e o mesmo termo deve significar a
 mesma coisa em todo lugar. Ver
-[linguagem ubíqua](../04-domain-driven-design/ubiquitous-language.md).
+[linguagem ubíqua](/04-domain-driven-design/ubiquitous-language.md).
 
 ### O modelo evolui, e a migração é parte do desenho
 
@@ -143,7 +143,7 @@ Modelagem explícita se paga sempre que:
 **Modelagem elaborada para dado descartável.** Cache, telemetria de curta
 retenção, rascunho.
 
-**Normalizar por princípio.** Ver [normalização](normalization.md) — é decisão,
+**Normalizar por princípio.** Ver [normalização](/07-data-architecture/normalization.md) — é decisão,
 não virtude.
 
 **Modelar todas as entidades do domínio antes de construir.** O modelo completo
@@ -158,11 +158,11 @@ qualquer coisa não serve bem para nada.
 ## Alternativas
 
 - **Modelagem dirigida por domínio** — agregados como fronteira. Ver
-  [DDD](../04-domain-driven-design/index.md).
+  [DDD](/04-domain-driven-design/index.md).
 - **Modelagem dimensional** — para analítico. Ver
-  [data warehouse](data-warehouses.md).
+  [data warehouse](/07-data-architecture/data-warehouses.md).
 - **Esquema por leitura** — guardar bruto e interpretar na leitura; adequado a
-  ingestão exploratória, e ver [data lake](data-lakes.md) para os riscos.
+  ingestão exploratória, e ver [data lake](/07-data-architecture/data-lakes.md) para os riscos.
 
 ## Trade-offs
 
@@ -240,10 +240,10 @@ feita.
 
 ## Conceitos Relacionados
 
-- [Normalização](normalization.md) e [Desnormalização](denormalization.md).
-- [Propriedade do Dado](data-ownership.md) — quem decide o modelo.
-- [Ciclo de Vida do Dado](data-lifecycle.md) — retenção e apagamento.
-- [DDD](../04-domain-driven-design/index.md) — agregados como fronteira.
+- [Normalização](/07-data-architecture/normalization.md) e [Desnormalização](/07-data-architecture/denormalization.md).
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — quem decide o modelo.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção e apagamento.
+- [DDD](/04-domain-driven-design/index.md) — agregados como fronteira.
 
 ## Exercício Prático
 

@@ -34,7 +34,7 @@ adicionar nós piora o resultado.
 ## Problema
 
 Escala vertical tem teto — de tamanho, de custo, de disponibilidade. Ver
-[escala vertical](vertical-scaling.md).
+[escala vertical](/11-scalability/vertical-scaling.md).
 
 Quando ele é atingido, distribuir é a saída. E distribuir muda a natureza do sistema:
 o que era uma chamada de função vira chamada de rede, o que era uma transação vira
@@ -51,10 +51,10 @@ Antes de adicionar a segunda máquina, três propriedades precisam existir:
 
 **Ausência de estado no processo.** Sessão em memória, cache local considerado
 autoritativo, arquivo em disco — qualquer um impede que a requisição vá para qualquer
-nó. Ver [ausência de estado](statelessness.md).
+nó. Ver [ausência de estado](/11-scalability/statelessness.md).
 
 **Idempotência onde há repetição.** Balanceadores e clientes repetem. Ver
-[idempotência](../06-distributed-systems/idempotency.md).
+[idempotência](/06-distributed-systems/idempotency.md).
 
 **Descoberta e balanceamento.** Como o tráfego encontra os nós, e como um nó que morre
 sai da rotação.
@@ -88,7 +88,7 @@ todo sistema, e conhecê-lo — medindo — evita gastar com capacidade que não
 
 ### A fração serial é o teto real
 
-Ver [desempenho versus escalabilidade](performance-vs-scalability.md). Tudo o que não
+Ver [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md). Tudo o que não
 paraleliza limita o ganho, independentemente do número de nós.
 
 Numa arquitetura distribuída, a fração serial costuma ser:
@@ -129,7 +129,7 @@ banco — é o controle que resolve o caso mais comum.
 Adicionar nós automaticamente parece resolver picos, e o tempo importa: detecção,
 provisionamento, inicialização e verificação de saúde somam minutos.
 
-Ver [computação em nuvem](../09-cloud-architecture/cloud-compute.md). Muitos picos
+Ver [computação em nuvem](/09-cloud-architecture/cloud-compute.md). Muitos picos
 duram menos que isso.
 
 E há um efeito de segunda ordem: nós novos chegam com cache frio, o que aumenta
@@ -147,7 +147,7 @@ A premissa de que todos os nós são equivalentes quebra por razões concretas:
 **Cache frio.** Nós recém-adicionados respondem pior.
 
 **Distribuição desigual.** Conexões persistentes fixam clientes a nós. Ver
-[balanceamento para escala](scaling-load-balancing.md).
+[balanceamento para escala](/11-scalability/scaling-load-balancing.md).
 
 Por isso o balanceamento sensível a latência e a carga real supera o distribuído
 uniformemente.
@@ -167,7 +167,7 @@ mais baixo do que se espera, e precisa ser medido.
 
 ## Quando Não Usar
 
-**Antes de esgotar a vertical.** Ver [escala vertical](vertical-scaling.md).
+**Antes de esgotar a vertical.** Ver [escala vertical](/11-scalability/vertical-scaling.md).
 
 **Sem remover o estado do processo.**
 
@@ -181,12 +181,12 @@ mais baixo do que se espera, e precisa ser medido.
 
 ## Alternativas
 
-- **[Escala vertical](vertical-scaling.md)** — sem coordenação.
-- **[Cache](scaling-cache.md)** — reduz a carga em vez de aumentar a capacidade.
-- **[Fila](queue-based-scaling.md)** — absorve pico sem capacidade proporcional.
+- **[Escala vertical](/11-scalability/vertical-scaling.md)** — sem coordenação.
+- **[Cache](/11-scalability/scaling-cache.md)** — reduz a carga em vez de aumentar a capacidade.
+- **[Fila](/11-scalability/queue-based-scaling.md)** — absorve pico sem capacidade proporcional.
 - **Remover a fração serial** — quando o teto de coordenação foi atingido.
 - **Particionamento** — em vez de replicar tudo, dividir o trabalho. Ver
-  [particionamento para escala](scaling-partitioning.md).
+  [particionamento para escala](/11-scalability/scaling-partitioning.md).
 
 ## Trade-offs
 
@@ -282,10 +282,10 @@ diagnóstico só começou depois que alguém perguntou por que não estava funci
 
 ## Conceitos Relacionados
 
-- [Escala Vertical](vertical-scaling.md) — a alternativa.
-- [Ausência de Estado](statelessness.md) — o pré-requisito.
-- [Pontos Quentes](hotspots.md) — por que a distribuição desigual anula o ganho.
-- [Escala de Banco de Dados](database-scaling.md) — o limite da cadeia.
+- [Escala Vertical](/11-scalability/vertical-scaling.md) — a alternativa.
+- [Ausência de Estado](/11-scalability/statelessness.md) — o pré-requisito.
+- [Pontos Quentes](/11-scalability/hotspots.md) — por que a distribuição desigual anula o ganho.
+- [Escala de Banco de Dados](/11-scalability/database-scaling.md) — o limite da cadeia.
 
 ## Exercício Prático
 

@@ -87,15 +87,15 @@ tem custo operacional real:
   ausência de efeito.
 
 A terceira é a mais perigosa. Ver [monitoramento de atraso de
-consumidor](backpressure.md).
+consumidor](/06-distributed-systems/backpressure.md).
 
 ### Ordem e entrega não são dadas
 
-Ver [ordenação](ordering.md) e [garantias de
-entrega](delivery-guarantees.md).
+Ver [ordenação](/06-distributed-systems/ordering.md) e [garantias de
+entrega](/06-distributed-systems/delivery-guarantees.md).
 
 Eventos podem chegar fora de ordem, duplicados, ou muito depois. Todo consumidor
-precisa ser [idempotente](idempotency.md), e a maioria precisa tolerar eventos
+precisa ser [idempotente](/06-distributed-systems/idempotency.md), e a maioria precisa tolerar eventos
 fora de ordem.
 
 Consumidores escritos assumindo ordem e entrega única funcionam nos testes e falham
@@ -133,7 +133,7 @@ O que se ganha em independência se paga em rastreabilidade.
 - O produtor não deve conhecer as consequências.
 - O processamento pode ser assíncrono.
 - Times diferentes precisam evoluir independentemente.
-- Absorver picos importa. Ver [mensageria](messaging.md).
+- Absorver picos importa. Ver [mensageria](/06-distributed-systems/messaging.md).
 
 ## Quando Não Usar
 
@@ -156,7 +156,7 @@ O que se ganha em independência se paga em rastreabilidade.
 - **Chamada direta** — quando a resposta é necessária.
 - **Fila ponto a ponto** — assíncrono sem múltiplos consumidores.
 - **Orquestração explícita** — fluxo legível com passos assíncronos. Ver
-  [sagas](sagas.md).
+  [sagas](/06-distributed-systems/sagas.md).
 - **Consulta periódica** — mais simples, e suficiente quando o atraso é aceitável.
 
 ## Trade-offs
@@ -257,10 +257,10 @@ integração.
 
 ## Conceitos Relacionados
 
-- [Mensageria](messaging.md) — a infraestrutura.
-- [Sagas](sagas.md) — coordenação sobre eventos.
-- [Ordenação](ordering.md) e [Garantias de Entrega](delivery-guarantees.md).
-- [Idempotência](idempotency.md) — requisito.
+- [Mensageria](/06-distributed-systems/messaging.md) — a infraestrutura.
+- [Sagas](/06-distributed-systems/sagas.md) — coordenação sobre eventos.
+- [Ordenação](/06-distributed-systems/ordering.md) e [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md).
+- [Idempotência](/06-distributed-systems/idempotency.md) — requisito.
 
 ## Exercício Prático
 

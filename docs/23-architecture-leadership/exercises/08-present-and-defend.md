@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::info O último do percurso
 
 Este exercício usa **a sua própria proposta** do
-[exercício 07](../../16-legacy-modernization/exercises/07-modernize-legacy.md). Se você não o
+[exercício 07](/16-legacy-modernization/exercises/07-modernize-legacy.md). Se você não o
 fez, faça antes — não há o que apresentar sem ela.
 
 :::
@@ -203,7 +203,7 @@ uma venda. Conselhos aprovam propostas.
 
 ## Conceitos Relacionados
 
-- [Exercício 07](../../16-legacy-modernization/exercises/07-modernize-legacy.md).
-- [Comunicação](../communication.md) e [Apresentações](../architecture-presentations.md).
-- [Gestão de Interessados](../stakeholder-management.md).
-- [Gestão de Custo](../cost-management.md).
+- [Exercício 07](/16-legacy-modernization/exercises/07-modernize-legacy.md).
+- [Comunicação](/23-architecture-leadership/communication.md) e [Apresentações](/23-architecture-leadership/architecture-presentations.md).
+- [Gestão de Interessados](/23-architecture-leadership/stakeholder-management.md).
+- [Gestão de Custo](/23-architecture-leadership/cost-management.md).

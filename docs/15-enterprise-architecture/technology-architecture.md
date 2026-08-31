@@ -83,7 +83,7 @@ menos tecnologias que uma de 300.
 
 E a regra prática que funciona: **suportar poucas bem, permitir exceções com o time
 assumindo a operação**. Ver
-[radar tecnológico](technology-radar.md).
+[radar tecnológico](/15-enterprise-architecture/technology-radar.md).
 
 ### Serviço gerenciado muda a conta
 
@@ -95,7 +95,7 @@ banco autogerido    custo alto de operação — conta como tecnologia suportada
 banco gerenciado    custo baixo — a variedade pesa menos
 ```
 
-Ver [serviços gerenciados](../09-cloud-architecture/managed-services.md).
+Ver [serviços gerenciados](/09-cloud-architecture/managed-services.md).
 
 Isso muda a decisão: adotar um armazenamento adicional gerenciado é uma decisão bem menor
 que adotá-lo autogerido — e a discussão frequentemente não faz essa distinção.
@@ -123,7 +123,7 @@ plano de saída para o que está em declínio
 A terceira linha é a que decide: organizações que tratam atualização como projeto
 extraordinário acumulam atraso até que a atualização vire crise.
 
-Ver [confiança na cadeia de suprimentos](../10-security/supply-chain-trust.md).
+Ver [confiança na cadeia de suprimentos](/10-security/supply-chain-trust.md).
 
 ### Consolidar tem custo e nem sempre se paga
 
@@ -147,8 +147,8 @@ naturalmente** conforme os sistemas são substituídos por outros motivos.
 Um documento que lista tecnologias suportadas depende de alguém consultar. Uma plataforma
 que oferece as suportadas prontas torna a escolha certa a mais fácil.
 
-Ver [plataformas internas](../14-devops-and-platform/internal-developer-platforms.md) e
-[padrões](standards.md).
+Ver [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md) e
+[padrões](/15-enterprise-architecture/standards.md).
 
 É a diferença entre governar por documento e por caminho pavimentado.
 
@@ -208,7 +208,7 @@ boa, é se a organização consegue operá-la bem.
 
 ## Alternativas
 
-- **[Radar tecnológico](technology-radar.md)** — orientação com contexto.
+- **[Radar tecnológico](/15-enterprise-architecture/technology-radar.md)** — orientação com contexto.
 - **Caminho pavimentado** — o suportado vem pronto.
 - **Exceção com assunção de operação** — o time que escolhe fora assume o sobreaviso.
 - **Serviços gerenciados** — reduzem o custo de variedade.
@@ -296,7 +296,7 @@ As decisões:
 
 **Parar de adicionar.** Novas escolhas de armazenamento passaram a exigir justificativa
 com o custo operacional explicitado, e aprovação de alcance amplo. Ver
-[níveis de arquitetura](architecture-levels.md).
+[níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
 **Migrar o que era barato.** Os três serviços de baixa criticidade com tecnologias de um
 conhecedor migraram para o banco relacional principal — em nenhum deles a escolha
@@ -321,10 +321,10 @@ até o inventário, a visão de que a organização operava nove armazenamentos.
 
 ## Conceitos Relacionados
 
-- [Radar Tecnológico](technology-radar.md).
-- [Padrões](standards.md).
-- [Engenharia de Plataforma](../14-devops-and-platform/platform-engineering.md).
-- [Serviços Gerenciados](../09-cloud-architecture/managed-services.md).
+- [Radar Tecnológico](/15-enterprise-architecture/technology-radar.md).
+- [Padrões](/15-enterprise-architecture/standards.md).
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md).
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
 
 ## Exercício Prático
 

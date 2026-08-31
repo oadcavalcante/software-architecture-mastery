@@ -26,8 +26,8 @@ Normalizar é organizar os dados de forma que **cada fato exista em um lugar só
 O objetivo não é elegância nem economia de espaço — é impedir que o mesmo dado
 exista em duas versões contraditórias.
 
-É a escolha adequada para carga [transacional](oltp.md), e a inadequada para
-[analítica](olap.md). Saber por quê é o que permite decidir em vez de seguir
+É a escolha adequada para carga [transacional](/07-data-architecture/oltp.md), e a inadequada para
+[analítica](/07-data-architecture/olap.md). Saber por quê é o que permite decidir em vez de seguir
 regra.
 
 ## Problema
@@ -90,10 +90,10 @@ todo código que escreve.
 
 Cada tabela separada é uma junção a mais na leitura.
 
-Em [OLTP](oltp.md), onde a consulta traz poucos registros, junções indexadas são
+Em [OLTP](/07-data-architecture/oltp.md), onde a consulta traz poucos registros, junções indexadas são
 baratas e o custo é irrelevante.
 
-Em [OLAP](olap.md), onde a consulta varre milhões, junções dominam o tempo — e é
+Em [OLAP](/07-data-architecture/olap.md), onde a consulta varre milhões, junções dominam o tempo — e é
 por isso que o critério se inverte.
 
 ### Normalizar não é sobre economizar espaço
@@ -109,7 +109,7 @@ perceber que era ela que importava.
 Um sistema real tem desvios: um total pré-calculado, um nome copiado para evitar
 junção numa consulta crítica.
 
-Isso é [desnormalização](denormalization.md) deliberada, e é legítima quando
+Isso é [desnormalização](/07-data-architecture/denormalization.md) deliberada, e é legítima quando
 documentada e com estratégia de manutenção. O problema não é o desvio — é o desvio
 acidental, que ninguém sabe que existe.
 
@@ -128,7 +128,7 @@ junção; o retorno é integridade que o banco cobra sozinho.
 
 ## Quando Não Usar
 
-**Em modelo analítico.** Ver [OLAP](olap.md) — junções sobre volume dominam.
+**Em modelo analítico.** Ver [OLAP](/07-data-architecture/olap.md) — junções sobre volume dominam.
 
 **Quando o dado é uma fotografia do momento.** O preço no instante da compra deve
 ser copiado, não referenciado — ele não muda quando o preço do catálogo muda.
@@ -137,7 +137,7 @@ ser copiado, não referenciado — ele não muda quando o preço do catálogo mu
 
 **Além da terceira forma normal sem razão concreta.**
 
-**Em armazenamento sem junção.** Ver [documentos](document-databases.md) — ali o
+**Em armazenamento sem junção.** Ver [documentos](/07-data-architecture/document-databases.md) — ali o
 modelo é outro.
 
 A segunda merece ênfase: copiar o valor histórico não é desnormalização, é
@@ -145,11 +145,11 @@ modelagem correta. São fatos diferentes — "o preço do produto" e "o preço p
 
 ## Alternativas
 
-- **[Desnormalização](denormalization.md) seletiva** — em pontos medidos.
+- **[Desnormalização](/07-data-architecture/denormalization.md) seletiva** — em pontos medidos.
 - **Visão materializada** — a forma normalizada permanece; a leitura consulta a
   visão.
 - **Modelo dimensional** — para analítico.
-- **[CQRS](../06-distributed-systems/distributed-cqrs.md)** — normalizado para
+- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — normalizado para
   escrita, desnormalizado para leitura.
 
 ## Trade-offs
@@ -225,10 +225,10 @@ faltou não era sobre dependência funcional — era "este valor pode mudar depo
 
 ## Conceitos Relacionados
 
-- [Desnormalização](denormalization.md) — a decisão inversa.
-- [Modelagem de Dados](data-modeling.md) — o contexto.
-- [OLTP](oltp.md) — onde ela serve.
-- [Bancos Relacionais](relational-databases.md).
+- [Desnormalização](/07-data-architecture/denormalization.md) — a decisão inversa.
+- [Modelagem de Dados](/07-data-architecture/data-modeling.md) — o contexto.
+- [OLTP](/07-data-architecture/oltp.md) — onde ela serve.
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md).
 
 ## Exercício Prático
 

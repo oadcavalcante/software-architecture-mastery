@@ -65,7 +65,7 @@ alvo declarado    99,95%
 topologia real    três instâncias na mesma zona
 ```
 
-Ver [diagramas de implantação](../17-architecture-documentation/deployment-diagrams.md) — a
+Ver [diagramas de implantação](/17-architecture-documentation/deployment-diagrams.md) — a
 verificação de correspondência entre alvo e topologia é barata e raramente feita.
 
 ## Conceitos Centrais
@@ -112,7 +112,7 @@ O terceiro é o que mais pesa e o menos orçado. Um alvo de 99,99% implica respo
 minutos, o que implica plantão com escala real — e plantão tem custo financeiro, custo de
 rotatividade e custo de atenção.
 
-Ver [engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ### Confiabilidade proporcional por componente
 
@@ -127,7 +127,7 @@ relatórios                  99%      podem esperar
 
 A degradação desenhada é o que torna isso possível: o sistema continua vendendo com a
 recomendação fora. Ver
-[degradação graciosa](../12-reliability/graceful-degradation.md).
+[degradação graciosa](/12-reliability/graceful-degradation.md).
 
 Aplicar o alvo do componente mais crítico a todos multiplica o custo sem efeito
 proporcional.
@@ -147,7 +147,7 @@ No último patamar, a principal causa de indisponibilidade é **mudança** — i
 configurações, migrações. Chegar lá exige reduzir a frequência de mudança ou torná-la
 extremamente segura, e ambos têm custo em velocidade de entrega.
 
-Ver [velocidade vs. qualidade](speed-vs-quality.md).
+Ver [velocidade vs. qualidade](/20-trade-offs/speed-vs-quality.md).
 
 ### Orçamento de erro
 
@@ -164,7 +164,7 @@ saldo esgotado          → congela mudanças até o mês seguinte
 Isso transforma confiabilidade de aspiração em recurso administrável, e resolve a tensão
 entre entregar e estabilizar com uma regra em vez de com discussão.
 
-Ver [confiabilidade](../12-reliability/reliability-basics.md).
+Ver [confiabilidade](/12-reliability/reliability-basics.md).
 
 ### Sinais de escolha errada
 
@@ -238,7 +238,7 @@ Aceite menos confiabilidade quando:
 - **Recuperação rápida em vez de prevenção** — reduzir o tempo de recuperação pode ser mais
   barato que reduzir a frequência de falha.
 - **Serviço gerenciado** — transfere parte do custo operacional. Ver
-  [gerenciado vs. autogerido](managed-vs-self-hosted.md).
+  [gerenciado vs. autogerido](/20-trade-offs/managed-vs-self-hosted.md).
 - **Alvo por componente** — em vez de por sistema.
 
 A segunda merece destaque: disponibilidade é função de frequência **e** duração da falha, e
@@ -359,10 +359,10 @@ custo apareceu como redundância inútil e plantão desgastado.
 
 ## Conceitos Relacionados
 
-- [Confiabilidade](../12-reliability/reliability-basics.md) — o orçamento de erro.
-- [Degradação Graciosa](../12-reliability/graceful-degradation.md) — a alternativa barata.
-- [Gerenciado vs. Autogerido](managed-vs-self-hosted.md).
-- [Diagramas de Implantação](../17-architecture-documentation/deployment-diagrams.md) — a
+- [Confiabilidade](/12-reliability/reliability-basics.md) — o orçamento de erro.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — a alternativa barata.
+- [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md).
+- [Diagramas de Implantação](/17-architecture-documentation/deployment-diagrams.md) — a
   verificação de lastro.
 
 ## Exercício Prático

@@ -86,8 +86,8 @@ Cada conexão consome memória e um processo ou fio de execução no banco. O li
 prático é de algumas centenas — muito abaixo do que uma camada de aplicação escalada
 horizontalmente vai abrir.
 
-Ver [escala horizontal](horizontal-scaling.md) e a lei de Little em
-[desempenho versus escalabilidade](performance-vs-scalability.md).
+Ver [escala horizontal](/11-scalability/horizontal-scaling.md) e a lei de Little em
+[desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md).
 
 Um **intermediário de conexões** multiplexa muitas conexões de aplicação em poucas de
 banco. É uma das intervenções de melhor relação entre esforço e resultado, e
@@ -114,8 +114,8 @@ As saídas são de modelagem, não de infraestrutura:
 
 **Fila** que serializa deliberadamente, com processamento em lote.
 
-Ver [pontos quentes](hotspots.md) e
-[transações](../07-data-architecture/transactions.md).
+Ver [pontos quentes](/11-scalability/hotspots.md) e
+[transações](/07-data-architecture/transactions.md).
 
 ### Dados frios pesam em tudo
 
@@ -125,7 +125,7 @@ mesmo que os dados antigos nunca sejam consultados.
 Arquivar o que não é acessado é uma das intervenções mais subestimadas: uma tabela que
 encolhe 80% fica mais rápida em tudo, sem mudar nada da arquitetura.
 
-Ver [particionamento de dados](../07-data-architecture/data-partitioning.md) — o
+Ver [particionamento de dados](/07-data-architecture/data-partitioning.md) — o
 descarte de partição torna o arquivamento uma operação de metadados.
 
 ### Dividir por domínio antes de particionar
@@ -138,7 +138,7 @@ domínio, que é uma divisão que já existe.
 
 Custo: consultas que cruzam os dois deixam de existir, e a consistência entre eles vira
 problema de aplicação. Ver
-[propriedade do dado](../07-data-architecture/data-ownership.md).
+[propriedade do dado](/07-data-architecture/data-ownership.md).
 
 É o degrau 9, e ele resolve muitos casos que seriam levados ao 10.
 
@@ -165,7 +165,7 @@ Cada degrau tem seu momento:
 **Réplica de leitura para operação que exige dado do instante.**
 
 **Cache sem estratégia de invalidação.** Ver
-[cache para escala](scaling-cache.md).
+[cache para escala](/11-scalability/scaling-cache.md).
 
 **Mais capacidade para contenção de escrita.**
 
@@ -176,11 +176,11 @@ Cada degrau tem seu momento:
 ## Alternativas
 
 - **Reduzir a escrita** — agrupar, tornar assíncrona, eliminar a desnecessária.
-- **[CQRS](../06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
+- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
   separado.
 - **Armazenamento adequado por carga** — busca num índice invertido, série temporal
   num banco próprio. Ver
-  [NoSQL](../07-data-architecture/nosql.md).
+  [NoSQL](/07-data-architecture/nosql.md).
 - **Banco relacional distribuído** — mantém o modelo e distribui a escrita, ao custo de
   latência de coordenação.
 
@@ -204,7 +204,7 @@ Cada degrau tem seu momento:
 **Conexões esgotadas com CPU ociosa.**
 
 **Réplica atrasada servindo dado velho.** Ver
-[replicação para escala](scaling-replication.md).
+[replicação para escala](/11-scalability/scaling-replication.md).
 
 **Contenção em registro quente.**
 
@@ -273,11 +273,11 @@ sem nenhuma das medições que a escada exige.
 
 ## Conceitos Relacionados
 
-- [Replicação para Escala](scaling-replication.md) e
-  [Particionamento](scaling-partitioning.md).
-- [Pontos Quentes](hotspots.md) — a contenção.
-- [Indexação](../07-data-architecture/indexing.md) — o degrau 1.
-- [OLTP](../07-data-architecture/oltp.md) — a separação de cargas.
+- [Replicação para Escala](/11-scalability/scaling-replication.md) e
+  [Particionamento](/11-scalability/scaling-partitioning.md).
+- [Pontos Quentes](/11-scalability/hotspots.md) — a contenção.
+- [Indexação](/07-data-architecture/indexing.md) — o degrau 1.
+- [OLTP](/07-data-architecture/oltp.md) — a separação de cargas.
 
 ## Exercício Prático
 

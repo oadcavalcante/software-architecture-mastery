@@ -25,7 +25,7 @@ Template Method define o esqueleto de um algoritmo numa classe base, deixando
 etapas específicas para as subclasses.
 
 É o padrão que mais depende de herança, e por isso o que mais frequentemente tem
-uma alternativa melhor em [Strategy](strategy.md).
+uma alternativa melhor em [Strategy](/03-design-patterns/strategy.md).
 
 ## Problema
 
@@ -76,7 +76,7 @@ existem sem ler a base. Quanto mais ganchos, menos previsível o comportamento.
 ### O custo da herança
 
 Template Method herda todos os custos de
-[herança de implementação](../02-software-design/composition-vs-inheritance.md):
+[herança de implementação](/02-software-design/composition-vs-inheritance.md):
 um eixo de variação, acoplamento à implementação da base, e o problema da classe
 base frágil — mudar a base quebra subclasses que ninguém tocou.
 
@@ -105,7 +105,7 @@ que ninguém consegue reter.
 
 ## Alternativas
 
-- **[Strategy](strategy.md)** — composição no lugar da herança. A alternativa
+- **[Strategy](/03-design-patterns/strategy.md)** — composição no lugar da herança. A alternativa
   principal.
 - **Funções passadas como parâmetro** — `processar(validar, transformar)`.
 - **Método template que recebe as etapas** — sem hierarquia, o esqueleto vira uma
@@ -189,7 +189,7 @@ não numa base herdada.
 O detalhe que vale reter: o padrão não estava errado enquanto havia um eixo. Ele
 deixou de servir quando apareceu o segundo, que é exatamente a limitação
 declarada em "quando não usar" — e a mesma que derrubou
-[Factory Method](factory-method.md) num caso análogo.
+[Factory Method](/03-design-patterns/factory-method.md) num caso análogo.
 
 ## Como converter para Strategy
 
@@ -223,10 +223,10 @@ compartilhado era uma dependência oculta entre base e subclasse.
 
 ## Conceitos Relacionados
 
-- [Strategy](strategy.md) — a alternativa por composição.
-- [Factory Method](factory-method.md) — frequentemente usado dentro de um
+- [Strategy](/03-design-patterns/strategy.md) — a alternativa por composição.
+- [Factory Method](/03-design-patterns/factory-method.md) — frequentemente usado dentro de um
   template.
-- [Composição vs. Herança](../02-software-design/composition-vs-inheritance.md).
+- [Composição vs. Herança](/02-software-design/composition-vs-inheritance.md).
 
 ## Exercício Prático
 

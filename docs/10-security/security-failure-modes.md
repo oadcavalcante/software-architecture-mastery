@@ -115,7 +115,7 @@ oculta.
 
 **Regra no código, ausente no banco.** Um script de correção contorna tudo.
 
-Ver [fronteiras seguras](secure-boundaries.md). O teste é sempre: **existe outro
+Ver [fronteiras seguras](/10-security/secure-boundaries.md). O teste é sempre: **existe outro
 caminho para o mesmo efeito?**
 
 ### Falha silenciosa é a pior
@@ -141,7 +141,7 @@ enumeração. Uma que devolve o rastreamento de pilha revela estrutura interna. 
 diz "acesso negado ao recurso 4711" confirma que o recurso existe.
 
 A regra: erros de segurança devem ser **genéricos para fora e detalhados no
-registro**. Ver [auditabilidade](auditability.md).
+registro**. Ver [auditabilidade](/10-security/auditability.md).
 
 E o tempo de resposta também vaza: uma verificação que retorna mais rápido quando o
 usuário não existe é enumerável mesmo com mensagem idêntica.
@@ -180,7 +180,7 @@ frequentemente é a escolha errada.
 - **Degradação graduada** — em vez de binário.
 - **Cache com prazo curto** — meio-termo entre disponibilidade e revogação.
 - **Avaliação local de política** — remove a dependência de rede na decisão. Ver
-  [modelos de autorização](authz-models.md).
+  [modelos de autorização](/10-security/authz-models.md).
 - **Redundância do serviço de política** — trata a causa em vez do sintoma.
 
 ## Trade-offs
@@ -286,10 +286,10 @@ segurança.
 
 ## Conceitos Relacionados
 
-- [Fronteiras Seguras](secure-boundaries.md) — os controles contornáveis.
-- [Modelos de Autorização](authz-models.md) — negar por padrão.
-- [Auditabilidade](auditability.md) — o registro que revela.
-- [Confiabilidade](../12-reliability/index.md).
+- [Fronteiras Seguras](/10-security/secure-boundaries.md) — os controles contornáveis.
+- [Modelos de Autorização](/10-security/authz-models.md) — negar por padrão.
+- [Auditabilidade](/10-security/auditability.md) — o registro que revela.
+- [Confiabilidade](/12-reliability/index.md).
 
 ## Exercício Prático
 

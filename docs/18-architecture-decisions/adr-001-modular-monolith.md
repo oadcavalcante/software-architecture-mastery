@@ -176,7 +176,7 @@ O sinal de alerta é **medível**, e por isso a revisão de 2024 pôde ser objet
 
 ## Conceitos Relacionados
 
-- [Contexto](adr-context.md), [Alternativas](adr-alternatives.md),
-  [Consequências](adr-consequences.md).
-- [Monólito Modular](../03-design-patterns/modular-monolith.md).
-- [ADR-004](adr-004-kafka.md) — a decisão que veio quando o volume cresceu.
+- [Contexto](/18-architecture-decisions/adr-context.md), [Alternativas](/18-architecture-decisions/adr-alternatives.md),
+  [Consequências](/18-architecture-decisions/adr-consequences.md).
+- [Monólito Modular](/03-design-patterns/modular-monolith.md).
+- [ADR-004](/18-architecture-decisions/adr-004-kafka.md) — a decisão que veio quando o volume cresceu.

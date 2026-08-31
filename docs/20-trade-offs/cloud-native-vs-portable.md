@@ -82,7 +82,7 @@ serviços de dados e IA
 Isso permite uma decisão **por componente** em vez de global — e a decisão por componente é
 quase sempre superior, porque concentra o prêmio onde ele é barato.
 
-Ver [aprisionamento](../09-cloud-architecture/vendor-lock-in.md).
+Ver [aprisionamento](/09-cloud-architecture/vendor-lock-in.md).
 
 ### Meça o custo de saída, não o suponha
 
@@ -129,7 +129,7 @@ a camada não serve, e é reescrita na migração
 enquanto isso, ela impediu o uso das capacidades melhores
 ```
 
-É o mesmo mecanismo de [simplicidade vs. flexibilidade](simplicity-vs-flexibility.md):
+É o mesmo mecanismo de [simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md):
 abstração construída a partir de um caso tem a forma daquele caso.
 
 O que funciona melhor é **isolar** — concentrar o uso do serviço proprietário em um módulo
@@ -150,7 +150,7 @@ observabilidade com protocolo aberto
 
 Nenhuma dessas sacrifica capacidade relevante, e todas reduzem a superfície de dependência.
 
-Ver [infraestrutura como código](../14-devops-and-platform/infrastructure-as-code.md).
+Ver [infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md).
 
 ### Motivos reais de migração
 
@@ -371,11 +371,11 @@ estimativa crível de saída, e não de uma arquitetura que evitasse a nuvem int
 
 ## Conceitos Relacionados
 
-- [Aprisionamento](../09-cloud-architecture/vendor-lock-in.md).
-- [Gerenciado vs. Autogerido](managed-vs-self-hosted.md).
-- [Simplicidade vs. Flexibilidade](simplicity-vs-flexibility.md) — o mesmo mecanismo de
+- [Aprisionamento](/09-cloud-architecture/vendor-lock-in.md).
+- [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md).
+- [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md) — o mesmo mecanismo de
   opcionalidade.
-- [Infraestrutura como Código](../14-devops-and-platform/infrastructure-as-code.md).
+- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md).
 
 ## Exercício Prático
 

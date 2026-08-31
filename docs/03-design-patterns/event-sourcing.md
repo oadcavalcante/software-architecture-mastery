@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Event sourcing persiste a **sequência de eventos** que levou ao estado atual, em
 vez do estado. O estado passa a ser derivado: uma função dos eventos.
 
-É [Memento](memento.md) em escala de sistema, e um dos padrões de maior
+É [Memento](/03-design-patterns/memento.md) em escala de sistema, e um dos padrões de maior
 consequência do catálogo — porque a decisão é irreversível na prática.
 
 ## Problema
@@ -59,7 +59,7 @@ eventos por agregado, isso fica caro.
 
 A mitigação é o **instantâneo**: gravar o estado a cada N eventos e reprocessar
 apenas a partir dali. É a mesma estratégia híbrida de
-[Memento](memento.md), e é praticamente obrigatória em produção.
+[Memento](/03-design-patterns/memento.md), e é praticamente obrigatória em produção.
 
 ### Versionamento de evento é permanente
 
@@ -82,7 +82,7 @@ a manter compatibilidade de leitura para sempre?"**
 
 O estado consultável vem de projeções construídas a partir dos eventos —
 tipicamente de forma assíncrona, o que traz
-[CQRS de nível 3](cqrs.md) e sua consistência eventual.
+[CQRS de nível 3](/03-design-patterns/cqrs.md) e sua consistência eventual.
 
 Projeções podem ser reconstruídas do zero, o que é uma vantagem real: um defeito
 numa projeção se corrige reprocessando, sem perda de dado.
@@ -166,7 +166,7 @@ ser adicionada retroativamente.
 
 **Não planejar versionamento.**
 
-**Confundir com [arquitetura orientada a eventos](event-driven.md).** Uma é sobre
+**Confundir com [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).** Uma é sobre
 persistência; a outra sobre comunicação. Podem existir separadamente.
 
 **Não pensar em exclusão de dados pessoais desde o início.**
@@ -216,11 +216,11 @@ adoção.
 
 ## Conceitos Relacionados
 
-- [CQRS](cqrs.md) — quase sempre acompanha.
-- [Memento](memento.md) — a mesma ideia em memória.
-- [Arquitetura Orientada a Eventos](event-driven.md) — comunicação, não
+- [CQRS](/03-design-patterns/cqrs.md) — quase sempre acompanha.
+- [Memento](/03-design-patterns/memento.md) — a mesma ideia em memória.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — comunicação, não
   persistência.
-- [Sagas](../06-distributed-systems/index.md).
+- [Sagas](/06-distributed-systems/index.md).
 
 ## Exercício Prático
 

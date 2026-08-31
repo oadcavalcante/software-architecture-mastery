@@ -94,5 +94,5 @@ mais um obstáculo com boas intenções.
 
 ## Continua em
 
-[Documentação de Arquitetura](../17-architecture-documentation/index.md), onde a questão
+[Documentação de Arquitetura](/17-architecture-documentation/index.md), onde a questão
 passa a ser como o conhecimento sobre o sistema sobrevive às pessoas.

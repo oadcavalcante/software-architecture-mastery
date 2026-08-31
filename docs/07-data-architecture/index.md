@@ -33,8 +33,8 @@ prática, quais times conseguem trabalhar em paralelo e quais vivem se
 bloqueando.
 
 É por isso que arquitetura de dados aparece neste nível e não antes. Ela exige
-que você já entenda [falha parcial](../06-distributed-systems/partial-failure.md)
-e [consistência](../06-distributed-systems/consistency.md) — porque quase toda
+que você já entenda [falha parcial](/06-distributed-systems/partial-failure.md)
+e [consistência](/06-distributed-systems/consistency.md) — porque quase toda
 decisão aqui é uma escolha sobre onde pagar esses custos.
 
 ## O que você vai encontrar aqui
@@ -58,7 +58,7 @@ lenta — e a mais frequentemente confundida com necessidade de escalar.
 
 **Distribuição de dados.** Replicação e particionamento vistos do ângulo do
 armazenamento, complementando o tratamento de
-[sistemas distribuídos](../06-distributed-systems/index.md). Transações e
+[sistemas distribuídos](/06-distributed-systems/index.md). Transações e
 consistência no nível do banco: níveis de isolamento e o que cada um permite
 acontecer.
 
@@ -96,5 +96,5 @@ dado porque ninguém decidiu de quem ele é.
 
 ## Continua em
 
-[Arquitetura de Integração](../08-integration-architecture/index.md), onde a
+[Arquitetura de Integração](/08-integration-architecture/index.md), onde a
 questão passa a ser como esses dados atravessam fronteiras de sistema.

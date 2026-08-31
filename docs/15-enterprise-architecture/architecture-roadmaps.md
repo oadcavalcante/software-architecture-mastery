@@ -22,8 +22,8 @@ last_reviewed: 2026-08-28
 ## Visão Geral
 
 Um roteiro de arquitetura organiza no tempo o que a
-[estratégia](technical-strategy.md) escolheu e a
-[transição](transition-architecture.md) descreveu.
+[estratégia](/15-enterprise-architecture/technical-strategy.md) escolheu e a
+[transição](/15-enterprise-architecture/transition-architecture.md) descreveu.
 
 Ele responde: **o que fazemos primeiro, e o que depende do quê.**
 
@@ -58,7 +58,7 @@ entregas         cada etapa entrega algo utilizável
                  parar em qualquer ponto deixa a organização melhor
 ```
 
-Ver [arquitetura de transição](transition-architecture.md) — é o mesmo princípio,
+Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md) — é o mesmo princípio,
 expresso no tempo.
 
 A pergunta que testa cada item do roteiro: **se pararmos aqui, o que foi entregue vale o
@@ -101,7 +101,7 @@ Um item que alguém espera e não está no roteiro gera atrito quando descoberto
 
 Tornar as ausências explícitas — "isto não está previsto para os próximos 18 meses" — é
 o que transforma uma expectativa implícita numa conversa. Ver
-[estratégia técnica](technical-strategy.md).
+[estratégia técnica](/15-enterprise-architecture/technical-strategy.md).
 
 ### Dependência entre times é o que trava
 
@@ -123,7 +123,7 @@ priorizar.
 
 **Aceitar duplicação temporária.** Às vezes é mais barato duplicar que esperar.
 
-Ver [paisagens de integração](integration-landscapes.md) — a dependência de roteiro
+Ver [paisagens de integração](/15-enterprise-architecture/integration-landscapes.md) — a dependência de roteiro
 reflete a dependência estrutural.
 
 ### Revisar com evidência
@@ -287,10 +287,10 @@ sentido para sobreviver.
 
 ## Conceitos Relacionados
 
-- [Estratégia Técnica](technical-strategy.md) — o que priorizar.
-- [Arquitetura de Transição](transition-architecture.md) — os estados.
-- [Arquitetura Alvo](target-architecture.md).
-- [Capacidades de Negócio](business-capabilities.md) — o vocabulário.
+- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md) — o que priorizar.
+- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md) — os estados.
+- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md).
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — o vocabulário.
 
 ## Exercício Prático
 

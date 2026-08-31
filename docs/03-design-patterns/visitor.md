@@ -113,7 +113,7 @@ leitura de cada operação, e em código lido com frequência isso pesa.
 - **Correspondência de padrões** — em linguagens que oferecem, é superior em quase
   tudo.
 - **Método no nó** — quando as operações são poucas e estáveis.
-- **[Iterator](iterator.md) com condicional de tipo** — menos elegante, muito mais
+- **[Iterator](/03-design-patterns/iterator.md) com condicional de tipo** — menos elegante, muito mais
   legível, e adequado quando há poucos tipos.
 - **Tabela de despacho** — um mapa de tipo para função, sem hierarquia de
   visitantes.
@@ -201,9 +201,9 @@ crescia.
 
 ## Conceitos Relacionados
 
-- [Composite](composite.md) — a estrutura sobre a qual Visitor costuma operar.
-- [Iterator](iterator.md) — percurso sem distinção de tipo.
-- [Strategy](strategy.md) — variação de algoritmo sem estrutura.
+- [Composite](/03-design-patterns/composite.md) — a estrutura sobre a qual Visitor costuma operar.
+- [Iterator](/03-design-patterns/iterator.md) — percurso sem distinção de tipo.
+- [Strategy](/03-design-patterns/strategy.md) — variação de algoritmo sem estrutura.
 
 ## Exercício Prático
 

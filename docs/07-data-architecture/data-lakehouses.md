@@ -21,10 +21,10 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Um lakehouse adiciona sobre os arquivos de um [data lake](data-lakes.md) uma
+Um lakehouse adiciona sobre os arquivos de um [data lake](/07-data-architecture/data-lakes.md) uma
 camada que traz transações, esquema declarado e evolução controlada.
 
-O objetivo é ter as garantias de um [warehouse](data-warehouses.md) com o custo e
+O objetivo é ter as garantias de um [warehouse](/07-data-architecture/data-warehouses.md) com o custo e
 a abertura de armazenamento de objetos.
 
 A arquitetura é real e resolve problemas concretos. Ela não é, porém, um
@@ -33,7 +33,7 @@ importam na escolha.
 
 ## Problema
 
-[Lake](data-lakes.md) e [warehouse](data-warehouses.md) cobrem necessidades
+[Lake](/07-data-architecture/data-lakes.md) e [warehouse](/07-data-architecture/data-warehouses.md) cobrem necessidades
 diferentes, e manter os dois significa duplicar dados, duplicar transformações e
 conviver com números divergentes entre eles.
 
@@ -157,9 +157,9 @@ retorno.
 
 ## Alternativas
 
-- **[Warehouse](data-warehouses.md)** — quando o ferramental e a latência importam
+- **[Warehouse](/07-data-architecture/data-warehouses.md)** — quando o ferramental e a latência importam
   mais que o custo.
-- **[Lake](data-lakes.md) com disciplina** — catálogo e formato colunar cobrem
+- **[Lake](/07-data-architecture/data-lakes.md) com disciplina** — catálogo e formato colunar cobrem
   parte dos casos.
 - **Warehouse com tabelas externas** — consulta arquivos do lake sem movê-los.
 - **Manter os dois** — legítimo quando as cargas são genuinamente distintas.
@@ -259,10 +259,10 @@ A tentativa de eliminar uma das plataformas era o objetivo errado.
 
 ## Conceitos Relacionados
 
-- [Data Lake](data-lakes.md) — a base.
-- [Data Warehouse](data-warehouses.md) — a comparação.
-- [Colunar](column-stores.md) — o formato dos arquivos.
-- [Particionamento de Dados](data-partitioning.md).
+- [Data Lake](/07-data-architecture/data-lakes.md) — a base.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md) — a comparação.
+- [Colunar](/07-data-architecture/column-stores.md) — o formato dos arquivos.
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md).
 
 ## Exercício Prático
 

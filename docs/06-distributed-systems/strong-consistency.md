@@ -78,7 +78,7 @@ regiões intercontinentais         → +150 ms
 ```
 
 A última linha é o que torna consistência forte global impraticável para operações
-de alta frequência. Ver [PACELC](pacelc.md).
+de alta frequência. Ver [PACELC](/06-distributed-systems/pacelc.md).
 
 ### Limitar o escopo é a técnica principal
 
@@ -92,12 +92,12 @@ réplicas daquela partição, que podem estar próximas.
 Um sistema de reservas de hotel não precisa que São Paulo coordene com Tóquio. Ele
 precisa que as réplicas do hotel de São Paulo coordenem entre si.
 
-Ver [particionamento](partitioning.md). **Particionar reduz o escopo da
+Ver [particionamento](/06-distributed-systems/partitioning.md). **Particionar reduz o escopo da
 coordenação**, e é o que torna consistência forte viável em escala.
 
 ### Ela é indisponível sob partição
 
-Por [CAP](cap.md), garantir consistência durante uma partição significa recusar
+Por [CAP](/06-distributed-systems/cap.md), garantir consistência durante uma partição significa recusar
 operações no lado minoritário.
 
 Isso precisa ser aceito explicitamente: o sistema fica indisponível para parte dos
@@ -141,7 +141,7 @@ eventual, com reconciliação.
 **Para dado que não controla recurso.** Perfil, catálogo, histórico, agregados.
 
 **Quando garantias de sessão resolvem a percepção.** Ver
-[consistência eventual](eventual-consistency.md).
+[consistência eventual](/06-distributed-systems/eventual-consistency.md).
 
 ## Alternativas
 
@@ -234,11 +234,11 @@ que é intrinsecamente local a um evento.
 
 ## Conceitos Relacionados
 
-- [Consistência](consistency.md) — o espectro.
-- [Consistência Eventual](eventual-consistency.md) — o outro extremo.
-- [PACELC](pacelc.md) — o custo permanente.
-- [Consenso](consensus.md) — o mecanismo por trás.
-- [Particionamento](partitioning.md) — como reduzir o escopo.
+- [Consistência](/06-distributed-systems/consistency.md) — o espectro.
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) — o outro extremo.
+- [PACELC](/06-distributed-systems/pacelc.md) — o custo permanente.
+- [Consenso](/06-distributed-systems/consensus.md) — o mecanismo por trás.
+- [Particionamento](/06-distributed-systems/partitioning.md) — como reduzir o escopo.
 
 ## Exercício Prático
 

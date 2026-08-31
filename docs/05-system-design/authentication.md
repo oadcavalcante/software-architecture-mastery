@@ -22,11 +22,11 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 Autenticação responde **quem está chamando**. É distinta de
-[autorização](authorization.md), que responde o que essa pessoa pode fazer.
+[autorização](/05-system-design/authorization.md), que responde o que essa pessoa pode fazer.
 
 Este documento trata da decisão de sistema: onde a prova de identidade vive e onde
 ela é verificada. Os protocolos e o modelo de ameaça são assunto de
-[segurança](../10-security/index.md).
+[segurança](/10-security/index.md).
 
 ## Problema
 
@@ -89,7 +89,7 @@ repetição e de todos precisarem da chave de verificação.
 recomendação para sistemas com fronteiras de confiança reais.
 
 A escolha entre os dois primeiros é a mesma pergunta de
-[Zero Trust](../10-security/index.md): a rede interna é confiável?
+[Zero Trust](/10-security/index.md): a rede interna é confiável?
 
 ### Autenticação de serviço não é a mesma coisa
 
@@ -127,19 +127,19 @@ desproporcional.
 **Token carregando dado sensível.** Ele é legível.
 
 **Sessão em memória local com múltiplas instâncias.** Ver
-[gestão de estado](state-management.md).
+[gestão de estado](/05-system-design/state-management.md).
 
 **Verificação só na borda, com rede interna acessível.** Um serviço alcançável
 diretamente fica sem proteção.
 
 **Implementar o mecanismo do zero.** Autenticação é
-[generic domain](../04-domain-driven-design/generic-domain.md): a superfície de
+[generic domain](/04-domain-driven-design/generic-domain.md): a superfície de
 erro é grande e o benefício de construir, nulo.
 
 ## Alternativas
 
 - **Provedor de identidade externo** — delega o mecanismo. Ver
-  [segurança](../10-security/index.md).
+  [segurança](/10-security/index.md).
 - **Chave de API** — para integração servidor a servidor, sem usuário.
 - **Certificado mútuo** — entre serviços, quando a plataforma suporta.
 
@@ -239,10 +239,10 @@ válido até expirar.
 
 ## Conceitos Relacionados
 
-- [Autorização](authorization.md) — o que vem depois.
-- [Gestão de Estado](state-management.md) — onde a sessão mora.
-- [Sem Estado vs. Com Estado](stateless-vs-stateful.md) — por que token escala.
-- [Segurança](../10-security/index.md) — protocolos, ameaças e gestão de chaves.
+- [Autorização](/05-system-design/authorization.md) — o que vem depois.
+- [Gestão de Estado](/05-system-design/state-management.md) — onde a sessão mora.
+- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md) — por que token escala.
+- [Segurança](/10-security/index.md) — protocolos, ameaças e gestão de chaves.
 
 ## Exercício Prático
 

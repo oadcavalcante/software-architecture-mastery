@@ -92,5 +92,5 @@ contestadas uma a uma.
 
 ## Relacionado
 
-[Case Studies](../21-case-studies/index.md), onde esses trade-offs aparecem
+[Case Studies](/21-case-studies/index.md), onde esses trade-offs aparecem
 combinados e em conflito.

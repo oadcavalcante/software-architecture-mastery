@@ -44,7 +44,7 @@ diagnóstico: "acoplado a tudo"   → isolar fronteiras
 
 Os três últimos são muito mais baratos que o primeiro, e frequentemente resolvem o
 problema real. Ver
-[refatoração de legado](legacy-refactoring.md).
+[refatoração de legado](/16-legacy-modernization/legacy-refactoring.md).
 
 E há um custo de enquadramento: chamar um sistema de legado é um julgamento que afeta as
 pessoas que o mantêm. Ele desvaloriza um trabalho que sustenta o negócio, e produz o
@@ -83,7 +83,7 @@ forma de condicionais que parecem arbitrárias.
 
 É a razão principal pela qual reescritas falham: o sistema novo é construído a partir do
 que se acredita que o sistema faz, e não do que ele faz. Ver
-[reconstrução](rebuilding.md).
+[reconstrução](/16-legacy-modernization/rebuilding.md).
 
 Antes de descartar código antigo, vale perguntar de cada trecho estranho: **isto está
 aqui por quê?** Frequentemente a resposta é um incidente de sete anos atrás.
@@ -102,7 +102,7 @@ qualquer alteração acidental apareça.
 
 Isso permite refatorar com segurança sem entender completamente o sistema — que é a
 situação real. Ver
-[refatoração de legado](legacy-refactoring.md).
+[refatoração de legado](/16-legacy-modernization/legacy-refactoring.md).
 
 E os testes escritos assim documentam: eles são a descrição executável do que o sistema
 faz, produzida a partir dele.
@@ -120,7 +120,7 @@ e quebrá-lo tem consequência.
 **O valor está preso ali.** Anos de refinamento, de correções, de aprendizado. Descartar
 isso é descartar o investimento.
 
-Ver [motivadores de modernização](modernization-drivers.md) — a decisão de mexer precisa
+Ver [motivadores de modernização](/16-legacy-modernization/modernization-drivers.md) — a decisão de mexer precisa
 superar esse valor.
 
 ### Nem todo sistema legado precisa ser tratado
@@ -201,10 +201,10 @@ jurídico.
 
 ## Conceitos Relacionados
 
-- [Motivadores de Modernização](modernization-drivers.md) — quando mexer.
-- [Refatoração de Legado](legacy-refactoring.md) — os testes de caracterização.
-- [Reconstrução](rebuilding.md) — o risco do conhecimento perdido.
-- [Restrições Organizacionais](organizational-constraints.md).
+- [Motivadores de Modernização](/16-legacy-modernization/modernization-drivers.md) — quando mexer.
+- [Refatoração de Legado](/16-legacy-modernization/legacy-refactoring.md) — os testes de caracterização.
+- [Reconstrução](/16-legacy-modernization/rebuilding.md) — o risco do conhecimento perdido.
+- [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
 
 ## Exercício Prático
 

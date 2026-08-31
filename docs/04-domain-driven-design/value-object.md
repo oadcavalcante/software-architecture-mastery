@@ -48,7 +48,7 @@ com variações.
 soma valores de moedas diferentes, e que o arredondamento segue regra específica.
 
 É o *primitive obsession* do catálogo de
-[code smells](../02-software-design/code-smells.md), e objetos de valor são a
+[code smells](/02-software-design/code-smells.md), e objetos de valor são a
 correção.
 
 ## Conceitos Centrais
@@ -108,7 +108,7 @@ sempre passados juntos são um `Periodo`.
 
 ## Quando Não Usar
 
-**Quando o conceito tem identidade.** É [entidade](entity.md).
+**Quando o conceito tem identidade.** É [entidade](/04-domain-driven-design/entity.md).
 
 **Quando não há comportamento nem validação.** Um invólucro puro sobre uma cadeia
 de caracteres, sem nenhuma regra, adiciona cerimônia sem retorno. Vale quando há
@@ -202,10 +202,10 @@ persistência. Nos três anos seguintes, nenhum defeito da mesma categoria.
 
 ## Conceitos Relacionados
 
-- [Entity](entity.md) — a outra metade da decisão.
-- [Aggregate](aggregate.md) — onde eles se compõem.
-- [Code Smells](../02-software-design/code-smells.md) — primitive obsession.
-- [Encapsulamento](../02-software-design/encapsulation.md).
+- [Entity](/04-domain-driven-design/entity.md) — a outra metade da decisão.
+- [Aggregate](/04-domain-driven-design/aggregate.md) — onde eles se compõem.
+- [Code Smells](/02-software-design/code-smells.md) — primitive obsession.
+- [Encapsulamento](/02-software-design/encapsulation.md).
 
 ## Exercício Prático
 

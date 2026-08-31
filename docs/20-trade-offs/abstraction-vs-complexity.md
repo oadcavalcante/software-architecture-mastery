@@ -71,7 +71,7 @@ O teste prático: **quantos parâmetros e conceitos preciso entender para usar i
 ao que eu precisaria entender sem isto?** Se a razão não for claramente favorável, a camada
 não se paga.
 
-Ver [abstração](../01-fundamentals/abstraction.md).
+Ver [abstração](/01-fundamentals/abstraction.md).
 
 ### Abstração vazada cobra duas vezes
 
@@ -130,7 +130,7 @@ Uma abstração mal escolhida cobra de cada pessoa que entra no código, para se
 que "eu entendo, é simples" não é argumento — a pergunta é se alguém que chega em dois anos
 entenderá sem explicação.
 
-Ver [complexidade](../01-fundamentals/complexity.md).
+Ver [complexidade](/01-fundamentals/complexity.md).
 
 ### Nomear é a forma mais barata de abstrair
 
@@ -169,7 +169,7 @@ abstrato → concreto   caro: remover camada usada por muitos exige
                       mapear dependentes, e o medo trava
 ```
 
-A assimetria é a mesma de [simplicidade vs. flexibilidade](simplicity-vs-flexibility.md), e
+A assimetria é a mesma de [simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md), e
 com a mesma conclusão: na dúvida, comece concreto. Abstrair depois é feito com informação;
 remover abstração é feito com incerteza.
 
@@ -308,7 +308,7 @@ diretamente quando não há regra.
 
 **Camada de domínio real** para as 12 entidades com lógica substantiva, desta vez desenhada
 a partir das regras e não do gabarito. Ver
-[desenho tático](../04-domain-driven-design/tactical-ddd.md).
+[desenho tático](/04-domain-driven-design/tactical-ddd.md).
 
 **Nomear antes de estruturar** como orientação explícita no guia, com exemplos.
 
@@ -338,11 +338,11 @@ para todos, benefício para ninguém.
 
 ## Conceitos Relacionados
 
-- [Abstração](../01-fundamentals/abstraction.md) e
-  [Complexidade](../01-fundamentals/complexity.md).
-- [Simplicidade vs. Flexibilidade](simplicity-vs-flexibility.md).
-- [Acoplamento vs. Duplicação](coupling-vs-duplication.md).
-- [Desenho Modular](../02-software-design/modular-design.md).
+- [Abstração](/01-fundamentals/abstraction.md) e
+  [Complexidade](/01-fundamentals/complexity.md).
+- [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
+- [Acoplamento vs. Duplicação](/20-trade-offs/coupling-vs-duplication.md).
+- [Desenho Modular](/02-software-design/modular-design.md).
 
 ## Exercício Prático
 

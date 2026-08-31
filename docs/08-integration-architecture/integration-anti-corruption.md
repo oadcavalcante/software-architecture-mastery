@@ -25,7 +25,7 @@ Uma anti-corruption layer traduz entre o modelo de um sistema externo e o seu, d
 forma que o vocabulário e as decisões de modelagem alheias parem na fronteira.
 
 O conceito vem de
-[domain-driven design](../04-domain-driven-design/anti-corruption-layer.md).
+[domain-driven design](/04-domain-driven-design/anti-corruption-layer.md).
 Aqui ele é visto pelo ângulo da integração: **o que acontece quando você não a
 tem**, e quando o custo dela não se justifica.
 
@@ -74,7 +74,7 @@ Menos óbvio, e igualmente importante: quando você publica para fora, a camada
 impede que **seu** modelo interno vire contrato público.
 
 É a mesma separação entre evento interno e evento de integração descrita em
-[integração orientada a eventos](event-driven-integration.md).
+[integração orientada a eventos](/08-integration-architecture/event-driven-integration.md).
 
 Sem ela, refatorar seu domínio quebra consumidores externos — e você perde a
 liberdade de mudar o que é seu.
@@ -172,7 +172,7 @@ compartilhado.
 - **Mapeamento na desserialização** — para casos leves, converter na entrada.
 - **Contrato dirigido pelo consumidor** — em vez de traduzir, negociar o formato.
   Só funciona dentro da organização. Ver
-  [contratos de integração](integration-contracts.md).
+  [contratos de integração](/08-integration-architecture/integration-contracts.md).
 - **Aceitar o acoplamento conscientemente** — decisão legítima quando o modelo é
   próximo e a troca é implausível, desde que registrada.
 
@@ -264,12 +264,12 @@ negócio.
 
 ## Conceitos Relacionados
 
-- [Anti-Corruption Layer](../04-domain-driven-design/anti-corruption-layer.md) — o
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — o
   conceito em DDD.
-- [Contratos de Integração](integration-contracts.md).
-- [Integração Orientada a Eventos](event-driven-integration.md) — tradução de
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
+- [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md) — tradução de
   eventos.
-- [Evolução de Esquema](schema-evolution.md).
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
 ## Exercício Prático
 

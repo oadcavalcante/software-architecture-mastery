@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::info Continuação
 
 Este exercício executa a primeira correção que você identificou no
-[exercício 03](03-scaling-ecommerce.md): tirar a chamada ao adquirente de dentro da transação.
+[exercício 03](/06-distributed-systems/exercises/03-scaling-ecommerce.md): tirar a chamada ao adquirente de dentro da transação.
 
 :::
 
@@ -98,7 +98,7 @@ Sua resposta está boa se:
   divergir, você criou pedidos sem autorização e autorizações sem pedido.
 - **A chave de idempotência é do cliente, e o identificador de requisição ao adquirente é
   outro.** Confundi-los impede a retentativa legítima. Ver
-  [idempotência](../idempotency.md).
+  [idempotência](/06-distributed-systems/idempotency.md).
 - **A reserva de estoque tem prazo maior que o prazo máximo de autorização**, ou você desenhou o
   que acontece quando ela expira antes.
 - **Você listou o trabalho de produto**: tela de acompanhamento, texto novo, notificação,
@@ -170,7 +170,7 @@ informação. O prazo precisa existir, ser curto, e ter ação ao vencer.
 
 ## Conceitos Relacionados
 
-- [Exercício 03](03-scaling-ecommerce.md) e [Exercício 05](05-partial-failure.md).
-- [Mensageria](../messaging.md) e [Garantias de Entrega](../delivery-guarantees.md).
-- [Idempotência](../idempotency.md).
-- [Síncrono vs. Assíncrono](../../20-trade-offs/sync-vs-async.md).
+- [Exercício 03](/06-distributed-systems/exercises/03-scaling-ecommerce.md) e [Exercício 05](/06-distributed-systems/exercises/05-partial-failure.md).
+- [Mensageria](/06-distributed-systems/messaging.md) e [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md).
+- [Idempotência](/06-distributed-systems/idempotency.md).
+- [Síncrono vs. Assíncrono](/20-trade-offs/sync-vs-async.md).

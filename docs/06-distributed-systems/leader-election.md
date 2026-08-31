@@ -26,18 +26,18 @@ coordenar — aceitar escritas, distribuir trabalho, tomar decisões que precisa
 únicas.
 
 Escolher é fácil. O difícil é **garantir que não haja dois**, e essa dificuldade
-é a razão pela qual eleição de líder exige [consenso](consensus.md).
+é a razão pela qual eleição de líder exige [consenso](/06-distributed-systems/consensus.md).
 
 ## Problema
 
 Ter um líder simplifica enormemente: com um único nó decidindo, não há conflito de
-escrita nem ordenação a resolver. É por isso que [replicação](replication.md) com
+escrita nem ordenação a resolver. É por isso que [replicação](/06-distributed-systems/replication.md) com
 líder único é o arranjo mais comum.
 
 O problema aparece quando o líder falha.
 
 Os outros nós precisam detectar a falha e eleger um substituto. Mas
-[detectar falha é heurística](failure-detection.md): "não responde" pode
+[detectar falha é heurística](/06-distributed-systems/failure-detection.md): "não responde" pode
 significar caído, lento, ou do outro lado de uma partição.
 
 Se os nós elegem um novo líder e o antigo **não caiu** — só estava incomunicável —
@@ -65,7 +65,7 @@ O lado minoritário **precisa parar de aceitar escritas**. Se ele continua, o
 mecanismo não vale nada.
 
 Isso é o que torna a eleição uma escolha CP: sob partição, o lado minoritário fica
-indisponível. Ver [CAP](cap.md).
+indisponível. Ver [CAP](/06-distributed-systems/cap.md).
 
 ### O líder antigo precisa saber que perdeu
 
@@ -110,7 +110,7 @@ Antes de eleger, vale perguntar se a coordenação é necessária.
 
 Operações comutativas — que podem acontecer em qualquer ordem sem alterar o
 resultado — não precisam de líder. Ver
-[resolução de conflitos](conflict-resolution.md) e estruturas que convergem sem
+[resolução de conflitos](/06-distributed-systems/conflict-resolution.md) e estruturas que convergem sem
 coordenação.
 
 Líder é a solução mais simples de raciocinar e a mais cara em disponibilidade.
@@ -121,7 +121,7 @@ Eleição correta é notoriamente difícil de implementar. As implementações
 disponíveis — baseadas em Raft, Paxos ou serviços de coordenação — foram testadas
 contra cenários de partição que uma implementação própria não terá.
 
-Ver [consenso](consensus.md).
+Ver [consenso](/06-distributed-systems/consensus.md).
 
 ## Modelo Mental
 
@@ -140,7 +140,7 @@ mecanismo serve a essa segunda parte.
 **Quando a operação é comutativa.** Não precisa de coordenação.
 
 **Quando pode ser idempotente e executada por todos.** Ver
-[idempotência](idempotency.md): se executar N vezes é inofensivo, a eleição é
+[idempotência](/06-distributed-systems/idempotency.md): se executar N vezes é inofensivo, a eleição é
 desnecessária.
 
 **Sem fencing, para proteger recurso externo.** A eleição garante um líder no
@@ -157,7 +157,7 @@ uma arquitetura sem líder, com as complicações correspondentes.
 - **Sem líder, com quórum** — replicação sem coordenação central.
 - **Operações comutativas** — evita a necessidade.
 - **Bloqueio distribuído com prazo** — para coordenação pontual, não contínua. Ver
-  [locks distribuídos](distributed-locks.md).
+  [locks distribuídos](/06-distributed-systems/distributed-locks.md).
 - **Particionamento** — em vez de um líder para tudo, um por partição, o que
   distribui a carga e o risco.
 
@@ -237,10 +237,10 @@ ex-líder perceber nada.
 
 ## Conceitos Relacionados
 
-- [Consenso](consensus.md) — o mecanismo que sustenta a eleição.
-- [Locks Distribuídos](distributed-locks.md) — o mesmo problema em escala menor.
-- [Detecção de Falha](failure-detection.md) — por que é heurística.
-- [Falha de Rede](network-failure.md) — o cérebro dividido.
+- [Consenso](/06-distributed-systems/consensus.md) — o mecanismo que sustenta a eleição.
+- [Locks Distribuídos](/06-distributed-systems/distributed-locks.md) — o mesmo problema em escala menor.
+- [Detecção de Falha](/06-distributed-systems/failure-detection.md) — por que é heurística.
+- [Falha de Rede](/06-distributed-systems/network-failure.md) — o cérebro dividido.
 
 ## Exercício Prático
 

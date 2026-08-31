@@ -70,7 +70,7 @@ critério certo    "o que entrega resultado observável mais cedo,
 
 Frequentemente a resposta é uma capacidade **nova**, e não uma migração — porque ela não tem
 regressão a evitar e produz resultado visível. Ver o
-[case de e-commerce](../21-case-studies/ecommerce.md), em que a primeira fase foi a capacidade
+[case de e-commerce](/21-case-studies/ecommerce.md), em que a primeira fase foi a capacidade
 que não existia.
 
 ### Cada fase termina estável
@@ -84,7 +84,7 @@ em estado consistente custa algum esforço e compra sobrevivência.
 
 Essa disciplina produz planos melhores mesmo quando a interrupção não acontece: ela força
 decomposição em unidades que fazem sentido isoladamente. Ver o
-[case de modernização de legado](../21-case-studies/legacy-modernization-case.md).
+[case de modernização de legado](/21-case-studies/legacy-modernization-case.md).
 
 ### A primeira fase paga as seguintes, quando possível
 
@@ -97,7 +97,7 @@ fase 1 que gasta          exige que o patrocínio se sustente
 
 Nem sempre é possível, e quando é, muda a política do projeto: um plano autossustentado a partir
 do quarto mês não precisa ser reaprovado. Ver o
-[case de delivery](../21-case-studies/food-delivery.md).
+[case de delivery](/21-case-studies/food-delivery.md).
 
 ### Marcos, não datas precisas
 
@@ -121,7 +121,7 @@ Datas são úteis no horizonte curto — o próximo trimestre — e enganosas al
 
 Isso evita a expectativa que produz decepção, e permite que a fase seja avaliada pelo que ela
 prometeu. Ver
-[comunicação](communication.md).
+[comunicação](/23-architecture-leadership/communication.md).
 
 ### Roadmap técnico compete com produto
 
@@ -136,7 +136,7 @@ apresentar junto      a priorização é feita com a informação certa
 Roadmaps técnicos aprovados sem essa conversa são desfeitos na execução, quando a pressão de
 entrega chega — e a desfazer acontece por omissão, sem que ninguém decida.
 
-Ver [estratégia técnica](technical-strategy-leadership.md).
+Ver [estratégia técnica](/23-architecture-leadership/technical-strategy-leadership.md).
 
 ### Revise por evidência, não por calendário
 
@@ -298,10 +298,10 @@ evitado retrabalho e perdido tudo.
 
 ## Conceitos Relacionados
 
-- [Estratégia Técnica](technical-strategy-leadership.md).
-- [Visão de Arquitetura](architecture-vision.md).
-- [Roteiros de Arquitetura](../15-enterprise-architecture/architecture-roadmaps.md).
-- [Gestão de Risco](risk-management.md).
+- [Estratégia Técnica](/23-architecture-leadership/technical-strategy-leadership.md).
+- [Visão de Arquitetura](/23-architecture-leadership/architecture-vision.md).
+- [Roteiros de Arquitetura](/15-enterprise-architecture/architecture-roadmaps.md).
+- [Gestão de Risco](/23-architecture-leadership/risk-management.md).
 
 ## Exercício Prático
 

@@ -69,7 +69,7 @@ massa. Cifrar senha em vez de derivar é um erro clássico.
 Protege contra observação e alteração na rede.
 
 **TLS em tudo**, inclusive dentro da rede interna. A premissa de "a rede interna é
-confiável" é a mesma que [confiança zero](zero-trust.md) desmonta.
+confiável" é a mesma que [confiança zero](/10-security/zero-trust.md) desmonta.
 
 Dois pontos que costumam faltar:
 
@@ -77,7 +77,7 @@ Dois pontos que costumam faltar:
 proteção inteira — o canal fica cifrado com quem quer que esteja no meio.
 
 **TLS mútuo** entre serviços, quando as duas pontas precisam se identificar. Ver
-[malha de serviço](../08-integration-architecture/service-mesh.md).
+[malha de serviço](/08-integration-architecture/service-mesh.md).
 
 ### Em repouso, e o que ela realmente protege
 
@@ -104,7 +104,7 @@ O custo é real e precisa ser reconhecido:
 **Ordenação e comparação** deixam de funcionar.
 
 **A chave precisa ser gerenciada** fora do banco. Ver
-[gestão de chaves](key-management.md).
+[gestão de chaves](/10-security/key-management.md).
 
 Por isso ela é aplicada seletivamente, aos campos que justificam: documento, dados de
 saúde, credenciais de terceiros.
@@ -118,9 +118,9 @@ Apagar os dados dessa pessoa passa a ser **descartar a chave** — o registro
 permanece, e o conteúdo fica irrecuperável.
 
 Isso resolve o conflito entre imutabilidade e direito ao apagamento em
-[event sourcing](../06-distributed-systems/distributed-event-sourcing.md) e em
+[event sourcing](/06-distributed-systems/distributed-event-sourcing.md) e em
 armazenamentos de arquivos imutáveis. Ver
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 Precisa ser projetado desde o início; retroagir exige reescrever o histórico.
 
@@ -172,7 +172,7 @@ e é frequentemente adotada como se fosse.
 
 Para proteger dados sem cifrar:
 
-- **Não coletar.** Ver [proteção de dados](data-protection.md).
+- **Não coletar.** Ver [proteção de dados](/10-security/data-protection.md).
 - **Tokenização** — substituir o dado por uma referência, guardando o original em
   um cofre separado. Comum para dados de cartão.
 - **Pseudonimização** — remover identificadores diretos.
@@ -262,7 +262,7 @@ de chave — o que resolveu um requisito regulatório que estava pendente havia 
 anos.
 
 **Escopo reduzido** da credencial de aplicação, com acesso apenas às tabelas
-necessárias. Ver [menor privilégio](least-privilege.md).
+necessárias. Ver [menor privilégio](/10-security/least-privilege.md).
 
 **Auditoria** de acesso a dados sensíveis, com alerta de volume anômalo.
 
@@ -274,10 +274,10 @@ quem?" — teria mudado a resposta inteira, com o mesmo orçamento.
 
 ## Conceitos Relacionados
 
-- [Gestão de Chaves](key-management.md) — sem ela, criptografia não funciona.
-- [Proteção de Dados](data-protection.md) — as alternativas a cifrar.
-- [Segurança de Rede](network-security.md) — cifragem em trânsito.
-- [Ciclo de Vida do Dado](../07-data-architecture/data-lifecycle.md).
+- [Gestão de Chaves](/10-security/key-management.md) — sem ela, criptografia não funciona.
+- [Proteção de Dados](/10-security/data-protection.md) — as alternativas a cifrar.
+- [Segurança de Rede](/10-security/network-security.md) — cifragem em trânsito.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md).
 
 ## Exercício Prático
 

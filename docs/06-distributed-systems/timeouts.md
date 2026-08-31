@@ -104,7 +104,7 @@ Detalhe frequentemente ignorado: desistir de esperar **não interrompe** o
 processamento do outro lado. O servidor continua trabalhando, continua consumindo
 recurso, e possivelmente conclui a operação.
 
-É por isso que timeout mais retentativa sem [idempotência](idempotency.md) produz
+É por isso que timeout mais retentativa sem [idempotência](/06-distributed-systems/idempotency.md) produz
 duplicação: a primeira execução completou, o chamador não soube, e repetiu.
 
 Cancelamento real exige que o protocolo o suporte e que o servidor o respeite —
@@ -146,13 +146,13 @@ relatório não merecem o mesmo limite.
 padrão — o que significa que não configurar é escolher esperar para sempre.
 
 **Timeout como único mecanismo.** Ele evita a espera; não evita a sobrecarga do
-destino. Ver [circuit breakers](../12-reliability/index.md).
+destino. Ver [circuit breakers](/12-reliability/index.md).
 
 ## Alternativas
 
 Timeout não tem alternativa; ele tem complementos:
 
-- **[Circuit breaker](../12-reliability/index.md)** — parar de chamar um destino que
+- **[Circuit breaker](/12-reliability/index.md)** — parar de chamar um destino que
   está falhando, em vez de esperar e desistir repetidamente.
 - **Prazo propagado** — a forma robusta.
 - **Requisição de reserva** — enviar a duas réplicas e usar a primeira resposta.
@@ -236,10 +236,10 @@ antes.
 
 ## Conceitos Relacionados
 
-- [Latência](latency.md) — a distribuição que calibra o timeout.
-- [Retries](retries.md) — o que vem depois de desistir.
-- [Idempotência](idempotency.md) — o que torna a retentativa segura.
-- [Circuit Breakers](../12-reliability/index.md) — o complemento.
+- [Latência](/06-distributed-systems/latency.md) — a distribuição que calibra o timeout.
+- [Retries](/06-distributed-systems/retries.md) — o que vem depois de desistir.
+- [Idempotência](/06-distributed-systems/idempotency.md) — o que torna a retentativa segura.
+- [Circuit Breakers](/12-reliability/index.md) — o complemento.
 
 ## Exercício Prático
 

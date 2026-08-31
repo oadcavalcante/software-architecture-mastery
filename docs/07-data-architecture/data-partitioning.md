@@ -25,7 +25,7 @@ Particionar é dividir uma tabela grande em partes menores segundo uma chave, de
 forma que consultas leiam apenas as partes relevantes.
 
 Os fundamentos distribuídos estão em
-[particionamento](../06-distributed-systems/partitioning.md). Aqui o foco é o uso
+[particionamento](/06-distributed-systems/partitioning.md). Aqui o foco é o uso
 dentro de um armazenamento: o benefício que quase sempre se paga não é desempenho
 de consulta — é **manutenção**.
 
@@ -78,7 +78,7 @@ Descartar uma partição é uma operação de metadados — milissegundos, sem b
 sem crescimento.
 
 Para qualquer tabela com política de retenção, isso sozinho justifica particionar
-por tempo. Ver [ciclo de vida do dado](data-lifecycle.md).
+por tempo. Ver [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 ### As estratégias
 
@@ -150,15 +150,15 @@ ele adiciona custo.
 
 **Com granularidade fina demais.**
 
-**Para resolver consulta lenta.** Verifique [índice](indexing.md) antes — é a
+**Para resolver consulta lenta.** Verifique [índice](/07-data-architecture/indexing.md) antes — é a
 causa mais provável.
 
 ## Alternativas
 
-- **[Índice](indexing.md) adequado** — resolve a maioria dos casos de consulta
+- **[Índice](/07-data-architecture/indexing.md) adequado** — resolve a maioria dos casos de consulta
   lenta.
 - **Arquivamento periódico** — mover dados antigos para outra tabela.
-- **[Colunar](column-stores.md)** — descarte de bloco por valor mínimo e máximo,
+- **[Colunar](/07-data-architecture/column-stores.md)** — descarte de bloco por valor mínimo e máximo,
   sem particionar.
 - **Apagar em lotes pequenos** — resolve o problema de retenção sem particionar,
   ao custo de um processo contínuo.
@@ -246,10 +246,10 @@ metadados. O ganho de consulta veio junto e foi tratado como bônus.
 
 ## Conceitos Relacionados
 
-- [Particionamento](../06-distributed-systems/partitioning.md) — os fundamentos.
-- [Indexação](indexing.md) — verifique antes.
-- [Ciclo de Vida do Dado](data-lifecycle.md) — retenção.
-- [Replicação de Dados](data-replication.md).
+- [Particionamento](/06-distributed-systems/partitioning.md) — os fundamentos.
+- [Indexação](/07-data-architecture/indexing.md) — verifique antes.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção.
+- [Replicação de Dados](/07-data-architecture/data-replication.md).
 
 ## Exercício Prático
 

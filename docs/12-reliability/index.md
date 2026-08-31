@@ -93,5 +93,5 @@ sozinhas.
 
 ## Continua em
 
-[Observabilidade](../13-observability/index.md), onde a pergunta passa a ser como você
+[Observabilidade](/13-observability/index.md), onde a pergunta passa a ser como você
 sabe o que está acontecendo enquanto acontece.

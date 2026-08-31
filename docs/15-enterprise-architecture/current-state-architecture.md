@@ -55,7 +55,7 @@ derivado    do catálogo de serviços, do rastreamento, da infraestrutura declar
 desenhado   por alguém, em reunião, a partir do que se lembra
 ```
 
-Ver [rastreamento distribuído](../13-observability/distributed-tracing.md) — o mapa de
+Ver [rastreamento distribuído](/13-observability/distributed-tracing.md) — o mapa de
 dependências real vem dali, não de entrevistas.
 
 O que é derivado se mantém sozinho. O que é desenhado envelhece.
@@ -77,7 +77,7 @@ O erro de escopo mais comum: tentar documentar tudo no mesmo nível de detalhe. 
 resultado é um esforço grande que produz um artefato que ninguém consulta.
 
 O detalhe fino pertence ao time do sistema, e vive junto do código. Ver
-[documentação de arquitetura](../17-architecture-documentation/index.md).
+[documentação de arquitetura](/17-architecture-documentation/index.md).
 
 ### A realidade inclui o que ninguém declarou
 
@@ -111,7 +111,7 @@ negócio       criticidade, capacidade que suporta
 A segunda linha é a que costuma revelar o risco mais imediato: um sistema crítico com um
 único mantenedor é uma exposição que nenhuma métrica técnica captura.
 
-Ver [capacidades de negócio](business-capabilities.md) — o cruzamento com criticidade é
+Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md) — o cruzamento com criticidade é
 o que transforma inventário em prioridade.
 
 ### Bom o suficiente, e atualizado
@@ -169,7 +169,7 @@ decidir, não para documentar.
 ## Alternativas
 
 - **Catálogo de serviços derivado** — a versão mínima e a mais sustentável. Ver
-  [plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
+  [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 - **Mapa de dependências por rastreamento** — automático e real.
 - **Inventário de custo por sistema** — derivado da marcação de recursos.
 - **Levantamento sob demanda** — detalhar apenas a área que vai ser mexida.
@@ -245,7 +245,7 @@ que as entrevistas.
 versão, quem publica.
 
 **Custo por sistema**, derivado da marcação de recursos. Ver
-[arquitetura de custo](../09-cloud-architecture/cost-architecture.md).
+[arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
 **Saúde e propriedade** — as únicas dimensões preenchidas à mão, revisadas
 trimestralmente com os times. Elas exigem julgamento e mudam devagar.
@@ -265,10 +265,10 @@ as duas era exatamente onde os riscos estavam.
 
 ## Conceitos Relacionados
 
-- [Arquitetura Alvo](target-architecture.md) — o destino.
-- [Arquitetura de Transição](transition-architecture.md) — o caminho.
-- [Portfólio de Aplicações](application-portfolios.md).
-- [Paisagens de Integração](integration-landscapes.md).
+- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md) — o destino.
+- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md) — o caminho.
+- [Portfólio de Aplicações](/15-enterprise-architecture/application-portfolios.md).
+- [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md).
 
 ## Exercício Prático
 

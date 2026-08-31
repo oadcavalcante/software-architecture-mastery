@@ -119,7 +119,7 @@ a vários kilobytes, e alguns servidores rejeitam cabeçalhos acima de um limite
 
 Além disso, permissões dentro do token ficam congeladas até a expiração: alterar
 uma permissão não tem efeito imediato. Para autorização que muda, é melhor consultar.
-Ver [modelos de autorização](authz-models.md).
+Ver [modelos de autorização](/10-security/authz-models.md).
 
 ### Token de portador é como dinheiro
 
@@ -148,7 +148,7 @@ rápido, está pagando um preço sem receber o benefício.
 
 - Muitos serviços precisam verificar identidade sem consulta central.
 - Comunicação entre serviços com identidade propagada.
-- Token de identidade em [OpenID Connect](oidc.md).
+- Token de identidade em [OpenID Connect](/10-security/oidc.md).
 - Tokens de curta duração com renovação.
 - Escala em que a consulta de sessão seria gargalo.
 
@@ -196,7 +196,7 @@ da maioria das aplicações de servidor único.
 
 **Expiração não verificada.**
 
-**Destinatário não verificado.** Ver [OpenID Connect](oidc.md).
+**Destinatário não verificado.** Ver [OpenID Connect](/10-security/oidc.md).
 
 **Token roubado do armazenamento do navegador** por script injetado.
 
@@ -204,7 +204,7 @@ da maioria das aplicações de servidor único.
 
 **Chave de assinatura vazada.** Permite forjar qualquer token — o pior caso, e o
 motivo de a chave merecer o tratamento de
-[gestão de chaves](key-management.md).
+[gestão de chaves](/10-security/key-management.md).
 
 ## Erros Comuns
 
@@ -269,10 +269,10 @@ quatro problemas.
 
 ## Conceitos Relacionados
 
-- [OAuth 2.0](oauth2.md) e [OpenID Connect](oidc.md).
-- [Segredos](secrets.md) — a chave de assinatura.
-- [Gestão de Chaves](key-management.md).
-- [Autenticação](../05-system-design/authentication.md).
+- [OAuth 2.0](/10-security/oauth2.md) e [OpenID Connect](/10-security/oidc.md).
+- [Segredos](/10-security/secrets.md) — a chave de assinatura.
+- [Gestão de Chaves](/10-security/key-management.md).
+- [Autenticação](/05-system-design/authentication.md).
 
 ## Exercício Prático
 

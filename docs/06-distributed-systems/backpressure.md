@@ -144,7 +144,7 @@ saturado, o problema é dimensionamento.
 
 ## Alternativas
 
-- **[Rate limiting](../05-system-design/rate-limiting.md)** — limitar na entrada em
+- **[Rate limiting](/05-system-design/rate-limiting.md)** — limitar na entrada em
   vez de reagir na saída. Preventivo, e exige conhecer a capacidade.
 - **Escalar o consumidor** — quando o desequilíbrio é de capacidade, não de pico.
 - **Degradar** — processar de forma mais barata sob pressão.
@@ -237,10 +237,10 @@ pode, permitiu tratar os dois de formas diferentes.
 
 ## Conceitos Relacionados
 
-- [Filas](../05-system-design/queues.md) — o buffer durável.
-- [Rate Limiting](../05-system-design/rate-limiting.md) — o controle na entrada.
-- [Retries](retries.md) — que agrava a pressão quando mal configurado.
-- [Confiabilidade](../12-reliability/index.md) — degradação e descarte de carga.
+- [Filas](/05-system-design/queues.md) — o buffer durável.
+- [Rate Limiting](/05-system-design/rate-limiting.md) — o controle na entrada.
+- [Retries](/06-distributed-systems/retries.md) — que agrava a pressão quando mal configurado.
+- [Confiabilidade](/12-reliability/index.md) — degradação e descarte de carga.
 
 ## Exercício Prático
 

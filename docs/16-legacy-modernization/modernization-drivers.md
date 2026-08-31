@@ -47,7 +47,7 @@ ganhamos?**
 E o resultado é previsível: a proposta compete com iniciativas de produto que têm
 retorno articulado, e perde — ano após ano, até que o sistema falhe ou o mantenedor saia.
 
-Ver [arquitetura de negócio](../15-enterprise-architecture/business-architecture.md).
+Ver [arquitetura de negócio](/15-enterprise-architecture/business-architecture.md).
 
 ## Conceitos Centrais
 
@@ -87,7 +87,7 @@ banco proprietário caro       →  R$ 2,1 milhões por ano em licença, para um
 
 A coluna da direita compete por orçamento. A da esquerda, não.
 
-Ver [capacidades de negócio](../15-enterprise-architecture/business-capabilities.md) — o
+Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md) — o
 vocabulário que faz essa tradução.
 
 ### O custo de não fazer precisa ser calculado
@@ -139,7 +139,7 @@ solução: extrair as regras, tornar configurável
          → não exige substituir o sistema
 ```
 
-Ver [modernização incremental](incremental-modernization.md).
+Ver [modernização incremental](/16-legacy-modernization/incremental-modernization.md).
 
 Identificar a parte que causa o problema, e atacar só ela, é frequentemente uma fração do
 custo com a maior parte do benefício.
@@ -188,7 +188,7 @@ proporção de mudanças que geram incidente
 proximidade do fim de suporte de dependências
 ```
 
-Ver [portfólio de aplicações](../15-enterprise-architecture/application-portfolios.md).
+Ver [portfólio de aplicações](/15-enterprise-architecture/application-portfolios.md).
 
 O primeiro é o mais preditivo e o mais fácil de obter — e ele costuma ser conhecido
 informalmente por várias pessoas sem nunca virar número numa discussão de prioridade.
@@ -222,7 +222,7 @@ de conviver com ela.
 - **Não modernizar**, com decisão registrada e prazo de revisão.
 - **Modernização parcial** — atacar a parte que causa o problema.
 - **Contenção** — isolar o sistema para que ele não limite o resto. Ver
-  [anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md).
+  [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 - **Reduzir a dependência** — em vez de modernizar, diminuir o que depende dele.
 
 A terceira é subestimada: um sistema legado bem isolado pode continuar operando por anos
@@ -325,10 +325,10 @@ R$ 4,2 milhões para resolver um desconforto técnico, e o negócio não tinha c
 
 ## Conceitos Relacionados
 
-- [Sistemas Legados](legacy-systems.md) — a definição.
-- [Estratégias de Migração](migration-strategies.md) — como executar.
-- [Restrições Organizacionais](organizational-constraints.md).
-- [Capacidades de Negócio](../15-enterprise-architecture/business-capabilities.md).
+- [Sistemas Legados](/16-legacy-modernization/legacy-systems.md) — a definição.
+- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md) — como executar.
+- [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md).
 
 ## Exercício Prático
 

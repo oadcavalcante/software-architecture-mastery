@@ -61,7 +61,7 @@ presumir comprometimento   projetar para conter, não só para impedir
 
 O terceiro é o que mais muda arquitetura. Ele desloca o esforço de "impedir a
 entrada" para "limitar o alcance e detectar rápido" — que é onde a arquitetura de
-fato contribui. Ver [fronteiras seguras](secure-boundaries.md).
+fato contribui. Ver [fronteiras seguras](/10-security/secure-boundaries.md).
 
 ### A identidade vira o perímetro
 
@@ -71,7 +71,7 @@ verificada — de pessoas e de serviços.
 Consequências práticas:
 
 **Serviços autenticam-se mutuamente.** TLS mútuo ou tokens, não "está na mesma
-rede". Ver [malha de serviço](../08-integration-architecture/service-mesh.md).
+rede". Ver [malha de serviço](/08-integration-architecture/service-mesh.md).
 
 **Toda requisição carrega identidade verificável**, e cada serviço a verifica em vez
 de confiar no chamador.
@@ -174,8 +174,8 @@ limitar o que ele alcança.
 ## Alternativas
 
 - **Segmentação de rede tradicional** — parte do benefício, menos esforço. Ver
-  [segurança de rede](network-security.md).
-- **[Menor privilégio](least-privilege.md) rigoroso** — a maior parte do benefício de
+  [segurança de rede](/10-security/network-security.md).
+- **[Menor privilégio](/10-security/least-privilege.md) rigoroso** — a maior parte do benefício de
   contenção.
 - **Autenticação forte** — o item isolado de melhor retorno.
 - **Acesso por corretor** em vez de rede privada — remove o acesso amplo à rede que a
@@ -242,7 +242,7 @@ tinha causado o incidente original.
 
 **Trimestre 2 — credenciais de serviço.** Eliminação de chaves estáticas, com
 identidade de plataforma e credenciais temporárias. Ver
-[segredos](secrets.md).
+[segredos](/10-security/secrets.md).
 
 **Trimestre 3 — acesso elevado temporário.** O acesso administrativo permanente foi
 removido; elevação de quatro horas com justificativa.
@@ -274,10 +274,10 @@ incidente que motivou tudo.
 
 ## Conceitos Relacionados
 
-- [Fronteiras Seguras](secure-boundaries.md) — o fundamento.
-- [Menor Privilégio](least-privilege.md).
-- [Segurança de Rede](network-security.md) — a segmentação.
-- [Identidade](identity.md) — o novo perímetro.
+- [Fronteiras Seguras](/10-security/secure-boundaries.md) — o fundamento.
+- [Menor Privilégio](/10-security/least-privilege.md).
+- [Segurança de Rede](/10-security/network-security.md) — a segmentação.
+- [Identidade](/10-security/identity.md) — o novo perímetro.
 
 ## Exercício Prático
 

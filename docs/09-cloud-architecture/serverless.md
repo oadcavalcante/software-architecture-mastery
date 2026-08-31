@@ -65,7 +65,7 @@ isso.
 **Ausência de estado.** Cada execução pode ser numa instância diferente. Não há
 memória entre requisições, nem conexão persistente confiável, nem cache local
 garantido. Ver
-[stateless](../05-system-design/stateless-vs-stateful.md).
+[stateless](/05-system-design/stateless-vs-stateful.md).
 
 **Limites rígidos.** Tempo máximo de execução, memória máxima, tamanho de pacote,
 tamanho de payload. Uma operação que ultrapassa qualquer um simplesmente não roda.
@@ -91,7 +91,7 @@ previsível, uma instância reservada é muito mais barata por unidade de trabal
 
 Existe um ponto de inversão, e ele deveria ser calculado antes da adoção. Sistemas
 que crescem de esporádicos para constantes atravessam esse ponto sem perceber. Ver
-[arquitetura de custo](cost-architecture.md).
+[arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
 ### O que ele faz bem
 
@@ -133,7 +133,7 @@ O modelo de execução, os gatilhos, o formato de evento e as permissões são
 específicos do provedor. Sair é reescrever a camada de integração.
 
 Isso é aceitável e precisa ser escolhido. Ver
-[dependência de fornecedor](vendor-lock-in.md).
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Modelo Mental
 
@@ -167,7 +167,7 @@ capacidade.** Vale quando a capacidade é o problema; não vale quando a latênc
 
 ## Alternativas
 
-- **[Contêineres](containers.md) com escalonamento automático** — sem partida a
+- **[Contêineres](/09-cloud-architecture/containers.md) com escalonamento automático** — sem partida a
   frio, sem limite de execução, com capacidade a gerenciar.
 - **Contêineres que escalam a zero** — plataformas que combinam os dois modelos;
   frequentemente o meio-termo certo.
@@ -255,10 +255,10 @@ diferença estava visível nos dados de tráfego antes da migração. Ninguém o
 
 ## Conceitos Relacionados
 
-- [Serviços Gerenciados](managed-services.md) — o grau anterior.
-- [Contêineres](containers.md) — a alternativa.
-- [Arquitetura de Custo](cost-architecture.md) — o ponto de inversão.
-- [Dependência de Fornecedor](vendor-lock-in.md).
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md) — o grau anterior.
+- [Contêineres](/09-cloud-architecture/containers.md) — a alternativa.
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md) — o ponto de inversão.
+- [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Exercício Prático
 

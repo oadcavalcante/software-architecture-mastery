@@ -59,7 +59,7 @@ was chosen. It stopped serving when the team reached sixty and the users a milli
 Framing the change as correcting a mistake makes the conversation political.
 Framing it as a response to a change of context makes it technical — and that is
 the correct formulation, provided the
-[record of decisions](architecture-as-decisions.md) exists to support it.
+[record of decisions](/01-fundamentals/architecture-as-decisions.md) exists to support it.
 
 ### Signals that it needs to change
 
@@ -75,7 +75,7 @@ Observable signals, not impressions:
   to a local fix.
 
 The last is the most decisive, and the one that requires having the
-[characteristics](architecture-characteristics.md) stated in order to be noticed.
+[characteristics](/01-fundamentals/architecture-characteristics.md) stated in order to be noticed.
 
 ### Designing to be changed
 
@@ -85,7 +85,7 @@ changing is possible without rewriting.
 Three things produce that, and all three have already appeared in this level:
 
 **Enforced boundaries**, so a change can be contained. See
-[architecture vs. implementation](architecture-vs-implementation.md).
+[architecture vs. implementation](/01-fundamentals/architecture-vs-implementation.md).
 
 **Recorded decisions**, so you know what you are changing and why.
 
@@ -170,9 +170,9 @@ twice, each time for a specific signal, and can change again.
 
 ## Related Concepts
 
-- [Architecture as a Set of Decisions](architecture-as-decisions.md) — what makes
+- [Architecture as a Set of Decisions](/01-fundamentals/architecture-as-decisions.md) — what makes
   reassessment possible.
-- [Technical Debt](technical-debt.md) — what accumulates when evolution does not
+- [Technical Debt](/01-fundamentals/technical-debt.md) — what accumulates when evolution does not
   happen.
 - [Legacy Modernization](/16-legacy-modernization/index.md) — evolution in
   systems that cannot stop.

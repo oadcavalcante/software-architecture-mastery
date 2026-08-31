@@ -95,5 +95,5 @@ outro, escolheria Y" — que é exatamente o que a entrevista procura.
 
 ## Relacionado
 
-[Case Studies](../21-case-studies/index.md) para a versão sem pressão de tempo, e
-[Trade-offs](../20-trade-offs/index.md) para o material de argumentação.
+[Case Studies](/21-case-studies/index.md) para a versão sem pressão de tempo, e
+[Trade-offs](/20-trade-offs/index.md) para o material de argumentação.

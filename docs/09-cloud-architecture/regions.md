@@ -50,7 +50,7 @@ dados, custo, e quais serviços estarão disponíveis.
 Uma região é projetada para falhar sozinha. Energia, rede, refrigeração e planos de
 controle são separados.
 
-Isso é o que torna [multi-região](multi-region.md) uma estratégia de continuidade:
+Isso é o que torna [multi-região](/09-cloud-architecture/multi-region.md) uma estratégia de continuidade:
 se uma região inteira cai — o que acontece — a outra continua.
 
 O que **não** é isolado: o plano de controle global do provedor, a autenticação, e
@@ -86,7 +86,7 @@ Esses números vêm da velocidade da luz na fibra mais os saltos de roteamento.
 Nenhuma otimização os reduz.
 
 A consequência de projeto: uma operação que faz cinco chamadas entre regiões paga
-cinco vezes esse valor. Ver [PACELC](../06-distributed-systems/pacelc.md) —
+cinco vezes esse valor. Ver [PACELC](/06-distributed-systems/pacelc.md) —
 consistência forte entre regiões distantes é cara por física, não por
 implementação.
 
@@ -97,7 +97,7 @@ gigabyte, e para a internet, mais ainda.
 
 Isso vira decisão de arquitetura: um serviço numa região consultando um banco em
 outra gera custo contínuo, proporcional ao tráfego. Ver
-[arquitetura de custo](cost-architecture.md).
+[arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
 ### Jurisdição não é detalhe jurídico
 
@@ -145,7 +145,7 @@ A escolha de região deve ser deliberada quando:
 
 ## Quando Não Usar
 
-**Múltiplas regiões sem necessidade.** Ver [multi-região](multi-region.md) — o
+**Múltiplas regiões sem necessidade.** Ver [multi-região](/09-cloud-architecture/multi-region.md) — o
 custo é alto e a maioria dos sistemas não precisa.
 
 **Escolher pela padrão do console.**
@@ -160,13 +160,13 @@ custo é alto e a maioria dos sistemas não precisa.
 
 ## Alternativas
 
-- **Uma região com várias [zonas de disponibilidade](availability-zones.md)** — a
+- **Uma região com várias [zonas de disponibilidade](/09-cloud-architecture/availability-zones.md)** — a
   configuração adequada para a maioria dos sistemas.
 - **Rede de distribuição de conteúdo** — resolve latência de leitura sem
   multi-região.
 - **Réplica de leitura em outra região** — proximidade de leitura com escrita
   centralizada.
-- **[Recuperação de desastre](disaster-recovery.md) em outra região** — capacidade
+- **[Recuperação de desastre](/09-cloud-architecture/disaster-recovery.md) em outra região** — capacidade
   reduzida, ativada sob demanda.
 
 ## Trade-offs
@@ -177,7 +177,7 @@ custo é alto e a maioria dos sistemas não precisa.
 | Sem transferência entre regiões | Custo contínuo |
 | Latência uniforme | Próxima do usuário |
 | Falha regional derruba tudo | Continuidade |
-| Consistência barata | Cara. Ver [PACELC](../06-distributed-systems/pacelc.md) |
+| Consistência barata | Cara. Ver [PACELC](/06-distributed-systems/pacelc.md) |
 | Uma jurisdição | Várias a gerenciar |
 
 ## Modos de Falha
@@ -250,10 +250,10 @@ tinha três usuários internos e a região parecia irrelevante.
 
 ## Conceitos Relacionados
 
-- [Zonas de Disponibilidade](availability-zones.md) — a subdivisão.
-- [Multi-Região](multi-region.md) — quando usar mais de uma.
-- [Recuperação de Desastre](disaster-recovery.md).
-- [Arquitetura de Custo](cost-architecture.md) — transferência.
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — a subdivisão.
+- [Multi-Região](/09-cloud-architecture/multi-region.md) — quando usar mais de uma.
+- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md).
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md) — transferência.
 
 ## Exercício Prático
 

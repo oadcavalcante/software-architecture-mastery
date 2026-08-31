@@ -76,7 +76,7 @@ propriedades.
 
 **"Sem esquema."** Não existe dado sem esquema — existe esquema não declarado. Ele
 some do banco e reaparece na aplicação, em vários lugares, sem validação. Ver
-[bancos de documentos](document-databases.md).
+[bancos de documentos](/07-data-architecture/document-databases.md).
 
 **"Escala horizontalmente."** Vários escalam, ao custo de abandonar transações
 entre registros e consultas não previstas. E relacionais distribuídos escalam
@@ -95,7 +95,7 @@ travessia, por relevância textual.
 **Como é escrito?** Registro individual, lote, fluxo contínuo.
 
 **Que consistência a operação exige?** Ver
-[consistência](../06-distributed-systems/consistency.md).
+[consistência](/06-distributed-systems/consistency.md).
 
 **Que perguntas não previstas serão feitas?** Se muitas, modelos otimizados para
 um acesso vão limitar.
@@ -148,10 +148,10 @@ final dos anos 2000.
 
 Para decidir armazenamento, use as categorias específicas:
 
-- **[Documento](document-databases.md)** — agregados variáveis lidos inteiros.
-- **[Chave-valor](key-value-databases.md)** — acesso por chave, vazão.
-- **[Colunar](column-stores.md)** — analítico.
-- **[Grafo](graph-databases.md)** — travessia.
+- **[Documento](/07-data-architecture/document-databases.md)** — agregados variáveis lidos inteiros.
+- **[Chave-valor](/07-data-architecture/key-value-databases.md)** — acesso por chave, vazão.
+- **[Colunar](/07-data-architecture/column-stores.md)** — analítico.
+- **[Grafo](/07-data-architecture/graph-databases.md)** — travessia.
 - **Série temporal** — métricas com retenção.
 
 ## Quando Não Usar
@@ -166,7 +166,7 @@ Para decidir armazenamento, use as categorias específicas:
 e a oposição nunca foi sobre a linguagem.
 
 **Para justificar sair do relacional sem medir.** Ver
-[bancos relacionais](relational-databases.md).
+[bancos relacionais](/07-data-architecture/relational-databases.md).
 
 ## Alternativas
 
@@ -247,9 +247,9 @@ descrita em termos de padrão de acesso antes de escolher.
 
 ## Conceitos Relacionados
 
-- [Bancos Relacionais](relational-databases.md) — o padrão do qual se abre mão.
-- [Bancos de Documentos](document-databases.md), [Chave-Valor](key-value-databases.md),
-  [Colunar](column-stores.md), [Grafo](graph-databases.md) — as categorias reais.
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md) — o padrão do qual se abre mão.
+- [Bancos de Documentos](/07-data-architecture/document-databases.md), [Chave-Valor](/07-data-architecture/key-value-databases.md),
+  [Colunar](/07-data-architecture/column-stores.md), [Grafo](/07-data-architecture/graph-databases.md) — as categorias reais.
 
 ## Exercício Prático
 

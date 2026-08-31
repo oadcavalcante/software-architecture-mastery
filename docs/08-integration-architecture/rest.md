@@ -90,7 +90,7 @@ serviço **agem** sobre essas garantias. Um `GET` que altera estado será repeti
 por uma pré-busca. Um `POST` sem chave de idempotência será duplicado por uma
 retentativa.
 
-Ver [idempotência](../06-distributed-systems/idempotency.md).
+Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 ### Código de status é parte do contrato
 
@@ -106,7 +106,7 @@ Ver [idempotência](../06-distributed-systems/idempotency.md).
 ```
 
 A divisão entre 4xx e 5xx é o que permite ao cliente decidir se
-[repete](../06-distributed-systems/retries.md). Uma API que devolve `200` com
+[repete](/06-distributed-systems/retries.md). Uma API que devolve `200` com
 erro no corpo tira essa decisão de quem chama, e obriga cada cliente a
 reimplementar a classificação.
 
@@ -127,7 +127,7 @@ não controla.
 
 ### Versão: prefira não
 
-Ver [evolução de esquema](schema-evolution.md). Adicionar campo é livre;
+Ver [evolução de esquema](/08-integration-architecture/schema-evolution.md). Adicionar campo é livre;
 adicionar recurso é livre. A maior parte da evolução de uma API HTTP cabe em
 mudança compatível.
 
@@ -164,18 +164,18 @@ ignorada é uma que você vai reimplementar pior.
 ## Quando Não Usar
 
 **Quando a consequência é assíncrona.** Ver
-[integração por mensageria](messaging-integration.md).
+[integração por mensageria](/08-integration-architecture/messaging-integration.md).
 
 **Quando o cliente precisa de campos muito variáveis.** Ver
-[GraphQL](graphql.md).
+[GraphQL](/08-integration-architecture/graphql.md).
 
-**Comunicação interna de altíssima frequência.** Ver [gRPC](grpc.md) — o custo de
+**Comunicação interna de altíssima frequência.** Ver [gRPC](/08-integration-architecture/grpc.md) — o custo de
 serialização e de conexão pesa.
 
 **Fluxos bidirecionais ou de longa duração.**
 
 **Transferência de grandes volumes em lote.** Ver
-[integração em lote](batch-integration.md).
+[integração em lote](/08-integration-architecture/batch-integration.md).
 
 **Quando a operação não é sobre um recurso.** Forçar substantivo em cálculos e
 buscas complexas produz modelagem torturada — ali um endpoint de operação é mais
@@ -183,10 +183,10 @@ honesto.
 
 ## Alternativas
 
-- **[GraphQL](graphql.md)** — quando o consumo é variável.
-- **[gRPC](grpc.md)** — interno, alta frequência, contrato forte.
-- **[Mensageria](messaging-integration.md)** — assíncrono.
-- **[Webhooks](webhooks.md)** — para notificar em vez de ser consultado.
+- **[GraphQL](/08-integration-architecture/graphql.md)** — quando o consumo é variável.
+- **[gRPC](/08-integration-architecture/grpc.md)** — interno, alta frequência, contrato forte.
+- **[Mensageria](/08-integration-architecture/messaging-integration.md)** — assíncrono.
+- **[Webhooks](/08-integration-architecture/webhooks.md)** — para notificar em vez de ser consultado.
 
 ## Trade-offs
 
@@ -218,7 +218,7 @@ honesto.
 **Coleção sem paginação.** Uma consulta devolve tudo e derruba os dois lados.
 
 **Sequência de chamadas em laço.** O cliente faz N requisições para montar uma
-tela — o problema que motiva [GraphQL](graphql.md).
+tela — o problema que motiva [GraphQL](/08-integration-architecture/graphql.md).
 
 ## Erros Comuns
 
@@ -277,10 +277,10 @@ que estava sendo desperdiçada.
 
 ## Conceitos Relacionados
 
-- [GraphQL](graphql.md) e [gRPC](grpc.md) — as alternativas síncronas.
-- [Contratos de Integração](integration-contracts.md).
-- [Idempotência](../06-distributed-systems/idempotency.md).
-- [API Gateways](api-gateways.md).
+- [GraphQL](/08-integration-architecture/graphql.md) e [gRPC](/08-integration-architecture/grpc.md) — as alternativas síncronas.
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
+- [Idempotência](/06-distributed-systems/idempotency.md).
+- [API Gateways](/08-integration-architecture/api-gateways.md).
 
 ## Exercício Prático
 

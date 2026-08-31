@@ -30,7 +30,7 @@ agregado por transação.
 
 ## Problema
 
-A regra de [aggregate](aggregate.md) diz: modifique um agregado por transação.
+A regra de [aggregate](/04-domain-driven-design/aggregate.md) diz: modifique um agregado por transação.
 
 Mas casos de uso reais atravessam agregados. Confirmar um pedido precisa reservar
 estoque, iniciar cobrança e notificar o cliente — três agregados, possivelmente
@@ -98,7 +98,7 @@ não são atômicos. Pode gravar e não publicar, ou publicar e falhar ao gravar
 
 A solução usual é o padrão *outbox*: o evento é gravado numa tabela na mesma
 transação, e um processo separado o publica. Ver
-[sistemas distribuídos](../06-distributed-systems/index.md).
+[sistemas distribuídos](/06-distributed-systems/index.md).
 
 Ignorar isso produz perda silenciosa de eventos, que é o defeito mais difícil de
 diagnosticar deste padrão.
@@ -127,13 +127,13 @@ domínio.
 vez.
 
 **Sem observabilidade.** Ver
-[arquitetura orientada a eventos](../03-design-patterns/event-driven.md): o custo
+[arquitetura orientada a eventos](/03-design-patterns/event-driven.md): o custo
 do estilo é rastreabilidade.
 
 ## Alternativas
 
 - **Chamada direta ao serviço de domínio** — quando há um consumidor.
-- **[Saga](../06-distributed-systems/index.md)** — quando a coordenação precisa de
+- **[Saga](/06-distributed-systems/index.md)** — quando a coordenação precisa de
   compensação e prazo.
 - **Serviço de aplicação orquestrando** — quando o fluxo é crítico e precisa ser
   auditável num lugar.
@@ -213,11 +213,11 @@ A perda silenciosa deixou de ser possível.
 
 ## Conceitos Relacionados
 
-- [Aggregate](aggregate.md) — quem registra o evento.
-- [Application Service](application-service.md) — quem publica.
-- [Arquitetura Orientada a Eventos](../03-design-patterns/event-driven.md) — o
+- [Aggregate](/04-domain-driven-design/aggregate.md) — quem registra o evento.
+- [Application Service](/04-domain-driven-design/application-service.md) — quem publica.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — o
   estilo em escala de sistema.
-- [Event Sourcing](../03-design-patterns/event-sourcing.md) — quando os eventos
+- [Event Sourcing](/03-design-patterns/event-sourcing.md) — quando os eventos
   são a fonte de verdade.
 
 ## Exercício Prático

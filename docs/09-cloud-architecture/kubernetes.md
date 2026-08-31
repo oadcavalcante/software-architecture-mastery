@@ -103,7 +103,7 @@ startup    ainda está iniciando? suspende as outras duas
 O erro clássico é apontar a de liveness para uma verificação que depende de outros
 serviços: o banco fica lento, a verificação falha, o pod é reiniciado — e reiniciar
 não conserta o banco, só piora. Ver
-[detecção de falhas](../06-distributed-systems/failure-detection.md).
+[detecção de falhas](/06-distributed-systems/failure-detection.md).
 
 Regra: liveness verifica apenas o próprio processo; readiness pode verificar
 dependências.
@@ -183,9 +183,9 @@ erradas — só as distribui melhor.
 
 - **Plataformas de contêiner gerenciadas** — rodam contêineres sem expor o modelo
   de orquestração. Cobrem a maioria dos casos com muito menos conhecimento.
-- **[Serverless](serverless.md)** — sem capacidade nem orquestração.
+- **[Serverless](/09-cloud-architecture/serverless.md)** — sem capacidade nem orquestração.
 - **Máquinas com escalonamento automático** — para poucos serviços estáveis.
-- **Plataforma como serviço** — ver [PaaS](paas.md).
+- **Plataforma como serviço** — ver [PaaS](/09-cloud-architecture/paas.md).
 
 ## Trade-offs
 
@@ -281,14 +281,14 @@ do caminho.
 O argumento de evitar dependência de provedor, que motivou o autogerenciamento, não
 se sustentou: a portabilidade nunca foi exercida, e o custo de operá-lo foi maior
 que o de qualquer migração hipotética. Ver
-[dependência de fornecedor](vendor-lock-in.md).
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Conceitos Relacionados
 
-- [Contêineres](containers.md) — o que ele orquestra.
-- [Serverless](serverless.md) — a alternativa sem orquestração.
-- [Serviços Gerenciados](managed-services.md).
-- [Malha de Serviço](../08-integration-architecture/service-mesh.md).
+- [Contêineres](/09-cloud-architecture/containers.md) — o que ele orquestra.
+- [Serverless](/09-cloud-architecture/serverless.md) — a alternativa sem orquestração.
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
+- [Malha de Serviço](/08-integration-architecture/service-mesh.md).
 
 ## Exercício Prático
 

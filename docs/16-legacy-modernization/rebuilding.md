@@ -40,7 +40,7 @@ Reescritas falham por razões estruturais, não por incompetência:
 
 **Conhecimento embutido.** O código antigo contém regras que ninguém documentou,
 acumuladas em anos de operação. Ver
-[sistemas legados](legacy-systems.md).
+[sistemas legados](/16-legacy-modernization/legacy-systems.md).
 
 **Valor no fim.** Nada é entregue até a troca. Um projeto de dois anos consome apoio
 durante 24 meses sem mostrar resultado.
@@ -100,8 +100,8 @@ o novo é validado contra eles              não contra a especificação
 comparação em produção                     os dois processam, compara-se o resultado
 ```
 
-Ver [refatoração de legado](legacy-refactoring.md) e
-[implantação sombra](../14-devops-and-platform/deployment-strategies.md).
+Ver [refatoração de legado](/16-legacy-modernization/legacy-refactoring.md) e
+[implantação sombra](/14-devops-and-platform/deployment-strategies.md).
 
 A comparação em produção é o controle mais forte: o novo processa o mesmo tráfego, sem
 responder ao usuário, e as divergências apontam onde ele diverge.
@@ -115,7 +115,7 @@ Um erro comum: assumir que reconstruir significa construir tudo e trocar de uma 
 
 As duas coisas são independentes. É possível — e quase sempre melhor — reconstruir
 **incrementalmente**, com o novo assumindo funcionalidades gradualmente. Ver
-[strangler fig](strangler-fig.md).
+[strangler fig](/16-legacy-modernization/strangler-fig.md).
 
 Isso remove a propriedade mais danosa da reescrita: o valor concentrado no fim.
 
@@ -141,7 +141,7 @@ construída no sistema novo desde o início.
 
 Reconstruções de sistemas grandes levam anos. E anos são mais tempo do que o apoio
 organizacional costuma durar. Ver
-[restrições organizacionais](organizational-constraints.md).
+[restrições organizacionais](/16-legacy-modernization/organizational-constraints.md).
 
 A verificação honesta antes de começar: **este projeto sobrevive à saída do patrocinador,
 a uma mudança de prioridade, e a dois ciclos de orçamento?**
@@ -178,14 +178,14 @@ por razões que não se resolvem com esforço.
 
 ## Alternativas
 
-- **[Refatoração](legacy-refactoring.md)** — quando o modelo está certo.
-- **[Strangler Fig](strangler-fig.md)** — reconstruir incrementalmente.
-- **[Replataforma](replatforming.md)** — quando o problema é a infraestrutura.
-- **[Substituição](replacing.md)** — quando existe produto de mercado.
+- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)** — quando o modelo está certo.
+- **[Strangler Fig](/16-legacy-modernization/strangler-fig.md)** — reconstruir incrementalmente.
+- **[Replataforma](/16-legacy-modernization/replatforming.md)** — quando o problema é a infraestrutura.
+- **[Substituição](/16-legacy-modernization/replacing.md)** — quando existe produto de mercado.
 - **Reconstruir apenas a parte com modelo errado** — frequentemente a resposta correta.
 
 A última merece destaque: sistemas raramente têm o modelo inteiro errado. Ver
-[estratégias de migração](migration-strategies.md).
+[estratégias de migração](/16-legacy-modernization/migration-strategies.md).
 
 ## Trade-offs
 
@@ -283,10 +283,10 @@ paridade não verificada.
 
 ## Conceitos Relacionados
 
-- [Estratégias de Migração](migration-strategies.md) — as alternativas.
-- [Strangler Fig](strangler-fig.md) — reconstruir incrementalmente.
-- [Sistemas Legados](legacy-systems.md) — o conhecimento embutido.
-- [Restrições Organizacionais](organizational-constraints.md).
+- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md) — as alternativas.
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md) — reconstruir incrementalmente.
+- [Sistemas Legados](/16-legacy-modernization/legacy-systems.md) — o conhecimento embutido.
+- [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
 
 ## Exercício Prático
 

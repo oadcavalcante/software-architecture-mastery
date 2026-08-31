@@ -51,7 +51,7 @@ impreciso demais para quem é.
 
 E ele não tem leitor definido — foi desenhado para "mostrar a arquitetura", não para
 alguém com uma pergunta. Ver
-[princípios de documentação](documentation-principles.md).
+[princípios de documentação](/17-architecture-documentation/documentation-principles.md).
 
 ## Conceitos Centrais
 
@@ -82,7 +82,7 @@ não   uma biblioteca, um módulo, uma classe, um conceito
 
 O teste: **é uma unidade separadamente implantável ou um armazenamento?**
 
-Ver [diagramas de contêiner](container-diagrams.md).
+Ver [diagramas de contêiner](/17-architecture-documentation/container-diagrams.md).
 
 ### Os dois primeiros níveis cobrem a maior parte
 
@@ -93,7 +93,7 @@ componente  vale para sistemas grandes, e envelhece rápido
 código      quase nunca vale desenhar — a ferramenta gera se preciso
 ```
 
-Ver [princípios de documentação](documentation-principles.md) — a meia-vida decresce com
+Ver [princípios de documentação](/17-architecture-documentation/documentation-principles.md) — a meia-vida decresce com
 o zoom.
 
 A recomendação prática: produza contexto e contêiner para todo sistema relevante, e
@@ -122,7 +122,7 @@ significa em cada nível.
 
 Isso é deliberado: qualquer notação funciona desde que consistente, e a legenda resolve o
 resto. Ver
-[qualidade de diagrama](diagram-quality.md).
+[qualidade de diagrama](/17-architecture-documentation/diagram-quality.md).
 
 O que não é livre: misturar níveis, omitir a legenda, ou usar a mesma forma para coisas
 diferentes.
@@ -138,7 +138,7 @@ gerado              a imagem não é editada à mão
 consistente         a mesma notação em todos
 ```
 
-Ver [documentação viva](living-documentation.md).
+Ver [documentação viva](/17-architecture-documentation/living-documentation.md).
 
 Isso resolve o problema mais comum de diagramas: eles são desenhados uma vez, numa
 ferramenta gráfica, e ninguém os atualiza porque atualizar exige abrir a ferramenta.
@@ -149,7 +149,7 @@ O C4 descreve estrutura estática. Comportamento — ordem, concorrência, trata
 — fica de fora por construção, e essa lacuna precisa ser preenchida por outro artefato.
 
 Na prática, um conjunto útil combina os dois primeiros níveis do C4 com dois ou três
-[diagramas de sequência](sequence-diagrams.md) dos fluxos que atravessam mais peças. É
+[diagramas de sequência](/17-architecture-documentation/sequence-diagrams.md) dos fluxos que atravessam mais peças. É
 essa combinação que responde tanto a "o que existe" quanto a "o que acontece", e ela custa
 pouco mais que a estrutura sozinha.
 
@@ -186,9 +186,9 @@ resolvem a maior parte.
 ## Alternativas
 
 - **arc42** — um modelo de documento mais amplo, que inclui diagramas e texto. Ver
-  [descrições de arquitetura](architecture-descriptions.md).
+  [descrições de arquitetura](/17-architecture-documentation/architecture-descriptions.md).
 - **Modelo 4+1** — organiza por visões. Ver
-  [visões de arquitetura](architecture-views.md).
+  [visões de arquitetura](/17-architecture-documentation/architecture-views.md).
 - **UML** — mais expressiva e mais pesada; útil quando a precisão importa.
 - **Diagramas informais** — um esboço num quadro resolve muita conversa, e não precisa
   virar artefato.
@@ -287,11 +287,11 @@ diagrama — que tornou possível dizer, antes de desenhar, para quem o diagrama
 
 ## Conceitos Relacionados
 
-- [Diagramas de Contexto](context-diagrams.md) e
-  [de Contêiner](container-diagrams.md) — os dois que mais valem.
-- [Diagramas de Componente](component-diagrams.md).
-- [Qualidade de Diagrama](diagram-quality.md).
-- [Documentação Viva](living-documentation.md).
+- [Diagramas de Contexto](/17-architecture-documentation/context-diagrams.md) e
+  [de Contêiner](/17-architecture-documentation/container-diagrams.md) — os dois que mais valem.
+- [Diagramas de Componente](/17-architecture-documentation/component-diagrams.md).
+- [Qualidade de Diagrama](/17-architecture-documentation/diagram-quality.md).
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md).
 
 ## Exercício Prático
 

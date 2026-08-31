@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::info Continuação
 
 Este exercício usa o sistema que você projetou no
-[exercício 02](../../05-system-design/exercises/02-ecommerce-backend.md). Releia as três
+[exercício 02](/05-system-design/exercises/02-ecommerce-backend.md). Releia as três
 decisões que você registrou como difíceis de reverter antes de continuar.
 
 :::
@@ -135,7 +135,7 @@ conexões         cada pedido segura uma conexão de banco enquanto
 
 O terceiro é o mais instrutivo e o menos óbvio: a transação aberta durante a chamada externa
 transforma uma dependência lenta em uma queda total. Ver
-[timeouts](../timeouts.md) e [falha parcial](../partial-failure.md).
+[timeouts](/06-distributed-systems/timeouts.md) e [falha parcial](/06-distributed-systems/partial-failure.md).
 
 **A correção, na ordem:**
 
@@ -174,7 +174,7 @@ passar de 4 h/ano", a correção teria começado antes dos três episódios de c
 
 Essa é a diferença entre uma decisão com prazo de validade e uma decisão que venceu sem que
 ninguém percebesse. Ver
-[alternativas em ADR](../../18-architecture-decisions/adr-alternatives.md).
+[alternativas em ADR](/18-architecture-decisions/adr-alternatives.md).
 
 **O item 1 da correção é o exercício 04.** Tirar a chamada de dentro da transação parece uma
 mudança técnica pequena e não é: ela cria estado intermediário, e estado intermediário é
@@ -184,7 +184,7 @@ trabalho de produto.
 
 ## Conceitos Relacionados
 
-- [Exercício 02](../../05-system-design/exercises/02-ecommerce-backend.md).
-- [Timeouts](../timeouts.md) e [Falha Parcial](../partial-failure.md).
-- [Disponibilidade](../availability.md).
-- [Identificação de Gargalo](../../22-system-design-interviews/bottleneck-identification.md).
+- [Exercício 02](/05-system-design/exercises/02-ecommerce-backend.md).
+- [Timeouts](/06-distributed-systems/timeouts.md) e [Falha Parcial](/06-distributed-systems/partial-failure.md).
+- [Disponibilidade](/06-distributed-systems/availability.md).
+- [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md).

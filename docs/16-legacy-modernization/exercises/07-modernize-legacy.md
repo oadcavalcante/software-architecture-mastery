@@ -162,7 +162,7 @@ disponível, roda em paralelo sobre transações reais, e cada divergência é u
 Ler o código não funciona: em dezenove anos, a lógica de cálculo de safra tem casos que ninguém
 lembra de ter escrito.
 
-Ver o [case de modernização](../../21-case-studies/legacy-modernization-case.md).
+Ver o [case de modernização](/21-case-studies/legacy-modernization-case.md).
 
 **As duas pessoas** são a autoridade sobre a comparação, não a fonte da especificação. O papel
 delas é decidir, diante de uma divergência, qual comportamento está correto — e esse julgamento é
@@ -183,7 +183,7 @@ início, não ser descoberto no primeiro pico.
 
 ## Conceitos Relacionados
 
-- [Estratégias de Migração](../migration-strategies.md).
-- [Strangler Fig](../strangler-fig.md).
-- [Case: Modernização de Legado](../../21-case-studies/legacy-modernization-case.md).
-- [Restrições Organizacionais](../organizational-constraints.md).
+- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md).
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md).
+- [Case: Modernização de Legado](/21-case-studies/legacy-modernization-case.md).
+- [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).

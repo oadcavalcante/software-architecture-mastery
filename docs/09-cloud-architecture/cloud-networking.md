@@ -106,8 +106,8 @@ A última linha surpreende: um gateway de tradução processando volume alto pod
 tornar um item relevante da fatura, e o tráfego que passa por ele frequentemente
 poderia ir por ponto de extremidade privado.
 
-Ver [arquitetura de custo](cost-architecture.md) e
-[zonas de disponibilidade](availability-zones.md).
+Ver [arquitetura de custo](/09-cloud-architecture/cost-architecture.md) e
+[zonas de disponibilidade](/09-cloud-architecture/availability-zones.md).
 
 ### Faixas de endereço precisam ser planejadas
 
@@ -166,7 +166,7 @@ privado.
 - **Acesso administrativo por serviço gerenciado de sessão** — elimina a
   necessidade de porta aberta.
 - **Malha de serviço** — para políticas entre serviços. Ver
-  [malha de serviço](../08-integration-architecture/service-mesh.md).
+  [malha de serviço](/08-integration-architecture/service-mesh.md).
 - **Ponto de extremidade privado** — em vez de gateway de tradução para serviços do
   provedor.
 
@@ -257,10 +257,10 @@ parte do desenho.
 
 ## Conceitos Relacionados
 
-- [Identidade em Nuvem](cloud-identity.md) — a outra camada de fronteira.
-- [Zonas de Disponibilidade](availability-zones.md) — tráfego entre zonas.
-- [Arquitetura de Custo](cost-architecture.md).
-- [Segurança](../10-security/index.md).
+- [Identidade em Nuvem](/09-cloud-architecture/cloud-identity.md) — a outra camada de fronteira.
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — tráfego entre zonas.
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
+- [Segurança](/10-security/index.md).
 
 ## Exercício Prático
 

@@ -122,7 +122,7 @@ If you are preparing for interviews,
 [System Design Interviews](/22-system-design-interviews/index.md) is the method,
 and the case studies are the same reasoning without time pressure.
 
-And [How to use](how-to-use.md) explains the fixed structure every document
+And [How to use](/how-to-use.md) explains the fixed structure every document
 follows — the same in all of them — which is what makes reading by lookup
 possible without losing context.
 

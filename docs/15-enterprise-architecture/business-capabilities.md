@@ -103,7 +103,7 @@ saúde             estado técnico dos sistemas que a suportam
 A sobreposição de **diferenciação** e **custo** é a que mais gera discussão útil: uma
 capacidade que não diferencia e consome uma fatia grande do investimento é candidata a
 compra em vez de construção. Ver
-[SaaS](../09-cloud-architecture/saas.md).
+[SaaS](/09-cloud-architecture/saas.md).
 
 E a de **criticidade** com **saúde** revela o risco concreto: uma capacidade crítica
 suportada por um sistema em estado ruim é a prioridade que ninguém tinha nomeado.
@@ -126,7 +126,7 @@ mapa e invisível numa conversa sobre sistemas individuais.
 E a conversa que se segue é produtiva porque não começa acusando nenhum sistema — começa
 constatando que uma capacidade está fragmentada.
 
-Ver [propriedade do dado](../07-data-architecture/data-ownership.md).
+Ver [propriedade do dado](/07-data-architecture/data-ownership.md).
 
 ### Diferenciação orienta investimento
 
@@ -141,7 +141,7 @@ comum            todo mundo tem, ninguém escolhe por isso
                  → comprar
 ```
 
-Ver [SaaS](../09-cloud-architecture/saas.md) — é o mesmo critério, aplicado no nível da
+Ver [SaaS](/09-cloud-architecture/saas.md) — é o mesmo critério, aplicado no nível da
 organização.
 
 O achado típico desse exercício: uma parcela relevante do investimento em engenharia
@@ -200,9 +200,9 @@ sistema.
 
 - **Mapa de fluxo de valor** — orientado a processo, melhor para otimizar fluxo.
 - **Mapeamento de domínios** — orientado a fronteiras de software. Ver
-  [DDD](../04-domain-driven-design/index.md).
+  [DDD](/04-domain-driven-design/index.md).
 - **Inventário de aplicações** — mais simples, sem a lente de negócio. Ver
-  [portfólio de aplicações](application-portfolios.md).
+  [portfólio de aplicações](/15-enterprise-architecture/application-portfolios.md).
 
 Capacidades e domínios são complementares: capacidades organizam a conversa com o
 negócio; domínios organizam as fronteiras do software.
@@ -296,10 +296,10 @@ negócio finalmente conseguia participar dela.
 
 ## Conceitos Relacionados
 
-- [Mapeamento de Capacidades](capability-mapping.md) — o método.
-- [Portfólio de Aplicações](application-portfolios.md) — o mapeamento.
-- [Arquitetura de Negócio](business-architecture.md).
-- [SaaS](../09-cloud-architecture/saas.md) — construir ou comprar.
+- [Mapeamento de Capacidades](/15-enterprise-architecture/capability-mapping.md) — o método.
+- [Portfólio de Aplicações](/15-enterprise-architecture/application-portfolios.md) — o mapeamento.
+- [Arquitetura de Negócio](/15-enterprise-architecture/business-architecture.md).
+- [SaaS](/09-cloud-architecture/saas.md) — construir ou comprar.
 
 ## Exercício Prático
 

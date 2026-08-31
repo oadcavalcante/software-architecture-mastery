@@ -32,7 +32,7 @@ simples, é o que a maioria usa sem saber, e **descarta dados silenciosamente**.
 Conflitos surgem sempre que mais de um lugar pode aceitar escrita para o mesmo
 dado: replicação com múltiplos líderes, replicação sem líder, aplicações com
 operação offline, ou qualquer sistema que continue aceitando escritas durante uma
-[partição](network-failure.md).
+[partição](/06-distributed-systems/network-failure.md).
 
 O caso concreto: dois usuários editam o mesmo registro ao mesmo tempo, em réplicas
 diferentes. Ambas as escritas são aceitas. Ao convergir, uma delas some.
@@ -49,7 +49,7 @@ A estratégia compara marcas de tempo e mantém a mais recente.
 Dois problemas, e ambos são graves.
 
 **Relógios divergem.** A "mais recente" segundo o relógio da máquina pode não ser a
-mais recente de fato. Ver [relógio e tempo](clock-and-time.md). Uma máquina com o
+mais recente de fato. Ver [relógio e tempo](/06-distributed-systems/clock-and-time.md). Uma máquina com o
 relógio 2 segundos adiantado sempre vence.
 
 **Perda silenciosa.** A escrita descartada some sem registro. Não há erro, não há
@@ -78,7 +78,7 @@ mapas e até texto colaborativo.
 Elegante e limitado ao que pode ser expresso como operação comutativa.
 
 **Evitar o conflito.** Garantir que cada dado tenha um único ponto de escrita —
-por [particionamento](partitioning.md) ou por líder único.
+por [particionamento](/06-distributed-systems/partitioning.md) ou por líder único.
 
 A última é a que a maioria dos sistemas deveria escolher, e a menos discutida.
 
@@ -147,7 +147,7 @@ perda que ninguém consegue reverter.
 ## Alternativas
 
 - **Líder único por dado** — elimina o conflito. Ver
-  [replicação](replication.md).
+  [replicação](/06-distributed-systems/replication.md).
 - **Particionamento por chave** — cada chave escrita num lugar só.
 - **Transação com bloqueio** — serializa as escritas concorrentes.
 - **Reserva com prazo** — quem reservou escreve; os outros esperam.
@@ -233,10 +233,10 @@ e a causa era a estratégia, não o cenário.
 
 ## Conceitos Relacionados
 
-- [Consistência Eventual](eventual-consistency.md) — onde conflitos surgem.
-- [Replicação](replication.md) — múltiplos líderes e sem líder.
-- [Relógio e Tempo](clock-and-time.md) — por que marca de tempo não decide.
-- [Ordenação](ordering.md).
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) — onde conflitos surgem.
+- [Replicação](/06-distributed-systems/replication.md) — múltiplos líderes e sem líder.
+- [Relógio e Tempo](/06-distributed-systems/clock-and-time.md) — por que marca de tempo não decide.
+- [Ordenação](/06-distributed-systems/ordering.md).
 
 ## Exercício Prático
 

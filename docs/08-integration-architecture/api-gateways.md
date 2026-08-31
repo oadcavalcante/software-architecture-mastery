@@ -117,7 +117,7 @@ Rotear chamadas internas pelo gateway adiciona um salto de rede, cria dependênc
 de um componente de borda para operação interna e concentra carga que não
 precisava passar por ali.
 
-Para o problema interno, ver [malha de serviço](service-mesh.md).
+Para o problema interno, ver [malha de serviço](/08-integration-architecture/service-mesh.md).
 
 ### Quando ele ainda não vale
 
@@ -161,7 +161,7 @@ negócio que entra nele é uma que sai de onde deveria estar.
 - **Balanceador com roteamento** — cobre o básico sem componente novo.
 - **Biblioteca compartilhada** — autenticação e registro em cada serviço, sem
   salto extra. Exige atualizar todos a cada mudança.
-- **[Malha de serviço](service-mesh.md)** — para o tráfego interno.
+- **[Malha de serviço](/08-integration-architecture/service-mesh.md)** — para o tráfego interno.
 - **BFF** — em vez de um gateway genérico.
 
 ## Trade-offs
@@ -212,7 +212,7 @@ o conjunto.
 **Não dimensionar para o pico agregado.**
 
 **Deixar o gateway ser o único lugar com autorização.** Ver
-[segurança](../10-security/index.md) — defesa em profundidade exige que o serviço
+[segurança](/10-security/index.md) — defesa em profundidade exige que o serviço
 também verifique.
 
 ## Exemplo Real
@@ -265,9 +265,9 @@ razoável.
 
 ## Conceitos Relacionados
 
-- [Malha de Serviço](service-mesh.md) — o tráfego interno.
-- [REST](rest.md) e [GraphQL](graphql.md) — o que ele expõe.
-- [Contratos de Integração](integration-contracts.md).
+- [Malha de Serviço](/08-integration-architecture/service-mesh.md) — o tráfego interno.
+- [REST](/08-integration-architecture/rest.md) e [GraphQL](/08-integration-architecture/graphql.md) — o que ele expõe.
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
 
 ## Exercício Prático
 

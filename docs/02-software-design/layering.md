@@ -123,7 +123,7 @@ comum, a estrutura é decorativa e o custo permanece.
 
 - **Módulo por capacidade, camada interna** — o arranjo que funciona na maioria
   dos casos.
-- **[Ports and Adapters](ports-and-adapters.md)** — troca a metáfora de pilha
+- **[Ports and Adapters](/02-software-design/ports-and-adapters.md)** — troca a metáfora de pilha
   pela de dentro e fora, com uma única regra de direção.
 - **Vertical slice** — organizar por caso de uso, com tudo que ele precisa junto.
 - **Sem camadas** — em sistemas pequenos, um pacote plano é honesto.
@@ -156,7 +156,7 @@ que implementando regra de negócio.
 
 **Adotar camadas por default, sem perguntar o eixo.** A raiz.
 
-**Confundir camadas com [Clean Architecture](clean-architecture.md).** A segunda
+**Confundir camadas com [Clean Architecture](/02-software-design/clean-architecture.md).** A segunda
 tem uma regra de direção específica que a primeira não tem.
 
 **Criar uma camada para cada tipo de objeto.** DTOs, mapeadores, validadores em
@@ -203,18 +203,18 @@ Na prática, três camadas cobrem a maioria dos casos dentro de um módulo:
 
 A quarta camada aparece quando aplicação e domínio de fato divergem — quando há
 regras que envolvem múltiplas entidades e não pertencem a nenhuma. Ver
-[Onion](onion-architecture.md).
+[Onion](/02-software-design/onion-architecture.md).
 
 A quinta em diante costuma ser tradução de tipos elevada a camada, e é onde
 convém desconfiar.
 
 ## Conceitos Relacionados
 
-- [Fronteiras](boundaries.md) — o conceito geral do qual camadas são um arranjo.
-- [Design Modular](modular-design.md) — a divisão vertical.
-- [Clean Architecture](clean-architecture.md) — camadas com regra de direção
+- [Fronteiras](/02-software-design/boundaries.md) — o conceito geral do qual camadas são um arranjo.
+- [Design Modular](/02-software-design/modular-design.md) — a divisão vertical.
+- [Clean Architecture](/02-software-design/clean-architecture.md) — camadas com regra de direção
   explícita.
-- [Ports and Adapters](ports-and-adapters.md) — a alternativa por dentro e fora.
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — a alternativa por dentro e fora.
 
 ## Exercício Prático
 

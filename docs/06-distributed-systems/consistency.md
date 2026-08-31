@@ -59,7 +59,7 @@ individuais. As duas juntas dão *strict serializability*.
 ordem correta por todos; operações independentes podem ser vistas em ordens
 diferentes. É o meio-termo mais útil e o menos conhecido.
 
-**[Consistência eventual](eventual-consistency.md).** Na ausência de novas
+**[Consistência eventual](/06-distributed-systems/eventual-consistency.md).** Na ausência de novas
 escritas, todas as réplicas convergem. Não diz **quando**, e é essa omissão que
 precisa ser tratada na aplicação.
 
@@ -98,8 +98,8 @@ A última linha é a mais instrutiva: a resposta vem do negócio, não da engenh
 
 ### Consistência custa latência mesmo sem falha
 
-O ponto que [PACELC](pacelc.md) formaliza e que
-[CAP](cap.md) omite: garantir consistência forte exige coordenação entre réplicas,
+O ponto que [PACELC](/06-distributed-systems/pacelc.md) formaliza e que
+[CAP](/06-distributed-systems/cap.md) omite: garantir consistência forte exige coordenação entre réplicas,
 e coordenação custa idas e voltas de rede.
 
 Isso vale **o tempo todo**, não apenas durante partição. Numa configuração
@@ -137,7 +137,7 @@ uma fração e elimina a queixa principal.
 
 **Entre bounded contexts.** Consistência forte entre contextos os acopla
 transacionalmente e desfaz a fronteira. Ver
-[bounded context](../04-domain-driven-design/bounded-context.md).
+[bounded context](/04-domain-driven-design/bounded-context.md).
 
 ## Alternativas
 
@@ -224,11 +224,11 @@ horas, e apenas estoque e pedido do próprio usuário precisavam de garantia.
 
 ## Conceitos Relacionados
 
-- [Consistência Eventual](eventual-consistency.md) e
-  [Forte](strong-consistency.md) — os extremos do espectro.
-- [CAP](cap.md) e [PACELC](pacelc.md) — os limites teóricos.
-- [Replicação](replication.md) — de onde a divergência vem.
-- [Resolução de Conflitos](conflict-resolution.md).
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) e
+  [Forte](/06-distributed-systems/strong-consistency.md) — os extremos do espectro.
+- [CAP](/06-distributed-systems/cap.md) e [PACELC](/06-distributed-systems/pacelc.md) — os limites teóricos.
+- [Replicação](/06-distributed-systems/replication.md) — de onde a divergência vem.
+- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md).
 
 ## Exercício Prático
 

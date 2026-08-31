@@ -250,7 +250,7 @@ que é o formato que uma saga distribuída exigiria.
 O custo dessas três restrições é próximo de zero hoje, e elas reduzem a Opção C de uma
 reescrita para uma migração. É a diferença entre manter uma opção aberta e comprar
 flexibilidade que talvez nunca se use. Ver
-[simplicidade vs. flexibilidade](../20-trade-offs/simplicity-vs-flexibility.md).
+[simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
 
 ## Componentes
 
@@ -330,7 +330,7 @@ recusa transações desbalanceadas — a verificação é do armazenamento, não
 
 **Idempotência por chave.** `chave_idempotencia` é única. Uma segunda tentativa com a mesma
 chave retorna o resultado da primeira, sem duplicar. Ver
-[idempotência](../06-distributed-systems/idempotency.md).
+[idempotência](/06-distributed-systems/idempotency.md).
 
 **Saldo como projeção com verificação.** A tabela `saldo` existe para leitura rápida e é
 atualizada na **mesma transação** do lançamento, com controle de versão otimista. Ela não é
@@ -417,7 +417,7 @@ acesso de suporte         somente leitura, com registro e justificativa
 O controle mais importante é o de **credencial de escrita única**: nenhum caminho alternativo
 grava no razão, e isso é verificado automaticamente — uma função de aptidão falha a esteira
 se qualquer outro serviço declarar credencial de escrita naquele esquema. Ver
-[funções de aptidão](../19-architecture-governance/fitness-functions-governance.md).
+[funções de aptidão](/19-architecture-governance/fitness-functions-governance.md).
 
 O acesso de suporte com justificativa obrigatória surgiu de uma exigência do regulador e teve
 efeito colateral positivo: o volume de consultas de suporte caiu 40%, porque parte delas era
@@ -438,11 +438,11 @@ liquidação — a conta interna que recebe todas as tarifas, por exemplo — t�
 
 A solução é **fragmentação de saldo para contas quentes**: contas internas de alto volume têm
 o saldo dividido em N sublinhas, e o saldo é a soma. A escrita escolhe uma sublinha ao acaso,
-eliminando a contenção. Ver [pontos quentes](../11-scalability/hotspots.md).
+eliminando a contenção. Ver [pontos quentes](/11-scalability/hotspots.md).
 
 Leitura escala por réplicas: o Serviço de Saldo lê da primária apenas nos 5 segundos
 seguintes a uma escrita da mesma sessão, e de réplicas no resto do tempo. Ver
-[consistência forte vs. eventual](../20-trade-offs/strong-vs-eventual-consistency.md).
+[consistência forte vs. eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
 
 ## Confiabilidade
 
@@ -621,10 +621,10 @@ Nenhuma teria sido descoberta por leitura de especificação.
 
 ## Conceitos Relacionados
 
-- [Idempotência](../06-distributed-systems/idempotency.md).
-- [Consistência Forte](../06-distributed-systems/strong-consistency.md).
-- [Pontos Quentes](../11-scalability/hotspots.md) — a fragmentação de saldo.
-- [Case: Plataforma de Pagamentos](payments.md).
+- [Idempotência](/06-distributed-systems/idempotency.md).
+- [Consistência Forte](/06-distributed-systems/strong-consistency.md).
+- [Pontos Quentes](/11-scalability/hotspots.md) — a fragmentação de saldo.
+- [Case: Plataforma de Pagamentos](/21-case-studies/payments.md).
 
 ## Exercício Prático
 

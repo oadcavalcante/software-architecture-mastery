@@ -67,7 +67,7 @@ em vez disso perguntar por cinco minutos, e anunciar que
 
 Dizer "vou fazer algumas perguntas antes de desenhar" resolve o desconforto: você está produzindo,
 e está claro que é deliberado. Ver
-[clarificação de requisitos](requirement-clarification.md).
+[clarificação de requisitos](/22-system-design-interviews/requirement-clarification.md).
 
 ### Arquitetura decorada
 
@@ -119,7 +119,7 @@ em vez disso começar simples e acrescentar sob demanda,
 
 Este é o erro mais mal calibrado entre candidatos de nível intermediário. A resposta forte é
 frequentemente a mais simples, com a condição sob a qual ela deixaria de bastar. Ver
-[arquitetura de alto nível](high-level-architecture.md).
+[arquitetura de alto nível](/22-system-design-interviews/high-level-architecture.md).
 
 A calibração errada vem de uma inferência razoável e falsa: a de que a entrevista busca a
 arquitetura mais sofisticada que o candidato conhece. Ela busca a mais adequada ao problema
@@ -136,7 +136,7 @@ em vez disso narrar o raciocínio, inclusive as dúvidas
 ```
 
 O que está sendo avaliado é o pensamento, e ele só existe para o avaliador se for verbalizado. Ver
-[comunicação de trade-offs](communicating-tradeoffs.md).
+[comunicação de trade-offs](/22-system-design-interviews/communicating-tradeoffs.md).
 
 ### Não gerenciar o tempo
 
@@ -147,7 +147,7 @@ efeito       entrevista sem conclusão
 em vez disso anunciar as fases e marcar as transições
 ```
 
-Ver [estrutura da entrevista](interview-structure.md).
+Ver [estrutura da entrevista](/22-system-design-interviews/interview-structure.md).
 
 ### Ignorar ou ceder demais ao entrevistador
 
@@ -174,7 +174,7 @@ efeito       o gargalo real não é discutido
 em vez disso propagar os números pelo desenho antes de otimizar
 ```
 
-Ver [identificação de gargalo](bottleneck-identification.md).
+Ver [identificação de gargalo](/22-system-design-interviews/bottleneck-identification.md).
 
 ### Prometer o que não foi coberto
 
@@ -199,7 +199,7 @@ efeito       o tempo é perdido
 em vez disso enunciar a consequência logo após cada número
 ```
 
-Ver [estimativa em entrevista](capacity-estimation.md).
+Ver [estimativa em entrevista](/22-system-design-interviews/capacity-estimation.md).
 
 ### Discutir tecnologia em vez de arquitetura
 
@@ -242,7 +242,7 @@ pediu.
 - **Entrevista simulada com um par** — o feedback externo pega o que a autoavaliação não pega.
 - **Escrever ADRs** — a disciplina de contexto, alternativas e consequências é a mesma, sem
   pressão de tempo. Ver
-  [alternativas em ADR](../18-architecture-decisions/adr-alternatives.md).
+  [alternativas em ADR](/18-architecture-decisions/adr-alternatives.md).
 
 ## Trade-offs
 
@@ -348,10 +348,10 @@ método rende mais que estudar mais arquiteturas.
 
 ## Conceitos Relacionados
 
-- [Estrutura da Entrevista](interview-structure.md).
-- [Clarificação de Requisitos](requirement-clarification.md).
-- [Comunicação de Trade-offs](communicating-tradeoffs.md).
-- [Arquitetura de Alto Nível](high-level-architecture.md).
+- [Estrutura da Entrevista](/22-system-design-interviews/interview-structure.md).
+- [Clarificação de Requisitos](/22-system-design-interviews/requirement-clarification.md).
+- [Comunicação de Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md).
+- [Arquitetura de Alto Nível](/22-system-design-interviews/high-level-architecture.md).
 
 ## Exercício Prático
 

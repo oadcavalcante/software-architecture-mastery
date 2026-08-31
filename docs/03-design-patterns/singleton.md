@@ -196,10 +196,10 @@ dependência era muito menor do que parecia.
 
 ## Conceitos Relacionados
 
-- [Inversão de Dependência](../02-software-design/dependency-inversion.md) — a
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — a
   alternativa estrutural.
-- [Facade](facade.md) — frequentemente confundido, resolve outro problema.
-- [Encapsulamento](../02-software-design/encapsulation.md).
+- [Facade](/03-design-patterns/facade.md) — frequentemente confundido, resolve outro problema.
+- [Encapsulamento](/02-software-design/encapsulation.md).
 
 ## Exercício Prático
 

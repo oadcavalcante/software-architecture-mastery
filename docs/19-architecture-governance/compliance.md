@@ -78,7 +78,7 @@ sem janela de preparação
 Isso muda a natureza do trabalho: em vez de um esforço concentrado antes da auditoria, a
 conformidade vira uma propriedade mantida — como um teste que não pode quebrar.
 
-Ver [funções de aptidão](fitness-functions-governance.md), que são a implementação
+Ver [funções de aptidão](/19-architecture-governance/fitness-functions-governance.md), que são a implementação
 natural.
 
 ### Verifique o efeito, não o artefato
@@ -142,7 +142,7 @@ real. O inverso também ocorre: um sistema seguro pode falhar em conformidade po
 produzir a evidência exigida.
 
 Tratar conformidade como prova de segurança é um dos erros mais caros da área. Ver
-[modelagem de ameaças](../10-security/threat-modeling.md).
+[modelagem de ameaças](/10-security/threat-modeling.md).
 
 ### Nem tudo precisa do mesmo nível
 
@@ -154,7 +154,7 @@ preferência                    não verificar
 ```
 
 Verificar tudo com o mesmo rigor produz ruído, e ruído faz com que os alertas que importam
-sejam ignorados. Ver [medição](measuring-governance.md).
+sejam ignorados. Ver [medição](/19-architecture-governance/measuring-governance.md).
 
 ### O resultado precisa chegar a quem pode agir
 
@@ -198,7 +198,7 @@ preparação.
 
 ## Alternativas
 
-- **[Funções de aptidão](fitness-functions-governance.md)** — o mesmo mecanismo, com foco em
+- **[Funções de aptidão](/19-architecture-governance/fitness-functions-governance.md)** — o mesmo mecanismo, com foco em
   propriedade arquitetural.
 - **Controles preventivos** — impedir em vez de detectar; melhor quando aplicável.
 - **Amostragem** — quando a verificação completa é inviável, com amostra aleatória e não
@@ -239,7 +239,7 @@ preparação.
 
 **Medir existência de documento.**
 
-**Não expirar exceções**, que viram deriva permanente. Ver [exceções](exceptions.md).
+**Não expirar exceções**, que viram deriva permanente. Ver [exceções](/19-architecture-governance/exceptions.md).
 
 **Relatar só para cima.**
 
@@ -286,7 +286,7 @@ retenção declarado".
 
 **Exceções com expiração automática.** Uma exceção sem renovação vira desvio no dia
 seguinte ao vencimento, com alerta ao dono do sistema e ao gestor. Ver
-[exceções](exceptions.md).
+[exceções](/19-architecture-governance/exceptions.md).
 
 **Painel por time**, com o resultado da verificação diária no mesmo lugar onde o time
 acompanha o serviço — não num portal de conformidade separado.
@@ -311,10 +311,10 @@ desvio e correção. Ele transformou conformidade de evento em propriedade manti
 
 ## Conceitos Relacionados
 
-- [Padrões](governance-standards.md) — o que se verifica.
-- [Funções de Aptidão](fitness-functions-governance.md) — a implementação.
-- [Exceções](exceptions.md) — o desvio autorizado.
-- [Auditabilidade](../10-security/auditability.md).
+- [Padrões](/19-architecture-governance/governance-standards.md) — o que se verifica.
+- [Funções de Aptidão](/19-architecture-governance/fitness-functions-governance.md) — a implementação.
+- [Exceções](/19-architecture-governance/exceptions.md) — o desvio autorizado.
+- [Auditabilidade](/10-security/auditability.md).
 
 ## Exercício Prático
 

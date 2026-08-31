@@ -37,7 +37,7 @@ A instrumentação típica antecipa perguntas: taxa de erro por serviço, latên
 uso de recursos.
 
 Essas perguntas cobrem os incidentes previstos — que, por serem previstos, já foram
-mitigados. Ver [resiliência](../12-reliability/resilience.md).
+mitigados. Ver [resiliência](/12-reliability/resilience.md).
 
 Os incidentes que causam dano vêm de combinações não antecipadas, e as perguntas que
 eles exigem são específicas:
@@ -62,10 +62,10 @@ baixa cardinalidade   rota, status, região, versão — poucos valores
 alta cardinalidade    usuário, pedido, sessão, dispositivo, valor — muitos
 ```
 
-[Métricas](metrics.md) não suportam alta cardinalidade — é o que as torna baratas. Ver
+[Métricas](/13-observability/metrics.md) não suportam alta cardinalidade — é o que as torna baratas. Ver
 o custo de cardinalidade lá.
 
-Isso significa que a depurabilidade vem de [logs](logs.md) e [traces](traces.md), não de
+Isso significa que a depurabilidade vem de [logs](/13-observability/logs.md) e [traces](/13-observability/traces.md), não de
 métricas. Um sistema com métricas excelentes e logs pobres detecta problemas e não os
 investiga.
 
@@ -88,7 +88,7 @@ como chegou        cliente, versão do aplicativo, origem
 decisões           qual caminho de código, quais regras aplicaram
 ```
 
-Ver [logs](logs.md) — o evento canônico. Trinta ou quarenta campos por evento parece
+Ver [logs](/13-observability/logs.md) — o evento canônico. Trinta ou quarenta campos por evento parece
 excessivo até a primeira investigação em que a pergunta certa depende do campo que
 ninguém coletou.
 
@@ -127,7 +127,7 @@ variante de experimento.
 Com eles, a pergunta "isso começou depois da implantação de ontem?" vira uma consulta.
 Sem eles, vira arqueologia.
 
-Ver [painéis](dashboards.md) — anotar implantações resolve a versão visualmente; ter o
+Ver [painéis](/13-observability/dashboards.md) — anotar implantações resolve a versão visualmente; ter o
 campo resolve analiticamente.
 
 ### Depurabilidade se projeta, não se compra
@@ -188,7 +188,7 @@ emitir contexto suficiente — a ferramenta só consulta o que existe.
 **Sem poder investigar em produção.**
 
 **Emitindo dado sensível** para ganhar contexto. Ver
-[proteção de dados](../10-security/data-protection.md).
+[proteção de dados](/10-security/data-protection.md).
 
 ## Alternativas
 
@@ -275,7 +275,7 @@ Isso era 0,3% do total e 100% de um subconjunto específico — invisível em qu
 agregação que não separasse por provedor e moeda simultaneamente.
 
 Nenhuma métrica com essa combinação existia, e criar todas as combinações possíveis
-teria explodido a cardinalidade. Ver [métricas](metrics.md).
+teria explodido a cardinalidade. Ver [métricas](/13-observability/metrics.md).
 
 Dois outros achados vieram da mesma instrumentação, nas semanas seguintes:
 
@@ -292,10 +292,10 @@ distinguem uma execução de outra.
 
 ## Conceitos Relacionados
 
-- [Logs](logs.md) — o evento canônico.
-- [Traces](traces.md) — a estrutura.
-- [Identificadores de Correlação](correlation-ids.md).
-- [Métricas](metrics.md) — o que ela não faz.
+- [Logs](/13-observability/logs.md) — o evento canônico.
+- [Traces](/13-observability/traces.md) — a estrutura.
+- [Identificadores de Correlação](/13-observability/correlation-ids.md).
+- [Métricas](/13-observability/metrics.md) — o que ela não faz.
 
 ## Exercício Prático
 

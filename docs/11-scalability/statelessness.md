@@ -26,7 +26,7 @@ atender a próxima. Qualquer instância pode atender qualquer requisição, e pe
 instância não perde nada.
 
 Os fundamentos estão em
-[stateless e stateful](../05-system-design/stateless-vs-stateful.md). Aqui interessa o
+[stateless e stateful](/05-system-design/stateless-vs-stateful.md). Aqui interessa o
 ângulo da escala: **é o pré-requisito da escala horizontal**, e o estado costuma estar
 escondido em lugares que ninguém lista.
 
@@ -92,7 +92,7 @@ contadores           armazenamento com operação atômica
 O ponto sobre cache local merece nota: cache local é **legítimo e desejável**, desde
 que seja apenas cópia — o valor precisa existir na origem, e perder o cache pode
 degradar o desempenho, nunca a correção. Ver
-[cache para escala](scaling-cache.md).
+[cache para escala](/11-scalability/scaling-cache.md).
 
 ### Conexões persistentes são estado por natureza
 
@@ -113,7 +113,7 @@ O comportamento necessário: parar de aceitar novas requisições, sair do balan
 terminar as em andamento, e só então encerrar.
 
 Sem isso, todo evento de escalonamento — que deveria ser rotina — perde requisições.
-Ver [computação em nuvem](../09-cloud-architecture/cloud-compute.md).
+Ver [computação em nuvem](/09-cloud-architecture/cloud-compute.md).
 
 ### O custo é real
 
@@ -161,7 +161,7 @@ local não autoritativo, não manter o estado.
 ## Alternativas
 
 - **Estado no cliente**, assinado — o servidor não guarda nada. Cuidado com tamanho e
-  com o que é exposto. Ver [JWT](../10-security/jwt.md).
+  com o que é exposto. Ver [JWT](/10-security/jwt.md).
 - **Cache local com invalidação** — desempenho sem autoridade.
 - **Camada de conexão separada** — para conexões persistentes.
 - **Estado em fila** — para trabalho em andamento.
@@ -266,11 +266,11 @@ feito porque "a aplicação é sem estado".
 
 ## Conceitos Relacionados
 
-- [Escala Horizontal](horizontal-scaling.md) — o que ela habilita.
-- [Stateless e Stateful](../05-system-design/stateless-vs-stateful.md) — os
+- [Escala Horizontal](/11-scalability/horizontal-scaling.md) — o que ela habilita.
+- [Stateless e Stateful](/05-system-design/stateless-vs-stateful.md) — os
   fundamentos.
-- [Balanceamento para Escala](scaling-load-balancing.md) — a afinidade.
-- [Cache para Escala](scaling-cache.md).
+- [Balanceamento para Escala](/11-scalability/scaling-load-balancing.md) — a afinidade.
+- [Cache para Escala](/11-scalability/scaling-cache.md).
 
 ## Exercício Prático
 

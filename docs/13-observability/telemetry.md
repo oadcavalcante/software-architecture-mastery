@@ -21,8 +21,8 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Telemetria é o conjunto do que o sistema emite sobre si mesmo — [logs](logs.md),
-[métricas](metrics.md), [traces](traces.md) — e a infraestrutura que coleta, transporta,
+Telemetria é o conjunto do que o sistema emite sobre si mesmo — [logs](/13-observability/logs.md),
+[métricas](/13-observability/metrics.md), [traces](/13-observability/traces.md) — e a infraestrutura que coleta, transporta,
 armazena e consulta esses dados.
 
 Ela é tratada como detalhe de ferramenta e é decisão de arquitetura, por duas razões:
@@ -64,7 +64,7 @@ mais preserva liberdade nesta área, a custo próximo de zero no início do proj
 
 Times que instrumentam diretamente com a biblioteca do fornecedor pagam essa decisão
 depois, quando o custo ou a insatisfação motivarem a troca. Ver
-[dependência de fornecedor](../09-cloud-architecture/vendor-lock-in.md).
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ### O coletor é onde as decisões acontecem
 
@@ -116,14 +116,14 @@ remover o não usado      métricas e campos que ninguém consulta
 compressão e agregação   na borda, antes de transportar
 ```
 
-A primeira e a segunda estão em [logs](logs.md), e são as de maior impacto.
+A primeira e a segunda estão em [logs](/13-observability/logs.md), e são as de maior impacto.
 
 A quinta merece disciplina: uma auditoria do que é efetivamente consultado costuma
 permitir remover uma fração grande do que é coletado.
 
 ### Custo por unidade de negócio
 
-Como em [arquitetura de custo](../09-cloud-architecture/cost-architecture.md), o número
+Como em [arquitetura de custo](/09-cloud-architecture/cost-architecture.md), o número
 absoluto diz pouco.
 
 ```text
@@ -145,7 +145,7 @@ Se a resposta for "não sei, pode ser útil", provavelmente não será — e vai
 mês.
 
 A instrumentação que se paga vem de: perguntas que já foram feitas em incidentes,
-[sinais dourados](golden-signals.md), [SLI](../12-reliability/sli.md), e métricas de
+[sinais dourados](/13-observability/golden-signals.md), [SLI](/12-reliability/sli.md), e métricas de
 negócio.
 
 ## Modelo Mental
@@ -285,10 +285,10 @@ três causas reais.
 
 ## Conceitos Relacionados
 
-- [Logs](logs.md), [Métricas](metrics.md) e [Traces](traces.md) — o que é emitido.
-- [Rastreamento Distribuído](distributed-tracing.md) — a amostragem.
-- [Arquitetura de Custo](../09-cloud-architecture/cost-architecture.md).
-- [Dependência de Fornecedor](../09-cloud-architecture/vendor-lock-in.md).
+- [Logs](/13-observability/logs.md), [Métricas](/13-observability/metrics.md) e [Traces](/13-observability/traces.md) — o que é emitido.
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a amostragem.
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
+- [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Exercício Prático
 

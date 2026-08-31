@@ -30,7 +30,7 @@ regra em documento     verdadeira quando alguém lembra
 função de aptidão      verdadeira sempre, ou vermelha
 ```
 
-Ver [funções de aptidão como governança](../19-architecture-governance/fitness-functions-governance.md)
+Ver [funções de aptidão como governança](/19-architecture-governance/fitness-functions-governance.md)
 para o uso como mecanismo de governança; aqui o foco é o instrumento na mão de quem lidera
 arquitetura — como escolher o que verificar, e como operar o conjunto sem que ele vire ruído.
 
@@ -51,7 +51,7 @@ importa — é a que chegou até ele.
 
 A função de aptidão resolve isso mudando o ponto de intervenção: em vez de revisar depois, a
 propriedade é verificada a cada mudança, por todos, sem que ele esteja presente. Ver
-[fundamentos de governança](../19-architecture-governance/governance-basics.md).
+[fundamentos de governança](/19-architecture-governance/governance-basics.md).
 
 O erro comum, do outro lado: construir um conjunto grande de verificações antes de ter uma em
 produção, e descobrir que a taxa de falso positivo torna todas elas ignoradas.
@@ -152,7 +152,7 @@ quebra e é desabilitada; sem revisão, verifica uma regra que já não vale.
 
 E vale revisar também a **necessidade**: uma regra que virou consenso e nunca mais foi violada
 pode ser removida, liberando atenção. Ver
-[patologias de governança](../19-architecture-governance/governance-pathologies.md).
+[patologias de governança](/19-architecture-governance/governance-pathologies.md).
 
 ## Modelo Mental
 
@@ -291,10 +291,10 @@ que ninguém somava as partes.
 
 ## Conceitos Relacionados
 
-- [Arquitetura Evolutiva](evolutionary-architecture.md) — as dimensões protegidas.
-- [Funções de Aptidão como Governança](../19-architecture-governance/fitness-functions-governance.md).
-- [Medição de Resultados](measuring-architecture-outcomes.md).
-- [Governança](leadership-governance.md).
+- [Arquitetura Evolutiva](/23-architecture-leadership/evolutionary-architecture.md) — as dimensões protegidas.
+- [Funções de Aptidão como Governança](/19-architecture-governance/fitness-functions-governance.md).
+- [Medição de Resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
+- [Governança](/23-architecture-leadership/leadership-governance.md).
 
 ## Exercício Prático
 

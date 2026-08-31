@@ -66,7 +66,7 @@ mesmo bloqueio aumentam a contenção.
 Essa frase é desproporcionalmente valiosa numa entrevista, porque candidatos raramente a dizem. A
 maior parte dos problemas de desempenho em sistemas de informação é de acesso a dados, não de
 arquitetura. Ver
-[desempenho vs. manutenibilidade](../20-trade-offs/performance-vs-maintainability.md).
+[desempenho vs. manutenibilidade](/20-trade-offs/performance-vs-maintainability.md).
 
 ### Cache resolve leitura, não escrita
 
@@ -107,7 +107,7 @@ Máquinas modernas comportam centenas de gigabytes de memória e dezenas de núc
 uma faixa de problemas muito maior do que a intuição sugere.
 
 Reconhecer isso demonstra proporcionalidade. Ver
-[escala vertical](../11-scalability/vertical-scaling.md). O limite dela é real e vale enunciar
+[escala vertical](/11-scalability/vertical-scaling.md). O limite dela é real e vale enunciar
 junto: existe um teto de máquina, e ela não oferece tolerância a falha — uma instância maior
 continua sendo uma instância.
 
@@ -122,7 +122,7 @@ continua sendo uma instância.
  porque afinidade impede rebalanceamento e complica implantação."
 ```
 
-Ver [statelessness](../11-scalability/statelessness.md).
+Ver [statelessness](/11-scalability/statelessness.md).
 
 ### Réplicas de leitura, com a consequência declarada
 
@@ -138,7 +138,7 @@ Ver [statelessness](../11-scalability/statelessness.md).
 
 Propor réplicas sem mencionar o atraso é incompleto; mencioná-lo e resolver o caso do próprio
 autor é a resposta forte. Ver
-[consistência forte vs. eventual](../20-trade-offs/strong-vs-eventual-consistency.md).
+[consistência forte vs. eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
 
 ### Particionamento: a chave é a decisão
 
@@ -155,8 +155,8 @@ Quando o particionamento se justifica, a escolha da chave é o conteúdo:
 ```
 
 Três elementos: a chave, a razão, e o risco. Ver
-[particionamento](../11-scalability/scaling-partitioning.md) e
-[pontos quentes](../11-scalability/hotspots.md).
+[particionamento](/11-scalability/scaling-partitioning.md) e
+[pontos quentes](/11-scalability/hotspots.md).
 
 ### Mudança de arquitetura é o último degrau
 
@@ -321,14 +321,14 @@ A resposta correta reconhece o que isso implicaria — leitura com 96 consultas,
 em escala e cache agressivo por autor — e enuncia o custo: dezenas de réplicas contra um
 armazenamento de feed de algumas centenas de gigabytes. A comparação de custo é o argumento.
 
-Ver o [case de rede social](../21-case-studies/social-network.md) para a versão completa.
+Ver o [case de rede social](/21-case-studies/social-network.md) para a versão completa.
 
 ## Conceitos Relacionados
 
-- [Identificação de Gargalo](bottleneck-identification.md) — o passo anterior.
-- [Escala Horizontal](../11-scalability/horizontal-scaling.md).
-- [Particionamento](../11-scalability/scaling-partitioning.md).
-- [Cache](../05-system-design/caching.md).
+- [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md) — o passo anterior.
+- [Escala Horizontal](/11-scalability/horizontal-scaling.md).
+- [Particionamento](/11-scalability/scaling-partitioning.md).
+- [Cache](/05-system-design/caching.md).
 
 ## Exercício Prático
 

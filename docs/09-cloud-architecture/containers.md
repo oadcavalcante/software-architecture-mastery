@@ -96,7 +96,7 @@ O sistema de arquivos deles morre junto.
 
 Estado que precisa sobreviver vai para volume externo, banco ou armazenamento de
 objetos. Ver
-[stateless](../05-system-design/stateless-vs-stateful.md).
+[stateless](/05-system-design/stateless-vs-stateful.md).
 
 Registros de aplicação escritos em arquivo dentro do contêiner são registros que se
 perdem. Eles precisam ir para a saída padrão e ser coletados de fora.
@@ -124,7 +124,7 @@ vulneráveis. Sem reconstrução periódica e verificação, a imagem apodrece.
 sendo sua.
 
 **Segredos.** Nunca na imagem — ver acima. Ver
-[segurança](../10-security/index.md).
+[segurança](/10-security/index.md).
 
 **Limites de recurso.** Sem limite de CPU e memória, um contêiner consome o nó
 inteiro e derruba os vizinhos.
@@ -143,7 +143,7 @@ consistência de ambiente; segurança e operação continuam sendo trabalho.
 - Implantação frequente, com reversão rápida.
 - Várias linguagens ou versões convivendo.
 - Empacotamento uniforme para orquestração. Ver
-  [Kubernetes](kubernetes.md).
+  [Kubernetes](/09-cloud-architecture/kubernetes.md).
 - Isolamento de dependências entre serviços no mesmo nó.
 - Ambientes de desenvolvimento reproduzíveis.
 
@@ -167,7 +167,7 @@ sistema mal desenhado em contêiner.
 
 - **Máquina virtual** — isolamento forte, mais pesado.
 - **Pacote do sistema operacional** — para aplicação única e estável.
-- **[Serverless](serverless.md)** — sem empacotamento nem capacidade.
+- **[Serverless](/09-cloud-architecture/serverless.md)** — sem empacotamento nem capacidade.
 - **Tempos de execução com isolamento reforçado** — quando se quer contêiner com
   fronteira de segurança mais próxima da máquina virtual.
 
@@ -265,10 +265,10 @@ contêineres.
 
 ## Conceitos Relacionados
 
-- [Kubernetes](kubernetes.md) — a orquestração.
-- [Serverless](serverless.md) — o modelo sem empacotamento.
-- [Computação em Nuvem](cloud-compute.md).
-- [Segurança](../10-security/index.md).
+- [Kubernetes](/09-cloud-architecture/kubernetes.md) — a orquestração.
+- [Serverless](/09-cloud-architecture/serverless.md) — o modelo sem empacotamento.
+- [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).
+- [Segurança](/10-security/index.md).
 
 ## Exercício Prático
 

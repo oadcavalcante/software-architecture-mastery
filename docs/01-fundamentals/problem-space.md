@@ -119,7 +119,7 @@ problema. Se deixa de fazer sentido, é solução.
 
 **Porque o espaço de solução só pode ser avaliado contra um problema declarado.**
 Sem isso, comparar alternativas é impossível — não há critério. É por isso que
-[case studies](../21-case-studies/index.md) começam por contexto e requisitos, e
+[case studies](/21-case-studies/index.md) começam por contexto e requisitos, e
 só depois listam opções.
 
 **Porque revela desacordo cedo.** Duas pessoas que discordam sobre a solução
@@ -175,9 +175,9 @@ saber onde as fronteiras deveriam ficar.
 
 ## Conceitos Relacionados
 
-- [Espaço da Solução](solution-space.md) — o outro lado.
-- [Contexto de Negócio](business-context.md) — de onde os problemas vêm.
-- [Requisitos Funcionais](functional-requirements.md) — a formalização do que o
+- [Espaço da Solução](/01-fundamentals/solution-space.md) — o outro lado.
+- [Contexto de Negócio](/01-fundamentals/business-context.md) — de onde os problemas vêm.
+- [Requisitos Funcionais](/01-fundamentals/functional-requirements.md) — a formalização do que o
   sistema precisa fazer.
 
 ## Exercício Prático

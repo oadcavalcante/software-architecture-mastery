@@ -52,7 +52,7 @@ horas ambos satisfazem "consistência eventual".
 
 Por isso a métrica operacional relevante não é a garantia — é o **atraso de
 convergência real**, medido e monitorado. Ver
-[replicação](replication.md).
+[replicação](/06-distributed-systems/replication.md).
 
 Um sistema eventualmente consistente sem monitoramento de atraso é um sistema em
 que ninguém sabe quão velho o dado pode estar.
@@ -66,7 +66,7 @@ escrito aparece imediatamente.
 
 **Lidar com escritas concorrentes.** Duas réplicas podem receber escritas
 conflitantes. Ver
-[resolução de conflitos](conflict-resolution.md).
+[resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
 
 **Ser idempotente.** Convergência frequentemente envolve reaplicar operações.
 
@@ -75,7 +75,7 @@ conflitantes. Ver
 O ponto prático mais valioso deste documento: **o usuário nota a própria
 inconsistência, e tolera a dos outros.**
 
-Ver [consistência](consistency.md). Garantir "leia seus próprios escritos" —
+Ver [consistência](/06-distributed-systems/consistency.md). Garantir "leia seus próprios escritos" —
 direcionar leituras do autor para a primária por um curto período — elimina a
 queixa dominante a custo baixíssimo, sem abrir mão da escala de leitura para todo
 o resto.
@@ -142,7 +142,7 @@ operacional que você mede, não uma garantia que você recebe.
 ## Quando Não Usar
 
 **Onde o dado controla recurso finito.** Estoque, assento, saldo. Ver
-[consistência forte](strong-consistency.md).
+[consistência forte](/06-distributed-systems/strong-consistency.md).
 
 **Onde uma decisão irreversível depende do valor.** Autorizar, aprovar, liberar.
 
@@ -157,7 +157,7 @@ dados silenciosamente.
 
 ## Alternativas
 
-- **[Consistência forte](strong-consistency.md)** — onde o custo se paga.
+- **[Consistência forte](/06-distributed-systems/strong-consistency.md)** — onde o custo se paga.
 - **Garantias de sessão** — o meio-termo que resolve a percepção.
 - **Consistência causal** — preserva a ordem entre operações relacionadas.
 - **Ler da primária para operações críticas** — forte onde importa, eventual no
@@ -215,7 +215,7 @@ atrasos diferentes. Resolvida com leituras monotônicas — o usuário fica pres
 uma réplica durante a sessão.
 
 **"Comentário aparece antes do post."** Não era atraso de replicação — era
-[ordenação](ordering.md). Comentário e post iam para partições diferentes.
+[ordenação](/06-distributed-systems/ordering.md). Comentário e post iam para partições diferentes.
 Resolvido pela chave de partição.
 
 A terceira é instrutiva porque foi diagnosticada duas vezes como consistência
@@ -229,10 +229,10 @@ de sessão, e ela veio do produto, não da engenharia.
 
 ## Conceitos Relacionados
 
-- [Consistência](consistency.md) — o espectro completo.
-- [Consistência Forte](strong-consistency.md) — o outro extremo.
-- [Resolução de Conflitos](conflict-resolution.md) — o que a convergência exige.
-- [Replicação](replication.md) — de onde o atraso vem.
+- [Consistência](/06-distributed-systems/consistency.md) — o espectro completo.
+- [Consistência Forte](/06-distributed-systems/strong-consistency.md) — o outro extremo.
+- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md) — o que a convergência exige.
+- [Replicação](/06-distributed-systems/replication.md) — de onde o atraso vem.
 
 ## Exercício Prático
 

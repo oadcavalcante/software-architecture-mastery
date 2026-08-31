@@ -59,7 +59,7 @@ vira gargalo quando alguém precisa do que ela não expõe.
 
 ### Facade não é Adapter
 
-**[Adapter](adapter.md)** faz uma interface parecer outra que já existe e é
+**[Adapter](/03-design-patterns/adapter.md)** faz uma interface parecer outra que já existe e é
 definida por terceiro. **Facade** cria uma interface nova, que ninguém exigia,
 para simplificar.
 
@@ -94,7 +94,7 @@ conveniência em gargalo.
 
 **Quando ela acumula regra de negócio.** É a degeneração mais comum: a fachada
 começa coordenando e termina decidindo. Ver
-[coesão](../01-fundamentals/cohesion.md).
+[coesão](/01-fundamentals/cohesion.md).
 
 **Como camada obrigatória por convenção arquitetural.** Fachadas criadas por
 simetria, uma por módulo, sem operação composta real, são camadas anêmicas.
@@ -104,7 +104,7 @@ simetria, uma por módulo, sem operação composta real, são camadas anêmicas.
 - **Função de conveniência** — quando é uma operação só, uma função basta.
 - **Serviço de aplicação** — em arquiteturas com caso de uso explícito, ele já
   cumpre esse papel.
-- **[Mediator](mediator.md)** — quando o objetivo é coordenar objetos que
+- **[Mediator](/03-design-patterns/mediator.md)** — quando o objetivo é coordenar objetos que
   interagem entre si, não simplificar acesso.
 - **Melhorar o subsistema** — se ele é complexo demais para usar, às vezes a
   resposta é corrigir isso, não envolvê-lo.
@@ -197,7 +197,7 @@ número é arbitrário; ter um não é.
 **Divida por consumidor, não por subsistema.** Se a fachada serve a três clientes
 com necessidades diferentes, três fachadas estreitas são melhores que uma larga.
 É o princípio de segregação de interface aplicado. Ver
-[interfaces](../02-software-design/interfaces.md).
+[interfaces](/02-software-design/interfaces.md).
 
 **Verifique periodicamente se há regra de negócio dentro.** O teste: um método da
 fachada contém condicional que decide algo do domínio? Se sim, a regra pertence a
@@ -208,9 +208,9 @@ por número de métodos — é por acúmulo de decisões que deveriam morar no d
 
 ## Conceitos Relacionados
 
-- [Adapter](adapter.md) — compatibilizar, não simplificar.
-- [Mediator](mediator.md) — coordenar interação entre objetos.
-- [Proxy](proxy.md) — controlar acesso.
+- [Adapter](/03-design-patterns/adapter.md) — compatibilizar, não simplificar.
+- [Mediator](/03-design-patterns/mediator.md) — coordenar interação entre objetos.
+- [Proxy](/03-design-patterns/proxy.md) — controlar acesso.
 
 ## Exercício Prático
 

@@ -38,7 +38,7 @@ obsoletos, ainda vigentes 14
 esquecidos                15
 ```
 
-Ver [padrões corporativos](../15-enterprise-architecture/standards.md) para escopo e
+Ver [padrões corporativos](/15-enterprise-architecture/standards.md) para escopo e
 operacionalização; aqui o foco é o ciclo de vida — nascer, ser adotado, e morrer.
 
 ## Problema
@@ -88,10 +88,10 @@ padrão com caminho   gabarito já configurado, exemplo funcional,
                      migração automatizada onde possível
 ```
 
-Este é o mesmo argumento do [ponto de intervenção](governance-basics.md): o padrão embutido
+Este é o mesmo argumento do [ponto de intervenção](/19-architecture-governance/governance-basics.md): o padrão embutido
 no gabarito não precisa ser lembrado nem verificado.
 
-Ver [engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ### Custo de adoção declarado
 
@@ -144,7 +144,7 @@ O último item é o mais esquecido, e é o que evita que a aposentadoria vire ab
 padrão descontinuado sem plano deixa dezenas de sistemas com uma escolha que ninguém mais
 sustenta.
 
-Ver [superação de decisões](../18-architecture-decisions/superseding-decisions.md) — a
+Ver [superação de decisões](/18-architecture-decisions/superseding-decisions.md) — a
 mecânica é a mesma.
 
 ### Rastreabilidade do porquê
@@ -154,7 +154,7 @@ padrão sem razão registrada    obedecido por medo, mantido para sempre
 padrão com ADR vinculado       revisável quando a razão cair
 ```
 
-Vincular cada padrão ao [ADR](../18-architecture-decisions/index.md) que o originou é
+Vincular cada padrão ao [ADR](/18-architecture-decisions/index.md) que o originou é
 barato e resolve o problema do padrão-folclore: aquele que todos seguem e ninguém sabe
 explicar.
 
@@ -200,12 +200,12 @@ ele já está apodrecendo.
 
 ## Alternativas
 
-- **[Princípios](governance-principles.md)** — quando o contexto varia.
+- **[Princípios](/19-architecture-governance/governance-principles.md)** — quando o contexto varia.
 - **Gabarito** — o padrão embutido, sem documento.
 - **Recomendação com prazo** — padrão informal, adotado por convencimento antes de virar
   obrigação.
 - **Radar tecnológico** — sinaliza direção sem prescrever. Ver
-  [radar tecnológico](../15-enterprise-architecture/technology-radar.md).
+  [radar tecnológico](/15-enterprise-architecture/technology-radar.md).
 
 A terceira é subutilizada: publicar como recomendação por seis meses revela se o padrão é
 adotável antes de torná-lo obrigatório.
@@ -321,10 +321,10 @@ efeito.
 
 ## Conceitos Relacionados
 
-- [Padrões Corporativos](../15-enterprise-architecture/standards.md) — escopo e formulação.
-- [Princípios](governance-principles.md) — quando não prescrever.
-- [Exceções](exceptions.md) — o que fazer com quem não pode seguir.
-- [Conformidade](compliance.md) — como verificar.
+- [Padrões Corporativos](/15-enterprise-architecture/standards.md) — escopo e formulação.
+- [Princípios](/19-architecture-governance/governance-principles.md) — quando não prescrever.
+- [Exceções](/19-architecture-governance/exceptions.md) — o que fazer com quem não pode seguir.
+- [Conformidade](/19-architecture-governance/compliance.md) — como verificar.
 
 ## Exercício Prático
 

@@ -198,9 +198,9 @@ three years.
 
 ## Related Concepts
 
-- [Complexity](complexity.md) — what abstraction is supposed to reduce.
-- [Coupling](coupling.md) — what it redistributes.
-- [Modularity](modularity.md) — where it materializes boundaries.
+- [Complexity](/01-fundamentals/complexity.md) — what abstraction is supposed to reduce.
+- [Coupling](/01-fundamentals/coupling.md) — what it redistributes.
+- [Modularity](/01-fundamentals/modularity.md) — where it materializes boundaries.
 
 ## Practical Exercise
 

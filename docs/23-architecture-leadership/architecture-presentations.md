@@ -69,7 +69,7 @@ avaliar o que ouvem contra o pedido, em vez de tentar adivinhar aonde a apresent
 E tem um efeito adicional: se o pedido for inaceitável por alguma razão estrutural, isso aparece
 no minuto um em vez de no quarenta.
 
-Ver [comunicação](communication.md).
+Ver [comunicação](/23-architecture-leadership/communication.md).
 
 ### Estrutura de quatro partes
 
@@ -110,7 +110,7 @@ ele não comunica — ele ocupa.
 
 O que funciona: um diagrama com o mínimo necessário para a mensagem daquele momento, com o resto
 removido. Ver
-[qualidade de diagrama](../17-architecture-documentation/diagram-quality.md).
+[qualidade de diagrama](/17-architecture-documentation/diagram-quality.md).
 
 ### As objeções prováveis vão no material
 
@@ -138,7 +138,7 @@ significa que o trabalho de convencimento acontece antes, individualmente.
 
 Chegar à reunião sabendo a posição de cada participante é o que evita a surpresa que trava a
 decisão. Ver
-[gestão de interessados](stakeholder-management.md).
+[gestão de interessados](/23-architecture-leadership/stakeholder-management.md).
 
 ### Documento antes de slides, para decisões relevantes
 
@@ -295,10 +295,10 @@ conseguia.
 
 ## Conceitos Relacionados
 
-- [Comunicação](communication.md).
-- [Gestão de Interessados](stakeholder-management.md).
-- [Negociação de Trade-offs](negotiating-tradeoffs.md).
-- [Qualidade de Diagrama](../17-architecture-documentation/diagram-quality.md).
+- [Comunicação](/23-architecture-leadership/communication.md).
+- [Gestão de Interessados](/23-architecture-leadership/stakeholder-management.md).
+- [Negociação de Trade-offs](/23-architecture-leadership/negotiating-tradeoffs.md).
+- [Qualidade de Diagrama](/17-architecture-documentation/diagram-quality.md).
 
 ## Exercício Prático
 

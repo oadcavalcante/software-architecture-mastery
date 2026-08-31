@@ -78,7 +78,7 @@ O que os liga é um identificador compartilhado, não uma classe compartilhada.
 
 ### Contexto é solução; subdomínio é problema
 
-Ver [subdomínio](subdomain.md). O ideal é um contexto por subdomínio, e a
+Ver [subdomínio](/04-domain-driven-design/subdomain.md). O ideal é um contexto por subdomínio, e a
 realidade diverge:
 
 Um subdomínio atendido por dois contextos — frequentemente por razão histórica.
@@ -95,7 +95,7 @@ garantido.
 Isso significa que a fronteira precisa ser real — imposta por módulo, por
 processo, ou por sistema. Uma fronteira que só existe no diagrama não delimita
 nada, e o modelo vaza. Ver
-[arquitetura vs. implementação](../01-fundamentals/architecture-vs-implementation.md).
+[arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md).
 
 ### Contextos se comunicam por tradução
 
@@ -104,8 +104,8 @@ próprios da fronteira, com tradução dos dois lados.
 
 As formas de relacionamento entre contextos — parceria, cliente-fornecedor,
 conformista, e outras — são o assunto de
-[context mapping](context-mapping.md). A defesa contra o modelo alheio é a
-[anti-corruption layer](anti-corruption-layer.md).
+[context mapping](/04-domain-driven-design/context-mapping.md). A defesa contra o modelo alheio é a
+[anti-corruption layer](/04-domain-driven-design/anti-corruption-layer.md).
 
 ## Modelo Mental
 
@@ -228,10 +228,10 @@ forçava a ser uma, com um campo que ninguém sabia qual dos três significava.
 
 ## Conceitos Relacionados
 
-- [Ubiquitous Language](ubiquitous-language.md) — a linguagem dentro da fronteira.
-- [Context Mapping](context-mapping.md) — como os contextos se relacionam.
-- [Anti-Corruption Layer](anti-corruption-layer.md) — a defesa na fronteira.
-- [Design Modular](../02-software-design/modular-design.md) — a fronteira em
+- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md) — a linguagem dentro da fronteira.
+- [Context Mapping](/04-domain-driven-design/context-mapping.md) — como os contextos se relacionam.
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — a defesa na fronteira.
+- [Design Modular](/02-software-design/modular-design.md) — a fronteira em
   código.
 
 ## Exercício Prático

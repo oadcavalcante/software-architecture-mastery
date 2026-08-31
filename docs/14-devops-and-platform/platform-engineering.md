@@ -38,15 +38,15 @@ constrói — resolve um problema e cria outro.
 
 Cada time precisa saber: contêineres, orquestração, rede, identidade, telemetria,
 esteiras, custo, segurança. Ver
-[Kubernetes](../09-cloud-architecture/kubernetes.md) e
-[identidade em nuvem](../09-cloud-architecture/cloud-identity.md).
+[Kubernetes](/09-cloud-architecture/kubernetes.md) e
+[identidade em nuvem](/09-cloud-architecture/cloud-identity.md).
 
 Multiplicado por doze times, isso é doze vezes o mesmo aprendizado, doze configurações
 divergentes, e uma carga que compete diretamente com a construção do produto.
 
 A resposta errada é centralizar a operação de volta — recriando a divisão que a autonomia
 queria eliminar. Ver
-[conceitos de SRE](../13-observability/sre-concepts.md).
+[conceitos de SRE](/13-observability/sre-concepts.md).
 
 ## Conceitos Centrais
 
@@ -131,7 +131,7 @@ times de produto usam  e operam os próprios serviços
 Se o time de plataforma vira o operador de todos os serviços, a autonomia acaba e o
 gargalo volta.
 
-Ver [conceitos de SRE](../13-observability/sre-concepts.md) — é o mesmo erro estrutural.
+Ver [conceitos de SRE](/13-observability/sre-concepts.md) — é o mesmo erro estrutural.
 
 ### Medir o que importa
 
@@ -178,7 +178,7 @@ Se a resposta for não, a obrigatoriedade está escondendo o problema.
   para organizações pequenas.
 - **Bibliotecas compartilhadas** — sem plataforma, com padrões em código.
 - **Plataforma comercial** — comprar em vez de construir. Ver
-  [SaaS](../09-cloud-architecture/saas.md).
+  [SaaS](/09-cloud-architecture/saas.md).
 - **Time de habilitação** — ajuda os times a resolverem, em vez de resolver por eles.
 
 A última é frequentemente melhor no início: ela transfere capacidade em vez de criar
@@ -283,10 +283,10 @@ antes.
 
 ## Conceitos Relacionados
 
-- [Plataformas Internas](internal-developer-platforms.md) — a implementação.
-- [Conceitos de SRE](../13-observability/sre-concepts.md).
-- [Gestão de Ambientes](environment-management.md).
-- [Integração Contínua](ci-cd.md).
+- [Plataformas Internas](/14-devops-and-platform/internal-developer-platforms.md) — a implementação.
+- [Conceitos de SRE](/13-observability/sre-concepts.md).
+- [Gestão de Ambientes](/14-devops-and-platform/environment-management.md).
+- [Integração Contínua](/14-devops-and-platform/ci-cd.md).
 
 ## Exercício Prático
 

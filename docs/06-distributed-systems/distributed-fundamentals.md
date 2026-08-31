@@ -41,7 +41,7 @@ terceiro é o que torna tudo difícil — quando o timeout estoura, você não s
 a operação aconteceu.
 
 O processo do outro lado pode morrer sem que o seu morra. Isso é
-[falha parcial](partial-failure.md), e é a diferença estrutural.
+[falha parcial](/06-distributed-systems/partial-failure.md), e é a diferença estrutural.
 
 E o tempo deixa de ser desprezível: ele varia, e a variação é maior que a média.
 
@@ -89,7 +89,7 @@ Do lado do chamador, "a resposta não chegou" é indistinguível de "a requisiç
 chegou". Repetir pode duplicar; não repetir pode perder.
 
 A única saída é tornar a operação repetível sem efeito adicional — que é
-[idempotência](idempotency.md), e é por isso que ela é o conceito central desta
+[idempotência](/06-distributed-systems/idempotency.md), e é por isso que ela é o conceito central desta
 seção, não um detalhe.
 
 ### Não há tempo global
@@ -98,15 +98,15 @@ Relógios de máquinas diferentes divergem. Isso significa que "aconteceu antes"
 não é decidível comparando marcas de tempo de máquinas distintas.
 
 A consequência prática aparece em ordenação, em expiração de credencial e em
-resolução de conflito. Ver [relógio e tempo](clock-and-time.md).
+resolução de conflito. Ver [relógio e tempo](/06-distributed-systems/clock-and-time.md).
 
 ### Não há conhecimento perfeito
 
 Um nó não consegue distinguir com certeza entre "o outro caiu" e "o outro está
 lento". Essa impossibilidade é o que torna
-[detecção de falha](failure-detection.md) um problema de heurística, não de
+[detecção de falha](/06-distributed-systems/failure-detection.md) um problema de heurística, não de
 verdade — e o que fundamenta os limites de
-[CAP](cap.md) e [consenso](consensus.md).
+[CAP](/06-distributed-systems/cap.md) e [consenso](/06-distributed-systems/consensus.md).
 
 ### A recomendação que precede tudo
 
@@ -114,7 +114,7 @@ verdade — e o que fundamenta os limites de
 latência, ordenação e duplicação ao seu sistema.
 
 Um monolito bem modularizado não tem nenhum desses problemas. Ver
-[monolito modular](../03-design-patterns/modular-monolith.md).
+[monolito modular](/03-design-patterns/modular-monolith.md).
 
 ## Por Que Isso Importa
 
@@ -132,7 +132,7 @@ retrofitar — exige mudar o modelo de dados.
 ## Erros Comuns
 
 **Tratar chamada remota como local mais lenta.** Ver
-[Proxy](../03-design-patterns/proxy.md): a transparência convida ao erro.
+[Proxy](/03-design-patterns/proxy.md): a transparência convida ao erro.
 
 **Assumir que o timeout significa que não aconteceu.**
 
@@ -179,10 +179,10 @@ distribuída, e não como uma chamada de função que às vezes demora.
 
 ## Conceitos Relacionados
 
-- [Falha Parcial](partial-failure.md) — a diferença estrutural.
-- [Idempotência](idempotency.md) — a resposta ao terceiro resultado.
-- [Timeouts](timeouts.md) e [Retries](retries.md) — o que fazer com a ambiguidade.
-- [Monolito Modular](../03-design-patterns/modular-monolith.md) — a alternativa a
+- [Falha Parcial](/06-distributed-systems/partial-failure.md) — a diferença estrutural.
+- [Idempotência](/06-distributed-systems/idempotency.md) — a resposta ao terceiro resultado.
+- [Timeouts](/06-distributed-systems/timeouts.md) e [Retries](/06-distributed-systems/retries.md) — o que fazer com a ambiguidade.
+- [Monolito Modular](/03-design-patterns/modular-monolith.md) — a alternativa a
   distribuir.
 
 ## Exercício Prático

@@ -36,7 +36,7 @@ declarado** e **discordância registrada**.
 
 ## Contexto
 
-Três anos depois do [ADR-001](adr-001-modular-monolith.md), o monólito modular continua
+Três anos depois do [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md), o monólito modular continua
 sendo a estrutura da Verano, e continua sustentando o negócio. Mas duas pressões apareceram.
 
 **Extração.** O módulo de entrega passou a ter perfil de carga muito diferente do resto —
@@ -154,22 +154,22 @@ quantas discussões sobre "este módulo se aplica?" tiverem ocorrido.
 ## O que observar neste exemplo
 
 O escopo é **estreito e declarado nos dois sentidos**: três módulos sim, quatro não, com o
-critério explícito. Ver [decisão](adr-decision.md).
+critério explícito. Ver [decisão](/18-architecture-decisions/adr-decision.md).
 
 A discordância tem seção própria, com o argumento de quem discordou preservado e a
 mitigação registrada. Se o risco se materializar, a objeção estará lá — e ela era boa. Ver
-[consequências](adr-consequences.md).
+[consequências](/18-architecture-decisions/adr-consequences.md).
 
 Uma alternativa descartada foi **parcialmente adotada** como passo intermediário. Isso é
 comum na prática e raramente registrado.
 
-O contexto liga esta decisão ao sinal de alerta do [ADR-001](adr-001-modular-monolith.md),
+O contexto liga esta decisão ao sinal de alerta do [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md),
 atingido dois meses antes. A cadeia de decisões da Verano é navegável de ponta a ponta —
 que é o efeito que o registro contínuo produz.
 
 ## Conceitos Relacionados
 
-- [Decisão](adr-decision.md) — escopo e discordância.
-- [Arquitetura Hexagonal](../02-software-design/hexagonal-architecture.md).
-- [ADR-001](adr-001-modular-monolith.md) — a decisão estrutural que este complementa.
-- [Anti-Corruption Layer](../08-integration-architecture/integration-anti-corruption.md).
+- [Decisão](/18-architecture-decisions/adr-decision.md) — escopo e discordância.
+- [Arquitetura Hexagonal](/02-software-design/hexagonal-architecture.md).
+- [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md) — a decisão estrutural que este complementa.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).

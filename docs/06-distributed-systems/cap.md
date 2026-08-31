@@ -46,7 +46,7 @@ configuração da operação.
 
 **"CAP explica por que abrimos mão de consistência."** Fora de partição, não há
 dilema CAP. O sistema pode ser consistente **e** disponível. Se ele não é, a razão
-é outra — tipicamente latência, que é o que [PACELC](pacelc.md) trata.
+é outra — tipicamente latência, que é o que [PACELC](/06-distributed-systems/pacelc.md) trata.
 
 ## Conceitos Centrais
 
@@ -70,7 +70,7 @@ indisponível para parte dos clientes, e o estado permanece correto.
 
 **AP** — continuar aceitando operações. O sistema permanece disponível, e os
 estados divergem — o que exige
-[resolução de conflito](conflict-resolution.md) depois.
+[resolução de conflito](/06-distributed-systems/conflict-resolution.md) depois.
 
 ```mermaid
 graph TB
@@ -104,7 +104,7 @@ Partições acontecem — e são raras em relação ao tempo de operação. Um s
 passar meses sem uma.
 
 Isso significa que **CAP não é o trade-off dominante do dia a dia**. O dominante é
-latência versus consistência, que vale sempre. Ver [PACELC](pacelc.md).
+latência versus consistência, que vale sempre. Ver [PACELC](/06-distributed-systems/pacelc.md).
 
 Times que decidem a arquitetura inteira com base em CAP estão otimizando para o
 caso raro e ignorando o permanente.
@@ -176,10 +176,10 @@ inequívoca.
 
 ## Conceitos Relacionados
 
-- [PACELC](pacelc.md) — a extensão que cobre o caso comum.
-- [Consistência](consistency.md) — o espectro de garantias.
-- [Disponibilidade](availability.md).
-- [Falha de Rede](network-failure.md) — de onde vem a partição.
+- [PACELC](/06-distributed-systems/pacelc.md) — a extensão que cobre o caso comum.
+- [Consistência](/06-distributed-systems/consistency.md) — o espectro de garantias.
+- [Disponibilidade](/06-distributed-systems/availability.md).
+- [Falha de Rede](/06-distributed-systems/network-failure.md) — de onde vem a partição.
 
 ## Exercício Prático
 

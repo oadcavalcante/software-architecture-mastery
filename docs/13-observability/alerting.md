@@ -86,7 +86,7 @@ dias", "disco cheio em 6 horas". Elas são acionáveis e evitam o sintoma.
 
 ### Baseie no orçamento de erro
 
-Ver [SLO](../12-reliability/slo.md). Alertar quando o orçamento está sendo consumido
+Ver [SLO](/12-reliability/slo.md). Alertar quando o orçamento está sendo consumido
 rápido demais substitui os limiares arbitrários:
 
 ```text
@@ -182,7 +182,7 @@ coisa.
 
 - **Ticket priorizado** — para o que precisa de ação sem urgência.
 - **Item de painel** — para contexto.
-- **Alerta baseado em [SLO](../12-reliability/slo.md)** — proporcional ao impacto.
+- **Alerta baseado em [SLO](/12-reliability/slo.md)** — proporcional ao impacto.
 - **Correção automática** — quando a ação é sempre a mesma, automatize em vez de
   alertar. O melhor alerta é o que deixa de existir.
 
@@ -278,10 +278,10 @@ erro foi nunca revisar.
 
 ## Conceitos Relacionados
 
-- [Sinais Dourados](golden-signals.md) — a base.
-- [SLO](../12-reliability/slo.md) — o alerta proporcional.
-- [Conceitos de SRE](sre-concepts.md).
-- [Painéis](dashboards.md) — o destino do que não é alerta.
+- [Sinais Dourados](/13-observability/golden-signals.md) — a base.
+- [SLO](/12-reliability/slo.md) — o alerta proporcional.
+- [Conceitos de SRE](/13-observability/sre-concepts.md).
+- [Painéis](/13-observability/dashboards.md) — o destino do que não é alerta.
 
 ## Exercício Prático
 

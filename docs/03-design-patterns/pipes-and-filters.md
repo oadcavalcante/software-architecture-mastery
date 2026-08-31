@@ -80,7 +80,7 @@ inteiro falha junto.
 
 **Assíncrono, com filas** — cada filtro é um consumidor. Absorve picos, escala
 por etapa, e traz duplicação, ordem e mensagens envenenadas. Ver
-[Nível 04](../06-distributed-systems/index.md).
+[Nível 04](/06-distributed-systems/index.md).
 
 A escolha muda a natureza do que se está construindo.
 
@@ -115,7 +115,7 @@ garantir atomicidade sobre um lote atravessa a estrutura.
 
 - **Função composta** — pipeline síncrono sem infraestrutura, quando não há
   requisito de escala por etapa.
-- **[Chain of Responsibility](chain-of-responsibility.md)** — quando a semântica é
+- **[Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md)** — quando a semântica é
   "primeiro que trata para", não "todos transformam".
 - **Grafo de tarefas** — quando há ramificação e junção.
 - **Processamento em lote monolítico** — quando as etapas nunca são recombinadas.
@@ -141,7 +141,7 @@ errado.
 
 **Backpressure ausente.** Um filtro lento acumula fila indefinidamente até
 esgotar recurso. Ver
-[backpressure](../06-distributed-systems/index.md).
+[backpressure](/06-distributed-systems/index.md).
 
 **Item envenenado travando o pipeline.** Sem dead-letter, um item que sempre falha
 bloqueia os seguintes.
@@ -204,11 +204,11 @@ foram descobertos em produção.
 
 ## Conceitos Relacionados
 
-- [Chain of Responsibility](chain-of-responsibility.md) — cadeia com semântica de
+- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md) — cadeia com semântica de
   parada.
-- [Decorator](decorator.md) — camadas que envolvem, não etapas que transformam.
-- [Arquitetura Orientada a Eventos](event-driven.md) — quando os tubos são filas.
-- [Integração](../08-integration-architecture/index.md).
+- [Decorator](/03-design-patterns/decorator.md) — camadas que envolvem, não etapas que transformam.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — quando os tubos são filas.
+- [Integração](/08-integration-architecture/index.md).
 
 ## Exercício Prático
 

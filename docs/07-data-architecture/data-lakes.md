@@ -33,7 +33,7 @@ ninguém confia no que acha.
 
 ## Problema
 
-Um [data warehouse](data-warehouses.md) exige decidir o modelo antes de ingerir.
+Um [data warehouse](/07-data-architecture/data-warehouses.md) exige decidir o modelo antes de ingerir.
 Isso custa tempo e descarta o que não foi previsto.
 
 Dados que não cabem em tabelas — registros de aplicação, imagens, documentos,
@@ -90,7 +90,7 @@ Guardar em formato de texto — JSON, CSV — é conveniente e caro: sem compres
 eficiente, sem tipos, sem leitura seletiva de colunas.
 
 Formatos colunares comprimem várias vezes melhor e permitem ler só as colunas
-necessárias. Ver [colunar](column-stores.md).
+necessárias. Ver [colunar](/07-data-architecture/column-stores.md).
 
 A camada bruta pode manter o formato original. As camadas tratada e curada não
 deveriam.
@@ -111,7 +111,7 @@ copiados, sem saber quem tem acesso a quê.
 
 Classificação na ingestão, controle de acesso por zona e política de retenção
 precisam existir desde o primeiro dia. Ver
-[ciclo de vida do dado](data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 Retroagir governança sobre um lake com anos de acúmulo é projeto de meses, e
 raramente completo.
@@ -137,7 +137,7 @@ existir, não sobra nenhuma.
 **Sem donos definidos por conjunto de dados.**
 
 **Para consultas analíticas recorrentes com definições estáveis.** Ver
-[warehouse](data-warehouses.md).
+[warehouse](/07-data-architecture/data-warehouses.md).
 
 **Como fonte da verdade operacional.**
 
@@ -147,8 +147,8 @@ existir, não sobra nenhuma.
 
 ## Alternativas
 
-- **[Warehouse](data-warehouses.md)** — quando as perguntas são conhecidas.
-- **[Lakehouse](data-lakehouses.md)** — a convergência.
+- **[Warehouse](/07-data-architecture/data-warehouses.md)** — quando as perguntas são conhecidas.
+- **[Lakehouse](/07-data-architecture/data-lakehouses.md)** — a convergência.
 - **Armazenamento de objetos com catálogo** — a versão mínima viável, que resolve
   boa parte dos casos sem plataforma.
 - **Manter na origem** — se ninguém consome, ingerir é custo puro.
@@ -249,10 +249,10 @@ documentação de origem.
 
 ## Conceitos Relacionados
 
-- [Data Warehouse](data-warehouses.md) — o complemento.
-- [Lakehouse](data-lakehouses.md) — a convergência.
-- [Propriedade do Dado](data-ownership.md) — o que impede o pântano.
-- [Ciclo de Vida do Dado](data-lifecycle.md) — retenção.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md) — o complemento.
+- [Lakehouse](/07-data-architecture/data-lakehouses.md) — a convergência.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — o que impede o pântano.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção.
 
 ## Exercício Prático
 

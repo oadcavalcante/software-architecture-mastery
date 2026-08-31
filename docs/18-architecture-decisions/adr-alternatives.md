@@ -111,7 +111,7 @@ equipe gasta ~30% do tempo em correções nesta área."
 Registrar o status quo obriga a quantificar o problema. ADRs que não o consideram
 frequentemente registram mudanças que não precisavam acontecer.
 
-Ver [dívida técnica](../01-fundamentals/technical-debt.md).
+Ver [dívida técnica](/01-fundamentals/technical-debt.md).
 
 ### Opções descartadas cedo também contam
 
@@ -307,11 +307,11 @@ construir contra comprar, e em todos a intuição da equipe apontava para constr
 
 ## Conceitos Relacionados
 
-- [Contexto](adr-context.md) — as forças que definem os critérios.
-- [Superação](superseding-decisions.md) — o que acontece quando a condição de reversão é
+- [Contexto](/18-architecture-decisions/adr-context.md) — as forças que definem os critérios.
+- [Superação](/18-architecture-decisions/superseding-decisions.md) — o que acontece quando a condição de reversão é
   atingida.
-- [Trade-offs](../20-trade-offs/index.md) — o material desta seção.
-- [Dívida Técnica](../01-fundamentals/technical-debt.md) — o custo do status quo.
+- [Trade-offs](/20-trade-offs/index.md) — o material desta seção.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md) — o custo do status quo.
 
 ## Exercício Prático
 

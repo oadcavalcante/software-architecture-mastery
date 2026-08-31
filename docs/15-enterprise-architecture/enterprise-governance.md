@@ -60,12 +60,12 @@ tradicional     tudo passa pelo controle; o que é aprovado segue
 por exceção     tudo segue; o que foge do padrão passa pelo controle
 ```
 
-Ver [níveis de arquitetura](architecture-levels.md). A maioria das decisões é local e
+Ver [níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md). A maioria das decisões é local e
 reversível — e passar todas por um controle é gastar atenção onde ela não rende.
 
 O que torna isso viável é o **caminho pavimentado**: se o padrão está embutido no que o
 time já usa, seguir o padrão não exige verificação. Só o desvio exige. Ver
-[plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
+[plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
 Uma governança que precisa verificar o que já é padrão não operacionalizou o padrão.
 
@@ -103,7 +103,7 @@ de rejeição também, o processo é espera.
 
 E a última é o sinal mais honesto: contorno não é indisciplina, é resposta a atrito que
 não se paga. Ver
-[infraestrutura como código](../14-devops-and-platform/infrastructure-as-code.md) — a
+[infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md) — a
 mesma dinâmica.
 
 ### O rigor deve seguir a reversibilidade
@@ -286,7 +286,7 @@ resolvida por alertas de orçamento.
 
 **Revisão de segurança mantida**, com escopo — apenas sistemas que tratam dado sensível —
 e realizada como consulta durante o desenho, não como aprovação no fim. Ver
-[revisão de arquitetura](architecture-review.md).
+[revisão de arquitetura](/15-enterprise-architecture/architecture-review.md).
 
 **Caminho pavimentado** substituindo a lista de tecnologias.
 
@@ -302,10 +302,10 @@ anos depois, e o controle permaneceu — como quase todos.
 
 ## Conceitos Relacionados
 
-- [Níveis de Arquitetura](architecture-levels.md) — o que governar.
-- [Revisão de Arquitetura](architecture-review.md) — o mecanismo.
-- [Princípios Corporativos](enterprise-principles.md).
-- [Governança de Arquitetura](../19-architecture-governance/index.md) — o tratamento
+- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md) — o que governar.
+- [Revisão de Arquitetura](/15-enterprise-architecture/architecture-review.md) — o mecanismo.
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
+- [Governança de Arquitetura](/19-architecture-governance/index.md) — o tratamento
   aprofundado.
 
 ## Exercício Prático

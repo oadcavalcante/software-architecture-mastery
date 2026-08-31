@@ -310,7 +310,7 @@ capacidade seja virada. O Extrator sincroniza continuamente para o sistema novo,
 modo somente leitura até assumir.
 
 Essa direção única — legado para novo, nunca o inverso — é a lição do case de
-[e-commerce](ecommerce.md) aplicada aqui, e foi decidida com base nela: sincronização
+[e-commerce](/21-case-studies/ecommerce.md) aplicada aqui, e foi decidida com base nela: sincronização
 bidirecional entre duas fontes de verdade não funciona.
 
 **Modelo de regras.**
@@ -557,10 +557,10 @@ e é uma disciplina que projetos com orçamento estável raramente adotam.
 
 ## Conceitos Relacionados
 
-- [Estrangulamento](../16-legacy-modernization/strangler-fig.md).
-- [Case: E-commerce Omnicanal](ecommerce.md) — a lição de fonte única de verdade.
-- [Case: Núcleo Bancário Digital](banking.md) — o mesmo método de sombra.
-- [Anti-Corruption Layer](../08-integration-architecture/integration-anti-corruption.md).
+- [Estrangulamento](/16-legacy-modernization/strangler-fig.md).
+- [Case: E-commerce Omnicanal](/21-case-studies/ecommerce.md) — a lição de fonte única de verdade.
+- [Case: Núcleo Bancário Digital](/21-case-studies/banking.md) — o mesmo método de sombra.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 
 ## Exercício Prático
 

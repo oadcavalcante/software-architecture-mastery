@@ -75,7 +75,7 @@ Componentes em série multiplicam:
 ```
 
 Isso é o argumento quantitativo contra cadeias longas de chamadas síncronas. Ver
-[serviços](../05-system-design/services.md).
+[serviços](/05-system-design/services.md).
 
 Componentes redundantes em paralelo somam noves:
 
@@ -101,7 +101,7 @@ Três instâncias com um defeito de código idêntico têm a disponibilidade de 
 ### Disponibilidade não é confiabilidade
 
 Um sistema pode estar disponível e devolver resultados errados. Ver
-[confiabilidade](../12-reliability/index.md).
+[confiabilidade](/12-reliability/index.md).
 
 Um sistema que responde `200` com dado desatualizado está disponível pela métrica
 e falhando pelo propósito.
@@ -113,7 +113,7 @@ degradada, uma região afetada, uma fração dos usuários.
 
 Medir disponibilidade como binário esconde isso. A métrica melhor é a **taxa de
 requisições bem-sucedidas** — que captura degradação parcial e é o que
-[SLI](../12-reliability/index.md) formaliza.
+[SLI](/12-reliability/index.md) formaliza.
 
 ### Meça do lado do cliente
 
@@ -143,7 +143,7 @@ que não obriga a nada.
 - Ao negociar requisito com o negócio, com a tabela na mão.
 - Ao dimensionar redundância.
 - Ao avaliar o custo de uma cadeia de chamadas síncronas.
-- Ao estabelecer [SLO](../12-reliability/index.md).
+- Ao estabelecer [SLO](/12-reliability/index.md).
 
 ## Quando Não Usar
 
@@ -178,7 +178,7 @@ Para melhorar disponibilidade percebida sem adicionar noves de infraestrutura:
 | Redundância e complexidade operacional | Simplicidade |
 | Frequentemente exige sacrificar consistência | Consistência preservada |
 
-A última linha remete a [CAP](cap.md): sob partição, disponibilidade e
+A última linha remete a [CAP](/06-distributed-systems/cap.md): sob partição, disponibilidade e
 consistência não coexistem.
 
 ## Modos de Falha
@@ -247,10 +247,10 @@ sincronamente de um provedor menos disponível que ele.
 
 ## Conceitos Relacionados
 
-- [CAP](cap.md) — a escolha sob partição.
-- [Consistência](consistency.md) — o que se troca.
-- [Confiabilidade](../12-reliability/index.md) — SLI, SLO e degradação.
-- [Replicação](replication.md) — o mecanismo de redundância.
+- [CAP](/06-distributed-systems/cap.md) — a escolha sob partição.
+- [Consistência](/06-distributed-systems/consistency.md) — o que se troca.
+- [Confiabilidade](/12-reliability/index.md) — SLI, SLO e degradação.
+- [Replicação](/06-distributed-systems/replication.md) — o mecanismo de redundância.
 
 ## Exercício Prático
 

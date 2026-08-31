@@ -23,7 +23,7 @@ last_reviewed: 2026-08-27
 
 Backoff é aumentar o intervalo entre tentativas sucessivas.
 
-Ele existe porque [retentativa](retries.md) imediata concentra carga exatamente
+Ele existe porque [retentativa](/06-distributed-systems/retries.md) imediata concentra carga exatamente
 quando o destino não suporta. E a parte que mais se omite — a **variação
 aleatória** — é a que faz o mecanismo funcionar de fato.
 
@@ -93,7 +93,7 @@ servidor forneceu de propósito.
 
 ### Backoff em fila é diferente
 
-Numa [fila](../05-system-design/queues.md), o backoff costuma ser implementado
+Numa [fila](/05-system-design/queues.md), o backoff costuma ser implementado
 como atraso de reentrega: a mensagem volta a ficar visível depois de N segundos.
 
 O efeito é o mesmo e o mecanismo não é do cliente — é da fila. Configurar
@@ -157,7 +157,7 @@ enquanto mantém a sincronização.
 
 ## Alternativas
 
-- **[Circuit breaker](../12-reliability/index.md)** — parar de tentar em vez de
+- **[Circuit breaker](/12-reliability/index.md)** — parar de tentar em vez de
   espaçar. Mais eficaz quando a falha é persistente.
 - **Fila com atraso** — deixar o mecanismo de mensageria cuidar.
 - **Orçamento de retentativa** — limitar a proporção em vez do intervalo.
@@ -230,11 +230,11 @@ tentar todos no mesmo instante.
 
 ## Conceitos Relacionados
 
-- [Retries](retries.md) — o mecanismo que o backoff regula.
-- [Rate Limiting](../05-system-design/rate-limiting.md) — o lado do servidor.
-- [Circuit Breakers](../12-reliability/index.md) — a alternativa quando a falha
+- [Retries](/06-distributed-systems/retries.md) — o mecanismo que o backoff regula.
+- [Rate Limiting](/05-system-design/rate-limiting.md) — o lado do servidor.
+- [Circuit Breakers](/12-reliability/index.md) — a alternativa quando a falha
   persiste.
-- [Retry Storms](../12-reliability/index.md).
+- [Retry Storms](/12-reliability/index.md).
 
 ## Exercício Prático
 

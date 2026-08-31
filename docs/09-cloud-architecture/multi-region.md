@@ -21,14 +21,14 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Operar em mais de uma [região](regions.md) resolve três problemas diferentes, com
+Operar em mais de uma [região](/09-cloud-architecture/regions.md) resolve três problemas diferentes, com
 preços muito diferentes: sobreviver à perda de uma região, atender usuários
 distantes com baixa latência, e cumprir exigências de residência de dados.
 
 Confundir os três leva a desenhos caros que não atendem ao objetivo real.
 
 E vale a franqueza: **a maioria dos sistemas não precisa disso**. Três
-[zonas de disponibilidade](availability-zones.md) cobrem a esmagadora maioria das
+[zonas de disponibilidade](/09-cloud-architecture/availability-zones.md) cobrem a esmagadora maioria das
 falhas reais, com uma fração da complexidade.
 
 ## Problema
@@ -59,7 +59,7 @@ escrita             uma região           uma região             várias regiõ
 
 **Ativo-passivo frio.** Cópias replicadas para outra região; a infraestrutura é
 criada quando necessário. É basicamente
-[recuperação de desastre](disaster-recovery.md).
+[recuperação de desastre](/09-cloud-architecture/disaster-recovery.md).
 
 **Ativo-passivo quente.** A região secundária existe e recebe replicação contínua.
 Promover é uma operação, não uma construção.
@@ -71,12 +71,12 @@ lugar.
 ### Ativo-ativo esbarra em consistência
 
 Se as duas regiões aceitam escrita para o mesmo dado, você tem
-[conflitos](../06-distributed-systems/conflict-resolution.md) — e a resolução padrão
+[conflitos](/06-distributed-systems/conflict-resolution.md) — e a resolução padrão
 descarta dados em silêncio.
 
 Se você exige consistência forte entre regiões, paga latência de coordenação
 intercontinental em toda escrita. Ver
-[PACELC](../06-distributed-systems/pacelc.md).
+[PACELC](/06-distributed-systems/pacelc.md).
 
 Não há saída elegante. As que funcionam evitam o problema:
 
@@ -95,7 +95,7 @@ divulgada, porque é menos impressionante que ativo-ativo completo.
 
 ### O ponto único que a geografia não protege
 
-Ver [regiões](regions.md): serviços globais — DNS, identidade, plano de controle —
+Ver [regiões](/09-cloud-architecture/regions.md): serviços globais — DNS, identidade, plano de controle —
 atravessam regiões.
 
 Uma arquitetura multi-região que depende de um deles para funcionar tem um ponto
@@ -161,9 +161,9 @@ gera dois sistemas frágeis.
 
 ## Alternativas
 
-- **Três [zonas de disponibilidade](availability-zones.md)** — cobre a maioria das
+- **Três [zonas de disponibilidade](/09-cloud-architecture/availability-zones.md)** — cobre a maioria das
   falhas reais.
-- **[Recuperação de desastre](disaster-recovery.md) em outra região** — capacidade
+- **[Recuperação de desastre](/09-cloud-architecture/disaster-recovery.md) em outra região** — capacidade
   reduzida, ativada sob demanda. Muito mais barato.
 - **Réplica de leitura em outra região** — latência de leitura sem o problema de
   escrita.
@@ -275,10 +275,10 @@ diferença só aparece no exercício ou no incidente.
 
 ## Conceitos Relacionados
 
-- [Regiões](regions.md) e [Zonas de Disponibilidade](availability-zones.md).
-- [Recuperação de Desastre](disaster-recovery.md) — a alternativa mais barata.
-- [Resolução de Conflitos](../06-distributed-systems/conflict-resolution.md).
-- [PACELC](../06-distributed-systems/pacelc.md).
+- [Regiões](/09-cloud-architecture/regions.md) e [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md).
+- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md) — a alternativa mais barata.
+- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md).
+- [PACELC](/06-distributed-systems/pacelc.md).
 
 ## Exercício Prático
 

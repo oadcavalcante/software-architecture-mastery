@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-[Capacidades de negócio](business-capabilities.md) descreve o que são e para que servem.
+[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md) descreve o que são e para que servem.
 Este documento é sobre **como construir o mapa** — e como evitar os erros que produzem
 um artefato bonito e inútil.
 
@@ -120,7 +120,7 @@ cor por custo          onde o dinheiro vai
 número de sistemas     onde há duplicação
 ```
 
-Ver [portfólio de aplicações](application-portfolios.md).
+Ver [portfólio de aplicações](/15-enterprise-architecture/application-portfolios.md).
 
 E a combinação mais produtiva: **criticidade contra saúde**. Ela produz uma lista curta
 de prioridades que ninguém discute — capacidades críticas suportadas por sistemas ruins.
@@ -185,7 +185,7 @@ organização.
 - **Mapa de fluxo de valor** — orientado a processo, melhor para otimizar fluxo de
   trabalho.
 - **Mapeamento de domínios** — orientado a fronteiras de software. Ver
-  [DDD](../04-domain-driven-design/index.md).
+  [DDD](/04-domain-driven-design/index.md).
 - **Inventário de sistemas** — sem a lente de negócio, mais barato.
 - **Modelo de referência do setor** — ponto de partida, com adaptação.
 
@@ -274,10 +274,10 @@ isso não servia ao propósito — que era permitir a conversa com o negócio.
 
 ## Conceitos Relacionados
 
-- [Capacidades de Negócio](business-capabilities.md) — o conceito.
-- [Portfólio de Aplicações](application-portfolios.md) — a sobreposição.
-- [Arquitetura de Negócio](business-architecture.md).
-- [Estratégia Técnica](technical-strategy.md).
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — o conceito.
+- [Portfólio de Aplicações](/15-enterprise-architecture/application-portfolios.md) — a sobreposição.
+- [Arquitetura de Negócio](/15-enterprise-architecture/business-architecture.md).
+- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md).
 
 ## Exercício Prático
 

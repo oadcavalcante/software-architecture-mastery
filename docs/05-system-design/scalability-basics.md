@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Identificado o [gargalo](bottleneck-analysis.md), há um conjunto conhecido de
+Identificado o [gargalo](/05-system-design/bottleneck-analysis.md), há um conjunto conhecido de
 respostas.
 
 Este documento as apresenta **na ordem de custo** — que é diferente da ordem em que
@@ -53,13 +53,13 @@ N+1. Frequentemente o gargalo inteiro está aqui, e a correção leva horas.
 arquitetura, e resolve mais do que se admite — máquinas modernas comportam cargas
 que exigiriam clusters há uma década. Custa dinheiro e nenhuma complexidade.
 
-**4. Cachear.** Evitar recalcular. Ver [cache](caching.md). Custa invalidação e um
+**4. Cachear.** Evitar recalcular. Ver [cache](/05-system-design/caching.md). Custa invalidação e um
 componente.
 
 **5. Escalar horizontalmente.** Mais instâncias sem estado atrás de um
-[balanceador](load-balancing.md). Custa a exigência de ausência de estado.
+[balanceador](/05-system-design/load-balancing.md). Custa a exigência de ausência de estado.
 
-**6. Tornar assíncrono.** Mover trabalho para [fila](queues.md). Custa consistência
+**6. Tornar assíncrono.** Mover trabalho para [fila](/05-system-design/queues.md). Custa consistência
 eventual, duplicação e ordem.
 
 **7. Replicar leitura.** Réplicas do banco. Custa atraso de replicação e roteamento
@@ -84,7 +84,7 @@ Escala vertical tem limite, e o limite é mais alto do que a intuição sugere.
 
 ### Ausência de estado é o degrau que destrava
 
-O passo 5 depende de [ausência de estado](stateless-vs-stateful.md). Um componente
+O passo 5 depende de [ausência de estado](/05-system-design/stateless-vs-stateful.md). Um componente
 com estado local não escala horizontalmente sem afinidade — que desequilibra — ou
 sem particionamento — que é o degrau 8.
 
@@ -107,7 +107,7 @@ Escala aumenta capacidade; ela não corrige lentidão intrínseca. Se cada requi
 leva 3 segundos por uma consulta ruim, dez instâncias atendem dez vezes mais
 requisições — todas em 3 segundos.
 
-Ver [desempenho versus escalabilidade](../11-scalability/index.md).
+Ver [desempenho versus escalabilidade](/11-scalability/index.md).
 
 ## Modelo Mental
 
@@ -143,7 +143,7 @@ rápido.
 - **Aceitar a degradação** — se o pico é raro e a consequência é pequena, aceitar
   pode ser mais barato que dimensionar para ele.
 - **Limitar a taxa** — proteger a capacidade em vez de aumentá-la. Ver
-  [rate limiting](rate-limiting.md).
+  [rate limiting](/05-system-design/rate-limiting.md).
 - **Degradar** — servir versão mais barata sob pressão.
 
 ## Trade-offs
@@ -164,7 +164,7 @@ rápido.
 **Escalar a aplicação com o banco saturado.** Mais conexões, mais pressão.
 
 **Particionar com chave errada.** Uma partição concentra a carga — um
-[hotspot](../11-scalability/index.md) — e o particionamento não ajuda.
+[hotspot](/11-scalability/index.md) — e o particionamento não ajuda.
 
 **Cache mascarando problema.** A taxa de acerto cai e o problema volta pior.
 
@@ -217,12 +217,12 @@ original tivesse sido executada, os dois problemas continuariam lá — distribu
 
 ## Conceitos Relacionados
 
-- [Análise de Gargalos](bottleneck-analysis.md) — o que precede.
-- [Cache](caching.md), [Balanceamento](load-balancing.md),
-  [Filas](queues.md) — degraus específicos.
-- [Sem Estado vs. Com Estado](stateless-vs-stateful.md) — o que destrava a escala
+- [Análise de Gargalos](/05-system-design/bottleneck-analysis.md) — o que precede.
+- [Cache](/05-system-design/caching.md), [Balanceamento](/05-system-design/load-balancing.md),
+  [Filas](/05-system-design/queues.md) — degraus específicos.
+- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md) — o que destrava a escala
   horizontal.
-- [Escalabilidade](../11-scalability/index.md) — o tratamento em profundidade.
+- [Escalabilidade](/11-scalability/index.md) — o tratamento em profundidade.
 
 ## Exercício Prático
 

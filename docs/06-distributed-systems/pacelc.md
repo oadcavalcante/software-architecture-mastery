@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-PACELC, formulado por Daniel Abadi, estende [CAP](cap.md) com a parte que faltava:
+PACELC, formulado por Daniel Abadi, estende [CAP](/06-distributed-systems/cap.md) com a parte que faltava:
 
 > **Se** houver **P**artição, escolha entre **A**vailability e **C**onsistency.
 > **E**lse — quando não há partição — escolha entre **L**atency e **C**onsistency.
@@ -102,7 +102,7 @@ que ninguém escolheu.
 
 ### Por operação, de novo
 
-Como em CAP e em [consistência](consistency.md), a escolha é por operação.
+Como em CAP e em [consistência](/06-distributed-systems/consistency.md), a escolha é por operação.
 
 Um sistema pode ser EC para escrita de saldo e EL para leitura de catálogo — e
 essa é a configuração correta na maioria dos casos.
@@ -176,10 +176,10 @@ para nomeá-lo.
 
 ## Conceitos Relacionados
 
-- [CAP](cap.md) — a metade que trata de partição.
-- [Consistência](consistency.md) — o espectro.
-- [Latência](latency.md) — o que se paga.
-- [Replicação](replication.md) — onde a coordenação acontece.
+- [CAP](/06-distributed-systems/cap.md) — a metade que trata de partição.
+- [Consistência](/06-distributed-systems/consistency.md) — o espectro.
+- [Latência](/06-distributed-systems/latency.md) — o que se paga.
+- [Replicação](/06-distributed-systems/replication.md) — onde a coordenação acontece.
 
 ## Exercício Prático
 

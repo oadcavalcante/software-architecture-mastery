@@ -73,12 +73,12 @@ frágil        INSERT dos registros do dia
 reprocessável DELETE da partição do dia, depois INSERT
 ```
 
-A segunda forma é [idempotente](../06-distributed-systems/idempotency.md) e
+A segunda forma é [idempotente](/06-distributed-systems/idempotency.md) e
 transforma "falhou no meio" de incidente em nova tentativa.
 
 Sem isso, cada falha exige análise manual de onde parou — e é onde surgem as
 duplicações silenciosas descritas em
-[data warehouses](../07-data-architecture/data-warehouses.md).
+[data warehouses](/07-data-architecture/data-warehouses.md).
 
 ### Incremental exige uma marca confiável
 
@@ -87,7 +87,7 @@ que mudou, e depende de saber o que mudou:
 
 **Marca de tempo de alteração.** Simples, e falha quando os relógios divergem ou
 quando uma transação longa confirma depois da marca já ter passado. Ver
-[relógio e tempo](../06-distributed-systems/clock-and-time.md).
+[relógio e tempo](/06-distributed-systems/clock-and-time.md).
 
 **Número de sequência.** Mais confiável, e exige que a origem o mantenha.
 
@@ -145,7 +145,7 @@ requisito, essa é uma troca favorável.
 - A origem só disponibiliza dados periodicamente.
 - Eficiência de processamento importa.
 - Requisito regulatório com periodicidade definida.
-- Carga analítica. Ver [OLAP](../07-data-architecture/olap.md).
+- Carga analítica. Ver [OLAP](/07-data-architecture/olap.md).
 
 ## Quando Não Usar
 
@@ -158,19 +158,19 @@ requisito, essa é uma troca favorável.
 **Sem política de falha parcial.**
 
 **Para eventos que precisam ser reagidos individualmente.** Ver
-[integração orientada a eventos](event-driven-integration.md).
+[integração orientada a eventos](/08-integration-architecture/event-driven-integration.md).
 
 **Quando o volume por execução não cabe em memória** e o processo não foi escrito
 para fluxo.
 
 ## Alternativas
 
-- **[Mensageria](messaging-integration.md)** — quando cada registro precisa de
+- **[Mensageria](/08-integration-architecture/messaging-integration.md)** — quando cada registro precisa de
   tratamento individual e rápido.
 - **Micro-lote** — janelas de minutos em vez de horas; meio-termo que resolve
   muitos casos de "quase tempo real".
 - **Captura de mudanças do banco** — contínuo sem tocar a aplicação de origem.
-- **[Integração por arquivo](file-integration.md)** — o transporte mais comum
+- **[Integração por arquivo](/08-integration-architecture/file-integration.md)** — o transporte mais comum
   para lote entre organizações.
 
 ## Trade-offs
@@ -275,10 +275,10 @@ processo diário, porque o arquivo do banco chega uma vez por dia.
 
 ## Conceitos Relacionados
 
-- [Integração por Arquivo](file-integration.md) — o transporte típico.
-- [Integração por Mensageria](messaging-integration.md) — a alternativa contínua.
-- [Idempotência](../06-distributed-systems/idempotency.md).
-- [Particionamento de Dados](../07-data-architecture/data-partitioning.md).
+- [Integração por Arquivo](/08-integration-architecture/file-integration.md) — o transporte típico.
+- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md) — a alternativa contínua.
+- [Idempotência](/06-distributed-systems/idempotency.md).
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md).
 
 ## Exercício Prático
 

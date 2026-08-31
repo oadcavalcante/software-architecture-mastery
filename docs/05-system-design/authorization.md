@@ -22,7 +22,7 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 Autorização responde **o que esta identidade pode fazer**. Ela pressupõe
-[autenticação](authentication.md) resolvida.
+[autenticação](/05-system-design/authentication.md) resolvida.
 
 A decisão de sistema é onde a regra de permissão mora e onde ela é verificada — e
 a resposta errada mais comum é "na interface".
@@ -100,7 +100,7 @@ qual centralizá-la completamente é difícil.
 ### Autorização é do domínio
 
 "Pedido enviado não pode ser cancelado" parece autorização e é regra de negócio.
-Ela pertence ao [agregado](../04-domain-driven-design/aggregate.md), não a um
+Ela pertence ao [agregado](/04-domain-driven-design/aggregate.md), não a um
 serviço de permissão.
 
 A separação útil: **permissão** é sobre quem — papéis, atributos, relações.
@@ -225,11 +225,11 @@ responde "sobre qual recurso".
 
 ## Conceitos Relacionados
 
-- [Autenticação](authentication.md) — o pré-requisito.
-- [Fronteiras de Serviço](service-boundaries.md) — onde impor.
-- [Segurança](../10-security/index.md) — modelos, menor privilégio e
+- [Autenticação](/05-system-design/authentication.md) — o pré-requisito.
+- [Fronteiras de Serviço](/05-system-design/service-boundaries.md) — onde impor.
+- [Segurança](/10-security/index.md) — modelos, menor privilégio e
   auditabilidade.
-- [Aggregate](../04-domain-driven-design/aggregate.md) — onde a regra de negócio
+- [Aggregate](/04-domain-driven-design/aggregate.md) — onde a regra de negócio
   mora.
 
 ## Exercício Prático

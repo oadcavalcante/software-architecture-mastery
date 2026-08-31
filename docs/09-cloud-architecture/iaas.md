@@ -83,7 +83,7 @@ Vale enumerar, porque a lista é longa e costuma ser subestimada:
 **Recuperação de falha.** Substituir a instância que morreu.
 
 Cada item é trabalho recorrente. Ver
-[serviços gerenciados](managed-services.md) para a comparação econômica.
+[serviços gerenciados](/09-cloud-architecture/managed-services.md) para a comparação econômica.
 
 ### Efêmero por natureza
 
@@ -171,11 +171,11 @@ razão específica.
 
 ## Alternativas
 
-- **[PaaS](paas.md)** — o provedor cuida do sistema e do tempo de execução.
-- **[Serviços gerenciados](managed-services.md)** — para os componentes de
+- **[PaaS](/09-cloud-architecture/paas.md)** — o provedor cuida do sistema e do tempo de execução.
+- **[Serviços gerenciados](/09-cloud-architecture/managed-services.md)** — para os componentes de
   infraestrutura.
-- **[Contêineres](containers.md)** — empacotamento consistente sobre IaaS.
-- **[Serverless](serverless.md)** — sem capacidade a gerenciar.
+- **[Contêineres](/09-cloud-architecture/containers.md)** — empacotamento consistente sobre IaaS.
+- **[Serverless](/09-cloud-architecture/serverless.md)** — sem capacidade a gerenciar.
 
 ## Trade-offs
 
@@ -197,7 +197,7 @@ razão específica.
 **Estado em disco local perdido.**
 
 **Zona única por omissão.** Ver
-[zonas de disponibilidade](availability-zones.md).
+[zonas de disponibilidade](/09-cloud-architecture/availability-zones.md).
 
 **Instâncias órfãs.** Criadas para um teste e esquecidas, cobradas para sempre.
 
@@ -268,10 +268,10 @@ papel e ficou dois anos sem prioridade, acumulando risco de segurança e custo.
 
 ## Conceitos Relacionados
 
-- [PaaS](paas.md) e [SaaS](saas.md) — os outros modelos.
-- [Serviços Gerenciados](managed-services.md).
-- [Computação em Nuvem](cloud-compute.md).
-- [Zonas de Disponibilidade](availability-zones.md).
+- [PaaS](/09-cloud-architecture/paas.md) e [SaaS](/09-cloud-architecture/saas.md) — os outros modelos.
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
+- [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md).
 
 ## Exercício Prático
 

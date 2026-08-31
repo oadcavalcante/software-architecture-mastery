@@ -49,7 +49,7 @@ E, ao inverter, transfere para o publicador um problema que a consulta não tinh
 ### Do lado de quem envia
 
 **Retentativa com espera crescente.** O destino vai estar fora. Sem repetição, o
-evento se perde. Ver [backoff](../06-distributed-systems/backoff.md).
+evento se perde. Ver [backoff](/06-distributed-systems/backoff.md).
 
 **Prazo curto e agressivo.** O receptor precisa responder rápido; se ele demora 30
 segundos, sua fila de entregas trava. Cinco a dez segundos é o usual, e precisa
@@ -79,7 +79,7 @@ de forma síncrona dentro do webhook é a causa mais comum de timeout e reentreg
 **Verifique a assinatura antes de qualquer coisa.**
 
 **Seja idempotente.** Vai chegar duplicado. Ver
-[idempotência](../06-distributed-systems/idempotency.md).
+[idempotência](/06-distributed-systems/idempotency.md).
 
 **Não confie na ordem.** Retentativas embaralham. Um evento de cancelamento pode
 chegar antes do de criação.
@@ -93,7 +93,7 @@ o provedor considerar entregue, e o evento se perde para sempre.
 
 ### Notificação ou estado
 
-O mesmo trade-off de [eventos de integração](event-driven-integration.md), com um
+O mesmo trade-off de [eventos de integração](/08-integration-architecture/event-driven-integration.md), com um
 peso extra: o corpo do webhook trafega para fora da sua organização.
 
 Um webhook gordo com dados sensíveis os replica no ambiente do parceiro. Um
@@ -133,12 +133,12 @@ num destino que não é seu.
 ## Quando Não Usar
 
 **Internamente, quando já existe mensageria.** Ver
-[integração por mensageria](messaging-integration.md) — ali o intermediário
+[integração por mensageria](/08-integration-architecture/messaging-integration.md) — ali o intermediário
 resolve entrega, ordem e reprocessamento melhor.
 
 **Quando o volume é muito alto.** Milhares de eventos por segundo por parceiro
 não cabem em requisições individuais; ver
-[integração em lote](batch-integration.md).
+[integração em lote](/08-integration-architecture/batch-integration.md).
 
 **Sem assinatura.** Endpoint forjável.
 
@@ -156,9 +156,9 @@ consulta.
 - **Fluxo de eventos por assinatura** — o parceiro consome um endpoint que
   mantém a conexão aberta, com posição controlada por ele. Elimina o problema de
   entrega.
-- **[Mensageria](messaging-integration.md) compartilhada** — quando há confiança e
+- **[Mensageria](/08-integration-architecture/messaging-integration.md) compartilhada** — quando há confiança e
   tecnologia comum.
-- **Arquivo periódico** — ver [integração por arquivo](file-integration.md).
+- **Arquivo periódico** — ver [integração por arquivo](/08-integration-architecture/file-integration.md).
 
 A segunda opção merece consideração: deixar o consumidor puxar no ritmo dele, com
 posição controlada, remove retentativa, desativação e reentrega do seu lado.
@@ -248,10 +248,10 @@ requisições?".
 
 ## Conceitos Relacionados
 
-- [Integração por Mensageria](messaging-integration.md) — a alternativa interna.
-- [Integração Orientada a Eventos](event-driven-integration.md).
-- [Idempotência](../06-distributed-systems/idempotency.md).
-- [Backoff](../06-distributed-systems/backoff.md) — a espera entre tentativas.
+- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md) — a alternativa interna.
+- [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md).
+- [Idempotência](/06-distributed-systems/idempotency.md).
+- [Backoff](/06-distributed-systems/backoff.md) — a espera entre tentativas.
 
 ## Exercício Prático
 

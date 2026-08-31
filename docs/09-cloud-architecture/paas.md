@@ -95,10 +95,10 @@ disciplina que dá portabilidade entre os três modelos, e vale mesmo sem PaaS.
 ### Plataforma interna de desenvolvimento
 
 A versão construída dentro de casa — ver
-[plataformas internas](../14-devops-and-platform/internal-developer-platforms.md)
+[plataformas internas](/14-devops-and-platform/internal-developer-platforms.md)
 para o tratamento completo: um time de plataforma oferece aos demais uma
 camada com implantação, observabilidade e padrões prontos, sobre
-[Kubernetes](kubernetes.md) ou IaaS.
+[Kubernetes](/09-cloud-architecture/kubernetes.md) ou IaaS.
 
 O objetivo é o mesmo — remover trabalho repetitivo — com o contorno definido pela
 própria organização.
@@ -138,7 +138,7 @@ equivalente direto.
 ser reconstruída.
 
 Saber onde você está nessa escala é o que permite estimar a saída antes de precisar
-dela. Ver [dependência de fornecedor](vendor-lock-in.md).
+dela. Ver [dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 A regra prática que preserva a maior parte da opção sem custo relevante: use a
 plataforma para executar o código, e prefira serviços gerenciados portáveis para o
@@ -171,13 +171,13 @@ convencional; aperta quando ela não é.
 **Plataforma interna sem tratá-la como produto.**
 
 **Quando a dependência é inaceitável.** Ver
-[dependência de fornecedor](vendor-lock-in.md).
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Alternativas
 
-- **[Contêineres](containers.md) com orquestração** — mais controle, mais trabalho.
-- **[Serverless](serverless.md)** — para cargas orientadas a evento.
-- **[IaaS](iaas.md)** — controle total.
+- **[Contêineres](/09-cloud-architecture/containers.md) com orquestração** — mais controle, mais trabalho.
+- **[Serverless](/09-cloud-architecture/serverless.md)** — para cargas orientadas a evento.
+- **[IaaS](/09-cloud-architecture/iaas.md)** — controle total.
 - **PaaS sobre Kubernetes** — plataformas que dão a experiência de PaaS mantendo a
   base portável. Meio-termo que resolve boa parte da objeção de dependência.
 
@@ -254,10 +254,10 @@ que o custo inverteria. Isso teria dado meses de antecedência em vez de urgênc
 
 ## Conceitos Relacionados
 
-- [IaaS](iaas.md) — o modelo abaixo.
-- [SaaS](saas.md) — o modelo acima.
-- [Serverless](serverless.md) — a evolução do modelo.
-- [Contêineres](containers.md) — a alternativa comum.
+- [IaaS](/09-cloud-architecture/iaas.md) — o modelo abaixo.
+- [SaaS](/09-cloud-architecture/saas.md) — o modelo acima.
+- [Serverless](/09-cloud-architecture/serverless.md) — a evolução do modelo.
+- [Contêineres](/09-cloud-architecture/containers.md) — a alternativa comum.
 
 ## Exercício Prático
 

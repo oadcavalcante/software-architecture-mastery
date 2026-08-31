@@ -53,17 +53,17 @@ organizado.
 ## Três padrões que moram no Nível 02
 
 Layered, Hexagonal e Clean Architecture são padrões arquiteturais e são tratados
-em [Design de Software](../02-software-design/index.md), porque ali eles surgem
+em [Design de Software](/02-software-design/index.md), porque ali eles surgem
 como consequência das decisões de fronteira e direção de dependência.
 
 Um conceito tem um único documento canônico neste material; onde reaparece, é
 referenciado. Os links diretos:
 
-- [Camadas](../02-software-design/layering.md)
-- [Ports and Adapters](../02-software-design/ports-and-adapters.md)
-- [Arquitetura Hexagonal](../02-software-design/hexagonal-architecture.md)
-- [Arquitetura Onion](../02-software-design/onion-architecture.md)
-- [Clean Architecture](../02-software-design/clean-architecture.md)
+- [Camadas](/02-software-design/layering.md)
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md)
+- [Arquitetura Hexagonal](/02-software-design/hexagonal-architecture.md)
+- [Arquitetura Onion](/02-software-design/onion-architecture.md)
+- [Clean Architecture](/02-software-design/clean-architecture.md)
 
 ## A regra desta seção
 
@@ -89,7 +89,7 @@ Microsserviços; leia Event-Driven antes de CQRS e Event Sourcing. A sequência
 importa porque cada um só faz sentido como resposta às limitações do anterior.
 
 Não leia os padrões arquiteturais distribuídos — Microsserviços, Event-Driven,
-Space-Based — antes do [Nível 04](../06-distributed-systems/index.md). Eles são
+Space-Based — antes do [Nível 04](/06-distributed-systems/index.md). Eles são
 apresentados aqui como formas; o custo real deles só fica visível depois de
 entender falha parcial.
 
@@ -102,5 +102,5 @@ quando for o caso, que nenhuma.
 
 ## Continua em
 
-[Domain-Driven Design](../04-domain-driven-design/index.md), onde a estrutura
+[Domain-Driven Design](/04-domain-driven-design/index.md), onde a estrutura
 passa a ser ditada pelo domínio em vez de por forças técnicas.

@@ -32,7 +32,7 @@ cópias?**
 
 ## Problema
 
-Modelos [normalizados](normalization.md) exigem junções, e junções custam. Em
+Modelos [normalizados](/07-data-architecture/normalization.md) exigem junções, e junções custam. Em
 consulta analítica sobre milhões de linhas, elas dominam o tempo.
 
 Desnormalizar resolve isso e cria um problema novo: a mesma informação passa a
@@ -51,7 +51,7 @@ aplicada. Esses valores **não devem** mudar quando o cadastro muda — são fat
 diferentes do dado atual.
 
 Isso não é desnormalização: é modelagem correta. Ver
-[normalização](normalization.md).
+[normalização](/07-data-architecture/normalization.md).
 
 **Cópia de valor vivo.** O nome do cliente copiado no pedido para evitar junção.
 Quando o cliente muda de nome, as cópias ficam desatualizadas.
@@ -79,7 +79,7 @@ porque dependem de toda escrita passar pelo mesmo caminho.
 garantida, ao custo de escrita mais cara e de acoplamento entre as escritas.
 
 **Assíncrona.** Um evento propaga a mudança. Escrita rápida, coerência eventual, e
-exige [idempotência](../06-distributed-systems/idempotency.md).
+exige [idempotência](/06-distributed-systems/idempotency.md).
 
 **Recalcular periodicamente.** Um processo reconstrói. Simples, com janela de
 divergência maior.
@@ -104,7 +104,7 @@ Ele quase nunca existe.
 transacional, onde uma junção indexada de poucos registros custa quase nada.
 
 Antes de desnormalizar num sistema transacional, verifique o plano de execução. A
-causa mais comum de consulta lenta é [índice](indexing.md) ausente — e
+causa mais comum de consulta lenta é [índice](/07-data-architecture/indexing.md) ausente — e
 desnormalizar para contornar índice ausente adiciona complexidade permanente para
 resolver algo que uma linha resolveria.
 
@@ -123,7 +123,7 @@ quando se lê muito mais do que se escreve.
 
 ## Quando Usar
 
-- Modelo analítico. Ver [OLAP](olap.md).
+- Modelo analítico. Ver [OLAP](/07-data-architecture/olap.md).
 - Leitura desproporcionalmente mais frequente que escrita.
 - A junção foi medida e é o gargalo.
 - O dado copiado muda raramente.
@@ -147,11 +147,11 @@ ganho.
 
 ## Alternativas
 
-- **[Índice](indexing.md) adequado** — verifique primeiro, sempre.
+- **[Índice](/07-data-architecture/indexing.md) adequado** — verifique primeiro, sempre.
 - **Visão materializada** — o banco mantém a cópia e a atualiza; menos código e
   menos risco de divergência.
 - **Cache** — duplicação com prazo, e a expiração cuida da coerência.
-- **[CQRS](../06-distributed-systems/distributed-cqrs.md)** — separação explícita
+- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — separação explícita
   com projeção reconstruível.
 
 A visão materializada é subutilizada: ela entrega o benefício da desnormalização
@@ -246,10 +246,10 @@ times futuros.
 
 ## Conceitos Relacionados
 
-- [Normalização](normalization.md) — a decisão inversa.
-- [Indexação](indexing.md) — verifique antes.
-- [OLAP](olap.md) — onde desnormalizar é o padrão.
-- [CQRS](../06-distributed-systems/distributed-cqrs.md).
+- [Normalização](/07-data-architecture/normalization.md) — a decisão inversa.
+- [Indexação](/07-data-architecture/indexing.md) — verifique antes.
+- [OLAP](/07-data-architecture/olap.md) — onde desnormalizar é o padrão.
+- [CQRS](/06-distributed-systems/distributed-cqrs.md).
 
 ## Exercício Prático
 

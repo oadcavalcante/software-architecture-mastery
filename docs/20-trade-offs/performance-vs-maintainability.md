@@ -76,7 +76,7 @@ Perfis de sistemas reais são consistentemente desiguais: uma fração pequena d
 responde pela maior parte do tempo. Isso significa que **a maior parte das decisões de
 desempenho não precisa ser tomada** — o código pode ser escrito para clareza sem custo.
 
-Ver [análise de gargalo](../05-system-design/bottleneck-analysis.md).
+Ver [análise de gargalo](/05-system-design/bottleneck-analysis.md).
 
 ### O custo de legibilidade é permanente; o ganho pode não ser
 
@@ -108,7 +108,7 @@ Quando a otimização se justifica, o que a torna sustentável é o registro:
 Três informações que a próxima pessoa precisa: **por quê**, **quanto ganhou** e **quando
 desfazer**. Sem elas, o código estranho é preservado por medo indefinidamente.
 
-Ver [decisão](../18-architecture-decisions/adr-decision.md).
+Ver [decisão](/18-architecture-decisions/adr-decision.md).
 
 ### Orçamento de desempenho
 
@@ -124,7 +124,7 @@ consumo de memória         abaixo de 512 MB por instância
 Com orçamento, a pergunta deixa de ser "isto está rápido?" e passa a ser "estamos dentro?".
 Trechos dentro do orçamento não recebem otimização, por melhor que seja a ideia.
 
-E o orçamento vira [função de aptidão](../19-architecture-governance/fitness-functions-governance.md):
+E o orçamento vira [função de aptidão](/19-architecture-governance/fitness-functions-governance.md):
 verificação automática que falha quando o limite é ultrapassado.
 
 ### Muitas vezes o conflito é falso
@@ -141,7 +141,7 @@ aceitar o trade-off, vale verificar se ele existe: a maior parte dos problemas d
 em sistemas de informação é de acesso a dados e de topologia de chamadas, não de
 microdecisões de código.
 
-Ver [indexação](../07-data-architecture/indexing.md).
+Ver [indexação](/07-data-architecture/indexing.md).
 
 ### Arquitetura decide mais que código
 
@@ -315,7 +315,7 @@ O time então instituiu:
 o orçamento falha a construção.
 
 **Regra de investigação**: nenhuma otimização de código antes de perfilamento que aponte o
-trecho. Ver [rastreamento distribuído](../13-observability/distributed-tracing.md).
+trecho. Ver [rastreamento distribuído](/13-observability/distributed-tracing.md).
 
 **Comentário obrigatório** em código otimizado, com medição, data e condição de
 simplificação.
@@ -336,10 +336,10 @@ de medir antes — e a intuição sobre onde estava o tempo errou por uma ordem 
 
 ## Conceitos Relacionados
 
-- [Análise de Gargalo](../05-system-design/bottleneck-analysis.md).
-- [Complexidade](../01-fundamentals/complexity.md).
-- [Desempenho vs. Escalabilidade](../11-scalability/performance-vs-scalability.md).
-- [Indexação](../07-data-architecture/indexing.md).
+- [Análise de Gargalo](/05-system-design/bottleneck-analysis.md).
+- [Complexidade](/01-fundamentals/complexity.md).
+- [Desempenho vs. Escalabilidade](/11-scalability/performance-vs-scalability.md).
+- [Indexação](/07-data-architecture/indexing.md).
 
 ## Exercício Prático
 

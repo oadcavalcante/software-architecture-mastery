@@ -35,7 +35,7 @@ argumentos de código: "está muito grande", "tem responsabilidade demais", "ser
 mais limpo separado".
 
 Nenhum desses justifica um componente. Todos justificam um
-[módulo](modular-design.md), que é gratuito em comparação.
+[módulo](/02-software-design/modular-design.md), que é gratuito em comparação.
 
 Separar em componentes adiciona: um pipeline de implantação, um artefato a
 versionar, comunicação entre processos ou entre bibliotecas, tratamento de
@@ -60,7 +60,7 @@ não deveria derrubar o atendimento de requisições.
 
 **Fronteira organizacional.** Times diferentes com autonomia de release. É a
 razão mais forte na prática e a menos técnica — ver
-[lei de Conway](../23-architecture-leadership/index.md).
+[lei de Conway](/23-architecture-leadership/index.md).
 
 **Reúso por consumidores externos.** Outros sistemas precisam da capacidade sem o
 resto.
@@ -98,7 +98,7 @@ controla.
 
 Isso significa versionamento, compatibilidade retroativa e, eventualmente, suporte
 a duas versões simultâneas. Ver
-[evolução de schema](../08-integration-architecture/index.md).
+[evolução de schema](/08-integration-architecture/index.md).
 
 ## Modelo Mental
 
@@ -121,7 +121,7 @@ componente.
 estável, não o que o diagrama sugere.
 
 **Quando os dois lados sempre são implantados juntos.** Se a separação não é
-exercida, ela é custo puro. Ver [fronteiras](boundaries.md).
+exercida, ela é custo puro. Ver [fronteiras](/02-software-design/boundaries.md).
 
 **Quando a indisponibilidade de um torna o outro inútil.** Não há isolamento de
 falha real; há dois pontos de falha em vez de um.
@@ -225,10 +225,10 @@ limpo separado" para "o que sai da lista?".
 
 ## Conceitos Relacionados
 
-- [Design Modular](modular-design.md) — a divisão que precede.
-- [Design de Pacotes](package-design.md) — a unidade de release.
-- [Fronteiras](boundaries.md) — os níveis e seus custos.
-- [Microsserviços](../03-design-patterns/index.md) — o caso extremo.
+- [Design Modular](/02-software-design/modular-design.md) — a divisão que precede.
+- [Design de Pacotes](/02-software-design/package-design.md) — a unidade de release.
+- [Fronteiras](/02-software-design/boundaries.md) — os níveis e seus custos.
+- [Microsserviços](/03-design-patterns/index.md) — o caso extremo.
 
 ## Exercício Prático
 

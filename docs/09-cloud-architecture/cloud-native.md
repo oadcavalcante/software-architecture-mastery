@@ -52,7 +52,7 @@ O que uma aplicação precisa **ser**, independentemente de qualquer tecnologia:
 
 **Sem estado no processo.** Nada importante em memória entre requisições, nada em
 disco local. Ver
-[stateless](../05-system-design/stateless-vs-stateful.md).
+[stateless](/05-system-design/stateless-vs-stateful.md).
 
 **Descartável.** Inicia rápido, desliga graciosamente, tolera ser morta a qualquer
 momento.
@@ -60,15 +60,15 @@ momento.
 **Configurada pelo ambiente**, não por arquivo empacotado.
 
 **Observável.** Registros na saída padrão, métricas expostas, rastreamento
-propagado. Ver [observabilidade](../13-observability/index.md).
+propagado. Ver [observabilidade](/13-observability/index.md).
 
 **Tolerante a falha de dependência.** Timeout, retentativa,
-[backoff](../06-distributed-systems/backoff.md), degradação.
+[backoff](/06-distributed-systems/backoff.md), degradação.
 
 **Escalável horizontalmente.** Adicionar instâncias aumenta a capacidade.
 
 **Idempotente** onde a repetição é possível. Ver
-[idempotência](../06-distributed-systems/idempotency.md).
+[idempotência](/06-distributed-systems/idempotency.md).
 
 Uma aplicação com essas sete propriedades aproveita a nuvem, rodando em máquina
 virtual, contêiner ou serverless. Uma aplicação sem elas não aproveita, mesmo em
@@ -92,7 +92,7 @@ Mover sem mudar é frequentemente a decisão certa: sai-se do datacenter no praz
 risco é baixo, e o aprendizado vem depois.
 
 O problema é parar aí. A modernização precisa de plano com prazo, ou ela não
-acontece — e o ambiente acumula custo e risco. Ver [IaaS](iaas.md).
+acontece — e o ambiente acumula custo e risco. Ver [IaaS](/09-cloud-architecture/iaas.md).
 
 Uma sequência que funciona:
 
@@ -151,7 +151,7 @@ não implica a segunda.
 - **Modernização incremental** — aplicar as propriedades por ordem de retorno.
 - **Estrangulamento gradual** — substituir partes por versões novas, mantendo o
   legado funcionando. Ver
-  [modernização de legado](../16-legacy-modernization/index.md).
+  [modernização de legado](/16-legacy-modernization/index.md).
 - **Manter como está** — quando o sistema é estável e o custo de mudar não se paga.
 
 ## Trade-offs
@@ -226,7 +226,7 @@ A segunda fase, reorientada, atacou as propriedades:
 **Sessão externalizada** nas 17. Passaram a escalar de verdade.
 
 **Arquivos para armazenamento de objetos** nas 12. Ver
-[armazenamento em nuvem](cloud-storage.md).
+[armazenamento em nuvem](/09-cloud-architecture/cloud-storage.md).
 
 **Configuração por ambiente** nas 9. A mesma imagem passou a rodar em todos os
 ambientes.
@@ -246,10 +246,10 @@ terminado em 23 dos 40 — e teria atacado o problema certo desde o início.
 
 ## Conceitos Relacionados
 
-- [Contêineres](containers.md) e [Kubernetes](kubernetes.md) — as ferramentas.
-- [Dependência de Fornecedor](vendor-lock-in.md).
-- [Stateless](../05-system-design/stateless-vs-stateful.md) — a propriedade central.
-- [Modernização de Legado](../16-legacy-modernization/index.md).
+- [Contêineres](/09-cloud-architecture/containers.md) e [Kubernetes](/09-cloud-architecture/kubernetes.md) — as ferramentas.
+- [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md).
+- [Stateless](/05-system-design/stateless-vs-stateful.md) — a propriedade central.
+- [Modernização de Legado](/16-legacy-modernization/index.md).
 
 ## Exercício Prático
 

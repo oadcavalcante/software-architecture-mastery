@@ -35,8 +35,8 @@ frota de cerca de 9 mil veículos, entre próprios e agregados.
 Volume: 2,3 milhões de encomendas por dia, com prazos contratados que variam de mesmo dia a
 cinco dias úteis.
 
-A diferença essencial em relação aos casos de [transporte](ride-sharing.md) e
-[delivery](food-delivery.md) é o horizonte: aqui o planejamento é feito de véspera, para o dia
+A diferença essencial em relação aos casos de [transporte](/21-case-studies/ride-sharing.md) e
+[delivery](/21-case-studies/food-delivery.md) é o horizonte: aqui o planejamento é feito de véspera, para o dia
 seguinte, com informação completa — e depois a realidade o desmonta. Trânsito, ausência do
 destinatário, veículo quebrado, encomenda extraviada e endereço errado desviam entre 12% e 18%
 do plano diário.
@@ -536,10 +536,10 @@ circulação urbana errados, corrigíveis sem tocar no algoritmo.
 
 ## Conceitos Relacionados
 
-- [Case: Transporte por Aplicativo](ride-sharing.md).
-- [Case: Delivery de Comida](food-delivery.md).
-- [Case: E-commerce Omnicanal](ecommerce.md) — o outro lado da mesma cadeia.
-- [Degradação Graciosa](../12-reliability/graceful-degradation.md).
+- [Case: Transporte por Aplicativo](/21-case-studies/ride-sharing.md).
+- [Case: Delivery de Comida](/21-case-studies/food-delivery.md).
+- [Case: E-commerce Omnicanal](/21-case-studies/ecommerce.md) — o outro lado da mesma cadeia.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md).
 
 ## Exercício Prático
 

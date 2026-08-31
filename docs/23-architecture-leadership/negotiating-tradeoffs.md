@@ -106,7 +106,7 @@ Definir critérios antes de comparar opções remove o viés de defender a próp
 ninguém sabe ainda qual delas vence. Definir critérios depois produz critérios escolhidos para
 favorecer uma conclusão — o que ambos os lados fazem sem perceber.
 
-Ver [alternativas em ADR](../18-architecture-decisions/adr-alternatives.md).
+Ver [alternativas em ADR](/18-architecture-decisions/adr-alternatives.md).
 
 ### Crie opções que não estavam na mesa
 
@@ -150,7 +150,7 @@ Registrar isso faz três coisas: preserva o argumento de quem discordou; dá ao 
 reconhecimento de ter sido ouvido, o que reduz drasticamente o descumprimento silencioso; e cria
 um gatilho de revisão objetivo em vez de uma nova discussão.
 
-Ver [decisão em ADR](../18-architecture-decisions/adr-decision.md).
+Ver [decisão em ADR](/18-architecture-decisions/adr-decision.md).
 
 ### Decisão temporária resolve muitos impasses
 
@@ -330,10 +330,10 @@ segundos.
 
 ## Conceitos Relacionados
 
-- [Tomada de Decisão](decision-making.md).
-- [Gestão de Interessados](stakeholder-management.md).
-- [Arquitetura entre Times](cross-team-architecture.md).
-- [Trade-offs](../20-trade-offs/index.md).
+- [Tomada de Decisão](/23-architecture-leadership/decision-making.md).
+- [Gestão de Interessados](/23-architecture-leadership/stakeholder-management.md).
+- [Arquitetura entre Times](/23-architecture-leadership/cross-team-architecture.md).
+- [Trade-offs](/20-trade-offs/index.md).
 
 ## Exercício Prático
 

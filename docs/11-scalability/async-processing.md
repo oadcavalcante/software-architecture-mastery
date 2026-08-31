@@ -27,7 +27,7 @@ e processar depois.
 O ganho em escala é grande e indireto. Uma requisição que responde em 40 ms em vez de
 900 ms ocupa recursos por 22 vezes menos tempo — o que, pela lei de Little, significa
 22 vezes mais vazão com a mesma concorrência. Ver
-[desempenho versus escalabilidade](performance-vs-scalability.md).
+[desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md).
 
 O custo é que a operação deixa de ter um resultado imediato, e os **estados
 intermediários** passam a existir no domínio.
@@ -96,14 +96,14 @@ Adequado para operações longas.
 
 **Conexão persistente.** O cliente recebe atualizações em tempo real. Melhor
 experiência, e adiciona estado de conexão. Ver
-[ausência de estado](statelessness.md).
+[ausência de estado](/11-scalability/statelessness.md).
 
 A escolha depende da duração: segundos favorecem conexão ou consulta; minutos ou horas
 favorecem notificação.
 
 ### O que o assíncrono exige
 
-Ver [integração por mensageria](../08-integration-architecture/messaging-integration.md)
+Ver [integração por mensageria](/08-integration-architecture/messaging-integration.md)
 para a lista completa. Em resumo:
 
 **Idempotência**, porque haverá repetição.
@@ -126,7 +126,7 @@ crescente, que é pior de diagnosticar.
 
 Assíncrono resolve **pico**, não **sobrecarga sustentada**. A distinção é o que separa
 um uso correto de um adiamento do problema. Ver
-[escala dirigida por fila](queue-based-scaling.md).
+[escala dirigida por fila](/11-scalability/queue-based-scaling.md).
 
 ### A transação e a publicação precisam ser atômicas
 
@@ -135,7 +135,7 @@ o processo cai entre elas, o efeito nunca acontece.
 
 A **caixa de saída transacional** resolve — gravar a mudança e a mensagem na mesma
 transação local, com um processo separado publicando. Ver
-[transações distribuídas](../06-distributed-systems/distributed-transactions.md).
+[transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
 É o padrão que evita a perda silenciosa mais comum em sistemas assíncronos.
 
@@ -175,7 +175,7 @@ e eles precisam ser modelados, não descobertos.
 - **Paralelizar dentro da requisição** — cinco chamadas independentes em paralelo
   custam o tempo da mais lenta, não a soma.
 - **Timeout agressivo com degradação** — responder sem o resultado opcional.
-- **[Fila](queue-based-scaling.md)** — a forma mais robusta de assíncrono.
+- **[Fila](/11-scalability/queue-based-scaling.md)** — a forma mais robusta de assíncrono.
 
 A segunda merece consideração: muitas requisições lentas são sequências de chamadas
 independentes, e paralelizá-las resolve sem introduzir estado intermediário.
@@ -273,10 +273,10 @@ estimada como detalhe.
 
 ## Conceitos Relacionados
 
-- [Escala Dirigida por Fila](queue-based-scaling.md).
-- [Integração por Mensageria](../08-integration-architecture/messaging-integration.md).
-- [Idempotência](../06-distributed-systems/idempotency.md).
-- [Processamento em Background](../05-system-design/background-processing.md).
+- [Escala Dirigida por Fila](/11-scalability/queue-based-scaling.md).
+- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md).
+- [Idempotência](/06-distributed-systems/idempotency.md).
+- [Processamento em Background](/05-system-design/background-processing.md).
 
 ## Exercício Prático
 

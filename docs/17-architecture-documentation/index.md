@@ -86,5 +86,5 @@ o momento em que alguém age sobre ela.
 
 ## Continua em
 
-[Decisões de Arquitetura](../18-architecture-decisions/index.md), onde o registro do
+[Decisões de Arquitetura](/18-architecture-decisions/index.md), onde o registro do
 **porquê** ganha forma própria.

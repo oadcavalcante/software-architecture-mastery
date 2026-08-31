@@ -193,9 +193,9 @@ três anos.
 
 ## Conceitos Relacionados
 
-- [Complexidade](complexity.md) — o que a abstração deveria reduzir.
-- [Acoplamento](coupling.md) — o que ela redistribui.
-- [Modularidade](modularity.md) — onde ela materializa fronteiras.
+- [Complexidade](/01-fundamentals/complexity.md) — o que a abstração deveria reduzir.
+- [Acoplamento](/01-fundamentals/coupling.md) — o que ela redistribui.
+- [Modularidade](/01-fundamentals/modularity.md) — onde ela materializa fronteiras.
 
 ## Exercício Prático
 

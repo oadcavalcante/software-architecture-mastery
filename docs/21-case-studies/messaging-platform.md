@@ -316,7 +316,7 @@ dispositivo confirma o recebimento avançando sua posição — e enquanto isso,
 disponível para reenvio. Isso implementa entrega ao menos uma vez com deduplicação por número
 de sequência, que é a formulação honesta de "exatamente uma vez".
 
-Ver [garantias de entrega](../06-distributed-systems/delivery-guarantees.md).
+Ver [garantias de entrega](/06-distributed-systems/delivery-guarantees.md).
 
 Uma consequência prática dessa tabela é que o custo de armazenamento da fila de pendências é
 proporcional ao número de dispositivos inativos, não ao volume de mensagens. Um usuário com um
@@ -551,10 +551,10 @@ foi o que entregou a meta de custo.
 
 ## Conceitos Relacionados
 
-- [Garantias de Entrega](../06-distributed-systems/delivery-guarantees.md).
-- [Ordenação](../06-distributed-systems/ordering.md).
-- [Idempotência](../06-distributed-systems/idempotency.md).
-- [Case: Rede Social](social-network.md).
+- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md).
+- [Ordenação](/06-distributed-systems/ordering.md).
+- [Idempotência](/06-distributed-systems/idempotency.md).
+- [Case: Rede Social](/21-case-studies/social-network.md).
 
 ## Exercício Prático
 

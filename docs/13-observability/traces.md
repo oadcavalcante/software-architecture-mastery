@@ -100,8 +100,8 @@ pai indica tempo gasto em algo que não foi instrumentado — frequentemente esp
 recurso, coleta de lixo, ou serialização.
 
 A terceira revela o problema N+1 visualmente, de forma que nenhuma métrica revela. Ver
-[GraphQL](../08-integration-architecture/graphql.md) e
-[bancos de documentos](../07-data-architecture/document-databases.md).
+[GraphQL](/08-integration-architecture/graphql.md) e
+[bancos de documentos](/07-data-architecture/document-databases.md).
 
 ### Traces e logs se complementam
 
@@ -115,7 +115,7 @@ ferramenta permite saltar de um para o outro.
 
 Isso elimina a etapa mais tediosa da investigação — encontrar os logs correspondentes ao
 trace que se está olhando. Ver
-[identificadores de correlação](correlation-ids.md).
+[identificadores de correlação](/13-observability/correlation-ids.md).
 
 E, na direção inversa, spans podem carregar eventos — registros com carimbo de tempo
 dentro do span — que substituem logs de progresso.
@@ -175,9 +175,9 @@ diz onde.
 
 - **Perfilador** — para entender onde o tempo vai **dentro** de um processo. Trace
   mostra entre componentes; perfilador mostra dentro.
-- **[Logs](logs.md) com duração por etapa** — o evento canônico com tempos por etapa
+- **[Logs](/13-observability/logs.md) com duração por etapa** — o evento canônico com tempos por etapa
   cobre parte do valor, sem a estrutura de árvore.
-- **[Métricas](metrics.md) por dependência** — mostram tendência por chamada, sem
+- **[Métricas](/13-observability/metrics.md) por dependência** — mostram tendência por chamada, sem
   ligar à requisição individual.
 - **Perfilamento contínuo** — amostragem de pilha em produção; complementa traces para
   o tempo dentro do processo.
@@ -259,7 +259,7 @@ histórico de refatoração incompleta.
 
 **Espera por bloqueio.** Uma lacuna de 400 ms num span sem filhos correspondia à
 aquisição de uma conexão de banco — o pool estava subdimensionado. Ver
-[escala de banco de dados](../11-scalability/database-scaling.md).
+[escala de banco de dados](/11-scalability/database-scaling.md).
 
 Nenhum dos três aparecia em métricas ou logs. Os três foram visíveis no primeiro dia de
 traces.
@@ -270,10 +270,10 @@ estrutura, que era exatamente a informação que faltava.
 
 ## Conceitos Relacionados
 
-- [Rastreamento Distribuído](distributed-tracing.md) — a propagação e a amostragem.
-- [Logs](logs.md) e [Métricas](metrics.md) — os complementos.
-- [Identificadores de Correlação](correlation-ids.md).
-- [Depurabilidade](debuggability.md).
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a propagação e a amostragem.
+- [Logs](/13-observability/logs.md) e [Métricas](/13-observability/metrics.md) — os complementos.
+- [Identificadores de Correlação](/13-observability/correlation-ids.md).
+- [Depurabilidade](/13-observability/debuggability.md).
 
 ## Exercício Prático
 

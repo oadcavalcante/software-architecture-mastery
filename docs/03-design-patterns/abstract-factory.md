@@ -113,8 +113,8 @@ já faz.
 
 - **Injeção de dependência com configuração por perfil** — a resposta na maioria
   dos casos.
-- **[Factory Method](factory-method.md)** — quando é um produto, não uma família.
-- **[Builder](builder.md)** — quando o problema é montar um objeto complexo, não
+- **[Factory Method](/03-design-patterns/factory-method.md)** — quando é um produto, não uma família.
+- **[Builder](/03-design-patterns/builder.md)** — quando o problema é montar um objeto complexo, não
   escolher entre famílias.
 - **Passar um conjunto de funções de criação** — mesma coerência, sem hierarquia.
 
@@ -142,7 +142,7 @@ devolve qualquer coisa, e o acoplamento volta disfarçado.
 
 **Aplicar sem restrição de compatibilidade.** O erro central.
 
-**Confundir com [Factory Method](factory-method.md).** Um cria um produto por
+**Confundir com [Factory Method](/03-design-patterns/factory-method.md).** Um cria um produto por
 subclasse; o outro cria uma família por composição.
 
 **Usar para seleção por ambiente.** Configuração resolve.
@@ -193,9 +193,9 @@ cumpre mal.
 
 ## Conceitos Relacionados
 
-- [Factory Method](factory-method.md) — um produto, variação por subclasse.
-- [Builder](builder.md) — construção em etapas.
-- [Facade](facade.md) — quando o objetivo é simplificar acesso, não garantir
+- [Factory Method](/03-design-patterns/factory-method.md) — um produto, variação por subclasse.
+- [Builder](/03-design-patterns/builder.md) — construção em etapas.
+- [Facade](/03-design-patterns/facade.md) — quando o objetivo é simplificar acesso, não garantir
   coerência.
 
 ## Exercício Prático

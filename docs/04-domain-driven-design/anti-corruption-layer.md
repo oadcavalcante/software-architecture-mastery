@@ -48,7 +48,7 @@ substituir o fornecedor, descobre que o modelo dele está espalhado.
 ### É mais que tradução de formato
 
 A distinção que separa uma anti-corruption layer de um
-[Adapter](../03-design-patterns/adapter.md) simples.
+[Adapter](/03-design-patterns/adapter.md) simples.
 
 Adapter converte interfaces. Anti-corruption layer converte **modelos**: os
 conceitos do outro lado viram conceitos do seu, com semântica própria, e o que não
@@ -83,7 +83,7 @@ para não pagar acoplamento.
 
 Uma anti-corruption layer permite construir o novo modelo enquanto o legado
 continua operando. Ela é o mecanismo que torna
-[strangler fig](../16-legacy-modernization/index.md) viável — o novo sistema fala
+[strangler fig](/16-legacy-modernization/index.md) viável — o novo sistema fala
 sua própria linguagem desde o primeiro dia, e a camada absorve o legado.
 
 ## Quando Usar
@@ -116,7 +116,7 @@ ela dá a impressão de proteção que não existe.
 
 - **Conformista** — adotar o modelo externo deliberadamente, quando a
   independência não vale o custo. É uma decisão legítima, desde que declarada.
-- **[Adapter](../03-design-patterns/adapter.md)** — quando a incompatibilidade é
+- **[Adapter](/03-design-patterns/adapter.md)** — quando a incompatibilidade é
   de interface e não de modelo.
 - **Negociar o contrato** — quando há relacionamento cliente-fornecedor real, mudar
   o outro lado pode ser mais barato.
@@ -149,7 +149,7 @@ correto.
 
 **Camada que acumula regra de negócio.** Ela é o ponto de encontro dos dois
 modelos, e regra migra para lá — o mesmo mecanismo que degenera
-[fachadas](../03-design-patterns/facade.md) e barramentos.
+[fachadas](/03-design-patterns/facade.md) e barramentos.
 
 ## Erros Comuns
 
@@ -198,10 +198,10 @@ transformou uma classe de defeito silencioso em erro explícito de integração.
 
 ## Conceitos Relacionados
 
-- [Context Mapping](context-mapping.md) — onde este padrão se situa.
-- [Adapter](../03-design-patterns/adapter.md) — a versão de interface.
-- [Bounded Context](bounded-context.md) — o que se protege.
-- [Modernização de Legado](../16-legacy-modernization/index.md) — o uso mais
+- [Context Mapping](/04-domain-driven-design/context-mapping.md) — onde este padrão se situa.
+- [Adapter](/03-design-patterns/adapter.md) — a versão de interface.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md) — o que se protege.
+- [Modernização de Legado](/16-legacy-modernization/index.md) — o uso mais
   frequente.
 
 ## Exercício Prático

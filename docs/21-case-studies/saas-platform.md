@@ -403,7 +403,7 @@ construção falha.
 
 Esse teste encontrou 4 defeitos reais nos primeiros 18 meses, dos quais 2 eram vazamentos que
 teriam chegado à produção. Ver
-[funções de aptidão](../19-architecture-governance/fitness-functions-governance.md).
+[funções de aptidão](/19-architecture-governance/fitness-functions-governance.md).
 
 ## Escalabilidade
 
@@ -579,11 +579,11 @@ exige parada.
 
 ## Conceitos Relacionados
 
-- [Case: Corporativo Multi-inquilino](multi-tenant-enterprise.md) — o mesmo problema em outra
+- [Case: Corporativo Multi-inquilino](/21-case-studies/multi-tenant-enterprise.md) — o mesmo problema em outra
   escala.
-- [Funções de Aptidão](../19-architecture-governance/fitness-functions-governance.md).
-- [SQL vs. NoSQL](../20-trade-offs/sql-vs-nosql.md).
-- [Case: E-commerce Omnicanal](ecommerce.md).
+- [Funções de Aptidão](/19-architecture-governance/fitness-functions-governance.md).
+- [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md).
+- [Case: E-commerce Omnicanal](/21-case-studies/ecommerce.md).
 
 ## Exercício Prático
 

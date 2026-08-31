@@ -86,7 +86,7 @@ Um arquivo que não chega não gera erro. O processo simplesmente não roda, e
 ninguém sabe.
 
 O contrato precisa dizer **quando** o arquivo chega, e precisa haver alerta se ele
-não chegar. Ver [integração em lote](batch-integration.md).
+não chegar. Ver [integração em lote](/08-integration-architecture/batch-integration.md).
 
 Times que só monitoram falha de processamento descobrem a ausência dias depois,
 pela reclamação de quem esperava o efeito.
@@ -130,7 +130,7 @@ dados pessoais.
 
 Criptografia em trânsito é o mínimo. Criptografia em repouso, controle de acesso
 ao diretório e retenção definida são o que costuma faltar. Ver
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 ## Modelo Mental
 
@@ -151,7 +151,7 @@ outros estilos dão de graça, aqui você constrói.
 **Quando a latência importa.** O ciclo é de horas.
 
 **Internamente, quando há alternativa.** Ver
-[mensageria](messaging-integration.md).
+[mensageria](/08-integration-architecture/messaging-integration.md).
 
 **Sem escrita atômica.** Arquivos parciais processados.
 
@@ -165,11 +165,11 @@ outros estilos dão de graça, aqui você constrói.
 
 ## Alternativas
 
-- **[Mensageria](messaging-integration.md)** — internamente, ou quando o parceiro
+- **[Mensageria](/08-integration-architecture/messaging-integration.md)** — internamente, ou quando o parceiro
   aceita.
 - **API de leitura paginada** — o parceiro busca em vez de receber; elimina
   entrega e ausência.
-- **[Webhooks](webhooks.md)** — para notificar mudanças individuais.
+- **[Webhooks](/08-integration-architecture/webhooks.md)** — para notificar mudanças individuais.
 - **Armazenamento de objetos com notificação de evento** — arquivo como
   transporte, com aviso de chegada. Combina o alcance do arquivo com a reação
   imediata.
@@ -260,10 +260,10 @@ por isso nunca recebeu projeto.
 
 ## Conceitos Relacionados
 
-- [Integração em Lote](batch-integration.md) — o processamento.
-- [Contratos de Integração](integration-contracts.md) — formato e periodicidade.
-- [Ciclo de Vida do Dado](../07-data-architecture/data-lifecycle.md) — retenção.
-- [Idempotência](../06-distributed-systems/idempotency.md).
+- [Integração em Lote](/08-integration-architecture/batch-integration.md) — o processamento.
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md) — formato e periodicidade.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção.
+- [Idempotência](/06-distributed-systems/idempotency.md).
 
 ## Exercício Prático
 

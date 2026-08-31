@@ -88,7 +88,7 @@ As quatro últimas são as esquecidas, e frequentemente as mais problemáticas. 
 aplicação com dado pessoal, backups com retenção de sete anos e homologação carregada com
 cópia de produção aparecem em quase todo mapeamento sério.
 
-Ver [proteção de dados](../10-security/data-protection.md).
+Ver [proteção de dados](/10-security/data-protection.md).
 
 ### Fronteiras de confiança
 
@@ -104,7 +104,7 @@ Cada travessia merece resposta a três perguntas: o que trafega, com qual prote�
 qual base contratual ou legal.
 
 Este diagrama é a entrada canônica para
-[modelagem de ameaças](../10-security/threat-modeling.md) — a técnica STRIDE
+[modelagem de ameaças](/10-security/threat-modeling.md) — a técnica STRIDE
 é aplicada elemento a elemento sobre ele.
 
 ### Um diagrama por tipo de dado
@@ -129,8 +129,8 @@ produz e tem autoridade sobre a definição.
 O diagrama frequentemente mostra o contrário do organograma — o dado que o time A
 "possui" nasce num sistema do time B e é modificado por um processo do time C.
 
-Ver [propriedade do dado](../07-data-architecture/data-ownership.md) e
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+Ver [propriedade do dado](/07-data-architecture/data-ownership.md) e
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 ### Ele responde ao pedido de exclusão
 
@@ -158,7 +158,7 @@ cópia de segurança    7 anos
 A coluna de retenção transforma o mapa num instrumento de decisão: ela mostra que o dado
 excluído do banco operacional continua existindo em outros cinco lugares, por prazos que
 ninguém escolheu deliberadamente. Ver
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 ## Modelo Mental
 
@@ -187,10 +187,10 @@ ninguém escolheu deliberadamente. Ver
 ## Alternativas
 
 - **Catálogo de dados** — inventário estruturado, mais completo e menos visual. Ver
-  [ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+  [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 - **Registro de tratamento** — a forma exigida por algumas regulações; textual.
 - **Linhagem de dados** — automatizada, mostra derivação, não fronteira de confiança.
-- **[Sequência](sequence-diagrams.md)** — quando a pergunta é ordem, não localização.
+- **[Sequência](/17-architecture-documentation/sequence-diagrams.md)** — quando a pergunta é ordem, não localização.
 
 A linhagem automatizada é complementar: ela cobre o que o mapeamento manual esquece, e não
 distingue o que é sensível.
@@ -285,10 +285,10 @@ automática por padrões de dado sensível em armazenamentos não catalogados.
 
 ## Conceitos Relacionados
 
-- [Proteção de Dados](../10-security/data-protection.md).
-- [Modelagem de Ameaças](../10-security/threat-modeling.md).
-- [Propriedade do Dado](../07-data-architecture/data-ownership.md).
-- [Diagramas de Sequência](sequence-diagrams.md).
+- [Proteção de Dados](/10-security/data-protection.md).
+- [Modelagem de Ameaças](/10-security/threat-modeling.md).
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md).
+- [Diagramas de Sequência](/17-architecture-documentation/sequence-diagrams.md).
 
 ## Exercício Prático
 

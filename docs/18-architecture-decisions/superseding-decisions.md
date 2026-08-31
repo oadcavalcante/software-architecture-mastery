@@ -86,7 +86,7 @@ infraestrutura deles. As duas premissas do ADR-014 deixaram de valer."
 Isso responde à pergunta que interessa: **o que mudou?** Ela distingue uma decisão revista
 por informação nova de uma revista por preferência de quem chegou depois.
 
-Ver [contexto](adr-context.md).
+Ver [contexto](/18-architecture-decisions/adr-context.md).
 
 ### Nem toda mudança é superação
 
@@ -104,7 +104,7 @@ escrever um ADR novo que restringe explicitamente o escopo do anterior sem super
 
 A segunda produz cadeias mais fáceis de ler, e exige que o escopo original tenha sido
 declarado com clareza. Ver
-[decisão](adr-decision.md).
+[decisão](/18-architecture-decisions/adr-decision.md).
 
 ### A condição de reversão é o gatilho
 
@@ -120,7 +120,7 @@ ADR-014  "síncrono voltaria a perder se o parceiro cair abaixo de 99%
 
 Isso muda a natureza da revisão: de julgamento sobre o que fazer, para verificação de uma
 condição registrada. Ver
-[alternativas](adr-alternatives.md).
+[alternativas](/18-architecture-decisions/adr-alternatives.md).
 
 ### Superação por acúmulo
 
@@ -192,7 +192,7 @@ sobre o seu momento.
 - **ADR complementar** — quando a decisão é detalhada, não alterada.
 - **Restringir escopo** — um ADR novo que limita o alcance do anterior, sem superá-lo.
 - **Revisão sem mudança** — registrar que a decisão foi reavaliada e mantida, com data. Ver
-  [status](adr-status.md).
+  [status](/18-architecture-decisions/adr-status.md).
 
 A última é subutilizada e barata: um bloco de "revisado em (data), mantido" informa que
 alguém verificou, o que é diferente de ninguém ter olhado.
@@ -290,10 +290,10 @@ sido apagado ou editado.
 
 ## Conceitos Relacionados
 
-- [Status](adr-status.md) — os estados e a imutabilidade.
-- [Contexto](adr-context.md) — o que mudou.
-- [Alternativas](adr-alternatives.md) — a condição de reversão como gatilho.
-- [Modernização](../16-legacy-modernization/index.md) — decisões revistas em sistemas
+- [Status](/18-architecture-decisions/adr-status.md) — os estados e a imutabilidade.
+- [Contexto](/18-architecture-decisions/adr-context.md) — o que mudou.
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — a condição de reversão como gatilho.
+- [Modernização](/16-legacy-modernization/index.md) — decisões revistas em sistemas
   antigos.
 
 ## Exercício Prático

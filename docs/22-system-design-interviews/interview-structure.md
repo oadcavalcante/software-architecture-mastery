@@ -326,10 +326,10 @@ de julgamento.
 
 ## Conceitos Relacionados
 
-- [Clarificação de Requisitos](requirement-clarification.md) — a primeira fase.
-- [Comunicação de Trade-offs](communicating-tradeoffs.md).
-- [Erros Comuns](interview-common-mistakes.md).
-- [Arquitetura de Alto Nível](high-level-architecture.md).
+- [Clarificação de Requisitos](/22-system-design-interviews/requirement-clarification.md) — a primeira fase.
+- [Comunicação de Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md).
+- [Erros Comuns](/22-system-design-interviews/interview-common-mistakes.md).
+- [Arquitetura de Alto Nível](/22-system-design-interviews/high-level-architecture.md).
 
 ## Exercício Prático
 

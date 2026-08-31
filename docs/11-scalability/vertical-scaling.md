@@ -39,7 +39,7 @@ problemas que não existia:
 
 Estado precisa sair do processo. Consistência vira decisão. Ordenação deixa de ser
 garantida. Diagnóstico exige rastreamento distribuído. Falha parcial vira caso normal.
-Ver [sistemas distribuídos](../06-distributed-systems/index.md).
+Ver [sistemas distribuídos](/06-distributed-systems/index.md).
 
 Cada um desses é complexidade permanente, paga todo dia. Assumi-la para atender um
 volume que caberia numa máquina maior é um mau negócio comum.
@@ -69,7 +69,7 @@ decidir distribuir.
 Vale enumerar, porque é o argumento central:
 
 **Consistência.** Uma transação local resolve o que, distribuído, exige
-[saga](../06-distributed-systems/sagas.md) ou coordenação.
+[saga](/06-distributed-systems/sagas.md) ou coordenação.
 
 **Ordenação.** Garantida dentro de um processo.
 
@@ -77,7 +77,7 @@ Vale enumerar, porque é o argumento central:
 exigem rastreamento correlacionado.
 
 **Falha parcial.** Ou o processo está vivo, ou não está — sem o estado "não sei". Ver
-[falha parcial](../06-distributed-systems/partial-failure.md).
+[falha parcial](/06-distributed-systems/partial-failure.md).
 
 **Latência de rede entre componentes.** Chamadas viram chamadas de função.
 
@@ -121,13 +121,13 @@ a camada onde a coordenação custa caro permanece única.
 
 Distribuir o banco é a decisão mais cara desta seção, e é a que mais frequentemente é
 tomada antes de necessária. Ver
-[escala de banco de dados](database-scaling.md).
+[escala de banco de dados](/11-scalability/database-scaling.md).
 
 ### Escalar verticalmente exige medir primeiro
 
 Aumentar a máquina sem saber qual recurso satura é desperdício.
 
-Ver [desempenho versus escalabilidade](performance-vs-scalability.md). Se o gargalo é
+Ver [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md). Se o gargalo é
 uma consulta sem índice, uma máquina maior compra alguns meses e o problema volta.
 
 A sequência que funciona: identificar o gargalo, corrigir o que for corrigível,
@@ -164,14 +164,14 @@ quão longe você está do teto — costuma ser mais longe do que a discussão p
 
 ## Alternativas
 
-- **[Escala horizontal](horizontal-scaling.md)** — quando o teto foi atingido ou a
+- **[Escala horizontal](/11-scalability/horizontal-scaling.md)** — quando o teto foi atingido ou a
   disponibilidade exige.
 - **Réplica de leitura** — distribui leitura sem particionar. Ver
-  [replicação para escala](scaling-replication.md).
+  [replicação para escala](/11-scalability/scaling-replication.md).
 - **Cache** — reduz a carga que chega à máquina. Ver
-  [cache para escala](scaling-cache.md).
+  [cache para escala](/11-scalability/scaling-cache.md).
 - **Assíncrono** — tira trabalho do caminho crítico. Ver
-  [processamento assíncrono](async-processing.md).
+  [processamento assíncrono](/11-scalability/async-processing.md).
 - **Otimização** — frequentemente rende mais que qualquer aumento de capacidade.
 
 ## Trade-offs
@@ -269,10 +269,10 @@ A conta que faltava — quanto da máquina estamos usando — levou uma hora.
 
 ## Conceitos Relacionados
 
-- [Escala Horizontal](horizontal-scaling.md) — a alternativa.
-- [Escala de Banco de Dados](database-scaling.md).
-- [Desempenho versus Escalabilidade](performance-vs-scalability.md).
-- [Computação em Nuvem](../09-cloud-architecture/cloud-compute.md).
+- [Escala Horizontal](/11-scalability/horizontal-scaling.md) — a alternativa.
+- [Escala de Banco de Dados](/11-scalability/database-scaling.md).
+- [Desempenho versus Escalabilidade](/11-scalability/performance-vs-scalability.md).
+- [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).
 
 ## Exercício Prático
 

@@ -25,7 +25,7 @@ Em integração por mensageria, quem envia entrega a mensagem a um intermediári
 segue adiante. Quem recebe consome quando puder.
 
 Os fundamentos — garantias de entrega, ordenação, duplicatas — estão em
-[mensageria](../06-distributed-systems/messaging.md). Aqui o foco é a decisão de
+[mensageria](/06-distributed-systems/messaging.md). Aqui o foco é a decisão de
 integração: **o que muda quando duas pontas param de se falar diretamente**.
 
 O que muda é o acoplamento de disponibilidade. E isso resolve um problema real e
@@ -42,7 +42,7 @@ já estava validado.
 
 Pior: um destino lento propaga a lentidão. As conexões do chamador ficam presas
 esperando, e a saturação sobe a cadeia inteira. Ver
-[falha parcial](../06-distributed-systems/partial-failure.md).
+[falha parcial](/06-distributed-systems/partial-failure.md).
 
 ## Conceitos Centrais
 
@@ -68,7 +68,7 @@ A escolha não é estética: a fila permite escalar o processamento adicionando
 consumidores; o tópico permite adicionar destinos sem tocar no remetente.
 
 Comando vai para fila. Fato vai para tópico. Ver
-[integração orientada a eventos](event-driven-integration.md).
+[integração orientada a eventos](/08-integration-architecture/event-driven-integration.md).
 
 ### A resposta, quando existe, é outro problema
 
@@ -81,7 +81,7 @@ identificador de correlação. Funciona, e reintroduz espera.
 Mais simples de operar.
 
 **Notificação.** O resultado vira outro evento, ou um
-[webhook](webhooks.md).
+[webhook](/08-integration-architecture/webhooks.md).
 
 Se o remetente precisa da resposta **para continuar**, provavelmente a integração
 deveria ser síncrona. Mensageria com espera por resposta é o pior dos dois
@@ -102,7 +102,7 @@ esquema             evolução do formato da mensagem
 ```
 
 Sete responsabilidades que a chamada síncrona não tinha. Cada uma está tratada em
-[sistemas distribuídos](../06-distributed-systems/index.md), e todas precisam
+[sistemas distribuídos](/06-distributed-systems/index.md), e todas precisam
 existir antes de a primeira mensagem entrar em produção.
 
 ### O consumidor parado é o modo de falha característico
@@ -126,7 +126,7 @@ A solução padrão é a **caixa de saída transacional**: gravar a mudança e a
 mensagem na mesma transação local, e um processo separado publica a partir dali.
 
 Isso resolve sem transação distribuída. Ver
-[transações distribuídas](../06-distributed-systems/distributed-transactions.md).
+[transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
 ## Modelo Mental
 
@@ -157,16 +157,16 @@ operacional.** As sete responsabilidades acima são o preço, e ele é fixo.
 **Quando a ordem estrita entre entidades distintas é obrigatória.**
 
 **Para transferência de grandes volumes.** Ver
-[integração em lote](batch-integration.md) — mensagens não são o transporte
+[integração em lote](/08-integration-architecture/batch-integration.md) — mensagens não são o transporte
 certo para gigabytes.
 
 ## Alternativas
 
-- **[REST](rest.md)** — quando a resposta é necessária.
-- **[Webhooks](webhooks.md)** — notificar sem intermediário próprio.
+- **[REST](/08-integration-architecture/rest.md)** — quando a resposta é necessária.
+- **[Webhooks](/08-integration-architecture/webhooks.md)** — notificar sem intermediário próprio.
 - **Consulta periódica** — mais simples, e suficiente quando o atraso é
   aceitável. Frequentemente descartada cedo demais.
-- **[Lote](batch-integration.md)** — para volume alto e periodicidade definida.
+- **[Lote](/08-integration-architecture/batch-integration.md)** — para volume alto e periodicidade definida.
 - **Caixa de saída transacional** — resolve o caso "banco mais evento" sem
   mensageria adicional.
 
@@ -194,7 +194,7 @@ certo para gigabytes.
 processamento.
 
 **Fila crescendo sem limite.** O consumidor não acompanha o produtor. Ver
-[backpressure](../06-distributed-systems/backpressure.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 **Intermediário indisponível.** O ponto único que a integração criou.
 
@@ -274,10 +274,10 @@ responsabilidades novas que precisam existir antes da primeira mensagem.
 
 ## Conceitos Relacionados
 
-- [Mensageria](../06-distributed-systems/messaging.md) — os fundamentos.
-- [Integração Orientada a Eventos](event-driven-integration.md).
-- [Idempotência](../06-distributed-systems/idempotency.md).
-- [Filas de Mensagens Mortas](../06-distributed-systems/dead-letter-queues.md).
+- [Mensageria](/06-distributed-systems/messaging.md) — os fundamentos.
+- [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md).
+- [Idempotência](/06-distributed-systems/idempotency.md).
+- [Filas de Mensagens Mortas](/06-distributed-systems/dead-letter-queues.md).
 
 ## Exercício Prático
 

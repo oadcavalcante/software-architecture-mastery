@@ -34,7 +34,7 @@ fila**, que reage antes de qualquer métrica de recurso.
 
 Escalonamento automático por CPU é reativo e lento: a métrica sobe, o alarme dispara, a
 capacidade sobe, a aplicação inicia. Ver
-[computação em nuvem](../09-cloud-architecture/cloud-compute.md).
+[computação em nuvem](/09-cloud-architecture/cloud-compute.md).
 
 O intervalo é de minutos. Muitos picos duram menos que isso — e quando a capacidade
 chega, o pico passou.
@@ -59,7 +59,7 @@ chegada 500/s, processamento 300/s, sustentado
   → fila cresce indefinidamente. Não funciona.
 ```
 
-Ver [processamento assíncrono](async-processing.md). A fila resolve pico, não
+Ver [processamento assíncrono](/11-scalability/async-processing.md). A fila resolve pico, não
 sobrecarga sustentada — e usá-la para a segunda transforma um erro imediato num atraso
 crescente que ninguém percebe.
 
@@ -92,7 +92,7 @@ Três controles:
 
 **Teto de profundidade.** Acima dele, o produtor recebe recusa. Isso devolve a pressão
 para a borda, onde ela pode ser tratada. Ver
-[backpressure](../06-distributed-systems/backpressure.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 **Descarte por prazo.** Mensagens cuja utilidade expirou são descartadas. Uma
 notificação de "seu pedido saiu para entrega" com 6 horas de atraso não deveria ser
@@ -124,7 +124,7 @@ Os limites que aparecem:
 
 **Ordenação por chave.** Se as mensagens de uma entidade precisam ser processadas em
 ordem, elas vão para o mesmo consumidor. O paralelismo é limitado pelo número de
-chaves. Ver [ordenação](../06-distributed-systems/ordering.md).
+chaves. Ver [ordenação](/06-distributed-systems/ordering.md).
 
 **Recurso compartilhado.** Vinte consumidores contra o mesmo banco apenas movem o
 gargalo.
@@ -142,7 +142,7 @@ cargas esporádicas.
 
 O custo é a latência de retomada: a primeira mensagem depois de um período ocioso
 espera o tempo de provisionar. Ver
-[serverless](../09-cloud-architecture/serverless.md).
+[serverless](/09-cloud-architecture/serverless.md).
 
 Para trabalho tolerante a atraso, é uma economia significativa. Para o que precisa de
 resposta rápida, um mínimo de consumidores sempre ativos é necessário.
@@ -179,9 +179,9 @@ não substitui capacidade.
 
 - **Capacidade provisionada antes do pico** — quando ele é previsível, escalonamento
   programado é melhor que qualquer reação. Ver
-  [computação em nuvem](../09-cloud-architecture/cloud-compute.md).
+  [computação em nuvem](/09-cloud-architecture/cloud-compute.md).
 - **Limite de taxa** — recusa na borda, em vez de acumular. Ver
-  [rate limiting](../05-system-design/rate-limiting.md).
+  [rate limiting](/05-system-design/rate-limiting.md).
 - **Descarte de carga** — rejeitar o menos importante para preservar o essencial.
 - **Processamento em lote** — agrupar reduz o custo por item.
 
@@ -279,10 +279,10 @@ estava errada.
 
 ## Conceitos Relacionados
 
-- [Processamento Assíncrono](async-processing.md).
-- [Backpressure](../06-distributed-systems/backpressure.md) — o teto.
-- [Escala Horizontal](horizontal-scaling.md) — o consumidor.
-- [Filas](../05-system-design/queues.md) — os fundamentos.
+- [Processamento Assíncrono](/11-scalability/async-processing.md).
+- [Backpressure](/06-distributed-systems/backpressure.md) — o teto.
+- [Escala Horizontal](/11-scalability/horizontal-scaling.md) — o consumidor.
+- [Filas](/05-system-design/queues.md) — os fundamentos.
 
 ## Exercício Prático
 

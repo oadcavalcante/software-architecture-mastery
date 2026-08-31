@@ -330,10 +330,10 @@ metadados?"
 
 ## Conceitos Relacionados
 
-- [Estimativa em Entrevista](capacity-estimation.md).
-- [Escala em Entrevista](interview-scaling.md).
-- [Latência](../06-distributed-systems/latency.md).
-- [Cache](../05-system-design/caching.md).
+- [Estimativa em Entrevista](/22-system-design-interviews/capacity-estimation.md).
+- [Escala em Entrevista](/22-system-design-interviews/interview-scaling.md).
+- [Latência](/06-distributed-systems/latency.md).
+- [Cache](/05-system-design/caching.md).
 
 ## Exercício Prático
 

@@ -87,7 +87,7 @@ gestão de conteúdo                           quase sempre de apoio
 
 E o teste é desconfortável: **um cliente já escolheu você por causa disso?**
 
-Ver [domínio genérico](../04-domain-driven-design/generic-domain.md).
+Ver [domínio genérico](/04-domain-driven-design/generic-domain.md).
 
 ### Custo total, com pessoal
 
@@ -148,7 +148,7 @@ dependência               o que acontece se o fornecedor mudar de rumo
 custo de saída            medido antes, não depois
 ```
 
-Ver [aprisionamento](../09-cloud-architecture/vendor-lock-in.md).
+Ver [aprisionamento](/09-cloud-architecture/vendor-lock-in.md).
 
 E há um cuidado específico: comprar algo que o produto vai depender profundamente exige
 avaliar o roteiro do fornecedor e a saúde da empresa, não apenas a funcionalidade atual.
@@ -225,7 +225,7 @@ Compre quando:
 - **Comprar e estender** — usar a base do mercado e construir só a parte diferenciadora
   sobre ela.
 - **Código aberto operado por nós** — meio-termo entre construir e comprar, com custo
-  operacional próprio. Ver [gerenciado vs. autogerido](managed-vs-self-hosted.md).
+  operacional próprio. Ver [gerenciado vs. autogerido](/20-trade-offs/managed-vs-self-hosted.md).
 - **Comprar agora, construir depois** — com a decisão registrada e a condição de reversão.
 - **Construir o mínimo** — a versão de 10% que atende ao caso, sem generalizar.
 
@@ -355,11 +355,11 @@ feita.
 
 ## Conceitos Relacionados
 
-- [SaaS](../09-cloud-architecture/saas.md) e
-  [Domínio Genérico](../04-domain-driven-design/generic-domain.md).
-- [Gerenciado vs. Autogerido](managed-vs-self-hosted.md).
-- [Aprisionamento](../09-cloud-architecture/vendor-lock-in.md).
-- [Custo vs. Confiabilidade](cost-vs-reliability.md).
+- [SaaS](/09-cloud-architecture/saas.md) e
+  [Domínio Genérico](/04-domain-driven-design/generic-domain.md).
+- [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md).
+- [Aprisionamento](/09-cloud-architecture/vendor-lock-in.md).
+- [Custo vs. Confiabilidade](/20-trade-offs/cost-vs-reliability.md).
 
 ## Exercício Prático
 

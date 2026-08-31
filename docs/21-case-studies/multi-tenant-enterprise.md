@@ -32,7 +32,7 @@ A **Alcance** vende uma plataforma de gestão de contratos e compliance para gra
 Tem 40 clientes — bancos, seguradoras, mineradoras, empresas de energia —, com contratos anuais
 entre R$ 800 mil e R$ 9 milhões. Receita recorrente de R$ 118 milhões.
 
-O perfil é oposto ao do case de [SaaS](saas-platform.md): poucos clientes, contratos grandes,
+O perfil é oposto ao do case de [SaaS](/21-case-studies/saas-platform.md): poucos clientes, contratos grandes,
 cada um com processo próprio e poder de negociação. E é isso que produz o problema central:
 
 **A base de código tem 40 variantes.** Ao longo de nove anos, cada cliente grande obteve
@@ -59,7 +59,7 @@ configuração levaria seis semanas. A decisão de curto prazo foi correta isola
 594 vezes ao longo de nove anos produziu um sistema que ninguém consegue mudar.
 
 Esse é o mecanismo de erosão descrito em
-[velocidade vs. qualidade](../20-trade-offs/speed-vs-quality.md), com uma variação: aqui o
+[velocidade vs. qualidade](/20-trade-offs/speed-vs-quality.md), com uma variação: aqui o
 atalho não era técnico, era comercial. Cada condicional tinha um contrato assinado atrás dela, o
 que tornava a decisão de tomá-la ainda mais difícil de recusar — e a de removê-la, anos depois,
 ainda mais cara.
@@ -270,7 +270,7 @@ crescimento. Com poucas variantes, condicionais são gerenciáveis, e a flexibil
 valor.
 
 **Opção B pura venceria se** os clientes fossem menores e com menor poder de negociação, como no
-case de [SaaS](saas-platform.md). Ali, "a configuração não cobre" é uma resposta aceitável; aqui,
+case de [SaaS](/21-case-studies/saas-platform.md). Ali, "a configuração não cobre" é uma resposta aceitável; aqui,
 custa contrato.
 
 **Opção C venceria se** a Alcance operasse como plataforma para desenvolvedores, com um
@@ -345,7 +345,7 @@ definição não afeta contratos em curso — decisão que evitou uma classe int
 que uma mudança de configuração alterava o processo de aprovações já iniciadas.
 
 **Isolamento.** Um esquema por cliente, com credencial por cliente. Com 40 inquilinos, o custo é
-baixo e o isolamento é forte — a decisão que o case de [SaaS](saas-platform.md) precisou
+baixo e o isolamento é forte — a decisão que o case de [SaaS](/21-case-studies/saas-platform.md) precisou
 graduar, aqui é simples porque são poucos.
 
 ## Integração
@@ -576,8 +576,8 @@ Negociá-la foi mais difícil que implementar tudo o mais.
 
 **Comparar configuração e código em paralelo documenta o passado.** As 27 divergências
 encontradas incluíam 19 comportamentos que ninguém sabia que existiam, e 11 deles estavam
-errados havia anos. O mesmo padrão dos cases de [banking](banking.md) e
-[rede social](social-network.md).
+errados havia anos. O mesmo padrão dos cases de [banking](/21-case-studies/banking.md) e
+[rede social](/21-case-studies/social-network.md).
 
 **Limites explícitos são uma capacidade, não uma restrição.** Introduzir limites por cliente
 tornou o custo previsível, virou instrumento comercial, e revelou configurações que ninguém
@@ -585,10 +585,10 @@ usava.
 
 ## Conceitos Relacionados
 
-- [Case: Plataforma SaaS](saas-platform.md) — o mesmo problema com muitos clientes pequenos.
-- [Case: Modernização de Legado](legacy-modernization-case.md).
-- [Simplicidade vs. Flexibilidade](../20-trade-offs/simplicity-vs-flexibility.md).
-- [Funções de Aptidão](../19-architecture-governance/fitness-functions-governance.md).
+- [Case: Plataforma SaaS](/21-case-studies/saas-platform.md) — o mesmo problema com muitos clientes pequenos.
+- [Case: Modernização de Legado](/21-case-studies/legacy-modernization-case.md).
+- [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
+- [Funções de Aptidão](/19-architecture-governance/fitness-functions-governance.md).
 
 ## Exercício Prático
 

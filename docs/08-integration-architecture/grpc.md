@@ -59,9 +59,9 @@ service Pedidos {
 Isso muda a classe de erro possível: campo com nome errado, tipo trocado ou
 método inexistente viram erro de compilação, não incidente.
 
-É a diferença mais importante em relação a [REST](rest.md), onde o contrato
+É a diferença mais importante em relação a [REST](/08-integration-architecture/rest.md), onde o contrato
 tipicamente não é executável. Ver
-[contratos de integração](integration-contracts.md).
+[contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 ### Evolução por número de campo
 
@@ -81,7 +81,7 @@ Reusar um número removido é catastrófico, porque dados antigos serão
 interpretados com o tipo novo.
 
 Por isso `reserved` existe e por isso ele não é opcional. Ver
-[evolução de esquema](schema-evolution.md).
+[evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 ### Os quatro modos de chamada
 
@@ -126,13 +126,13 @@ trabalhar por um resultado que ninguém vai receber.
 
 É uma propriedade de disciplina que APIs HTTP raramente implementam, e que reduz
 trabalho desperdiçado em cascatas de chamadas. Ver
-[timeouts](../06-distributed-systems/timeouts.md).
+[timeouts](/06-distributed-systems/timeouts.md).
 
 ### Códigos de status próprios
 
 gRPC tem seu conjunto de códigos, com semântica clara sobre o que é retentável.
 A separação entre erro do cliente e do servidor está lá, como em
-[REST](rest.md) — e as bibliotecas costumam expô-la de forma mais direta.
+[REST](/08-integration-architecture/rest.md) — e as bibliotecas costumam expô-la de forma mais direta.
 
 ## Modelo Mental
 
@@ -146,7 +146,7 @@ rigor é lucro; onde não são, o alcance é o que importa.
 - Contrato forte com geração de código tem valor.
 - Fluxo contínuo em uma ou nas duas direções.
 - Poliglota — vários times, várias linguagens, um contrato.
-- Já existe [malha de serviço](service-mesh.md) que entende o protocolo.
+- Já existe [malha de serviço](/08-integration-architecture/service-mesh.md) que entende o protocolo.
 
 ## Quando Não Usar
 
@@ -154,10 +154,10 @@ rigor é lucro; onde não são, o alcance é o que importa.
 
 **Para navegadores, sem camada de tradução.**
 
-**Quando cache de HTTP importa.** Ver [REST](rest.md).
+**Quando cache de HTTP importa.** Ver [REST](/08-integration-architecture/rest.md).
 
 **Quando a consequência é assíncrona.** Ver
-[mensageria](messaging-integration.md).
+[mensageria](/08-integration-architecture/messaging-integration.md).
 
 **Com balanceador de camada 4 e sem malha.** As conexões longas concentram carga.
 
@@ -166,9 +166,9 @@ serviços não pagam a mudança de ferramental.
 
 ## Alternativas
 
-- **[REST](rest.md)** — alcance e simplicidade operacional.
-- **[GraphQL](graphql.md)** — consumo variável.
-- **[Mensageria](messaging-integration.md)** — assíncrono e desacoplado.
+- **[REST](/08-integration-architecture/rest.md)** — alcance e simplicidade operacional.
+- **[GraphQL](/08-integration-architecture/graphql.md)** — consumo variável.
+- **[Mensageria](/08-integration-architecture/messaging-integration.md)** — assíncrono e desacoplado.
 - **gRPC internamente, REST na borda** — o desenho mais comum entre adoções
   bem-sucedidas, com o gateway traduzindo.
 
@@ -257,10 +257,10 @@ desempenho.
 
 ## Conceitos Relacionados
 
-- [REST](rest.md) — a comparação principal.
-- [Malha de Serviço](service-mesh.md) — onde o balanceamento se resolve.
-- [Evolução de Esquema](schema-evolution.md) — números de campo.
-- [Timeouts](../06-distributed-systems/timeouts.md) — prazo propagado.
+- [REST](/08-integration-architecture/rest.md) — a comparação principal.
+- [Malha de Serviço](/08-integration-architecture/service-mesh.md) — onde o balanceamento se resolve.
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md) — números de campo.
+- [Timeouts](/06-distributed-systems/timeouts.md) — prazo propagado.
 
 ## Exercício Prático
 

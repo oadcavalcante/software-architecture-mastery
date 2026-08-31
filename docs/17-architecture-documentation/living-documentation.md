@@ -48,7 +48,7 @@ ninguém atualiza
 E o remédio habitual — processo, lembrete, revisão obrigatória — combate o sintoma. Ele
 depende de alguém fazer, toda vez, um trabalho que não dá retorno imediato a quem faz.
 
-Ver [princípios de documentação](documentation-principles.md), onde a meia-vida da
+Ver [princípios de documentação](/17-architecture-documentation/documentation-principles.md), onde a meia-vida da
 documentação é o conceito correspondente.
 
 ## Conceitos Centrais
@@ -69,7 +69,7 @@ matriz de quem chama quem    do service mesh ou dos registros
 O padrão é claro: **estrutura é derivável**. O que existe, como se conecta, o que roda
 onde — tudo isso está declarado em algum lugar executável.
 
-Ver [rastreamento distribuído](../13-observability/distributed-tracing.md) para a última
+Ver [rastreamento distribuído](/13-observability/distributed-tracing.md) para a última
 categoria, que é a mais confiável de todas: ela mostra o que acontece, não o que se
 declarou.
 
@@ -88,7 +88,7 @@ para quem o sistema existe
 Nada disso está no código. É **intenção**, e intenção só existe escrita.
 
 Essa divisão é a mais útil do tema: derive a estrutura, escreva a intenção, e não tente
-inverter. Ver [decisões de arquitetura](../18-architecture-decisions/index.md).
+inverter. Ver [decisões de arquitetura](/18-architecture-decisions/index.md).
 
 ### Diagrama como código
 
@@ -108,7 +108,7 @@ e o gatilho é natural.
 O trade-off é layout: renderizadores automáticos produzem disposições aceitáveis e
 raramente ótimas. Para diagramas de sequência isso quase não incomoda; para estruturais
 grandes, incomoda. Ver
-[qualidade de diagrama](diagram-quality.md).
+[qualidade de diagrama](/17-architecture-documentation/diagram-quality.md).
 
 ### Verificação em vez de geração
 
@@ -143,7 +143,7 @@ o que acontece quando falha     idem
 
 A limitação: testes descrevem comportamento, não estrutura nem intenção. Eles cobrem uma
 fatia real e não substituem o resto. Ver
-[testes de contrato](../08-integration-architecture/integration-contracts.md).
+[testes de contrato](/08-integration-architecture/integration-contracts.md).
 
 ### O custo inicial é real
 
@@ -161,7 +161,7 @@ com frequência**. Onde algum dos dois é baixo, escrever à mão e verificar é
 
 Este é o caso do diagrama de contexto — ele quase não muda, e derivá-lo seria construir
 maquinaria para um problema que não existe. Ver
-[diagramas de contexto](context-diagrams.md).
+[diagramas de contexto](/17-architecture-documentation/context-diagrams.md).
 
 ## Modelo Mental
 
@@ -194,7 +194,7 @@ corretos e nenhuma explicação de por que o sistema é assim.
 ## Alternativas
 
 - **Escrita com gatilho** — atualizar quando o evento correspondente ocorre. Ver
-  [padrões de documentação](documentation-standards.md).
+  [padrões de documentação](/17-architecture-documentation/documentation-standards.md).
 - **Verificação automática** — mais barata que geração, preserva curadoria.
 - **Diagrama como código** — meio-termo, ganho de processo.
 - **Aceitar o envelhecimento** com data visível — legítimo para o que muda pouco.
@@ -296,10 +296,10 @@ saber.
 
 ## Conceitos Relacionados
 
-- [Princípios de Documentação](documentation-principles.md) — a meia-vida.
-- [Padrões de Documentação](documentation-standards.md) — os gatilhos.
-- [Diagramas de Componente](component-diagrams.md) — onde a geração mais se paga.
-- [Rastreamento Distribuído](../13-observability/distributed-tracing.md) — a fonte mais
+- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md) — a meia-vida.
+- [Padrões de Documentação](/17-architecture-documentation/documentation-standards.md) — os gatilhos.
+- [Diagramas de Componente](/17-architecture-documentation/component-diagrams.md) — onde a geração mais se paga.
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a fonte mais
   confiável de dependências.
 
 ## Exercício Prático

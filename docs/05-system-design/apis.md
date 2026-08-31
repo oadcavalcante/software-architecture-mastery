@@ -52,7 +52,7 @@ Isso custa mapeamento e compra independência: o modelo interno pode ser
 reestruturado sem tocar consumidores.
 
 Ver [anti-corruption
-layer](../04-domain-driven-design/anti-corruption-layer.md) — o mesmo princípio,
+layer](/04-domain-driven-design/anti-corruption-layer.md) — o mesmo princípio,
 do lado de quem consome.
 
 ### Evolução é a decisão central
@@ -138,7 +138,7 @@ cerimônia sem benefício.
 
 - **Chamada de função** — dentro do processo.
 - **Evento** — quando o consumidor reage a um fato e não precisa de resposta. Ver
-  [arquitetura orientada a eventos](../03-design-patterns/event-driven.md).
+  [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
 - **Arquivo ou lote** — quando o volume é grande e a latência tolerada é alta.
 - **Consulta direta a uma projeção** — para leitura de alto volume dentro da mesma
   organização.
@@ -239,10 +239,10 @@ vira nunca mudar nada.
 
 ## Conceitos Relacionados
 
-- [Serviços](services.md) — quem expõe.
-- [Request/Response](request-response.md) — a mecânica.
-- [Paginação](pagination.md) — o caso que toda API de listagem enfrenta.
-- [Integração](../08-integration-architecture/index.md) — estilos e evolução de
+- [Serviços](/05-system-design/services.md) — quem expõe.
+- [Request/Response](/05-system-design/request-response.md) — a mecânica.
+- [Paginação](/05-system-design/pagination.md) — o caso que toda API de listagem enfrenta.
+- [Integração](/08-integration-architecture/index.md) — estilos e evolução de
   schema.
 
 ## Exercício Prático

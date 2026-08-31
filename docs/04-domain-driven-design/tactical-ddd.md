@@ -52,36 +52,36 @@ frequência**. Fora disso, custa.
 
 | Bloco | Problema que resolve |
 |---|---|
-| [Entity](entity.md) | Identidade estável ao longo do tempo |
-| [Value Object](value-object.md) | Conceito definido por valores, válido por construção |
-| [Aggregate](aggregate.md) | Unidade de consistência transacional |
-| [Domain Service](domain-service.md) | Regra que envolve vários agregados |
-| [Application Service](application-service.md) | Orquestração de caso de uso |
-| [Domain Event](domain-event.md) | Coordenação entre agregados |
-| [Repository](repository.md) | Acesso a agregados sem acoplar à persistência |
-| [Factory](factory.md) | Criação com regra de negócio |
+| [Entity](/04-domain-driven-design/entity.md) | Identidade estável ao longo do tempo |
+| [Value Object](/04-domain-driven-design/value-object.md) | Conceito definido por valores, válido por construção |
+| [Aggregate](/04-domain-driven-design/aggregate.md) | Unidade de consistência transacional |
+| [Domain Service](/04-domain-driven-design/domain-service.md) | Regra que envolve vários agregados |
+| [Application Service](/04-domain-driven-design/application-service.md) | Orquestração de caso de uso |
+| [Domain Event](/04-domain-driven-design/domain-event.md) | Coordenação entre agregados |
+| [Repository](/04-domain-driven-design/repository.md) | Acesso a agregados sem acoplar à persistência |
+| [Factory](/04-domain-driven-design/factory.md) | Criação com regra de negócio |
 
 ### O gradiente de custo e retorno
 
 Os blocos não custam o mesmo nem rendem o mesmo. Ordenados por retorno em relação
 ao esforço:
 
-**[Value Object](value-object.md)** — o de melhor relação. Barato de introduzir,
+**[Value Object](/04-domain-driven-design/value-object.md)** — o de melhor relação. Barato de introduzir,
 elimina uma classe inteira de defeitos, e vale mesmo fora do core.
 
-**[Ubiquitous language](ubiquitous-language.md)** — não é um bloco, e é o de maior
+**[Ubiquitous language](/04-domain-driven-design/ubiquitous-language.md)** — não é um bloco, e é o de maior
 retorno de todos. Custa conversas.
 
-**[Entity](entity.md) com comportamento** — barato, e é o que evita o modelo
+**[Entity](/04-domain-driven-design/entity.md) com comportamento** — barato, e é o que evita o modelo
 anêmico.
 
-**[Aggregate](aggregate.md)** — o mais consequente e o mais difícil de acertar. Só
+**[Aggregate](/04-domain-driven-design/aggregate.md)** — o mais consequente e o mais difícil de acertar. Só
 no core.
 
-**[Domain Event](domain-event.md)** — alto retorno em sistemas com vários
+**[Domain Event](/04-domain-driven-design/domain-event.md)** — alto retorno em sistemas com vários
 contextos; custo de infraestrutura real.
 
-**[Repository](repository.md) e [Factory](factory.md)** — os mais cerimoniais.
+**[Repository](/04-domain-driven-design/repository.md) e [Factory](/04-domain-driven-design/factory.md)** — os mais cerimoniais.
 Fora do core, raramente se pagam.
 
 Isso significa que "adotar DDD tático" não é uma decisão binária. É possível — e
@@ -90,16 +90,16 @@ agregados, repositórios e fábricas.
 
 ### A decisão vem do estratégico
 
-A classificação de [subdomínio](subdomain.md) informa diretamente:
+A classificação de [subdomínio](/04-domain-driven-design/subdomain.md) informa diretamente:
 
-**[Core](core-domain.md)** — tático completo se justifica. É onde a regra é
+**[Core](/04-domain-driven-design/core-domain.md)** — tático completo se justifica. É onde a regra é
 complexa, muda, e precisa ser testável e auditável.
 
-**[Supporting](supporting-domain.md)** — objetos de valor e entidades ricas, sim.
+**[Supporting](/04-domain-driven-design/supporting-domain.md)** — objetos de valor e entidades ricas, sim.
 Agregados, repositórios e fábricas, raramente. Um serviço direto com acesso a
 dados costuma bastar.
 
-**[Generic](generic-domain.md)** — nenhum. Você comprou ou adotou; não modele.
+**[Generic](/04-domain-driven-design/generic-domain.md)** — nenhum. Você comprou ou adotou; não modele.
 
 Sem essa classificação, não há critério — e a aplicação vira uniforme.
 
@@ -130,7 +130,7 @@ pergunta de onde alocar os melhores engenheiros, e a resposta vem do negócio.
 
 **Aplicar uniformemente.** O erro dominante.
 
-**Aplicar sem o [estratégico](strategic-ddd.md).** Sem as fronteiras certas, os
+**Aplicar sem o [estratégico](/04-domain-driven-design/strategic-ddd.md).** Sem as fronteiras certas, os
 blocos são construídos no lugar errado.
 
 **Tratar como tudo ou nada.** A adoção parcial é frequentemente a correta.
@@ -141,7 +141,7 @@ nomenclatura.
 
 **Modelo anêmico.** O modo de falha mais comum: os blocos existem e o
 comportamento está nos serviços. Ver
-[encapsulamento](../02-software-design/encapsulation.md).
+[encapsulamento](/02-software-design/encapsulation.md).
 
 **Aplicar a CRUD.** Se a operação é criar, ler, atualizar e apagar com validação
 de formato, não há modelo a construir.
@@ -183,10 +183,10 @@ Essa é a adoção parcial que o material recomenda, chegada por medição.
 
 ## Conceitos Relacionados
 
-- [DDD Estratégico](strategic-ddd.md) — o que vem antes e decide onde.
-- [Core Domain](core-domain.md) — onde o tático se paga.
-- [Aggregate](aggregate.md) — o bloco mais consequente.
-- [Clean Architecture](../02-software-design/clean-architecture.md) — a estrutura
+- [DDD Estratégico](/04-domain-driven-design/strategic-ddd.md) — o que vem antes e decide onde.
+- [Core Domain](/04-domain-driven-design/core-domain.md) — onde o tático se paga.
+- [Aggregate](/04-domain-driven-design/aggregate.md) — o bloco mais consequente.
+- [Clean Architecture](/02-software-design/clean-architecture.md) — a estrutura
   que costuma acompanhar.
 
 ## Exercício Prático

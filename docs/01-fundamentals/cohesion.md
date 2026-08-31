@@ -23,7 +23,7 @@ last_reviewed: 2026-08-26
 
 Coesão é o grau em que os elementos de um módulo pertencem juntos.
 
-Coesão e [acoplamento](coupling.md) não são propriedades independentes: são a
+Coesão e [acoplamento](/01-fundamentals/coupling.md) não são propriedades independentes: são a
 mesma decisão vista de dois lados. Ao decidir o que fica dentro de uma fronteira,
 você determina simultaneamente a coesão do que ficou dentro e o acoplamento com o
 que ficou fora.
@@ -63,8 +63,8 @@ Coesão funcional é o alvo. Coesão coincidental é o sinal de que ninguém dec
 ### O critério prático
 
 A taxonomia é útil para diagnosticar, mas o critério operacional é o mesmo de
-[modularidade](modularity.md) e
-[separação de responsabilidades](separation-of-concerns.md):
+[modularidade](/01-fundamentals/modularity.md) e
+[separação de responsabilidades](/01-fundamentals/separation-of-concerns.md):
 
 > **Coisas que mudam pela mesma razão pertencem juntas.**
 
@@ -123,7 +123,7 @@ coeso em código estável, que ninguém toca há um ano, é dívida sem juros. C
 tem custo real e benefício hipotético.
 
 **Em código descartável.** O mesmo raciocínio de
-[separação de responsabilidades](separation-of-concerns.md).
+[separação de responsabilidades](/01-fundamentals/separation-of-concerns.md).
 
 ## Alternativas
 
@@ -200,9 +200,9 @@ separá-las teria criado uma fronteira que toda mudança regulatória atravessar
 
 ## Conceitos Relacionados
 
-- [Acoplamento](coupling.md) — a outra face.
-- [Modularidade](modularity.md) — a estrutura resultante.
-- [Separação de Responsabilidades](separation-of-concerns.md) — o princípio que
+- [Acoplamento](/01-fundamentals/coupling.md) — a outra face.
+- [Modularidade](/01-fundamentals/modularity.md) — a estrutura resultante.
+- [Separação de Responsabilidades](/01-fundamentals/separation-of-concerns.md) — o princípio que
   orienta a divisão.
 
 ## Exercício Prático

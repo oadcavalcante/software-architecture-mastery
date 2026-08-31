@@ -22,7 +22,7 @@ last_reviewed: 2026-08-26
 ## Visão Geral
 
 Características arquiteturais são os
-[atributos de qualidade](quality-attributes.md) que a arquitetura precisa
+[atributos de qualidade](/01-fundamentals/quality-attributes.md) que a arquitetura precisa
 suportar explicitamente — as que efetivamente dirigem decisões estruturais.
 
 A distinção em relação ao termo mais antigo não é de significado, e sim de uso:
@@ -88,7 +88,7 @@ manutenibilidade.
 
 Revisar a lista periodicamente é o que impede que a arquitetura continue
 otimizada para o que importava antes. Ver
-[evolução da arquitetura](architecture-evolution.md).
+[evolução da arquitetura](/01-fundamentals/architecture-evolution.md).
 
 ## Por Que Isso Importa
 
@@ -152,11 +152,11 @@ A lista curta não impediu uma decisão ruim por autoridade. Impediu por critér
 
 ## Conceitos Relacionados
 
-- [Atributos de Qualidade](quality-attributes.md) — a taxonomia de onde as
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — a taxonomia de onde as
   características são selecionadas.
-- [Princípios de Arquitetura](architecture-principles.md) — como as
+- [Princípios de Arquitetura](/01-fundamentals/architecture-principles.md) — como as
   características viram orientação para decisões distribuídas.
-- [Trade-offs](../20-trade-offs/index.md) — o que acontece quando duas
+- [Trade-offs](/20-trade-offs/index.md) — o que acontece quando duas
   características entram em conflito.
 
 ## Exercício Prático

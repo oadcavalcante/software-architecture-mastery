@@ -40,7 +40,7 @@ as decisões da implementação original.
 
 O segundo problema é largura. Interfaces extraídas assim tendem a ter todos os
 métodos que a implementação tem, e cada consumidor passa a depender de operações
-que não usa. É o sintoma que o **I** do [SOLID](solid.md) nomeia.
+que não usa. É o sintoma que o **I** do [SOLID](/02-software-design/solid.md) nomeia.
 
 ## Conceitos Centrais
 
@@ -50,7 +50,7 @@ A interface pertence a quem a usa, não a quem a implementa.
 
 Isso é mais que uma questão de organização de arquivos — embora seja isso
 também, e o lugar onde a interface mora determina a direção da dependência (ver
-[inversão de dependência](dependency-inversion.md)).
+[inversão de dependência](/02-software-design/dependency-inversion.md)).
 
 É sobre **forma**. Uma interface definida pelo consumidor expressa o que ele
 precisa, no vocabulário dele. Uma extraída da implementação expressa o que a
@@ -106,7 +106,7 @@ Cada coisa que ele precisa saber sobre a implementação é uma falha do contrat
 ## Quando Não Usar
 
 **Quando há uma implementação e não haverá outra.** Ver
-[abstração](../01-fundamentals/abstraction.md). Uma interface de um é um arquivo
+[abstração](/01-fundamentals/abstraction.md). Uma interface de um é um arquivo
 a mais.
 
 **Quando a interface é extraída da implementação sem repensar a forma.** Ela não
@@ -225,10 +225,10 @@ alguém, e a primeira mudança quebra um consumidor que ninguém sabia que exist
 
 ## Conceitos Relacionados
 
-- [Encapsulamento](encapsulation.md) — o que a interface expõe.
-- [Inversão de Dependência](dependency-inversion.md) — onde a interface mora.
-- [SOLID](solid.md) — os princípios I e D.
-- [Abstração](../01-fundamentals/abstraction.md) — quando vale a pena.
+- [Encapsulamento](/02-software-design/encapsulation.md) — o que a interface expõe.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — onde a interface mora.
+- [SOLID](/02-software-design/solid.md) — os princípios I e D.
+- [Abstração](/01-fundamentals/abstraction.md) — quando vale a pena.
 
 ## Exercício Prático
 

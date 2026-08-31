@@ -42,7 +42,7 @@ a troca é um evento de alto risco
 uma interrupção do projeto desperdiça tudo
 ```
 
-Ver [reconstrução](rebuilding.md).
+Ver [reconstrução](/16-legacy-modernization/rebuilding.md).
 
 O padrão inverte: o valor aparece desde a primeira funcionalidade migrada, e o
 risco é distribuído em muitas trocas pequenas.
@@ -99,8 +99,8 @@ escrita dupla         os dois escrevem — divergência a gerenciar
 por fatia             cada entidade tem uma fonte, conforme a migração avança
 ```
 
-Ver [migração de dados](data-migration.md) e
-[arquitetura de transição](../15-enterprise-architecture/transition-architecture.md).
+Ver [migração de dados](/16-legacy-modernization/data-migration.md) e
+[arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 
 A última opção é a que costuma funcionar e a mais trabalhosa: a fonte da verdade muda por
 entidade, conforme ela é migrada, e o roteamento precisa saber disso.
@@ -140,7 +140,7 @@ Isso é comum e caro. O que evita:
 
 **Monitorar o que ainda usa o antigo**, para que a fatia restante seja visível.
 
-Ver [arquitetura de transição](../15-enterprise-architecture/transition-architecture.md).
+Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 
 ### A camada de interceptação é temporária, e frequentemente não é
 
@@ -178,11 +178,11 @@ desligamento é uma entrega, não uma consequência.
 
 ## Alternativas
 
-- **[Reconstrução](rebuilding.md)** — quando o sistema é pequeno ou o comportamento
+- **[Reconstrução](/16-legacy-modernization/rebuilding.md)** — quando o sistema é pequeno ou o comportamento
   precisa mudar radicalmente.
-- **[Refatoração](legacy-refactoring.md)** — quando o problema é interno, não de
+- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)** — quando o problema é interno, não de
   substituição.
-- **[Replataforma](replatforming.md)** — quando o problema é a infraestrutura, não o
+- **[Replataforma](/16-legacy-modernization/replatforming.md)** — quando o problema é a infraestrutura, não o
   código.
 - **Coexistência permanente** — decisão legítima quando os casos restantes não justificam
   migrar, desde que registrada.
@@ -271,7 +271,7 @@ Dois problemas durante a execução:
 sistemas. Divergências apareceram em cerca de 0,4% dos casos — regras de arredondamento
 diferentes. A reconciliação diária detectou, e a correção foi rápida porque a divergência
 era visível. Ver
-[consistência de dados](../07-data-architecture/data-consistency.md).
+[consistência de dados](/07-data-architecture/data-consistency.md).
 
 **Gateway virando permanente.** Ao fim da migração, o gateway tinha 200 regras de
 roteamento. A remoção dele foi tratada como tarefa própria, no mês 24 — e foi
@@ -283,10 +283,10 @@ negociação comercial com dezoito meses de antecedência.
 
 ## Conceitos Relacionados
 
-- [Modernização Incremental](incremental-modernization.md) — a disciplina.
-- [Migração de Dados](data-migration.md) — a parte difícil.
-- [Arquitetura de Transição](../15-enterprise-architecture/transition-architecture.md).
-- [Anti-Corruption Layer](../08-integration-architecture/integration-anti-corruption.md).
+- [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md) — a disciplina.
+- [Migração de Dados](/16-legacy-modernization/data-migration.md) — a parte difícil.
+- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md).
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 
 ## Exercício Prático
 

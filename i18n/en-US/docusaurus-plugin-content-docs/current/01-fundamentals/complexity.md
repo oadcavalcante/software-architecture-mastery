@@ -157,7 +157,7 @@ With ten flags, nobody tests all combinations and some have never been executed.
 because the interactions are documented nowhere.
 
 **An abstraction that does not hide.** It adds a level without reducing what you
-need to know. See [abstraction](abstraction.md).
+need to know. See [abstraction](/01-fundamentals/abstraction.md).
 
 **Invisible operational complexity.** The architecture is elegant on the diagram
 and requires three people to operate. The cost does not appear in the code.
@@ -214,8 +214,8 @@ afternoon.
 
 ## Related Concepts
 
-- [Abstraction](abstraction.md) — the tool that reduces or adds complexity.
-- [Technical Debt](technical-debt.md) — accumulated accidental complexity.
+- [Abstraction](/01-fundamentals/abstraction.md) — the tool that reduces or adds complexity.
+- [Technical Debt](/01-fundamentals/technical-debt.md) — accumulated accidental complexity.
 - [Trade-offs](/20-trade-offs/index.md) — the accounting of both sides.
 
 ## Practical Exercise

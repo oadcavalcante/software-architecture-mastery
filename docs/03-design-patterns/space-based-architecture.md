@@ -117,7 +117,7 @@ Praticamente todas devem ser esgotadas antes:
 - **Otimizar consultas e índices** — resolve a maior parte dos casos.
 - **Cache distribuído** — captura boa parte do benefício com muito menos custo.
 - **Réplicas de leitura** — para carga de leitura.
-- **[CQRS](cqrs.md)** — separar os modelos.
+- **[CQRS](/03-design-patterns/cqrs.md)** — separar os modelos.
 - **Particionamento** — quando as operações não atravessam partições.
 - **Banco distribuído moderno** — vários oferecem escala horizontal sem que a
   aplicação mude de estilo.
@@ -207,10 +207,10 @@ o negócio em vez de descobertas depois.
 
 ## Conceitos Relacionados
 
-- [Microsserviços](microservices.md) — o estilo pode ser aplicado a um serviço.
-- [CQRS](cqrs.md) — alternativa mais barata para separar carga.
-- [Escalabilidade](../11-scalability/index.md) — as estratégias que vêm antes.
-- [Sistemas Distribuídos](../06-distributed-systems/index.md) — replicação e
+- [Microsserviços](/03-design-patterns/microservices.md) — o estilo pode ser aplicado a um serviço.
+- [CQRS](/03-design-patterns/cqrs.md) — alternativa mais barata para separar carga.
+- [Escalabilidade](/11-scalability/index.md) — as estratégias que vêm antes.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md) — replicação e
   consistência.
 
 ## Exercício Prático

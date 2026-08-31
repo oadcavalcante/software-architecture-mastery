@@ -36,7 +36,7 @@ atrito   quanto atraso e esforço custou, agregado
 ```
 
 Sem os dois números, a discussão sobre manter ou remover é decidida por quem tem mais
-autoridade — o que é a definição de uma das [patologias](governance-pathologies.md).
+autoridade — o que é a definição de uma das [patologias](/19-architecture-governance/governance-pathologies.md).
 
 ## Problema
 
@@ -77,7 +77,7 @@ O primeiro é o mais fácil e o mais revelador. Uma revisão que não mudou nenh
 um ano não está produzindo efeito, independentemente de quantas sessões realizou.
 
 E ele precisa ser registrado no momento — reconstruir depois é impossível. Ver
-[revisão](governance-review.md), onde a separação entre bloqueante e recomendação já produz
+[revisão](/19-architecture-governance/governance-review.md), onde a separação entre bloqueante e recomendação já produz
 esse dado.
 
 ### Atrito: o custo agregado
@@ -121,7 +121,7 @@ mecanismos removidos por ano          existe processo de remoção?
 
 O terceiro é o mais informativo e o menos usado: comparar exceções registradas com desvios
 que uma verificação técnica encontraria mede diretamente a visibilidade da governança. Ver
-[exceções](exceptions.md).
+[exceções](/19-architecture-governance/exceptions.md).
 
 O último é um indicador sobre o sistema de governança, não sobre um mecanismo — e é o que
 melhor prevê acumulação.
@@ -203,7 +203,7 @@ corte vier.
 - **Auditoria de amostra** — para estimar efeito onde a medição contínua é cara.
 - **Indicadores de entrega** — tempo de ciclo e frequência de implantação capturam o atrito
   agregado sem atribuí-lo a um mecanismo. Ver
-  [entrega contínua](../14-devops-and-platform/ci-cd.md).
+  [entrega contínua](/14-devops-and-platform/ci-cd.md).
 
 A última é útil como sinal geral: se o tempo de ciclo cresce sem causa técnica, governança é
 um suspeito.
@@ -292,7 +292,7 @@ impacto, cujo único efeito registrado em 12 meses foi apontar um erro que a est
 teria pego.
 
 **Comitê reformulado** para aconselhamento, com portão em três classes. Ver
-[revisão](governance-review.md).
+[revisão](/19-architecture-governance/governance-review.md).
 
 **Aprovação de nova tecnologia** restrita a tecnologias que entram no plantão compartilhado
 — antes valia para qualquer biblioteca.
@@ -322,10 +322,10 @@ foi apresentada. Não houve argumento novo — houve número.
 
 ## Conceitos Relacionados
 
-- [Patologias](governance-pathologies.md) — o que a medição diagnostica.
-- [Fundamentos de Governança](governance-basics.md) — custo declarado por mecanismo.
-- [Conformidade](compliance.md) — a medição do estado.
-- [Exceções](exceptions.md) — a razão entre exceção e desvio silencioso.
+- [Patologias](/19-architecture-governance/governance-pathologies.md) — o que a medição diagnostica.
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md) — custo declarado por mecanismo.
+- [Conformidade](/19-architecture-governance/compliance.md) — a medição do estado.
+- [Exceções](/19-architecture-governance/exceptions.md) — a razão entre exceção e desvio silencioso.
 
 ## Exercício Prático
 

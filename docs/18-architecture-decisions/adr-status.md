@@ -73,7 +73,7 @@ desfecho         aceito, ou descontinuado sem nunca ter valido
 
 Esse status é subutilizado. Escrever o ADR **antes** de decidir é o que captura o efeito
 mais valioso da prática — a decisão que muda durante a redação. Ver
-[por que ADRs importam](why-adrs-matter.md).
+[por que ADRs importam](/18-architecture-decisions/why-adrs-matter.md).
 
 Um ADR proposto que nunca é aceito não é desperdício: ele registra que a opção foi
 considerada e por que não avançou.
@@ -106,7 +106,7 @@ Status: aceito em 2026-01-20 — supera o ADR-014
 ```
 
 A referência bidirecional é o que torna o histórico navegável. Ver
-[superação](superseding-decisions.md).
+[superação](/18-architecture-decisions/superseding-decisions.md).
 
 O ADR superado **permanece no repositório**, legível, com o texto original intacto. Ele
 continua sendo o registro correto de uma decisão correta para o contexto dela.
@@ -164,7 +164,7 @@ ADR-032  Adotar cache distribuído                  descontinuado 2025-08-04
 ```
 
 Gerado a partir dos arquivos, não mantido à mão. Ver
-[documentação viva](../17-architecture-documentation/living-documentation.md).
+[documentação viva](/17-architecture-documentation/living-documentation.md).
 
 ## Modelo Mental
 
@@ -296,10 +296,10 @@ que é a parte que importa.
 
 ## Conceitos Relacionados
 
-- [Superação](superseding-decisions.md) — a mecânica.
-- [Estrutura do ADR](adr-structure.md).
-- [O Que É um ADR](what-is-an-adr.md) — a imutabilidade como característica.
-- [Documentação Viva](../17-architecture-documentation/living-documentation.md) — o índice
+- [Superação](/18-architecture-decisions/superseding-decisions.md) — a mecânica.
+- [Estrutura do ADR](/18-architecture-decisions/adr-structure.md).
+- [O Que É um ADR](/18-architecture-decisions/what-is-an-adr.md) — a imutabilidade como característica.
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — o índice
   gerado.
 
 ## Exercício Prático

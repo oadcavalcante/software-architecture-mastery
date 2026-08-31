@@ -173,13 +173,13 @@ de precisar.** As três decisões são independentes.
 
 ## Alternativas
 
-- **[Contêineres](containers.md)** — melhor densidade, escalonamento mais rápido.
-- **[Serverless](serverless.md)** — sem capacidade a gerenciar.
+- **[Contêineres](/09-cloud-architecture/containers.md)** — melhor densidade, escalonamento mais rápido.
+- **[Serverless](/09-cloud-architecture/serverless.md)** — sem capacidade a gerenciar.
 - **Escalonamento vertical** — instância maior em vez de mais instâncias; simples,
   com teto e reinício.
 - **Fila com trabalhadores** — absorve o pico sem escalar, quando a operação é
   assíncrona. Ver
-  [mensageria](../06-distributed-systems/messaging.md).
+  [mensageria](/06-distributed-systems/messaging.md).
 
 A última merece destaque: para muitos picos, a resposta certa não é mais capacidade
 — é não precisar processar tudo naquele instante.
@@ -247,7 +247,7 @@ resolveu a maior parte do problema, e não exigiu nenhuma tecnologia nova.
 
 **Fila para a compra.** A confirmação de compra virou assíncrona, com fila. O pico
 passa a ser absorvido pela fila em vez de exigir capacidade proporcional. Ver
-[mensageria](../06-distributed-systems/messaging.md).
+[mensageria](/06-distributed-systems/messaging.md).
 
 **Métrica antecedente.** Para o tráfego não previsto, o escalonamento passou a olhar
 a profundidade da fila e o número de conexões, que reagem antes da CPU.
@@ -272,10 +272,10 @@ em não depender dele para um evento agendado.
 
 ## Conceitos Relacionados
 
-- [IaaS](iaas.md) — o modelo.
-- [Contêineres](containers.md) — a alternativa de empacotamento.
-- [Serverless](serverless.md).
-- [Arquitetura de Custo](cost-architecture.md).
+- [IaaS](/09-cloud-architecture/iaas.md) — o modelo.
+- [Contêineres](/09-cloud-architecture/containers.md) — a alternativa de empacotamento.
+- [Serverless](/09-cloud-architecture/serverless.md).
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
 
 ## Exercício Prático
 

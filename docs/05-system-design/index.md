@@ -100,5 +100,5 @@ mundo usa".
 Boa parte do que se projeta aqui assume que chamadas funcionam, que a rede
 entrega e que componentes ou estão de pé ou estão caídos.
 
-Nada disso é verdade. O [Nível 04](../06-distributed-systems/index.md) desfaz
+Nada disso é verdade. O [Nível 04](/06-distributed-systems/index.md) desfaz
 essas suposições, e é a seção mais profunda do percurso por esse motivo.

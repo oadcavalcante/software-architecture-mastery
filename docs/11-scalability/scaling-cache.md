@@ -25,7 +25,7 @@ Cache é a técnica de melhor retorno em escala, porque ela **remove trabalho** 
 adicionar capacidade para executá-lo.
 
 Os fundamentos — o que cachear, invalidação, tempo de vida — estão em
-[caching](../05-system-design/caching.md). Aqui interessa o que muda sob carga alta:
+[caching](/05-system-design/caching.md). Aqui interessa o que muda sob carga alta:
 os modos de falha que só aparecem em escala, e que transformam o cache de solução em
 causa de indisponibilidade.
 
@@ -84,7 +84,7 @@ vazio.
 
 **Expiração com variação.** Chaves criadas juntas expiram juntas. Adicionar variação
 aleatória ao tempo de vida dessincroniza — é a mesma lógica de
-[backoff](../06-distributed-systems/backoff.md).
+[backoff](/06-distributed-systems/backoff.md).
 
 **Servir o velho enquanto revalida.** A requisição recebe o valor expirado; o
 recálculo acontece em segundo plano.
@@ -110,14 +110,14 @@ invalidação.
 
 E o cache local reintroduz divergência entre instâncias — aceitável para dados que
 toleram alguns segundos de atraso, inaceitável para o que precisa ser consistente. Ver
-[ausência de estado](statelessness.md).
+[ausência de estado](/11-scalability/statelessness.md).
 
 ### Aquecimento importa na expansão
 
 Uma instância nova sobe com cache local vazio. Ela faz consultas que as outras não
 fazem — no momento em que o sistema está escalando, ou seja, sob pressão.
 
-Ver [escala horizontal](horizontal-scaling.md). É um efeito de segunda ordem que
+Ver [escala horizontal](/11-scalability/horizontal-scaling.md). É um efeito de segunda ordem que
 transforma o escalonamento em um pico adicional na origem.
 
 As saídas: aquecer antes de entrar na rotação, entrar gradualmente recebendo fração do
@@ -126,7 +126,7 @@ tráfego, ou depender apenas do cache compartilhado, que já está quente.
 ### Chave quente no cache
 
 Um cache distribuído particiona por chave. Uma chave muito acessada satura o nó que a
-contém — o mesmo problema de [pontos quentes](hotspots.md), uma camada acima.
+contém — o mesmo problema de [pontos quentes](/11-scalability/hotspots.md), uma camada acima.
 
 Isso surpreende porque o cache existe justamente para absorver o quente. A saída é
 replicar a chave quente entre nós, ou colocá-la em cache local, onde a distribuição
@@ -180,7 +180,7 @@ complexidade por pouco ganho.
 
 - **Visão materializada** — pré-calcular no banco, sem camada extra.
 - **Réplica de leitura** — distribui sem introduzir invalidação. Ver
-  [replicação para escala](scaling-replication.md).
+  [replicação para escala](/11-scalability/scaling-replication.md).
 - **Otimizar a consulta** — se ela ficar barata, o cache deixa de ser necessário.
 - **Cache de borda** — para conteúdo público, resolve latência e carga de uma vez.
 
@@ -218,7 +218,7 @@ complexidade por pouco ganho.
 **Chave quente saturando um nó do cache.**
 
 **Despejo silencioso.** A memória enche e o cache descarta o que era importante. Ver
-[chave-valor](../07-data-architecture/key-value-databases.md).
+[chave-valor](/07-data-architecture/key-value-databases.md).
 
 ## Erros Comuns
 
@@ -281,10 +281,10 @@ ninguém tinha decidido isso — foi consequência de o cache ter sido adicionad
 
 ## Conceitos Relacionados
 
-- [Caching](../05-system-design/caching.md) — os fundamentos.
-- [Pontos Quentes](hotspots.md) — a chave quente no cache.
-- [Escala de Banco de Dados](database-scaling.md) — o degrau 3.
-- [Backoff](../06-distributed-systems/backoff.md) — a variação.
+- [Caching](/05-system-design/caching.md) — os fundamentos.
+- [Pontos Quentes](/11-scalability/hotspots.md) — a chave quente no cache.
+- [Escala de Banco de Dados](/11-scalability/database-scaling.md) — o degrau 3.
+- [Backoff](/06-distributed-systems/backoff.md) — a variação.
 
 ## Exercício Prático
 

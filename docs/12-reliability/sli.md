@@ -77,7 +77,7 @@ graciosa.
 
 Note que **latência é expressa como proporção**, não como percentil. "99% das
 requisições abaixo de 300 ms" é um SLI; "latência p99 de 300 ms" é a mesma informação
-numa forma que não compõe bem com orçamento de erro. Ver [SLO](slo.md).
+numa forma que não compõe bem com orçamento de erro. Ver [SLO](/12-reliability/slo.md).
 
 ### Meça onde o usuário está
 
@@ -92,7 +92,7 @@ sondagem externa     vê o serviço como um usuário de fora
 
 A diferença entre o número do servidor e o do cliente costuma ser grande, e essa
 diferença é o mapa do que está quebrado fora do seu perímetro. Ver
-[disponibilidade](../06-distributed-systems/availability.md).
+[disponibilidade](/06-distributed-systems/availability.md).
 
 A prática que funciona: SLI principal no ponto mais próximo do usuário que você
 consegue instrumentar, com o do servidor como diagnóstico.
@@ -265,10 +265,10 @@ pergunta que importava, e ninguém tinha percebido porque a pergunta nunca foi e
 
 ## Conceitos Relacionados
 
-- [SLO](slo.md) — o alvo sobre o indicador.
-- [SLA](sla.md) — o compromisso contratual.
-- [Métricas de Disponibilidade](availability-metrics.md).
-- [Observabilidade](../13-observability/index.md).
+- [SLO](/12-reliability/slo.md) — o alvo sobre o indicador.
+- [SLA](/12-reliability/sla.md) — o compromisso contratual.
+- [Métricas de Disponibilidade](/12-reliability/availability-metrics.md).
+- [Observabilidade](/13-observability/index.md).
 
 ## Exercício Prático
 

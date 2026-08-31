@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Rastreamento distribuído é [traces](traces.md) atravessando processos: a requisição
+Rastreamento distribuído é [traces](/13-observability/traces.md) atravessando processos: a requisição
 entra num serviço, chama outros, passa por filas, e todo esse caminho forma uma única
 árvore.
 
@@ -75,7 +75,7 @@ sistema de terceiro    depende de ele suportar
 A fila é onde a maioria das implementações quebra, e é onde a informação seria mais
 valiosa — porque a operação assíncrona é a mais difícil de reconstruir manualmente.
 
-Ver [identificadores de correlação](correlation-ids.md).
+Ver [identificadores de correlação](/13-observability/correlation-ids.md).
 
 E há uma decisão de modelagem em filas: o consumo é um span filho do produtor — o que
 produz traces de duração muito longa — ou um trace novo ligado por referência? A segunda
@@ -122,7 +122,7 @@ volume de spans = requisições/s × spans por requisição
 Cada span carrega nome, tempos, atributos e status. Em volume alto, isso é o maior sinal
 de telemetria do sistema.
 
-Ver [telemetria](telemetry.md). As alavancas: taxa de amostragem, granularidade de spans,
+Ver [telemetria](/13-observability/telemetry.md). As alavancas: taxa de amostragem, granularidade de spans,
 número de atributos, retenção.
 
 E a retenção pode ser escalonada: traces de erro e lentos por mais tempo, os normais por
@@ -168,14 +168,14 @@ a coleta de erros não é opcional.
 
 ## Alternativas
 
-- **[Identificadores de correlação](correlation-ids.md)** — o subconjunto mínimo, muito
+- **[Identificadores de correlação](/13-observability/correlation-ids.md)** — o subconjunto mínimo, muito
   mais barato, sem estrutura nem tempos.
-- **[Logs](logs.md) com duração por etapa** — cobre parte do valor.
-- **[Métricas](metrics.md) por par de serviços** — mostra tendência entre componentes,
+- **[Logs](/13-observability/logs.md) com duração por etapa** — cobre parte do valor.
+- **[Métricas](/13-observability/metrics.md) por par de serviços** — mostra tendência entre componentes,
   sem o individual.
 - **Malha de serviço** — instrumenta as chamadas entre serviços sem tocar no código,
   cobrindo as fronteiras. Ver
-  [malha de serviço](../08-integration-architecture/service-mesh.md).
+  [malha de serviço](/08-integration-architecture/service-mesh.md).
 
 A última é uma forma barata de obter cobertura de fronteiras rapidamente, com a
 limitação de não enxergar dentro dos serviços.
@@ -204,12 +204,12 @@ limitação de não enxergar dentro dos serviços.
 **Custo excedendo o previsto.**
 
 **Cardinalidade de atributos.** Os mesmos problemas de
-[métricas](metrics.md), aplicados a spans.
+[métricas](/13-observability/metrics.md), aplicados a spans.
 
 **Coletor saturado.** Spans descartados silenciosamente.
 
 **Relógios divergentes.** Spans de serviços diferentes com tempos inconsistentes. Ver
-[relógio e tempo](../06-distributed-systems/clock-and-time.md).
+[relógio e tempo](/06-distributed-systems/clock-and-time.md).
 
 ## Erros Comuns
 
@@ -259,17 +259,17 @@ latência que ninguém tinha diagnosticado.
 
 **Relógios divergentes.** Spans de um serviço apareciam com início antes do fim do pai.
 A investigação encontrou deriva de até 800 ms em duas instâncias. Ver
-[relógio e tempo](../06-distributed-systems/clock-and-time.md).
+[relógio e tempo](/06-distributed-systems/clock-and-time.md).
 
 A lição registrada: a ferramenta estava instalada e correta havia seis meses. A
 escolha de amostragem — feita sem discussão, com o valor padrão — a tornava inútil.
 
 ## Conceitos Relacionados
 
-- [Traces](traces.md) — os fundamentos.
-- [Identificadores de Correlação](correlation-ids.md) — o subconjunto mínimo.
-- [Telemetria](telemetry.md) — o custo.
-- [Depurabilidade](debuggability.md).
+- [Traces](/13-observability/traces.md) — os fundamentos.
+- [Identificadores de Correlação](/13-observability/correlation-ids.md) — o subconjunto mínimo.
+- [Telemetria](/13-observability/telemetry.md) — o custo.
+- [Depurabilidade](/13-observability/debuggability.md).
 
 ## Exercício Prático
 

@@ -90,7 +90,7 @@ inexplicable.
 ### Not every decision deserves a record
 
 The criterion is the one from
-[what architecture is](what-is-software-architecture.md): cost of reversal.
+[what architecture is](/01-fundamentals/what-is-software-architecture.md): cost of reversal.
 
 Decisions that are cheap to reverse do not need a record — the code is sufficient
 documentation. Expensive ones do, because someone will want to reassess them and
@@ -168,11 +168,11 @@ unavailability of another department's service.
 
 ## Related Concepts
 
-- [What Architecture Is](what-is-software-architecture.md) — the criterion for
+- [What Architecture Is](/01-fundamentals/what-is-software-architecture.md) — the criterion for
   which decisions deserve a record.
-- [Solution Space](solution-space.md) — where the alternatives come from.
+- [Solution Space](/01-fundamentals/solution-space.md) — where the alternatives come from.
 - [ADRs](/18-architecture-decisions/index.md) — the practical record format.
-- [Architecture Evolution](architecture-evolution.md) — what happens when the
+- [Architecture Evolution](/01-fundamentals/architecture-evolution.md) — what happens when the
   context changes.
 
 ## Practical Exercise

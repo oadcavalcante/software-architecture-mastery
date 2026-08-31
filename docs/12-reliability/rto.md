@@ -27,7 +27,7 @@ indisponível** antes de voltar a operar.
 Ele é uma decisão de negócio, não uma estimativa de engenharia. A pergunta que o define
 é: quanto custa cada hora parada?
 
-E ele tem um par inseparável: [RPO](rpo.md), que responde quanto dado pode ser perdido.
+E ele tem um par inseparável: [RPO](/12-reliability/rpo.md), que responde quanto dado pode ser perdido.
 Os dois juntos definem a estratégia de recuperação e o seu custo.
 
 ## Por Que Isso Importa
@@ -57,8 +57,8 @@ minutos       espera quente                   alto
 segundos      ativo-ativo                     muito alto
 ```
 
-Ver [recuperação de desastre](../09-cloud-architecture/disaster-recovery.md) e
-[multi-região](../09-cloud-architecture/multi-region.md).
+Ver [recuperação de desastre](/09-cloud-architecture/disaster-recovery.md) e
+[multi-região](/09-cloud-architecture/multi-region.md).
 
 A escolha é mecânica depois que o número existe. É o número que é difícil.
 
@@ -96,7 +96,7 @@ relatórios gerenciais  RTO 24 h
 ```
 
 Isso permite priorizar durante a recuperação, e reduz substancialmente o custo. Ver
-[degradação graciosa](graceful-degradation.md).
+[degradação graciosa](/12-reliability/graceful-degradation.md).
 
 E a priorização precisa estar decidida antes: durante o incidente, ninguém tem
 serenidade para negociá-la.
@@ -106,8 +106,8 @@ serenidade para negociá-la.
 Um RTO declarado e nunca medido é uma intenção.
 
 A verificação é o exercício de recuperação, cronometrado. Ver
-[engenharia do caos](chaos-engineering.md) e
-[failover](failover.md).
+[engenharia do caos](/12-reliability/chaos-engineering.md) e
+[failover](/12-reliability/failover.md).
 
 Times que exercitam descobrem que o tempo real é várias vezes o estimado — na primeira
 execução. E que ele cai substancialmente com a prática.
@@ -131,7 +131,7 @@ desalinhamento que gera desgaste em todo incidente.
 
 A prática que resolve: declarar as duas medidas separadamente, e estimar a segunda a
 partir da capacidade de processamento acumulado. Ver
-[escala dirigida por fila](../11-scalability/queue-based-scaling.md).
+[escala dirigida por fila](/11-scalability/queue-based-scaling.md).
 
 ## Erros Comuns
 
@@ -146,7 +146,7 @@ partir da capacidade de processamento acumulado. Ver
 **Definido sem considerar dependências.** O RTO do sistema não pode ser menor que o do
 fornecedor crítico.
 
-**Confundido com [RPO](rpo.md).** São perguntas diferentes.
+**Confundido com [RPO](/12-reliability/rpo.md).** São perguntas diferentes.
 
 ## Exemplo Real
 
@@ -190,10 +190,10 @@ levaria 11 horas.
 
 ## Conceitos Relacionados
 
-- [RPO](rpo.md) — o par.
-- [Planejamento de Recuperação](disaster-recovery-planning.md).
-- [Failover](failover.md) — o mecanismo.
-- [Métricas de Disponibilidade](availability-metrics.md) — o tempo de recuperação
+- [RPO](/12-reliability/rpo.md) — o par.
+- [Planejamento de Recuperação](/12-reliability/disaster-recovery-planning.md).
+- [Failover](/12-reliability/failover.md) — o mecanismo.
+- [Métricas de Disponibilidade](/12-reliability/availability-metrics.md) — o tempo de recuperação
   medido.
 
 ## Exercício Prático

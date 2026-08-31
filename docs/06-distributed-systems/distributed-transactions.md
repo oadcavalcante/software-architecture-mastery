@@ -78,7 +78,7 @@ intervenção manual.
 
 ### O coordenador é ponto único
 
-Tornar o coordenador tolerante a falhas exige [consenso](consensus.md) — o que
+Tornar o coordenador tolerante a falhas exige [consenso](/06-distributed-systems/consensus.md) — o que
 adiciona latência e complexidade ao protocolo que já é caro.
 
 Sistemas que fazem isso corretamente existem. A maioria das implementações usa
@@ -93,7 +93,7 @@ Além disso, ele **acopla a disponibilidade**: a transação só sucede se todos
 participantes estiverem disponíveis simultaneamente. Com cinco participantes de
 99,9% cada, a disponibilidade combinada cai para 99,5%.
 
-Ver [falha parcial](partial-failure.md). Cada participante adicionado reduz a
+Ver [falha parcial](/06-distributed-systems/partial-failure.md). Cada participante adicionado reduz a
 probabilidade de sucesso.
 
 ### Onde 2PC ainda é razoável
@@ -133,7 +133,7 @@ contradiz a razão de separar os serviços.
 
 **Sem coordenador tolerante a falhas.** O bloqueio vai acontecer.
 
-**Quando compensação é aceitável.** Ver [sagas](sagas.md) — resolve o mesmo
+**Quando compensação é aceitável.** Ver [sagas](/06-distributed-systems/sagas.md) — resolve o mesmo
 problema sem travar.
 
 **Quando o problema é modelagem.** Se a operação precisa ser atômica, talvez os
@@ -145,10 +145,10 @@ frequentemente sintoma de decomposição equivocada.
 
 ## Alternativas
 
-- **[Sagas](sagas.md)** — sequência de transações locais com compensação.
+- **[Sagas](/06-distributed-systems/sagas.md)** — sequência de transações locais com compensação.
 - **Caixa de saída transacional** — grava a mudança e o evento na mesma transação
   local, e publica depois. Resolve o caso mais comum sem 2PC.
-- **[Idempotência](idempotency.md) com repetição** — em vez de atomicidade, garantir
+- **[Idempotência](/06-distributed-systems/idempotency.md) com repetição** — em vez de atomicidade, garantir
   que a repetição converge.
 - **Reunir os dados** — se a atomicidade é essencial, colocar no mesmo
   armazenamento.
@@ -229,7 +229,7 @@ compensações dos passos anteriores.
 **Estados intermediários explícitos.** A remessa passou a ter estado "aguardando
 confirmação" visível na interface — o que era estritamente invisível no 2PC.
 
-**Idempotência em todos os passos.** Ver [idempotência](idempotency.md).
+**Idempotência em todos os passos.** Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 O que mudou operacionalmente: as pendências manuais desapareceram, e a contenção
 também. A operação passou a suceder mesmo com o serviço de crédito temporariamente
@@ -245,10 +245,10 @@ larga.
 
 ## Conceitos Relacionados
 
-- [Sagas](sagas.md) — a alternativa principal.
-- [Falha Parcial](partial-failure.md) — o problema de fundo.
-- [Consenso](consensus.md) — o que um coordenador confiável exige.
-- [Idempotência](idempotency.md) — o que a alternativa exige.
+- [Sagas](/06-distributed-systems/sagas.md) — a alternativa principal.
+- [Falha Parcial](/06-distributed-systems/partial-failure.md) — o problema de fundo.
+- [Consenso](/06-distributed-systems/consensus.md) — o que um coordenador confiável exige.
+- [Idempotência](/06-distributed-systems/idempotency.md) — o que a alternativa exige.
 
 ## Exercício Prático
 

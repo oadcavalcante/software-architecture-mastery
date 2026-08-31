@@ -50,7 +50,7 @@ Pior em cadeia. Se cada nível repete três vezes:
 Uma requisição vira 81. Sob degradação, quando todas as requisições estão
 falhando, a carga no fundo da cadeia multiplica por 81.
 
-Isso é [retry storm](../12-reliability/index.md), e é um dos modos de falha mais
+Isso é [retry storm](/12-reliability/index.md), e é um dos modos de falha mais
 comuns em sistemas distribuídos.
 
 ## Conceitos Centrais
@@ -76,7 +76,7 @@ três vezes o mesmo erro, com três vezes a carga.
 ### Retentativa exige idempotência
 
 Uma operação que falhou por timeout pode ter sido executada. Repetir sem
-[idempotência](idempotency.md) duplica o efeito.
+[idempotência](/06-distributed-systems/idempotency.md) duplica o efeito.
 
 Essa é a regra que não admite exceção: **se não é idempotente, não repita
 automaticamente.**
@@ -111,7 +111,7 @@ multiplicação acontece por composição, sem ninguém ter decidido.
 ### Retentativa não é a resposta para sobrecarga
 
 Se o destino está sobrecarregado, repetir agrava. A resposta correta é reduzir a
-pressão: [backoff](backoff.md), circuit breaker, ou descartar carga.
+pressão: [backoff](/06-distributed-systems/backoff.md), circuit breaker, ou descartar carga.
 
 Um serviço que devolve `429` está pedindo explicitamente que você espere — e
 repetir imediatamente ignora o pedido.
@@ -145,7 +145,7 @@ suporta.
 
 - A falha é plausivelmente transitória.
 - A operação é idempotente, ou é uma leitura.
-- Há limite de tentativas e [backoff](backoff.md).
+- Há limite de tentativas e [backoff](/06-distributed-systems/backoff.md).
 - O nível de retentativa foi escolhido deliberadamente.
 
 ## Quando Não Usar
@@ -166,10 +166,10 @@ visivelmente — o que impede o alerta.
 ## Alternativas
 
 - **Falhar rápido e propagar** — deixar o chamador decidir.
-- **[Circuit breaker](../12-reliability/index.md)** — parar de tentar quando a taxa
+- **[Circuit breaker](/12-reliability/index.md)** — parar de tentar quando a taxa
   de falha indica problema persistente.
 - **Fila** — em vez de repetir agora, enfileirar para depois. Ver
-  [filas](../05-system-design/queues.md).
+  [filas](/05-system-design/queues.md).
 - **Degradar** — responder sem o dado.
 - **Requisição de reserva** — enviar a duas réplicas simultaneamente, em vez de
   repetir após falha.
@@ -254,10 +254,10 @@ A degradação original nunca foi o problema. A resposta a ela é que era.
 
 ## Conceitos Relacionados
 
-- [Timeouts](timeouts.md) — o que precede a retentativa.
-- [Backoff](backoff.md) — como espaçar as tentativas.
-- [Idempotência](idempotency.md) — o pré-requisito.
-- [Retry Storms](../12-reliability/index.md) — o modo de falha em detalhe.
+- [Timeouts](/06-distributed-systems/timeouts.md) — o que precede a retentativa.
+- [Backoff](/06-distributed-systems/backoff.md) — como espaçar as tentativas.
+- [Idempotência](/06-distributed-systems/idempotency.md) — o pré-requisito.
+- [Retry Storms](/12-reliability/index.md) — o modo de falha em detalhe.
 
 ## Exercício Prático
 

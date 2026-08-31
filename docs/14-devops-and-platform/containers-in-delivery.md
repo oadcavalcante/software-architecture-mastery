@@ -22,7 +22,7 @@ last_reviewed: 2026-08-28
 ## Visão Geral
 
 Os fundamentos de contêineres estão em
-[contêineres](../09-cloud-architecture/containers.md). Aqui interessa o papel deles na
+[contêineres](/09-cloud-architecture/containers.md). Aqui interessa o papel deles na
 entrega: **o artefato imutável que atravessa os ambientes**.
 
 A regra que organiza tudo: **construa uma vez, promova o mesmo artefato**.
@@ -61,7 +61,7 @@ errada — o que passou foi outro.
 ```
 
 A promoção é uma mudança de referência, não uma reconstrução. Ver
-[gestão de ambientes](environment-management.md).
+[gestão de ambientes](/14-devops-and-platform/environment-management.md).
 
 Isso exige que a imagem não contenha nada específico de ambiente — o que leva ao ponto
 seguinte.
@@ -76,7 +76,7 @@ na imagem     código, dependências, tempo de execução
 de fora       endereços, credenciais, limites, flags, nível de log
 ```
 
-Ver [PaaS](../09-cloud-architecture/paas.md) — as doze regras, cujo item de configuração
+Ver [PaaS](/09-cloud-architecture/paas.md) — as doze regras, cujo item de configuração
 existe exatamente por isso.
 
 O erro característico: imagens separadas por ambiente. Além de quebrar a promoção, ele
@@ -95,7 +95,7 @@ diferentes.
 Em produção, a referência precisa ser por digest — é o que torna a implantação
 reproduzível e o que permite afirmar que o que roda é o que foi aprovado.
 
-Ver [contêineres](../09-cloud-architecture/containers.md).
+Ver [contêineres](/09-cloud-architecture/containers.md).
 
 ### O registro de artefatos é infraestrutura crítica
 
@@ -114,7 +114,7 @@ com mais de 30 dias impede reverter para uma versão mais antiga que isso.
 
 E a terceira previne uma classe de ataque: sobrescrever uma etiqueta já verificada com
 outro conteúdo. Ver
-[segurança da esteira](supply-chain-security.md).
+[segurança da esteira](/14-devops-and-platform/supply-chain-security.md).
 
 ### Construção reprodutível é o ideal, e o mínimo é fixar
 
@@ -141,11 +141,11 @@ estágio final           apenas o binário e o que ele precisa para rodar
 ```
 
 O ganho é de tamanho, de superfície de ataque e de tempo de implantação. Ver
-[contêineres](../09-cloud-architecture/containers.md).
+[contêineres](/09-cloud-architecture/containers.md).
 
 E há um ganho de entrega frequentemente esquecido: imagens menores são baixadas mais
 rápido, o que reduz o tempo de implantação e de escalonamento — o que importa em
-[implantação em ondas](rolling-deployments.md).
+[implantação em ondas](/14-devops-and-platform/rolling-deployments.md).
 
 ### Camadas e cache decidem o tempo de construção
 
@@ -160,7 +160,7 @@ bom    copiar o manifesto, instalar dependências, depois copiar o código
 
 Essa inversão costuma reduzir o tempo de construção em uma ordem de grandeza — e o tempo
 da esteira é o que decide se as pessoas integram com frequência. Ver
-[integração contínua](ci-cd.md).
+[integração contínua](/14-devops-and-platform/ci-cd.md).
 
 ### O tempo de download entra na conta de disponibilidade
 
@@ -175,12 +175,12 @@ imagem de 60 MB    ~8 s
 Isso importa em três momentos:
 
 **Escalonamento sob pico.** A instância nova demora a entrar na rotação. Ver
-[escala horizontal](../11-scalability/horizontal-scaling.md).
+[escala horizontal](/11-scalability/horizontal-scaling.md).
 
 **Substituição de nó.** Uma falha de instância leva mais tempo para ser reposta.
 
 **Implantação em ondas.** O tempo total é multiplicado pelo número de ondas. Ver
-[implantação em ondas](rolling-deployments.md).
+[implantação em ondas](/14-devops-and-platform/rolling-deployments.md).
 
 E há um agravante: nós novos frequentemente não têm a imagem em cache local, então o
 pior caso — download completo — acontece exatamente quando há pressão.
@@ -303,7 +303,7 @@ reverter para versões mais antigas.
 E uma otimização que veio junto: a ordem das camadas foi corrigida, e o tempo de
 construção caiu de 11 minutos para 90 segundos. Isso reduziu o tempo total da esteira e
 teve efeito direto na frequência de integração. Ver
-[integração contínua](ci-cd.md).
+[integração contínua](/14-devops-and-platform/ci-cd.md).
 
 O detalhe que a equipe destaca: a construção múltipla existia porque as imagens continham
 configuração — a causa raiz era essa, e ela tinha sido tratada como conveniência por
@@ -311,10 +311,10 @@ anos.
 
 ## Conceitos Relacionados
 
-- [Contêineres](../09-cloud-architecture/containers.md) — os fundamentos.
-- [Integração Contínua](ci-cd.md).
-- [Gestão de Ambientes](environment-management.md) — a promoção.
-- [Segurança da Esteira](supply-chain-security.md).
+- [Contêineres](/09-cloud-architecture/containers.md) — os fundamentos.
+- [Integração Contínua](/14-devops-and-platform/ci-cd.md).
+- [Gestão de Ambientes](/14-devops-and-platform/environment-management.md) — a promoção.
+- [Segurança da Esteira](/14-devops-and-platform/supply-chain-security.md).
 
 ## Exercício Prático
 

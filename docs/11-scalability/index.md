@@ -32,7 +32,7 @@ sistema lento pode escalar perfeitamente.
 
 O segundo problema é de diagnóstico. Uma fração grande dos problemas atribuídos a
 escala não é de escala — é
-[índice ausente](../07-data-architecture/indexing.md), consulta mal escrita, mistura
+[índice ausente](/07-data-architecture/indexing.md), consulta mal escrita, mistura
 de cargas, ou contenção sobre um único recurso.
 
 Adicionar capacidade a um desses gasta dinheiro e não resolve, porque o gargalo não é
@@ -53,8 +53,8 @@ funciona.
 
 **Os mecanismos.** Cache, particionamento, replicação e balanceamento vistos pelo
 ângulo da escala — complementando o tratamento de
-[design de sistemas](../05-system-design/index.md) e de
-[sistemas distribuídos](../06-distributed-systems/index.md).
+[design de sistemas](/05-system-design/index.md) e de
+[sistemas distribuídos](/06-distributed-systems/index.md).
 
 **Assíncrono e filas.** As duas técnicas que resolvem pico sem adicionar capacidade
 proporcional. Frequentemente a resposta certa quando a intuição pede mais máquinas.
@@ -101,5 +101,5 @@ resolve — que continua sendo a resposta certa para a maioria dos sistemas.
 
 ## Continua em
 
-[Confiabilidade](../12-reliability/index.md), onde a pergunta passa a ser o que
+[Confiabilidade](/12-reliability/index.md), onde a pergunta passa a ser o que
 acontece quando as partes que você multiplicou começam a falhar.

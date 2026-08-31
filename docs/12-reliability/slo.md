@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Um SLO — objetivo de nível de serviço — é o **alvo** para um [SLI](sli.md): "99,9% das
+Um SLO — objetivo de nível de serviço — é o **alvo** para um [SLI](/12-reliability/sli.md): "99,9% das
 requisições de checkout atendidas em menos de 4 segundos, medido em 28 dias".
 
 Ele é a decisão que falta na maioria dos sistemas. Sem alvo, "confiável" é opinião, e
@@ -135,7 +135,7 @@ prolongado vira tarefa priorizada.
 
 ### SLO não é SLA
 
-Ver [SLA](sla.md). Resumidamente:
+Ver [SLA](/12-reliability/sla.md). Resumidamente:
 
 ```text
 SLO  alvo interno, sem penalidade, ambicioso
@@ -152,7 +152,7 @@ forma de saldo.** Ele existe para ser gasto, não para ser preservado.
 
 ## Quando Usar
 
-- Existem jornadas críticas com [SLI](sli.md) definido.
+- Existem jornadas críticas com [SLI](/12-reliability/sli.md) definido.
 - É preciso decidir entre entregar e estabilizar.
 - Há compromisso contratual a sustentar.
 - O investimento em confiabilidade precisa de justificativa.
@@ -275,10 +275,10 @@ que mais liberou capacidade.
 
 ## Conceitos Relacionados
 
-- [SLI](sli.md) — o que é medido.
-- [SLA](sla.md) — o compromisso externo.
-- [Métricas de Disponibilidade](availability-metrics.md).
-- [Engenharia do Caos](chaos-engineering.md) — verifica se o alvo se sustenta.
+- [SLI](/12-reliability/sli.md) — o que é medido.
+- [SLA](/12-reliability/sla.md) — o compromisso externo.
+- [Métricas de Disponibilidade](/12-reliability/availability-metrics.md).
+- [Engenharia do Caos](/12-reliability/chaos-engineering.md) — verifica se o alvo se sustenta.
 
 ## Exercício Prático
 

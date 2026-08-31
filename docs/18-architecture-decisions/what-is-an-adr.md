@@ -74,7 +74,7 @@ numerado           referenciável — "ver ADR-014"
 A imutabilidade é a propriedade menos intuitiva e a mais importante. Um ADR não é
 documentação do estado atual — é o **registro de um evento**: em tal data, com tal
 informação, decidiu-se assim. Mudar de ideia produz um ADR novo. Ver
-[status](adr-status.md) e [superação](superseding-decisions.md).
+[status](/18-architecture-decisions/adr-status.md) e [superação](/18-architecture-decisions/superseding-decisions.md).
 
 ### O que é uma decisão significativa
 
@@ -92,7 +92,7 @@ foi discutida por mais de uma hora? → provável ADR
 é reversível numa tarde?         → não precisa
 ```
 
-Ver [decisões reversíveis e irreversíveis](adr-context.md).
+Ver [decisões reversíveis e irreversíveis](/18-architecture-decisions/adr-context.md).
 
 Escolher a biblioteca de datas não é ADR. Escolher expor a API como REST ou gRPC é.
 Escolher o nome de uma variável nunca é. Escolher permitir que dois serviços compartilhem
@@ -109,7 +109,7 @@ não é política           não obriga outros sistemas
 ```
 
 A segunda confusão é a mais comum. Um leitor que quer saber como o sistema é hoje deve
-olhar a [descrição de arquitetura](../17-architecture-documentation/architecture-descriptions.md)
+olhar a [descrição de arquitetura](/17-architecture-documentation/architecture-descriptions.md)
 ou os diagramas. O conjunto de ADRs é um histórico, e lê-lo do começo ao fim é
 arqueologia, não orientação.
 
@@ -125,11 +125,11 @@ docs/adr/0003-separar-o-servico-de-faturamento.md
 
 Isso não é detalhe de organização. ADR em wiki separado se desconecta do código, não entra
 na revisão e não é encontrado por quem está lendo o sistema. Ver
-[padrões de documentação](../17-architecture-documentation/documentation-standards.md).
+[padrões de documentação](/17-architecture-documentation/documentation-standards.md).
 
 Decisões que valem para vários sistemas pertencem a outro nível — governança — e não a um
 repositório específico. Ver
-[governança](../19-architecture-governance/index.md).
+[governança](/19-architecture-governance/index.md).
 
 ### O custo é baixo e o retorno é assimétrico
 
@@ -143,7 +143,7 @@ saber por quê.
 
 É esse perfil — custo baixo, retorno raro e alto — que justifica escrever mesmo sem
 demanda comprovada, ao contrário da maior parte da documentação. Ver
-[princípios de documentação](../17-architecture-documentation/documentation-principles.md).
+[princípios de documentação](/17-architecture-documentation/documentation-principles.md).
 
 ## Por Que Isso Importa
 
@@ -184,7 +184,7 @@ o autor já sabe o desfecho e reconstrói a justificativa em vez de registrá-la
 destrói.
 
 **Omitir alternativas.** Sem elas, o ADR afirma sem argumentar. Ver
-[alternativas](adr-alternatives.md).
+[alternativas](/18-architecture-decisions/adr-alternatives.md).
 
 **Deixar em wiki separado.** Desconectado do código, some.
 
@@ -233,10 +233,10 @@ todos escritos para o comitê.
 
 ## Conceitos Relacionados
 
-- [Por Que ADRs Importam](why-adrs-matter.md) — o argumento em detalhe.
-- [Estrutura do ADR](adr-structure.md) — as seções.
-- [Status](adr-status.md) — o ciclo de vida.
-- [Arquitetura como Decisões](../01-fundamentals/architecture-as-decisions.md) — a base
+- [Por Que ADRs Importam](/18-architecture-decisions/why-adrs-matter.md) — o argumento em detalhe.
+- [Estrutura do ADR](/18-architecture-decisions/adr-structure.md) — as seções.
+- [Status](/18-architecture-decisions/adr-status.md) — o ciclo de vida.
+- [Arquitetura como Decisões](/01-fundamentals/architecture-as-decisions.md) — a base
   conceitual.
 
 ## Exercício Prático

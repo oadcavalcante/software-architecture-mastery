@@ -94,4 +94,4 @@ responde pelo risco.
 
 ## Continua em
 
-[Nível 07 — Liderança em Arquitetura](../23-architecture-leadership/index.md).
+[Nível 07 — Liderança em Arquitetura](/23-architecture-leadership/index.md).

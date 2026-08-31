@@ -66,15 +66,15 @@ quê.
 ### O canal é uma rede
 
 Independentemente do modelo, o canal herda os problemas de
-[falha de rede](network-failure.md), e isso produz três garantias que a aplicação
+[falha de rede](/06-distributed-systems/network-failure.md), e isso produz três garantias que a aplicação
 precisa tratar:
 
-**[Entrega ao menos uma vez](delivery-guarantees.md)** — duplicação vai acontecer.
+**[Entrega ao menos uma vez](/06-distributed-systems/delivery-guarantees.md)** — duplicação vai acontecer.
 
-**[Ordem apenas por partição](ordering.md)** — não há ordem global.
+**[Ordem apenas por partição](/06-distributed-systems/ordering.md)** — não há ordem global.
 
 **Mensagens que sempre falham** — precisam de
-[dead-letter queue](dead-letter-queues.md).
+[dead-letter queue](/06-distributed-systems/dead-letter-queues.md).
 
 Nenhuma dessas é opcional. Adotar mensageria sem tratá-las é adotar o risco sem o
 mecanismo.
@@ -99,7 +99,7 @@ publicar, ou publicar e falhar ao gravar.
 
 A solução é o padrão **outbox**: a mensagem é gravada numa tabela na mesma
 transação do dado, e um processo separado a publica. Ver
-[evento de domínio](../04-domain-driven-design/domain-event.md).
+[evento de domínio](/04-domain-driven-design/domain-event.md).
 
 Ignorar isso produz perda silenciosa de mensagem — o modo de falha mais difícil de
 diagnosticar, porque não há erro em lugar nenhum.
@@ -108,7 +108,7 @@ diagnosticar, porque não há erro em lugar nenhum.
 
 **Push** — o broker envia ao consumidor. Latência baixa, e o consumidor pode ser
 sobrecarregado se não houver controle de fluxo. Ver
-[backpressure](backpressure.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 **Pull** — o consumidor busca quando pode. Controle natural de ritmo, ao custo de
 latência de intervalo.
@@ -133,7 +133,7 @@ tarefa para alguém ou um acontecimento para quem interessar.
 ## Quando Não Usar
 
 **Quando a resposta é necessária.** Ver
-[request/response](../05-system-design/request-response.md).
+[request/response](/05-system-design/request-response.md).
 
 **Sem idempotência no consumidor.** A duplicação vai acontecer.
 
@@ -230,11 +230,11 @@ de ter escolhido errado foi ter que publicar N vezes.
 
 ## Conceitos Relacionados
 
-- [Garantias de Entrega](delivery-guarantees.md) — o que o canal promete.
-- [Ordenação](ordering.md) e
-  [Mensagens Duplicadas](duplicate-messages.md).
-- [Dead-Letter Queues](dead-letter-queues.md).
-- [Filas](../05-system-design/queues.md) — a visão de design de sistemas.
+- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md) — o que o canal promete.
+- [Ordenação](/06-distributed-systems/ordering.md) e
+  [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md).
+- [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md).
+- [Filas](/05-system-design/queues.md) — a visão de design de sistemas.
 
 ## Exercício Prático
 

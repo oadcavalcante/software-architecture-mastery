@@ -75,7 +75,7 @@ costuma se intrometer — com custo alto e benefício nulo.
 E o quadrante superior direito merece atenção: uma decisão de alcance amplo mas
 facilmente reversível não precisa de regra. Ela precisa de visibilidade e de um caminho
 pavimentado. Ver
-[engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+[engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ### O que pertence a cada nível
 
@@ -101,7 +101,7 @@ de componente estrutura de código, padrões, bibliotecas
 
 A primeira linha do nível corporativo — propriedade do dado — é a decisão de maior
 alcance e a menos tomada explicitamente. Ver
-[propriedade do dado](../07-data-architecture/data-ownership.md).
+[propriedade do dado](/07-data-architecture/data-ownership.md).
 
 ### Decisões de porta única e de porta dupla
 
@@ -146,7 +146,7 @@ desce  em todo o resto
 E o mecanismo que permite descer sem perder coerência não é aprovação — é **caminho
 pavimentado**: o padrão embutido no que o time já usa, de forma que a escolha certa seja
 a mais fácil. Ver
-[plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
+[plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
 Uma regra que precisa ser verificada por um comitê é uma regra que não foi
 operacionalizada.
@@ -191,7 +191,7 @@ tendência organizacional é puxá-las para cima.
 
 - **Caminho pavimentado** — o padrão embutido, em vez de regra verificada.
 - **Princípios** — orientam sem decidir. Ver
-  [princípios corporativos](enterprise-principles.md).
+  [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md).
 - **Consulta em vez de aprovação** — o time decide, com opinião disponível.
 - **Revisão após o fato** — para decisões reversíveis, revisar depois é mais barato que
   aprovar antes.
@@ -275,7 +275,7 @@ de porta dupla e alcance local não passam pelo comitê — são registradas e s
 **Caminho pavimentado** substituindo a lista de tecnologias. A plataforma passou a
 oferecer as opções suportadas prontas; usar outra coisa é possível e o time assume a
 operação. Ver
-[plataformas internas](../14-devops-and-platform/internal-developer-platforms.md).
+[plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
 **Nível de solução criado.** Iniciativas com mais de dois sistemas passaram a ter um
 responsável pela decomposição e pelos contratos, com tempo alocado — sem cargo novo, por
@@ -298,10 +298,10 @@ problema real. Nenhum tinha sido revisado quando a organização mudou de tamanh
 
 ## Conceitos Relacionados
 
-- [Governança Corporativa](enterprise-governance.md).
-- [Revisão de Arquitetura](architecture-review.md).
-- [Princípios Corporativos](enterprise-principles.md).
-- [Engenharia de Plataforma](../14-devops-and-platform/platform-engineering.md).
+- [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md).
+- [Revisão de Arquitetura](/15-enterprise-architecture/architecture-review.md).
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ## Exercício Prático
 

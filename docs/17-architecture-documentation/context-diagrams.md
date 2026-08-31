@@ -81,7 +81,7 @@ acima disso  provavelmente a fronteira está errada, ou há detalhe demais
 Se o contexto tem 30 caixas, ou o sistema tem responsabilidades demais — o que é uma
 descoberta arquitetural — ou o diagrama inclui coisas que não conversam diretamente.
 
-Ver [arquitetura de aplicação](../15-enterprise-architecture/application-architecture.md).
+Ver [arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md).
 
 ### As relações precisam dizer o quê e por quê
 
@@ -105,7 +105,7 @@ Frequentemente a resposta não é óbvia, e o desacordo entre pessoas do mesmo t
 que a fronteira nunca foi decidida.
 
 Essa é uma descoberta valiosa, e ela aparece em minutos ao desenhar. Ver
-[bounded context](../04-domain-driven-design/bounded-context.md).
+[bounded context](/04-domain-driven-design/bounded-context.md).
 
 ### Ele serve a conversas com o negócio
 
@@ -121,7 +121,7 @@ avaliar dependências externas
 justificar investimento
 ```
 
-Ver [arquitetura de negócio](../15-enterprise-architecture/business-architecture.md).
+Ver [arquitetura de negócio](/15-enterprise-architecture/business-architecture.md).
 
 E impõe uma restrição: nenhum jargão. Um rótulo que exige explicação técnica quebra o
 propósito.
@@ -176,7 +176,7 @@ dentro da fronteira.
 ## Alternativas
 
 - **Diagrama de contêiner** — quando a pergunta é sobre o interior. Ver
-  [diagramas de contêiner](container-diagrams.md).
+  [diagramas de contêiner](/17-architecture-documentation/container-diagrams.md).
 - **Mapa de dependências derivado** — automático, sem a lente de propósito.
 - **Descrição textual** — para sistemas com poucas integrações, um parágrafo basta.
 
@@ -237,7 +237,7 @@ documentação existente era de componentes internos.
 
 A produção de contextos para os 40 sistemas levou seis semanas, e foi feita com uma
 combinação de entrevistas e observação de tráfego. Ver
-[arquitetura do estado atual](../15-enterprise-architecture/current-state-architecture.md).
+[arquitetura do estado atual](/15-enterprise-architecture/current-state-architecture.md).
 
 Três achados durante o exercício:
 
@@ -273,10 +273,10 @@ priorizar durante anos.
 
 ## Conceitos Relacionados
 
-- [Modelo C4](c4-model.md) — o nível acima.
-- [Diagramas de Contêiner](container-diagrams.md) — o zoom seguinte.
-- [Qualidade de Diagrama](diagram-quality.md).
-- [Paisagens de Integração](../15-enterprise-architecture/integration-landscapes.md).
+- [Modelo C4](/17-architecture-documentation/c4-model.md) — o nível acima.
+- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md) — o zoom seguinte.
+- [Qualidade de Diagrama](/17-architecture-documentation/diagram-quality.md).
+- [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md).
 
 ## Exercício Prático
 

@@ -152,7 +152,7 @@ uma partição a 100%, resto ocioso → ponto quente
 ```
 
 A quarta linha é a que mais engana: a média de utilização parece confortável, e o
-sistema está saturado. Ver [pontos quentes](hotspots.md).
+sistema está saturado. Ver [pontos quentes](/11-scalability/hotspots.md).
 
 Depois de remover um gargalo, o próximo aparece — em outro lugar. Isso não é falha do
 trabalho; é como funciona.
@@ -190,14 +190,14 @@ Fazer a distinção explícita é necessário sempre que:
 Formas de resolver "está lento" sem adicionar capacidade:
 
 - **Índice adequado** — a causa mais comum. Ver
-  [indexação](../07-data-architecture/indexing.md).
+  [indexação](/07-data-architecture/indexing.md).
 - **Cache** — reduz trabalho repetido.
 - **Assíncrono** — tira a operação do caminho crítico. Ver
-  [processamento assíncrono](async-processing.md).
+  [processamento assíncrono](/11-scalability/async-processing.md).
 - **Remover a fração serial** — o de maior retorno quando o teto de Amdahl foi
   atingido.
 - **Separar cargas** — analítico fora do transacional. Ver
-  [OLTP](../07-data-architecture/oltp.md).
+  [OLTP](/07-data-architecture/oltp.md).
 
 ## Trade-offs
 
@@ -292,10 +292,10 @@ três casos.
 
 ## Conceitos Relacionados
 
-- [Pontos Quentes](hotspots.md) — quando a média engana.
-- [Escala Horizontal](horizontal-scaling.md) e [Vertical](vertical-scaling.md).
-- [Planejamento de Capacidade](scaling-capacity-planning.md).
-- [Análise de Gargalos](../05-system-design/bottleneck-analysis.md).
+- [Pontos Quentes](/11-scalability/hotspots.md) — quando a média engana.
+- [Escala Horizontal](/11-scalability/horizontal-scaling.md) e [Vertical](/11-scalability/vertical-scaling.md).
+- [Planejamento de Capacidade](/11-scalability/scaling-capacity-planning.md).
+- [Análise de Gargalos](/05-system-design/bottleneck-analysis.md).
 
 ## Exercício Prático
 

@@ -37,7 +37,7 @@ pressão em consequência de um critério.
 Uma versão nova pode estar errada de formas que os testes não pegam: comportamento que
 depende de dados reais, de volume real, de combinações que só produção tem.
 
-Ver [estratégias de implantação](deployment-strategies.md). O caso mais perigoso é a
+Ver [estratégias de implantação](/14-devops-and-platform/deployment-strategies.md). O caso mais perigoso é a
 mudança que não gera erro nem lentidão — apenas resultado diferente.
 
 Sem comparação, esse tipo de problema é descoberto por alguém que percebe, o que pode
@@ -76,7 +76,7 @@ As duas últimas linhas são as que pegam o problema silencioso. Uma mudança qu
 menos resultados, ou resultados diferentes, não altera latência nem taxa de erro — e
 altera a distribuição.
 
-Ver [depurabilidade](../13-observability/debuggability.md). Comparar distribuições exige
+Ver [depurabilidade](/13-observability/debuggability.md). Comparar distribuições exige
 que o sistema emita os dados que as compõem.
 
 ### Tempo e volume: a significância
@@ -141,7 +141,7 @@ Aprovado o canary, a expansão não é imediata:
 Cada degrau com nova janela de observação. Problemas dependentes de escala — contenção,
 esgotamento de conexões, saturação de dependência — só aparecem com volume.
 
-Ver [escala horizontal](../11-scalability/horizontal-scaling.md).
+Ver [escala horizontal](/11-scalability/horizontal-scaling.md).
 
 ### Nem toda mudança comporta canary
 
@@ -184,10 +184,10 @@ métricas comparáveis e volume suficiente.
 
 ## Alternativas
 
-- **[Blue-green](blue-green.md)** — reversão instantânea, sem detecção.
-- **[Implantação em ondas](rolling-deployments.md)** — substituição gradual, sem
+- **[Blue-green](/14-devops-and-platform/blue-green.md)** — reversão instantânea, sem detecção.
+- **[Implantação em ondas](/14-devops-and-platform/rolling-deployments.md)** — substituição gradual, sem
   comparação.
-- **[Feature flags](feature-flags.md)** — expõe gradualmente sem implantar; complementa.
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — expõe gradualmente sem implantar; complementa.
 - **Implantação sombra** — a versão nova processa cópia do tráfego sem responder. Risco
   zero, custo de dobrar o processamento.
 
@@ -284,11 +284,11 @@ tornou a comparação confiável, e é o mais frequentemente pulado.
 
 ## Conceitos Relacionados
 
-- [Estratégias de Implantação](deployment-strategies.md).
-- [Blue-Green](blue-green.md) e
-  [Implantação em Ondas](rolling-deployments.md).
-- [Feature Flags](feature-flags.md).
-- [Depurabilidade](../13-observability/debuggability.md).
+- [Estratégias de Implantação](/14-devops-and-platform/deployment-strategies.md).
+- [Blue-Green](/14-devops-and-platform/blue-green.md) e
+  [Implantação em Ondas](/14-devops-and-platform/rolling-deployments.md).
+- [Feature Flags](/14-devops-and-platform/feature-flags.md).
+- [Depurabilidade](/13-observability/debuggability.md).
 
 ## Exercício Prático
 

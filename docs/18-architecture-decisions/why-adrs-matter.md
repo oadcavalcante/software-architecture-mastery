@@ -87,7 +87,7 @@ ao tentar justificar        percebe-se que a razão era hábito
 Isso significa que o ADR se paga **antes de ser lido por alguém**. É o argumento mais
 forte para escrever cedo — durante a decisão, não depois dela.
 
-Ver [alternativas](adr-alternatives.md), que é a seção onde esse efeito se concentra.
+Ver [alternativas](/18-architecture-decisions/adr-alternatives.md), que é a seção onde esse efeito se concentra.
 
 ### O desacordo ganha um lugar
 
@@ -106,7 +106,7 @@ Isso despersonaliza o debate técnico, e é especialmente valioso para quem tem 
 antiguidade: um argumento contra um documento é aceitável de qualquer pessoa; um argumento
 contra a decisão de alguém sênior depende de capital político.
 
-Ver [liderança em arquitetura](../23-architecture-leadership/index.md).
+Ver [liderança em arquitetura](/23-architecture-leadership/index.md).
 
 ### Decisões passam a ter validade
 
@@ -119,7 +119,7 @@ decisões permanentes em decisões **condicionais**:
 ```
 
 A revisão deixa de exigir coragem e passa a exigir só observação. Ver
-[superação](superseding-decisions.md), onde essa mecânica é o tema.
+[superação](/18-architecture-decisions/superseding-decisions.md), onde essa mecânica é o tema.
 
 ### Integração de pessoas fica mais barata
 
@@ -203,7 +203,7 @@ Uma delas, concreta: a política de repetição de chamadas entre serviços foi 
 2022 (repetição com recuo exponencial e limite de três) e redecidida em 2024 (repetição
 imediata, até cinco vezes). Os dois padrões coexistiam. Durante um incidente de
 degradação, os serviços da segunda geração amplificaram a carga. Ver
-[repetições](../06-distributed-systems/retries.md).
+[repetições](/06-distributed-systems/retries.md).
 
 A adoção de ADRs foi deliberadamente leve:
 
@@ -238,10 +238,10 @@ depois da implementação.
 
 ## Conceitos Relacionados
 
-- [O Que É um ADR](what-is-an-adr.md).
-- [Alternativas](adr-alternatives.md) — onde o efeito de escrever se concentra.
-- [Superação](superseding-decisions.md) — decisões com validade.
-- [Arquitetura como Decisões](../01-fundamentals/architecture-as-decisions.md).
+- [O Que É um ADR](/18-architecture-decisions/what-is-an-adr.md).
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — onde o efeito de escrever se concentra.
+- [Superação](/18-architecture-decisions/superseding-decisions.md) — decisões com validade.
+- [Arquitetura como Decisões](/01-fundamentals/architecture-as-decisions.md).
 
 ## Exercício Prático
 

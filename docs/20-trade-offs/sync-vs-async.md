@@ -45,7 +45,7 @@ serviço A 99,9% × B 99,9% × C 99,9% × D 99,9%
 Quatro dependências, cada uma boa, produzem um resultado ruim. E o efeito é invisível
 enquanto cada equipe olha apenas o seu número.
 
-Ver [disponibilidade](../06-distributed-systems/availability.md).
+Ver [disponibilidade](/06-distributed-systems/availability.md).
 
 A latência compõe da mesma forma, e pior: ela **soma**, e o p99 de uma cadeia é dominado
 pelo pior elo.
@@ -89,7 +89,7 @@ tempo excedido                 o que acontece com um pedido pendente há 3 dias?
 Nenhum desses é código de infraestrutura — todos são produto. Ignorá-los é o erro mais comum
 da adoção de assíncrono: a arquitetura muda, o produto não, e o usuário fica sem resposta.
 
-Ver [consistência eventual](../06-distributed-systems/eventual-consistency.md).
+Ver [consistência eventual](/06-distributed-systems/eventual-consistency.md).
 
 ### Assíncrono quebra o acoplamento de disponibilidade
 
@@ -116,7 +116,7 @@ assíncrono  a fila absorve; o consumidor processa no seu ritmo
 Isso permite dimensionar o processamento pela média em vez de pelo pico, com efeito direto
 em custo — e é frequentemente o argumento econômico mais forte a favor.
 
-Ver [processamento assíncrono](../11-scalability/async-processing.md).
+Ver [processamento assíncrono](/11-scalability/async-processing.md).
 
 ### O custo operacional é real
 
@@ -131,7 +131,7 @@ depuração             exige correlação e rastreamento distribuído
 
 O item de idempotência é obrigatório e frequentemente esquecido: praticamente todo sistema de
 mensageria entrega ao menos uma vez, o que significa duplicatas. Ver
-[idempotência](../06-distributed-systems/idempotency.md).
+[idempotência](/06-distributed-systems/idempotency.md).
 
 ### O híbrido é o arranjo comum
 
@@ -228,7 +228,7 @@ Prefira **assíncrono** quando:
 - **Cache com atualização assíncrona** — leitura síncrona sobre dado mantido em segundo
   plano.
 - **Disjuntor com resposta degradada** — mantém o síncrono e trata a falha. Ver
-  [disjuntores](../12-reliability/circuit-breakers.md).
+  [disjuntores](/12-reliability/circuit-breakers.md).
 
 A última é a alternativa mais barata quando o problema é apenas resiliência e não escala.
 
@@ -345,11 +345,11 @@ prever.
 
 ## Conceitos Relacionados
 
-- [Mensageria](../06-distributed-systems/messaging.md) e
-  [Idempotência](../06-distributed-systems/idempotency.md).
-- [Disponibilidade](../06-distributed-systems/availability.md) — a composição.
-- [Consistência Forte vs. Eventual](strong-vs-eventual-consistency.md).
-- [Processamento Assíncrono](../11-scalability/async-processing.md).
+- [Mensageria](/06-distributed-systems/messaging.md) e
+  [Idempotência](/06-distributed-systems/idempotency.md).
+- [Disponibilidade](/06-distributed-systems/availability.md) — a composição.
+- [Consistência Forte vs. Eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
+- [Processamento Assíncrono](/11-scalability/async-processing.md).
 
 ## Exercício Prático
 

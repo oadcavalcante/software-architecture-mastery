@@ -32,7 +32,7 @@ Ele protege os dois lados:
 se recuperar.
 
 O segundo é o mais importante e o menos citado: ele é o que quebra o ciclo de
-[retentativas](retry-storms.md) que impede a recuperação.
+[retentativas](/12-reliability/retry-storms.md) que impede a recuperação.
 
 ## Problema
 
@@ -49,7 +49,7 @@ timeout de 10s, 500 req/s ao serviço fora
 A falha se propaga para cima, e um serviço opcional derruba o sistema inteiro.
 
 Ver a lei de Little em
-[desempenho versus escalabilidade](../11-scalability/performance-vs-scalability.md) —
+[desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md) —
 latência alta com vazão constante significa concorrência alta.
 
 ## Conceitos Centrais
@@ -111,7 +111,7 @@ omitir                 a funcionalidade some
 enfileirar             processar depois
 ```
 
-Ver [degradação graciosa](graceful-degradation.md). Um circuit breaker sem
+Ver [degradação graciosa](/12-reliability/graceful-degradation.md). Um circuit breaker sem
 comportamento de reserva apenas troca uma falha lenta por uma rápida — o que ajuda o
 sistema e não ajuda o usuário.
 
@@ -121,7 +121,7 @@ Se um serviço expõe dez operações e apenas uma está degradada, abrir o circ
 todas remove capacidade que funcionava.
 
 A granularidade adequada é por **operação** ou por **grupo de operações com o mesmo
-perfil de falha** — o que se relaciona com [bulkheads](bulkheads.md).
+perfil de falha** — o que se relaciona com [bulkheads](/12-reliability/bulkheads.md).
 
 E, em serviços particionados, por instância ou partição: uma partição degradada não
 deveria abrir o circuito para as demais.
@@ -178,9 +178,9 @@ recuperar.** O que fazer com a falha rápida é uma decisão separada.
 ## Alternativas
 
 - **Timeout agressivo** — mais simples, e não protege o destino.
-- **[Bulkhead](bulkheads.md)** — limita o dano sem parar de tentar.
+- **[Bulkhead](/12-reliability/bulkheads.md)** — limita o dano sem parar de tentar.
 - **Orçamento de retentativa** — controla a amplificação. Ver
-  [tempestades](retry-storms.md).
+  [tempestades](/12-reliability/retry-storms.md).
 - **Descarte de carga no destino** — o destino se protege, em vez de depender dos
   chamadores.
 
@@ -262,11 +262,11 @@ isso, o cenário original não teria disparado o circuito, porque não havia err
 
 **Comportamento de reserva.** Circuito aberto significa exibir a página sem avaliações,
 com o bloco omitido. Ver
-[degradação graciosa](graceful-degradation.md).
+[degradação graciosa](/12-reliability/graceful-degradation.md).
 
 **Bulkhead.** Um pool de conexões separado para chamadas externas, limitado a 50
 simultâneas — para que, mesmo sem circuit breaker, o esgotamento não alcance o pool
-principal. Ver [bulkheads](bulkheads.md).
+principal. Ver [bulkheads](/12-reliability/bulkheads.md).
 
 **Alerta** quando um circuito fica aberto por mais de 5 minutos.
 
@@ -281,10 +281,10 @@ sucesso, muito devagar.
 
 ## Conceitos Relacionados
 
-- [Tempestades de Retentativa](retry-storms.md) — o que ele quebra.
-- [Bulkheads](bulkheads.md) — a proteção complementar.
-- [Degradação Graciosa](graceful-degradation.md) — o comportamento aberto.
-- [Timeouts](../06-distributed-systems/timeouts.md).
+- [Tempestades de Retentativa](/12-reliability/retry-storms.md) — o que ele quebra.
+- [Bulkheads](/12-reliability/bulkheads.md) — a proteção complementar.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — o comportamento aberto.
+- [Timeouts](/06-distributed-systems/timeouts.md).
 
 ## Exercício Prático
 

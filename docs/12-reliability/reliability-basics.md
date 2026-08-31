@@ -43,7 +43,7 @@ o tipo de problema que corrói a confiança do usuário mais rápido que indispo
 E há uma consequência de desenho: perseguir disponibilidade sem correção leva a
 degradações que produzem resultado errado — servir dado velho onde ele não pode ser
 velho, aceitar operação sem verificar o que precisava ser verificado. Ver
-[degradação graciosa](graceful-degradation.md).
+[degradação graciosa](/12-reliability/graceful-degradation.md).
 
 ## Conceitos Centrais
 
@@ -82,7 +82,7 @@ com tolerância   confiabilidade > qualquer parte individual
 ```
 
 Essa é a contribuição da arquitetura: transformar componentes falíveis num sistema que
-não falha junto. Ver [tolerância a falhas](fault-tolerance.md).
+não falha junto. Ver [tolerância a falhas](/12-reliability/fault-tolerance.md).
 
 A recíproca é o modo de falha mais comum em sistemas distribuídos: dezenas de serviços
 individualmente bons, compondo um sistema pior que qualquer um deles, porque nada
@@ -97,7 +97,7 @@ Isso muda a postura de projeto: em vez de "o que fazemos se falhar", a pergunta 
 que fazemos **quando** falhar" — e a resposta precisa estar no desenho, não no
 procedimento de emergência.
 
-Ver [falha parcial](../06-distributed-systems/partial-failure.md).
+Ver [falha parcial](/06-distributed-systems/partial-failure.md).
 
 ### As categorias de falha
 
@@ -116,7 +116,7 @@ verificação semântica — comparar resultados, validar invariantes — que ra
 existe.
 
 E a terceira é a que mais causa incidentes: dependências raramente param, elas ficam
-lentas. Ver [circuit breakers](circuit-breakers.md).
+lentas. Ver [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ### Complexidade é inimiga da confiabilidade
 
@@ -130,7 +130,7 @@ um simples e bem operado.
 
 O critério: cada mecanismo precisa ser exercitado e observável. Um mecanismo que não é
 verificado é complexidade sem benefício. Ver
-[engenharia do caos](chaos-engineering.md).
+[engenharia do caos](/12-reliability/chaos-engineering.md).
 
 ### A operação faz parte
 
@@ -195,7 +195,7 @@ consistentes, verificada por amostragem contra a fonte.
 
 **Trilha de auditoria** com o dado bruto recebido, permitindo reconstruir o que
 aconteceu. Ver
-[auditabilidade](../10-security/auditability.md).
+[auditabilidade](/10-security/auditability.md).
 
 E, na origem, a condição de corrida foi corrigida — o que era o trabalho mais simples
 dos cinco.
@@ -205,10 +205,10 @@ nenhum. O sistema estava, pelos números, entre os mais confiáveis da empresa.
 
 ## Conceitos Relacionados
 
-- [Métricas de Disponibilidade](availability-metrics.md).
-- [Tolerância a Falhas](fault-tolerance.md).
-- [Resiliência](resilience.md).
-- [Falha Parcial](../06-distributed-systems/partial-failure.md).
+- [Métricas de Disponibilidade](/12-reliability/availability-metrics.md).
+- [Tolerância a Falhas](/12-reliability/fault-tolerance.md).
+- [Resiliência](/12-reliability/resilience.md).
+- [Falha Parcial](/06-distributed-systems/partial-failure.md).
 
 ## Exercício Prático
 

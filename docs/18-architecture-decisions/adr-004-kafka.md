@@ -22,14 +22,14 @@ last_reviewed: 2026-08-29
 :::note Exemplo didático
 
 Quarto de cinco ADRs do sistema fictício **Verano**. Este supera o
-[ADR-002](adr-002-async-processing.md), e existe para mostrar a mecânica de
-[superação](superseding-decisions.md).
+[ADR-002](/18-architecture-decisions/adr-002-async-processing.md), e existe para mostrar a mecânica de
+[superação](/18-architecture-decisions/superseding-decisions.md).
 
 :::
 
 | | |
 |---|---|
-| Status | aceito em 2025-07-31 — **supera o [ADR-002](adr-002-async-processing.md)** |
+| Status | aceito em 2025-07-31 — **supera o [ADR-002](/18-architecture-decisions/adr-002-async-processing.md)** |
 | Sistema | Verano — plataforma de pedidos |
 | Autores | equipe de plataforma |
 | Decisores | líder técnica, gerente de engenharia |
@@ -157,21 +157,21 @@ semanas que a adoção do ADR-002 levou.
 
 O contexto tem uma estrutura própria de sucessor: **o que o antecessor decidiu, sob quais
 premissas, e o que mudou**. Sem isso, a decisão pareceria preferência de quem chegou
-depois. Ver [superação](superseding-decisions.md).
+depois. Ver [superação](/18-architecture-decisions/superseding-decisions.md).
 
 As condições de reversão do ADR-002 foram **verificadas com medição**, não julgadas. A
 revisão virou verificação.
 
 A alternativa que quase venceu — Kafka gerenciado — está registrada como tal, com o número
 que a derrubou e a condição que a traria de volta. Ver
-[alternativas](adr-alternatives.md).
+[alternativas](/18-architecture-decisions/adr-alternatives.md).
 
 As consequências nomeiam **o que fica mais difícil de mudar**, com estimativa de reversão.
 É a reversibilidade registrada como consequência.
 
 ## Conceitos Relacionados
 
-- [Superação](superseding-decisions.md), [Contexto](adr-context.md).
-- [ADR-002](adr-002-async-processing.md) — o antecessor.
-- [Mensageria](../06-distributed-systems/messaging.md).
-- [Garantias de Entrega](../06-distributed-systems/delivery-guarantees.md).
+- [Superação](/18-architecture-decisions/superseding-decisions.md), [Contexto](/18-architecture-decisions/adr-context.md).
+- [ADR-002](/18-architecture-decisions/adr-002-async-processing.md) — o antecessor.
+- [Mensageria](/06-distributed-systems/messaging.md).
+- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md).

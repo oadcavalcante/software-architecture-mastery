@@ -137,7 +137,7 @@ salto arbitrário; forçar isso produz gambiarra.
   achar algo, o que falta é busca.
 - **Exportação assíncrona** — para conjuntos muito grandes, gerar um arquivo em
   background é melhor que paginar. Ver
-  [processamento em background](background-processing.md).
+  [processamento em background](/05-system-design/background-processing.md).
 - **Fluxo** — devolver resultados continuamente, quando o protocolo permite.
 
 ## Trade-offs
@@ -237,11 +237,11 @@ que passa em teste com poucos registros.
 
 ## Conceitos Relacionados
 
-- [APIs](apis.md) — paginação é parte do contrato.
-- [Busca](search.md) — quando paginar não é a resposta.
-- [Processamento em Background](background-processing.md) — para exportação
+- [APIs](/05-system-design/apis.md) — paginação é parte do contrato.
+- [Busca](/05-system-design/search.md) — quando paginar não é a resposta.
+- [Processamento em Background](/05-system-design/background-processing.md) — para exportação
   grande.
-- [Escalabilidade](../11-scalability/index.md).
+- [Escalabilidade](/11-scalability/index.md).
 
 ## Exercício Prático
 

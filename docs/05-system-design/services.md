@@ -40,8 +40,8 @@ pode falhar parcialmente, e exige serialização, autenticação, retentativa e
 observabilidade correlacionada.
 
 Este documento trata do segundo caso. O primeiro é
-[serviço de domínio](../04-domain-driven-design/domain-service.md) ou
-[serviço de aplicação](../04-domain-driven-design/application-service.md).
+[serviço de domínio](/04-domain-driven-design/domain-service.md) ou
+[serviço de aplicação](/04-domain-driven-design/application-service.md).
 
 ## Conceitos Centrais
 
@@ -62,7 +62,7 @@ E cobra:
 **Latência.** Cada chamada é uma ida à rede.
 
 **Falha parcial.** O terceiro resultado possível de uma chamada: não sei. Ver
-[sistemas distribuídos](../06-distributed-systems/index.md).
+[sistemas distribuídos](/06-distributed-systems/index.md).
 
 **Contrato público.** Versionado, com compatibilidade a manter.
 
@@ -74,7 +74,7 @@ E cobra:
 negócio que ele atende.
 
 As razões que justificam separar são as mesmas de
-[design de componentes](../02-software-design/component-design.md): ciclo de vida
+[design de componentes](/02-software-design/component-design.md): ciclo de vida
 independente, requisito de qualidade distinto, fronteira organizacional, ou
 consumo externo.
 
@@ -137,7 +137,7 @@ alertas e tempo de diagnóstico.
 ## Alternativas
 
 - **Módulo no mesmo processo** — a resposta na maioria dos casos.
-- **[Monolito modular](../03-design-patterns/modular-monolith.md)** — isolamento
+- **[Monolito modular](/03-design-patterns/modular-monolith.md)** — isolamento
   lógico sem custo de rede.
 - **Biblioteca publicada** — ciclo de release próprio sem processo separado.
 - **Processo separado sem API** — um consumidor de fila, por exemplo, que isola
@@ -203,7 +203,7 @@ rede para dado praticamente estático.
 
 Resultado: cadeia de cinco para três, latência para 620 ms, disponibilidade para
 99,7% — e o restante veio de retentativa com [circuit
-breaker](../12-reliability/index.md).
+breaker](/12-reliability/index.md).
 
 Nenhum serviço ficou mais rápido. A arquitetura da chamada é que mudou.
 
@@ -236,10 +236,10 @@ instâncias que subiram e ainda não estão prontas.
 
 ## Conceitos Relacionados
 
-- [Componentes](components.md) — o conceito geral.
-- [APIs](apis.md) — o contrato entre serviços.
-- [Fronteiras de Serviço](service-boundaries.md) — onde separar.
-- [Microsserviços](../03-design-patterns/microservices.md) — o estilo.
+- [Componentes](/05-system-design/components.md) — o conceito geral.
+- [APIs](/05-system-design/apis.md) — o contrato entre serviços.
+- [Fronteiras de Serviço](/05-system-design/service-boundaries.md) — onde separar.
+- [Microsserviços](/03-design-patterns/microservices.md) — o estilo.
 
 ## Exercício Prático
 

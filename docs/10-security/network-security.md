@@ -25,7 +25,7 @@ Controles de rede decidem quem consegue **alcançar** o quê. Eles não substitu
 autenticação e autorização, e continuam valendo por uma razão simples: o que não é
 alcançável não é atacável.
 
-Com [confiança zero](zero-trust.md), a rede deixou de ser a fronteira principal. Ela
+Com [confiança zero](/10-security/zero-trust.md), a rede deixou de ser a fronteira principal. Ela
 permanece como **camada de contenção** — o que limita o movimento lateral depois que
 algo dá errado.
 
@@ -69,7 +69,7 @@ instruções.
 
 Restringir saída aos destinos necessários é um dos controles de melhor retorno, e um
 dos menos aplicados. Ver
-[rede em nuvem](../09-cloud-architecture/cloud-networking.md).
+[rede em nuvem](/09-cloud-architecture/cloud-networking.md).
 
 O efeito colateral positivo: ela também detecta dependências não documentadas — o
 tráfego bloqueado revela o que ninguém sabia que existia.
@@ -100,7 +100,7 @@ Isso confia na rede como se ela fosse identidade. Uma configuração errada, um 
 comprometido, ou uma rota inesperada quebram a premissa — e não há segunda linha.
 
 Rede é **contenção**, não autenticação. Ver
-[fronteiras seguras](secure-boundaries.md).
+[fronteiras seguras](/10-security/secure-boundaries.md).
 
 ### Proteção contra volume é problema separado
 
@@ -116,7 +116,7 @@ Regras que bloqueiam sem registrar impedem aquela tentativa e não revelam padr�
 
 Registrar conexões negadas — e, nos segmentos críticos, também as aceitas — é o que
 permite detectar varredura interna e movimento lateral. Ver
-[auditabilidade](auditability.md).
+[auditabilidade](/10-security/auditability.md).
 
 ### Conexão privada com terceiros concede mais do que se pretende
 
@@ -174,9 +174,9 @@ alternativa gerenciada.
 - **Acesso por corretor** em vez de rede privada — evita conceder acesso amplo à
   rede.
 - **Pontos de extremidade privados** para serviços gerenciados. Ver
-  [rede em nuvem](../09-cloud-architecture/cloud-networking.md).
+  [rede em nuvem](/09-cloud-architecture/cloud-networking.md).
 - **Malha de serviço** — política entre serviços na camada de aplicação. Ver
-  [malha de serviço](../08-integration-architecture/service-mesh.md).
+  [malha de serviço](/08-integration-architecture/service-mesh.md).
 
 ## Trade-offs
 
@@ -265,10 +265,10 @@ antes, quando a empresa tinha vinte pessoas.
 
 ## Conceitos Relacionados
 
-- [Confiança Zero](zero-trust.md) — o princípio.
-- [Fronteiras Seguras](secure-boundaries.md).
-- [Rede em Nuvem](../09-cloud-architecture/cloud-networking.md).
-- [Auditabilidade](auditability.md).
+- [Confiança Zero](/10-security/zero-trust.md) — o princípio.
+- [Fronteiras Seguras](/10-security/secure-boundaries.md).
+- [Rede em Nuvem](/09-cloud-architecture/cloud-networking.md).
+- [Auditabilidade](/10-security/auditability.md).
 
 ## Exercício Prático
 

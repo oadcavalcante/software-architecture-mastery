@@ -174,9 +174,9 @@ What separates the two appears in no functional requirements document.
 
 ## Related Concepts
 
-- [Non-Functional Requirements](non-functional-requirements.md) — how to express
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — how to express
   them verifiably.
-- [Architecture Characteristics](architecture-characteristics.md) — the alternative
+- [Architecture Characteristics](/01-fundamentals/architecture-characteristics.md) — the alternative
   formulation of the same concept.
 - [Trade-offs](/20-trade-offs/index.md) — the analysis of the conflicts, in
   detail.

@@ -89,7 +89,7 @@ Essa divisão é a mesma que separa a interface de um módulo da sua implementa�
 organização. Ela preserva a autonomia onde ela produz valor — no como — e a coerência onde
 ela é necessária — no que atravessa.
 
-Ver [contratos de integração](../08-integration-architecture/integration-contracts.md).
+Ver [contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 ### Representação, não imposição
 
@@ -105,7 +105,7 @@ cadência     periódica, com pauta trazida pelos times
 
 Quando o conjunto central é definido **por** quem o cumpre, ele é adotado. Quando é definido
 para eles, é contornado. Ver
-[exceções](exceptions.md).
+[exceções](/19-architecture-governance/exceptions.md).
 
 ### A plataforma é o que torna o modelo viável
 
@@ -118,7 +118,7 @@ plataforma fraca   o time escolhe construir, e reconstrói o que já existe
 ```
 
 A plataforma é o mecanismo pelo qual o centro exerce influência sem exercer autoridade. Ver
-[engenharia de plataforma](../14-devops-and-platform/platform-engineering.md).
+[engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ### A federação em dados
 
@@ -132,7 +132,7 @@ central   formato de descoberta, requisitos de qualidade, política de acesso,
 local     modelagem, semântica, evolução, prioridades
 ```
 
-Ver [propriedade do dado](../07-data-architecture/data-ownership.md).
+Ver [propriedade do dado](/07-data-architecture/data-ownership.md).
 
 ### Onde a federação falha
 
@@ -279,7 +279,7 @@ decidir o que é local.
 **Plataforma construída antes**: gabaritos de serviço com identidade, observabilidade e
 cliente HTTP padronizado já configurados; registro de esquemas com verificação de
 compatibilidade na esteira. Ver
-[evolução de esquema](../08-integration-architecture/schema-evolution.md).
+[evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 **Contratos verificados**, não confiados: quebra de compatibilidade de esquema falha a
 construção do produtor.
@@ -311,11 +311,11 @@ decisões cuja consequência é de todos.
 
 ## Conceitos Relacionados
 
-- [Fundamentos de Governança](governance-basics.md).
-- [Engenharia de Plataforma](../14-devops-and-platform/platform-engineering.md) — o que
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md).
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md) — o que
   torna o modelo viável.
-- [Contratos de Integração](../08-integration-architecture/integration-contracts.md).
-- [Propriedade do Dado](../07-data-architecture/data-ownership.md).
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md).
 
 ## Exercício Prático
 

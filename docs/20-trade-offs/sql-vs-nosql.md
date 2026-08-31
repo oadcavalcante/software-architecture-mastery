@@ -56,7 +56,7 @@ E o custo esquecido é o operacional. Um banco a mais significa: mais uma compet
 equipe, mais um procedimento de cópia e restauração, mais uma atualização, mais um alarme,
 mais um item no plantão, mais uma consistência a coordenar.
 
-Ver [gerenciado vs. autogerido](managed-vs-self-hosted.md).
+Ver [gerenciado vs. autogerido](/20-trade-offs/managed-vs-self-hosted.md).
 
 ## Conceitos Centrais
 
@@ -96,7 +96,7 @@ Isso é uma vantagem real durante a descoberta, e uma dívida real depois. Siste
 sobre bancos de documentos frequentemente reintroduzem validação de esquema na camada de
 aplicação, o que é o esquema declarado com passos extras.
 
-Ver [modelagem de dados](../07-data-architecture/data-modeling.md).
+Ver [modelagem de dados](/07-data-architecture/data-modeling.md).
 
 ### Transações e integridade
 
@@ -109,7 +109,7 @@ Vários bancos não relacionais adicionaram transações multidocumento, com res
 escopo e custo de desempenho. A pergunta prática: **o modelo exige alterar duas coisas
 atomicamente?** Se sim, o relacional resolve isso sem código.
 
-Ver [transações](../07-data-architecture/transactions.md).
+Ver [transações](/07-data-architecture/transactions.md).
 
 ### Escala não é o argumento que parece
 
@@ -124,7 +124,7 @@ A maior parte dos sistemas de negócio vive na primeira faixa e nunca sai dela. 
 cenário de escala que talvez nunca chegue custa hoje, com certeza, para um benefício
 incerto.
 
-Ver [simplicidade vs. flexibilidade](simplicity-vs-flexibility.md) — é o mesmo trade-off de
+Ver [simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md) — é o mesmo trade-off de
 opcionalidade.
 
 ### O segundo banco custa mais que o primeiro
@@ -332,11 +332,11 @@ era obviamente sim.
 
 ## Conceitos Relacionados
 
-- [NoSQL](../07-data-architecture/nosql.md) e
-  [Bancos Relacionais](../07-data-architecture/relational-databases.md).
-- [Modelagem de Dados](../07-data-architecture/data-modeling.md).
-- [Consistência Forte vs. Eventual](strong-vs-eventual-consistency.md).
-- [Indexação](../07-data-architecture/indexing.md).
+- [NoSQL](/07-data-architecture/nosql.md) e
+  [Bancos Relacionais](/07-data-architecture/relational-databases.md).
+- [Modelagem de Dados](/07-data-architecture/data-modeling.md).
+- [Consistência Forte vs. Eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
+- [Indexação](/07-data-architecture/indexing.md).
 
 ## Exercício Prático
 

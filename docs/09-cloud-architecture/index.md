@@ -31,7 +31,7 @@ O que muda de fato, do ponto de vista de quem projeta, são três coisas.
 **A falha deixa de ser exceção.** Uma máquina pode desaparecer a qualquer momento,
 por decisão do provedor. Isso não é um risco a mitigar — é o modelo de operação, e
 o sistema precisa ser projetado para ele. Ver
-[falha parcial](../06-distributed-systems/partial-failure.md).
+[falha parcial](/06-distributed-systems/partial-failure.md).
 
 **O custo vira decisão de arquitetura.** Numa infraestrutura própria, a máquina já
 foi comprada e a escolha de desenho não muda a fatura no mês seguinte. Na nuvem,
@@ -97,5 +97,5 @@ tudo sem pensar, nem abstrair tudo para uma portabilidade que nunca vai ser usad
 
 ## Continua em
 
-[Arquitetura de Segurança](../10-security/index.md), onde as fronteiras que a
+[Arquitetura de Segurança](/10-security/index.md), onde as fronteiras que a
 nuvem tornou programáveis precisam ser defendidas.

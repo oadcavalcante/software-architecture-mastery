@@ -27,7 +27,7 @@ recuperação.
 Se a cópia mais recente utilizável é de uma hora atrás, o RPO é de uma hora: tudo o que
 aconteceu depois se perde.
 
-Como o [RTO](rto.md), é decisão de negócio. E, diferente dele, tem uma resposta
+Como o [RTO](/12-reliability/rto.md), é decisão de negócio. E, diferente dele, tem uma resposta
 reflexiva que quase nunca se sustenta: "nenhum dado pode ser perdido".
 
 ## Por Que Isso Importa
@@ -36,7 +36,7 @@ RPO zero exige replicação síncrona — cada escrita confirmada em mais de um 
 de responder ao usuário.
 
 Isso custa latência em **toda** operação de escrita, permanentemente. Ver
-[PACELC](../06-distributed-systems/pacelc.md).
+[PACELC](/06-distributed-systems/pacelc.md).
 
 ```text
 síncrono na mesma zona     +1 a 2 ms
@@ -64,7 +64,7 @@ segundos     replicação assíncrona próxima    médio-alto
 zero         replicação síncrona              alto, com latência permanente
 ```
 
-Ver [replicação de dados](../07-data-architecture/data-replication.md).
+Ver [replicação de dados](/07-data-architecture/data-replication.md).
 
 O salto de custo entre "segundos" e "zero" é o maior da tabela, e é onde a conversa com
 o negócio precisa acontecer com números.
@@ -98,7 +98,7 @@ corrupção. O RPO relevante passa a ser o da última cópia **anterior ao probl
 pode ser dias.
 
 O terceiro caso é o que justifica reter várias gerações e manter uma
-[réplica atrasada](../07-data-architecture/data-replication.md).
+[réplica atrasada](/07-data-architecture/data-replication.md).
 
 ### Replicação não garante RPO contra erro humano
 
@@ -124,7 +124,7 @@ Se a fila é durável e replicada, ela entra no mesmo cálculo do banco. Se ela 
 memória, ou se as requisições foram aceitas e ainda não persistidas, esse trabalho se
 perde independentemente do RPO do banco.
 
-Ver [processamento assíncrono](../11-scalability/async-processing.md) — aceitar e não
+Ver [processamento assíncrono](/11-scalability/async-processing.md) — aceitar e não
 persistir é a forma mais comum de perder trabalho sem que nenhuma métrica registre.
 
 A verificação: some o que está em trânsito no momento típico de pico. Se esse volume
@@ -143,7 +143,7 @@ importa, ele precisa ser tratado com o mesmo rigor que o banco.
 **Não distinguir o cenário.** RPO contra falha de hardware e contra erro humano são
 diferentes.
 
-**Confundir com [RTO](rto.md).**
+**Confundir com [RTO](/12-reliability/rto.md).**
 
 ## Exemplo Real
 
@@ -191,10 +191,10 @@ exposição de até 24 horas que ninguém tinha notado.
 
 ## Conceitos Relacionados
 
-- [RTO](rto.md) — o par.
-- [Planejamento de Recuperação](disaster-recovery-planning.md).
-- [Replicação de Dados](../07-data-architecture/data-replication.md).
-- [PACELC](../06-distributed-systems/pacelc.md) — o custo do síncrono.
+- [RTO](/12-reliability/rto.md) — o par.
+- [Planejamento de Recuperação](/12-reliability/disaster-recovery-planning.md).
+- [Replicação de Dados](/07-data-architecture/data-replication.md).
+- [PACELC](/06-distributed-systems/pacelc.md) — o custo do síncrono.
 
 ## Exercício Prático
 

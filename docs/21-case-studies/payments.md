@@ -157,7 +157,7 @@ casos ambíguos/dia                      ~900
 Novecentos casos por dia em que a plataforma não sabe se a cobrança ocorreu. Esse é o
 problema central do sistema, e é dele que decorre quase toda a arquitetura.
 
-É útil comparar com o caso de [e-commerce](ecommerce.md), onde o volume de escrita também era
+É útil comparar com o caso de [e-commerce](/21-case-studies/ecommerce.md), onde o volume de escrita também era
 baixo e a conclusão foi que a arquitetura devia otimizar velocidade de mudança. Aqui o volume
 é igualmente baixo e a conclusão é oposta: a arquitetura deve otimizar correção, e velocidade
 de mudança é secundária. A diferença não está nos números de capacidade — está no custo do
@@ -305,7 +305,7 @@ erro incompatíveis. O mesmo cenário — "a transação pode ter sido autorizad
 aparece como código HTTP 502 em um parceiro, como código de negócio `PENDING` em outro, e
 como resposta 200 com campo vazio em um terceiro. Traduzir isso para um modelo único é o que
 torna o Orquestrador tratável. Ver
-[anti-corruption layer](../08-integration-architecture/integration-anti-corruption.md).
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 ## Dados
 
@@ -367,7 +367,7 @@ identificador, adquirentes que suportam idempotência devolvem o resultado origi
 cobrar de novo. Três dos cinco parceiros suportam; para os outros dois, o Reconciliador
 consulta a transação por identificador antes de qualquer nova tentativa.
 
-Ver [idempotência](../06-distributed-systems/idempotency.md).
+Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 Há uma sutileza que só aparece na implementação: a chave de idempotência do lojista e o
 identificador de requisição enviado ao adquirente **não podem ser o mesmo valor**. Uma
@@ -403,7 +403,7 @@ O terceiro sinal é o que resolve a perda de R$ 14 milhões por ano. O Monitor d
 cada adquirente em janela deslizante de 60 segundos e abre o disjuntor quando a taxa de erro
 passa de 5% ou a latência p95 dobra em relação à linha de base. O desvio é automático e leva
 menos de 60 segundos. Ver
-[disjuntores](../12-reliability/circuit-breakers.md).
+[disjuntores](/12-reliability/circuit-breakers.md).
 
 **Retentativa em outro adquirente (RF-5).** Só ocorre para recusas classificadas como
 transitórias — indisponibilidade, tempo esgotado, erro de comunicação. Recusa por saldo
@@ -556,7 +556,7 @@ Orquestrador, Roteador e Reconciliador separados foi revisitada duas vezes. Ela 
 por um motivo operacional: o Reconciliador tem perfil de carga em lote e pode ficar fora por
 horas, enquanto o Orquestrador não pode ficar fora por segundos. Perfis de disponibilidade
 opostos justificam unidades implantáveis distintas. Ver
-[monólito vs. microsserviços](../20-trade-offs/monolith-vs-microservices.md).
+[monólito vs. microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 
 ## Estratégia de Evolução
 
@@ -643,10 +643,10 @@ foi em correção sob falha parcial, e nenhuma decisão foi motivada por volume.
 
 ## Conceitos Relacionados
 
-- [Idempotência](../06-distributed-systems/idempotency.md).
-- [Disjuntores](../12-reliability/circuit-breakers.md) — o desvio por saúde.
-- [Anti-Corruption Layer](../08-integration-architecture/integration-anti-corruption.md).
-- [Case: Núcleo Bancário Digital](banking.md).
+- [Idempotência](/06-distributed-systems/idempotency.md).
+- [Disjuntores](/12-reliability/circuit-breakers.md) — o desvio por saúde.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
+- [Case: Núcleo Bancário Digital](/21-case-studies/banking.md).
 
 ## Exercício Prático
 

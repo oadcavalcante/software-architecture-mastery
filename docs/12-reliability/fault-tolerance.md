@@ -66,9 +66,9 @@ reconciliação            detecta divergência acumulada
 
 A terceira e a quarta raramente existem, e são as únicas que detectam a categoria mais
 danosa: o componente que responde, rápido, com o dado errado. Ver
-[fundamentos de confiabilidade](reliability-basics.md).
+[fundamentos de confiabilidade](/12-reliability/reliability-basics.md).
 
-Ver também [detecção de falhas](../06-distributed-systems/failure-detection.md).
+Ver também [detecção de falhas](/06-distributed-systems/failure-detection.md).
 
 ### Isolar impede a propagação
 
@@ -81,7 +81,7 @@ timeout           limita o tempo de exposição
 descarte de carga rejeita em vez de acumular
 ```
 
-Ver [bulkheads](bulkheads.md) e [circuit breakers](circuit-breakers.md).
+Ver [bulkheads](/12-reliability/bulkheads.md) e [circuit breakers](/12-reliability/circuit-breakers.md).
 
 Sem isolamento, uma falha localizada consome recursos compartilhados e o sistema inteiro
 para — o modo de falha mais comum em arquiteturas com muitas dependências.
@@ -133,7 +133,7 @@ componente não crítico                 → degradar. Ver degradação graciosa
 
 A segunda linha é a mais mal resolvida na prática: investe-se em tolerância elaborada
 para cenários raros, quando reduzir o tempo de recuperação teria retorno maior. Ver
-[métricas de disponibilidade](availability-metrics.md).
+[métricas de disponibilidade](/12-reliability/availability-metrics.md).
 
 ### Tolerância mascara problema
 
@@ -146,7 +146,7 @@ vencer a proteção.
 
 Por isso a instrumentação dos próprios mecanismos importa: contagem de retentativas,
 aberturas de circuito, acionamentos de degradação. Sem ela, a piora só aparece na queda.
-Ver [tempestades de retentativa](retry-storms.md).
+Ver [tempestades de retentativa](/12-reliability/retry-storms.md).
 
 ### Tolerar exige decidir o que é "correto" sob falha
 
@@ -166,7 +166,7 @@ combina com dado atual, e o resultado é inconsistente sem que nada tenha falhad
 visivelmente.
 
 A decisão pertence ao domínio, não à infraestrutura. Ver
-[degradação graciosa](graceful-degradation.md).
+[degradação graciosa](/12-reliability/graceful-degradation.md).
 
 ## Modelo Mental
 
@@ -198,7 +198,7 @@ primeiro.
 ## Alternativas
 
 - **Recuperação rápida** — em vez de tolerar, encurtar o tempo de retomada.
-- **[Degradação graciosa](graceful-degradation.md)** — operar sem o componente.
+- **[Degradação graciosa](/12-reliability/graceful-degradation.md)** — operar sem o componente.
 - **Simplificar** — menos componentes falham menos.
 - **Substituir a dependência instável** — tratar a causa em vez do sintoma.
 
@@ -245,7 +245,7 @@ não funciona.
 
 **Tolerar em vez de corrigir a causa.**
 
-**Não exercitar.** Ver [engenharia do caos](chaos-engineering.md).
+**Não exercitar.** Ver [engenharia do caos](/12-reliability/chaos-engineering.md).
 
 ## Exemplo Real
 
@@ -270,7 +270,7 @@ A detecção veio do time de atendimento, ao notar um padrão nas reclamações.
 As correções atacaram o estágio ausente:
 
 **Monitoramento da fila de mensagens mortas**, com alerta em qualquer mensagem. Ver
-[dead-letter queues](../06-distributed-systems/dead-letter-queues.md).
+[dead-letter queues](/06-distributed-systems/dead-letter-queues.md).
 
 **Reconciliação diária** entre pagamentos confirmados pelo gateway e faturas marcadas
 como pagas, com alerta na divergência. Essa foi a correção que teria detectado o
@@ -288,10 +288,10 @@ onze meses.
 
 ## Conceitos Relacionados
 
-- [Redundância](redundancy.md) — o mecanismo mais comum.
-- [Resiliência](resilience.md) — a propriedade mais ampla.
-- [Bulkheads](bulkheads.md) e [Circuit Breakers](circuit-breakers.md) — o isolamento.
-- [Detecção de Falhas](../06-distributed-systems/failure-detection.md).
+- [Redundância](/12-reliability/redundancy.md) — o mecanismo mais comum.
+- [Resiliência](/12-reliability/resilience.md) — a propriedade mais ampla.
+- [Bulkheads](/12-reliability/bulkheads.md) e [Circuit Breakers](/12-reliability/circuit-breakers.md) — o isolamento.
+- [Detecção de Falhas](/06-distributed-systems/failure-detection.md).
 
 ## Exercício Prático
 

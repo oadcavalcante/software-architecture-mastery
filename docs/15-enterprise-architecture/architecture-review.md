@@ -73,11 +73,11 @@ o contexto. E o revisor deixa de ser obstáculo a superar, passando a ser recurs
 
 Isso exige registro: a decisão é do time, e o que foi discutido fica documentado, com o
 que foi considerado e descartado. Ver
-[decisões de arquitetura](../18-architecture-decisions/index.md).
+[decisões de arquitetura](/18-architecture-decisions/index.md).
 
 Para as poucas decisões que genuinamente exigem aprovação — alcance amplo, reversão cara
 — ela permanece. Ver
-[níveis de arquitetura](architecture-levels.md).
+[níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
 ### O que a revisão deve procurar
 
@@ -298,10 +298,10 @@ impedia a revisão de funcionar.
 
 ## Conceitos Relacionados
 
-- [Níveis de Arquitetura](architecture-levels.md) — o que merece revisão.
-- [Governança Corporativa](enterprise-governance.md).
-- [Princípios Corporativos](enterprise-principles.md) — o critério.
-- [Decisões de Arquitetura](../18-architecture-decisions/index.md) — o registro.
+- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md) — o que merece revisão.
+- [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md).
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md) — o critério.
+- [Decisões de Arquitetura](/18-architecture-decisions/index.md) — o registro.
 
 ## Exercício Prático
 

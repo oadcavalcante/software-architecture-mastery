@@ -59,7 +59,7 @@ precisar ser retido.
 etária, o município — em vez do valor exato.
 
 **Precisamos por quanto tempo?** Ver
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 Cada "não" remove um problema inteiro em vez de mitigá-lo.
 
@@ -131,7 +131,7 @@ consistente — o mascaramento precisa preservar relacionamentos, ou os testes q
 
 **Nenhum dado.** Para muitos casos, um conjunto pequeno criado à mão basta.
 
-Ver [segredos](secrets.md) — a mesma lógica vale para credenciais.
+Ver [segredos](/10-security/secrets.md) — a mesma lógica vale para credenciais.
 
 ### Vazamento por caminhos laterais
 
@@ -174,7 +174,7 @@ que ele é.
 
 **Copiar produção para teste.**
 
-**Cifrar como resposta a tudo.** Ver [criptografia](encryption.md) — muitas vezes o
+**Cifrar como resposta a tudo.** Ver [criptografia](/10-security/encryption.md) — muitas vezes o
 controle que faltava era autorização, ou não coletar.
 
 **Coletar por precaução.**
@@ -187,7 +187,7 @@ controle que faltava era autorização, ou não coletar.
 - **Tokenização** — remove o dado do escopo.
 - **Agregação** — guardar o resumo, descartar o detalhe.
 - **Processar sem armazenar** — usar o dado na requisição e não persistir.
-- **[Cifragem por titular](encryption.md)** — permite apagamento por descarte de
+- **[Cifragem por titular](/10-security/encryption.md)** — permite apagamento por descarte de
   chave.
 
 ## Trade-offs
@@ -220,7 +220,7 @@ controle que faltava era autorização, ou não coletar.
 **Notificação expondo conteúdo.**
 
 **Apagamento incompleto.** O dado permanece em cópias e derivados. Ver
-[ciclo de vida do dado](../07-data-architecture/data-lifecycle.md).
+[ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 ## Erros Comuns
 
@@ -293,11 +293,11 @@ técnico teria eliminado.
 
 ## Conceitos Relacionados
 
-- [Criptografia](encryption.md) — o controle para o que resta.
-- [Auditabilidade](auditability.md).
-- [Ciclo de Vida do Dado](../07-data-architecture/data-lifecycle.md) — retenção e
+- [Criptografia](/10-security/encryption.md) — o controle para o que resta.
+- [Auditabilidade](/10-security/auditability.md).
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção e
   apagamento.
-- [Modelagem de Ameaças](threat-modeling.md) — onde "eliminar" aparece como resposta.
+- [Modelagem de Ameaças](/10-security/threat-modeling.md) — onde "eliminar" aparece como resposta.
 
 ## Exercício Prático
 

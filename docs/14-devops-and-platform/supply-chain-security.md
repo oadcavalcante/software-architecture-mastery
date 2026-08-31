@@ -28,7 +28,7 @@ E é tratada como ferramenta de desenvolvimento: configuração alterável por q
 pessoa com acesso ao repositório, credenciais amplas, execuções sem isolamento.
 
 Os fundamentos de confiança na cadeia estão em
-[confiança na cadeia de suprimentos](../10-security/supply-chain-trust.md). Aqui
+[confiança na cadeia de suprimentos](/10-security/supply-chain-trust.md). Aqui
 interessa o ângulo da entrega: **proteger o caminho entre o código e produção**.
 
 ## Problema
@@ -81,7 +81,7 @@ rede restrita             saída apenas para os destinos necessários
 
 A última merece nota: uma execução com saída irrestrita pode exfiltrar segredos sem que
 nada bloqueie. Ver
-[segurança de rede](../10-security/network-security.md).
+[segurança de rede](/10-security/network-security.md).
 
 E o cache de dependências, se compartilhado entre execuções, é um caminho de
 contaminação: uma execução maliciosa envenena o cache que a próxima usa.
@@ -94,13 +94,13 @@ bom    credencial temporária, obtida por federação, com escopo por serviço
 ```
 
 A federação de identidade permite que a esteira autentique sem chave armazenada. Ver
-[segredos](../10-security/secrets.md) e
-[identidade em nuvem](../09-cloud-architecture/cloud-identity.md).
+[segredos](/10-security/secrets.md) e
+[identidade em nuvem](/09-cloud-architecture/cloud-identity.md).
 
 E o escopo precisa ser mínimo: uma esteira que implanta um serviço não deveria poder
 alterar políticas de acesso, criar identidades, nem tocar em outros serviços.
 
-Ver [menor privilégio](../10-security/least-privilege.md) — a permissão de alterar
+Ver [menor privilégio](/10-security/least-privilege.md) — a permissão de alterar
 permissões é escalonamento de privilégio.
 
 ### Verificar na implantação, não só assinar
@@ -118,7 +118,7 @@ a implantação recusa o que não tem assinatura e proveniência válidas
 Isso impede o vetor de publicar direto no registro: um artefato que não passou pela
 esteira não tem proveniência, e a implantação o recusa.
 
-Ver [contêineres na entrega](containers-in-delivery.md).
+Ver [contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md).
 
 ### Dependências da construção também são código
 
@@ -222,7 +222,7 @@ Sempre. Prioridade alta quando:
 - **Esteira gerenciada** — o fornecedor cuida do isolamento, ao custo de menos controle.
 - **Verificação de política na admissão** — o ambiente de destino recusa o que não
   atende, independentemente da esteira. Ver
-  [Kubernetes](../09-cloud-architecture/kubernetes.md).
+  [Kubernetes](/09-cloud-architecture/kubernetes.md).
 
 A última é valiosa por ser independente: mesmo que a esteira seja comprometida, o
 ambiente recusa.
@@ -274,7 +274,7 @@ ambiente recusa.
 ## Exemplo Real
 
 Uma empresa de tecnologia sofreu o comprometimento descrito em
-[confiança na cadeia de suprimentos](../10-security/supply-chain-trust.md): uma
+[confiança na cadeia de suprimentos](/10-security/supply-chain-trust.md): uma
 contribuição externa alterou a configuração da esteira e extraiu credenciais de
 produção.
 
@@ -313,11 +313,11 @@ organização e o menos governado.
 
 ## Conceitos Relacionados
 
-- [Confiança na Cadeia de Suprimentos](../10-security/supply-chain-trust.md) — os
+- [Confiança na Cadeia de Suprimentos](/10-security/supply-chain-trust.md) — os
   fundamentos.
-- [Contêineres na Entrega](containers-in-delivery.md) — proveniência do artefato.
-- [Segredos](../10-security/secrets.md).
-- [Menor Privilégio](../10-security/least-privilege.md).
+- [Contêineres na Entrega](/14-devops-and-platform/containers-in-delivery.md) — proveniência do artefato.
+- [Segredos](/10-security/secrets.md).
+- [Menor Privilégio](/10-security/least-privilege.md).
 
 ## Exercício Prático
 

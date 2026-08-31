@@ -48,7 +48,7 @@ script com defeito — e o alcance do dano é o alcance da permissão.
 ### Menor privilégio é o princípio, e ele é operacionalizável
 
 Conceder apenas o necessário para a função, e nada além. Ver
-[menor privilégio](../10-security/least-privilege.md) para o tratamento completo;
+[menor privilégio](/10-security/least-privilege.md) para o tratamento completo;
 aqui interessa como aplicá-lo na nuvem.
 
 Isso parece abstrato até virar procedimento:
@@ -103,7 +103,7 @@ Separar produção de desenvolvimento em contas distintas garante que um erro em
 desenvolvimento não alcance produção, independentemente de qualquer política.
 
 É também o que permite isolar cópias de segurança de forma significativa. Ver
-[recuperação de desastre](disaster-recovery.md).
+[recuperação de desastre](/09-cloud-architecture/disaster-recovery.md).
 
 A separação por conta é mais robusta e menos sujeita a erro humano que qualquer
 política dentro de uma conta única.
@@ -265,10 +265,10 @@ precaução, e foi exatamente essa precaução que definiu o tamanho do dano.
 
 ## Conceitos Relacionados
 
-- [Rede em Nuvem](cloud-networking.md) — a outra camada de fronteira.
-- [Recuperação de Desastre](disaster-recovery.md) — cópias isoladas.
-- [Segurança](../10-security/index.md) — o tratamento completo.
-- [Serviços Gerenciados](managed-services.md).
+- [Rede em Nuvem](/09-cloud-architecture/cloud-networking.md) — a outra camada de fronteira.
+- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md) — cópias isoladas.
+- [Segurança](/10-security/index.md) — o tratamento completo.
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
 
 ## Exercício Prático
 
