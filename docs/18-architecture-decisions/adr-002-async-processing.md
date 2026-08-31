@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-alternatives, superseding-decisions, adr-status]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -130,7 +130,7 @@ teste.
 
 ## Superação — 2025-07-31
 
-Em julho de 2025, três das quatro condições do sinal de alerta tinham sido atingidas. Ver
+Em julho de 2025, as quatro condições do sinal de alerta tinham sido atingidas. Ver
 [ADR-004](/18-architecture-decisions/adr-004-kafka.md) para a decisão que substitui esta.
 
 Este documento permanece como registro correto da decisão de 2023: para o contexto de

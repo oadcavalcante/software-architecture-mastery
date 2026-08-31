@@ -13,7 +13,7 @@ objective: >
 prerequisites: [superseding-decisions]
 related: [superseding-decisions, adr-context, adr-consequences]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -71,8 +71,8 @@ plataforma interna             existe desde 2024, com esteira e
                                monitoração padronizadas
 ```
 
-**Três das quatro condições de reversão foram atingidas**, e a quarta — número de
-consumidores — foi excedida por 2.
+**As quatro condições de reversão foram atingidas** — a de número de consumidores, que
+exigia mais de três, foi excedida por 2.
 
 Restrições atuais:
 

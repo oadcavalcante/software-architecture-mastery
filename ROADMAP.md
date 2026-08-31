@@ -386,8 +386,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Diagramas de Sequência](docs/17-architecture-documentation/sequence-diagrams.md) | concept | intermediário | `container-diagrams` | 🟩 |
 | 🟩 | [ADR-001 — Adotar Monólito Modular](docs/18-architecture-decisions/adr-001-modular-monolith.md) | adr | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [ADR-002 — Processamento Assíncrono da Confirmação](docs/18-architecture-decisions/adr-002-async-processing.md) | adr | intermediário | `adr-structure` | 🟩 |
-| 🟩 | [ADR-003 — PostgreSQL como Banco Primário Único](docs/18-architecture-decisions/adr-003-postgresql.md) | adr | intermediário | `adr-structure` | ⬜ |
-| 🟩 | [ADR-004 — Adotar Kafka para Eventos de Domínio](docs/18-architecture-decisions/adr-004-kafka.md) | adr | avançado | `superseding-decisions` | ⬜ |
+| 🟩 | [ADR-003 — PostgreSQL como Banco Primário Único](docs/18-architecture-decisions/adr-003-postgresql.md) | adr | intermediário | `adr-structure` | 🟩 |
+| 🟩 | [ADR-004 — Adotar Kafka para Eventos de Domínio](docs/18-architecture-decisions/adr-004-kafka.md) | adr | avançado | `superseding-decisions` | 🟩 |
 | 🟩 | [ADR-005 — Portas e Adaptadores nos Módulos de Domínio](docs/18-architecture-decisions/adr-005-hexagonal.md) | adr | avançado | `adr-structure` | ⬜ |
 | 🟩 | [Alternativas Consideradas](docs/18-architecture-decisions/adr-alternatives.md) | concept | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [Consequências](docs/18-architecture-decisions/adr-consequences.md) | concept | intermediário | `adr-structure` | 🟩 |

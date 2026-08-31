@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-alternatives, superseding-decisions, adr-status]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -129,7 +129,7 @@ beyond that in testing.
 
 ## Superseded — 2025-07-31
 
-In July 2025, three of the four warning-signal conditions had been met. See
+In July 2025, all four warning-signal conditions had been met. See
 [ADR-004](/18-architecture-decisions/adr-004-kafka.md) for the decision that replaces this
 one.
 
