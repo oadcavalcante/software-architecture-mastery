@@ -181,8 +181,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Filas](docs/05-system-design/queues.md) | concept | intermediário | `request-response` | 🟩 |
 | 🟩 | [Rate Limiting](docs/05-system-design/rate-limiting.md) | concept | intermediário | `load-balancing` | 🟩 |
 | 🟩 | [Request/Response](docs/05-system-design/request-response.md) | concept | intermediário | `apis` | 🟩 |
-| 🟩 | [Estratégias Básicas de Escalabilidade](docs/05-system-design/scalability-basics.md) | concept | intermediário | `bottleneck-analysis` | ⬜ |
-| 🟩 | [Busca](docs/05-system-design/search.md) | concept | intermediário | `pagination` | ⬜ |
+| 🟩 | [Estratégias Básicas de Escalabilidade](docs/05-system-design/scalability-basics.md) | concept | intermediário | `bottleneck-analysis` | 🟩 |
+| 🟩 | [Busca](docs/05-system-design/search.md) | concept | intermediário | `pagination` | 🟩 |
 | 🟩 | [Fronteiras de Serviço](docs/05-system-design/service-boundaries.md) | concept | avançado | `services` | 🟩 |
 | 🟩 | [Serviços](docs/05-system-design/services.md) | concept | intermediário | `components` | 🟩 |
 | 🟩 | [Gestão de Estado](docs/05-system-design/state-management.md) | concept | intermediário | `components` | 🟩 |
