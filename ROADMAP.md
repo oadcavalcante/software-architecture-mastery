@@ -113,7 +113,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Builder](docs/03-design-patterns/builder.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Chain of Responsibility](docs/03-design-patterns/chain-of-responsibility.md) | pattern | intermediário | `design-patterns` | ⬜ |
 | 🟩 | [Command](docs/03-design-patterns/command.md) | pattern | intermediário | `design-patterns` | 🟩 |
-| 🟩 | [Composite](docs/03-design-patterns/composite.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [Composite](docs/03-design-patterns/composite.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [CQRS](docs/03-design-patterns/cqrs.md) | pattern | avançado | `event-driven` | ⬜ |
 | 🟩 | [Decorator](docs/03-design-patterns/decorator.md) | pattern | intermediário | `composite` | 🟩 |
 | 🟩 | [Arquitetura Orientada a Eventos](docs/03-design-patterns/event-driven.md) | pattern | avançado | `microservices` | ⬜ |
@@ -134,7 +134,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Singleton](docs/03-design-patterns/singleton.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [SOA](docs/03-design-patterns/soa.md) | pattern | intermediário | `microservices` | ⬜ |
 | 🟩 | [Space-Based Architecture](docs/03-design-patterns/space-based-architecture.md) | pattern | avançado | `microservices` | ⬜ |
-| 🟩 | [State](docs/03-design-patterns/state.md) | pattern | intermediário | `strategy` | ⬜ |
+| 🟩 | [State](docs/03-design-patterns/state.md) | pattern | intermediário | `strategy` | 🟩 |
 | 🟩 | [Strategy](docs/03-design-patterns/strategy.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Template Method](docs/03-design-patterns/template-method.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Visitor](docs/03-design-patterns/visitor.md) | pattern | avançado | `composite` | ⬜ |
