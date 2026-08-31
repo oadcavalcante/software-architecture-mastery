@@ -168,15 +168,15 @@ quebra consumidores.
 
 ## Erros Comuns
 
-**Nomear com vocabulário técnico.**
+**Nomear com vocabulário técnico.** `PedidoAtualizado` não diz o que aconteceu no negócio e obriga cada consumidor a inspecionar o conteúdo para descobrir. `PedidoCancelado` e `EnderecoDeEntregaAlterado` são eventos diferentes porque provocam reações diferentes.
 
-**Publicar antes de persistir.**
+**Publicar antes de persistir.** Se a transação falha depois da publicação, consumidores reagem a um fato que não aconteceu — e não há como retirar o evento de circulação.
 
-**Não distinguir evento de domínio de evento de integração.**
+**Não distinguir evento de domínio de evento de integração.** O primeiro é interno e pode mudar junto com o modelo; o segundo é contrato público e não pode. Publicar o interno para fora congela o modelo do domínio nos consumidores dos outros times.
 
-**Ignorar o problema da publicação transacional.**
+**Ignorar o problema da publicação transacional.** Gravar no banco e publicar no broker são duas operações que podem divergir: uma pode ter sucesso e a outra falhar. É o problema que o padrão outbox existe para resolver, e ignorá-lo produz inconsistência silenciosa e rara — a pior combinação para depurar.
 
-**Usar eventos para coordenação que precisa ser transacional.**
+**Usar eventos para coordenação que precisa ser transacional.** Se o passo seguinte precisa acontecer junto com o primeiro ou nenhum dos dois, evento é a ferramenta errada: ele entrega consistência eventual, e o requisito era atomicidade.
 
 ## Exemplo Real
 

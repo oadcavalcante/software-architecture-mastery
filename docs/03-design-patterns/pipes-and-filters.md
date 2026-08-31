@@ -150,13 +150,13 @@ bloqueia os seguintes.
 
 ## Erros Comuns
 
-**Modelar fluxo ramificado como pipeline.**
+**Modelar fluxo ramificado como pipeline.** O padrão pressupõe passos em sequência. Quando o fluxo se divide por condição e reconverge, o encaixe exige tubos com desvio e filtros que sabem o caminho — e o que restou não é mais um pipeline, é uma máquina de estados mal escrita.
 
-**Formato de tubo excessivamente genérico.**
+**Formato de tubo excessivamente genérico.** Um mapa aberto entre todos os filtros parece flexibilidade e é o oposto: nenhum filtro declara o que exige, o acoplamento vira invisível, e a única forma de descobrir a ordem correta é executar.
 
-**Não tratar backpressure em pipeline assíncrono.**
+**Não tratar backpressure em pipeline assíncrono.** O filtro mais lento define a vazão do conjunto; sem sinal de contrapressão, o buffer anterior a ele cresce até estourar memória ou disco. A falha aparece longe da causa.
 
-**Filtros com efeitos colaterais não idempotentes.**
+**Filtros com efeitos colaterais não idempotentes.** Reprocessar o pipeline é a operação natural do padrão — depois de falha, para corrigir defeito, para recompor histórico. Um filtro que cobra ou envia e-mail a cada passagem torna essa operação impossível.
 
 ## Onde ele aparece na prática
 

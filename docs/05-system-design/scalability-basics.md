@@ -174,15 +174,15 @@ rápido.
 
 ## Erros Comuns
 
-**Pular direto para distribuição.**
+**Pular direto para distribuição.** Distribuir troca um problema de capacidade por falha parcial, latência de rede e consistência — três problemas mais difíceis que o original, adquiridos antes de esgotar o que era barato.
 
-**Não considerar escala vertical.**
+**Não considerar escala vertical.** Uma máquina hoje comporta centenas de gigabytes de memória e dezenas de núcleos. Trocar de instância é uma tarde de trabalho e resolve a maior parte dos sistemas de negócio por anos.
 
-**Não medir entre degraus.**
+**Não medir entre degraus.** Sem medir depois de cada mudança, ninguém sabe se o gargalo se moveu — e otimizar o componente que deixou de ser o limite é trabalho com retorno zero.
 
-**Confundir escala com desempenho.**
+**Confundir escala com desempenho.** São eixos independentes e às vezes opostos: um sistema pode responder em 10 ms e não suportar dobrar a carga, e a otimização que acelera a instância única frequentemente é a que impede distribuir.
 
-**Não considerar reduzir a carga.**
+**Não considerar reduzir a carga.** Cache, paginação, remoção de uma consulta desnecessária e limitação de taxa mudam o denominador da conta. É a alternativa mais barata e a que quase nunca entra na lista, porque a pergunta feita foi "como aguentamos mais?" em vez de "por que há tanto?".
 
 ## Exemplo Real
 

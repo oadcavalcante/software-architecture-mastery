@@ -153,13 +153,13 @@ que satura a rede.
 
 ## Erros Comuns
 
-**Adotar sem esgotar as alternativas.**
+**Adotar sem esgotar as alternativas.** Réplica de leitura, cache e correção de consulta resolvem a maioria dos casos por uma fração do custo operacional, e raramente são tentados até o fim antes de mover o estado para a memória.
 
-**Presumir que o banco é o gargalo sem medir.**
+**Presumir que o banco é o gargalo sem medir.** O padrão inteiro existe para tirar o banco do caminho crítico. Se o gargalo era uma consulta sem índice, paga-se a complexidade toda e o sistema continua lento.
 
-**Ignorar a janela de perda de dados.**
+**Ignorar a janela de perda de dados.** Entre a escrita na grade em memória e a persistência assíncrona existe um intervalo em que uma falha simultânea de nós perde escritas confirmadas ao usuário. Esse intervalo é uma decisão de negócio, não um detalhe de configuração.
 
-**Subestimar a operação.**
+**Subestimar a operação.** Grade de dados distribuída exige entender particionamento, rebalanceamento e comportamento sob partição de rede — competência que a maioria dos times não tem e não vai contratar para um sistema só.
 
 ## Onde ele aparece na prática
 

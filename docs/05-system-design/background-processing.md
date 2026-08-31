@@ -180,15 +180,15 @@ trabalhador indefinidamente.
 
 ## Erros Comuns
 
-**Agendamento em memória do serviço.**
+**Agendamento em memória do serviço.** Some a cada reinício e executa N vezes quando há N instâncias — os dois problemas aparecem justamente quando o sistema cresce ou é implantado com mais frequência.
 
-**Não expor estado consultável.**
+**Não expor estado consultável.** Sem um lugar onde perguntar "esse trabalho rodou?", a única forma de responder é procurar no log, e o suporte passa a depender de quem tem acesso a ele.
 
-**Não alertar sobre ausência de execução.**
+**Não alertar sobre ausência de execução.** Monitoramento costuma vigiar erro; um trabalho que simplesmente parou de ser disparado não gera erro nenhum, e a descoberta vem pelo efeito — o relatório que ninguém recebeu.
 
-**Não definir timeout do trabalho.**
+**Não definir timeout do trabalho.** Uma execução travada segura recursos indefinidamente e bloqueia as seguintes, transformando uma falha isolada em fila parada.
 
-**Assumir que o trabalho roda uma vez.**
+**Assumir que o trabalho roda uma vez.** Reinício, reagendamento e sobreposição com a execução anterior acontecem. Sem idempotência, cada um deles duplica o efeito.
 
 ## Exemplo Real
 

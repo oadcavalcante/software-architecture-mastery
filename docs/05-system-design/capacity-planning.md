@@ -183,15 +183,15 @@ estimativa seguinte.
 
 ## Erros Comuns
 
-**Pular a estimativa.**
+**Pular a estimativa.** Sem ela, a decisão de arquitetura é tomada por intuição sobre volume — e intuição sobre volume erra por ordens de grandeza, nos dois sentidos.
 
-**Buscar precisão em vez de ordem de grandeza.**
+**Buscar precisão em vez de ordem de grandeza.** A pergunta que a estimativa responde é se cabe numa máquina ou exige cem. Refinar de 8.200 para 8.350 requisições por segundo não muda decisão nenhuma.
 
-**Não estimar o pico.**
+**Não estimar o pico.** A média não dimensiona nada: o sistema precisa aguentar a Black Friday, não a terça-feira. A razão entre pico e média costuma ser de uma ordem de grandeza e é o número que decide.
 
-**Não estimar crescimento acumulado.**
+**Não estimar crescimento acumulado.** Vazão se resolve adicionando máquina; volume armazenado, não. É o eixo que decide particionamento e retenção, e o que mais frequentemente fica de fora da conta.
 
-**Usar a estimativa como previsão comprometida.**
+**Usar a estimativa como previsão comprometida.** Ela existe para eliminar arquiteturas inviáveis, não para virar meta contratual. Tratada como promessa, produz superdimensionamento defensivo.
 
 ## Exemplo Real
 

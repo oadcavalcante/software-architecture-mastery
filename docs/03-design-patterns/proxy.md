@@ -151,11 +151,11 @@ sessão ou a transação já fechou.
 
 **Confundir com Decorator.** Intenção diferente.
 
-**Usar proxy virtual sem entender o N+1.**
+**Usar proxy virtual sem entender o N+1.** Carregar sob demanda dentro de um laço transforma uma consulta em uma por elemento, e o custo só aparece com volume — em desenvolvimento, com dez registros, o padrão parece funcionar.
 
-**Esconder chamada remota atrás de interface local.**
+**Esconder chamada remota atrás de interface local.** Quem chama não vê latência nem possibilidade de falha, e escreve o código como se fosse memória: sem timeout, sem retentativa, dentro de laço. É a primeira falácia da computação distribuída embalada num padrão.
 
-**Colocar autorização em proxy sem torná-la auditável.**
+**Colocar autorização em proxy sem torná-la auditável.** A decisão de permitir ou negar fica num ponto que não registra quem pediu o quê, e a pergunta "quem acessou isso?" passa a não ter resposta.
 
 ## Onde ele aparece na prática
 

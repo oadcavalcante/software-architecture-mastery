@@ -165,15 +165,15 @@ e outra não.
 
 ## Erros Comuns
 
-**Não validar na inicialização.**
+**Não validar na inicialização.** A configuração errada só se manifesta quando o caminho que a usa é exercido — às vezes semanas depois, em produção, num fluxo raro. Validar tudo ao subir converte isso em falha imediata e visível.
 
-**Padrão para o que deveria ser obrigatório.**
+**Padrão para o que deveria ser obrigatório.** Um valor padrão para endereço de banco ou chave de integração faz o serviço subir apontando para o lugar errado em vez de recusar-se a subir.
 
-**Registrar configuração em log sem mascarar.**
+**Registrar configuração em log sem mascarar.** O despejo de configuração na inicialização é prática comum e útil — e leva senha e chave para o sistema de logs, que costuma ter retenção longa e acesso mais amplo que o do segredo.
 
-**Colocar regra de negócio em configuração.**
+**Colocar regra de negócio em configuração.** Regra em arquivo de configuração escapa de revisão de código, de teste e de histórico. O que parecia flexibilidade vira mudança de comportamento sem rastro.
 
-**Não remover parâmetros que deixaram de ser usados.**
+**Não remover parâmetros que deixaram de ser usados.** Sobram como armadilha: alguém ajusta um valor esperando efeito, não obtém nenhum, e passa horas investigando o lugar errado.
 
 ## Exemplo Real
 
