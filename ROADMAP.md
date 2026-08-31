@@ -262,14 +262,14 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [API Gateways](docs/08-integration-architecture/api-gateways.md) | pattern | intermediário | `rest` | 🟩 |
 | 🟩 | [Integração em Lote](docs/08-integration-architecture/batch-integration.md) | concept | intermediário | `integration-architecture` | ⬜ |
 | 🟩 | [Enterprise Integration Patterns](docs/08-integration-architecture/enterprise-integration-patterns.md) | reference | intermediário | `messaging-integration` | ⬜ |
-| 🟩 | [Integração Orientada a Eventos](docs/08-integration-architecture/event-driven-integration.md) | concept | avançado | `messaging-integration` | ⬜ |
+| 🟩 | [Integração Orientada a Eventos](docs/08-integration-architecture/event-driven-integration.md) | concept | avançado | `messaging-integration` | 🟩 |
 | 🟩 | [Integração por Arquivo](docs/08-integration-architecture/file-integration.md) | concept | intermediário | `batch-integration` | ⬜ |
 | 🟩 | [GraphQL](docs/08-integration-architecture/graphql.md) | concept | avançado | `rest` | 🟩 |
 | 🟩 | [gRPC](docs/08-integration-architecture/grpc.md) | concept | avançado | `rest` | 🟩 |
 | 🟩 | [Arquitetura de Integração](docs/08-integration-architecture/index.md) | index | avançado | `distributed-systems` | 🟩 |
 | 🟩 | [Anti-Corruption Layer na Integração](docs/08-integration-architecture/integration-anti-corruption.md) | pattern | avançado | `integration-contracts` | 🟩 |
 | 🟩 | [Contratos de Integração](docs/08-integration-architecture/integration-contracts.md) | concept | avançado | `integration-architecture` | 🟩 |
-| 🟩 | [Integração por Mensageria](docs/08-integration-architecture/messaging-integration.md) | concept | avançado | `integration-architecture` | ⬜ |
+| 🟩 | [Integração por Mensageria](docs/08-integration-architecture/messaging-integration.md) | concept | avançado | `integration-architecture` | 🟩 |
 | 🟩 | [REST](docs/08-integration-architecture/rest.md) | concept | intermediário | `integration-architecture` | 🟩 |
 | 🟩 | [Evolução de Esquema](docs/08-integration-architecture/schema-evolution.md) | concept | avançado | `integration-contracts` | 🟩 |
 | 🟩 | [Malha de Serviço](docs/08-integration-architecture/service-mesh.md) | pattern | avançado | `api-gateways` | 🟩 |
