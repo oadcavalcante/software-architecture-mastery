@@ -207,17 +207,17 @@ está fora; o segundo define o que fazer então.
 
 ## Erros Comuns
 
-**Não classificar funcionalidades.**
+**Não classificar funcionalidades.** Sem decidir antes o que é essencial e o que é acessório, a degradação é improvisada durante o incidente — quando ninguém tem tempo de decidir bem.
 
-**Deixar a decisão para o desenvolvedor.**
+**Deixar a decisão para o desenvolvedor.** O que pode ser desligado é decisão de produto, com consequência de negócio. Tomada no código, ela vira inconsistente entre partes do sistema.
 
-**Não testar o caminho degradado.**
+**Não testar o caminho degradado.** Ele só executa em incidente, então costuma estar quebrado — e a descoberta acontece quando ele era a última defesa.
 
-**Não avisar quando o usuário percebe.**
+**Não avisar quando o usuário percebe.** Recomendação vazia sem explicação parece defeito. Uma linha dizendo que o recurso está temporariamente indisponível preserva a confiança.
 
-**Não ter interruptor por funcionalidade.**
+**Não ter interruptor por funcionalidade.** Sem poder desligar uma parte sem implantar, a única resposta durante o incidente é reverter tudo ou aguentar.
 
-**Degradar operações que não deveriam degradar.**
+**Degradar operações que não deveriam degradar.** Em fluxo financeiro e de segurança, responder com valor aproximado é pior que recusar. Ali a resposta correta é falhar de forma explícita.
 
 ## Exemplo Real
 

@@ -218,17 +218,17 @@ coisa.
 
 ## Erros Comuns
 
-**Alertar em causas.**
+**Alertar em causas.** CPU alta pode ser normal; o que precisa acordar alguém é sintoma com impacto — usuário sem conseguir concluir. Alertar em causa gera ruído e treina o time a ignorar.
 
-**Não classificar entre acordar, ticket e painel.**
+**Não classificar entre acordar, ticket e painel.** Tratar tudo como urgente esgota o plantão, e o alerta importante chega junto com trinta que não eram.
 
-**Não revisar.**
+**Não revisar.** Alertas acumulam por incidentes passados e nunca são removidos. Sem revisão periódica, a maioria dos disparos passa a ser de regras que já não fazem sentido.
 
-**Notificação sem contexto.**
+**Notificação sem contexto.** Um alerta que não diz o impacto, o que verificar e onde olhar transfere para quem foi acordado o trabalho de descobrir por que foi acordado.
 
-**Não alertar sobre ausência.**
+**Não alertar sobre ausência.** Um processo que parou de rodar não gera erro. Só a verificação pela expectativa — devia ter acontecido e não aconteceu — detecta isso.
 
-**Não agrupar alertas em cascata.**
+**Não agrupar alertas em cascata.** Uma causa raiz dispara quarenta notificações de serviços dependentes, e o sinal da causa se perde no meio das consequências.
 
 ## Exemplo Real
 

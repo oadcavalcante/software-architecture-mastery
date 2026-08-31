@@ -227,17 +227,17 @@ a lista do que ela não resolve.
 
 ## Erros Comuns
 
-**Contar cópias em vez de avaliar independência.**
+**Contar cópias em vez de avaliar independência.** Três réplicas no mesmo rack, na mesma zona ou com a mesma dependência de configuração falham juntas. O que protege é a independência, não o número.
 
-**Não dimensionar para a perda.**
+**Não dimensionar para a perda.** Redundância sem folga muda o modo de falha: em vez de cair na hora, o sistema sobrevive à perda e satura em seguida com a carga redistribuída.
 
-**Não exercitar a reserva.**
+**Não exercitar a reserva.** Componente passivo que nunca recebe tráfego acumula defeitos silenciosos — configuração divergente, certificado vencido, versão antiga.
 
-**Ignorar dependências compartilhadas.**
+**Ignorar dependências compartilhadas.** DNS, autenticação, plano de controle e sistema de configuração são comuns a todas as cópias, e derrubam todas ao mesmo tempo.
 
-**Não usar implantação gradual.**
+**Não usar implantação gradual.** A causa mais frequente de indisponibilidade é mudança, e redundância não protege contra código ruim propagado para todas as réplicas simultaneamente.
 
-**Adicionar redundância sem testar o mecanismo de troca.**
+**Adicionar redundância sem testar o mecanismo de troca.** A cópia extra só vale se a passagem para ela funcionar. Sem exercício, paga-se pelo dobro da infraestrutura e mantém-se o mesmo risco.
 
 ## Exemplo Real
 

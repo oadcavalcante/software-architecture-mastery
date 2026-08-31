@@ -211,17 +211,17 @@ o que o usuário tolera.
 
 ## Erros Comuns
 
-**Usar métricas de recurso.**
+**Usar métricas de recurso.** CPU e memória não dizem se o usuário conseguiu concluir o que veio fazer. O indicador precisa medir a experiência, não o consumo.
 
-**Medir por endpoint.**
+**Medir por endpoint.** Todos os endpoints saudáveis e o cadastro impossível de concluir é um resultado perfeitamente possível. O que importa é a jornada.
 
-**Usar média.**
+**Usar média.** Ela esconde a cauda, que é onde estão os usuários que tiveram problema. Percentil é o mínimo; distribuição é melhor.
 
-**Não definir o limite de latência com dados de comportamento.**
+**Não definir o limite de latência com dados de comportamento.** O corte precisa vir de onde o usuário desiste ou a conversão cai, não de um número redondo escolhido em reunião.
 
-**Excluir eventos para melhorar o número.**
+**Excluir eventos para melhorar o número.** Descartar a janela de manutenção e os erros "do cliente" produz um indicador que fica bom enquanto a experiência piora.
 
-**Não medir jornadas, só componentes.**
+**Não medir jornadas, só componentes.** Cada serviço a 99,9% numa cadeia de cinco entrega 99,5% ao usuário — e é o número do usuário que importa.
 
 ## Exemplo Real
 

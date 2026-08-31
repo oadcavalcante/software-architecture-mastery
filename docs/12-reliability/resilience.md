@@ -207,17 +207,17 @@ Não há alternativa a resiliência — há ênfases diferentes:
 
 ## Erros Comuns
 
-**Confundir com tolerância a falhas.**
+**Confundir com tolerância a falhas.** Tolerância cobre falhas previstas; resiliência é sobre o que não foi previsto. Um sistema pode tolerar toda falha prevista e ruir na primeira que ninguém imaginou.
 
-**Investir só em mecanismos.**
+**Investir só em mecanismos.** Disjuntor e retentativa são úteis e insuficientes: a capacidade de responder bem depende também de quem opera, do que se enxerga e de quanto tempo se tem para reagir.
 
-**Operar sem folga.**
+**Operar sem folga.** Sistema e time no limite não têm capacidade de absorver surpresa. A folga é o que transforma imprevisto em incidente controlado.
 
-**Não priorizar reversibilidade.**
+**Não priorizar reversibilidade.** Poder desfazer rápido vale mais que acertar sempre, porque o erro é certo e a velocidade de recuperação é o que se controla.
 
-**Análises de incidente sem ações rastreadas.**
+**Análises de incidente sem ações rastreadas.** Análise que não vira tarefa priorizada é ritual: o mesmo incidente volta, e a segunda análise chega às mesmas conclusões.
 
-**Ignorar quase-incidentes.**
+**Ignorar quase-incidentes.** O que quase deu errado carrega a mesma informação que o incidente, sem o custo. Descartá-lo é abrir mão do aprendizado mais barato que existe.
 
 ## Exemplo Real
 

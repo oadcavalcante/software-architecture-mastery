@@ -220,17 +220,17 @@ Retentativa é adequada quando:
 
 ## Erros Comuns
 
-**Não verificar se camadas intermediárias repetem.**
+**Não verificar se camadas intermediárias repetem.** Cliente HTTP, service mesh e balanceador costumam repetir por padrão. Somadas às tentativas da aplicação, multiplicam a carga sem que ninguém tenha configurado isso explicitamente.
 
-**Não definir orçamento.**
+**Não definir orçamento.** Sem um teto de proporção de retentativas sobre o total de chamadas, elas crescem justamente quando a taxa de erro sobe — que é quando o sistema menos aguenta.
 
-**Espera crescente sem variação.**
+**Espera crescente sem variação.** Todos os clientes que falharam juntos esperam o mesmo tempo e voltam juntos. A onda se repete em intervalos cada vez maiores e o serviço nunca estabiliza.
 
-**Repetir tudo indistintamente.**
+**Repetir tudo indistintamente.** Erro de validação e recusa por sobrecarga não melhoram com insistência; repeti-los consome capacidade e adia a recuperação.
 
-**Não limitar tentativas em fila.**
+**Não limitar tentativas em fila.** Mensagem que volta indefinidamente ocupa consumidores em trabalho que nunca vai concluir, e a fila de trabalho útil para atrás dela.
 
-**Escalar capacidade** durante estado metaestável.
+**Escalar capacidade** durante estado metaestável. Quando a carga é dominada por retentativas, mais capacidade atende mais retentativas e realimenta o ciclo. É preciso cortar a fonte antes de aumentar a vazão.
 
 ## Exemplo Real
 
