@@ -220,17 +220,17 @@ repetições.
 
 ## Erros Comuns
 
-**Usar fila para sobrecarga sustentada.**
+**Usar fila para sobrecarga sustentada.** Fila absorve pico; se a entrada supera a saída em média, ela só transforma indisponibilidade imediata em atraso crescente.
 
-**Não definir teto.**
+**Não definir teto.** Escala automática por profundidade sem limite responde a um produtor defeituoso subindo consumidores até estourar a cota — ou a fatura.
 
-**Não descartar trabalho expirado.**
+**Não descartar trabalho expirado.** Processar a mensagem cuja janela de utilidade passou consome capacidade que o trabalho ainda útil precisa, e prolonga a recuperação.
 
-**Escalar por CPU quando a profundidade está disponível.**
+**Escalar por CPU quando a profundidade está disponível.** Consumidor que espera por rede tem CPU baixa com fila crescendo. A profundidade da fila é o sinal direto; CPU é um substituto ruim.
 
-**Não reservar capacidade para baixa prioridade.**
+**Não reservar capacidade para baixa prioridade.** Sem reserva, um pico de alta prioridade deixa a fila secundária parada por horas — e ela costuma conter o que vira reclamação depois.
 
-**Adicionar consumidores sem aumentar partições.**
+**Adicionar consumidores sem aumentar partições.** Em log particionado, o paralelismo é limitado pelo número de partições. Consumidores além disso ficam ociosos e o custo sobe sem ganho.
 
 ## Exemplo Real
 

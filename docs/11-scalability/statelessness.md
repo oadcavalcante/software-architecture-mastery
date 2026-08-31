@@ -202,17 +202,17 @@ origem.
 
 ## Erros Comuns
 
-**Afirmar que é sem estado sem testar.**
+**Afirmar que é sem estado sem testar.** O teste é direto: matar uma instância no meio do uso e ver se alguém perde algo. Quase sempre há um estado local que ninguém lembrava.
 
-**Usar afinidade de sessão permanentemente.**
+**Usar afinidade de sessão permanentemente.** Ela mascara o problema e o preserva: a instância continua insubstituível, a carga fica desequilibrada e a queda de uma réplica derruba as sessões presas a ela.
 
-**Guardar upload em disco local.**
+**Guardar upload em disco local.** O arquivo existe só naquela instância; a requisição seguinte cai em outra e não o encontra, e a implantação seguinte o apaga.
 
-**Agendar em memória.**
+**Agendar em memória.** Some no reinício e executa uma vez por instância. Os dois efeitos aparecem quando o sistema cresce — exatamente quando ninguém está olhando para o agendador.
 
-**Tratar cache local como autoritativo.**
+**Tratar cache local como autoritativo.** Instâncias divergem, e o usuário vê respostas diferentes a cada recarga sem que nada esteja errado no dado de origem.
 
-**Não implementar desligamento gracioso.**
+**Não implementar desligamento gracioso.** Sem drenar conexões, toda redução de escala e toda implantação descartam requisições em andamento — que aparecem como erro intermitente sem causa aparente.
 
 ## Exemplo Real
 

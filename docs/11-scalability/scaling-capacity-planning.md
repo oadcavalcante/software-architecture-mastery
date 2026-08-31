@@ -224,17 +224,17 @@ pedido.
 
 ## Erros Comuns
 
-**Não ter modelo.**
+**Não ter modelo.** Sem uma relação declarada entre unidade de negócio e recurso consumido, não há como projetar nada: a capacidade vira reação ao incidente anterior.
 
-**Não decidir a folga.**
+**Não decidir a folga.** Quanta capacidade ociosa manter é uma decisão de custo contra risco. Sem decidi-la, ela é definida por acidente — e costuma ser grande demais em serviços caros e pequena demais nos críticos.
 
-**Alertar só por valor.**
+**Alertar só por valor.** Um limiar fixo avisa quando já está perto do limite. A tendência avisa dias antes, que é o tempo necessário para conseguir cota ou otimizar.
 
-**Testar com dados sintéticos pequenos.**
+**Testar com dados sintéticos pequenos.** Consultas que varrem tabela passam no teste com dez mil linhas e falham com dez milhões. O volume do teste precisa ser da ordem do de produção.
 
-**Testar com distribuição uniforme.**
+**Testar com distribuição uniforme.** Carga real é concentrada: poucos clientes, poucas chaves, poucos horários. Teste uniforme não encontra o ponto quente que vai saturar primeiro.
 
-**Não inventariar limites de terceiros.**
+**Não inventariar limites de terceiros.** Cota de provedor, limite de taxa de API e teto de conexão do banco costumam ser atingidos antes do limite da sua própria infraestrutura — e não são elásticos.
 
 ## Exemplo Real
 

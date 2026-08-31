@@ -222,17 +222,17 @@ complexidade por pouco ganho.
 
 ## Erros Comuns
 
-**Não monitorar a taxa de acerto.**
+**Não monitorar a taxa de acerto.** Um cache com 20% de acerto adiciona latência e complexidade sem aliviar a origem — e sem a métrica, ninguém sabe que é o caso.
 
-**Não proteger contra estampida.**
+**Não proteger contra estampida.** Quando uma chave popular expira, todas as requisições simultâneas vão à origem de uma vez. É como um cache que funcionava vira a causa da queda.
 
-**Expiração sem variação.**
+**Expiração sem variação.** Entradas criadas juntas expiram juntas, e a carga na origem vira picos periódicos. Adicionar aleatoriedade ao prazo dispersa isso.
 
-**Não ter plano para a perda do cache.**
+**Não ter plano para a perda do cache.** Se a origem não aguenta a carga sem cache, o cache deixou de ser otimização e virou dependência crítica — e a queda dele derruba tudo.
 
-**Chave sem identidade em resposta personalizada.**
+**Chave sem identidade em resposta personalizada.** Cachear por URL uma resposta que depende do usuário entrega o dado de uma pessoa para outra. É um vazamento criado por otimização.
 
-**Não monitorar a taxa de despejo.**
+**Não monitorar a taxa de despejo.** Despejo alto significa memória insuficiente para o conjunto ativo, e o cache passa a trabalhar contra si mesmo — grava o que vai descartar antes de reutilizar.
 
 ## Exemplo Real
 

@@ -214,17 +214,17 @@ não são equivalentes.
 
 ## Erros Comuns
 
-**Usar rodízio por padrão.**
+**Usar rodízio por padrão.** Ele pressupõe requisições de custo parecido. Quando algumas são muito mais caras, a distribuição igual de requisições produz distribuição desigual de carga.
 
-**Camada 4 com HTTP/2 ou gRPC.**
+**Camada 4 com HTTP/2 ou gRPC.** Esses protocolos multiplexam sobre conexões duradouras, então balancear por conexão fixa cada cliente numa instância e as novas não recebem tráfego.
 
-**Verificação de saúde consultando o banco.**
+**Verificação de saúde consultando o banco.** Uma lentidão do banco reprova todas as instâncias ao mesmo tempo, e o balanceador remove o serviço inteiro — convertendo degradação em queda total.
 
-**Não limitar a fila.**
+**Não limitar a fila.** Aceitar tudo sob sobrecarga aumenta a latência de todos até ninguém ser atendido a tempo. Recusar o excedente rápido preserva o que ainda cabe.
 
-**Não drenar.**
+**Não drenar.** Remover a instância sem esperar as requisições em curso terminarem transforma cada implantação num punhado de erros para usuários reais.
 
-**Não configurar entrada gradual.**
+**Não configurar entrada gradual.** A instância recém-subida recebe carga plena com cache frio e conexões não estabelecidas, e responde mal justamente enquanto aquece.
 
 ## Exemplo Real
 

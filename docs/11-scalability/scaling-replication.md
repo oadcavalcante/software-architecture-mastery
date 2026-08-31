@@ -198,17 +198,17 @@ ponto em que a escrita, aplicada em toda parte, consome os nós.
 
 ## Erros Comuns
 
-**Adicionar réplicas para resolver escrita.**
+**Adicionar réplicas para resolver escrita.** Réplica escala leitura; toda escrita continua indo para o primário, e cada réplica adicional ainda aumenta o trabalho de replicação dele.
 
-**Não classificar as leituras.**
+**Não classificar as leituras.** Nem toda leitura tolera atraso. Mandar tudo para réplica faz o usuário não ver a própria alteração ao recarregar — o relato de bug mais comum desse arranjo.
 
-**Não implementar "leia seus próprios escritos".**
+**Não implementar "leia seus próprios escritos".** É a garantia mínima que torna leitura de réplica aceitável para o usuário. Sem ela, a inconsistência aparece exatamente para quem acabou de agir.
 
-**Não monitorar atraso por réplica.**
+**Não monitorar atraso por réplica.** O atraso varia entre réplicas e com a carga. A média esconde a réplica que está minutos atrás e continua recebendo leituras.
 
-**Não reservar folga para promoção.**
+**Não reservar folga para promoção.** Se as réplicas operam no limite, promover uma a primário a coloca sob carga de escrita que ela não tem capacidade de absorver — e o failover derruba o sucessor.
 
-**Não usar cache antes.**
+**Não usar cache antes.** Réplica adicional custa uma instância de banco por mês; cache costuma resolver a mesma carga de leitura por uma fração, e deveria ser avaliado primeiro.
 
 ## Exemplo Real
 
