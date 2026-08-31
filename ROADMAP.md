@@ -345,13 +345,13 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [SLI](docs/12-reliability/sli.md) | concept | intermediário | `reliability` | 🟩 |
 | 🟩 | [SLO](docs/12-reliability/slo.md) | concept | avançado | `sli` | 🟩 |
 | 🟩 | [Alertas](docs/13-observability/alerting.md) | concept | avançado | `golden-signals` | ⬜ |
-| 🟩 | [Identificadores de Correlação](docs/13-observability/correlation-ids.md) | pattern | intermediário | `observability` | ⬜ |
+| 🟩 | [Identificadores de Correlação](docs/13-observability/correlation-ids.md) | pattern | intermediário | `observability` | 🟩 |
 | 🟩 | [Painéis](docs/13-observability/dashboards.md) | concept | intermediário | `golden-signals` | ⬜ |
 | 🟩 | [Depurabilidade](docs/13-observability/debuggability.md) | concept | avançado | `observability` | ⬜ |
 | 🟩 | [Rastreamento Distribuído](docs/13-observability/distributed-tracing.md) | concept | avançado | `traces` | ⬜ |
 | 🟩 | [Sinais Dourados](docs/13-observability/golden-signals.md) | concept | intermediário | `observability` | 🟩 |
 | 🟩 | [Observabilidade](docs/13-observability/index.md) | index | avançado | `distributed-systems` | 🟩 |
-| 🟩 | [Logs](docs/13-observability/logs.md) | concept | intermediário | `observability` | ⬜ |
+| 🟩 | [Logs](docs/13-observability/logs.md) | concept | intermediário | `observability` | 🟩 |
 | 🟩 | [Métricas](docs/13-observability/metrics.md) | concept | intermediário | `observability` | ⬜ |
 | 🟩 | [Conceitos de SRE](docs/13-observability/sre-concepts.md) | concept | avançado | `observability` | ⬜ |
 | 🟩 | [Telemetria](docs/13-observability/telemetry.md) | concept | avançado | `observability` | ⬜ |
