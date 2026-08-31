@@ -120,7 +120,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Event Sourcing](docs/03-design-patterns/event-sourcing.md) | pattern | avançado | `cqrs` | ⬜ |
 | 🟩 | [Facade](docs/03-design-patterns/facade.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Factory Method](docs/03-design-patterns/factory-method.md) | pattern | intermediário | `design-patterns` | 🟩 |
-| 🟩 | [Flyweight](docs/03-design-patterns/flyweight.md) | pattern | avançado | `design-patterns` | ⬜ |
+| 🟩 | [Flyweight](docs/03-design-patterns/flyweight.md) | pattern | avançado | `design-patterns` | 🟩 |
 | 🟩 | [Design Patterns](docs/03-design-patterns/index.md) | index | intermediário | `software-design` | 🟩 |
 | 🟩 | [Iterator](docs/03-design-patterns/iterator.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Mediator](docs/03-design-patterns/mediator.md) | pattern | intermediário | `observer` | 🟩 |
@@ -137,7 +137,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [State](docs/03-design-patterns/state.md) | pattern | intermediário | `strategy` | 🟩 |
 | 🟩 | [Strategy](docs/03-design-patterns/strategy.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Template Method](docs/03-design-patterns/template-method.md) | pattern | iniciante | `design-patterns` | 🟩 |
-| 🟩 | [Visitor](docs/03-design-patterns/visitor.md) | pattern | avançado | `composite` | ⬜ |
+| 🟩 | [Visitor](docs/03-design-patterns/visitor.md) | pattern | avançado | `composite` | 🟩 |
 | 🟩 | [Aggregate](docs/04-domain-driven-design/aggregate.md) | pattern | avançado | `entity`, `value-object` | ⬜ |
 | 🟩 | [Anti-Corruption Layer](docs/04-domain-driven-design/anti-corruption-layer.md) | pattern | intermediário | `context-mapping` | ⬜ |
 | 🟩 | [Application Service](docs/04-domain-driven-design/application-service.md) | pattern | intermediário | `domain-service` | ⬜ |
