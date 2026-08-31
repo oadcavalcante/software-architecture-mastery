@@ -108,7 +108,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [SOLID](docs/02-software-design/solid.md) | concept | intermediário | `fundamentals` | 🟩 |
 | 🟩 | [YAGNI](docs/02-software-design/yagni.md) | concept | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Abstract Factory](docs/03-design-patterns/abstract-factory.md) | pattern | intermediário | `factory-method` | ⬜ |
-| 🟩 | [Adapter](docs/03-design-patterns/adapter.md) | pattern | iniciante | `design-patterns` | ⬜ |
+| 🟩 | [Adapter](docs/03-design-patterns/adapter.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Bridge](docs/03-design-patterns/bridge.md) | pattern | avançado | `adapter` | ⬜ |
 | 🟩 | [Builder](docs/03-design-patterns/builder.md) | pattern | iniciante | `design-patterns` | ⬜ |
 | 🟩 | [Chain of Responsibility](docs/03-design-patterns/chain-of-responsibility.md) | pattern | intermediário | `design-patterns` | ⬜ |
@@ -121,7 +121,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Facade](docs/03-design-patterns/facade.md) | pattern | iniciante | `design-patterns` | ⬜ |
 | 🟩 | [Factory Method](docs/03-design-patterns/factory-method.md) | pattern | intermediário | `design-patterns` | ⬜ |
 | 🟩 | [Flyweight](docs/03-design-patterns/flyweight.md) | pattern | avançado | `design-patterns` | ⬜ |
-| 🟩 | [Design Patterns](docs/03-design-patterns/index.md) | index | intermediário | `software-design` | ⬜ |
+| 🟩 | [Design Patterns](docs/03-design-patterns/index.md) | index | intermediário | `software-design` | 🟩 |
 | 🟩 | [Iterator](docs/03-design-patterns/iterator.md) | pattern | iniciante | `design-patterns` | ⬜ |
 | 🟩 | [Mediator](docs/03-design-patterns/mediator.md) | pattern | intermediário | `observer` | ⬜ |
 | 🟩 | [Memento](docs/03-design-patterns/memento.md) | pattern | intermediário | `command` | ⬜ |
