@@ -143,7 +143,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Application Service](docs/04-domain-driven-design/application-service.md) | pattern | intermediário | `domain-service` | ⬜ |
 | 🟩 | [Bounded Context](docs/04-domain-driven-design/bounded-context.md) | concept | intermediário | `subdomain`, `ubiquitous-language` | 🟩 |
 | 🟩 | [Context Mapping](docs/04-domain-driven-design/context-mapping.md) | concept | avançado | `bounded-context` | ⬜ |
-| 🟩 | [Core Domain](docs/04-domain-driven-design/core-domain.md) | foundation | intermediário | `subdomain` | ⬜ |
+| 🟩 | [Core Domain](docs/04-domain-driven-design/core-domain.md) | foundation | intermediário | `subdomain` | 🟩 |
 | 🟩 | [Domain Event](docs/04-domain-driven-design/domain-event.md) | pattern | avançado | `aggregate` | ⬜ |
 | 🟩 | [Domain Service](docs/04-domain-driven-design/domain-service.md) | pattern | intermediário | `aggregate` | ⬜ |
 | 🟩 | [Domínio](docs/04-domain-driven-design/domain.md) | foundation | iniciante | `domain-driven-design` | 🟩 |
@@ -154,7 +154,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Repository](docs/04-domain-driven-design/repository.md) | pattern | intermediário | `aggregate` | ⬜ |
 | 🟩 | [DDD Estratégico](docs/04-domain-driven-design/strategic-ddd.md) | foundation | avançado | `bounded-context`, `context-mapping` | ⬜ |
 | 🟩 | [Subdomínio](docs/04-domain-driven-design/subdomain.md) | foundation | iniciante | `domain` | 🟩 |
-| 🟩 | [Supporting Domain](docs/04-domain-driven-design/supporting-domain.md) | foundation | iniciante | `subdomain` | ⬜ |
+| 🟩 | [Supporting Domain](docs/04-domain-driven-design/supporting-domain.md) | foundation | iniciante | `subdomain` | 🟩 |
 | 🟩 | [DDD Tático](docs/04-domain-driven-design/tactical-ddd.md) | foundation | avançado | `aggregate`, `repository` | ⬜ |
 | 🟩 | [Ubiquitous Language](docs/04-domain-driven-design/ubiquitous-language.md) | concept | intermediário | `domain` | 🟩 |
 | 🟩 | [Value Object](docs/04-domain-driven-design/value-object.md) | pattern | iniciante | `entity` | 🟩 |
