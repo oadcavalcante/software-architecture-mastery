@@ -7,35 +7,57 @@
  * errado — e a tradução progressiva muda esse número a cada lote, então a
  * defasagem não é um acidente raro, é o caso comum.
  *
- * Existia só como passo inline do CI, o que fazia a falha aparecer depois do
- * push em vez de antes. Aqui roda igual nos dois lugares.
+ * A pergunta é "rodar os geradores muda alguma coisa?", e não "o working tree
+ * está limpo?". A diferença importa porque os READMEs são metade gerados
+ * (dentro dos marcadores) e metade escritos à mão: comparar contra o git
+ * acusaria toda edição manual não commitada como defasagem. Por isso o conteúdo
+ * é lido antes, os geradores rodam, e a comparação é antes/depois.
  */
 
 import {execFileSync} from 'node:child_process';
+import {readFileSync, existsSync, readdirSync} from 'node:fs';
+import {join} from 'node:path';
 import {ROOT} from './lib/docs.mjs';
 
-const GERADOS = ['ROADMAP.md', 'README.md', 'README.en-US.md', 'fix_plan.md', 'specs/'];
+const ARQUIVOS = ['ROADMAP.md', 'README.md', 'README.en-US.md', 'fix_plan.md'];
+const DIRS = ['specs'];
 
-const git = (...args) =>
-  execFileSync('git', args, {cwd: ROOT, encoding: 'utf8'});
+/** Mapa caminho → conteúdo, com `null` para o que ainda não existe. */
+function instantaneo() {
+  const mapa = new Map();
+  const ler = (rel) => {
+    const abs = join(ROOT, rel);
+    mapa.set(rel, existsSync(abs) ? readFileSync(abs, 'utf8') : null);
+  };
+  for (const arquivo of ARQUIVOS) ler(arquivo);
+  for (const dir of DIRS) {
+    const abs = join(ROOT, dir);
+    if (!existsSync(abs)) continue;
+    for (const nome of readdirSync(abs)) ler(`${dir}/${nome}`);
+  }
+  return mapa;
+}
+
+const antes = instantaneo();
 
 for (const script of ['gen-roadmap.mjs', 'gen-plan.mjs']) {
   execFileSync(process.execPath, [`scripts/${script}`], {cwd: ROOT, stdio: 'pipe'});
 }
 
-// --porcelain em vez de diff porque uma spec NOVA é untracked, e `git diff`
-// não a enxergaria — seção acrescentada ao curriculum ficaria fora do gate.
-const sujos = git('status', '--porcelain', '--', ...GERADOS)
-  .split('\n')
-  .map((l) => l.slice(3).trim())
-  .filter(Boolean);
+const depois = instantaneo();
 
-if (sujos.length === 0) {
+const mudados = [...new Set([...antes.keys(), ...depois.keys()])]
+  .filter((rel) => (antes.get(rel) ?? null) !== (depois.get(rel) ?? null))
+  .sort();
+
+if (mudados.length === 0) {
   console.log('[artifacts] ok — artefatos derivados em dia');
   process.exit(0);
 }
 
-console.error('[artifacts] FALHOU — artefatos derivados defasados:');
-for (const arquivo of sujos) console.error(`  ${arquivo}`);
-console.error('\nOs arquivos já foram regerados aqui. Confira o diff e faça commit.');
+console.error('[artifacts] FALHOU — os geradores mudaram estes arquivos:');
+for (const rel of mudados) {
+  console.error(`  ${antes.get(rel) === null ? 'novo' : 'defasado'}  ${rel}`);
+}
+console.error('\nJá foram regerados aqui. Confira o diff e faça commit.');
 process.exit(1);

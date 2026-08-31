@@ -137,9 +137,13 @@ está no [ROADMAP](ROADMAP.md).
 ```bash
 npm install
 npm start                     # pt-BR em http://localhost:3000
-npm start -- --locale en-US   # en-US
-npm run build                 # produção, ambas as locales
+npm run start:en              # en-US, também em http://localhost:3000
+npm run build && npm run serve  # ambas as locales, cada uma no seu caminho
 ```
+
+O servidor de desenvolvimento serve **um locale por vez**, sempre na raiz. Rodando
+`npm start`, o caminho `/en-US/` não existe e responde 404 — isso é do Docusaurus,
+não do projeto. Para ver as duas locales lado a lado, use o build.
 
 ## Qualidade não é promessa, é verificação
 
@@ -147,7 +151,7 @@ O conteúdo é validado automaticamente a cada PR. Não são lint de formataçã
 regras sobre o material:
 
 ```bash
-npm test          # 59 testes dos próprios validadores
+npm test          # testes dos próprios validadores
 npm run validate  # os cinco validadores de conteúdo
 ```
 

@@ -135,9 +135,13 @@ you make on your own.
 ```bash
 npm install
 npm start                     # pt-BR at http://localhost:3000
-npm start -- --locale en-US   # en-US
-npm run build                 # production, both locales
+npm run start:en              # en-US, also at http://localhost:3000
+npm run build && npm run serve  # both locales, each at its own path
 ```
+
+The dev server serves **one locale at a time**, always at the root. Running
+`npm start`, the `/en-US/` path does not exist and returns 404 — that is
+Docusaurus, not the project. To see both locales side by side, use the build.
 
 ## Quality is verified, not promised
 
@@ -145,7 +149,7 @@ Content is validated automatically on every PR. These are not formatting linters
 they are rules about the material itself:
 
 ```bash
-npm test          # 59 tests of the validators themselves
+npm test          # tests of the validators themselves
 npm run validate  # the five content validators
 ```
 
