@@ -347,4 +347,4 @@ mais nela não vai resolver.
 
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
 - Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
-- Larson, Will. *Staff Engineer*. Stripe Press, 2021.
+- Larson, Will. *Staff Engineer*. Publicação do autor, 2021.

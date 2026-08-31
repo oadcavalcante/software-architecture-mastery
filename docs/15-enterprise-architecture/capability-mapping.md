@@ -294,6 +294,6 @@ As que caem em duas revelam sobreposição; as que não caem em nenhuma, lacuna.
 
 ## Para Aprofundar
 
-- Ulrich, William; Rosen, Michael. *The Business Capability Map*. BAI, 2011.
+- Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
 - Open Group. *TOGAF Standard* — arquitetura de negócio.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.

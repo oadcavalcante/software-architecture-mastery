@@ -353,4 +353,4 @@ mesa — e é provavelmente melhor que as duas.
 
 - Fisher, Roger; Ury, William. *Getting to Yes*. 3ª ed. Penguin, 2011.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
-- Larson, Will. *Staff Engineer*. Stripe Press, 2021.
+- Larson, Will. *Staff Engineer*. Publicação do autor, 2021.

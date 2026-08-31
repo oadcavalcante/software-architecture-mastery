@@ -310,4 +310,4 @@ A diferença entre as duas listas é a estratégia real, tomada por omissão em 
 
 - Rumelt, Richard. *Good Strategy Bad Strategy*. Crown Business, 2011.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
-- Larson, Will. *Staff Engineer*. Stripe Press, 2021.
+- Larson, Will. *Staff Engineer*. Publicação do autor, 2021.

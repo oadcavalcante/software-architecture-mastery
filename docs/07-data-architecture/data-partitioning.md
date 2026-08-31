@@ -270,4 +270,4 @@ uma decisão que ninguém tomou.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
   capítulo 6.
 - Winand, Markus. *SQL Performance Explained*, 2012.
-- Schwartz, Baron et al. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.
+- Botros, Silvia; Tinley, Jeremy. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.

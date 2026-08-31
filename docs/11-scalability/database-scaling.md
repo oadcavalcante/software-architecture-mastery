@@ -295,5 +295,5 @@ de conexões provavelmente resolve o problema desta semana.
 ## Para Aprofundar
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Schwartz, Baron et al. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.
+- Botros, Silvia; Tinley, Jeremy. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.
 - Winand, Markus. *SQL Performance Explained*, 2012.

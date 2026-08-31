@@ -307,5 +307,5 @@ Cada uma dessas transforma lentidão alheia em reinício próprio.
 ## Para Aprofundar
 
 - Burns, Brendan et al. *Kubernetes: Up and Running*. 3ª ed. O'Reilly, 2022.
-- Burns, Brendan; Beda, Joe. *Designing Distributed Systems*. O'Reilly, 2018.
+- Burns, Brendan. *Designing Distributed Systems*. O'Reilly, 2018.
 - Documentação oficial do Kubernetes — conceitos e boas práticas.

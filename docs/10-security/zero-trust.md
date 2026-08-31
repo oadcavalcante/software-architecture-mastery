@@ -296,4 +296,4 @@ A resposta é o seu movimento lateral disponível hoje.
 
 - NIST SP 800-207 — Zero Trust Architecture.
 - Google. *BeyondCorp: A New Approach to Enterprise Security*, 2014.
-- Gilman, Evan; Barth, Doug. *Zero Trust Networks*. 2ª ed. O'Reilly, 2024.
+- Rais, Razi et al. *Zero Trust Networks*. 2ª ed. O'Reilly, 2024.

@@ -273,5 +273,5 @@ réplica está sendo consumida antes de servir qualquer leitura.
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
   capítulo 5.
-- Schwartz, Baron et al. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.
+- Botros, Silvia; Tinley, Jeremy. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.
 - Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007.

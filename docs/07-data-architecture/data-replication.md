@@ -281,4 +281,4 @@ Se as duas primeiras forem "nunca", elas são o trabalho mais urgente desta seç
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
   capítulo 5.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
-- Schwartz, Baron et al. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.
+- Botros, Silvia; Tinley, Jeremy. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.

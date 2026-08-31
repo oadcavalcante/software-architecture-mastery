@@ -331,6 +331,6 @@ custo delas.
 
 ## Para Aprofundar
 
-- Ousterhout, John. *A Philosophy of Software Design*. 2ª ed. Yaknyam, 2021.
+- Ousterhout, John. *A Philosophy of Software Design*. 2ª ed. Yaknyam Press, 2021.
 - Fowler, Martin. *Yagni*. martinfowler.com, 2015.
 - Brooks, Frederick. *No Silver Bullet*. IEEE Computer, 1987.

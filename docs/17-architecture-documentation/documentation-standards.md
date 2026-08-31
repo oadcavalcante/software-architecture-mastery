@@ -334,5 +334,5 @@ que ficam.
 ## Para Aprofundar
 
 - Clements, Paul et al. *Documenting Software Architectures*. 2ª ed. Addison-Wesley, 2010.
-- Bloch, Andrew et al. *Docs as Code* — write-the-docs.readthedocs.io.
+- Write the Docs. *Docs as Code* — writethedocs.org/guide/docs-as-code.
 - Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018.

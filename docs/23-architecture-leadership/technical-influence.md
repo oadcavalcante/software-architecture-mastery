@@ -309,6 +309,6 @@ maior, você não está sinalizando a diferença — e o crédito está diluído
 
 ## Para Aprofundar
 
-- Larson, Will. *Staff Engineer*. Stripe Press, 2021.
+- Larson, Will. *Staff Engineer*. Publicação do autor, 2021.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
 - Cialdini, Robert. *Influence*. Edição revisada. Harper Business, 2021.

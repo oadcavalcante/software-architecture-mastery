@@ -320,4 +320,4 @@ avançado.
 
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
 - Minto, Barbara. *The Pyramid Principle*. Pearson, 2009.
-- Larson, Will. *Staff Engineer*. Stripe Press, 2021.
+- Larson, Will. *Staff Engineer*. Publicação do autor, 2021.

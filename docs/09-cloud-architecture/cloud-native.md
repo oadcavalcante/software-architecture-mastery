@@ -268,5 +268,5 @@ lista de ferramentas adotadas.
 ## Para Aprofundar
 
 - Wiggins, Adam. *The Twelve-Factor App*, 2011.
-- Burns, Brendan; Beda, Joe. *Designing Distributed Systems*. O'Reilly, 2018.
+- Burns, Brendan. *Designing Distributed Systems*. O'Reilly, 2018.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.

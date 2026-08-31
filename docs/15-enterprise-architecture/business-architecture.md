@@ -301,6 +301,6 @@ estar — e frequentemente não está.
 
 ## Para Aprofundar
 
-- Ulrich, William; Rosen, Michael. *The Business Capability Map*. BAI, 2011.
+- Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
 - Open Group. *TOGAF Standard* — arquitetura de negócio.
 - Rother, Mike; Shook, John. *Learning to See*. LEI, 1999 — mapeamento de fluxo de valor.

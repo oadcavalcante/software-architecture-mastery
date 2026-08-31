@@ -358,4 +358,4 @@ de a regra "meça primeiro" existir.
 
 - Knuth, Donald. *Structured Programming with go to Statements*. ACM, 1974.
 - Gregg, Brendan. *Systems Performance*. 2ª ed. Addison-Wesley, 2020.
-- Ousterhout, John. *A Philosophy of Software Design*. 2ª ed. Yaknyam, 2021.
+- Ousterhout, John. *A Philosophy of Software Design*. 2ª ed. Yaknyam Press, 2021.

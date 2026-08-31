@@ -355,5 +355,5 @@ indicam conhecimentos diferentes unidos por semelhança.
 ## Para Aprofundar
 
 - Hunt, Andrew; Thomas, David. *The Pragmatic Programmer*. 2ª ed. Addison-Wesley, 2019.
-- Ousterhout, John. *A Philosophy of Software Design*. 2ª ed. Yaknyam, 2021.
+- Ousterhout, John. *A Philosophy of Software Design*. 2ª ed. Yaknyam Press, 2021.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.

@@ -287,5 +287,5 @@ para a saída: para quais destinos externos essa máquina consegue enviar dados?
 ## Para Aprofundar
 
 - NIST SP 800-207 — Zero Trust Architecture.
-- Gilman, Evan; Barth, Doug. *Zero Trust Networks*. 2ª ed. O'Reilly, 2024.
+- Rais, Razi et al. *Zero Trust Networks*. 2ª ed. O'Reilly, 2024.
 - MITRE ATT&CK — técnicas de movimento lateral e exfiltração.
