@@ -331,11 +331,11 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Circuit Breakers](docs/12-reliability/circuit-breakers.md) | pattern | intermediário | `retry-storms` | ⬜ |
 | 🟩 | [Planejamento de Recuperação](docs/12-reliability/disaster-recovery-planning.md) | concept | avançado | `rto` | ⬜ |
 | 🟩 | [Exercício 07 — Disponibilidade Multi-região](docs/12-reliability/exercises/07-multi-region.md) | exercise | avançado | `06-partial-failure` | ⬜ |
-| 🟩 | [Failover](docs/12-reliability/failover.md) | concept | avançado | `redundancy` | ⬜ |
+| 🟩 | [Failover](docs/12-reliability/failover.md) | concept | avançado | `redundancy` | 🟩 |
 | 🟩 | [Tolerância a Falhas](docs/12-reliability/fault-tolerance.md) | concept | avançado | `reliability-basics` | 🟩 |
 | 🟩 | [Degradação Graciosa](docs/12-reliability/graceful-degradation.md) | pattern | intermediário | `reliability` | ⬜ |
 | 🟩 | [Confiabilidade](docs/12-reliability/index.md) | index | avançado | `distributed-systems` | 🟩 |
-| 🟩 | [Redundância](docs/12-reliability/redundancy.md) | concept | intermediário | `reliability` | ⬜ |
+| 🟩 | [Redundância](docs/12-reliability/redundancy.md) | concept | intermediário | `reliability` | 🟩 |
 | 🟩 | [Fundamentos de Confiabilidade](docs/12-reliability/reliability-basics.md) | foundation | intermediário | `reliability` | 🟩 |
 | 🟩 | [Resiliência](docs/12-reliability/resilience.md) | concept | avançado | `fault-tolerance` | 🟩 |
 | 🟩 | [Tempestades de Retentativa](docs/12-reliability/retry-storms.md) | concept | avançado | `reliability` | ⬜ |
