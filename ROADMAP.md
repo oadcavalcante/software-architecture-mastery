@@ -393,7 +393,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Consequências](docs/18-architecture-decisions/adr-consequences.md) | concept | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [Contexto da Decisão](docs/18-architecture-decisions/adr-context.md) | concept | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [A Decisão](docs/18-architecture-decisions/adr-decision.md) | concept | intermediário | `adr-structure` | 🟩 |
-| 🟩 | [Status do ADR](docs/18-architecture-decisions/adr-status.md) | concept | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [Status do ADR](docs/18-architecture-decisions/adr-status.md) | concept | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [Estrutura do ADR](docs/18-architecture-decisions/adr-structure.md) | concept | iniciante | `what-is-an-adr` | 🟩 |
 | 🟩 | [Decisões de Arquitetura](docs/18-architecture-decisions/index.md) | index | intermediário | `architecture-documentation` | 🟩 |
 | 🟩 | [Superação de Decisões](docs/18-architecture-decisions/superseding-decisions.md) | concept | avançado | `adr-status` | ⬜ |
