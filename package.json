@@ -59,6 +59,8 @@
     "test": "node --test test/*.test.mjs",
     "terminology": "node scripts/gen-terminology-doc.mjs",
     "plan": "node scripts/gen-plan.mjs",
-    "check:artifacts": "node scripts/check-artifacts.mjs"
+    "check:artifacts": "node scripts/check-artifacts.mjs",
+    "gen": "npm run roadmap && npm run plan",
+    "prepare": "git config core.hooksPath .githooks"
   }
 }

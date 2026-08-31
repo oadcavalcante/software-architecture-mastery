@@ -1,0 +1,12 @@
+#!/bin/sh
+# Regenera os artefatos derivados e os inclui no commit.
+#
+# ROADMAP.md e fix_plan.md são derivados de scripts/curriculum.json e do estado
+# real dos documentos — o progresso da tradução muda os dois a cada lote. Sem
+# isto, um commit de tradução deixa o artefato defasado e o CI falha em
+# `check:artifacts`, que é a verificação correta reclamando de um esquecimento
+# evitável.
+set -e
+node scripts/gen-roadmap.mjs >/dev/null
+node scripts/gen-plan.mjs >/dev/null
+git add ROADMAP.md fix_plan.md specs 2>/dev/null || true

@@ -117,6 +117,21 @@ npm run build     # build nas duas locales
 O CI roda os três. `npm run build` falha em link interno quebrado — isso é
 proposital.
 
+### Artefatos derivados
+
+`ROADMAP.md` e `fix_plan.md` são gerados a partir de `scripts/curriculum.json` e
+do estado real dos documentos. Como o progresso da tradução muda os dois, todo
+commit que traduz algo precisa regerá-los — senão `check:artifacts` falha no CI.
+
+O hook em `.githooks/pre-commit` faz isso sozinho. Ele é ativado por
+`npm install`, via `npm run prepare`; para ativar à mão:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+Para regerar sem commitar: `npm run gen`.
+
 ## Traduzindo
 
 pt-BR é canônico e sempre avança primeiro. Traduzir nunca bloqueia conteúdo novo.
