@@ -133,7 +133,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Proxy](docs/03-design-patterns/proxy.md) | pattern | intermediário | `decorator` | 🟩 |
 | 🟩 | [Singleton](docs/03-design-patterns/singleton.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [SOA](docs/03-design-patterns/soa.md) | pattern | intermediário | `microservices` | 🟩 |
-| 🟩 | [Space-Based Architecture](docs/03-design-patterns/space-based-architecture.md) | pattern | avançado | `microservices` | ⬜ |
+| 🟩 | [Space-Based Architecture](docs/03-design-patterns/space-based-architecture.md) | pattern | avançado | `microservices` | 🟩 |
 | 🟩 | [State](docs/03-design-patterns/state.md) | pattern | intermediário | `strategy` | 🟩 |
 | 🟩 | [Strategy](docs/03-design-patterns/strategy.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Template Method](docs/03-design-patterns/template-method.md) | pattern | iniciante | `design-patterns` | 🟩 |
