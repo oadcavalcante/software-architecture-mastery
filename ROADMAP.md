@@ -367,9 +367,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Infraestrutura como Código](docs/14-devops-and-platform/infrastructure-as-code.md) | concept | intermediário | `devops-and-platform` | 🟩 |
 | 🟩 | [Plataformas Internas](docs/14-devops-and-platform/internal-developer-platforms.md) | concept | avançado | `platform-engineering` | 🟩 |
 | 🟩 | [Engenharia de Plataforma](docs/14-devops-and-platform/platform-engineering.md) | concept | avançado | `devops-and-platform` | 🟩 |
-| 🟩 | [Gestão de Releases](docs/14-devops-and-platform/release-management.md) | concept | intermediário | `ci-cd` | ⬜ |
+| 🟩 | [Gestão de Releases](docs/14-devops-and-platform/release-management.md) | concept | intermediário | `ci-cd` | 🟩 |
 | 🟩 | [Implantação em Ondas](docs/14-devops-and-platform/rolling-deployments.md) | pattern | intermediário | `deployment-strategies` | 🟩 |
-| 🟩 | [Segurança da Esteira](docs/14-devops-and-platform/supply-chain-security.md) | concept | avançado | `ci-cd` | ⬜ |
+| 🟩 | [Segurança da Esteira](docs/14-devops-and-platform/supply-chain-security.md) | concept | avançado | `ci-cd` | 🟩 |
 | 🟩 | [Descrições de Arquitetura](docs/17-architecture-documentation/architecture-descriptions.md) | concept | avançado | `architecture-views` | ⬜ |
 | 🟩 | [Visões de Arquitetura](docs/17-architecture-documentation/architecture-views.md) | concept | avançado | `c4-model` | ⬜ |
 | 🟩 | [Modelo C4](docs/17-architecture-documentation/c4-model.md) | concept | intermediário | `documentation-principles` | ⬜ |
