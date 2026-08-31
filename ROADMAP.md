@@ -197,7 +197,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Backoff](docs/06-distributed-systems/backoff.md) | concept | intermediário | `retries` | 🟩 |
 | 🟩 | [Backpressure](docs/06-distributed-systems/backpressure.md) | concept | avançado | `messaging` | 🟩 |
 | 🟩 | [CAP](docs/06-distributed-systems/cap.md) | foundation | avançado | `consistency`, `availability` | 🟩 |
-| 🟩 | [Relógio e Tempo](docs/06-distributed-systems/clock-and-time.md) | concept | avançado | `distributed-fundamentals` | ⬜ |
+| 🟩 | [Relógio e Tempo](docs/06-distributed-systems/clock-and-time.md) | concept | avançado | `distributed-fundamentals` | 🟩 |
 | 🟩 | [Resolução de Conflitos](docs/06-distributed-systems/conflict-resolution.md) | concept | avançado | `eventual-consistency` | ⬜ |
 | 🟩 | [Consenso](docs/06-distributed-systems/consensus.md) | concept | avançado | `leader-election` | ⬜ |
 | 🟩 | [Consistência](docs/06-distributed-systems/consistency.md) | concept | avançado | `partial-failure` | 🟩 |
@@ -214,7 +214,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Exercício 04 — Escalar o E-commerce](docs/06-distributed-systems/exercises/04-scaling-ecommerce.md) | exercise | intermediário | `03-ecommerce-backend` | ⬜ |
 | 🟩 | [Exercício 05 — Introduzir Processamento Assíncrono](docs/06-distributed-systems/exercises/05-async-processing.md) | exercise | avançado | `04-scaling-ecommerce` | ⬜ |
 | 🟩 | [Exercício 06 — Lidar com Falhas Parciais](docs/06-distributed-systems/exercises/06-partial-failure.md) | exercise | avançado | `05-async-processing` | ⬜ |
-| 🟩 | [Detecção de Falha](docs/06-distributed-systems/failure-detection.md) | concept | avançado | `network-failure` | ⬜ |
+| 🟩 | [Detecção de Falha](docs/06-distributed-systems/failure-detection.md) | concept | avançado | `network-failure` | 🟩 |
 | 🟩 | [Idempotência](docs/06-distributed-systems/idempotency.md) | concept | avançado | `partial-failure` | 🟩 |
 | 🟩 | [Sistemas Distribuídos](docs/06-distributed-systems/index.md) | index | avançado | `system-design` | 🟩 |
 | 🟩 | [Latência](docs/06-distributed-systems/latency.md) | concept | intermediário | `distributed-fundamentals` | 🟩 |
