@@ -283,8 +283,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Contêineres](docs/09-cloud-architecture/containers.md) | concept | intermediário | `cloud-architecture` | ⬜ |
 | 🟩 | [Arquitetura de Custo](docs/09-cloud-architecture/cost-architecture.md) | concept | avançado | `cloud-architecture` | ⬜ |
 | 🟩 | [Recuperação de Desastre](docs/09-cloud-architecture/disaster-recovery.md) | concept | avançado | `regions` | ⬜ |
-| 🟩 | [IaaS](docs/09-cloud-architecture/iaas.md) | concept | intermediário | `cloud-architecture` | ⬜ |
-| 🟩 | [Arquitetura em Nuvem](docs/09-cloud-architecture/index.md) | index | avançado | `distributed-systems` | ⬜ |
+| 🟩 | [IaaS](docs/09-cloud-architecture/iaas.md) | concept | intermediário | `cloud-architecture` | 🟩 |
+| 🟩 | [Arquitetura em Nuvem](docs/09-cloud-architecture/index.md) | index | avançado | `distributed-systems` | 🟩 |
 | 🟩 | [Kubernetes](docs/09-cloud-architecture/kubernetes.md) | concept | avançado | `containers` | ⬜ |
 | 🟩 | [Serviços Gerenciados](docs/09-cloud-architecture/managed-services.md) | concept | intermediário | `cloud-architecture` | ⬜ |
 | 🟩 | [Multi-Região](docs/09-cloud-architecture/multi-region.md) | pattern | avançado | `regions` | ⬜ |
