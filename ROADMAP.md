@@ -167,9 +167,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Autenticação](docs/05-system-design/authentication.md) | concept | intermediário | `state-management` | 🟩 |
 | 🟩 | [Autorização](docs/05-system-design/authorization.md) | concept | intermediário | `authentication` | 🟩 |
 | 🟩 | [Processamento em Background](docs/05-system-design/background-processing.md) | concept | intermediário | `queues` | 🟩 |
-| 🟩 | [Análise de Gargalos](docs/05-system-design/bottleneck-analysis.md) | concept | intermediário | `capacity-planning` | ⬜ |
+| 🟩 | [Análise de Gargalos](docs/05-system-design/bottleneck-analysis.md) | concept | intermediário | `capacity-planning` | 🟩 |
 | 🟩 | [Cache](docs/05-system-design/caching.md) | concept | intermediário | `state-management` | 🟩 |
-| 🟩 | [Planejamento de Capacidade](docs/05-system-design/capacity-planning.md) | concept | intermediário | `components` | ⬜ |
+| 🟩 | [Planejamento de Capacidade](docs/05-system-design/capacity-planning.md) | concept | intermediário | `components` | 🟩 |
 | 🟩 | [CDN](docs/05-system-design/cdn.md) | concept | iniciante | `caching` | 🟩 |
 | 🟩 | [Componentes](docs/05-system-design/components.md) | concept | intermediário | `system-decomposition` | 🟩 |
 | 🟩 | [Configuração](docs/05-system-design/configuration.md) | concept | iniciante | `components` | ⬜ |
