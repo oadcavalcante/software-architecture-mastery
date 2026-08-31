@@ -251,17 +251,17 @@ trinta setas.
 
 ## Erros Comuns
 
-**Não fazer legenda.**
+**Não fazer legenda.** Formas e cores que só o autor entende tornam o diagrama ilegível para quem mais precisa dele.
 
-**Usar cor sem significado declarado.**
+**Usar cor sem significado declarado.** O leitor supõe que a cor significa algo e tira conclusão errada — pior que não ter cor.
 
-**Setas sem rótulo.**
+**Setas sem rótulo.** "A aponta para B" não diz se é chamada síncrona, evento ou leitura de banco, que é justamente o que muda o entendimento.
 
-**Espremer o sistema inteiro num diagrama.**
+**Espremer o sistema inteiro num diagrama.** Acima de uma dúzia de elementos, ninguém acompanha. Vários diagramas em níveis diferentes comunicam mais que um abrangente.
 
-**Não datar.**
+**Não datar.** Sem data, o leitor não sabe se está vendo o sistema de hoje ou de três anos atrás — e supõe que é de hoje.
 
-**Testar o diagrama apenas com quem já conhece o sistema.**
+**Testar o diagrama apenas com quem já conhece o sistema.** Essas pessoas preenchem as lacunas com o que já sabem. O teste real é alguém de fora explicar o que entendeu.
 
 ## Exemplo Real
 

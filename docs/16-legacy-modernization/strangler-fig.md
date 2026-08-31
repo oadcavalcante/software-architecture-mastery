@@ -220,17 +220,17 @@ desligamento é uma entrega, não uma consequência.
 
 ## Erros Comuns
 
-**Não planejar o desligamento.**
+**Não planejar o desligamento.** Sem critério e data para desligar o antigo, a empresa opera e paga os dois sistemas indefinidamente — e a estratégia entrega custo em vez de economia.
 
-**Começar pelo fácil e permanecer nele.**
+**Começar pelo fácil e permanecer nele.** As partes simples saem rápido e dão sensação de progresso; o que sobra é todo o difícil, e o apoio já foi gasto.
 
-**Não mapear os casos difíceis cedo.**
+**Não mapear os casos difíceis cedo.** Descobrir no décimo mês que uma funcionalidade não é extraível muda a viabilidade da estratégia inteira — e é informação que se obtém no primeiro.
 
-**Não manter compatibilidade de dados nos dois sentidos.**
+**Não manter compatibilidade de dados nos dois sentidos.** Durante a convivência, os dois sistemas leem e escrevem o mesmo dado. Compatibilidade só de ida impede reverter a fatia.
 
-**Não monitorar o que ainda usa o antigo.**
+**Não monitorar o que ainda usa o antigo.** Sem medir o tráfego residual, ninguém sabe se restou um consumidor esquecido — e o desligamento vira aposta.
 
-**Não remover a camada de interceptação ao fim.**
+**Não remover a camada de interceptação ao fim.** Ela era andaime; mantida depois do desligamento, vira indireção permanente que ninguém entende mais por que existe.
 
 ## Exemplo Real
 

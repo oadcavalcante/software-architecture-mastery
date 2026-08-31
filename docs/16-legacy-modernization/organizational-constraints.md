@@ -228,17 +228,17 @@ morre pela metade, deixando a organização pior que antes.
 
 ## Erros Comuns
 
-**Não identificar quem perde.**
+**Não identificar quem perde.** Toda modernização retira influência ou familiaridade de alguém. Quem perde e não foi ouvido vira resistência que aparece como objeção técnica.
 
-**Não fazer transferência de conhecimento primeiro.**
+**Não fazer transferência de conhecimento primeiro.** As regras não documentadas vivem na cabeça de poucas pessoas. Se elas saírem no meio, o que resta é arqueologia de código.
 
-**Prometer prazo em trabalho de descoberta.**
+**Prometer prazo em trabalho de descoberta.** Enquanto o comportamento real do sistema é desconhecido, qualquer data é ficção — e a data perdida corrói a credibilidade que sustenta o resto do projeto.
 
-**Depender de um patrocinador.**
+**Depender de um patrocinador.** Modernizações levam anos e patrocinadores mudam de área. Sem apoio distribuído, a saída de uma pessoa encerra o projeto.
 
-**Separar quem constrói de quem vai operar.**
+**Separar quem constrói de quem vai operar.** Quem opera herda decisões que não tomou e não tem contexto para sustentar, e a operação do sistema novo fica pior que a do antigo.
 
-**Não entregar valor antes do mês seis.**
+**Não entregar valor antes do mês seis.** Projeto longo sem entrega visível perde prioridade no primeiro corte de orçamento, independentemente do mérito técnico.
 
 ## Exemplo Real
 

@@ -218,17 +218,17 @@ com fronteira clara entre os dois.
 
 ## Erros Comuns
 
-**Avaliar em demonstração.**
+**Avaliar em demonstração.** A demonstração mostra o caminho feliz preparado pelo fornecedor. A avaliação útil usa os seus dados e os seus casos excepcionais.
 
-**Customizar em vez de adaptar o processo.**
+**Customizar em vez de adaptar o processo.** Cada customização encarece atualização e amarra à versão. Quando o processo não é diferenciador, adaptá-lo ao produto é mais barato que o contrário.
 
-**Não verificar a saída de dados antes de assinar.**
+**Não verificar a saída de dados antes de assinar.** Depois da assinatura não há poder de barganha, e a dificuldade de exportar é o que transforma fornecedor em prisão.
 
-**Substituir capacidade diferenciadora.**
+**Substituir capacidade diferenciadora.** Nivela o que distinguia a empresa ao que o concorrente também compra.
 
-**Não isolar com camada de tradução.**
+**Não isolar com camada de tradução.** Sem ela, o modelo do fornecedor se espalha pelo domínio, e trocá-lo depois deixa de ser decisão comercial.
 
-**Não decidir sobre o histórico.**
+**Não decidir sobre o histórico.** Migrar o passado para o produto novo costuma ser a maior parte do esforço, e a decisão é de negócio.
 
 ## Exemplo Real
 

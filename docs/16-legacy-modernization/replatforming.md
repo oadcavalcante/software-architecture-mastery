@@ -234,17 +234,17 @@ seguintes.
 
 ## Erros Comuns
 
-**Prometer que resolve problemas de manutenção.**
+**Prometer que resolve problemas de manutenção.** Mudar de infraestrutura não toca acoplamento nem modelo. Prometer isso garante decepção e queima a credibilidade da fase seguinte.
 
-**Não fazer as adaptações mínimas.**
+**Não fazer as adaptações mínimas.** Externalizar configuração e estado é o mínimo para colher benefício da nova plataforma; sem isso, é a mesma aplicação em outro lugar, mais cara.
 
-**Não revisar dimensionamento.**
+**Não revisar dimensionamento.** Replicar o tamanho da máquina antiga transporta junto o superdimensionamento histórico, e a economia esperada não aparece.
 
-**Não inventariar dependências ocultas.**
+**Não inventariar dependências ocultas.** Tarefas agendadas, diretórios compartilhados e integrações por arquivo não aparecem no código e quebram depois da mudança.
 
-**Não planejar a segunda fase.**
+**Não planejar a segunda fase.** Replataformar compra tempo; sem o passo seguinte definido, o tempo é gasto e o problema original permanece.
 
-**Desligar o antigo cedo demais.**
+**Desligar o antigo cedo demais.** O ambiente anterior é o plano de reversão até o novo passar por um ciclo completo de operação.
 
 ## Exemplo Real
 

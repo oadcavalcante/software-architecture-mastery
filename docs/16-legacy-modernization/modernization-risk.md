@@ -258,17 +258,17 @@ Formas de reduzir risco antes de qualquer controle:
 
 ## Erros Comuns
 
-**Registro de risco genérico.**
+**Registro de risco genérico.** "Risco de atraso" vale para qualquer projeto e não sugere mitigação nenhuma. O risco útil é específico do sistema e da migração em questão.
 
-**Não separar irreversível.**
+**Não separar irreversível.** Riscos reversíveis merecem experimento; irreversíveis merecem análise. Tratar os dois igual gasta cuidado no lugar errado e economiza onde não pode.
 
-**Não fazer comparação em produção.**
+**Não fazer comparação em produção.** Rodar o sistema novo em paralelo e comparar as saídas com o antigo é a forma mais barata de descobrir divergência antes de ela afetar alguém.
 
-**Não exercitar um ciclo completo antes de desligar.**
+**Não exercitar um ciclo completo antes de desligar.** Fechamento mensal, conciliação e relatórios anuais só aparecem no ciclo deles — e é neles que a regra esquecida se revela.
 
-**Não registrar o risco de não fazer.**
+**Não registrar o risco de não fazer.** A comparação relevante é contra continuar como está, e sem esse lado a análise mostra só o custo da mudança.
 
-**Tratar risco organizacional como fora do escopo.**
+**Tratar risco organizacional como fora do escopo.** Perda de patrocínio, reorganização e saída de quem detém o conhecimento derrubam mais modernizações que problema técnico.
 
 ## Exemplo Real
 
