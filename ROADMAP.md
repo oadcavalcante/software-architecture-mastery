@@ -433,7 +433,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Arquitetura de Dados Corporativa](docs/15-enterprise-architecture/enterprise-data-architecture.md) | concept | avançado | `enterprise-architecture` | ⬜ |
 | 🟩 | [Governança Corporativa](docs/15-enterprise-architecture/enterprise-governance.md) | concept | avançado | `architecture-levels` | ⬜ |
 | 🟩 | [Princípios Corporativos](docs/15-enterprise-architecture/enterprise-principles.md) | concept | avançado | `enterprise-architecture` | ⬜ |
-| 🟩 | [Arquitetura Corporativa](docs/15-enterprise-architecture/index.md) | index | avançado | `devops-and-platform` | ⬜ |
+| 🟩 | [Arquitetura Corporativa](docs/15-enterprise-architecture/index.md) | index | avançado | `devops-and-platform` | 🟩 |
 | 🟩 | [Paisagens de Integração](docs/15-enterprise-architecture/integration-landscapes.md) | concept | avançado | `application-portfolios` | ⬜ |
 | 🟩 | [Padrões](docs/15-enterprise-architecture/standards.md) | concept | intermediário | `enterprise-principles` | ⬜ |
 | 🟩 | [Arquitetura Alvo](docs/15-enterprise-architecture/target-architecture.md) | concept | avançado | `current-state-architecture` | ⬜ |
