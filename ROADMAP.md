@@ -114,7 +114,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Chain of Responsibility](docs/03-design-patterns/chain-of-responsibility.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Command](docs/03-design-patterns/command.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Composite](docs/03-design-patterns/composite.md) | pattern | intermediário | `design-patterns` | 🟩 |
-| 🟩 | [CQRS](docs/03-design-patterns/cqrs.md) | pattern | avançado | `event-driven` | ⬜ |
+| 🟩 | [CQRS](docs/03-design-patterns/cqrs.md) | pattern | avançado | `event-driven` | 🟩 |
 | 🟩 | [Decorator](docs/03-design-patterns/decorator.md) | pattern | intermediário | `composite` | 🟩 |
 | 🟩 | [Arquitetura Orientada a Eventos](docs/03-design-patterns/event-driven.md) | pattern | avançado | `microservices` | 🟩 |
 | 🟩 | [Event Sourcing](docs/03-design-patterns/event-sourcing.md) | pattern | avançado | `cqrs` | ⬜ |
