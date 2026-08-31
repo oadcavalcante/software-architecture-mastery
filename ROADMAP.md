@@ -451,9 +451,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Motivadores de Modernização](docs/16-legacy-modernization/modernization-drivers.md) | concept | avançado | `legacy-modernization` | 🟩 |
 | 🟩 | [Risco de Modernização](docs/16-legacy-modernization/modernization-risk.md) | concept | avançado | `migration-strategies` | ⬜ |
 | 🟩 | [Restrições Organizacionais](docs/16-legacy-modernization/organizational-constraints.md) | concept | avançado | `legacy-modernization` | ⬜ |
-| 🟩 | [Reconstrução](docs/16-legacy-modernization/rebuilding.md) | concept | avançado | `migration-strategies` | ⬜ |
+| 🟩 | [Reconstrução](docs/16-legacy-modernization/rebuilding.md) | concept | avançado | `migration-strategies` | 🟩 |
 | 🟩 | [Substituição](docs/16-legacy-modernization/replacing.md) | concept | avançado | `migration-strategies` | ⬜ |
-| 🟩 | [Replataforma](docs/16-legacy-modernization/replatforming.md) | concept | intermediário | `migration-strategies` | ⬜ |
+| 🟩 | [Replataforma](docs/16-legacy-modernization/replatforming.md) | concept | intermediário | `migration-strategies` | 🟩 |
 | 🟩 | [Strangler Fig](docs/16-legacy-modernization/strangler-fig.md) | pattern | avançado | `legacy-modernization` | 🟩 |
 | 🟩 | [Conformidade](docs/19-architecture-governance/compliance.md) | concept | avançado | `governance-standards` | ⬜ |
 | 🟩 | [Exceções](docs/19-architecture-governance/exceptions.md) | concept | avançado | `governance-standards` | ⬜ |
