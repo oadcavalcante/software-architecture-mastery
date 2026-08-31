@@ -95,7 +95,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [DRY](docs/02-software-design/dry.md) | concept | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Encapsulamento](docs/02-software-design/encapsulation.md) | concept | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Exercício 02 — Sistema de Biblioteca](docs/02-software-design/exercises/02-library-system.md) | exercise | iniciante | `modular-design` | ⬜ |
-| 🟩 | [Arquitetura Hexagonal](docs/02-software-design/hexagonal-architecture.md) | pattern | intermediário | `ports-and-adapters` | ⬜ |
+| 🟩 | [Arquitetura Hexagonal](docs/02-software-design/hexagonal-architecture.md) | pattern | intermediário | `ports-and-adapters` | 🟩 |
 | 🟩 | [Design de Software](docs/02-software-design/index.md) | index | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Interfaces](docs/02-software-design/interfaces.md) | concept | intermediário | `encapsulation` | 🟩 |
 | 🟩 | [KISS](docs/02-software-design/kiss.md) | concept | iniciante | `fundamentals` | 🟩 |
@@ -103,7 +103,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Design Modular](docs/02-software-design/modular-design.md) | concept | intermediário | `layering` | 🟩 |
 | 🟩 | [Arquitetura Onion](docs/02-software-design/onion-architecture.md) | pattern | intermediário | `hexagonal-architecture` | ⬜ |
 | 🟩 | [Design de Pacotes](docs/02-software-design/package-design.md) | concept | avançado | `modular-design` | 🟩 |
-| 🟩 | [Ports and Adapters](docs/02-software-design/ports-and-adapters.md) | pattern | intermediário | `dependency-inversion` | ⬜ |
+| 🟩 | [Ports and Adapters](docs/02-software-design/ports-and-adapters.md) | pattern | intermediário | `dependency-inversion` | 🟩 |
 | 🟩 | [Refatoração](docs/02-software-design/refactoring.md) | concept | intermediário | `code-smells` | ⬜ |
 | 🟩 | [SOLID](docs/02-software-design/solid.md) | concept | intermediário | `fundamentals` | 🟩 |
 | 🟩 | [YAGNI](docs/02-software-design/yagni.md) | concept | iniciante | `fundamentals` | 🟩 |
