@@ -281,7 +281,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Rede em Nuvem](docs/09-cloud-architecture/cloud-networking.md) | concept | avançado | `cloud-architecture` | ⬜ |
 | 🟩 | [Armazenamento em Nuvem](docs/09-cloud-architecture/cloud-storage.md) | concept | intermediário | `cloud-architecture` | ⬜ |
 | 🟩 | [Contêineres](docs/09-cloud-architecture/containers.md) | concept | intermediário | `cloud-architecture` | 🟩 |
-| 🟩 | [Arquitetura de Custo](docs/09-cloud-architecture/cost-architecture.md) | concept | avançado | `cloud-architecture` | ⬜ |
+| 🟩 | [Arquitetura de Custo](docs/09-cloud-architecture/cost-architecture.md) | concept | avançado | `cloud-architecture` | 🟩 |
 | 🟩 | [Recuperação de Desastre](docs/09-cloud-architecture/disaster-recovery.md) | concept | avançado | `regions` | 🟩 |
 | 🟩 | [IaaS](docs/09-cloud-architecture/iaas.md) | concept | intermediário | `cloud-architecture` | 🟩 |
 | 🟩 | [Arquitetura em Nuvem](docs/09-cloud-architecture/index.md) | index | avançado | `distributed-systems` | 🟩 |
@@ -292,7 +292,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Regiões](docs/09-cloud-architecture/regions.md) | concept | intermediário | `cloud-architecture` | 🟩 |
 | 🟩 | [SaaS](docs/09-cloud-architecture/saas.md) | concept | intermediário | `paas` | 🟩 |
 | 🟩 | [Serverless](docs/09-cloud-architecture/serverless.md) | concept | avançado | `managed-services` | 🟩 |
-| 🟩 | [Dependência de Fornecedor](docs/09-cloud-architecture/vendor-lock-in.md) | tradeoff | avançado | `managed-services` | ⬜ |
+| 🟩 | [Dependência de Fornecedor](docs/09-cloud-architecture/vendor-lock-in.md) | tradeoff | avançado | `managed-services` | 🟩 |
 | 🟩 | [Auditabilidade](docs/10-security/auditability.md) | concept | intermediário | `security` | ⬜ |
 | 🟩 | [Modelos de Autorização](docs/10-security/authz-models.md) | tradeoff | avançado | `identity` | ⬜ |
 | 🟩 | [Proteção de Dados](docs/10-security/data-protection.md) | concept | avançado | `security` | ⬜ |
