@@ -325,7 +325,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Replicação para Escala](docs/11-scalability/scaling-replication.md) | concept | intermediário | `scalability` | 🟩 |
 | 🟩 | [Ausência de Estado](docs/11-scalability/statelessness.md) | concept | intermediário | `horizontal-scaling` | 🟩 |
 | 🟩 | [Escala Vertical](docs/11-scalability/vertical-scaling.md) | concept | intermediário | `scalability` | 🟩 |
-| 🟩 | [Métricas de Disponibilidade](docs/12-reliability/availability-metrics.md) | concept | intermediário | `reliability` | ⬜ |
+| 🟩 | [Métricas de Disponibilidade](docs/12-reliability/availability-metrics.md) | concept | intermediário | `reliability` | 🟩 |
 | 🟩 | [Bulkheads](docs/12-reliability/bulkheads.md) | pattern | intermediário | `reliability` | ⬜ |
 | 🟩 | [Engenharia do Caos](docs/12-reliability/chaos-engineering.md) | concept | avançado | `reliability` | ⬜ |
 | 🟩 | [Circuit Breakers](docs/12-reliability/circuit-breakers.md) | pattern | intermediário | `retry-storms` | ⬜ |
@@ -341,7 +341,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Tempestades de Retentativa](docs/12-reliability/retry-storms.md) | concept | avançado | `reliability` | ⬜ |
 | 🟩 | [RPO](docs/12-reliability/rpo.md) | foundation | intermediário | `reliability` | ⬜ |
 | 🟩 | [RTO](docs/12-reliability/rto.md) | foundation | intermediário | `reliability` | ⬜ |
-| 🟩 | [SLA](docs/12-reliability/sla.md) | concept | intermediário | `slo` | ⬜ |
+| 🟩 | [SLA](docs/12-reliability/sla.md) | concept | intermediário | `slo` | 🟩 |
 | 🟩 | [SLI](docs/12-reliability/sli.md) | concept | intermediário | `reliability` | 🟩 |
 | 🟩 | [SLO](docs/12-reliability/slo.md) | concept | avançado | `sli` | 🟩 |
 | 🟩 | [Alertas](docs/13-observability/alerting.md) | concept | avançado | `golden-signals` | ⬜ |
