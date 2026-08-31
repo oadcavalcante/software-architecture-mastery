@@ -274,7 +274,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Evolução de Esquema](docs/08-integration-architecture/schema-evolution.md) | concept | avançado | `integration-contracts` | 🟩 |
 | 🟩 | [Malha de Serviço](docs/08-integration-architecture/service-mesh.md) | pattern | avançado | `api-gateways` | 🟩 |
 | 🟩 | [Webhooks](docs/08-integration-architecture/webhooks.md) | pattern | intermediário | `integration-architecture` | 🟩 |
-| 🟩 | [Zonas de Disponibilidade](docs/09-cloud-architecture/availability-zones.md) | concept | intermediário | `regions` | ⬜ |
+| 🟩 | [Zonas de Disponibilidade](docs/09-cloud-architecture/availability-zones.md) | concept | intermediário | `regions` | 🟩 |
 | 🟩 | [Computação em Nuvem](docs/09-cloud-architecture/cloud-compute.md) | concept | intermediário | `iaas` | ⬜ |
 | 🟩 | [Identidade em Nuvem](docs/09-cloud-architecture/cloud-identity.md) | concept | avançado | `cloud-architecture` | ⬜ |
 | 🟩 | [Cloud Native](docs/09-cloud-architecture/cloud-native.md) | concept | intermediário | `containers` | ⬜ |
@@ -289,7 +289,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Serviços Gerenciados](docs/09-cloud-architecture/managed-services.md) | concept | intermediário | `cloud-architecture` | 🟩 |
 | 🟩 | [Multi-Região](docs/09-cloud-architecture/multi-region.md) | pattern | avançado | `regions` | ⬜ |
 | 🟩 | [PaaS](docs/09-cloud-architecture/paas.md) | concept | intermediário | `iaas` | 🟩 |
-| 🟩 | [Regiões](docs/09-cloud-architecture/regions.md) | concept | intermediário | `cloud-architecture` | ⬜ |
+| 🟩 | [Regiões](docs/09-cloud-architecture/regions.md) | concept | intermediário | `cloud-architecture` | 🟩 |
 | 🟩 | [SaaS](docs/09-cloud-architecture/saas.md) | concept | intermediário | `paas` | 🟩 |
 | 🟩 | [Serverless](docs/09-cloud-architecture/serverless.md) | concept | avançado | `managed-services` | 🟩 |
 | 🟩 | [Dependência de Fornecedor](docs/09-cloud-architecture/vendor-lock-in.md) | tradeoff | avançado | `managed-services` | ⬜ |
