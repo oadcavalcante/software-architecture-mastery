@@ -463,7 +463,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Patologias de Governança](docs/19-architecture-governance/governance-pathologies.md) | concept | avançado | `governance-basics` | ⬜ |
 | 🟩 | [Princípios em Operação](docs/19-architecture-governance/governance-principles.md) | concept | avançado | `governance-basics` | 🟩 |
 | 🟩 | [Revisão como Instrumento](docs/19-architecture-governance/governance-review.md) | concept | avançado | `governance-basics` | ⬜ |
-| 🟩 | [Padrões em Operação](docs/19-architecture-governance/governance-standards.md) | concept | avançado | `governance-principles` | ⬜ |
+| 🟩 | [Padrões em Operação](docs/19-architecture-governance/governance-standards.md) | concept | avançado | `governance-principles` | 🟩 |
 | 🟩 | [Governança de Arquitetura](docs/19-architecture-governance/index.md) | index | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Medição de Governança](docs/19-architecture-governance/measuring-governance.md) | concept | avançado | `governance-basics` | ⬜ |
 
