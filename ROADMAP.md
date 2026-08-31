@@ -396,7 +396,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Status do ADR](docs/18-architecture-decisions/adr-status.md) | concept | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [Estrutura do ADR](docs/18-architecture-decisions/adr-structure.md) | concept | iniciante | `what-is-an-adr` | 🟩 |
 | 🟩 | [Decisões de Arquitetura](docs/18-architecture-decisions/index.md) | index | intermediário | `architecture-documentation` | 🟩 |
-| 🟩 | [Superação de Decisões](docs/18-architecture-decisions/superseding-decisions.md) | concept | avançado | `adr-status` | ⬜ |
+| 🟩 | [Superação de Decisões](docs/18-architecture-decisions/superseding-decisions.md) | concept | avançado | `adr-status` | 🟩 |
 | 🟩 | [O Que É um ADR](docs/18-architecture-decisions/what-is-an-adr.md) | foundation | iniciante | `architecture-documentation` | 🟩 |
 | 🟩 | [Por Que ADRs Importam](docs/18-architecture-decisions/why-adrs-matter.md) | foundation | iniciante | `what-is-an-adr` | 🟩 |
 | 🟩 | [Abstração vs. Complexidade](docs/20-trade-offs/abstraction-vs-complexity.md) | tradeoff | avançado | `abstraction` | 🟩 |

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-status]
 related: [adr-status, adr-context, adr-alternatives]
 canonical_for: [superação de decisão, cadeia de decisões, mudança de contexto registrada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -269,7 +269,9 @@ Os ADRs 021, 034 e 052 giravam em torno de uma tensão conhecida — revogação
 tokens sem estado não permitem revogação — que nenhum deles nomeava. Cada decisão resolvia
 o sintoma da anterior e reintroduzia o problema da que veio antes dela.
 
-A leitura que a equipe faz: **Revisão de cadeia** incorporada à revisão anual: toda cadeia com três ou mais superações
+O que saiu da revisão:
+
+**Revisão de cadeia** incorporada à revisão anual: toda cadeia com três ou mais superações
 é lida por inteiro, com uma pergunta única — "qual é a tensão que não foi nomeada?".
 
 **Seção de "história desta decisão"** nos sucessores de cadeias longas, resumindo as
