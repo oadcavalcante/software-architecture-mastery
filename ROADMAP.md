@@ -400,11 +400,11 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [O Que É um ADR](docs/18-architecture-decisions/what-is-an-adr.md) | foundation | iniciante | `architecture-documentation` | ⬜ |
 | 🟩 | [Por Que ADRs Importam](docs/18-architecture-decisions/why-adrs-matter.md) | foundation | iniciante | `what-is-an-adr` | ⬜ |
 | 🟩 | [Abstração vs. Complexidade](docs/20-trade-offs/abstraction-vs-complexity.md) | tradeoff | avançado | `abstraction` | 🟩 |
-| 🟩 | [Build vs. Buy](docs/20-trade-offs/build-vs-buy.md) | tradeoff | intermediário | `saas` | ⬜ |
+| 🟩 | [Build vs. Buy](docs/20-trade-offs/build-vs-buy.md) | tradeoff | intermediário | `saas` | 🟩 |
 | 🟩 | [Centralização vs. Descentralização](docs/20-trade-offs/centralization-vs-decentralization.md) | tradeoff | avançado | `governance-basics` | ⬜ |
 | 🟩 | [Nativo de Nuvem vs. Portável](docs/20-trade-offs/cloud-native-vs-portable.md) | tradeoff | avançado | `vendor-lock-in` | ⬜ |
 | 🟩 | [Consistência vs. Disponibilidade](docs/20-trade-offs/consistency-vs-availability.md) | tradeoff | avançado | `cap` | 🟩 |
-| 🟩 | [Custo vs. Confiabilidade](docs/20-trade-offs/cost-vs-reliability.md) | tradeoff | avançado | `reliability-basics` | ⬜ |
+| 🟩 | [Custo vs. Confiabilidade](docs/20-trade-offs/cost-vs-reliability.md) | tradeoff | avançado | `reliability-basics` | 🟩 |
 | 🟩 | [Acoplamento vs. Duplicação](docs/20-trade-offs/coupling-vs-duplication.md) | tradeoff | intermediário | `coupling` | 🟩 |
 | 🟩 | [Trade-offs](docs/20-trade-offs/index.md) | index | avançado | `distributed-systems` | 🟩 |
 | 🟩 | [Gerenciado vs. Autogerido](docs/20-trade-offs/managed-vs-self-hosted.md) | tradeoff | intermediário | `managed-services` | ⬜ |
