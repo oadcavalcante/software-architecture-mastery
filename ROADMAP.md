@@ -298,7 +298,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Proteção de Dados](docs/10-security/data-protection.md) | concept | avançado | `security` | ⬜ |
 | 🟩 | [Criptografia](docs/10-security/encryption.md) | concept | avançado | `security` | ⬜ |
 | 🟩 | [Identidade](docs/10-security/identity.md) | concept | intermediário | `security` | ⬜ |
-| 🟩 | [Arquitetura de Segurança](docs/10-security/index.md) | index | avançado | `system-design` | ⬜ |
+| 🟩 | [Arquitetura de Segurança](docs/10-security/index.md) | index | avançado | `system-design` | 🟩 |
 | 🟩 | [JWT](docs/10-security/jwt.md) | concept | avançado | `oauth2` | ⬜ |
 | 🟩 | [Gestão de Chaves](docs/10-security/key-management.md) | concept | avançado | `encryption` | ⬜ |
 | 🟩 | [Menor Privilégio](docs/10-security/least-privilege.md) | concept | intermediário | `security` | ⬜ |
@@ -309,7 +309,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Fronteiras Seguras](docs/10-security/secure-boundaries.md) | concept | avançado | `threat-modeling` | ⬜ |
 | 🟩 | [Modos de Falha de Segurança](docs/10-security/security-failure-modes.md) | concept | avançado | `secure-boundaries` | ⬜ |
 | 🟩 | [Confiança na Cadeia de Suprimentos](docs/10-security/supply-chain-trust.md) | concept | avançado | `security` | ⬜ |
-| 🟩 | [Modelagem de Ameaças](docs/10-security/threat-modeling.md) | concept | avançado | `security` | ⬜ |
+| 🟩 | [Modelagem de Ameaças](docs/10-security/threat-modeling.md) | concept | avançado | `security` | 🟩 |
 | 🟩 | [Confiança Zero](docs/10-security/zero-trust.md) | concept | avançado | `secure-boundaries` | ⬜ |
 | 🟩 | [Processamento Assíncrono](docs/11-scalability/async-processing.md) | concept | intermediário | `scalability` | ⬜ |
 | 🟩 | [Escala de Banco de Dados](docs/11-scalability/database-scaling.md) | concept | avançado | `scalability` | ⬜ |
