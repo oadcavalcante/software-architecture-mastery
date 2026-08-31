@@ -547,12 +547,17 @@ Cada fase entrega um site publicável e útil por si só. Ver
 | **F0** | Scaffold Docusaurus, i18n, Mermaid, busca, CI, validadores, deploy | 🟩 |
 | **F1** | README, ROADMAP, CONTRIBUTING, glossário, modelo de maturidade, política terminológica, 23 índices de seção, sidebar por nível | 🟩 |
 | **F2** | Níveis 01–02: fundamentos, design de software, padrões, DDD | 🟩 |
-| **F3** | Níveis 03–04: design de sistemas, sistemas distribuídos | ⬜ próxima |
-| **F4** | Nível 05: as onze disciplinas de arquitetura + ADRs didáticos | ⬜ |
-| **F5** | Níveis 06–07: corporativo, legado, governança, liderança | ⬜ |
-| **F6** | Case studies, entrevistas, exercícios de revisão de arquitetura | ⬜ |
-| **F7** | Tradução en-US na ordem de prioridade da spec | ⬜ |
-| **F8** | Revisão cruzada: contradições, duplicações, densidade, verificação factual | ⬜ |
+| **F3** | Níveis 03–04: design de sistemas, sistemas distribuídos | 🟩 |
+| **F4** | Nível 05: as onze disciplinas de arquitetura + ADRs didáticos | 🟩 |
+| **F5** | Níveis 06–07: corporativo, legado, governança, liderança | 🟩 |
+| **F6** | Case studies, entrevistas, exercícios de revisão de arquitetura | 🟩 |
+| **F7** | Tradução en-US na ordem de prioridade da spec | 🟨 em curso |
+| **F8** | Revisão cruzada: contradições, duplicações, densidade, verificação factual | 🟨 parcial |
+
+F7 é progressiva por decisão de projeto: ⬜ é estado válido, e a contagem por
+documento está na tabela de paridade acima. F8 teve a passagem mecânica —
+contradições, duplicação de exemplos, links, densidade — mas o checklist de
+[SPEC.md §13.3](SPEC.md) exige revisão humana, que não foi feita.
 
 Dentro de cada fase, a ordem segue o grafo de pré-requisitos: um tópico não é
 escrito antes dos seus pré-requisitos, porque escrever fora de ordem produz
@@ -561,7 +566,7 @@ redefinição e duplicação.
 ## Ferramentas
 
 ```bash
-npm test          # 59 testes dos validadores
+npm test          # testes dos validadores
 npm run validate  # os cinco validadores de conteúdo
 npm run roadmap   # regenera as tabelas acima
 npm run build     # build nas duas locales
