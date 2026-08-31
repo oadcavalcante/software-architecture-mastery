@@ -423,7 +423,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Arquitetura de Aplicação](docs/15-enterprise-architecture/application-architecture.md) | concept | avançado | `business-capabilities` | 🟩 |
 | 🟩 | [Portfólio de Aplicações](docs/15-enterprise-architecture/application-portfolios.md) | concept | avançado | `business-capabilities` | 🟩 |
 | 🟩 | [Níveis de Arquitetura](docs/15-enterprise-architecture/architecture-levels.md) | concept | avançado | `enterprise-architecture` | 🟩 |
-| 🟩 | [Revisão de Arquitetura](docs/15-enterprise-architecture/architecture-review.md) | concept | avançado | `architecture-levels` | ⬜ |
+| 🟩 | [Revisão de Arquitetura](docs/15-enterprise-architecture/architecture-review.md) | concept | avançado | `architecture-levels` | 🟩 |
 | 🟩 | [Roteiros de Arquitetura](docs/15-enterprise-architecture/architecture-roadmaps.md) | concept | avançado | `transition-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Negócio](docs/15-enterprise-architecture/business-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Capacidades de Negócio](docs/15-enterprise-architecture/business-capabilities.md) | concept | avançado | `enterprise-architecture` | 🟩 |
@@ -437,7 +437,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Paisagens de Integração](docs/15-enterprise-architecture/integration-landscapes.md) | concept | avançado | `application-portfolios` | 🟩 |
 | 🟩 | [Padrões](docs/15-enterprise-architecture/standards.md) | concept | intermediário | `enterprise-principles` | 🟩 |
 | 🟩 | [Arquitetura Alvo](docs/15-enterprise-architecture/target-architecture.md) | concept | avançado | `current-state-architecture` | 🟩 |
-| 🟩 | [Estratégia Técnica](docs/15-enterprise-architecture/technical-strategy.md) | concept | avançado | `enterprise-architecture` | ⬜ |
+| 🟩 | [Estratégia Técnica](docs/15-enterprise-architecture/technical-strategy.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Tecnologia](docs/15-enterprise-architecture/technology-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Radar Tecnológico](docs/15-enterprise-architecture/technology-radar.md) | pattern | intermediário | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Transição](docs/15-enterprise-architecture/transition-architecture.md) | concept | avançado | `target-architecture` | 🟩 |
