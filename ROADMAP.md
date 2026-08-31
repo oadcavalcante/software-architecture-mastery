@@ -139,10 +139,10 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Template Method](docs/03-design-patterns/template-method.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Visitor](docs/03-design-patterns/visitor.md) | pattern | avançado | `composite` | 🟩 |
 | 🟩 | [Aggregate](docs/04-domain-driven-design/aggregate.md) | pattern | avançado | `entity`, `value-object` | 🟩 |
-| 🟩 | [Anti-Corruption Layer](docs/04-domain-driven-design/anti-corruption-layer.md) | pattern | intermediário | `context-mapping` | ⬜ |
+| 🟩 | [Anti-Corruption Layer](docs/04-domain-driven-design/anti-corruption-layer.md) | pattern | intermediário | `context-mapping` | 🟩 |
 | 🟩 | [Application Service](docs/04-domain-driven-design/application-service.md) | pattern | intermediário | `domain-service` | 🟩 |
 | 🟩 | [Bounded Context](docs/04-domain-driven-design/bounded-context.md) | concept | intermediário | `subdomain`, `ubiquitous-language` | 🟩 |
-| 🟩 | [Context Mapping](docs/04-domain-driven-design/context-mapping.md) | concept | avançado | `bounded-context` | ⬜ |
+| 🟩 | [Context Mapping](docs/04-domain-driven-design/context-mapping.md) | concept | avançado | `bounded-context` | 🟩 |
 | 🟩 | [Core Domain](docs/04-domain-driven-design/core-domain.md) | foundation | intermediário | `subdomain` | 🟩 |
 | 🟩 | [Domain Event](docs/04-domain-driven-design/domain-event.md) | pattern | avançado | `aggregate` | 🟩 |
 | 🟩 | [Domain Service](docs/04-domain-driven-design/domain-service.md) | pattern | intermediário | `aggregate` | 🟩 |
