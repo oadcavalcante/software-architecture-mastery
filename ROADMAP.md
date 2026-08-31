@@ -465,7 +465,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Revisão como Instrumento](docs/19-architecture-governance/governance-review.md) | concept | avançado | `governance-basics` | 🟩 |
 | 🟩 | [Padrões em Operação](docs/19-architecture-governance/governance-standards.md) | concept | avançado | `governance-principles` | 🟩 |
 | 🟩 | [Governança de Arquitetura](docs/19-architecture-governance/index.md) | index | avançado | `enterprise-architecture` | 🟩 |
-| 🟩 | [Medição de Governança](docs/19-architecture-governance/measuring-governance.md) | concept | avançado | `governance-basics` | ⬜ |
+| 🟩 | [Medição de Governança](docs/19-architecture-governance/measuring-governance.md) | concept | avançado | `governance-basics` | 🟩 |
 
 ### Nível 07 — Liderança em Arquitetura
 
