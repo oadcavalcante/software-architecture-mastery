@@ -224,12 +224,12 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Ordenação](docs/06-distributed-systems/ordering.md) | concept | avançado | `messaging` | 🟩 |
 | 🟩 | [PACELC](docs/06-distributed-systems/pacelc.md) | foundation | avançado | `cap` | 🟩 |
 | 🟩 | [Falha Parcial](docs/06-distributed-systems/partial-failure.md) | concept | avançado | `network-failure` | 🟩 |
-| 🟩 | [Particionamento](docs/06-distributed-systems/partitioning.md) | concept | avançado | `replication` | ⬜ |
+| 🟩 | [Particionamento](docs/06-distributed-systems/partitioning.md) | concept | avançado | `replication` | 🟩 |
 | 🟩 | [Poison Messages](docs/06-distributed-systems/poison-messages.md) | concept | intermediário | `messaging` | 🟩 |
 | 🟩 | [Replicação](docs/06-distributed-systems/replication.md) | concept | avançado | `consistency` | 🟩 |
 | 🟩 | [Retries](docs/06-distributed-systems/retries.md) | concept | intermediário | `timeouts`, `idempotency` | 🟩 |
 | 🟩 | [Sagas](docs/06-distributed-systems/sagas.md) | pattern | avançado | `distributed-transactions` | ⬜ |
-| 🟩 | [Sharding](docs/06-distributed-systems/sharding.md) | concept | avançado | `partitioning` | ⬜ |
+| 🟩 | [Sharding](docs/06-distributed-systems/sharding.md) | concept | avançado | `partitioning` | 🟩 |
 | 🟩 | [Consistência Forte](docs/06-distributed-systems/strong-consistency.md) | concept | avançado | `consistency` | 🟩 |
 | 🟩 | [Timeouts](docs/06-distributed-systems/timeouts.md) | concept | intermediário | `latency` | 🟩 |
 
