@@ -307,8 +307,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [OpenID Connect](docs/10-security/oidc.md) | concept | avançado | `oauth2` | 🟩 |
 | 🟩 | [Segredos](docs/10-security/secrets.md) | concept | intermediário | `security` | 🟩 |
 | 🟩 | [Fronteiras Seguras](docs/10-security/secure-boundaries.md) | concept | avançado | `threat-modeling` | 🟩 |
-| 🟩 | [Modos de Falha de Segurança](docs/10-security/security-failure-modes.md) | concept | avançado | `secure-boundaries` | ⬜ |
-| 🟩 | [Confiança na Cadeia de Suprimentos](docs/10-security/supply-chain-trust.md) | concept | avançado | `security` | ⬜ |
+| 🟩 | [Modos de Falha de Segurança](docs/10-security/security-failure-modes.md) | concept | avançado | `secure-boundaries` | 🟩 |
+| 🟩 | [Confiança na Cadeia de Suprimentos](docs/10-security/supply-chain-trust.md) | concept | avançado | `security` | 🟩 |
 | 🟩 | [Modelagem de Ameaças](docs/10-security/threat-modeling.md) | concept | avançado | `security` | 🟩 |
 | 🟩 | [Confiança Zero](docs/10-security/zero-trust.md) | concept | avançado | `secure-boundaries` | 🟩 |
 | 🟩 | [Processamento Assíncrono](docs/11-scalability/async-processing.md) | concept | intermediário | `scalability` | ⬜ |
