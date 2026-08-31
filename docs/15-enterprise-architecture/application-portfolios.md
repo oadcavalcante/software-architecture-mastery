@@ -242,17 +242,17 @@ a maior parte das decisões envolve poucas delas por vez.
 
 ## Erros Comuns
 
-**Não incluir pessoas na avaliação de saúde.**
+**Não incluir pessoas na avaliação de saúde.** Um sistema tecnicamente saudável que só uma pessoa sabe manter é um risco maior que um sistema velho e bem conhecido.
 
-**Não contabilizar custo de integração.**
+**Não contabilizar custo de integração.** O custo visível é licença e infraestrutura; o que pesa é manter as integrações vivas, e ele não aparece em nenhuma fatura.
 
-**Avaliar sozinho.**
+**Avaliar sozinho.** Valor de negócio não é julgável pela área técnica. Um sistema que parece obsoleto pode sustentar o processo mais crítico da operação.
 
-**Não observar o uso real antes de aposentar.**
+**Não observar o uso real antes de aposentar.** "Ninguém usa mais" costuma ser falso: há sempre um relatório mensal ou um fechamento trimestral que só aparece na medição.
 
-**Não ter período de suspensão.**
+**Não ter período de suspensão.** Desligar direto elimina a chance de descobrir dependências esquecidas de forma barata. Suspender e esperar as reclamações custa muito menos que restaurar.
 
-**Preencher tudo à mão.**
+**Preencher tudo à mão.** O inventário manual está desatualizado no mês seguinte. O que se sustenta é o que é derivado de fontes que já existem — nuvem, repositórios, faturamento.
 
 ## Exemplo Real
 

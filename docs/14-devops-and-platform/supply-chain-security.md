@@ -202,17 +202,17 @@ Sempre. Prioridade alta quando:
 
 ## Quando Não Usar
 
-**Com configuração de esteira alterável sem aprovação.**
+**Com configuração de esteira alterável sem aprovação.** Quem altera o arquivo altera o que executa com as credenciais dela.
 
-**Com segredos de produção em execuções de ramo.**
+**Com segredos de produção em execuções de ramo.** Um ramo é código não revisado; dar a ele acesso a produção anula a revisão.
 
-**Com credenciais estáticas de longa duração.**
+**Com credenciais estáticas de longa duração.** Elas vazam em log de construção e não expiram sozinhas. Credencial temporária por execução elimina a classe inteira.
 
-**Assinando sem verificar.**
+**Assinando sem verificar.** A assinatura só vale onde alguém recusa o que não confere; sem verificação, é registro decorativo.
 
-**Com dependências de construção por etiqueta móvel.**
+**Com dependências de construção por etiqueta móvel.** O conteúdo muda sem que nada no seu repositório mude, e a construção deixa de ser reproduzível.
 
-**Sem registro de execuções.**
+**Sem registro de execuções.** Sem histórico de o que foi construído, por quem e a partir de qual commit, não há como investigar um artefato suspeito.
 
 ## Alternativas
 

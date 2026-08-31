@@ -234,17 +234,17 @@ uma resposta padrão embutida.
 
 ## Erros Comuns
 
-**Revisar no fim.**
+**Revisar no fim.** Quando o código está pronto, mudar a decisão custa a reescrita, e a revisão vira carimbo. O momento útil é quando as opções ainda estão abertas.
 
-**Aprovar em vez de consultar.**
+**Aprovar em vez de consultar.** Revisão como portão transfere a responsabilidade para o revisor e produz submissão em vez de discussão. Como consultoria, ela melhora a decisão de quem responde por ela.
 
-**Não ter critério escrito.**
+**Não ter critério escrito.** Sem critérios publicados, a revisão parece arbitrária e depende de quem estava na sala — o que a torna impossível de preparar.
 
-**Não registrar.**
+**Não registrar.** A conclusão se perde e a mesma discussão volta em seis meses, com pessoas diferentes e frequentemente com desfecho oposto.
 
-**Revisar decisões locais.**
+**Revisar decisões locais.** Revisar o que não atravessa fronteira nenhuma consome o tempo do fórum e ensina os times a evitá-lo.
 
-**Não transformar padrão recorrente** em caminho pavimentado.
+**Não transformar padrão recorrente** em caminho pavimentado. Se a mesma pergunta chega cinco vezes, a resposta deveria ser um padrão documentado — a sexta não precisaria de reunião.
 
 ## Exemplo Real
 

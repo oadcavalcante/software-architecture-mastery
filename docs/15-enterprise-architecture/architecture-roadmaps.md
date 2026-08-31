@@ -223,17 +223,17 @@ E o horizonte tem o mesmo trade-off entre utilidade e honestidade:
 
 ## Erros Comuns
 
-**Ordenar por dependência técnica.**
+**Ordenar por dependência técnica.** Produz um roadmap em que nada entrega valor até o fim — e projetos assim são cancelados no meio, sem ter entregue nada.
 
-**Detalhe uniforme.**
+**Detalhe uniforme.** O próximo trimestre pode ser detalhado; o terceiro ano não pode ser conhecido. Detalhar tudo igual dá falsa precisão ao que é especulação.
 
-**Não explicitar o que fica de fora.**
+**Não explicitar o que fica de fora.** Um roadmap sem lista do que não será feito faz cada área supor que a sua prioridade está incluída, e a decepção chega junto com a cobrança.
 
-**Não revisar trimestralmente.**
+**Não revisar trimestralmente.** O contexto muda mais rápido que o horizonte do roadmap. Sem revisão, ele deixa de descrever a intenção atual e vira documento histórico que ninguém consulta.
 
-**Não expressar em resultados.**
+**Não expressar em resultados.** "Migrar para Kubernetes" não é resultado; "reduzir o tempo de subir um serviço novo de duas semanas para um dia" é — e admite mais de um caminho.
 
-**Não negociar dependências entre times cedo.**
+**Não negociar dependências entre times cedo.** A dependência descoberta na execução vira espera, porque o outro time já comprometeu o trimestre dele com outra coisa.
 
 ## Exemplo Real
 

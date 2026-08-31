@@ -191,15 +191,15 @@ está no lugar errado.
 
 ## Quando Não Usar
 
-**Separando por camada técnica.**
+**Separando por camada técnica.** Toda mudança de negócio atravessa todas as camadas, e o que era decomposição vira coordenação obrigatória.
 
-**Separando por organograma.**
+**Separando por organograma.** A estrutura muda mais rápido que o domínio, e as fronteiras precisam ser refeitas a cada reorganização.
 
-**Decompondo além do necessário.**
+**Decompondo além do necessário.** Cada fronteira adicional é um contrato a manter e uma coordenação a pagar; abaixo de certo tamanho, ela custa mais do que isola.
 
-**Sem declarar responsabilidade de cada sistema.**
+**Sem declarar responsabilidade de cada sistema.** Sem isso, a mesma capacidade acaba implementada em vários lugares e nenhum é autoritativo.
 
-**Deixando a fronteira do fornecedor entrar** no domínio.
+**Deixando a fronteira do fornecedor entrar** no domínio. Quando o modelo do produto de mercado vira o modelo da empresa, trocar de fornecedor passa a exigir redesenhar processos de negócio.
 
 ## Alternativas
 
@@ -240,17 +240,17 @@ está no lugar errado.
 
 ## Erros Comuns
 
-**Separar por camada.**
+**Separar por camada.** Um sistema de front-end, um de regras e um de dados garantem que toda mudança de negócio atravesse os três — e exija coordenação de três times para entregar uma funcionalidade.
 
-**Separar por área organizacional.**
+**Separar por área organizacional.** O organograma muda a cada reorganização; a capacidade de negócio, não. Fronteiras desenhadas sobre o primeiro precisam ser redesenhadas a cada mudança de estrutura.
 
-**Não aplicar o teste da mudança.**
+**Não aplicar o teste da mudança.** A pergunta que valida a fronteira é qual fração das mudanças a atravessa. Sem medi-la no histórico, a decomposição é estética.
 
-**Não declarar responsabilidade.**
+**Não declarar responsabilidade.** Sem uma frase dizendo do que cada sistema responde, a mesma capacidade aparece em três lugares e nenhum deles é a fonte da verdade.
 
-**Decompor por preferência arquitetural.**
+**Decompor por preferência arquitetural.** Decidir a granularidade pelo estilo escolhido — microsserviços, por exemplo — inverte a ordem: a fronteira vem do domínio, e o estilo vem depois.
 
-**Não isolar produtos de mercado.**
+**Não isolar produtos de mercado.** Sistema de terceiro cujo modelo vaza para o resto amarra a arquitetura ao fornecedor, e a substituição deixa de ser decisão comercial.
 
 ## Exemplo Real
 
