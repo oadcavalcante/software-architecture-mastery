@@ -532,7 +532,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Clarificação de Requisitos](docs/22-system-design-interviews/requirement-clarification.md) | concept | intermediário | `system-design` | 🟩 |
 | 🟩 | [Glossário](docs/glossary.md) | reference | iniciante | — | 🟩 |
 | 🟩 | [Como Usar](docs/how-to-use.md) | index | iniciante | — | 🟩 |
-| 🟩 | [Política Terminológica](docs/i18n-terminology.md) | reference | iniciante | — | ⬜ |
+| 🟩 | [Política Terminológica](docs/i18n-terminology.md) | reference | iniciante | — | 🟩 |
 | 🟩 | [Comece aqui](docs/intro.md) | index | iniciante | — | 🟩 |
 | 🟩 | [Modelo de Maturidade](docs/maturity-model.md) | reference | iniciante | — | 🟩 |
 

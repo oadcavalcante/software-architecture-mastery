@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 /**
- * Gera docs/i18n-terminology.md a partir de scripts/terminology.json.
+ * Gera a Política Terminológica, nas duas locales, a partir de
+ * scripts/terminology.json.
  *
  * A tabela publicada e a regra aplicada pelo linter saem da mesma fonte.
  * Mantê-las separadas garantiria divergência entre o que o documento promete
  * e o que o CI cobra.
+ *
+ * A versão en-US é gerada junto pelo mesmo motivo: as tabelas são idênticas nas
+ * duas locales — são pares de termos, não texto localizável — e traduzi-las à
+ * mão criaria uma cópia que envelhece sozinha a cada mudança em terminology.json.
  */
 
 import {readFileSync, writeFileSync} from 'node:fs';
@@ -15,9 +20,15 @@ import {ROOT} from './lib/docs.mjs';
 const TERMS = JSON.parse(
   readFileSync(fileURLToPath(new URL('./terminology.json', import.meta.url)), 'utf8'),
 );
-const OUT = join(ROOT, 'docs', 'i18n-terminology.md');
+const OUT_PT = join(ROOT, 'docs', 'i18n-terminology.md');
+const OUT_EN = join(
+  ROOT, 'i18n', 'en-US', 'docusaurus-plugin-content-docs', 'current', 'i18n-terminology.md',
+);
 
-const mark = (enforced) => (enforced ? '✅ aplicado' : '— orientação');
+const mark = {
+  'pt-BR': (enforced) => (enforced ? '✅ aplicado' : '— orientação'),
+  'en-US': (enforced) => (enforced ? '✅ enforced' : '— guidance'),
+};
 
 /**
  * Este documento cita, por definição, as duas formas de cada termo. Sem isenção
@@ -29,7 +40,7 @@ const exempt = [
   ...TERMS.keep.map((t) => t.term),
 ].sort();
 
-const frontmatter = `---
+const frontmatterPt = `---
 id: i18n-terminology
 title: Política Terminológica
 sidebar_position: 90
@@ -49,7 +60,7 @@ content_version: 1
 last_reviewed: 2026-08-26
 ---`;
 
-const body = `
+const bodyPt = `
 # Política Terminológica
 
 Tradução técnica inconsistente destrói material de arquitetura. Um documento que
@@ -87,7 +98,7 @@ A forma em inglês é permitida **uma vez**, como glosa de primeira ocorrência:
 
 | Inglês | Português | Regra |
 |---|---|---|
-${TERMS.translate.map((t) => `| ${t.en} | ${t.pt} | ${mark(t.enforced)} |`).join('\n')}
+${TERMS.translate.map((t) => `| ${t.en} | ${t.pt} | ${mark['pt-BR'](t.enforced)} |`).join('\n')}
 
 ## Categoria B — Manter em inglês
 
@@ -96,7 +107,7 @@ A coluna de traduções recusadas lista as formas que o linter rejeita.
 
 | Termo | Traduções recusadas | Regra |
 |---|---|---|
-${TERMS.keep.map((t) => `| ${t.term} | ${t.badPt.length ? t.badPt.join(' · ') : '—'} | ${mark(t.enforced)} |`).join('\n')}
+${TERMS.keep.map((t) => `| ${t.term} | ${t.badPt.length ? t.badPt.join(' · ') : '—'} | ${mark['pt-BR'](t.enforced)} |`).join('\n')}
 
 ## Categoria C — Inglês com glosa
 
@@ -123,8 +134,104 @@ Isso vale também no sentido inverso: um documento em inglês que contenha o ter
 em português é rejeitado.
 `;
 
-writeFileSync(OUT, `${frontmatter}\n${body}`);
+const frontmatterEn = `---
+id: i18n-terminology
+title: Terminology Policy
+sidebar_position: 90
+description: How each technical term is handled between Portuguese and English, and which rules CI enforces.
+doc_type: reference
+level: 0
+difficulty: beginner
+status: complete
+objective: >
+  By the end, whoever writes or translates knows which form to use for each term
+  and which decisions the linter enforces automatically.
+prerequisites: []
+related: []
+canonical_for: []
+terminology_exempt: [${exempt.map((t) => JSON.stringify(t)).join(', ')}]
+translated_from_version: 1
+last_reviewed: 2026-08-26
+---`;
+
+const bodyEn = `
+# Terminology Policy
+
+Inconsistent technical translation destroys architecture material. A document
+that alternates between "acoplamento" and "coupling" forces the reader to
+decide, at each occurrence, whether the two terms mean the same thing.
+
+This page is **generated** from \`scripts/terminology.json\`, which is also the
+source the linter uses. What is here is exactly what CI enforces.
+
+:::info Generated automatically
+
+Do not edit this page. Change \`scripts/terminology.json\` and run
+\`npm run terminology\`.
+
+:::
+
+## How to read the tables
+
+The **Rule** column indicates whether the linter enforces the decision
+automatically:
+
+- **✅ enforced** — violating it fails the build.
+- **— guidance** — documented, not automated. These are the cases where the
+  decision depends on context and automation would produce false positives.
+
+A document can declare \`terminology_exempt: [term]\` in its front matter to opt
+out of the rule in a justified case — a literal quotation, for example.
+
+## Category A — Always translate
+
+Terms with an established equivalent in technical Portuguese. The document uses
+the Portuguese form as the working term.
+
+The English form is allowed **once**, as a first-occurrence gloss:
+*"acoplamento (coupling)"*. After that, only the Portuguese form.
+
+| English | Portuguese | Rule |
+|---|---|---|
+${TERMS.translate.map((t) => `| ${t.en} | ${t.pt} | ${mark['en-US'](t.enforced)} |`).join('\n')}
+
+## Category B — Keep in English
+
+Terms where translating harms recognition or where no accepted equivalent
+exists. The refused-translations column lists the forms the linter rejects.
+
+| Term | Refused translations | Rule |
+|---|---|---|
+${TERMS.keep.map((t) => `| ${t.term} | ${t.badPt.length ? t.badPt.join(' · ') : '—'} | ${mark['en-US'](t.enforced)} |`).join('\n')}
+
+## Category C — English with a gloss
+
+Terms that stay in English, with the Portuguese gloss on the first occurrence in
+each document and only the English term afterward.
+
+| Term | Suggested gloss |
+|---|---|
+${TERMS.gloss.map((g) => `| ${g.term} | ${g.gloss} |`).join('\n')}
+
+## Proper names
+
+Never translated, in any context:
+
+${TERMS.neverTranslate.map((n) => `\`${n}\``).join(' · ')}
+
+## The rule that does not fit in a table
+
+**No middle ground inside a document.** Once a vocabulary is chosen, it holds
+from beginning to end. The linter detects alternation between the Portuguese
+form and the English form outside the gloss window, and fails.
+
+That holds in the inverse direction too: a document in English containing the
+Portuguese term is rejected.
+`;
+
+writeFileSync(OUT_PT, `${frontmatterPt}\n${bodyPt}`);
+writeFileSync(OUT_EN, `${frontmatterEn}\n${bodyEn}`);
 const total = TERMS.translate.length + TERMS.keep.length + TERMS.gloss.length;
 const enforced = TERMS.translate.filter((t) => t.enforced).length
   + TERMS.keep.filter((t) => t.enforced).length;
-console.log(`[terminology-doc] ok — ${total} termo(s), ${enforced} aplicados pelo linter`);
+console.log(`[terminology-doc] ok — ${total} termo(s), ${enforced} aplicados pelo linter, 2 locale(s)`);

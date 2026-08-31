@@ -9,4 +9,6 @@
 set -e
 node scripts/gen-roadmap.mjs >/dev/null
 node scripts/gen-plan.mjs >/dev/null
-git add ROADMAP.md fix_plan.md specs 2>/dev/null || true
+node scripts/gen-terminology-doc.mjs >/dev/null
+git add ROADMAP.md fix_plan.md specs docs/i18n-terminology.md \
+  i18n/en-US/docusaurus-plugin-content-docs/current/i18n-terminology.md 2>/dev/null || true

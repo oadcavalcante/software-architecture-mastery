@@ -88,7 +88,7 @@ A coluna de traduções recusadas lista as formas que o linter rejeita.
 | ubiquitous language | linguagem onipresente | ✅ aplicado |
 | aggregate root | raiz do agregado | — orientação |
 | event sourcing | fonte de eventos · obtenção de eventos | ✅ aplicado |
-| sharding | fragmentação · estilhaçamento | ✅ aplicado |
+| sharding | estilhaçamento | ✅ aplicado |
 | backpressure | contrapressão | ✅ aplicado |
 | feature flag | sinalizador de recurso · bandeira de recurso | ✅ aplicado |
 | service mesh | malha de serviços | ✅ aplicado |
