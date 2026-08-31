@@ -426,8 +426,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Revisão de Arquitetura](docs/15-enterprise-architecture/architecture-review.md) | concept | avançado | `architecture-levels` | ⬜ |
 | 🟩 | [Roteiros de Arquitetura](docs/15-enterprise-architecture/architecture-roadmaps.md) | concept | avançado | `transition-architecture` | ⬜ |
 | 🟩 | [Arquitetura de Negócio](docs/15-enterprise-architecture/business-architecture.md) | concept | avançado | `enterprise-architecture` | ⬜ |
-| 🟩 | [Capacidades de Negócio](docs/15-enterprise-architecture/business-capabilities.md) | concept | avançado | `enterprise-architecture` | ⬜ |
-| 🟩 | [Mapeamento de Capacidades](docs/15-enterprise-architecture/capability-mapping.md) | concept | avançado | `business-capabilities` | ⬜ |
+| 🟩 | [Capacidades de Negócio](docs/15-enterprise-architecture/business-capabilities.md) | concept | avançado | `enterprise-architecture` | 🟩 |
+| 🟩 | [Mapeamento de Capacidades](docs/15-enterprise-architecture/capability-mapping.md) | concept | avançado | `business-capabilities` | 🟩 |
 | 🟩 | [Arquitetura do Estado Atual](docs/15-enterprise-architecture/current-state-architecture.md) | concept | avançado | `enterprise-architecture` | ⬜ |
 | 🟩 | [Fundamentos de Arquitetura Corporativa](docs/15-enterprise-architecture/enterprise-architecture-basics.md) | foundation | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Dados Corporativa](docs/15-enterprise-architecture/enterprise-data-architecture.md) | concept | avançado | `enterprise-architecture` | ⬜ |
