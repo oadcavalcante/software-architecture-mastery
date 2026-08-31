@@ -237,17 +237,17 @@ atrito.
 
 ## Erros Comuns
 
-**Criar controle para cada incidente.**
+**Criar controle para cada incidente.** Cada resposta parece razoável isolada; o acúmulo produz um processo que ninguém consegue cumprir por inteiro, e o descumprimento vira norma.
 
-**Não remover controles.**
+**Não remover controles.** Controles só entram. Sem revisão que retire os que deixaram de fazer sentido, o custo cresce indefinidamente sobre todo mundo.
 
-**Rigor uniforme.**
+**Rigor uniforme.** Exigir o mesmo de uma mudança de texto e de uma migração de dados desperdiça o rigor onde não é preciso e desmoraliza o processo onde é.
 
-**Não medir o custo agregado.**
+**Não medir o custo agregado.** Cada controle custa pouco; ninguém soma. O número de dias que uma mudança leva do pronto ao produção é a medida que revela o total.
 
-**Não automatizar o automatizável.**
+**Não automatizar o automatizável.** Controle verificado por pessoa é caro, lento e falha de forma inconsistente. Verificação automatizada é mais barata e não cansa.
 
-**Confundir seguir o processo com tomar boa decisão.**
+**Confundir seguir o processo com tomar boa decisão.** Conformidade e qualidade são coisas diferentes; um processo bem seguido pode produzir uma decisão ruim sem que nenhum controle acuse.
 
 ## Exemplo Real
 

@@ -275,17 +275,17 @@ automatize, ou aceite que ele é decorativo.
 
 ## Erros Comuns
 
-**Documentar sem operacionalizar.**
+**Documentar sem operacionalizar.** Padrão que não vem com modelo pronto, biblioteca ou verificação automatizada depende de cada time lembrar — e é seguido por quem já seguiria.
 
-**Padronizar preferências.**
+**Padronizar preferências.** Padronizar o que não tem consequência entre times gasta autoridade sem comprar nada, e essa autoridade falta quando algo realmente importa.
 
-**Não revisar.**
+**Não revisar.** Padrão escrito há três anos pode recomendar tecnologia descontinuada, e continua sendo citado como norma porque ninguém o retirou.
 
-**Não ter caminho de exceção.**
+**Não ter caminho de exceção.** Sem processo de exceção, os times que não cabem no padrão simplesmente o ignoram — e a violação deixa de ser visível e discutível.
 
-**Escrever sem quem usa.**
+**Escrever sem quem usa.** Padrão redigido longe de quem vai aplicá-lo erra nos casos reais e é recebido como imposição.
 
-**Acumular sem remover.**
+**Acumular sem remover.** Um catálogo com cinquenta padrões não é consultado por ninguém, e sua existência dá a impressão falsa de que há orientação.
 
 ## Exemplo Real
 

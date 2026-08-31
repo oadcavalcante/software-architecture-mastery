@@ -267,17 +267,17 @@ abstratos, porque traz o contexto junto.
 
 ## Erros Comuns
 
-**Escrever virtudes.**
+**Escrever virtudes.** "Priorizamos qualidade" não tem oposto defensável, então não elimina nenhuma opção e não decide nada.
 
-**Não testar contra decisões reais.**
+**Não testar contra decisões reais.** O teste de um princípio é aplicá-lo a três decisões passadas. Se ele não teria mudado nenhuma, ele não orienta.
 
-**Não declarar implicações.**
+**Não declarar implicações.** Um princípio sem o que ele obriga a abrir mão é aspiração. A implicação é a parte que dói e a que faz o princípio ter efeito.
 
-**Confundir com padrão.**
+**Confundir com padrão.** Princípio orienta julgamento em caso novo; padrão prescreve resposta em caso conhecido. Tratar princípio como regra o quebra no primeiro caso que não se encaixa.
 
-**Não registrar exceções.**
+**Não registrar exceções.** A exceção não registrada vira precedente informal, e o princípio passa a valer para quem não sabia que dava para pedir exceção.
 
-**Não revisar.**
+**Não revisar.** Princípios derivam do contexto — tamanho do time, estágio, restrições. Quando o contexto muda e eles não, continuam eliminando opções que voltaram a ser boas.
 
 ## Exemplo Real
 

@@ -208,17 +208,17 @@ prestes a mudar.
 
 ## Erros Comuns
 
-**Desenhar em vez de derivar.**
+**Desenhar em vez de derivar.** Diagrama feito de memória descreve a arquitetura pretendida. O estado atual sai de inventário de nuvem, repositórios, tráfego real e faturamento.
 
-**Consultar sem observar.**
+**Consultar sem observar.** As pessoas descrevem os fluxos principais e esquecem as integrações antigas, os relatórios mensais e os acessos diretos ao banco — que são exatamente o que costuma quebrar numa migração.
 
-**Documentar tudo no mesmo detalhe.**
+**Documentar tudo no mesmo detalhe.** O esforço se dilui e o que importa não fica mais visível que o resto. O detalhe deve seguir a criticidade e a intenção de mudança.
 
-**Não incluir quem mantém.**
+**Não incluir quem mantém.** Sistema sem responsável identificado é o achado mais acionável de todo o levantamento, e some quando o mapa registra só caixas e setas.
 
-**Tratar como entregável.**
+**Tratar como entregável.** Um retrato do estado atual desatualiza em semanas. Ou é derivado de fontes vivas, ou é um documento com data de validade curta.
 
-**Não marcar o que não se sabe.**
+**Não marcar o que não se sabe.** Lacuna não declarada é lida como ausência de problema. Marcar "não sabemos quem usa isto" é informação, e das mais úteis.
 
 ## Exemplo Real
 

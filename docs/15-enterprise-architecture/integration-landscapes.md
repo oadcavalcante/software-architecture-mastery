@@ -224,15 +224,15 @@ organizá-las.
 
 ## Erros Comuns
 
-**Mapear por entrevista.**
+**Mapear por entrevista.** As pessoas lembram das integrações que usam e esquecem as antigas — que são justamente as que quebram quando alguém desliga um sistema.
 
-**Não incluir acesso direto a banco alheio.**
+**Não incluir acesso direto a banco alheio.** É a integração mais acoplada que existe e a que menos aparece nos mapas, porque não passa por nenhuma API.
 
-**Introduzir intermediário como solução.**
+**Introduzir intermediário como solução.** Um barramento no meio de integrações mal desenhadas apenas centraliza o problema e cria um gargalo organizacional — o acoplamento continua, agora com mais um sistema para operar.
 
-**Não medir o custo de manutenção das integrações.**
+**Não medir o custo de manutenção das integrações.** É onde boa parte da capacidade de engenharia é consumida, e não aparece em nenhuma linha de orçamento.
 
-**Não usar a paisagem para decidir** — apenas documentá-la.
+**Não usar a paisagem para decidir** — apenas documentá-la. O mapa serve para escolher o que consolidar e o que desligar. Sem essa ligação, ele é um pôster.
 
 ## Exemplo Real
 

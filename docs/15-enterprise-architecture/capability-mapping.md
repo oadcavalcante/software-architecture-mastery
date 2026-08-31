@@ -220,17 +220,17 @@ O último acelera o início e produz um modelo genérico se não for adaptado co
 
 ## Erros Comuns
 
-**Conduzir sem o negócio.**
+**Conduzir sem o negócio.** Um mapa desenhado só pela área técnica descreve sistemas com outro nome, e o negócio não se reconhece nele — o que o torna inútil para a conversa que ele existia para ter.
 
-**Decompor de baixo para cima.**
+**Decompor de baixo para cima.** Partir dos sistemas existentes reproduz a arquitetura atual e esconde a capacidade que não é atendida por nenhum sistema — que é justamente a informação mais valiosa.
 
-**Não aplicar os testes de estabilidade.**
+**Não aplicar os testes de estabilidade.** Se um item do mapa desaparece quando a empresa troca de ferramenta ou de estrutura, ele não era capacidade; era processo ou sistema com nome de capacidade.
 
-**Não validar com quem executa.**
+**Não validar com quem executa.** O mapa validado só com a diretoria descreve como a empresa acha que funciona. Quem executa sabe onde há capacidade informal e duplicada.
 
-**Não sobrepor informação.**
+**Não sobrepor informação.** Um mapa sem custo, criticidade ou saúde sobreposta é um organograma de substantivos. As camadas de informação é que fazem dele instrumento de decisão.
 
-**Não conectar a um processo de decisão existente.**
+**Não conectar a um processo de decisão existente.** Mapa que não entra no planejamento nem na priorização de investimento é entregue, elogiado e esquecido.
 
 ## Exemplo Real
 
