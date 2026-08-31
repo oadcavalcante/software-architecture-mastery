@@ -517,12 +517,12 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Case: Rede Social](docs/21-case-studies/social-network.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Streaming de Vídeo](docs/21-case-studies/video-streaming.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Cálculo de Guardanapo](docs/22-system-design-interviews/back-of-envelope.md) | concept | intermediário | `capacity-estimation` | 🟩 |
-| 🟩 | [Identificação de Gargalo](docs/22-system-design-interviews/bottleneck-identification.md) | concept | intermediário | `high-level-architecture` | ⬜ |
+| 🟩 | [Identificação de Gargalo](docs/22-system-design-interviews/bottleneck-identification.md) | concept | intermediário | `high-level-architecture` | 🟩 |
 | 🟩 | [Estimativa em Entrevista](docs/22-system-design-interviews/capacity-estimation.md) | concept | intermediário | `functional-vs-nonfunctional` | 🟩 |
 | 🟩 | [Comunicação de Trade-offs](docs/22-system-design-interviews/communicating-tradeoffs.md) | concept | intermediário | `high-level-architecture` | ⬜ |
 | 🟩 | [Tratamento de Falhas na Entrevista](docs/22-system-design-interviews/failure-handling.md) | concept | intermediário | `high-level-architecture` | ⬜ |
 | 🟩 | [Requisitos Funcionais vs. Não Funcionais](docs/22-system-design-interviews/functional-vs-nonfunctional.md) | concept | intermediário | `requirement-clarification` | 🟩 |
-| 🟩 | [Arquitetura de Alto Nível](docs/22-system-design-interviews/high-level-architecture.md) | concept | intermediário | `interview-data-modeling` | ⬜ |
+| 🟩 | [Arquitetura de Alto Nível](docs/22-system-design-interviews/high-level-architecture.md) | concept | intermediário | `interview-data-modeling` | 🟩 |
 | 🟩 | [Entrevistas de System Design](docs/22-system-design-interviews/index.md) | index | intermediário | `system-design` | 🟩 |
 | 🟩 | [Desenho de API na Entrevista](docs/22-system-design-interviews/interview-api-design.md) | concept | intermediário | `functional-vs-nonfunctional` | 🟩 |
 | 🟩 | [Erros Comuns](docs/22-system-design-interviews/interview-common-mistakes.md) | concept | intermediário | `interview-structure` | ⬜ |
