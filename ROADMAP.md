@@ -251,14 +251,14 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Bancos de Documentos](docs/07-data-architecture/document-databases.md) | concept | intermediário | `nosql` | ⬜ |
 | 🟩 | [Bancos de Grafo](docs/07-data-architecture/graph-databases.md) | concept | intermediário | `nosql` | ⬜ |
 | 🟩 | [Arquitetura de Dados](docs/07-data-architecture/index.md) | index | avançado | `distributed-systems` | 🟩 |
-| 🟩 | [Indexação](docs/07-data-architecture/indexing.md) | concept | intermediário | `data-architecture` | ⬜ |
+| 🟩 | [Indexação](docs/07-data-architecture/indexing.md) | concept | intermediário | `data-architecture` | 🟩 |
 | 🟩 | [Bancos Chave-Valor](docs/07-data-architecture/key-value-databases.md) | concept | intermediário | `nosql` | ⬜ |
 | 🟩 | [Normalização](docs/07-data-architecture/normalization.md) | concept | intermediário | `data-modeling` | 🟩 |
 | 🟩 | [NoSQL](docs/07-data-architecture/nosql.md) | concept | intermediário | `relational-databases` | ⬜ |
 | 🟩 | [OLAP](docs/07-data-architecture/olap.md) | concept | intermediário | `oltp` | 🟩 |
 | 🟩 | [OLTP](docs/07-data-architecture/oltp.md) | concept | intermediário | `data-architecture` | 🟩 |
 | 🟩 | [Bancos Relacionais](docs/07-data-architecture/relational-databases.md) | concept | intermediário | `data-architecture` | ⬜ |
-| 🟩 | [Transações](docs/07-data-architecture/transactions.md) | concept | intermediário | `relational-databases` | ⬜ |
+| 🟩 | [Transações](docs/07-data-architecture/transactions.md) | concept | intermediário | `relational-databases` | 🟩 |
 | 🟩 | [API Gateways](docs/08-integration-architecture/api-gateways.md) | pattern | intermediário | `rest` | ⬜ |
 | 🟩 | [Integração em Lote](docs/08-integration-architecture/batch-integration.md) | concept | intermediário | `integration-architecture` | ⬜ |
 | 🟩 | [Enterprise Integration Patterns](docs/08-integration-architecture/enterprise-integration-patterns.md) | reference | intermediário | `messaging-integration` | ⬜ |
