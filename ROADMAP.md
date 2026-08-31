@@ -457,7 +457,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Strangler Fig](docs/16-legacy-modernization/strangler-fig.md) | pattern | avançado | `legacy-modernization` | 🟩 |
 | 🟩 | [Conformidade](docs/19-architecture-governance/compliance.md) | concept | avançado | `governance-standards` | 🟩 |
 | 🟩 | [Exceções](docs/19-architecture-governance/exceptions.md) | concept | avançado | `governance-standards` | 🟩 |
-| 🟩 | [Governança Federada](docs/19-architecture-governance/federated-governance.md) | concept | avançado | `governance-basics` | ⬜ |
+| 🟩 | [Governança Federada](docs/19-architecture-governance/federated-governance.md) | concept | avançado | `governance-basics` | 🟩 |
 | 🟩 | [Funções de Aptidão como Governança](docs/19-architecture-governance/fitness-functions-governance.md) | concept | avançado | `governance-basics` | 🟩 |
 | 🟩 | [Fundamentos de Governança](docs/19-architecture-governance/governance-basics.md) | concept | avançado | `enterprise-governance` | 🟩 |
 | 🟩 | [Patologias de Governança](docs/19-architecture-governance/governance-pathologies.md) | concept | avançado | `governance-basics` | ⬜ |

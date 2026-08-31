@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-standards, governance-pathologies]
 canonical_for: [governança federada, decisão local, externalidade de decisão, contrato entre times]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -287,7 +287,7 @@ construção do produtor.
 Dois anos depois:
 
 ```text
-itens no conjunto central                     6 → 4
+itens no conjunto central                     6 → 5
                                               (dois viraram plataforma
                                               e saíram do conjunto)
 formatos de evento para o mesmo conceito      1
@@ -297,7 +297,7 @@ tempo médio de decisão arquitetural local     mesmo dia
 adoção de gabarito em serviços novos          91%
 ```
 
-A redução do conjunto central de 6 para 4 é o dado que a equipe destaca. Identidade e
+A saída de dois itens do conjunto central é o dado que a equipe destaca. Identidade e
 observabilidade deixaram de ser regras porque viraram padrão embutido — nenhum time precisa
 lembrar de algo que já vem configurado.
 
