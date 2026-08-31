@@ -196,7 +196,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Disponibilidade](docs/06-distributed-systems/availability.md) | concept | intermediário | `partial-failure` | ⬜ |
 | 🟩 | [Backoff](docs/06-distributed-systems/backoff.md) | concept | intermediário | `retries` | 🟩 |
 | 🟩 | [Backpressure](docs/06-distributed-systems/backpressure.md) | concept | avançado | `messaging` | ⬜ |
-| 🟩 | [CAP](docs/06-distributed-systems/cap.md) | foundation | avançado | `consistency`, `availability` | ⬜ |
+| 🟩 | [CAP](docs/06-distributed-systems/cap.md) | foundation | avançado | `consistency`, `availability` | 🟩 |
 | 🟩 | [Relógio e Tempo](docs/06-distributed-systems/clock-and-time.md) | concept | avançado | `distributed-fundamentals` | ⬜ |
 | 🟩 | [Resolução de Conflitos](docs/06-distributed-systems/conflict-resolution.md) | concept | avançado | `eventual-consistency` | ⬜ |
 | 🟩 | [Consenso](docs/06-distributed-systems/consensus.md) | concept | avançado | `leader-election` | ⬜ |
@@ -222,7 +222,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Mensageria](docs/06-distributed-systems/messaging.md) | concept | avançado | `partial-failure` | ⬜ |
 | 🟩 | [Falha de Rede](docs/06-distributed-systems/network-failure.md) | concept | avançado | `distributed-fundamentals` | 🟩 |
 | 🟩 | [Ordenação](docs/06-distributed-systems/ordering.md) | concept | avançado | `messaging` | ⬜ |
-| 🟩 | [PACELC](docs/06-distributed-systems/pacelc.md) | foundation | avançado | `cap` | ⬜ |
+| 🟩 | [PACELC](docs/06-distributed-systems/pacelc.md) | foundation | avançado | `cap` | 🟩 |
 | 🟩 | [Falha Parcial](docs/06-distributed-systems/partial-failure.md) | concept | avançado | `network-failure` | 🟩 |
 | 🟩 | [Particionamento](docs/06-distributed-systems/partitioning.md) | concept | avançado | `replication` | ⬜ |
 | 🟩 | [Poison Messages](docs/06-distributed-systems/poison-messages.md) | concept | intermediário | `messaging` | ⬜ |
