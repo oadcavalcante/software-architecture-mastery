@@ -13,7 +13,6 @@ objective: >
 prerequisites: [transition-architecture]
 related: [transition-architecture, technical-strategy, target-architecture]
 canonical_for: []
-content_version: 1
 translated_from_version: 1
 last_reviewed: 2026-08-31
 ---

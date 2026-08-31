@@ -13,7 +13,6 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, architecture-roadmaps, business-capabilities]
 canonical_for: []
-content_version: 1
 translated_from_version: 1
 last_reviewed: 2026-08-31
 ---

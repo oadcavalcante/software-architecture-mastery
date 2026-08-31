@@ -13,7 +13,6 @@ objective: >
 prerequisites: [application-portfolios]
 related: [application-portfolios, current-state-architecture, enterprise-data-architecture]
 canonical_for: []
-content_version: 1
 translated_from_version: 1
 last_reviewed: 2026-08-31
 ---

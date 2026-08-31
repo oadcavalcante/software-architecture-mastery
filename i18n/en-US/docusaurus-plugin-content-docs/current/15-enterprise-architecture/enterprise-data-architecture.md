@@ -13,7 +13,6 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [integration-landscapes, application-architecture, data-ownership]
 canonical_for: []
-content_version: 1
 translated_from_version: 1
 last_reviewed: 2026-08-31
 ---

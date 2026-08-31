@@ -13,7 +13,6 @@ objective: >
 prerequisites: [architecture-levels]
 related: [architecture-levels, enterprise-governance, enterprise-principles]
 canonical_for: []
-content_version: 1
 translated_from_version: 1
 last_reviewed: 2026-08-31
 ---
