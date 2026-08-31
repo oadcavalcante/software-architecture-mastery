@@ -461,7 +461,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Funções de Aptidão como Governança](docs/19-architecture-governance/fitness-functions-governance.md) | concept | avançado | `governance-basics` | ⬜ |
 | 🟩 | [Fundamentos de Governança](docs/19-architecture-governance/governance-basics.md) | concept | avançado | `enterprise-governance` | 🟩 |
 | 🟩 | [Patologias de Governança](docs/19-architecture-governance/governance-pathologies.md) | concept | avançado | `governance-basics` | ⬜ |
-| 🟩 | [Princípios em Operação](docs/19-architecture-governance/governance-principles.md) | concept | avançado | `governance-basics` | ⬜ |
+| 🟩 | [Princípios em Operação](docs/19-architecture-governance/governance-principles.md) | concept | avançado | `governance-basics` | 🟩 |
 | 🟩 | [Revisão como Instrumento](docs/19-architecture-governance/governance-review.md) | concept | avançado | `governance-basics` | ⬜ |
 | 🟩 | [Padrões em Operação](docs/19-architecture-governance/governance-standards.md) | concept | avançado | `governance-principles` | ⬜ |
 | 🟩 | [Governança de Arquitetura](docs/19-architecture-governance/index.md) | index | avançado | `enterprise-architecture` | 🟩 |
