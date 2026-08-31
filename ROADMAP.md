@@ -100,9 +100,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Interfaces](docs/02-software-design/interfaces.md) | concept | intermediário | `encapsulation` | 🟩 |
 | 🟩 | [KISS](docs/02-software-design/kiss.md) | concept | iniciante | `fundamentals` | ⬜ |
 | 🟩 | [Camadas](docs/02-software-design/layering.md) | concept | intermediário | `boundaries` | 🟩 |
-| 🟩 | [Design Modular](docs/02-software-design/modular-design.md) | concept | intermediário | `layering` | ⬜ |
+| 🟩 | [Design Modular](docs/02-software-design/modular-design.md) | concept | intermediário | `layering` | 🟩 |
 | 🟩 | [Arquitetura Onion](docs/02-software-design/onion-architecture.md) | pattern | intermediário | `hexagonal-architecture` | ⬜ |
-| 🟩 | [Design de Pacotes](docs/02-software-design/package-design.md) | concept | avançado | `modular-design` | ⬜ |
+| 🟩 | [Design de Pacotes](docs/02-software-design/package-design.md) | concept | avançado | `modular-design` | 🟩 |
 | 🟩 | [Ports and Adapters](docs/02-software-design/ports-and-adapters.md) | pattern | intermediário | `dependency-inversion` | ⬜ |
 | 🟩 | [Refatoração](docs/02-software-design/refactoring.md) | concept | intermediário | `code-smells` | ⬜ |
 | 🟩 | [SOLID](docs/02-software-design/solid.md) | concept | intermediário | `fundamentals` | ⬜ |
