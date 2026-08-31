@@ -218,17 +218,17 @@ dependência.
 
 ## Erros Comuns
 
-**Criar time de plataforma cedo demais.**
+**Criar time de plataforma cedo demais.** Com poucos times consumidores, a plataforma custa mais do que a duplicação que ela eliminaria — e ainda concentra pessoas longe do produto.
 
-**Tornar obrigatório em vez de bom.**
+**Tornar obrigatório em vez de bom.** Adoção forçada esconde o sinal de que a plataforma não serve. Quando o caminho pavimentado é de fato o mais fácil, não precisa de mandato.
 
-**Medir adoção forçada.**
+**Medir adoção forçada.** Cem por cento de adoção obrigatória não diz nada sobre qualidade. O indicador útil é quanto tempo um time leva do zero à produção.
 
-**Abstrair sem permitir descer.**
+**Abstrair sem permitir descer.** Toda abstração vaza em algum caso. Sem escotilha de escape, o primeiro time com necessidade fora do padrão contorna a plataforma inteira — e não volta.
 
-**Não ter suporte nem documentação.**
+**Não ter suporte nem documentação.** Plataforma é produto interno. Sem quem responda dúvidas e sem material de uso, o custo de adotá-la recai sobre cada time, um de cada vez.
 
-**Assumir a operação dos serviços dos outros.**
+**Assumir a operação dos serviços dos outros.** O time de plataforma vira plantão de tudo, perde a capacidade de evoluir a plataforma e devolve aos times de produto o desinteresse pela própria confiabilidade.
 
 ## Exemplo Real
 

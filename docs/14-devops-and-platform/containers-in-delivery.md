@@ -201,17 +201,17 @@ reconstruído, ele não é o que foi testado.
 
 ## Quando Não Usar
 
-**Reconstruindo por ambiente.**
+**Reconstruindo por ambiente.** O artefato que chega a produção não é o que foi testado, e a promoção entre ambientes deixa de significar alguma coisa.
 
-**Com configuração embutida na imagem.**
+**Com configuração embutida na imagem.** Força reconstrução a cada ambiente e recria o problema anterior.
 
-**Referenciando por etiqueta móvel em produção.**
+**Referenciando por etiqueta móvel em produção.** A versão em execução passa a depender de quando o pod reiniciou.
 
-**Com retenção que impede reverter.**
+**Com retenção que impede reverter.** A imagem anterior precisa existir para a reversão ser possível; a política de limpeza tem que respeitar isso.
 
-**Permitindo sobrescrita de etiquetas publicadas.**
+**Permitindo sobrescrita de etiquetas publicadas.** Se a mesma etiqueta pode apontar para outro conteúdo, nenhum registro de implantação é confiável depois do fato.
 
-**Sem fixar versões de dependências.**
+**Sem fixar versões de dependências.** Duas construções do mesmo commit produzem artefatos diferentes, e reproduzir um defeito de produção vira impossível.
 
 ## Alternativas
 
@@ -255,17 +255,17 @@ comum de aplicá-lo.
 
 ## Erros Comuns
 
-**Reconstruir para produção.**
+**Reconstruir para produção.** O artefato testado em homologação deixa de ser o que roda em produção. Qualquer diferença de dependência transitiva entra sem passar por teste nenhum.
 
-**Etiqueta móvel em produção.**
+**Etiqueta móvel em produção.** Apontar para `latest` significa que reiniciar um pod pode trocar a versão em execução. Duas instâncias do mesmo serviço passam a rodar código diferente.
 
-**Configuração na imagem.**
+**Configuração na imagem.** Obriga a reconstruir para mudar de ambiente, o que recria o primeiro problema: a imagem de produção nunca foi a imagem testada.
 
-**Não fixar imagem base por digest.**
+**Não fixar imagem base por digest.** A etiqueta da base muda sob seus pés, e duas construções do mesmo commit produzem imagens diferentes — o que elimina a reprodutibilidade.
 
-**Política de retenção que impede reversão.**
+**Política de retenção que impede reversão.** Apagar imagens antigas por custo elimina o alvo da reversão. Descobre-se durante o incidente.
 
-**Ordem de camadas ignorando o cache.**
+**Ordem de camadas ignorando o cache.** Copiar o código antes de instalar dependências invalida o cache a cada commit, e a construção que levaria trinta segundos passa a levar minutos.
 
 ## Exemplo Real
 

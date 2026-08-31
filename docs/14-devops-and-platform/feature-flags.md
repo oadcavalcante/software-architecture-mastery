@@ -228,17 +228,17 @@ de prazo; as permanentes precisam de justificativa.
 
 ## Erros Comuns
 
-**Não definir tipo e prazo na criação.**
+**Não definir tipo e prazo na criação.** Flag de lançamento e flag operacional têm ciclos de vida opostos. Sem declarar qual é, todas viram permanentes.
 
-**Não remover as temporárias.**
+**Não remover as temporárias.** Cada flag ativa dobra os caminhos possíveis do código. Vinte flags esquecidas produzem um espaço de combinações que nenhum teste cobre.
 
-**Usar flag para regra de negócio.**
+**Usar flag para regra de negócio.** Regra em painel de configuração escapa de revisão, de teste e de histórico — e passa a mudar comportamento sem rastro.
 
-**Não definir o comportamento padrão sob falha.**
+**Não definir o comportamento padrão sob falha.** Quando o serviço de flags fica indisponível, o sistema precisa saber qual caminho seguir. Sem valor padrão declarado, a indisponibilidade do serviço de flags vira indisponibilidade do produto.
 
-**Deixar flags interagirem.**
+**Deixar flags interagirem.** Duas flags que se combinam criam um estado que ninguém testou e que só aparece para o subconjunto de usuários em ambas.
 
-**Não auditar alterações.**
+**Não auditar alterações.** Uma flag alterada é uma mudança de comportamento em produção. Sem registro de quem mudou o quê e quando, ela some da investigação de incidente.
 
 ## Exemplo Real
 

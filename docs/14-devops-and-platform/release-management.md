@@ -240,17 +240,17 @@ coordenação é pequeno e específico.
 
 ## Erros Comuns
 
-**Aplicar o processo pesado a tudo.**
+**Aplicar o processo pesado a tudo.** Exigir a mesma aprovação para uma correção de texto e para uma migração de esquema treina o time a tratar o processo como obstáculo — e a contorná-lo justamente nas mudanças que importam.
 
-**Congelar por semanas.**
+**Congelar por semanas.** O congelamento acumula mudanças e faz a primeira liberação depois dele ser a maior e mais arriscada do ano — o oposto do que o congelamento pretendia.
 
-**Não separar implantar de liberar.**
+**Não separar implantar de liberar.** Quando as duas coisas são a mesma, toda entrega de código é exposição ao usuário, e a única forma de controlar risco passa a ser não entregar.
 
-**Escrever notas de release à mão.**
+**Escrever notas de release à mão.** Ficam desatualizadas na primeira semana. Geradas a partir dos commits e das mudanças, elas continuam verdadeiras sem esforço.
 
-**Não classificar mudanças por risco.**
+**Não classificar mudanças por risco.** Sem classificação, ou tudo passa pelo processo mais rígido, ou nada passa. A distinção é o que permite ser rápido no trivial e cuidadoso no perigoso.
 
-**Manter aprovações que ninguém avalia de fato.**
+**Manter aprovações que ninguém avalia de fato.** Aprovação carimbada dá a impressão de controle e não fornece nenhum, além de diluir a responsabilidade entre quem assinou sem olhar.
 
 ## Exemplo Real
 

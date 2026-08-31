@@ -259,17 +259,17 @@ ambiente recusa.
 
 ## Erros Comuns
 
-**Tratar a esteira como ferramenta de desenvolvimento.**
+**Tratar a esteira como ferramenta de desenvolvimento.** Ela tem credenciais de produção e produz o artefato que roda lá. É infraestrutura crítica, e merece o mesmo controle que produção.
 
-**Executar configuração de ramo com segredos de produção.**
+**Executar configuração de ramo com segredos de produção.** Se o arquivo da esteira pode ser alterado no mesmo commit que ela executa, qualquer contribuidor consegue exfiltrar os segredos.
 
-**Credenciais estáticas amplas.**
+**Credenciais estáticas amplas.** Uma chave de longa duração com permissão de administrador na esteira é o alvo de maior valor da organização, e ela vaza em log de construção com facilidade.
 
-**Não verificar assinatura na implantação.**
+**Não verificar assinatura na implantação.** Assinar sem verificar no momento de implantar é cerimônia — o controle só existe onde alguém recusa o que não confere.
 
-**Não fixar dependências de construção.**
+**Não fixar dependências de construção.** Ações, imagens base e ferramentas referenciadas por etiqueta móvel entram na sua esteira em versões que ninguém revisou.
 
-**Não separar construção de implantação.**
+**Não separar construção de implantação.** Quando o mesmo processo compila e implanta, comprometer a construção é comprometer produção diretamente. Separá-los cria um ponto onde é possível verificar antes de aplicar.
 
 ## Exemplo Real
 
