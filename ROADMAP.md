@@ -185,8 +185,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Busca](docs/05-system-design/search.md) | concept | intermediário | `pagination` | ⬜ |
 | 🟩 | [Fronteiras de Serviço](docs/05-system-design/service-boundaries.md) | concept | avançado | `services` | 🟩 |
 | 🟩 | [Serviços](docs/05-system-design/services.md) | concept | intermediário | `components` | 🟩 |
-| 🟩 | [Gestão de Estado](docs/05-system-design/state-management.md) | concept | intermediário | `components` | ⬜ |
-| 🟩 | [Sem Estado vs. Com Estado](docs/05-system-design/stateless-vs-stateful.md) | concept | intermediário | `state-management` | ⬜ |
+| 🟩 | [Gestão de Estado](docs/05-system-design/state-management.md) | concept | intermediário | `components` | 🟩 |
+| 🟩 | [Sem Estado vs. Com Estado](docs/05-system-design/stateless-vs-stateful.md) | concept | intermediário | `state-management` | 🟩 |
 | 🟩 | [Decomposição de Sistemas](docs/05-system-design/system-decomposition.md) | concept | intermediário | `system-design` | 🟩 |
 
 ### Nível 04 — Sistemas Distribuídos
