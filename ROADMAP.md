@@ -264,7 +264,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Enterprise Integration Patterns](docs/08-integration-architecture/enterprise-integration-patterns.md) | reference | intermediário | `messaging-integration` | ⬜ |
 | 🟩 | [Integração Orientada a Eventos](docs/08-integration-architecture/event-driven-integration.md) | concept | avançado | `messaging-integration` | ⬜ |
 | 🟩 | [Integração por Arquivo](docs/08-integration-architecture/file-integration.md) | concept | intermediário | `batch-integration` | ⬜ |
-| 🟩 | [GraphQL](docs/08-integration-architecture/graphql.md) | concept | avançado | `rest` | ⬜ |
+| 🟩 | [GraphQL](docs/08-integration-architecture/graphql.md) | concept | avançado | `rest` | 🟩 |
 | 🟩 | [gRPC](docs/08-integration-architecture/grpc.md) | concept | avançado | `rest` | 🟩 |
 | 🟩 | [Arquitetura de Integração](docs/08-integration-architecture/index.md) | index | avançado | `distributed-systems` | 🟩 |
 | 🟩 | [Anti-Corruption Layer na Integração](docs/08-integration-architecture/integration-anti-corruption.md) | pattern | avançado | `integration-contracts` | 🟩 |
@@ -273,7 +273,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [REST](docs/08-integration-architecture/rest.md) | concept | intermediário | `integration-architecture` | 🟩 |
 | 🟩 | [Evolução de Esquema](docs/08-integration-architecture/schema-evolution.md) | concept | avançado | `integration-contracts` | 🟩 |
 | 🟩 | [Malha de Serviço](docs/08-integration-architecture/service-mesh.md) | pattern | avançado | `api-gateways` | ⬜ |
-| 🟩 | [Webhooks](docs/08-integration-architecture/webhooks.md) | pattern | intermediário | `integration-architecture` | ⬜ |
+| 🟩 | [Webhooks](docs/08-integration-architecture/webhooks.md) | pattern | intermediário | `integration-architecture` | 🟩 |
 | 🟩 | [Zonas de Disponibilidade](docs/09-cloud-architecture/availability-zones.md) | concept | intermediário | `regions` | ⬜ |
 | 🟩 | [Computação em Nuvem](docs/09-cloud-architecture/cloud-compute.md) | concept | intermediário | `iaas` | ⬜ |
 | 🟩 | [Identidade em Nuvem](docs/09-cloud-architecture/cloud-identity.md) | concept | avançado | `cloud-architecture` | ⬜ |
