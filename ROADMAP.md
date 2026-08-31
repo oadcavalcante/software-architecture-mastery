@@ -317,7 +317,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Pontos Quentes](docs/11-scalability/hotspots.md) | concept | avançado | `scalability` | 🟩 |
 | 🟩 | [Escalabilidade](docs/11-scalability/index.md) | index | avançado | `system-design` | 🟩 |
 | 🟩 | [Desempenho versus Escalabilidade](docs/11-scalability/performance-vs-scalability.md) | tradeoff | intermediário | `scalability` | 🟩 |
-| 🟩 | [Escala Dirigida por Fila](docs/11-scalability/queue-based-scaling.md) | pattern | avançado | `async-processing` | ⬜ |
+| 🟩 | [Escala Dirigida por Fila](docs/11-scalability/queue-based-scaling.md) | pattern | avançado | `async-processing` | 🟩 |
 | 🟩 | [Cache para Escala](docs/11-scalability/scaling-cache.md) | concept | avançado | `scalability` | 🟩 |
 | 🟩 | [Planejamento de Capacidade para Escala](docs/11-scalability/scaling-capacity-planning.md) | concept | avançado | `performance-vs-scalability` | ⬜ |
 | 🟩 | [Balanceamento para Escala](docs/11-scalability/scaling-load-balancing.md) | concept | intermediário | `horizontal-scaling` | 🟩 |
