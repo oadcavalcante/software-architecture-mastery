@@ -170,7 +170,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Análise de Gargalos](docs/05-system-design/bottleneck-analysis.md) | concept | intermediário | `capacity-planning` | ⬜ |
 | 🟩 | [Cache](docs/05-system-design/caching.md) | concept | intermediário | `state-management` | 🟩 |
 | 🟩 | [Planejamento de Capacidade](docs/05-system-design/capacity-planning.md) | concept | intermediário | `components` | ⬜ |
-| 🟩 | [CDN](docs/05-system-design/cdn.md) | concept | iniciante | `caching` | ⬜ |
+| 🟩 | [CDN](docs/05-system-design/cdn.md) | concept | iniciante | `caching` | 🟩 |
 | 🟩 | [Componentes](docs/05-system-design/components.md) | concept | intermediário | `system-decomposition` | 🟩 |
 | 🟩 | [Configuração](docs/05-system-design/configuration.md) | concept | iniciante | `components` | ⬜ |
 | 🟩 | [Exercício 03 — Backend de E-commerce](docs/05-system-design/exercises/03-ecommerce-backend.md) | exercise | intermediário | `system-decomposition` | ⬜ |
@@ -179,7 +179,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Balanceamento de Carga](docs/05-system-design/load-balancing.md) | concept | intermediário | `stateless-vs-stateful` | 🟩 |
 | 🟩 | [Paginação](docs/05-system-design/pagination.md) | concept | iniciante | `apis` | 🟩 |
 | 🟩 | [Filas](docs/05-system-design/queues.md) | concept | intermediário | `request-response` | 🟩 |
-| 🟩 | [Rate Limiting](docs/05-system-design/rate-limiting.md) | concept | intermediário | `load-balancing` | ⬜ |
+| 🟩 | [Rate Limiting](docs/05-system-design/rate-limiting.md) | concept | intermediário | `load-balancing` | 🟩 |
 | 🟩 | [Request/Response](docs/05-system-design/request-response.md) | concept | intermediário | `apis` | 🟩 |
 | 🟩 | [Estratégias Básicas de Escalabilidade](docs/05-system-design/scalability-basics.md) | concept | intermediário | `bottleneck-analysis` | ⬜ |
 | 🟩 | [Busca](docs/05-system-design/search.md) | concept | intermediário | `pagination` | ⬜ |
