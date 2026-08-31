@@ -391,10 +391,10 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [ADR-005 — Portas e Adaptadores nos Módulos de Domínio](docs/18-architecture-decisions/adr-005-hexagonal.md) | adr | avançado | `adr-structure` | ⬜ |
 | 🟩 | [Alternativas Consideradas](docs/18-architecture-decisions/adr-alternatives.md) | concept | intermediário | `adr-structure` | ⬜ |
 | 🟩 | [Consequências](docs/18-architecture-decisions/adr-consequences.md) | concept | intermediário | `adr-structure` | ⬜ |
-| 🟩 | [Contexto da Decisão](docs/18-architecture-decisions/adr-context.md) | concept | intermediário | `adr-structure` | ⬜ |
+| 🟩 | [Contexto da Decisão](docs/18-architecture-decisions/adr-context.md) | concept | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [A Decisão](docs/18-architecture-decisions/adr-decision.md) | concept | intermediário | `adr-structure` | ⬜ |
 | 🟩 | [Status do ADR](docs/18-architecture-decisions/adr-status.md) | concept | intermediário | `adr-structure` | ⬜ |
-| 🟩 | [Estrutura do ADR](docs/18-architecture-decisions/adr-structure.md) | concept | iniciante | `what-is-an-adr` | ⬜ |
+| 🟩 | [Estrutura do ADR](docs/18-architecture-decisions/adr-structure.md) | concept | iniciante | `what-is-an-adr` | 🟩 |
 | 🟩 | [Decisões de Arquitetura](docs/18-architecture-decisions/index.md) | index | intermediário | `architecture-documentation` | 🟩 |
 | 🟩 | [Superação de Decisões](docs/18-architecture-decisions/superseding-decisions.md) | concept | avançado | `adr-status` | ⬜ |
 | 🟩 | [O Que É um ADR](docs/18-architecture-decisions/what-is-an-adr.md) | foundation | iniciante | `architecture-documentation` | 🟩 |
