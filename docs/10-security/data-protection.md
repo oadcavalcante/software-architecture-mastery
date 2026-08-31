@@ -224,17 +224,17 @@ controle que faltava era autorização, ou não coletar.
 
 ## Erros Comuns
 
-**Começar por criptografia em vez de minimização.**
+**Começar por criptografia em vez de minimização.** O dado que não foi coletado não vaza, não precisa de chave e não entra em pedido de exclusão. Cifrar é a segunda melhor resposta; não ter é a primeira.
 
-**Não classificar.**
+**Não classificar.** Sem saber quais campos são pessoais ou sensíveis, aplica-se o mesmo controle a tudo — caro demais para o que não precisa e frouxo demais para o que precisa.
 
-**Copiar produção.**
+**Copiar produção.** A base de homologação com dados reais multiplica os lugares onde há dado pessoal, com controles sempre mais fracos que os de produção.
 
-**Registrar corpo de requisição.**
+**Registrar corpo de requisição.** É a via mais comum de vazamento interno: dado pessoal e credencial acabam no sistema de logs, que tem retenção longa e acesso mais amplo.
 
-**Confundir pseudonimização com anonimização.**
+**Confundir pseudonimização com anonimização.** Trocar o nome por um identificador não anonimiza — com data de nascimento e CEP, poucos atributos bastam para reidentificar. Só o dado verdadeiramente anônimo sai do escopo regulatório.
 
-**Não inventariar os destinos do dado.**
+**Não inventariar os destinos do dado.** Sem saber para onde o dado pessoal flui — análise, suporte, terceiros — não há como atender pedido de exclusão nem responder a incidente.
 
 ## Exemplo Real
 

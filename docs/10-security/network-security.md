@@ -211,17 +211,17 @@ alternativa gerenciada.
 
 ## Erros Comuns
 
-**Manter a rede plana.**
+**Manter a rede plana.** Sem segmentação, comprometer qualquer máquina dá alcance a todas as outras. É o que transforma uma invasão pontual em incidente geral.
 
-**Não restringir saída.**
+**Não restringir saída.** Quase todo mundo filtra o que entra e libera o que sai — e é pela saída que ocorrem exfiltração e contato com servidor de controle.
 
-**Confiar na rede em vez de autenticar.**
+**Confiar na rede em vez de autenticar.** "Está na rede interna" não é identidade. Serviços precisam autenticar entre si, porque a rede interna é exatamente onde o invasor já está quando importa.
 
-**Segmentar sem observar antes.**
+**Segmentar sem observar antes.** Aplicar regras restritivas sem mapear os fluxos reais quebra integrações que ninguém documentou. Observar em modo permissivo primeiro e restringir depois evita o incidente autoinfligido.
 
-**Regras sem data de expiração.**
+**Regras sem data de expiração.** A liberação criada para um teste sobrevive anos, porque nada expira sozinho e regra que não incomoda ninguém não é revisada.
 
-**Não registrar o que foi bloqueado.**
+**Não registrar o que foi bloqueado.** O tráfego negado é o sinal mais direto de varredura e de movimento lateral — e é o que quase ninguém coleta.
 
 ## Exemplo Real
 

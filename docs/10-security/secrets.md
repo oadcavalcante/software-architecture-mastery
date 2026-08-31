@@ -214,17 +214,17 @@ rotacionar tudo junto.
 
 ## Erros Comuns
 
-**Não eliminar segredos quando há alternativa.**
+**Não eliminar segredos quando há alternativa.** Identidade atribuída à carga de trabalho dispensa a credencial estática. O segredo mais seguro é o que não existe.
 
-**Remover do repositório sem rotacionar.**
+**Remover do repositório sem rotacionar.** O histórico do Git preserva o valor, e clones já feitos também. Segredo commitado é segredo comprometido, e o único remédio é trocá-lo.
 
-**Não auditar acesso.**
+**Não auditar acesso.** Sem registro de quem leu qual segredo e quando, não há como delimitar o escopo de um incidente nem detectar leitura anômala.
 
-**Não exercitar rotação.**
+**Não exercitar rotação.** A rotação que nunca foi feita falha na primeira tentativa, que é justamente durante a suspeita de vazamento — o pior momento para descobrir que algo não está automatizado.
 
-**Usar credencial de produção em desenvolvimento.**
+**Usar credencial de produção em desenvolvimento.** Multiplica os lugares onde ela existe, com controle mais fraco em todos eles, e torna impossível saber de onde partiu um acesso.
 
-**Não filtrar segredos dos registros.**
+**Não filtrar segredos dos registros.** Token em cabeçalho e senha em corpo de requisição vão para o log em qualquer despejo de depuração, e ficam lá pelo tempo de retenção.
 
 ## Exemplo Real
 

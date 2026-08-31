@@ -208,17 +208,17 @@ ser avaliado.
 
 ## Erros Comuns
 
-**Não guardar a versão da chave com o dado.**
+**Não guardar a versão da chave com o dado.** Depois da primeira rotação, não há como saber qual chave decifra qual registro, e a rotação passa a exigir recifrar tudo de uma vez.
 
-**Não planejar rotação antes de cifrar.**
+**Não planejar rotação antes de cifrar.** Rotacionar é fácil quando previsto e quase impossível quando não: sem versionamento e sem convivência de chaves, a troca vira uma janela de indisponibilidade sobre a base inteira.
 
-**Não manter inventário de chave para dado.**
+**Não manter inventário de chave para dado.** Sem saber o que cada chave protege, não há como avaliar o impacto de um comprometimento nem decidir a ordem de resposta.
 
-**Guardar a chave no mesmo lugar que o dado.**
+**Guardar a chave no mesmo lugar que o dado.** Anula a proteção — quem obtém acesso ao armazenamento obtém os dois.
 
-**Não separar administração de uso.**
+**Não separar administração de uso.** Quem usa a chave para decifrar não precisa poder exportá-la nem apagá-la. Sem essa separação, o comprometimento da aplicação vira comprometimento do material criptográfico.
 
-**Tratar chave de assinatura como chave comum.**
+**Tratar chave de assinatura como chave comum.** O comprometimento de uma chave de cifra expõe dados; o de uma chave de assinatura permite forjar identidade e autorização — dano de natureza diferente e maior.
 
 ## Exemplo Real
 

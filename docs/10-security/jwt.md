@@ -208,17 +208,17 @@ motivo de a chave merecer o tratamento de
 
 ## Erros Comuns
 
-**Colocar dados sensíveis dentro.**
+**Colocar dados sensíveis dentro.** O conteúdo é apenas codificado em base64 — legível por qualquer um que tenha o token, inclusive o próprio usuário.
 
-**Expiração longa.**
+**Expiração longa.** O token não pode ser revogado sem infraestrutura adicional, então a expiração é a única defesa. Vinte e quatro horas de validade são vinte e quatro horas de acesso para quem o roubar.
 
-**Não fixar o algoritmo.**
+**Não fixar o algoritmo.** Aceitar o algoritmo declarado no cabeçalho permite o ataque clássico de trocá-lo por `none` ou por um simétrico com a chave pública como segredo. O verificador precisa exigir o algoritmo esperado.
 
-**Não verificar `aud`.**
+**Não verificar `aud`.** Sem verificar o destinatário, um token emitido para outro serviço da mesma organização é aceito aqui — e o escopo pretendido evapora.
 
-**Guardar no armazenamento local do navegador.**
+**Guardar no armazenamento local do navegador.** Fica acessível a qualquer script da página, o que transforma uma falha de script entre sites em roubo de sessão. Cookie com marcação de acesso restrito não tem esse problema.
 
-**Usar JWT onde sessão resolveria melhor.**
+**Usar JWT onde sessão resolveria melhor.** Numa aplicação com um back-end só, sessão do lado do servidor é revogável na hora e mais simples. O token autocontido paga o preço da revogação difícil para resolver um problema de distribuição que ali não existe.
 
 ## Exemplo Real
 

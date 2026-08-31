@@ -212,17 +212,17 @@ credencial comprometida.
 
 ## Erros Comuns
 
-**Não nomear a ameaça.**
+**Não nomear a ameaça.** Criptografia em repouso protege contra disco roubado e cópia de backup vazada; não protege contra credencial comprometida, que é a via mais comum. Sem nomear a ameaça, cifra-se o que não estava em risco.
 
-**Cifrar senha em vez de derivar.**
+**Cifrar senha em vez de derivar.** Cifrar é reversível — quem obtém a chave obtém todas as senhas. Senha exige função de derivação lenta e com sal, que não tem volta.
 
-**Guardar a chave junto do dado.**
+**Guardar a chave junto do dado.** A chave no mesmo banco, no mesmo servidor ou no mesmo repositório anula a criptografia: quem alcança um alcança o outro.
 
-**Implementar o esquema.**
+**Implementar o esquema.** Criptografia falha em detalhes — reuso de vetor de inicialização, comparação suscetível a tempo, modo sem autenticação. Bibliotecas revisadas existem justamente porque esses erros não são visíveis em teste.
 
-**Desabilitar verificação de certificado.**
+**Desabilitar verificação de certificado.** Feita para destravar um ambiente de desenvolvimento, ela sobrevive até produção — e transforma o canal cifrado em canal cifrado com quem quer que esteja no meio.
 
-**Tratar criptografia como substituta de autorização.**
+**Tratar criptografia como substituta de autorização.** Dado cifrado em repouso é devolvido decifrado para quem a aplicação deixa consultar. Se a autorização está errada, a criptografia não impede nada.
 
 ## Exemplo Real
 
