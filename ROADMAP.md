@@ -288,9 +288,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Kubernetes](docs/09-cloud-architecture/kubernetes.md) | concept | avançado | `containers` | ⬜ |
 | 🟩 | [Serviços Gerenciados](docs/09-cloud-architecture/managed-services.md) | concept | intermediário | `cloud-architecture` | ⬜ |
 | 🟩 | [Multi-Região](docs/09-cloud-architecture/multi-region.md) | pattern | avançado | `regions` | ⬜ |
-| 🟩 | [PaaS](docs/09-cloud-architecture/paas.md) | concept | intermediário | `iaas` | ⬜ |
+| 🟩 | [PaaS](docs/09-cloud-architecture/paas.md) | concept | intermediário | `iaas` | 🟩 |
 | 🟩 | [Regiões](docs/09-cloud-architecture/regions.md) | concept | intermediário | `cloud-architecture` | ⬜ |
-| 🟩 | [SaaS](docs/09-cloud-architecture/saas.md) | concept | intermediário | `paas` | ⬜ |
+| 🟩 | [SaaS](docs/09-cloud-architecture/saas.md) | concept | intermediário | `paas` | 🟩 |
 | 🟩 | [Serverless](docs/09-cloud-architecture/serverless.md) | concept | avançado | `managed-services` | ⬜ |
 | 🟩 | [Dependência de Fornecedor](docs/09-cloud-architecture/vendor-lock-in.md) | tradeoff | avançado | `managed-services` | ⬜ |
 | 🟩 | [Auditabilidade](docs/10-security/auditability.md) | concept | intermediário | `security` | ⬜ |
