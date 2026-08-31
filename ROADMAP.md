@@ -205,7 +205,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Garantias de Entrega](docs/06-distributed-systems/delivery-guarantees.md) | concept | avançado | `messaging`, `idempotency` | ⬜ |
 | 🟩 | [CQRS Distribuído](docs/06-distributed-systems/distributed-cqrs.md) | pattern | avançado | `event-driven-systems` | ⬜ |
 | 🟩 | [Event Sourcing Distribuído](docs/06-distributed-systems/distributed-event-sourcing.md) | pattern | avançado | `event-driven-systems` | ⬜ |
-| 🟩 | [Fundamentos de Sistemas Distribuídos](docs/06-distributed-systems/distributed-fundamentals.md) | foundation | avançado | `system-design` | ⬜ |
+| 🟩 | [Fundamentos de Sistemas Distribuídos](docs/06-distributed-systems/distributed-fundamentals.md) | foundation | avançado | `system-design` | 🟩 |
 | 🟩 | [Locks Distribuídos](docs/06-distributed-systems/distributed-locks.md) | concept | avançado | `consensus` | ⬜ |
 | 🟩 | [Transações Distribuídas](docs/06-distributed-systems/distributed-transactions.md) | pattern | avançado | `distributed-fundamentals`, `partial-failure` | ⬜ |
 | 🟩 | [Mensagens Duplicadas](docs/06-distributed-systems/duplicate-messages.md) | concept | intermediário | `delivery-guarantees`, `idempotency` | ⬜ |
@@ -216,14 +216,14 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Exercício 06 — Lidar com Falhas Parciais](docs/06-distributed-systems/exercises/06-partial-failure.md) | exercise | avançado | `05-async-processing` | ⬜ |
 | 🟩 | [Detecção de Falha](docs/06-distributed-systems/failure-detection.md) | concept | avançado | `network-failure` | ⬜ |
 | 🟩 | [Idempotência](docs/06-distributed-systems/idempotency.md) | concept | avançado | `partial-failure` | ⬜ |
-| 🟩 | [Sistemas Distribuídos](docs/06-distributed-systems/index.md) | index | avançado | `system-design` | ⬜ |
+| 🟩 | [Sistemas Distribuídos](docs/06-distributed-systems/index.md) | index | avançado | `system-design` | 🟩 |
 | 🟩 | [Latência](docs/06-distributed-systems/latency.md) | concept | intermediário | `distributed-fundamentals` | ⬜ |
 | 🟩 | [Eleição de Líder](docs/06-distributed-systems/leader-election.md) | concept | avançado | `replication` | ⬜ |
 | 🟩 | [Mensageria](docs/06-distributed-systems/messaging.md) | concept | avançado | `partial-failure` | ⬜ |
-| 🟩 | [Falha de Rede](docs/06-distributed-systems/network-failure.md) | concept | avançado | `distributed-fundamentals` | ⬜ |
+| 🟩 | [Falha de Rede](docs/06-distributed-systems/network-failure.md) | concept | avançado | `distributed-fundamentals` | 🟩 |
 | 🟩 | [Ordenação](docs/06-distributed-systems/ordering.md) | concept | avançado | `messaging` | ⬜ |
 | 🟩 | [PACELC](docs/06-distributed-systems/pacelc.md) | foundation | avançado | `cap` | ⬜ |
-| 🟩 | [Falha Parcial](docs/06-distributed-systems/partial-failure.md) | concept | avançado | `network-failure` | ⬜ |
+| 🟩 | [Falha Parcial](docs/06-distributed-systems/partial-failure.md) | concept | avançado | `network-failure` | 🟩 |
 | 🟩 | [Particionamento](docs/06-distributed-systems/partitioning.md) | concept | avançado | `replication` | ⬜ |
 | 🟩 | [Poison Messages](docs/06-distributed-systems/poison-messages.md) | concept | intermediário | `messaging` | ⬜ |
 | 🟩 | [Replicação](docs/06-distributed-systems/replication.md) | concept | avançado | `consistency` | ⬜ |
