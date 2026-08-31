@@ -447,14 +447,14 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Modernização de Legado](docs/16-legacy-modernization/index.md) | index | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Refatoração de Legado](docs/16-legacy-modernization/legacy-refactoring.md) | concept | avançado | `legacy-systems` | ⬜ |
 | 🟩 | [Sistemas Legados](docs/16-legacy-modernization/legacy-systems.md) | foundation | avançado | `legacy-modernization` | 🟩 |
-| 🟩 | [Estratégias de Migração](docs/16-legacy-modernization/migration-strategies.md) | tradeoff | avançado | `modernization-drivers` | ⬜ |
+| 🟩 | [Estratégias de Migração](docs/16-legacy-modernization/migration-strategies.md) | tradeoff | avançado | `modernization-drivers` | 🟩 |
 | 🟩 | [Motivadores de Modernização](docs/16-legacy-modernization/modernization-drivers.md) | concept | avançado | `legacy-modernization` | 🟩 |
 | 🟩 | [Risco de Modernização](docs/16-legacy-modernization/modernization-risk.md) | concept | avançado | `migration-strategies` | ⬜ |
 | 🟩 | [Restrições Organizacionais](docs/16-legacy-modernization/organizational-constraints.md) | concept | avançado | `legacy-modernization` | ⬜ |
 | 🟩 | [Reconstrução](docs/16-legacy-modernization/rebuilding.md) | concept | avançado | `migration-strategies` | ⬜ |
 | 🟩 | [Substituição](docs/16-legacy-modernization/replacing.md) | concept | avançado | `migration-strategies` | ⬜ |
 | 🟩 | [Replataforma](docs/16-legacy-modernization/replatforming.md) | concept | intermediário | `migration-strategies` | ⬜ |
-| 🟩 | [Strangler Fig](docs/16-legacy-modernization/strangler-fig.md) | pattern | avançado | `legacy-modernization` | ⬜ |
+| 🟩 | [Strangler Fig](docs/16-legacy-modernization/strangler-fig.md) | pattern | avançado | `legacy-modernization` | 🟩 |
 | 🟩 | [Conformidade](docs/19-architecture-governance/compliance.md) | concept | avançado | `governance-standards` | ⬜ |
 | 🟩 | [Exceções](docs/19-architecture-governance/exceptions.md) | concept | avançado | `governance-standards` | ⬜ |
 | 🟩 | [Governança Federada](docs/19-architecture-governance/federated-governance.md) | concept | avançado | `governance-basics` | ⬜ |
