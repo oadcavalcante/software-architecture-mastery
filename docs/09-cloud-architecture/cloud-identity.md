@@ -202,17 +202,17 @@ o necessário.
 
 ## Erros Comuns
 
-**Ampliar permissão até o erro sumir.**
+**Ampliar permissão até o erro sumir.** É como quase toda permissão excessiva nasce: sob pressão de incidente, ninguém volta para estreitar depois. O registro de acessos negados diz exatamente qual permissão faltava.
 
-**Chave de acesso na aplicação.**
+**Chave de acesso na aplicação.** Credencial estática vaza em repositório, em log e em imagem de contêiner. Identidade atribuída à carga de trabalho entrega credencial temporária e elimina a chave.
 
-**Não federar identidade.**
+**Não federar identidade.** Usuários locais no provedor não somem quando a pessoa sai da empresa, porque a desativação acontece no diretório corporativo e não chega até lá.
 
-**Não separar ambientes em contas.**
+**Não separar ambientes em contas.** Sem fronteira de conta, um erro de permissão em desenvolvimento alcança produção. A separação é o limite mais forte que o provedor oferece e custa nada.
 
-**Não revisar permissões não utilizadas.**
+**Não revisar permissões não utilizadas.** Permissões só crescem por acúmulo. Os provedores relatam o que não é exercido há meses, e essa lista é a de remoção mais segura que existe.
 
-**Deixar auditoria na mesma conta.**
+**Deixar auditoria na mesma conta.** Quem compromete a conta apaga o registro do que fez. O log precisa estar em conta separada, com permissão de escrita e não de exclusão.
 
 ## Exemplo Real
 

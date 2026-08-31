@@ -205,17 +205,17 @@ exfiltração.
 
 ## Erros Comuns
 
-**Não planejar o endereçamento.**
+**Não planejar o endereçamento.** Faixas sobrepostas entre ambientes ou com a rede corporativa impedem interconexão depois, e renumerar uma rede em produção é das operações mais caras que existem.
 
-**Deixar recursos em sub-rede pública.**
+**Deixar recursos em sub-rede pública.** Banco e serviço interno com endereço público dependem só do grupo de segurança estar certo. A sub-rede privada remove a exposição em vez de filtrá-la.
 
-**Regras temporárias que ficam.**
+**Regras temporárias que ficam.** A liberação ampla aberta para depurar um incidente sobrevive anos, porque nada expira sozinho e ninguém revisa o que não causa problema.
 
-**Não usar pontos de extremidade privados.**
+**Não usar pontos de extremidade privados.** Sem eles, o tráfego para serviços do próprio provedor sai pela internet — o que adiciona exposição, latência e, frequentemente, custo de saída.
 
-**Ignorar o custo do caminho do tráfego.**
+**Ignorar o custo do caminho do tráfego.** Transferência entre zonas, entre regiões e para a internet têm preços muito diferentes. Uma arquitetura que atravessa zonas sem necessidade paga isso em toda requisição.
 
-**Não restringir tráfego de saída.**
+**Não restringir tráfego de saída.** Quase todo mundo filtra entrada e libera saída — e a saída é o caminho da exfiltração e do contato com servidor de controle.
 
 ## Exemplo Real
 

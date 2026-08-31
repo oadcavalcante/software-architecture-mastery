@@ -215,17 +215,17 @@ Todo sistema precisa de alguma estratégia. O nível depende de:
 
 ## Erros Comuns
 
-**Não definir RTO e RPO com o negócio.**
+**Não definir RTO e RPO com o negócio.** Sem esses dois números, a estratégia é escolhida por intuição de engenharia — que costuma comprar mais do que o negócio precisa, ou menos do que ele tolera.
 
-**Não testar restauração.**
+**Não testar restauração.** A existência do backup não diz nada sobre quanto tempo leva restaurar nem se o que volta está íntegro. Backup nunca restaurado é uma hipótese, não um plano.
 
-**Não cobrir configuração e segredos.**
+**Não cobrir configuração e segredos.** O banco volta e o sistema não sobe, porque faltam variáveis, certificados e chaves que ninguém incluiu no escopo do plano.
 
-**Confiar em replicação contra erro humano.**
+**Confiar em replicação contra erro humano.** A réplica reproduz a exclusão acidental imediatamente. Contra erro e contra corrupção, o que protege é a cópia com histórico.
 
-**Não isolar as cópias.**
+**Não isolar as cópias.** Backup acessível com a mesma credencial do ambiente principal é apagado junto num ataque de ransomware. Conta separada e retenção imutável são o que faz diferença.
 
-**Não priorizar o que volta primeiro.**
+**Não priorizar o que volta primeiro.** Sem ordem definida, a recuperação tenta subir tudo ao mesmo tempo e trava em dependências. A lista de prioridade precisa ser decidida antes, com o negócio.
 
 ## Exemplo Real
 

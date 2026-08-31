@@ -211,17 +211,17 @@ Para reduzir custo sem mudar arquitetura:
 
 ## Erros Comuns
 
-**Não marcar recursos.**
+**Não marcar recursos.** Sem etiquetas de time, produto e ambiente, a fatura é um número agregado que ninguém consegue atribuir — e o que não tem dono não é reduzido.
 
-**Não medir custo por unidade de negócio.**
+**Não medir custo por unidade de negócio.** O custo total sempre sobe quando a empresa cresce. Custo por pedido ou por usuário ativo distingue crescimento saudável de desperdício, e é o único número que sustenta a conversa.
 
-**Tratar custo como assunto do financeiro.**
+**Tratar custo como assunto do financeiro.** As decisões que geram custo são arquiteturais e acontecem meses antes da fatura. Quem escolhe a arquitetura escolhe o custo.
 
-**Não estimar antes de implementar.**
+**Não estimar antes de implementar.** Uma estimativa de ordem de grandeza custa uma hora e elimina alternativas inviáveis. Descobrir depois obriga a refazer o que já está em produção.
 
-**Otimizar o que não está no topo da distribuição.**
+**Otimizar o que não está no topo da distribuição.** O custo é concentrado em poucos itens. Trabalho de otimização fora deles consome tempo de engenharia e não muda a fatura.
 
-**Não definir teto de escalonamento nem alerta de anomalia.**
+**Não definir teto de escalonamento nem alerta de anomalia.** Escala automática sem limite converte um defeito em laço infinito numa fatura inesperada, e o aviso chega no fechamento do mês.
 
 ## Exemplo Real
 

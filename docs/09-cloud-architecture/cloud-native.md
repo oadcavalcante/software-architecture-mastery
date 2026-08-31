@@ -181,15 +181,15 @@ argumento.
 
 ## Erros Comuns
 
-**Confundir ferramentas com propriedades.**
+**Confundir ferramentas com propriedades.** Contêiner e orquestrador não tornam nada elástico nem resiliente; eles permitem que seja. Um monolito com estado local dentro de um contêiner continua com estado local.
 
-**Parar na migração como está.**
+**Parar na migração como está.** Mover para a nuvem sem mudar nada troca o custo de capital por custo operacional, frequentemente maior, e não compra elasticidade nenhuma.
 
-**Adotar orquestração antes de externalizar estado.**
+**Adotar orquestração antes de externalizar estado.** O orquestrador pressupõe que matar e recriar instâncias é barato. Com estado local, cada reciclagem perde sessão ou arquivo, e o time desabilita justamente o que o orquestrador faz de útil.
 
-**Aplicar a todos os sistemas indistintamente.**
+**Aplicar a todos os sistemas indistintamente.** Um sistema interno de carga estável não tem o que fazer com elasticidade, e paga a complexidade toda por um benefício que não existe no caso dele.
 
-**Usar o termo em vez de nomear a propriedade concreta.**
+**Usar o termo em vez de nomear a propriedade concreta.** "Cloud native" significa coisas diferentes para cada pessoa na sala. Dizer "sem estado local" ou "escala horizontal em minutos" é verificável; o rótulo não.
 
 ## Exemplo Real
 
