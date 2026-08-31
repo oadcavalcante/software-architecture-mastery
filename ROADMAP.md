@@ -370,7 +370,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Gestão de Releases](docs/14-devops-and-platform/release-management.md) | concept | intermediário | `ci-cd` | 🟩 |
 | 🟩 | [Implantação em Ondas](docs/14-devops-and-platform/rolling-deployments.md) | pattern | intermediário | `deployment-strategies` | 🟩 |
 | 🟩 | [Segurança da Esteira](docs/14-devops-and-platform/supply-chain-security.md) | concept | avançado | `ci-cd` | 🟩 |
-| 🟩 | [Descrições de Arquitetura](docs/17-architecture-documentation/architecture-descriptions.md) | concept | avançado | `architecture-views` | ⬜ |
+| 🟩 | [Descrições de Arquitetura](docs/17-architecture-documentation/architecture-descriptions.md) | concept | avançado | `architecture-views` | 🟩 |
 | 🟩 | [Visões de Arquitetura](docs/17-architecture-documentation/architecture-views.md) | concept | avançado | `c4-model` | 🟩 |
 | 🟩 | [Modelo C4](docs/17-architecture-documentation/c4-model.md) | concept | intermediário | `documentation-principles` | 🟩 |
 | 🟩 | [Diagramas de Componente](docs/17-architecture-documentation/component-diagrams.md) | concept | intermediário | `container-diagrams` | 🟩 |
@@ -380,7 +380,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Diagramas de Implantação](docs/17-architecture-documentation/deployment-diagrams.md) | concept | intermediário | `container-diagrams` | 🟩 |
 | 🟩 | [Qualidade de Diagrama](docs/17-architecture-documentation/diagram-quality.md) | concept | intermediário | `documentation-principles` | 🟩 |
 | 🟩 | [Princípios de Documentação](docs/17-architecture-documentation/documentation-principles.md) | concept | intermediário | `architecture-documentation` | 🟩 |
-| 🟩 | [Padrões de Documentação](docs/17-architecture-documentation/documentation-standards.md) | concept | intermediário | `documentation-principles` | ⬜ |
+| 🟩 | [Padrões de Documentação](docs/17-architecture-documentation/documentation-standards.md) | concept | intermediário | `documentation-principles` | 🟩 |
 | 🟩 | [Documentação de Arquitetura](docs/17-architecture-documentation/index.md) | index | intermediário | `system-design` | 🟩 |
 | 🟩 | [Documentação Viva](docs/17-architecture-documentation/living-documentation.md) | concept | avançado | `documentation-principles` | ⬜ |
 | 🟩 | [Diagramas de Sequência](docs/17-architecture-documentation/sequence-diagrams.md) | concept | intermediário | `container-diagrams` | 🟩 |
