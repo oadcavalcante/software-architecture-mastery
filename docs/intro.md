@@ -14,8 +14,8 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-content_version: 1
-last_reviewed: 2026-08-26
+content_version: 2
+last_reviewed: 2026-08-30
 ---
 
 # Software Architecture Mastery
@@ -120,7 +120,7 @@ Se você está se preparando para entrevistas,
 os case studies são a versão sem pressão de tempo.
 
 E [Como usar](how-to-use.md) explica a estrutura fixa de cada documento, que é a
-mesma em todos os 437 — o que permite ler por consulta sem perder o contexto.
+mesma em todos eles — o que permite ler por consulta sem perder o contexto.
 
 ## Teste de aceitação
 
