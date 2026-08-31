@@ -403,18 +403,18 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Build vs. Buy](docs/20-trade-offs/build-vs-buy.md) | tradeoff | intermediário | `saas` | ⬜ |
 | 🟩 | [Centralização vs. Descentralização](docs/20-trade-offs/centralization-vs-decentralization.md) | tradeoff | avançado | `governance-basics` | ⬜ |
 | 🟩 | [Nativo de Nuvem vs. Portável](docs/20-trade-offs/cloud-native-vs-portable.md) | tradeoff | avançado | `vendor-lock-in` | ⬜ |
-| 🟩 | [Consistência vs. Disponibilidade](docs/20-trade-offs/consistency-vs-availability.md) | tradeoff | avançado | `cap` | ⬜ |
+| 🟩 | [Consistência vs. Disponibilidade](docs/20-trade-offs/consistency-vs-availability.md) | tradeoff | avançado | `cap` | 🟩 |
 | 🟩 | [Custo vs. Confiabilidade](docs/20-trade-offs/cost-vs-reliability.md) | tradeoff | avançado | `reliability-basics` | ⬜ |
-| 🟩 | [Acoplamento vs. Duplicação](docs/20-trade-offs/coupling-vs-duplication.md) | tradeoff | intermediário | `coupling` | ⬜ |
-| 🟩 | [Trade-offs](docs/20-trade-offs/index.md) | index | avançado | `distributed-systems` | ⬜ |
+| 🟩 | [Acoplamento vs. Duplicação](docs/20-trade-offs/coupling-vs-duplication.md) | tradeoff | intermediário | `coupling` | 🟩 |
+| 🟩 | [Trade-offs](docs/20-trade-offs/index.md) | index | avançado | `distributed-systems` | 🟩 |
 | 🟩 | [Gerenciado vs. Autogerido](docs/20-trade-offs/managed-vs-self-hosted.md) | tradeoff | intermediário | `managed-services` | ⬜ |
-| 🟩 | [Monólito vs. Microsserviços](docs/20-trade-offs/monolith-vs-microservices.md) | tradeoff | avançado | `microservices` | ⬜ |
+| 🟩 | [Monólito vs. Microsserviços](docs/20-trade-offs/monolith-vs-microservices.md) | tradeoff | avançado | `microservices` | 🟩 |
 | 🟩 | [Desempenho vs. Manutenibilidade](docs/20-trade-offs/performance-vs-maintainability.md) | tradeoff | intermediário | `complexity` | ⬜ |
-| 🟩 | [Simplicidade vs. Flexibilidade](docs/20-trade-offs/simplicity-vs-flexibility.md) | tradeoff | intermediário | `complexity` | ⬜ |
+| 🟩 | [Simplicidade vs. Flexibilidade](docs/20-trade-offs/simplicity-vs-flexibility.md) | tradeoff | intermediário | `complexity` | 🟩 |
 | 🟩 | [Velocidade vs. Qualidade](docs/20-trade-offs/speed-vs-quality.md) | tradeoff | intermediário | `technical-debt` | ⬜ |
 | 🟩 | [SQL vs. NoSQL](docs/20-trade-offs/sql-vs-nosql.md) | tradeoff | intermediário | `nosql` | ⬜ |
 | 🟩 | [Consistência Forte vs. Eventual](docs/20-trade-offs/strong-vs-eventual-consistency.md) | tradeoff | avançado | `eventual-consistency` | ⬜ |
-| 🟩 | [Síncrono vs. Assíncrono](docs/20-trade-offs/sync-vs-async.md) | tradeoff | avançado | `messaging` | ⬜ |
+| 🟩 | [Síncrono vs. Assíncrono](docs/20-trade-offs/sync-vs-async.md) | tradeoff | avançado | `messaging` | 🟩 |
 
 ### Nível 06 — Arquitetura Corporativa
 
