@@ -84,7 +84,7 @@ mas já tem índice publicado explicando o que virá.
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
 | 🟩 | [Fronteiras](docs/02-software-design/boundaries.md) | concept | intermediário | `interfaces` | 🟩 |
-| 🟩 | [Clean Architecture](docs/02-software-design/clean-architecture.md) | pattern | intermediário | `onion-architecture` | ⬜ |
+| 🟩 | [Clean Architecture](docs/02-software-design/clean-architecture.md) | pattern | intermediário | `onion-architecture` | 🟩 |
 | 🟩 | [Clean Code](docs/02-software-design/clean-code.md) | concept | iniciante | `fundamentals` | ⬜ |
 | 🟩 | [Code Smells](docs/02-software-design/code-smells.md) | concept | intermediário | `clean-code` | ⬜ |
 | 🟩 | [Design de Componentes](docs/02-software-design/component-design.md) | concept | avançado | `package-design` | 🟩 |
@@ -101,7 +101,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [KISS](docs/02-software-design/kiss.md) | concept | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Camadas](docs/02-software-design/layering.md) | concept | intermediário | `boundaries` | 🟩 |
 | 🟩 | [Design Modular](docs/02-software-design/modular-design.md) | concept | intermediário | `layering` | 🟩 |
-| 🟩 | [Arquitetura Onion](docs/02-software-design/onion-architecture.md) | pattern | intermediário | `hexagonal-architecture` | ⬜ |
+| 🟩 | [Arquitetura Onion](docs/02-software-design/onion-architecture.md) | pattern | intermediário | `hexagonal-architecture` | 🟩 |
 | 🟩 | [Design de Pacotes](docs/02-software-design/package-design.md) | concept | avançado | `modular-design` | 🟩 |
 | 🟩 | [Ports and Adapters](docs/02-software-design/ports-and-adapters.md) | pattern | intermediário | `dependency-inversion` | 🟩 |
 | 🟩 | [Refatoração](docs/02-software-design/refactoring.md) | concept | intermediário | `code-smells` | ⬜ |
