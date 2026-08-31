@@ -352,10 +352,10 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Sinais Dourados](docs/13-observability/golden-signals.md) | concept | intermediário | `observability` | 🟩 |
 | 🟩 | [Observabilidade](docs/13-observability/index.md) | index | avançado | `distributed-systems` | 🟩 |
 | 🟩 | [Logs](docs/13-observability/logs.md) | concept | intermediário | `observability` | 🟩 |
-| 🟩 | [Métricas](docs/13-observability/metrics.md) | concept | intermediário | `observability` | ⬜ |
+| 🟩 | [Métricas](docs/13-observability/metrics.md) | concept | intermediário | `observability` | 🟩 |
 | 🟩 | [Conceitos de SRE](docs/13-observability/sre-concepts.md) | concept | avançado | `observability` | ⬜ |
 | 🟩 | [Telemetria](docs/13-observability/telemetry.md) | concept | avançado | `observability` | ⬜ |
-| 🟩 | [Traces](docs/13-observability/traces.md) | concept | intermediário | `observability` | ⬜ |
+| 🟩 | [Traces](docs/13-observability/traces.md) | concept | intermediário | `observability` | 🟩 |
 | 🟩 | [Blue-Green](docs/14-devops-and-platform/blue-green.md) | pattern | intermediário | `deployment-strategies` | ⬜ |
 | 🟩 | [Canary](docs/14-devops-and-platform/canary.md) | pattern | avançado | `deployment-strategies` | ⬜ |
 | 🟩 | [Integração e Entrega Contínuas](docs/14-devops-and-platform/ci-cd.md) | concept | intermediário | `devops-and-platform` | ⬜ |
