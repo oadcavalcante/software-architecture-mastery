@@ -200,17 +200,17 @@ não pode parar.
 
 ## Erros Comuns
 
-**Tratar esquema como contrato completo.**
+**Tratar esquema como contrato completo.** O esquema descreve a forma, não o significado: o que acontece em erro, se a operação é idempotente, qual a ordem garantida e o que é opcional de verdade ficam de fora — e são onde a integração quebra.
 
-**Não declarar o que não é garantido.**
+**Não declarar o que não é garantido.** Tudo que não é negado explicitamente vira suposição de alguém. Ordem, unicidade e prazo de entrega precisam estar escritos, inclusive quando a resposta é "não garantimos".
 
-**Não documentar os erros.**
+**Não documentar os erros.** O consumidor precisa distinguir o que adianta repetir do que não adianta. Sem isso, ele repete tudo ou não repete nada, e ambos são errados.
 
-**Contrato como documento estático.**
+**Contrato como documento estático.** Um contrato que não é verificado por teste diverge da implementação em semanas, e passa a ser uma descrição de como o sistema funcionava.
 
-**Expor mais do que o necessário.**
+**Expor mais do que o necessário.** Todo campo publicado é um campo que alguém vai usar e que não poderá mais mudar. A superfície do contrato é o que se compromete a manter.
 
-**Não saber quem consome.**
+**Não saber quem consome.** Sem a lista de consumidores, não há como avaliar impacto nem avisar sobre depreciação, e toda mudança vira aposta.
 
 ## Exemplo Real
 

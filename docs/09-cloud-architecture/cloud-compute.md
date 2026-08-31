@@ -217,17 +217,17 @@ A última merece destaque: para muitos picos, a resposta certa não é mais capa
 
 ## Erros Comuns
 
-**Não medir antes de dimensionar.**
+**Não medir antes de dimensionar.** Sem perfil de uso de CPU e memória, o dimensionamento sai do palpite — e o palpite erra para cima, porque errar para cima não gera incidente.
 
-**Dimensionar pela média.**
+**Dimensionar pela média.** O sistema precisa atender o pico. Dimensionar pela média produz degradação exatamente quando há mais usuários.
 
-**Não testar arquitetura de processador alternativa.**
+**Não testar arquitetura de processador alternativa.** Instâncias ARM costumam custar bem menos por unidade de trabalho, e para cargas em linguagens interpretadas ou com runtime portátil a migração é uma mudança de imagem.
 
-**Escalar só por CPU.**
+**Escalar só por CPU.** Serviços limitados por espera de rede ou por profundidade de fila não mostram pressão de CPU, e a escala automática não dispara enquanto a latência sobe.
 
-**Não usar escalonamento programado** para picos conhecidos.
+**Não usar escalonamento programado** para picos conhecidos. Escala reativa responde depois que a fila já cresceu. Quando o pico tem hora marcada, subir capacidade antes elimina a janela de degradação.
 
-**Não implementar desligamento gracioso.**
+**Não implementar desligamento gracioso.** Sem drenar conexões e terminar o trabalho em curso, toda redução de escala e toda implantação descartam requisições em andamento — que aparecem como erro intermitente sem causa aparente.
 
 ## Exemplo Real
 

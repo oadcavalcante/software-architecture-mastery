@@ -205,17 +205,17 @@ funciona no navegador.
 
 ## Erros Comuns
 
-**Adotar na borda pública.**
+**Adotar na borda pública.** Navegador não fala gRPC nativamente, e parceiros externos esperam HTTP com JSON. A adoção na borda transfere para cada consumidor o custo de uma tecnologia escolhida por conveniência interna.
 
-**Não declarar `reserved` ao remover campo.**
+**Não declarar `reserved` ao remover campo.** O número do campo pode ser reusado depois para outra coisa, e um cliente antigo passa a interpretar o valor novo com o significado velho — corrupção silenciosa, sem erro de desserialização.
 
-**Não configurar balanceamento por chamada.**
+**Não configurar balanceamento por chamada.** gRPC multiplexa sobre conexões duradouras, então o balanceamento por conexão fixa cada cliente numa instância. Instâncias novas não recebem tráfego e a carga fica desequilibrada.
 
-**Assumir que o limite de tamanho padrão basta.**
+**Assumir que o limite de tamanho padrão basta.** O limite padrão de mensagem é modesto, e a falha aparece só quando um registro maior que a média trafega — em produção, num caso específico que testes não cobriram.
 
-**Não propagar prazo.**
+**Não propagar prazo.** O prazo é parte do protocolo e atravessa a cadeia se for repassado. Não repassá-lo faz serviços a jusante continuarem trabalhando por chamadas que o cliente já abandonou.
 
-**Tratar como substituto universal de REST.**
+**Tratar como substituto universal de REST.** Ele ganha em comunicação interna densa entre serviços. Para integração pública, ferramentas de depuração, cache de borda e familiaridade do consumidor pesam mais que a eficiência do formato.
 
 ## Exemplo Real
 

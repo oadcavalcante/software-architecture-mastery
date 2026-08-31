@@ -195,17 +195,17 @@ duas vezes.
 
 ## Erros Comuns
 
-**Processar de forma síncrona dentro do webhook.**
+**Processar de forma síncrona dentro do webhook.** O emissor tem um prazo curto e considera falha o que passar dele — então ele reenvia, e o trabalho lento executa de novo enquanto o primeiro ainda roda. Receber, persistir e responder rápido resolve.
 
-**Não verificar assinatura.**
+**Não verificar assinatura.** O endpoint é público por natureza; sem verificar a assinatura, qualquer um pode declarar que um pagamento foi aprovado.
 
-**Não validar a URL de destino.**
+**Não validar a URL de destino.** Quem emite webhooks para URLs fornecidas por usuários vira um cliente HTTP que alcança endereços internos — é a via clássica de falsificação de requisição no servidor.
 
-**Não deduplicar.**
+**Não deduplicar.** Reentrega é comportamento normal, não excepcional. Sem chave de idempotência, cada reenvio repete o efeito.
 
-**Assumir ordem.**
+**Assumir ordem.** Entregas paralelas e retentativas fazem o evento de cancelamento chegar antes do de criação. O processamento precisa tolerar isso, tipicamente por carimbo de versão.
 
-**Não oferecer reentrega ao parceiro.**
+**Não oferecer reentrega ao parceiro.** Quando o consumidor fica indisponível, sem um meio de pedir os eventos perdidos a única saída é reconciliação manual — de ambos os lados.
 
 ## Exemplo Real
 

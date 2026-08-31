@@ -204,17 +204,17 @@ provedor pode alocar onde há capacidade — que pode ser uma zona só.
 
 ## Erros Comuns
 
-**Não distribuir, por omissão.**
+**Não distribuir, por omissão.** Distribuir entre zonas custa quase nada dentro de uma região e é a defesa mais barata que existe. Ficar numa zona só raramente é decisão — é o padrão que ninguém revisou.
 
-**Usar duas zonas.**
+**Usar duas zonas.** Perder uma significa perder metade da capacidade, então cada zona precisa rodar a 50% para absorver a outra. Com três, a perda de uma exige folga de um terço, e o custo total sai menor.
 
-**Não dimensionar para a perda de uma zona.**
+**Não dimensionar para a perda de uma zona.** Distribuir sem folga só muda o modo de falha: em vez de cair junto, o sistema sobrevive à perda e satura em seguida com a carga redistribuída.
 
-**Assumir que o serviço gerenciado é multi-zona.**
+**Assumir que o serviço gerenciado é multi-zona.** Muitos oferecem a opção e não a aplicam por padrão, porque ela custa mais. A verificação é por recurso, na configuração real.
 
-**Não configurar preferência de zona no roteamento.**
+**Não configurar preferência de zona no roteamento.** Sem preferência, o tráfego atravessa zonas sem necessidade — o que adiciona latência e, em vários provedores, cobrança por transferência entre zonas.
 
-**Não testar a perda de uma zona.**
+**Não testar a perda de uma zona.** É o mecanismo que só será exercido durante incidente. Sem exercício deliberado, descobre-se no dia que uma dependência estava em zona única.
 
 ## Exemplo Real
 
