@@ -253,15 +253,15 @@ A primeira é a mais eficiente em relação custo-benefício e a menos usada.
 
 ## Erros Comuns
 
-**Dizer "eventualmente consistente" sem número.**
+**Dizer "eventualmente consistente" sem número.** Sem a janela declarada e medida, ninguém sabe se "eventual" significa cem milissegundos ou dez minutos — e a diferença decide se o requisito é atendido.
 
-**Não tratar o caso do próprio autor da escrita.**
+**Não tratar o caso do próprio autor da escrita.** Quem acabou de salvar e não vê a mudança reporta perda de dado. É o caso mais visível e o mais barato de resolver, com leitura direcionada ao primário.
 
-**Monitorar atraso e não divergência.**
+**Monitorar atraso e não divergência.** O atraso mede a replicação funcionando; não detecta os registros que divergiram e nunca vão convergir sozinhos.
 
-**Não comunicar o estado ao usuário.**
+**Não comunicar o estado ao usuário.** Mostrar valor desatualizado como definitivo transfere para a pessoa uma incerteza que ela não tem como resolver.
 
-**Aplicar um modo único ao sistema inteiro.**
+**Aplicar um modo único ao sistema inteiro.** Consistência é escolha por fluxo: saldo exige forte, contador de visualizações não. Um modo único ou paga demais ou arrisca onde não pode.
 
 ## Exemplo Real
 

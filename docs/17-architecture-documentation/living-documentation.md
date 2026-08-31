@@ -231,15 +231,15 @@ corretos e nenhuma explicação de por que o sistema é assim.
 
 ## Erros Comuns
 
-**Tentar derivar justificativa.**
+**Tentar derivar justificativa.** O código mostra o que é, nunca por que foi escolhido. Automação não substitui o registro da decisão.
 
-**Não distinguir estrutura de intenção.**
+**Não distinguir estrutura de intenção.** Estrutura se deriva e se verifica; intenção se escreve à mão. Tratar as duas igual leva a automatizar o que não dá e a escrever à mão o que envelhece.
 
-**Escolher a ferramenta antes de decidir o que derivar.**
+**Escolher a ferramenta antes de decidir o que derivar.** A ferramenta gera o que ela sabe gerar, e o resultado é documentação abundante que ninguém pediu.
 
-**Não medir se o resultado é lido.**
+**Não medir se o resultado é lido.** Documentação gerada tem custo de manutenção como qualquer outra. Se ninguém abre, o certo é desligar a geração.
 
-**Ignorar verificação como opção mais barata.**
+**Ignorar verificação como opção mais barata.** Para muitas propriedades, um teste que falha quando a regra é violada vale mais que um documento que a descreve — e nunca desatualiza.
 
 ## Exemplo Real
 

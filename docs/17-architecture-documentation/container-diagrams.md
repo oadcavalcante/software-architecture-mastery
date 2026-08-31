@@ -225,15 +225,15 @@ permanente.
 
 ## Erros Comuns
 
-**Incluir módulos internos.**
+**Incluir módulos internos.** Mistura dois níveis de abstração e faz o diagrama perder a função, que é mostrar unidades implantáveis e como elas conversam.
 
-**Omitir armazenamentos.**
+**Omitir armazenamentos.** Banco, fila e cache são contêineres com decisão arquitetural embutida. Escondê-los apaga metade do que o diagrama existia para mostrar.
 
-**Não rotular as comunicações.**
+**Não rotular as comunicações.** Sem protocolo e sincronismo na seta, não dá para avaliar acoplamento nem propagação de falha.
 
-**Expandir o que está fora do sistema.**
+**Expandir o que está fora do sistema.** Sistema externo é uma caixa só. Detalhá-lo gasta espaço e sugere um controle sobre ele que não existe.
 
-**Não versionar junto ao código.**
+**Não versionar junto ao código.** Diagrama fora do repositório não é atualizado junto com a mudança que o invalida, e desatualiza na primeira semana.
 
 ## Exemplo Real
 

@@ -217,15 +217,15 @@ menos estrutura.
 
 ## Erros Comuns
 
-**Escolher o conjunto antes de levantar as preocupações.**
+**Escolher o conjunto antes de levantar as preocupações.** Adotar 4+1 ou C4 por reputação produz visões que ninguém pediu e deixa de fora a que alguém precisava.
 
-**Não nomear o interessado de cada visão.**
+**Não nomear o interessado de cada visão.** Visão sem leitor identificado é trabalho que ninguém vai abrir, e o esforço aparece como documentação abandonada.
 
-**Tratar segurança como uma visão.**
+**Tratar segurança como uma visão.** Segurança atravessa todas as visões. Confiná-la a um diagrama a remove das outras, que é onde as decisões acontecem.
 
-**Não verificar consistência.**
+**Não verificar consistência.** Visões que se contradizem destroem a confiança no conjunto inteiro — o leitor passa a não saber em qual acreditar.
 
-**Produzir todas as visões com o mesmo esforço**, sem priorizar.
+**Produzir todas as visões com o mesmo esforço**, sem priorizar. O esforço se dilui e a visão que decidiria alguma coisa fica no mesmo nível da que ninguém consulta.
 
 ## Exemplo Real
 

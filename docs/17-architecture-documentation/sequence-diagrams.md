@@ -219,15 +219,15 @@ partir do comportamento real, e frequentemente contradiz o desenhado.
 
 ## Erros Comuns
 
-**Documentar apenas o sucesso.**
+**Documentar apenas o sucesso.** O caminho feliz costuma ser óbvio; o valor do diagrama está em mostrar timeout, compensação e falha parcial.
 
-**Não distinguir síncrono de assíncrono.**
+**Não distinguir síncrono de assíncrono.** É a informação que muda o entendimento de acoplamento e de propagação de falha, e some quando todas as setas são iguais.
 
-**Tentar cobrir o sistema com um diagrama de sequência gigante.**
+**Tentar cobrir o sistema com um diagrama de sequência gigante.** Ele serve para um fluxo específico. Ampliado para tudo, deixa de ser legível e de responder qualquer pergunta.
 
-**Descer ao nível de método numa discussão de arquitetura.**
+**Descer ao nível de método numa discussão de arquitetura.** O detalhe de implementação afoga a decisão estrutural que a conversa precisava tomar.
 
-**Não comparar com o rastreamento real.**
+**Não comparar com o rastreamento real.** O diagrama descreve o fluxo pretendido; o rastro distribuído mostra o que acontece. A divergência entre os dois é o achado mais útil.
 
 ## Exemplo Real
 

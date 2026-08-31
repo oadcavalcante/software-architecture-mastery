@@ -243,17 +243,17 @@ acompanhamento que por documento.
 
 ## Erros Comuns
 
-**Escrever para "documentar".**
+**Escrever para "documentar".** Documento sem pergunta que ele responda e sem leitor identificado não é consultado por ninguém, e ainda assim exige manutenção.
 
-**Documentar tudo no mesmo nível.**
+**Documentar tudo no mesmo nível.** O que muda toda semana e o que não muda há três anos merecem tratamentos opostos: um vira verificação automatizada, o outro vira texto.
 
-**Não datar nem indicar responsável.**
+**Não datar nem indicar responsável.** Sem os dois, o leitor não sabe se pode confiar nem a quem perguntar — e assume que está atualizado.
 
-**Manter documentação que ninguém confia.**
+**Manter documentação que ninguém confia.** Um documento sabidamente errado é pior que a ausência dele, porque induz decisão errada em quem não sabia que estava errado.
 
-**Não registrar o porquê** das decisões.
+**Não registrar o porquê** das decisões. A estrutura pode ser lida no código; a razão não pode ser lida em lugar nenhum, e é ela que permite reavaliar depois.
 
-**Não remover o que ficou obsoleto.**
+**Não remover o que ficou obsoleto.** Documentação acumulada dilui o que ainda vale, e o leitor perde a capacidade de distinguir.
 
 ## Exemplo Real
 
