@@ -195,7 +195,7 @@ mas já tem índice publicado explicando o que virá.
 |:-:|---|---|---|---|:-:|
 | 🟩 | [Disponibilidade](docs/06-distributed-systems/availability.md) | concept | intermediário | `partial-failure` | 🟩 |
 | 🟩 | [Backoff](docs/06-distributed-systems/backoff.md) | concept | intermediário | `retries` | 🟩 |
-| 🟩 | [Backpressure](docs/06-distributed-systems/backpressure.md) | concept | avançado | `messaging` | ⬜ |
+| 🟩 | [Backpressure](docs/06-distributed-systems/backpressure.md) | concept | avançado | `messaging` | 🟩 |
 | 🟩 | [CAP](docs/06-distributed-systems/cap.md) | foundation | avançado | `consistency`, `availability` | 🟩 |
 | 🟩 | [Relógio e Tempo](docs/06-distributed-systems/clock-and-time.md) | concept | avançado | `distributed-fundamentals` | ⬜ |
 | 🟩 | [Resolução de Conflitos](docs/06-distributed-systems/conflict-resolution.md) | concept | avançado | `eventual-consistency` | ⬜ |
