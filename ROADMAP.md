@@ -294,7 +294,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Serverless](docs/09-cloud-architecture/serverless.md) | concept | avançado | `managed-services` | 🟩 |
 | 🟩 | [Dependência de Fornecedor](docs/09-cloud-architecture/vendor-lock-in.md) | tradeoff | avançado | `managed-services` | 🟩 |
 | 🟩 | [Auditabilidade](docs/10-security/auditability.md) | concept | intermediário | `security` | ⬜ |
-| 🟩 | [Modelos de Autorização](docs/10-security/authz-models.md) | tradeoff | avançado | `identity` | ⬜ |
+| 🟩 | [Modelos de Autorização](docs/10-security/authz-models.md) | tradeoff | avançado | `identity` | 🟩 |
 | 🟩 | [Proteção de Dados](docs/10-security/data-protection.md) | concept | avançado | `security` | ⬜ |
 | 🟩 | [Criptografia](docs/10-security/encryption.md) | concept | avançado | `security` | ⬜ |
 | 🟩 | [Identidade](docs/10-security/identity.md) | concept | intermediário | `security` | 🟩 |
@@ -310,7 +310,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Modos de Falha de Segurança](docs/10-security/security-failure-modes.md) | concept | avançado | `secure-boundaries` | ⬜ |
 | 🟩 | [Confiança na Cadeia de Suprimentos](docs/10-security/supply-chain-trust.md) | concept | avançado | `security` | ⬜ |
 | 🟩 | [Modelagem de Ameaças](docs/10-security/threat-modeling.md) | concept | avançado | `security` | 🟩 |
-| 🟩 | [Confiança Zero](docs/10-security/zero-trust.md) | concept | avançado | `secure-boundaries` | ⬜ |
+| 🟩 | [Confiança Zero](docs/10-security/zero-trust.md) | concept | avançado | `secure-boundaries` | 🟩 |
 | 🟩 | [Processamento Assíncrono](docs/11-scalability/async-processing.md) | concept | intermediário | `scalability` | ⬜ |
 | 🟩 | [Escala de Banco de Dados](docs/11-scalability/database-scaling.md) | concept | avançado | `scalability` | ⬜ |
 | 🟩 | [Escala Horizontal](docs/11-scalability/horizontal-scaling.md) | concept | avançado | `vertical-scaling` | ⬜ |
