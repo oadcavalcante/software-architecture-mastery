@@ -154,7 +154,7 @@ bloqueia os seguintes.
 
 **Formato de tubo excessivamente genérico.** Um mapa aberto entre todos os filtros parece flexibilidade e é o oposto: nenhum filtro declara o que exige, o acoplamento vira invisível, e a única forma de descobrir a ordem correta é executar.
 
-**Não tratar backpressure em pipeline assíncrono.** O filtro mais lento define a vazão do conjunto; sem sinal de contrapressão, o buffer anterior a ele cresce até estourar memória ou disco. A falha aparece longe da causa.
+**Não tratar backpressure em pipeline assíncrono.** O filtro mais lento define a vazão do conjunto; sem sinal de backpressure, o buffer anterior a ele cresce até estourar memória ou disco. A falha aparece longe da causa.
 
 **Filtros com efeitos colaterais não idempotentes.** Reprocessar o pipeline é a operação natural do padrão — depois de falha, para corrigir defeito, para recompor histórico. Um filtro que cobra ou envia e-mail a cada passagem torna essa operação impossível.
 
