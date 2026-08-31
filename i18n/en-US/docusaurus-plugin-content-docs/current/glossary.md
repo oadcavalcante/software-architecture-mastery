@@ -197,3 +197,14 @@ another. A "trade-off" with no stated loss is not a trade-off, it is a preferenc
 **Transaction** — A unit of work with guarantees of atomicity, consistency,
 isolation and durability. The effective isolation level is rarely what the name
 suggests; it is worth checking the documentation of the specific database.
+
+## U
+
+**Ubiquitous language** — Vocabulary shared between domain experts and developers,
+used untranslated in the code and in conversation. It is the mechanism that makes
+the rest of DDD work.
+
+## V
+
+**Value object** — An object defined by its attributes and not by identity. Two
+with the same values are interchangeable. Immutable by construction.

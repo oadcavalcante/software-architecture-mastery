@@ -130,7 +130,7 @@ Adding capacity frequently does not resolve it, because the retry load grows to 
 
 Recognizing that pattern during an incident is what avoids hours spent trying to scale.
 
-## A queue is a silent amplifier
+### A queue is a silent amplifier
 
 When the retry happens in a queue, the amplification is not visible as load — it is visible as growing
 depth.
