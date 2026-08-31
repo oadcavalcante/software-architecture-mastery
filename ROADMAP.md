@@ -449,8 +449,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Sistemas Legados](docs/16-legacy-modernization/legacy-systems.md) | foundation | avançado | `legacy-modernization` | 🟩 |
 | 🟩 | [Estratégias de Migração](docs/16-legacy-modernization/migration-strategies.md) | tradeoff | avançado | `modernization-drivers` | 🟩 |
 | 🟩 | [Motivadores de Modernização](docs/16-legacy-modernization/modernization-drivers.md) | concept | avançado | `legacy-modernization` | 🟩 |
-| 🟩 | [Risco de Modernização](docs/16-legacy-modernization/modernization-risk.md) | concept | avançado | `migration-strategies` | ⬜ |
-| 🟩 | [Restrições Organizacionais](docs/16-legacy-modernization/organizational-constraints.md) | concept | avançado | `legacy-modernization` | ⬜ |
+| 🟩 | [Risco de Modernização](docs/16-legacy-modernization/modernization-risk.md) | concept | avançado | `migration-strategies` | 🟩 |
+| 🟩 | [Restrições Organizacionais](docs/16-legacy-modernization/organizational-constraints.md) | concept | avançado | `legacy-modernization` | 🟩 |
 | 🟩 | [Reconstrução](docs/16-legacy-modernization/rebuilding.md) | concept | avançado | `migration-strategies` | 🟩 |
 | 🟩 | [Substituição](docs/16-legacy-modernization/replacing.md) | concept | avançado | `migration-strategies` | 🟩 |
 | 🟩 | [Replataforma](docs/16-legacy-modernization/replatforming.md) | concept | intermediário | `migration-strategies` | 🟩 |
