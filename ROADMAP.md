@@ -358,11 +358,11 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Traces](docs/13-observability/traces.md) | concept | intermediário | `observability` | 🟩 |
 | 🟩 | [Blue-Green](docs/14-devops-and-platform/blue-green.md) | pattern | intermediário | `deployment-strategies` | ⬜ |
 | 🟩 | [Canary](docs/14-devops-and-platform/canary.md) | pattern | avançado | `deployment-strategies` | ⬜ |
-| 🟩 | [Integração e Entrega Contínuas](docs/14-devops-and-platform/ci-cd.md) | concept | intermediário | `devops-and-platform` | ⬜ |
+| 🟩 | [Integração e Entrega Contínuas](docs/14-devops-and-platform/ci-cd.md) | concept | intermediário | `devops-and-platform` | 🟩 |
 | 🟩 | [Contêineres na Entrega](docs/14-devops-and-platform/containers-in-delivery.md) | concept | intermediário | `ci-cd` | ⬜ |
 | 🟩 | [Estratégias de Implantação](docs/14-devops-and-platform/deployment-strategies.md) | tradeoff | intermediário | `ci-cd` | ⬜ |
 | 🟩 | [Gestão de Ambientes](docs/14-devops-and-platform/environment-management.md) | concept | intermediário | `infrastructure-as-code` | ⬜ |
-| 🟩 | [Feature Flags](docs/14-devops-and-platform/feature-flags.md) | pattern | intermediário | `ci-cd` | ⬜ |
+| 🟩 | [Feature Flags](docs/14-devops-and-platform/feature-flags.md) | pattern | intermediário | `ci-cd` | 🟩 |
 | 🟩 | [DevOps e Plataforma](docs/14-devops-and-platform/index.md) | index | avançado | `observability` | 🟩 |
 | 🟩 | [Infraestrutura como Código](docs/14-devops-and-platform/infrastructure-as-code.md) | concept | intermediário | `devops-and-platform` | ⬜ |
 | 🟩 | [Plataformas Internas](docs/14-devops-and-platform/internal-developer-platforms.md) | concept | avançado | `platform-engineering` | 🟩 |
