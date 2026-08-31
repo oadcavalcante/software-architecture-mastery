@@ -334,9 +334,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Failover](docs/12-reliability/failover.md) | concept | avançado | `redundancy` | ⬜ |
 | 🟩 | [Tolerância a Falhas](docs/12-reliability/fault-tolerance.md) | concept | avançado | `reliability-basics` | ⬜ |
 | 🟩 | [Degradação Graciosa](docs/12-reliability/graceful-degradation.md) | pattern | intermediário | `reliability` | ⬜ |
-| 🟩 | [Confiabilidade](docs/12-reliability/index.md) | index | avançado | `distributed-systems` | ⬜ |
+| 🟩 | [Confiabilidade](docs/12-reliability/index.md) | index | avançado | `distributed-systems` | 🟩 |
 | 🟩 | [Redundância](docs/12-reliability/redundancy.md) | concept | intermediário | `reliability` | ⬜ |
-| 🟩 | [Fundamentos de Confiabilidade](docs/12-reliability/reliability-basics.md) | foundation | intermediário | `reliability` | ⬜ |
+| 🟩 | [Fundamentos de Confiabilidade](docs/12-reliability/reliability-basics.md) | foundation | intermediário | `reliability` | 🟩 |
 | 🟩 | [Resiliência](docs/12-reliability/resilience.md) | concept | avançado | `fault-tolerance` | ⬜ |
 | 🟩 | [Tempestades de Retentativa](docs/12-reliability/retry-storms.md) | concept | avançado | `reliability` | ⬜ |
 | 🟩 | [RPO](docs/12-reliability/rpo.md) | foundation | intermediário | `reliability` | ⬜ |
