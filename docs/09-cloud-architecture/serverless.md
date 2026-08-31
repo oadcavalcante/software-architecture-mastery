@@ -207,17 +207,17 @@ até alguém perceber.
 
 ## Erros Comuns
 
-**Adotar como padrão do sistema.**
+**Adotar como padrão do sistema.** Ele brilha em carga intermitente e picos imprevisíveis. Em serviço de tráfego constante, custa mais que uma instância reservada e adiciona limites que a instância não tem.
 
-**Não calcular o ponto de inversão de custo.**
+**Não calcular o ponto de inversão de custo.** Existe um volume acima do qual pagar por invocação sai mais caro que manter capacidade ligada. Esse número é calculável em uma tarde, e raramente é calculado.
 
-**Conectar direto ao banco relacional.**
+**Conectar direto ao banco relacional.** Cada invocação concorrente tenta a própria conexão, e mil invocações esgotam o limite do banco. É preciso um agrupador de conexões entre os dois.
 
-**Ignorar a partida a frio nos requisitos de latência.**
+**Ignorar a partida a frio nos requisitos de latência.** A primeira invocação após ociosidade paga a inicialização inteira. Em percentis altos isso aparece como cauda longa, e o requisito de p99 é onde ela dói.
 
-**Não definir teto de concorrência nem alerta de custo.**
+**Não definir teto de concorrência nem alerta de custo.** A escala é praticamente ilimitada, o que significa que um laço acidental escala junto — e o limite passa a ser o cartão de crédito.
 
-**Assumir estado entre invocações.**
+**Assumir estado entre invocações.** O ambiente às vezes é reaproveitado, o que faz variável global parecer funcionar em teste. Em produção, sob concorrência, ela vaza dado de uma requisição para outra.
 
 ## Exemplo Real
 

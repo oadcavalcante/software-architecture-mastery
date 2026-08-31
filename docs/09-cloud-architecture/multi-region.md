@@ -210,17 +210,17 @@ gera dois sistemas frágeis.
 
 ## Erros Comuns
 
-**Adotar sem quantificar o custo de parada.**
+**Adotar sem quantificar o custo de parada.** Multi-região multiplica infraestrutura e complexidade. Sem o número de quanto custa uma hora fora do ar, não há como saber se o investimento se paga.
 
-**Não exercitar o failover.**
+**Não exercitar o failover.** É o mecanismo que só será usado sob estresse. Sem exercício periódico, descobre-se durante o incidente que uma configuração divergiu ou uma cota não existe.
 
-**Ativo-ativo sem estratégia de escrita.**
+**Ativo-ativo sem estratégia de escrita.** Escritas simultâneas para o mesmo registro em regiões diferentes conflitam, e a resolução padrão descarta uma delas. Ou se particiona o dado por região, ou se elege uma região de escrita.
 
-**Não verificar cotas na secundária.**
+**Não verificar cotas na secundária.** A conta tem limites por região. A secundária, pouco usada, costuma ter cota baixa — e o failover para no momento de subir capacidade.
 
-**Assumir que multi-região elimina ponto único.**
+**Assumir que multi-região elimina ponto único.** DNS, autenticação, plano de controle e serviços globais do provedor continuam compartilhados, e já causaram interrupções que atingiram todas as regiões ao mesmo tempo.
 
-**Deixar as configurações divergirem.**
+**Deixar as configurações divergirem.** A região secundária recebe menos mudanças e vai ficando para trás em silêncio. Quando é acionada, comporta-se de forma diferente da primária — que é exatamente o que não se quer durante um desastre.
 
 ## Exemplo Real
 

@@ -210,15 +210,15 @@ convencional; aperta quando ela não é.
 
 ## Erros Comuns
 
-**Escolher sem verificar as restrições contra os requisitos.**
+**Escolher sem verificar as restrições contra os requisitos.** Toda plataforma impõe limites — tempo máximo de requisição, tamanho de artefato, ausência de disco persistente. Descobri-los depois de construir custa a migração inteira.
 
-**Guardar estado localmente.**
+**Guardar estado localmente.** O sistema de arquivos da instância é efêmero por projeto. Arquivo salvo ali some na próxima implantação, e o defeito aparece dias depois como dado que desapareceu.
 
-**Colocar trabalho em segundo plano dentro da requisição.**
+**Colocar trabalho em segundo plano dentro da requisição.** A plataforma pode encerrar o processo assim que a resposta é enviada, e a tarefa disparada depois dela morre no meio, silenciosamente.
 
-**Não estimar o custo no volume alvo.**
+**Não estimar o custo no volume alvo.** O preço por unidade é confortável em volume baixo e cresce linearmente. No volume de daqui a dois anos, frequentemente supera o de gerir a própria infraestrutura.
 
-**Construir plataforma interna sem tratá-la como produto.**
+**Construir plataforma interna sem tratá-la como produto.** Sem usuários declarados, documentação e alguém responsável por evoluí-la, ela vira mais um sistema que os times contornam.
 
 ## Exemplo Real
 

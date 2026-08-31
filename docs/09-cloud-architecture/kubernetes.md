@@ -228,17 +228,17 @@ produzem oscilação.
 
 ## Erros Comuns
 
-**Adotar sem problema concreto.**
+**Adotar sem problema concreto.** Ele resolve empacotamento e escala de muitos serviços. Para três serviços de carga estável, cobra a complexidade toda e não entrega nada que uma máquina com um gerenciador de processos não entregue.
 
-**Não definir requisições e limites.**
+**Não definir requisições e limites.** Sem requisição, o agendador não sabe onde cabe e empilha cargas no mesmo nó; sem limite, um vazamento de memória derruba os vizinhos junto.
 
-**Liveness dependente de outros serviços.**
+**Liveness dependente de outros serviços.** Se a sonda de vida consulta o banco, uma lentidão do banco reinicia todos os pods ao mesmo tempo — a sonda converte degradação de dependência em queda total.
 
-**Autogerir o plano de controle.**
+**Autogerir o plano de controle.** Manter etcd, certificados e atualizações é um trabalho de time dedicado. Os provedores fazem isso por um custo que quase sempre é menor que uma pessoa.
 
-**Não configurar orçamento de interrupção.**
+**Não configurar orçamento de interrupção.** Sem ele, uma manutenção de nós pode remover simultaneamente todas as réplicas de um serviço — o cluster obedece porque ninguém disse quantas precisam permanecer.
 
-**Não planejar atualizações desde o início.**
+**Não planejar atualizações desde o início.** As versões saem de suporte em ritmo rápido, e a API muda entre elas. Um cluster que fica dois anos sem atualizar acumula mudanças incompatíveis que precisam ser feitas de uma vez.
 
 ## Exemplo Real
 

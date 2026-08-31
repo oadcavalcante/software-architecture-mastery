@@ -190,17 +190,17 @@ desconhecidos — antes de virar problema de custo.
 
 ## Erros Comuns
 
-**Construir o que não diferencia.**
+**Construir o que não diferencia.** Folha de pagamento, autenticação e envio de e-mail não distinguem a empresa de nenhum concorrente, e construir consome a capacidade de engenharia que distinguiria.
 
-**Não verificar a exportação antes de adotar.**
+**Não verificar a exportação antes de adotar.** A pergunta "como eu tiro meus dados daqui?" precisa ser respondida antes da assinatura, porque depois ela é feita sem poder de barganha.
 
-**Não contabilizar o custo de integração.**
+**Não contabilizar o custo de integração.** A licença é o número visível; integrar, mapear identidades, sincronizar dados e manter isso funcionando costuma custar mais que ela.
 
-**Não incluir a disponibilidade do fornecedor no cálculo.**
+**Não incluir a disponibilidade do fornecedor no cálculo.** A disponibilidade do seu sistema não pode ser maior que a do serviço de que ele depende de forma síncrona. Três fornecedores com 99,9% em série já derrubam a conta.
 
-**Não manter inventário de SaaS.**
+**Não manter inventário de SaaS.** Assinaturas adotadas por times individuais acumulam custo, acesso a dados e exposição que ninguém consegue enumerar quando chega uma auditoria.
 
-**Deixar o modelo dele entrar no seu código.**
+**Deixar o modelo dele entrar no seu código.** Quando os tipos do fornecedor se espalham pelo domínio, trocar de fornecedor deixa de ser decisão comercial e vira reescrita.
 
 ## Exemplo Real
 

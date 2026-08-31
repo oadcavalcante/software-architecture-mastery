@@ -197,17 +197,17 @@ que ninguém tenha notado.
 
 ## Erros Comuns
 
-**Escolher sem critério.**
+**Escolher sem critério.** A região costuma ser herdada do primeiro projeto. Latência até os usuários, residência de dados e preço variam entre elas, e mudar depois é migração.
 
-**Não verificar disponibilidade de serviço por região.**
+**Não verificar disponibilidade de serviço por região.** Serviços novos chegam primeiro em poucas regiões. Uma arquitetura desenhada com um serviço indisponível na região escolhida precisa ser redesenhada ou realocada.
 
-**Não verificar onde ficam as cópias de segurança.**
+**Não verificar onde ficam as cópias de segurança.** Backup na mesma região não protege contra perda regional, e backup em outra região pode violar requisito de residência de dados. As duas verificações são obrigatórias e frequentemente nenhuma é feita.
 
-**Assumir que multi-região elimina ponto único.**
+**Assumir que multi-região elimina ponto único.** Serviços globais do provedor — DNS, identidade, plano de controle — permanecem compartilhados entre regiões.
 
-**Não solicitar aumento de cota na região secundária** antes de precisar.
+**Não solicitar aumento de cota na região secundária** antes de precisar. Cotas são por região e a aprovação leva dias. Pedir durante o desastre é tarde.
 
-**Ignorar o custo de transferência no desenho.**
+**Ignorar o custo de transferência no desenho.** Tráfego entre regiões é cobrado e não é barato. Uma arquitetura que consulta dados na outra região a cada requisição paga isso continuamente.
 
 ## Exemplo Real
 
