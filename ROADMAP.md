@@ -312,9 +312,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Modelagem de Ameaças](docs/10-security/threat-modeling.md) | concept | avançado | `security` | 🟩 |
 | 🟩 | [Confiança Zero](docs/10-security/zero-trust.md) | concept | avançado | `secure-boundaries` | 🟩 |
 | 🟩 | [Processamento Assíncrono](docs/11-scalability/async-processing.md) | concept | intermediário | `scalability` | ⬜ |
-| 🟩 | [Escala de Banco de Dados](docs/11-scalability/database-scaling.md) | concept | avançado | `scalability` | ⬜ |
+| 🟩 | [Escala de Banco de Dados](docs/11-scalability/database-scaling.md) | concept | avançado | `scalability` | 🟩 |
 | 🟩 | [Escala Horizontal](docs/11-scalability/horizontal-scaling.md) | concept | avançado | `vertical-scaling` | 🟩 |
-| 🟩 | [Pontos Quentes](docs/11-scalability/hotspots.md) | concept | avançado | `scalability` | ⬜ |
+| 🟩 | [Pontos Quentes](docs/11-scalability/hotspots.md) | concept | avançado | `scalability` | 🟩 |
 | 🟩 | [Escalabilidade](docs/11-scalability/index.md) | index | avançado | `system-design` | 🟩 |
 | 🟩 | [Desempenho versus Escalabilidade](docs/11-scalability/performance-vs-scalability.md) | tradeoff | intermediário | `scalability` | 🟩 |
 | 🟩 | [Escala Dirigida por Fila](docs/11-scalability/queue-based-scaling.md) | pattern | avançado | `async-processing` | ⬜ |

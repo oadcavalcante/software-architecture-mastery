@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-partitioning, performance-vs-scalability, database-scaling]
 canonical_for: [ponto quente, chave quente, distribuição desigual, dispersão de chave]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -258,9 +258,9 @@ reescrita para usar data.
 de produtos populares era atualizada por toda venda, com leitura-cálculo-escrita. Em
 promoções, dezenas de transações competiam pela mesma linha.
 
-Substituída por operação relativa com verificação — `UPDATE estoque = estoque - ?
-WHERE id = ? AND estoque >= ?`. A contenção caiu drasticamente, e a anomalia de
-atualização perdida, que ninguém tinha notado, desapareceu junto.
+Substituída por operação relativa com verificação — `UPDATE estoque SET quantidade =
+quantidade - ? WHERE id = ? AND quantidade >= ?`. A contenção caiu drasticamente, e a
+anomalia de atualização perdida, que ninguém tinha notado, desapareceu junto.
 
 **Isolamento dos grandes.** Doze clientes corporativos geravam 40% do volume. Eles
 foram movidos para partições dedicadas, o que estabilizou a experiência dos demais e
