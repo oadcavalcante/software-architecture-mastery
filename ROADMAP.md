@@ -339,8 +339,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Fundamentos de Confiabilidade](docs/12-reliability/reliability-basics.md) | foundation | intermediário | `reliability` | 🟩 |
 | 🟩 | [Resiliência](docs/12-reliability/resilience.md) | concept | avançado | `fault-tolerance` | 🟩 |
 | 🟩 | [Tempestades de Retentativa](docs/12-reliability/retry-storms.md) | concept | avançado | `reliability` | 🟩 |
-| 🟩 | [RPO](docs/12-reliability/rpo.md) | foundation | intermediário | `reliability` | ⬜ |
-| 🟩 | [RTO](docs/12-reliability/rto.md) | foundation | intermediário | `reliability` | ⬜ |
+| 🟩 | [RPO](docs/12-reliability/rpo.md) | foundation | intermediário | `reliability` | 🟩 |
+| 🟩 | [RTO](docs/12-reliability/rto.md) | foundation | intermediário | `reliability` | 🟩 |
 | 🟩 | [SLA](docs/12-reliability/sla.md) | concept | intermediário | `slo` | 🟩 |
 | 🟩 | [SLI](docs/12-reliability/sli.md) | concept | intermediário | `reliability` | 🟩 |
 | 🟩 | [SLO](docs/12-reliability/slo.md) | concept | avançado | `sli` | 🟩 |
