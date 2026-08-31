@@ -501,7 +501,7 @@ mas já tem índice publicado explicando o que virá.
 
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
-| 🟩 | [Case: Núcleo Bancário Digital](docs/21-case-studies/banking.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Núcleo Bancário Digital](docs/21-case-studies/banking.md) | case-study | avançado | `trade-offs` | 🟩 |
 | 🟩 | [Case: E-commerce Omnicanal](docs/21-case-studies/ecommerce.md) | case-study | avançado | `trade-offs` | 🟩 |
 | 🟩 | [Case: Delivery de Comida](docs/21-case-studies/food-delivery.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Plataforma de Saúde](docs/21-case-studies/healthcare.md) | case-study | avançado | `trade-offs` | ⬜ |
