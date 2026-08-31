@@ -229,17 +229,17 @@ diretamente traduzível em impacto.
 
 ## Erros Comuns
 
-**Usar só a porcentagem.**
+**Usar só a porcentagem.** 99,9% ao mês pode ser uma parada de 43 minutos ou quarenta e três paradas de um minuto — impactos muito diferentes com o mesmo número.
 
-**Não separar detecção de recuperação.**
+**Não separar detecção de recuperação.** São problemas distintos com soluções distintas: uma se ataca com monitoramento, a outra com automação. O tempo total não diz em qual investir.
 
-**Investir em frequência quando a duração é o problema.**
+**Investir em frequência quando a duração é o problema.** Reduzir o número de incidentes e reduzir a duração de cada um exigem trabalhos diferentes. Sem separar as métricas, o investimento vai para o lado errado.
 
-**Não medir degradação parcial.**
+**Não medir degradação parcial.** Disponibilidade binária conta como sucesso o sistema que responde em 30 segundos — que, para o usuário, está fora do ar.
 
-**Comparar números de definições diferentes.**
+**Comparar números de definições diferentes.** "Disponível" medido na borda, no balanceador ou pelo usuário final dá resultados distintos. Comparar sem igualar a definição não significa nada.
 
-**Não acompanhar o pior caso.**
+**Não acompanhar o pior caso.** A média entre clientes esconde o cliente que teve seis horas fora — e é ele que cancela o contrato.
 
 ## Exemplo Real
 

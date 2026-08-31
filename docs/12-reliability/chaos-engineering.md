@@ -237,17 +237,17 @@ costuma encontrar mais do que o esperado.
 
 ## Erros Comuns
 
-**Começar por produção.**
+**Começar por produção.** A prática exige maturidade de observabilidade e recuperação. Sem elas, o experimento vira incidente e a prática perde apoio político para sempre.
 
-**Não formular hipótese.**
+**Não formular hipótese.** Sem declarar antes o que se espera que aconteça, quebrar coisas é só quebrar coisas — não há como distinguir comportamento esperado de descoberta.
 
-**Não limitar o alcance.**
+**Não limitar o alcance.** Experimento sem raio de dano definido e sem botão de parada é indistinguível de uma falha real, inclusive para quem está de plantão.
 
-**Não injetar latência**, só indisponibilidade.
+**Não injetar latência**, só indisponibilidade. A dependência lenta causa mais dano que a dependência caída, porque não dispara nenhum tratamento de erro — e é o cenário menos exercitado.
 
-**Não transformar achados em tarefas.**
+**Não transformar achados em tarefas.** Experimento que revela fragilidade e não gera correção priorizada apenas documenta o risco, o que é pior do que não ter olhado.
 
-**Comprar ferramenta sem estabelecer processo.**
+**Comprar ferramenta sem estabelecer processo.** A ferramenta injeta falha; o valor está na hipótese, no limite de alcance e no acompanhamento do que foi descoberto — nada disso vem embalado.
 
 ## Exemplo Real
 

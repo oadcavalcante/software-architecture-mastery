@@ -222,17 +222,17 @@ que ainda não abriram.
 
 ## Erros Comuns
 
-**Usar limiares padrão.**
+**Usar limiares padrão.** Os valores de exemplo da biblioteca não conhecem a taxa de erro normal nem o volume da sua chamada. Aplicados sem calibrar, abrem cedo demais ou nunca.
 
-**Não definir volume mínimo.**
+**Não definir volume mínimo.** Com três chamadas, uma falha é 33% de erro. Sem exigir um volume mínimo na janela, o circuito abre por ruído estatístico.
 
-**Não contar lentidão como falha.**
+**Não contar lentidão como falha.** A dependência que responde em 30 segundos esgota threads e derruba o chamador sem gerar erro nenhum — que é justamente o caso que o disjuntor deveria cobrir.
 
-**Não definir o comportamento aberto.**
+**Não definir o comportamento aberto.** Abrir o circuito sem decidir o que responder apenas troca lentidão por erro. O valor está na alternativa: cache, valor padrão ou degradação declarada.
 
-**Não alertar sobre circuito aberto.**
+**Não alertar sobre circuito aberto.** Ele protege o sistema e esconde o problema. Sem alerta, a dependência fica quebrada por dias enquanto tudo parece saudável.
 
-**Aplicar indiscriminadamente.**
+**Aplicar indiscriminadamente.** Em dependência sem alternativa de resposta, abrir o circuito só antecipa a falha. Ele serve onde existe degradação possível.
 
 ## Exemplo Real
 

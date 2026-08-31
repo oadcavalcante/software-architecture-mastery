@@ -203,17 +203,17 @@ distribuída.
 
 ## Erros Comuns
 
-**Descartar por reputação.**
+**Descartar por reputação.** "Não escala" virou reflexo, mas uma máquina de hoje comporta centenas de gigabytes de memória e dezenas de núcleos — mais do que a maioria dos sistemas de negócio precisará.
 
-**Não medir quanto da capacidade está em uso.**
+**Não medir quanto da capacidade está em uso.** Times decidem distribuir com a máquina a 30% de utilização, porque ninguém olhou o número antes de projetar a arquitetura seguinte.
 
-**Aumentar sem identificar o gargalo.**
+**Aumentar sem identificar o gargalo.** Dobrar a CPU de um sistema limitado por entrada e saída não muda nada, e o custo dobra.
 
-**Não ter plano para o teto.**
+**Não ter plano para o teto.** A escala vertical acaba, e chegar ao maior tipo de instância sem plano deixa a distribuição como emergência em vez de projeto.
 
-**Ignorar que redimensionar exige parada.**
+**Ignorar que redimensionar exige parada.** Trocar o tipo de instância costuma exigir reinício. Descobrir isso no dia significa janela de manutenção não combinada.
 
-**Distribuir o banco cedo demais.**
+**Distribuir o banco cedo demais.** É a decisão mais cara de reverter do sistema inteiro: elimina junção e transação entre partições e contamina todas as consultas.
 
 ## Exemplo Real
 

@@ -215,17 +215,17 @@ regularmente, e falha se for só documentado.
 
 ## Erros Comuns
 
-**Não exercitar.**
+**Não exercitar.** É o mecanismo que só roda sob estresse. Um procedimento nunca executado falha na primeira tentativa, que é sempre durante o incidente.
 
-**Duas cópias em vez de três**, impedindo maioria.
+**Duas cópias em vez de três**, impedindo maioria. Com duas, nenhum lado consegue formar maioria durante uma partição, e a promoção automática vira aposta entre parar tudo ou arriscar cérebro dividido.
 
-**Não isolar o primário antigo.**
+**Não isolar o primário antigo.** Se ele volta sem saber que foi substituído, passa a aceitar escritas em paralelo com o novo. É a via clássica de divergência de dados.
 
-**Não monitorar a saúde da reserva.**
+**Não monitorar a saúde da reserva.** Uma réplica com replicação parada há dias parece disponível e promove um estado antigo — descobre-se depois de promover.
 
-**DNS com tempo de vida longo.**
+**DNS com tempo de vida longo.** O failover acontece em segundos e os clientes continuam indo ao endereço antigo pelo tempo de cache, que pode ser dezenas de minutos.
 
-**Tratar o retorno como operação trivial.**
+**Tratar o retorno como operação trivial.** Voltar ao primário original exige ressincronizar dados escritos durante a contingência, e é frequentemente mais delicado que o failover em si.
 
 ## Exemplo Real
 

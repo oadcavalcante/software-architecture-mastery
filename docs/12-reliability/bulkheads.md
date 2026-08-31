@@ -203,17 +203,17 @@ contra esgotamento de memória.
 
 ## Erros Comuns
 
-**Não separar chamadas externas do pool principal.**
+**Não separar chamadas externas do pool principal.** Uma dependência de terceiros lenta consome todas as threads compartilhadas, e funcionalidades que não dependem dela param junto.
 
-**Dimensionar por intuição.**
+**Dimensionar por intuição.** O tamanho do compartimento precisa sair da vazão esperada e da latência da chamada. Chutado, ou desperdiça capacidade ou estrangula o fluxo que deveria proteger.
 
-**Enfileirar em vez de rejeitar.**
+**Enfileirar em vez de rejeitar.** Uma fila ilimitada na frente do compartimento desfaz o isolamento: a espera cresce e o chamador trava do mesmo jeito, só que mais tarde.
 
-**Não isolar por cliente** em plataformas multi-inquilino.
+**Não isolar por cliente** em plataformas multi-inquilino. Sem compartimento por inquilino, um cliente com uso anômalo consome a capacidade de todos — o problema do vizinho barulhento.
 
-**Assumir isolamento onde há recurso compartilhado.**
+**Assumir isolamento onde há recurso compartilhado.** Compartimentos separados de threads que usam o mesmo pool de conexões do banco não isolam nada: o gargalo real continua comum.
 
-**Não monitorar a utilização por compartimento.**
+**Não monitorar a utilização por compartimento.** Sem medir quanto de cada compartimento está em uso, não se sabe qual está estrangulando o fluxo e qual está ocioso.
 
 ## Exemplo Real
 
