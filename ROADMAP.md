@@ -424,11 +424,11 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Portfólio de Aplicações](docs/15-enterprise-architecture/application-portfolios.md) | concept | avançado | `business-capabilities` | 🟩 |
 | 🟩 | [Níveis de Arquitetura](docs/15-enterprise-architecture/architecture-levels.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Revisão de Arquitetura](docs/15-enterprise-architecture/architecture-review.md) | concept | avançado | `architecture-levels` | ⬜ |
-| 🟩 | [Roteiros de Arquitetura](docs/15-enterprise-architecture/architecture-roadmaps.md) | concept | avançado | `transition-architecture` | ⬜ |
+| 🟩 | [Roteiros de Arquitetura](docs/15-enterprise-architecture/architecture-roadmaps.md) | concept | avançado | `transition-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Negócio](docs/15-enterprise-architecture/business-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Capacidades de Negócio](docs/15-enterprise-architecture/business-capabilities.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Mapeamento de Capacidades](docs/15-enterprise-architecture/capability-mapping.md) | concept | avançado | `business-capabilities` | 🟩 |
-| 🟩 | [Arquitetura do Estado Atual](docs/15-enterprise-architecture/current-state-architecture.md) | concept | avançado | `enterprise-architecture` | ⬜ |
+| 🟩 | [Arquitetura do Estado Atual](docs/15-enterprise-architecture/current-state-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Fundamentos de Arquitetura Corporativa](docs/15-enterprise-architecture/enterprise-architecture-basics.md) | foundation | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Dados Corporativa](docs/15-enterprise-architecture/enterprise-data-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Governança Corporativa](docs/15-enterprise-architecture/enterprise-governance.md) | concept | avançado | `architecture-levels` | ⬜ |
@@ -436,11 +436,11 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Arquitetura Corporativa](docs/15-enterprise-architecture/index.md) | index | avançado | `devops-and-platform` | 🟩 |
 | 🟩 | [Paisagens de Integração](docs/15-enterprise-architecture/integration-landscapes.md) | concept | avançado | `application-portfolios` | 🟩 |
 | 🟩 | [Padrões](docs/15-enterprise-architecture/standards.md) | concept | intermediário | `enterprise-principles` | ⬜ |
-| 🟩 | [Arquitetura Alvo](docs/15-enterprise-architecture/target-architecture.md) | concept | avançado | `current-state-architecture` | ⬜ |
+| 🟩 | [Arquitetura Alvo](docs/15-enterprise-architecture/target-architecture.md) | concept | avançado | `current-state-architecture` | 🟩 |
 | 🟩 | [Estratégia Técnica](docs/15-enterprise-architecture/technical-strategy.md) | concept | avançado | `enterprise-architecture` | ⬜ |
 | 🟩 | [Arquitetura de Tecnologia](docs/15-enterprise-architecture/technology-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Radar Tecnológico](docs/15-enterprise-architecture/technology-radar.md) | pattern | intermediário | `enterprise-architecture` | ⬜ |
-| 🟩 | [Arquitetura de Transição](docs/15-enterprise-architecture/transition-architecture.md) | concept | avançado | `target-architecture` | ⬜ |
+| 🟩 | [Arquitetura de Transição](docs/15-enterprise-architecture/transition-architecture.md) | concept | avançado | `target-architecture` | 🟩 |
 | 🟩 | [Migração de Dados](docs/16-legacy-modernization/data-migration.md) | concept | avançado | `legacy-modernization` | ⬜ |
 | 🟩 | [Exercício 08 — Modernizar um Legado](docs/16-legacy-modernization/exercises/08-modernize-legacy.md) | exercise | avançado | `migration-strategies` | ⬜ |
 | 🟩 | [Modernização Incremental](docs/16-legacy-modernization/incremental-modernization.md) | concept | avançado | `migration-strategies` | ⬜ |
