@@ -259,7 +259,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [OLTP](docs/07-data-architecture/oltp.md) | concept | intermediário | `data-architecture` | 🟩 |
 | 🟩 | [Bancos Relacionais](docs/07-data-architecture/relational-databases.md) | concept | intermediário | `data-architecture` | 🟩 |
 | 🟩 | [Transações](docs/07-data-architecture/transactions.md) | concept | intermediário | `relational-databases` | 🟩 |
-| 🟩 | [API Gateways](docs/08-integration-architecture/api-gateways.md) | pattern | intermediário | `rest` | ⬜ |
+| 🟩 | [API Gateways](docs/08-integration-architecture/api-gateways.md) | pattern | intermediário | `rest` | 🟩 |
 | 🟩 | [Integração em Lote](docs/08-integration-architecture/batch-integration.md) | concept | intermediário | `integration-architecture` | ⬜ |
 | 🟩 | [Enterprise Integration Patterns](docs/08-integration-architecture/enterprise-integration-patterns.md) | reference | intermediário | `messaging-integration` | ⬜ |
 | 🟩 | [Integração Orientada a Eventos](docs/08-integration-architecture/event-driven-integration.md) | concept | avançado | `messaging-integration` | ⬜ |
@@ -272,7 +272,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Integração por Mensageria](docs/08-integration-architecture/messaging-integration.md) | concept | avançado | `integration-architecture` | ⬜ |
 | 🟩 | [REST](docs/08-integration-architecture/rest.md) | concept | intermediário | `integration-architecture` | 🟩 |
 | 🟩 | [Evolução de Esquema](docs/08-integration-architecture/schema-evolution.md) | concept | avançado | `integration-contracts` | 🟩 |
-| 🟩 | [Malha de Serviço](docs/08-integration-architecture/service-mesh.md) | pattern | avançado | `api-gateways` | ⬜ |
+| 🟩 | [Malha de Serviço](docs/08-integration-architecture/service-mesh.md) | pattern | avançado | `api-gateways` | 🟩 |
 | 🟩 | [Webhooks](docs/08-integration-architecture/webhooks.md) | pattern | intermediário | `integration-architecture` | 🟩 |
 | 🟩 | [Zonas de Disponibilidade](docs/09-cloud-architecture/availability-zones.md) | concept | intermediário | `regions` | ⬜ |
 | 🟩 | [Computação em Nuvem](docs/09-cloud-architecture/cloud-compute.md) | concept | intermediário | `iaas` | ⬜ |
