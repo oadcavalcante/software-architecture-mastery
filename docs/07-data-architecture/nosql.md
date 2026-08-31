@@ -204,15 +204,15 @@ nova.
 
 ## Erros Comuns
 
-**Tratar como decisão binária.**
+**Tratar como decisão binária.** A pergunta não é relacional ou não; é qual armazenamento serve a cada padrão de acesso. Sistemas maduros usam mais de um, por razões declaradas.
 
-**Adotar por tendência.**
+**Adotar por tendência.** A escolha precisa sair de um requisito — volume, forma do dado, padrão de consulta. Adotada por popularidade, ela aparece como limitação meses depois, quando a consulta necessária não é expressável.
 
-**Assumir que "sem esquema" elimina o esquema.**
+**Assumir que "sem esquema" elimina o esquema.** O esquema apenas migra para o código de leitura, e passa a existir em várias versões simultâneas sem que ninguém as declare. A migração continua sendo necessária — só que sem ferramenta.
 
-**Escolher a ferramenta antes de descrever o padrão de acesso.**
+**Escolher a ferramenta antes de descrever o padrão de acesso.** Bancos orientados a chave exigem modelar a partir das consultas. Escolher primeiro e modelar depois costuma terminar em varredura completa para responder o que era trivial no relacional.
 
-**Adicionar tecnologia sem contar o custo operacional.**
+**Adicionar tecnologia sem contar o custo operacional.** Cada armazenamento novo traz cópia de segurança, monitoramento, atualização de versão e uma competência a manter no time — custo recorrente que raramente entra na comparação.
 
 ## Exemplo Real
 

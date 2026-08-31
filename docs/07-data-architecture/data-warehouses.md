@@ -199,17 +199,17 @@ uma só, você não precisa de um.
 
 ## Erros Comuns
 
-**Construir com uma única fonte.**
+**Construir com uma única fonte.** Se há só uma origem, o valor do warehouse é quase nulo: uma réplica de leitura resolve, sem custo de modelagem e de carga.
 
-**Carga não idempotente.**
+**Carga não idempotente.** Reexecutar a carga do dia é operação rotineira depois de falha. Se ela soma em vez de substituir, o reprocesso duplica os números — e o erro é descoberto pelo relatório.
 
-**Não decidir a estratégia de dimensão que muda.**
+**Não decidir a estratégia de dimensão que muda.** Quando um cliente troca de região, os pedidos antigos passam a contar na região nova se a dimensão for sobrescrita. É a diferença entre "vendas por região" histórico e atual, e ninguém percebe até a comparação com o ano anterior não bater.
 
-**Agregar cedo demais.**
+**Agregar cedo demais.** Guardar só o total diário impede qualquer pergunta por hora ou por segmento depois — e o dado que produziria a resposta já foi descartado.
 
-**Não publicar definições.**
+**Não publicar definições.** Sem uma definição escrita de "cliente ativo", cada área calcula a sua, e a reunião discute de quem é o número em vez de discutir o que ele mostra.
 
-**Não expor a data de atualização.**
+**Não expor a data de atualização.** Um painel que não diz até quando os dados vão é indistinguível de um painel com carga quebrada há três dias.
 
 ## Exemplo Real
 

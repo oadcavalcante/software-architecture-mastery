@@ -134,14 +134,14 @@ existir, não sobra nenhuma.
 
 **Sem catálogo.** Vira depósito.
 
-**Sem donos definidos por conjunto de dados.**
+**Sem donos definidos por conjunto de dados.** Sem responsável nomeado, ninguém corrige a ingestão quebrada nem responde o que a coluna significa — e o conjunto apodrece em uso.
 
 **Para consultas analíticas recorrentes com definições estáveis.** Ver
 [warehouse](/07-data-architecture/data-warehouses.md).
 
-**Como fonte da verdade operacional.**
+**Como fonte da verdade operacional.** A latência de ingestão e a ausência de transação tornam o lake inadequado para decidir se há estoque agora.
 
-**Sem classificação de dado pessoal.**
+**Sem classificação de dado pessoal.** Sem saber onde há dado pessoal, não há como atender pedido de exclusão nem limitar acesso — e a obrigação existe independentemente de a organização saber responder.
 
 **Para substituir um warehouse que funciona.** São complementares.
 
@@ -190,17 +190,17 @@ diferentes.
 
 ## Erros Comuns
 
-**Começar sem catálogo.**
+**Começar sem catálogo.** Sem saber o que existe, de onde veio e o que significa, o dado armazenado é indistinguível de dado inexistente — e o custo já foi pago.
 
-**Consumir direto da zona bruta.**
+**Consumir direto da zona bruta.** Cada consumidor reimplementa limpeza e interpretação à sua maneira, e dois relatórios sobre o mesmo fato passam a divergir sem que se saiba qual está certo.
 
-**Guardar tudo em formato de texto.**
+**Guardar tudo em formato de texto.** JSON e CSV obrigam a ler o arquivo inteiro para responder sobre três colunas. Formato colunar reduz leitura e custo em uma ordem de grandeza, e a conversão é barata na ingestão.
 
-**Não compactar arquivos pequenos.**
+**Não compactar arquivos pequenos.** Ingestão contínua gera milhares de arquivos por dia, e o custo de listar e abrir passa a superar o de ler os dados.
 
-**Sem política de retenção.**
+**Sem política de retenção.** "Guardar tudo, decidir depois" é uma decisão de custo crescente tomada por omissão — e, quando há dado pessoal, também uma exposição regulatória crescente.
 
-**Ingerir dados que ninguém pediu**, por precaução.
+**Ingerir dados que ninguém pediu**, por precaução. Cada fonte tem custo de ingestão, de armazenamento, de catalogação e de conformidade. Precaução sem consumidor identificado é custo garantido por benefício hipotético.
 
 ## Exemplo Real
 

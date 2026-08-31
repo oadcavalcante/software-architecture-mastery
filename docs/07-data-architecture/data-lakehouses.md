@@ -199,17 +199,17 @@ retorno.
 
 ## Erros Comuns
 
-**Não agendar compactação.**
+**Não agendar compactação.** Escritas frequentes produzem muitos arquivos pequenos, e cada consulta passa a pagar abertura e leitura de metadados de milhares deles. O desempenho cai continuamente sem que nada tenha mudado na consulta.
 
-**Não definir retenção de versões.**
+**Não definir retenção de versões.** O histórico que permite consultar o passado cresce indefinidamente, e o custo de armazenamento vira uma linha crescente que ninguém consegue explicar.
 
-**Esperar desempenho de warehouse em consulta interativa.**
+**Esperar desempenho de warehouse em consulta interativa.** Ler de arquivos em armazenamento de objetos tem latência de partida que um warehouse não tem. Para painel com filtro que o usuário mexe, a diferença é perceptível.
 
-**Migrar tudo de uma vez.**
+**Migrar tudo de uma vez.** As definições de negócio embutidas nas cargas antigas só aparecem quando um número diverge do relatório que a diretoria já conhece — e aí a migração inteira perde credibilidade.
 
-**Muitos escritores na mesma tabela.**
+**Muitos escritores na mesma tabela.** O controle de concorrência é otimista: escritas simultâneas na mesma partição conflitam e uma delas é rejeitada. Com escritores demais, o retrabalho passa a dominar.
 
-**Tratar como substituto de banco transacional.**
+**Tratar como substituto de banco transacional.** Transações no formato de tabela cobrem a carga analítica, não milhares de escritas pequenas e concorrentes por segundo com leitura de baixa latência.
 
 ## Exemplo Real
 

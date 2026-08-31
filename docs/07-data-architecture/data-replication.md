@@ -207,17 +207,17 @@ dados velhos como se fossem atuais.
 
 ## Erros Comuns
 
-**Tratar replicação como cópia de segurança.**
+**Tratar replicação como cópia de segurança.** A réplica reproduz fielmente o `DELETE` errado, em segundos. Ela protege contra perda de máquina, não contra erro humano nem corrupção lógica.
 
-**Não monitorar atraso.**
+**Não monitorar atraso.** O atraso de replicação varia com a carga de escrita. Sem medi-lo, ninguém percebe quando a leitura de réplica passa a devolver dado de minutos atrás em vez de milissegundos.
 
-**Não testar troca de primário.**
+**Não testar troca de primário.** É o procedimento que só é executado durante incidente. Um mecanismo nunca exercitado falha justamente na primeira vez em que é necessário.
 
-**Não testar restauração de cópia.**
+**Não testar restauração de cópia.** Backup não verificado é hipótese. O que importa é o tempo de restauração medido e a integridade do que volta, não a existência do arquivo.
 
-**Relatório em réplica compartilhada.**
+**Relatório em réplica compartilhada.** Uma consulta analítica pesada segura recursos e faz o atraso da réplica crescer, degradando as leituras operacionais que dependiam dela.
 
-**Ler de réplica sem classificar as leituras.**
+**Ler de réplica sem classificar as leituras.** Nem toda leitura tolera dado atrasado. Mandar tudo para a réplica faz o usuário salvar uma alteração e não vê-la ao recarregar — que ele reporta como perda de dado.
 
 ## Exemplo Real
 
