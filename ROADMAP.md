@@ -320,8 +320,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Escala Dirigida por Fila](docs/11-scalability/queue-based-scaling.md) | pattern | avançado | `async-processing` | ⬜ |
 | 🟩 | [Cache para Escala](docs/11-scalability/scaling-cache.md) | concept | avançado | `scalability` | 🟩 |
 | 🟩 | [Planejamento de Capacidade para Escala](docs/11-scalability/scaling-capacity-planning.md) | concept | avançado | `performance-vs-scalability` | ⬜ |
-| 🟩 | [Balanceamento para Escala](docs/11-scalability/scaling-load-balancing.md) | concept | intermediário | `horizontal-scaling` | ⬜ |
-| 🟩 | [Particionamento para Escala](docs/11-scalability/scaling-partitioning.md) | concept | avançado | `scaling-replication` | ⬜ |
+| 🟩 | [Balanceamento para Escala](docs/11-scalability/scaling-load-balancing.md) | concept | intermediário | `horizontal-scaling` | 🟩 |
+| 🟩 | [Particionamento para Escala](docs/11-scalability/scaling-partitioning.md) | concept | avançado | `scaling-replication` | 🟩 |
 | 🟩 | [Replicação para Escala](docs/11-scalability/scaling-replication.md) | concept | intermediário | `scalability` | 🟩 |
 | 🟩 | [Ausência de Estado](docs/11-scalability/statelessness.md) | concept | intermediário | `horizontal-scaling` | 🟩 |
 | 🟩 | [Escala Vertical](docs/11-scalability/vertical-scaling.md) | concept | intermediário | `scalability` | 🟩 |
