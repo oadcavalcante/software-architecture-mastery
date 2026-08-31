@@ -359,14 +359,14 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Blue-Green](docs/14-devops-and-platform/blue-green.md) | pattern | intermediário | `deployment-strategies` | 🟩 |
 | 🟩 | [Canary](docs/14-devops-and-platform/canary.md) | pattern | avançado | `deployment-strategies` | 🟩 |
 | 🟩 | [Integração e Entrega Contínuas](docs/14-devops-and-platform/ci-cd.md) | concept | intermediário | `devops-and-platform` | 🟩 |
-| 🟩 | [Contêineres na Entrega](docs/14-devops-and-platform/containers-in-delivery.md) | concept | intermediário | `ci-cd` | ⬜ |
+| 🟩 | [Contêineres na Entrega](docs/14-devops-and-platform/containers-in-delivery.md) | concept | intermediário | `ci-cd` | 🟩 |
 | 🟩 | [Estratégias de Implantação](docs/14-devops-and-platform/deployment-strategies.md) | tradeoff | intermediário | `ci-cd` | 🟩 |
 | 🟩 | [Gestão de Ambientes](docs/14-devops-and-platform/environment-management.md) | concept | intermediário | `infrastructure-as-code` | 🟩 |
 | 🟩 | [Feature Flags](docs/14-devops-and-platform/feature-flags.md) | pattern | intermediário | `ci-cd` | 🟩 |
 | 🟩 | [DevOps e Plataforma](docs/14-devops-and-platform/index.md) | index | avançado | `observability` | 🟩 |
 | 🟩 | [Infraestrutura como Código](docs/14-devops-and-platform/infrastructure-as-code.md) | concept | intermediário | `devops-and-platform` | 🟩 |
 | 🟩 | [Plataformas Internas](docs/14-devops-and-platform/internal-developer-platforms.md) | concept | avançado | `platform-engineering` | 🟩 |
-| 🟩 | [Engenharia de Plataforma](docs/14-devops-and-platform/platform-engineering.md) | concept | avançado | `devops-and-platform` | ⬜ |
+| 🟩 | [Engenharia de Plataforma](docs/14-devops-and-platform/platform-engineering.md) | concept | avançado | `devops-and-platform` | 🟩 |
 | 🟩 | [Gestão de Releases](docs/14-devops-and-platform/release-management.md) | concept | intermediário | `ci-cd` | ⬜ |
 | 🟩 | [Implantação em Ondas](docs/14-devops-and-platform/rolling-deployments.md) | pattern | intermediário | `deployment-strategies` | 🟩 |
 | 🟩 | [Segurança da Esteira](docs/14-devops-and-platform/supply-chain-security.md) | concept | avançado | `ci-cd` | ⬜ |
