@@ -214,17 +214,17 @@ problema, uma camada acima.
 
 ## Erros Comuns
 
-**Não ter métrica por partição.**
+**Não ter métrica por partição.** A média entre partições esconde a que está saturada. Enquanto o painel mostra 30% de uso, uma partição está a 100% e é ela que define a experiência.
 
-**Particionar por chave sequencial.**
+**Particionar por chave sequencial.** Identificador crescente ou carimbo de tempo concentram toda a escrita nova na última partição — o pior caso possível, e o mais fácil de criar sem perceber.
 
-**Particionar por dimensão de baixa cardinalidade.**
+**Particionar por dimensão de baixa cardinalidade.** Estado ou categoria com poucos valores limita o número de partições úteis e garante desequilíbrio, porque os valores nunca têm volume parecido.
 
-**Adicionar nós como resposta.**
+**Adicionar nós como resposta.** Se a carga está concentrada numa chave, mais nós recebem a parte ociosa e o nó quente continua quente. O problema é de distribuição, não de capacidade.
 
-**Não revisar a distribuição periodicamente.**
+**Não revisar a distribuição periodicamente.** Uma chave equilibrada hoje desequilibra quando um cliente cresce ou um produto viraliza. É uma propriedade que envelhece.
 
-**Não considerar contenção de escrita** como ponto quente.
+**Não considerar contenção de escrita** como ponto quente. Um contador único atualizado por todos serializa as transações sem que nenhuma métrica de infraestrutura acuse saturação.
 
 ## Exemplo Real
 

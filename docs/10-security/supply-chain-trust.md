@@ -159,7 +159,7 @@ Controles se aplicam sempre. Prioridade quando:
 
 ## Quando Não Usar
 
-**Faixas abertas de versão.**
+**Faixas abertas de versão.** Aceitar qualquer versão futura de uma dependência significa que um comprometimento do pacote entra na sua esteira na próxima construção, sem revisão nenhuma.
 
 **Arquivo de bloqueio não versionado.**
 
@@ -217,15 +217,15 @@ alertas paralisa — e o time passa a ignorar todos.
 
 **Faixas abertas de versão.**
 
-**Não manter inventário.**
+**Não manter inventário.** Quando uma vulnerabilidade crítica é anunciada, a pergunta é "nós usamos isso, e onde?". Sem inventário de componentes, a resposta leva dias que não existem.
 
-**Esteira com privilégio excessivo.**
+**Esteira com privilégio excessivo.** A esteira de construção executa código de terceiros por definição — dependências, ações, imagens. Credencial ampla ali é credencial entregue a todos eles.
 
-**Permitir alteração da esteira sem aprovação.**
+**Permitir alteração da esteira sem aprovação.** Se o arquivo de configuração da esteira pode ser alterado no mesmo commit que ela executa, qualquer contribuidor consegue exfiltrar segredos.
 
-**Assinar sem verificar.**
+**Assinar sem verificar.** Assinatura que nada checa no momento da implantação é cerimônia. O valor está na verificação, não na assinatura.
 
-**Não atualizar por falta de testes.**
+**Não atualizar por falta de testes.** O medo de quebrar congela versões, e a dívida de atualização cresce até a migração virar projeto. A cobertura de teste é o que torna atualizar rotina.
 
 ## Exemplo Real
 

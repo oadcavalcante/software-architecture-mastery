@@ -228,17 +228,17 @@ Nenhuma substitui a modelagem, porque nenhuma acontece antes de o desenho existi
 
 ## Erros Comuns
 
-**Pular o diagrama de fluxo de dados.**
+**Pular o diagrama de fluxo de dados.** Sem enxergar por onde o dado passa, a análise vira lista de ameaças genéricas que não se prende a nada do sistema real.
 
-**Não marcar as fronteiras de confiança.**
+**Não marcar as fronteiras de confiança.** É exatamente onde o dado cruza de um domínio para outro que a ameaça se materializa. Sem marcá-las, o exercício não tem onde focar.
 
-**Não definir os atores de ameaça.**
+**Não definir os atores de ameaça.** Defender-se de um usuário curioso e de um atacante com recursos de Estado são exercícios diferentes. Sem escolher, defende-se de todos e de nenhum.
 
-**Não considerar "eliminar" como resposta.**
+**Não considerar "eliminar" como resposta.** Mitigar é a saída automática, mas remover a funcionalidade ou o dado que cria a ameaça costuma ser mais barato e definitivo.
 
-**Terminar sem dono e prazo.**
+**Terminar sem dono e prazo.** Uma lista de ameaças sem responsável e sem data é documentação de risco conhecido — o que, num incidente, é pior do que não ter feito o exercício.
 
-**Fazer uma vez e nunca revisar.**
+**Fazer uma vez e nunca revisar.** O modelo descreve o sistema de um momento. Cada integração nova cria fronteira nova, e o modelo antigo passa a dar falsa segurança.
 
 ## Exemplo Real
 

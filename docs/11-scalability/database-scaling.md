@@ -218,17 +218,17 @@ Cada degrau tem seu momento:
 
 ## Erros Comuns
 
-**Pular para particionamento.**
+**Pular para particionamento.** Índice adequado, réplica de leitura e correção de consulta resolvem a maioria dos casos. Particionar impede junção e transação entre partições — custo permanente por um limite que talvez não tenha chegado.
 
-**Não usar intermediário de conexões.**
+**Não usar intermediário de conexões.** Cada conexão consome memória no banco, e instâncias de aplicação multiplicam o número delas. O limite de conexões costuma ser atingido bem antes do limite de CPU.
 
-**Não separar carga analítica.**
+**Não separar carga analítica.** Uma consulta que varre meses compete por memória e disco com as transações do horário comercial, e é a causa mais frequente de lentidão intermitente sem explicação.
 
-**Não arquivar dados frios.**
+**Não arquivar dados frios.** Tabelas que crescem para sempre degradam índice, backup e restauração. Mover o histórico que ninguém consulta é a intervenção de melhor retorno e a menos feita.
 
-**Escolher chave de partição sem analisar o padrão de consulta.**
+**Escolher chave de partição sem analisar o padrão de consulta.** Se a chave não aparece nas consultas frequentes, cada uma delas precisa perguntar a todas as partições — e o particionamento piorou o desempenho que deveria melhorar.
 
-**Tratar contenção de escrita como falta de capacidade.**
+**Tratar contenção de escrita como falta de capacidade.** Quando milhares de transações disputam a mesma linha, adicionar máquina não ajuda: o gargalo é o bloqueio, e a solução é mudar o modelo.
 
 ## Exemplo Real
 

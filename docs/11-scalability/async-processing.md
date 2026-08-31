@@ -209,17 +209,17 @@ independentes, e paralelizá-las resolve sem introduzir estado intermediário.
 
 ## Erros Comuns
 
-**Não modelar os estados no domínio.**
+**Não modelar os estados no domínio.** Tornar algo assíncrono cria estados intermediários — em processamento, falhou, em nova tentativa — que são conceitos de negócio. Deixá-los implícitos empurra a ambiguidade para o suporte.
 
-**Aceitar sem persistir.**
+**Aceitar sem persistir.** Responder "recebido" antes de gravar de forma durável é prometer o que não se pode cumprir: um reinício descarta o trabalho que o usuário considera aceito.
 
-**Não dar retorno ao usuário.**
+**Não dar retorno ao usuário.** Sem consulta de estado nem notificação, a pessoa não sabe se o processamento terminou e reenvia — o que multiplica a carga justamente quando ela está alta.
 
-**Usar assíncrono para sobrecarga sustentada.**
+**Usar assíncrono para sobrecarga sustentada.** A fila absorve pico, não déficit permanente de capacidade. Se a taxa de entrada excede a de saída em média, a fila cresce indefinidamente e o atraso vira indisponibilidade com outro nome.
 
-**Não monitorar atraso de processamento.**
+**Não monitorar atraso de processamento.** O sistema continua respondendo "aceito" enquanto a fila cresce. Sem medir o tempo entre aceitar e concluir, a degradação é invisível até o cliente reclamar.
 
-**Publicar fora da transação.**
+**Publicar fora da transação.** Gravar e publicar como operações independentes produz evento sem fato ou fato sem evento, dependendo de qual falha.
 
 ## Exemplo Real
 

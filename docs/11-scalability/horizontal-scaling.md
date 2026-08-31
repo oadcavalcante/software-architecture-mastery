@@ -218,17 +218,17 @@ cache sincronizada, reconexão simultânea.
 
 ## Erros Comuns
 
-**Escalar sem remover estado.**
+**Escalar sem remover estado.** Sessão ou arquivo na instância faz cada nova réplica atender só quem cair nela, e a perda de uma instância derruba os usuários presos a ela.
 
-**Não dimensionar a cadeia inteira.**
+**Não dimensionar a cadeia inteira.** Multiplicar a camada de aplicação sem olhar o banco apenas move o gargalo — e concentra mais pressão sobre o componente que já era o limite.
 
-**Não medir o ponto de saturação.**
+**Não medir o ponto de saturação.** Sem saber a que carga uma instância satura, não há como calcular quantas são necessárias, e a escala vira tentativa e erro em produção.
 
-**Assumir ganho linear.**
+**Assumir ganho linear.** Coordenação, contenção e recursos compartilhados fazem cada instância adicional render menos que a anterior. Dobrar o número raramente dobra a capacidade.
 
-**Não usar intermediário de conexões.**
+**Não usar intermediário de conexões.** Cada instância abre o próprio conjunto de conexões, e o banco atinge o limite bem antes de a aplicação atingir o dela.
 
-**Não considerar que a vertical resolveria.**
+**Não considerar que a vertical resolveria.** Trocar por uma máquina maior é uma tarde de trabalho e não exige remover estado, coordenar réplicas nem operar balanceamento. Para muitos sistemas, resolve por anos.
 
 ## Exemplo Real
 
