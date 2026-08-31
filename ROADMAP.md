@@ -431,15 +431,15 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Arquitetura do Estado Atual](docs/15-enterprise-architecture/current-state-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Fundamentos de Arquitetura Corporativa](docs/15-enterprise-architecture/enterprise-architecture-basics.md) | foundation | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Dados Corporativa](docs/15-enterprise-architecture/enterprise-data-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
-| 🟩 | [Governança Corporativa](docs/15-enterprise-architecture/enterprise-governance.md) | concept | avançado | `architecture-levels` | ⬜ |
-| 🟩 | [Princípios Corporativos](docs/15-enterprise-architecture/enterprise-principles.md) | concept | avançado | `enterprise-architecture` | ⬜ |
+| 🟩 | [Governança Corporativa](docs/15-enterprise-architecture/enterprise-governance.md) | concept | avançado | `architecture-levels` | 🟩 |
+| 🟩 | [Princípios Corporativos](docs/15-enterprise-architecture/enterprise-principles.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura Corporativa](docs/15-enterprise-architecture/index.md) | index | avançado | `devops-and-platform` | 🟩 |
 | 🟩 | [Paisagens de Integração](docs/15-enterprise-architecture/integration-landscapes.md) | concept | avançado | `application-portfolios` | 🟩 |
-| 🟩 | [Padrões](docs/15-enterprise-architecture/standards.md) | concept | intermediário | `enterprise-principles` | ⬜ |
+| 🟩 | [Padrões](docs/15-enterprise-architecture/standards.md) | concept | intermediário | `enterprise-principles` | 🟩 |
 | 🟩 | [Arquitetura Alvo](docs/15-enterprise-architecture/target-architecture.md) | concept | avançado | `current-state-architecture` | 🟩 |
 | 🟩 | [Estratégia Técnica](docs/15-enterprise-architecture/technical-strategy.md) | concept | avançado | `enterprise-architecture` | ⬜ |
 | 🟩 | [Arquitetura de Tecnologia](docs/15-enterprise-architecture/technology-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
-| 🟩 | [Radar Tecnológico](docs/15-enterprise-architecture/technology-radar.md) | pattern | intermediário | `enterprise-architecture` | ⬜ |
+| 🟩 | [Radar Tecnológico](docs/15-enterprise-architecture/technology-radar.md) | pattern | intermediário | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Transição](docs/15-enterprise-architecture/transition-architecture.md) | concept | avançado | `target-architecture` | 🟩 |
 | 🟩 | [Migração de Dados](docs/16-legacy-modernization/data-migration.md) | concept | avançado | `legacy-modernization` | ⬜ |
 | 🟩 | [Exercício 08 — Modernizar um Legado](docs/16-legacy-modernization/exercises/08-modernize-legacy.md) | exercise | avançado | `migration-strategies` | ⬜ |
