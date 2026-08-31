@@ -399,7 +399,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Superação de Decisões](docs/18-architecture-decisions/superseding-decisions.md) | concept | avançado | `adr-status` | ⬜ |
 | 🟩 | [O Que É um ADR](docs/18-architecture-decisions/what-is-an-adr.md) | foundation | iniciante | `architecture-documentation` | ⬜ |
 | 🟩 | [Por Que ADRs Importam](docs/18-architecture-decisions/why-adrs-matter.md) | foundation | iniciante | `what-is-an-adr` | ⬜ |
-| 🟩 | [Abstração vs. Complexidade](docs/20-trade-offs/abstraction-vs-complexity.md) | tradeoff | avançado | `abstraction` | ⬜ |
+| 🟩 | [Abstração vs. Complexidade](docs/20-trade-offs/abstraction-vs-complexity.md) | tradeoff | avançado | `abstraction` | 🟩 |
 | 🟩 | [Build vs. Buy](docs/20-trade-offs/build-vs-buy.md) | tradeoff | intermediário | `saas` | ⬜ |
 | 🟩 | [Centralização vs. Descentralização](docs/20-trade-offs/centralization-vs-decentralization.md) | tradeoff | avançado | `governance-basics` | ⬜ |
 | 🟩 | [Nativo de Nuvem vs. Portável](docs/20-trade-offs/cloud-native-vs-portable.md) | tradeoff | avançado | `vendor-lock-in` | ⬜ |
@@ -411,9 +411,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Monólito vs. Microsserviços](docs/20-trade-offs/monolith-vs-microservices.md) | tradeoff | avançado | `microservices` | 🟩 |
 | 🟩 | [Desempenho vs. Manutenibilidade](docs/20-trade-offs/performance-vs-maintainability.md) | tradeoff | intermediário | `complexity` | ⬜ |
 | 🟩 | [Simplicidade vs. Flexibilidade](docs/20-trade-offs/simplicity-vs-flexibility.md) | tradeoff | intermediário | `complexity` | 🟩 |
-| 🟩 | [Velocidade vs. Qualidade](docs/20-trade-offs/speed-vs-quality.md) | tradeoff | intermediário | `technical-debt` | ⬜ |
-| 🟩 | [SQL vs. NoSQL](docs/20-trade-offs/sql-vs-nosql.md) | tradeoff | intermediário | `nosql` | ⬜ |
-| 🟩 | [Consistência Forte vs. Eventual](docs/20-trade-offs/strong-vs-eventual-consistency.md) | tradeoff | avançado | `eventual-consistency` | ⬜ |
+| 🟩 | [Velocidade vs. Qualidade](docs/20-trade-offs/speed-vs-quality.md) | tradeoff | intermediário | `technical-debt` | 🟩 |
+| 🟩 | [SQL vs. NoSQL](docs/20-trade-offs/sql-vs-nosql.md) | tradeoff | intermediário | `nosql` | 🟩 |
+| 🟩 | [Consistência Forte vs. Eventual](docs/20-trade-offs/strong-vs-eventual-consistency.md) | tradeoff | avançado | `eventual-consistency` | 🟩 |
 | 🟩 | [Síncrono vs. Assíncrono](docs/20-trade-offs/sync-vs-async.md) | tradeoff | avançado | `messaging` | 🟩 |
 
 ### Nível 06 — Arquitetura Corporativa
