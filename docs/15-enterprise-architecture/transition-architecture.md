@@ -218,17 +218,17 @@ A última merece consideração séria e raramente é considerada.
 
 ## Erros Comuns
 
-**Não definir estados intermediários.**
+**Não definir estados intermediários.** Sem eles a migração é um salto único, que não entrega valor até o fim e não pode ser interrompida sem perda total.
 
-**Não definir a fonte da verdade.**
+**Não definir a fonte da verdade.** Durante a coexistência, os dois sistemas têm o mesmo dado. Sem declarar qual manda, cada integração escolhe a sua e a divergência é inevitável.
 
-**Não ter critério de conclusão.**
+**Não ter critério de conclusão.** Sem uma condição objetiva de "terminou", a transição vira estado permanente — e a empresa passa a operar e pagar os dois sistemas para sempre.
 
-**Ordenar por dependência técnica.**
+**Ordenar por dependência técnica.** Produz uma sequência em que nada é útil até o fim, e o projeto é cancelado no meio sem ter entregue nada.
 
-**Não planejar o desligamento.**
+**Não planejar o desligamento.** O sistema antigo continua ligado "por segurança", e o benefício econômico da modernização nunca se realiza.
 
-**Omitir o custo da coexistência.**
+**Omitir o custo da coexistência.** Operar dois sistemas e sincronizá-los custa mais que operar qualquer um dos dois. Esse custo precisa estar na conta que justifica a transição.
 
 ## Exemplo Real
 

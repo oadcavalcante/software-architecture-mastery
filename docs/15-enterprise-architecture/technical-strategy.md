@@ -210,17 +210,17 @@ escolhido.
 
 ## Quando Não Usar
 
-**Como lista de aspirações.**
+**Como lista de aspirações.** "Ser mais ágil e mais seguro" não elimina nenhuma opção, então não orienta escolha nenhuma.
 
-**Sem diagnóstico específico.**
+**Sem diagnóstico específico.** Estratégia começa por nomear o obstáculo real. Sem isso, as ações são atividades que não se ligam a nada.
 
-**Sem renúncias nomeadas.**
+**Sem renúncias nomeadas.** Estratégia que não diz o que não será feito é lista de desejos, e cada área continua supondo que a sua prioridade está incluída.
 
-**Derivada só de preferências de engenharia.**
+**Derivada só de preferências de engenharia.** Sem ancoragem no que a empresa precisa, ela otimiza pureza técnica — que raramente é o risco dominante.
 
-**Com ações incoerentes entre si.**
+**Com ações incoerentes entre si.** Ações que se anulam consomem capacidade e não movem nada. Coerência entre elas é o que distingue estratégia de portfólio de iniciativas.
 
-**Sem revisão com evidência.**
+**Sem revisão com evidência.** Sem indicadores que digam se o diagnóstico ainda vale, a estratégia sobrevive ao contexto que a justificava.
 
 ## Alternativas
 

@@ -247,17 +247,17 @@ quem a faz paga por ela.
 
 ## Erros Comuns
 
-**Não contabilizar custo operacional na decisão.**
+**Não contabilizar custo operacional na decisão.** A comparação costuma ser de preço de licença ou de instância; o que domina o total é plantão, atualização e competência a manter.
 
-**Não verificar quantas pessoas sabem operar.**
+**Não verificar quantas pessoas sabem operar.** Tecnologia que uma pessoa domina é risco de continuidade, por melhor que seja tecnicamente.
 
-**Tratar atualização como projeto.**
+**Tratar atualização como projeto.** Adiar até virar projeto acumula várias versões de mudanças incompatíveis, e o que seria rotina vira migração cara.
 
-**Não distinguir gerenciado de autogerido.**
+**Não distinguir gerenciado de autogerido.** São decisões com perfis de custo e risco opostos; compará-las pelo preço por transação ignora a diferença que importa.
 
-**Consolidar por princípio.**
+**Consolidar por princípio.** Reduzir o número de tecnologias é bom até forçar casos que não cabem — e aí o custo do encaixe supera o da diversidade.
 
-**Governar por lista.**
+**Governar por lista.** Uma lista de tecnologias aprovadas envelhece e vira obstáculo. O que sustenta é o critério de avaliação, que continua válido quando a lista não está.
 
 ## Exemplo Real
 

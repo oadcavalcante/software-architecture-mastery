@@ -244,17 +244,17 @@ antigos nunca é acessada, e migrá-los é trabalho desperdiçado.
 
 ## Erros Comuns
 
-**Não perfilar antes.**
+**Não perfilar antes.** Os dados reais sempre têm valores que o modelo novo não aceita — nulos onde há obrigatoriedade, duplicatas onde há unicidade, formatos livres. Descobrir na janela de corte é o que estoura o prazo.
 
-**Subestimar os dados que não encaixam.**
+**Subestimar os dados que não encaixam.** O caso excepcional costuma ser 2% do volume e 60% do esforço, e cada decisão sobre ele é de negócio, não técnica.
 
-**Não ensaiar a migração completa.**
+**Não ensaiar a migração completa.** Sem ensaio com volume real, ninguém sabe quanto tempo leva — e a janela combinada com o negócio é um chute.
 
-**Verificar apenas contagem.**
+**Verificar apenas contagem.** Contagem igual com conteúdo trocado passa na conferência. É preciso somar valores, comparar amostras e reconciliar totais por recorte.
 
-**Não manter o antigo atualizado após o corte.**
+**Não manter o antigo atualizado após o corte.** Sem isso a reversão deixa de existir: voltar significaria perder tudo que foi feito depois do corte.
 
-**Não decidir sobre histórico.**
+**Não decidir sobre histórico.** Migrar dez anos ou dois muda o esforço em uma ordem de grandeza, e é decisão de negócio — que costuma ser tomada por omissão pela engenharia.
 
 ## Exemplo Real
 

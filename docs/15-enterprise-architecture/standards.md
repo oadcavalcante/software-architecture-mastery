@@ -223,17 +223,17 @@ automatize, ou aceite que ele é decorativo.
 
 ## Quando Não Usar
 
-**Para preferências sem consequência.**
+**Para preferências sem consequência.** Gasta autoridade em algo que não afeta ninguém além do time, e essa autoridade falta depois.
 
-**Apenas documentado**, sem operacionalização.
+**Apenas documentado**, sem operacionalização. Sem modelo, biblioteca ou verificação, o padrão é seguido só por quem já o seguiria.
 
-**Em número grande.**
+**Em número grande.** Um catálogo extenso não é lido, e a existência dele convence a organização de que existe orientação onde não existe.
 
-**Escrito por quem não usa.**
+**Escrito por quem não usa.** Erra nos casos reais e chega como imposição, o que garante contorno silencioso.
 
-**Sem caminho de exceção.**
+**Sem caminho de exceção.** Quem não cabe no padrão o ignora, e a violação deixa de ser visível — pior que não ter padrão.
 
-**Sem revisão e depreciação.**
+**Sem revisão e depreciação.** Padrões antigos continuam citados como norma muito depois de deixarem de fazer sentido.
 
 ## Alternativas
 
