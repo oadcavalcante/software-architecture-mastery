@@ -126,7 +126,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Mediator](docs/03-design-patterns/mediator.md) | pattern | intermediário | `observer` | 🟩 |
 | 🟩 | [Memento](docs/03-design-patterns/memento.md) | pattern | intermediário | `command` | 🟩 |
 | 🟩 | [Microsserviços](docs/03-design-patterns/microservices.md) | pattern | avançado | `modular-monolith` | ⬜ |
-| 🟩 | [Monolito Modular](docs/03-design-patterns/modular-monolith.md) | pattern | intermediário | `design-patterns` | ⬜ |
+| 🟩 | [Monolito Modular](docs/03-design-patterns/modular-monolith.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Observer](docs/03-design-patterns/observer.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Pipes and Filters](docs/03-design-patterns/pipes-and-filters.md) | pattern | intermediário | `design-patterns` | ⬜ |
 | 🟩 | [Prototype](docs/03-design-patterns/prototype.md) | pattern | intermediário | `design-patterns` | 🟩 |
