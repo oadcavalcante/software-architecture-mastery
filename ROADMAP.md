@@ -168,7 +168,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Autorização](docs/05-system-design/authorization.md) | concept | intermediário | `authentication` | ⬜ |
 | 🟩 | [Processamento em Background](docs/05-system-design/background-processing.md) | concept | intermediário | `queues` | ⬜ |
 | 🟩 | [Análise de Gargalos](docs/05-system-design/bottleneck-analysis.md) | concept | intermediário | `capacity-planning` | ⬜ |
-| 🟩 | [Cache](docs/05-system-design/caching.md) | concept | intermediário | `state-management` | ⬜ |
+| 🟩 | [Cache](docs/05-system-design/caching.md) | concept | intermediário | `state-management` | 🟩 |
 | 🟩 | [Planejamento de Capacidade](docs/05-system-design/capacity-planning.md) | concept | intermediário | `components` | ⬜ |
 | 🟩 | [CDN](docs/05-system-design/cdn.md) | concept | iniciante | `caching` | ⬜ |
 | 🟩 | [Componentes](docs/05-system-design/components.md) | concept | intermediário | `system-decomposition` | 🟩 |
@@ -176,7 +176,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Exercício 03 — Backend de E-commerce](docs/05-system-design/exercises/03-ecommerce-backend.md) | exercise | intermediário | `system-decomposition` | ⬜ |
 | 🟩 | [Armazenamento de Arquivos](docs/05-system-design/file-storage.md) | concept | iniciante | `state-management` | ⬜ |
 | 🟩 | [Design de Sistemas](docs/05-system-design/index.md) | index | intermediário | `design-patterns`, `domain-driven-design` | 🟩 |
-| 🟩 | [Balanceamento de Carga](docs/05-system-design/load-balancing.md) | concept | intermediário | `stateless-vs-stateful` | ⬜ |
+| 🟩 | [Balanceamento de Carga](docs/05-system-design/load-balancing.md) | concept | intermediário | `stateless-vs-stateful` | 🟩 |
 | 🟩 | [Paginação](docs/05-system-design/pagination.md) | concept | iniciante | `apis` | ⬜ |
 | 🟩 | [Filas](docs/05-system-design/queues.md) | concept | intermediário | `request-response` | ⬜ |
 | 🟩 | [Rate Limiting](docs/05-system-design/rate-limiting.md) | concept | intermediário | `load-balancing` | ⬜ |
