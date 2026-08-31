@@ -85,7 +85,7 @@ mas já tem índice publicado explicando o que virá.
 |:-:|---|---|---|---|:-:|
 | 🟩 | [Fronteiras](docs/02-software-design/boundaries.md) | concept | intermediário | `interfaces` | 🟩 |
 | 🟩 | [Clean Architecture](docs/02-software-design/clean-architecture.md) | pattern | intermediário | `onion-architecture` | 🟩 |
-| 🟩 | [Clean Code](docs/02-software-design/clean-code.md) | concept | iniciante | `fundamentals` | ⬜ |
+| 🟩 | [Clean Code](docs/02-software-design/clean-code.md) | concept | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Code Smells](docs/02-software-design/code-smells.md) | concept | intermediário | `clean-code` | ⬜ |
 | 🟩 | [Design de Componentes](docs/02-software-design/component-design.md) | concept | avançado | `package-design` | 🟩 |
 | 🟩 | [Composição vs. Herança](docs/02-software-design/composition-vs-inheritance.md) | concept | intermediário | `encapsulation` | 🟩 |
@@ -104,7 +104,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Arquitetura Onion](docs/02-software-design/onion-architecture.md) | pattern | intermediário | `hexagonal-architecture` | 🟩 |
 | 🟩 | [Design de Pacotes](docs/02-software-design/package-design.md) | concept | avançado | `modular-design` | 🟩 |
 | 🟩 | [Ports and Adapters](docs/02-software-design/ports-and-adapters.md) | pattern | intermediário | `dependency-inversion` | 🟩 |
-| 🟩 | [Refatoração](docs/02-software-design/refactoring.md) | concept | intermediário | `code-smells` | ⬜ |
+| 🟩 | [Refatoração](docs/02-software-design/refactoring.md) | concept | intermediário | `code-smells` | 🟩 |
 | 🟩 | [SOLID](docs/02-software-design/solid.md) | concept | intermediário | `fundamentals` | 🟩 |
 | 🟩 | [YAGNI](docs/02-software-design/yagni.md) | concept | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Abstract Factory](docs/03-design-patterns/abstract-factory.md) | pattern | intermediário | `factory-method` | ⬜ |
