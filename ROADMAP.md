@@ -248,11 +248,11 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Replicação de Dados](docs/07-data-architecture/data-replication.md) | concept | intermediário | `data-architecture` | ⬜ |
 | 🟩 | [Data Warehouses](docs/07-data-architecture/data-warehouses.md) | concept | intermediário | `olap` | ⬜ |
 | 🟩 | [Desnormalização](docs/07-data-architecture/denormalization.md) | concept | intermediário | `normalization` | 🟩 |
-| 🟩 | [Bancos de Documentos](docs/07-data-architecture/document-databases.md) | concept | intermediário | `nosql` | ⬜ |
+| 🟩 | [Bancos de Documentos](docs/07-data-architecture/document-databases.md) | concept | intermediário | `nosql` | 🟩 |
 | 🟩 | [Bancos de Grafo](docs/07-data-architecture/graph-databases.md) | concept | intermediário | `nosql` | ⬜ |
 | 🟩 | [Arquitetura de Dados](docs/07-data-architecture/index.md) | index | avançado | `distributed-systems` | 🟩 |
 | 🟩 | [Indexação](docs/07-data-architecture/indexing.md) | concept | intermediário | `data-architecture` | 🟩 |
-| 🟩 | [Bancos Chave-Valor](docs/07-data-architecture/key-value-databases.md) | concept | intermediário | `nosql` | ⬜ |
+| 🟩 | [Bancos Chave-Valor](docs/07-data-architecture/key-value-databases.md) | concept | intermediário | `nosql` | 🟩 |
 | 🟩 | [Normalização](docs/07-data-architecture/normalization.md) | concept | intermediário | `data-modeling` | 🟩 |
 | 🟩 | [NoSQL](docs/07-data-architecture/nosql.md) | concept | intermediário | `relational-databases` | 🟩 |
 | 🟩 | [OLAP](docs/07-data-architecture/olap.md) | concept | intermediário | `oltp` | 🟩 |
