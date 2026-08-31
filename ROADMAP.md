@@ -519,13 +519,13 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Cálculo de Guardanapo](docs/22-system-design-interviews/back-of-envelope.md) | concept | intermediário | `capacity-estimation` | 🟩 |
 | 🟩 | [Identificação de Gargalo](docs/22-system-design-interviews/bottleneck-identification.md) | concept | intermediário | `high-level-architecture` | 🟩 |
 | 🟩 | [Estimativa em Entrevista](docs/22-system-design-interviews/capacity-estimation.md) | concept | intermediário | `functional-vs-nonfunctional` | 🟩 |
-| 🟩 | [Comunicação de Trade-offs](docs/22-system-design-interviews/communicating-tradeoffs.md) | concept | intermediário | `high-level-architecture` | ⬜ |
+| 🟩 | [Comunicação de Trade-offs](docs/22-system-design-interviews/communicating-tradeoffs.md) | concept | intermediário | `high-level-architecture` | 🟩 |
 | 🟩 | [Tratamento de Falhas na Entrevista](docs/22-system-design-interviews/failure-handling.md) | concept | intermediário | `high-level-architecture` | 🟩 |
 | 🟩 | [Requisitos Funcionais vs. Não Funcionais](docs/22-system-design-interviews/functional-vs-nonfunctional.md) | concept | intermediário | `requirement-clarification` | 🟩 |
 | 🟩 | [Arquitetura de Alto Nível](docs/22-system-design-interviews/high-level-architecture.md) | concept | intermediário | `interview-data-modeling` | 🟩 |
 | 🟩 | [Entrevistas de System Design](docs/22-system-design-interviews/index.md) | index | intermediário | `system-design` | 🟩 |
 | 🟩 | [Desenho de API na Entrevista](docs/22-system-design-interviews/interview-api-design.md) | concept | intermediário | `functional-vs-nonfunctional` | 🟩 |
-| 🟩 | [Erros Comuns](docs/22-system-design-interviews/interview-common-mistakes.md) | concept | intermediário | `interview-structure` | ⬜ |
+| 🟩 | [Erros Comuns](docs/22-system-design-interviews/interview-common-mistakes.md) | concept | intermediário | `interview-structure` | 🟩 |
 | 🟩 | [Modelagem de Dados na Entrevista](docs/22-system-design-interviews/interview-data-modeling.md) | concept | intermediário | `interview-api-design` | 🟩 |
 | 🟩 | [Escala na Entrevista](docs/22-system-design-interviews/interview-scaling.md) | concept | intermediário | `bottleneck-identification` | 🟩 |
 | 🟩 | [Estrutura da Entrevista](docs/22-system-design-interviews/interview-structure.md) | concept | intermediário | `requirement-clarification` | 🟩 |
