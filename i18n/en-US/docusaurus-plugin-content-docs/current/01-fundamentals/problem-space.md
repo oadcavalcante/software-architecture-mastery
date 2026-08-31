@@ -120,7 +120,7 @@ not.
 
 **Because the solution space can only be evaluated against a stated problem.**
 Without one, comparing alternatives is impossible — there is no criterion. That is
-why [case studies](../21-case-studies/index.md) start with context and
+why [case studies](/21-case-studies/index.md) start with context and
 requirements, and only then list options.
 
 **Because it surfaces disagreement early.** Two people who disagree about the

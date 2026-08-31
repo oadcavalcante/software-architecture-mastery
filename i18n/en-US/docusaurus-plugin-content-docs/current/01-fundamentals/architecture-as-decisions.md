@@ -171,7 +171,7 @@ unavailability of another department's service.
 - [What Architecture Is](what-is-software-architecture.md) — the criterion for
   which decisions deserve a record.
 - [Solution Space](solution-space.md) — where the alternatives come from.
-- [ADRs](../18-architecture-decisions/index.md) — the practical record format.
+- [ADRs](/18-architecture-decisions/index.md) — the practical record format.
 - [Architecture Evolution](architecture-evolution.md) — what happens when the
   context changes.
 

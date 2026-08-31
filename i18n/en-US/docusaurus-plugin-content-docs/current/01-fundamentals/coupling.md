@@ -86,7 +86,7 @@ Two components coupled in time must be available simultaneously. A synchronous
 call couples in time; a queued message does not.
 
 This is the axis that dominates distributed architecture, and it is the subject of
-[integration](../08-integration-architecture/index.md). Trading temporal coupling
+[integration](/08-integration-architecture/index.md). Trading temporal coupling
 for format coupling — the message has a contract — is the central decision of
 event-driven systems.
 
@@ -138,7 +138,7 @@ changes, the navigation cost of indirection exceeds the benefit.
 ## Alternatives
 
 - **Deliberate duplication** — when two parts coincide today but should evolve
-  separately. See [coupling vs. duplication](../20-trade-offs/index.md).
+  separately. See [coupling vs. duplication](/20-trade-offs/index.md).
 - **Coupling through an explicit contract** — keeping the dependency, making it
   versioned and negotiated rather than implicit.
 - **Dependency inversion** — keeping the coupling and inverting its direction,
@@ -172,7 +172,7 @@ service without warning.
 
 **Failure cascade through temporal coupling.** A slow service brings down those
 that call it synchronously, which bring down their own callers. See
-[circuit breakers](../12-reliability/index.md).
+[circuit breakers](/12-reliability/index.md).
 
 **Hidden coupling by convention.** Two parts that agree on a format without an
 explicit contract. Nothing breaks at compile time; it breaks in production.

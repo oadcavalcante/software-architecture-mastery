@@ -94,5 +94,5 @@ asking "right for what, under which constraints?".
 
 ## Continues in
 
-[Level 02 — Software Design](../02-software-design/index.md), where these
+[Level 02 — Software Design](/02-software-design/index.md), where these
 concepts stop being vocabulary and become criteria for structuring code.

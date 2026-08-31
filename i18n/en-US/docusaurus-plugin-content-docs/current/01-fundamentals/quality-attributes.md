@@ -178,7 +178,7 @@ What separates the two appears in no functional requirements document.
   them verifiably.
 - [Architecture Characteristics](architecture-characteristics.md) — the alternative
   formulation of the same concept.
-- [Trade-offs](../20-trade-offs/index.md) — the analysis of the conflicts, in
+- [Trade-offs](/20-trade-offs/index.md) — the analysis of the conflicts, in
   detail.
 
 ## Practical Exercise

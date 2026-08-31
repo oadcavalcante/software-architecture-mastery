@@ -234,7 +234,7 @@ which is where most architecture principles live.
   principles derive from.
 - [Architecture as a Set of Decisions](architecture-as-decisions.md) — what
   principles guide.
-- [Governance](../19-architecture-governance/index.md) — how principles operate
+- [Governance](/19-architecture-governance/index.md) — how principles operate
   across teams.
 
 ## Practical Exercise

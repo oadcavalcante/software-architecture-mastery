@@ -105,7 +105,7 @@ not that.
 
 And design is what makes architecture real. A boundary that exists in the diagram
 and is not enforced in the code does not exist. That is why
-[architecture without good design is fiction](../02-software-design/index.md).
+[architecture without good design is fiction](/02-software-design/index.md).
 
 ## Mental Model
 
@@ -131,7 +131,7 @@ up already made.
 **It determines what gets recorded.** A design decision lives in the code: an
 attentive reader reconstructs the reasoning. An architectural decision needs an
 explicit record, because the context that justified it is visible nowhere in the
-code. That is the basis of [ADRs](../18-architecture-decisions/index.md).
+code. That is the basis of [ADRs](/18-architecture-decisions/index.md).
 
 **It determines where review is worth it.** Reviewing all design exhaustively
 does not scale. Reviewing architecture always pays, because the mistake spreads.

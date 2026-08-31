@@ -216,7 +216,7 @@ afternoon.
 
 - [Abstraction](abstraction.md) — the tool that reduces or adds complexity.
 - [Technical Debt](technical-debt.md) — accumulated accidental complexity.
-- [Trade-offs](../20-trade-offs/index.md) — the accounting of both sides.
+- [Trade-offs](/20-trade-offs/index.md) — the accounting of both sides.
 
 ## Practical Exercise
 

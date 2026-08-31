@@ -155,7 +155,7 @@ criterion.
   are selected from.
 - [Architecture Principles](architecture-principles.md) — how characteristics
   become guidance for distributed decisions.
-- [Trade-offs](../20-trade-offs/index.md) — what happens when two characteristics
+- [Trade-offs](/20-trade-offs/index.md) — what happens when two characteristics
   conflict.
 
 ## Practical Exercise

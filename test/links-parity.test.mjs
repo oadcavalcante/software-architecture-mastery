@@ -53,6 +53,56 @@ describe('check-links', () => {
     );
   });
 
+  // Regressão cara: a versão anterior fazia link relativo de documento
+  // traduzido "cair" para o locale canônico. O Docusaurus não faz isso —
+  // resolveMarkdownLinkPathname resolve ./ e ../ só a partir do diretório do
+  // próprio arquivo. O validador passava e o build quebrava, que é a pior
+  // combinação possível: a checagem barata aprovava e a cara reprovava.
+  test('rejeita link relativo de traduzido para seção só existente no canônico', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/01-a/x.md': frontmatter({id: 'x'}) + '\n# X\n',
+        'docs/02-b/y.md': frontmatter({id: 'y'}) + '\n# Y\n',
+        'i18n/en-US/docusaurus-plugin-content-docs/current/01-a/x.md':
+          translated('x', 1, '# X\n\nSee [Y](../02-b/y.md).\n'),
+      }),
+      /link relativo não cai para o canônico, use "\/02-b\/y\.md"/,
+    );
+  });
+
+  test('aceita a mesma referência na forma com barra', () => {
+    ok(check('check-links.mjs', {
+      'docs/01-a/x.md': frontmatter({id: 'x'}) + '\n# X\n',
+      'docs/02-b/y.md': frontmatter({id: 'y'}) + '\n# Y\n',
+      'i18n/en-US/docusaurus-plugin-content-docs/current/01-a/x.md':
+        translated('x', 1, '# X\n\nSee [Y](/02-b/y.md).\n'),
+    }));
+  });
+
+  // A forma com barra prefere o locale do próprio documento — é o que faz o
+  // link passar a apontar para a tradução assim que ela existir.
+  test('a forma com barra resolve no locale antes do canônico', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/02-b/y.md': frontmatter({id: 'y'}) + '\n# Y\n\n## Só No Canônico\n',
+        'i18n/en-US/docusaurus-plugin-content-docs/current/02-b/y.md':
+          translated('y', 1, '# Y\n\n## Only In English\n'),
+        'i18n/en-US/docusaurus-plugin-content-docs/current/01-a/x.md':
+          translated('x', 1, '# X\n\nSee [Y](/02-b/y.md#só-no-canônico).\n'),
+      }),
+      /âncora inexistente em \/02-b\/y\.md/,
+    );
+  });
+
+  test('link com barra para arquivo inexistente nos dois locales falha', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/01-a/x.md': frontmatter({id: 'x'}) + '\n# X\n\n[Y](/02-b/y.md)\n',
+      }),
+      /link para arquivo inexistente: \/02-b\/y\.md/,
+    );
+  });
+
   test('ignora links dentro de blocos de código', () => {
     ok(check('check-links.mjs', {
       'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\n```md\n[x](./inexistente.md)\n```\n',

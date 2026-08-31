@@ -190,7 +190,7 @@ reduces cost, without losing anything the business needed.
 - [Quality Attributes](quality-attributes.md) — the taxonomy behind these
   requirements.
 - [Constraints](constraints.md) — what is not negotiable.
-- [Reliability](../12-reliability/index.md) — where SLI, SLO and SLA formalize
+- [Reliability](/12-reliability/index.md) — where SLI, SLO and SLA formalize
   this.
 
 ## Practical Exercise

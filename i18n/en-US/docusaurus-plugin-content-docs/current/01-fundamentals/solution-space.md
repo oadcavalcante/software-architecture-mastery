@@ -71,7 +71,7 @@ The test: **for each discarded option, under what change of constraint would it
 win?** If no such change exists, it was not an option.
 
 That requirement appears as a rule in this material's
-[case studies](../21-case-studies/index.md) precisely because it is what separates
+[case studies](/21-case-studies/index.md) precisely because it is what separates
 analysis from retroactive justification.
 
 ### The cost of abandoning breaks the ties
@@ -168,7 +168,7 @@ a month of re-analysis.
 
 - [Problem Space](problem-space.md) — what comes first.
 - [Constraints](constraints.md) — what shrinks the space.
-- [Trade-offs](../20-trade-offs/index.md) — the comparison criterion.
+- [Trade-offs](/20-trade-offs/index.md) — the comparison criterion.
 
 ## Practical Exercise
 

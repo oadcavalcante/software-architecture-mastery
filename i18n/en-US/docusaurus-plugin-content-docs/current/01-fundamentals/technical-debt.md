@@ -97,7 +97,7 @@ and the condition under which it was to be paid is lost.
 
 The minimum record: what was done, what would have been done with more time, and
 **under what condition it is worth paying**. That belongs in an
-[ADR](../18-architecture-decisions/index.md) when the debt is architectural.
+[ADR](/18-architecture-decisions/index.md) when the debt is architectural.
 
 ## Mental Model
 
@@ -223,7 +223,7 @@ record.
 - [Complexity](complexity.md) — the form accumulated debt takes.
 - [Architecture Evolution](architecture-evolution.md) — how the system changes over
   time.
-- [ADRs](../18-architecture-decisions/index.md) — where deliberate debt is
+- [ADRs](/18-architecture-decisions/index.md) — where deliberate debt is
   recorded.
 
 ## Practical Exercise

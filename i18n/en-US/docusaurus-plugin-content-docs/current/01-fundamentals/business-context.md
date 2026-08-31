@@ -77,7 +77,7 @@ horizon over which the investment has to pay for itself.
 **Organization.** How many people, with what skills, distributed how. An
 architecture that requires a skill the company does not have and will not hire is
 an architecture that will not exist. This factor returns forcefully in
-[Level 07](../23-architecture-leadership/index.md), via Conway's law.
+[Level 07](/23-architecture-leadership/index.md), via Conway's law.
 
 ### The questions that extract the context
 

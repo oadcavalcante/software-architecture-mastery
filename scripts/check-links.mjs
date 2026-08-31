@@ -69,19 +69,47 @@ function baseDirFor(locale) {
 }
 
 /**
- * Caminho equivalente no locale canônico.
+ * Resolve um link Markdown como o Docusaurus resolve, e devolve o arquivo achado.
  *
- * O Docusaurus serve o documento em pt-BR quando a tradução não existe
- * (SPEC.md §5.3: a tradução é progressiva e ⬜ é estado válido). Um link de um
- * documento em en-US para uma página ainda não traduzida resolve em tempo de
- * execução — tratá-lo como quebrado obrigaria a traduzir o corpus inteiro numa
- * única passagem, que é exatamente o que a política de tradução recusa.
+ * A regra está em `resolveMarkdownLinkPathname` (@docusaurus/utils) e é
+ * assimétrica — foi por não observá-la que a versão anterior deste arquivo
+ * aprovava links que o build reprovava:
  *
- * Só se aplica a locales não canônicos: em pt-BR não há para onde cair.
+ * - `./x.md` e `../x.md` resolvem SÓ a partir do diretório do próprio arquivo.
+ *   Não há fallback para o locale canônico. Num documento traduzido, apontar
+ *   assim para uma seção ainda não traduzida quebra o build.
+ * - `/secao/x.md` resolve percorrendo os content paths na ordem em que o
+ *   Docusaurus os monta: primeiro o diretório do locale, depois `docs/`. É a
+ *   forma que sobrevive à tradução progressiva, e a que o link passa a apontar
+ *   para a versão traduzida assim que ela existir.
+ * - `secao/x.md`, sem prefixo, tenta o diretório do arquivo e depois os content
+ *   paths. Funciona, mas a ordem é ambígua; preferimos a forma com barra.
+ *
+ * Devolve `null` quando nada resolve.
  */
-function canonicalFallback(doc, base, abs) {
-  if (doc.locale === CANONICAL_LOCALE) return abs;
-  return join(DOCS_DIR, relative(base, abs));
+function resolveDocLink(doc, pathPart, here) {
+  const contentPaths = [baseDirFor(doc.locale), DOCS_DIR];
+  const dirs = pathPart.startsWith('/')
+    ? [...contentPaths, ROOT]
+    : /^\.\.?\//.test(pathPart)
+      ? [here]
+      : [here, ...contentPaths, ROOT];
+  return dirs.map((d) => join(d, pathPart)).find((c) => existsSync(c)) ?? null;
+}
+
+/**
+ * Mensagem do caso específico em que o alvo existe, mas só no locale canônico.
+ *
+ * Vale a pena distinguir: o autor não errou o caminho, errou a forma do link, e
+ * dizer isso economiza a investigação inteira.
+ */
+function dicaDeForma(doc, pathPart, here) {
+  if (doc.locale === CANONICAL_LOCALE || pathPart.startsWith('/')) return '';
+  const canonico = join(DOCS_DIR, relative(baseDirFor(doc.locale), resolve(here, pathPart)));
+  if (!existsSync(canonico)) return '';
+  const raiz = '/' + relative(DOCS_DIR, canonico).split(/[\\/]/).join('/');
+  return ` — o arquivo existe em ${CANONICAL_LOCALE} mas não neste locale;`
+    + ` link relativo não cai para o canônico, use "${raiz}"`;
 }
 
 function checkLinks(doc, byLocale, report) {
@@ -103,21 +131,24 @@ function checkLinks(doc, byLocale, report) {
     const [pathPart, anchorPart] = target.split('#');
     if (!pathPart) continue;
 
-    // Links absolutos de site (/algo) são resolvidos pelo Docusaurus, que já
-    // falha o build com onBrokenLinks: 'throw'. Não duplicamos aqui.
-    if (pathPart.startsWith('/')) continue;
-
-    const abs = resolve(here, pathPart);
-
     // Arquivo de documentação: precisa existir e a âncora precisa bater.
     if (/\.mdx?$/.test(pathPart)) {
-      if (!existsSync(abs) && !existsSync(canonicalFallback(doc, base, abs))) {
-        report.error(doc.repoPath, `link para arquivo inexistente: ${pathPart}`);
+      const abs = resolveDocLink(doc, pathPart, here);
+      if (!abs) {
+        report.error(
+          doc.repoPath,
+          `link para arquivo inexistente: ${pathPart}${dicaDeForma(doc, pathPart, here)}`,
+        );
         continue;
       }
       if (anchorPart) {
-        const docPath = relative(base, abs).split(/[\\/]/).join('/');
-        const targetDoc = byLocale.get(doc.locale)?.get(docPath);
+        // A âncora é conferida no documento que de fato resolveu, que pode
+        // estar no locale canônico quando a tradução ainda não existe.
+        const achouNoLocale = abs.startsWith(base);
+        const localeDoAlvo = achouNoLocale ? doc.locale : CANONICAL_LOCALE;
+        const raizDoAlvo = achouNoLocale ? base : DOCS_DIR;
+        const docPath = relative(raizDoAlvo, abs).split(/[\\/]/).join('/');
+        const targetDoc = byLocale.get(localeDoAlvo)?.get(docPath);
         if (targetDoc && !anchorsOf(targetDoc).has(decodeURIComponent(anchorPart))) {
           report.error(doc.repoPath, `âncora inexistente em ${pathPart}: #${anchorPart}`);
         }
@@ -125,7 +156,10 @@ function checkLinks(doc, byLocale, report) {
       continue;
     }
 
+    if (pathPart.startsWith('/')) continue;
+
     // Outros arquivos relativos (imagens, anexos).
+    const abs = resolve(here, pathPart);
     if (!existsSync(abs) && !existsSync(join(ROOT, 'static', pathPart))) {
       report.error(doc.repoPath, `arquivo referenciado não encontrado: ${pathPart}`);
     }

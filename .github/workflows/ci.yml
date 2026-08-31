@@ -30,6 +30,9 @@ jobs:
       - name: Testes dos validadores
         run: npm test
 
+      # `validate` inclui a checagem de que ROADMAP, READMEs, fix_plan e specs/
+      # estão em dia — mora lá, e não num passo só de CI, para que a defasagem
+      # apareça antes do push e não depois.
       - name: Validadores de conteúdo
         env:
           BASE_REF: origin/${{ github.base_ref || 'main' }}
@@ -37,16 +40,6 @@ jobs:
 
       - name: Typecheck
         run: npm run typecheck
-
-      - name: Roadmap, READMEs e plano estão atualizados
-        run: |
-          npm run roadmap
-          npm run plan
-          if ! git diff --quiet -- ROADMAP.md README.md README.en-US.md fix_plan.md specs/; then
-            echo "::error::Artefatos derivados defasados. Rode 'npm run roadmap && npm run plan' e faça commit."
-            git diff --stat -- ROADMAP.md README.md README.en-US.md fix_plan.md specs/
-            exit 1
-          fi
 
   build:
     name: Build (pt-BR + en-US)

@@ -147,7 +147,7 @@ pipeline.
 - **Modularity by convention** — cheaper, and it holds while the team is stable
   and small; it degrades with turnover.
 - **Separation by process** — maximum modularity, maximum cost. See
-  [microservices](../03-design-patterns/index.md).
+  [microservices](/03-design-patterns/index.md).
 
 ## Trade-offs
 
@@ -223,7 +223,7 @@ had hidden — and which became an explicit decision to make, rather than noise.
   the division is good.
 - [Separation of Concerns](separation-of-concerns.md) — the principle that guides
   where to divide.
-- [Modular Design](../02-software-design/index.md) — the practical application.
+- [Modular Design](/02-software-design/index.md) — the practical application.
 
 ## Practical Exercise
 

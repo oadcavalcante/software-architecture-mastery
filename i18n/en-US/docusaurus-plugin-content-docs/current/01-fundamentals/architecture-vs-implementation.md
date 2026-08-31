@@ -110,7 +110,7 @@ have to change the test — which turns the violation into an explicit decision,
 debatable in review, rather than an import that slips through.
 
 That is the idea that reappears at Level 07 as a
-[fitness function](../23-architecture-leadership/index.md).
+[fitness function](/23-architecture-leadership/index.md).
 
 ## Mental Model
 

@@ -91,7 +91,7 @@ Three things produce that, and all three have already appeared in this level:
 
 **Automated verification** of the properties that matter, so degradation is visible
 before it becomes structural. This is the fitness function idea, which returns in
-[Level 07](../23-architecture-leadership/index.md).
+[Level 07](/23-architecture-leadership/index.md).
 
 ### Incremental evolution beats a rewrite
 
@@ -102,7 +102,7 @@ budget has run out.
 
 Incremental change delivers value before it is complete and can be reversed at any
 point. It is the subject of
-[legacy modernization](../16-legacy-modernization/index.md), and the main pattern is
+[legacy modernization](/16-legacy-modernization/index.md), and the main pattern is
 the strangler fig.
 
 ## Why This Matters
@@ -174,9 +174,9 @@ twice, each time for a specific signal, and can change again.
   reassessment possible.
 - [Technical Debt](technical-debt.md) — what accumulates when evolution does not
   happen.
-- [Legacy Modernization](../16-legacy-modernization/index.md) — evolution in
+- [Legacy Modernization](/16-legacy-modernization/index.md) — evolution in
   systems that cannot stop.
-- [Architecture Leadership](../23-architecture-leadership/index.md) — evolutionary
+- [Architecture Leadership](/23-architecture-leadership/index.md) — evolutionary
   architecture and fitness functions.
 
 ## Practical Exercise
