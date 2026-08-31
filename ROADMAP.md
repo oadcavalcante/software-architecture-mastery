@@ -521,15 +521,15 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Estimativa em Entrevista](docs/22-system-design-interviews/capacity-estimation.md) | concept | intermediário | `functional-vs-nonfunctional` | ⬜ |
 | 🟩 | [Comunicação de Trade-offs](docs/22-system-design-interviews/communicating-tradeoffs.md) | concept | intermediário | `high-level-architecture` | ⬜ |
 | 🟩 | [Tratamento de Falhas na Entrevista](docs/22-system-design-interviews/failure-handling.md) | concept | intermediário | `high-level-architecture` | ⬜ |
-| 🟩 | [Requisitos Funcionais vs. Não Funcionais](docs/22-system-design-interviews/functional-vs-nonfunctional.md) | concept | intermediário | `requirement-clarification` | ⬜ |
+| 🟩 | [Requisitos Funcionais vs. Não Funcionais](docs/22-system-design-interviews/functional-vs-nonfunctional.md) | concept | intermediário | `requirement-clarification` | 🟩 |
 | 🟩 | [Arquitetura de Alto Nível](docs/22-system-design-interviews/high-level-architecture.md) | concept | intermediário | `interview-data-modeling` | ⬜ |
-| 🟩 | [Entrevistas de System Design](docs/22-system-design-interviews/index.md) | index | intermediário | `system-design` | ⬜ |
+| 🟩 | [Entrevistas de System Design](docs/22-system-design-interviews/index.md) | index | intermediário | `system-design` | 🟩 |
 | 🟩 | [Desenho de API na Entrevista](docs/22-system-design-interviews/interview-api-design.md) | concept | intermediário | `functional-vs-nonfunctional` | ⬜ |
 | 🟩 | [Erros Comuns](docs/22-system-design-interviews/interview-common-mistakes.md) | concept | intermediário | `interview-structure` | ⬜ |
 | 🟩 | [Modelagem de Dados na Entrevista](docs/22-system-design-interviews/interview-data-modeling.md) | concept | intermediário | `interview-api-design` | ⬜ |
 | 🟩 | [Escala na Entrevista](docs/22-system-design-interviews/interview-scaling.md) | concept | intermediário | `bottleneck-identification` | ⬜ |
-| 🟩 | [Estrutura da Entrevista](docs/22-system-design-interviews/interview-structure.md) | concept | intermediário | `requirement-clarification` | ⬜ |
-| 🟩 | [Clarificação de Requisitos](docs/22-system-design-interviews/requirement-clarification.md) | concept | intermediário | `system-design` | ⬜ |
+| 🟩 | [Estrutura da Entrevista](docs/22-system-design-interviews/interview-structure.md) | concept | intermediário | `requirement-clarification` | 🟩 |
+| 🟩 | [Clarificação de Requisitos](docs/22-system-design-interviews/requirement-clarification.md) | concept | intermediário | `system-design` | 🟩 |
 | 🟩 | [Glossário](docs/glossary.md) | reference | iniciante | — | 🟩 |
 | 🟩 | [Como Usar](docs/how-to-use.md) | index | iniciante | — | 🟩 |
 | 🟩 | [Política Terminológica](docs/i18n-terminology.md) | reference | iniciante | — | ⬜ |
