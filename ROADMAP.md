@@ -239,9 +239,9 @@ mas já tem índice publicado explicando o que virá.
 |:-:|---|---|---|---|:-:|
 | 🟩 | [Armazenamento Colunar](docs/07-data-architecture/column-stores.md) | concept | intermediário | `olap` | 🟩 |
 | 🟩 | [Consistência de Dados](docs/07-data-architecture/data-consistency.md) | concept | avançado | `transactions` | 🟩 |
-| 🟩 | [Data Lakehouses](docs/07-data-architecture/data-lakehouses.md) | concept | avançado | `data-lakes` | ⬜ |
+| 🟩 | [Data Lakehouses](docs/07-data-architecture/data-lakehouses.md) | concept | avançado | `data-lakes` | 🟩 |
 | 🟩 | [Data Lakes](docs/07-data-architecture/data-lakes.md) | concept | intermediário | `data-warehouses` | 🟩 |
-| 🟩 | [Ciclo de Vida do Dado](docs/07-data-architecture/data-lifecycle.md) | concept | intermediário | `data-architecture` | ⬜ |
+| 🟩 | [Ciclo de Vida do Dado](docs/07-data-architecture/data-lifecycle.md) | concept | intermediário | `data-architecture` | 🟩 |
 | 🟩 | [Modelagem de Dados](docs/07-data-architecture/data-modeling.md) | concept | intermediário | `data-architecture` | 🟩 |
 | 🟩 | [Propriedade do Dado](docs/07-data-architecture/data-ownership.md) | concept | avançado | `data-architecture` | 🟩 |
 | 🟩 | [Particionamento de Dados](docs/07-data-architecture/data-partitioning.md) | concept | intermediário | `data-architecture` | 🟩 |
