@@ -177,10 +177,10 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Armazenamento de Arquivos](docs/05-system-design/file-storage.md) | concept | iniciante | `state-management` | ⬜ |
 | 🟩 | [Design de Sistemas](docs/05-system-design/index.md) | index | intermediário | `design-patterns`, `domain-driven-design` | 🟩 |
 | 🟩 | [Balanceamento de Carga](docs/05-system-design/load-balancing.md) | concept | intermediário | `stateless-vs-stateful` | 🟩 |
-| 🟩 | [Paginação](docs/05-system-design/pagination.md) | concept | iniciante | `apis` | ⬜ |
+| 🟩 | [Paginação](docs/05-system-design/pagination.md) | concept | iniciante | `apis` | 🟩 |
 | 🟩 | [Filas](docs/05-system-design/queues.md) | concept | intermediário | `request-response` | 🟩 |
 | 🟩 | [Rate Limiting](docs/05-system-design/rate-limiting.md) | concept | intermediário | `load-balancing` | ⬜ |
-| 🟩 | [Request/Response](docs/05-system-design/request-response.md) | concept | intermediário | `apis` | ⬜ |
+| 🟩 | [Request/Response](docs/05-system-design/request-response.md) | concept | intermediário | `apis` | 🟩 |
 | 🟩 | [Estratégias Básicas de Escalabilidade](docs/05-system-design/scalability-basics.md) | concept | intermediário | `bottleneck-analysis` | ⬜ |
 | 🟩 | [Busca](docs/05-system-design/search.md) | concept | intermediário | `pagination` | ⬜ |
 | 🟩 | [Fronteiras de Serviço](docs/05-system-design/service-boundaries.md) | concept | avançado | `services` | 🟩 |
