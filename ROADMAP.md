@@ -388,7 +388,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [ADR-002 — Processamento Assíncrono da Confirmação](docs/18-architecture-decisions/adr-002-async-processing.md) | adr | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [ADR-003 — PostgreSQL como Banco Primário Único](docs/18-architecture-decisions/adr-003-postgresql.md) | adr | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [ADR-004 — Adotar Kafka para Eventos de Domínio](docs/18-architecture-decisions/adr-004-kafka.md) | adr | avançado | `superseding-decisions` | 🟩 |
-| 🟩 | [ADR-005 — Portas e Adaptadores nos Módulos de Domínio](docs/18-architecture-decisions/adr-005-hexagonal.md) | adr | avançado | `adr-structure` | ⬜ |
+| 🟩 | [ADR-005 — Portas e Adaptadores nos Módulos de Domínio](docs/18-architecture-decisions/adr-005-hexagonal.md) | adr | avançado | `adr-structure` | 🟩 |
 | 🟩 | [Alternativas Consideradas](docs/18-architecture-decisions/adr-alternatives.md) | concept | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [Consequências](docs/18-architecture-decisions/adr-consequences.md) | concept | intermediário | `adr-structure` | 🟩 |
 | 🟩 | [Contexto da Decisão](docs/18-architecture-decisions/adr-context.md) | concept | intermediário | `adr-structure` | 🟩 |
