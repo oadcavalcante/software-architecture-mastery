@@ -420,12 +420,12 @@ mas já tem índice publicado explicando o que virá.
 
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
-| 🟩 | [Arquitetura de Aplicação](docs/15-enterprise-architecture/application-architecture.md) | concept | avançado | `business-capabilities` | ⬜ |
+| 🟩 | [Arquitetura de Aplicação](docs/15-enterprise-architecture/application-architecture.md) | concept | avançado | `business-capabilities` | 🟩 |
 | 🟩 | [Portfólio de Aplicações](docs/15-enterprise-architecture/application-portfolios.md) | concept | avançado | `business-capabilities` | ⬜ |
 | 🟩 | [Níveis de Arquitetura](docs/15-enterprise-architecture/architecture-levels.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Revisão de Arquitetura](docs/15-enterprise-architecture/architecture-review.md) | concept | avançado | `architecture-levels` | ⬜ |
 | 🟩 | [Roteiros de Arquitetura](docs/15-enterprise-architecture/architecture-roadmaps.md) | concept | avançado | `transition-architecture` | ⬜ |
-| 🟩 | [Arquitetura de Negócio](docs/15-enterprise-architecture/business-architecture.md) | concept | avançado | `enterprise-architecture` | ⬜ |
+| 🟩 | [Arquitetura de Negócio](docs/15-enterprise-architecture/business-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Capacidades de Negócio](docs/15-enterprise-architecture/business-capabilities.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Mapeamento de Capacidades](docs/15-enterprise-architecture/capability-mapping.md) | concept | avançado | `business-capabilities` | 🟩 |
 | 🟩 | [Arquitetura do Estado Atual](docs/15-enterprise-architecture/current-state-architecture.md) | concept | avançado | `enterprise-architecture` | ⬜ |
