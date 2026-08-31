@@ -277,7 +277,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Zonas de Disponibilidade](docs/09-cloud-architecture/availability-zones.md) | concept | intermediário | `regions` | 🟩 |
 | 🟩 | [Computação em Nuvem](docs/09-cloud-architecture/cloud-compute.md) | concept | intermediário | `iaas` | 🟩 |
 | 🟩 | [Identidade em Nuvem](docs/09-cloud-architecture/cloud-identity.md) | concept | avançado | `cloud-architecture` | 🟩 |
-| 🟩 | [Cloud Native](docs/09-cloud-architecture/cloud-native.md) | concept | intermediário | `containers` | ⬜ |
+| 🟩 | [Cloud Native](docs/09-cloud-architecture/cloud-native.md) | concept | intermediário | `containers` | 🟩 |
 | 🟩 | [Rede em Nuvem](docs/09-cloud-architecture/cloud-networking.md) | concept | avançado | `cloud-architecture` | 🟩 |
 | 🟩 | [Armazenamento em Nuvem](docs/09-cloud-architecture/cloud-storage.md) | concept | intermediário | `cloud-architecture` | 🟩 |
 | 🟩 | [Contêineres](docs/09-cloud-architecture/containers.md) | concept | intermediário | `cloud-architecture` | 🟩 |
