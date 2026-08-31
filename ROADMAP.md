@@ -376,14 +376,14 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Diagramas de Componente](docs/17-architecture-documentation/component-diagrams.md) | concept | intermediário | `container-diagrams` | 🟩 |
 | 🟩 | [Diagramas de Contêiner](docs/17-architecture-documentation/container-diagrams.md) | concept | intermediário | `c4-model` | 🟩 |
 | 🟩 | [Diagramas de Contexto](docs/17-architecture-documentation/context-diagrams.md) | concept | iniciante | `c4-model` | 🟩 |
-| 🟩 | [Diagramas de Fluxo de Dados](docs/17-architecture-documentation/data-flow-diagrams.md) | concept | intermediário | `container-diagrams` | ⬜ |
+| 🟩 | [Diagramas de Fluxo de Dados](docs/17-architecture-documentation/data-flow-diagrams.md) | concept | intermediário | `container-diagrams` | 🟩 |
 | 🟩 | [Diagramas de Implantação](docs/17-architecture-documentation/deployment-diagrams.md) | concept | intermediário | `container-diagrams` | 🟩 |
 | 🟩 | [Qualidade de Diagrama](docs/17-architecture-documentation/diagram-quality.md) | concept | intermediário | `documentation-principles` | ⬜ |
 | 🟩 | [Princípios de Documentação](docs/17-architecture-documentation/documentation-principles.md) | concept | intermediário | `architecture-documentation` | 🟩 |
 | 🟩 | [Padrões de Documentação](docs/17-architecture-documentation/documentation-standards.md) | concept | intermediário | `documentation-principles` | ⬜ |
 | 🟩 | [Documentação de Arquitetura](docs/17-architecture-documentation/index.md) | index | intermediário | `system-design` | 🟩 |
 | 🟩 | [Documentação Viva](docs/17-architecture-documentation/living-documentation.md) | concept | avançado | `documentation-principles` | ⬜ |
-| 🟩 | [Diagramas de Sequência](docs/17-architecture-documentation/sequence-diagrams.md) | concept | intermediário | `container-diagrams` | ⬜ |
+| 🟩 | [Diagramas de Sequência](docs/17-architecture-documentation/sequence-diagrams.md) | concept | intermediário | `container-diagrams` | 🟩 |
 | 🟩 | [ADR-001 — Adotar Monólito Modular](docs/18-architecture-decisions/adr-001-modular-monolith.md) | adr | intermediário | `adr-structure` | ⬜ |
 | 🟩 | [ADR-002 — Processamento Assíncrono da Confirmação](docs/18-architecture-decisions/adr-002-async-processing.md) | adr | intermediário | `adr-structure` | ⬜ |
 | 🟩 | [ADR-003 — PostgreSQL como Banco Primário Único](docs/18-architecture-decisions/adr-003-postgresql.md) | adr | intermediário | `adr-structure` | ⬜ |
