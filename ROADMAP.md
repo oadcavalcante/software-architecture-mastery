@@ -311,7 +311,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Confiança na Cadeia de Suprimentos](docs/10-security/supply-chain-trust.md) | concept | avançado | `security` | 🟩 |
 | 🟩 | [Modelagem de Ameaças](docs/10-security/threat-modeling.md) | concept | avançado | `security` | 🟩 |
 | 🟩 | [Confiança Zero](docs/10-security/zero-trust.md) | concept | avançado | `secure-boundaries` | 🟩 |
-| 🟩 | [Processamento Assíncrono](docs/11-scalability/async-processing.md) | concept | intermediário | `scalability` | ⬜ |
+| 🟩 | [Processamento Assíncrono](docs/11-scalability/async-processing.md) | concept | intermediário | `scalability` | 🟩 |
 | 🟩 | [Escala de Banco de Dados](docs/11-scalability/database-scaling.md) | concept | avançado | `scalability` | 🟩 |
 | 🟩 | [Escala Horizontal](docs/11-scalability/horizontal-scaling.md) | concept | avançado | `vertical-scaling` | 🟩 |
 | 🟩 | [Pontos Quentes](docs/11-scalability/hotspots.md) | concept | avançado | `scalability` | 🟩 |
