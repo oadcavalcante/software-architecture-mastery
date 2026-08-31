@@ -327,9 +327,9 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Escala Vertical](docs/11-scalability/vertical-scaling.md) | concept | intermediário | `scalability` | 🟩 |
 | 🟩 | [Métricas de Disponibilidade](docs/12-reliability/availability-metrics.md) | concept | intermediário | `reliability` | 🟩 |
 | 🟩 | [Bulkheads](docs/12-reliability/bulkheads.md) | pattern | intermediário | `reliability` | 🟩 |
-| 🟩 | [Engenharia do Caos](docs/12-reliability/chaos-engineering.md) | concept | avançado | `reliability` | ⬜ |
+| 🟩 | [Engenharia do Caos](docs/12-reliability/chaos-engineering.md) | concept | avançado | `reliability` | 🟩 |
 | 🟩 | [Circuit Breakers](docs/12-reliability/circuit-breakers.md) | pattern | intermediário | `retry-storms` | 🟩 |
-| 🟩 | [Planejamento de Recuperação](docs/12-reliability/disaster-recovery-planning.md) | concept | avançado | `rto` | ⬜ |
+| 🟩 | [Planejamento de Recuperação](docs/12-reliability/disaster-recovery-planning.md) | concept | avançado | `rto` | 🟩 |
 | 🟩 | [Exercício 07 — Disponibilidade Multi-região](docs/12-reliability/exercises/07-multi-region.md) | exercise | avançado | `06-partial-failure` | ⬜ |
 | 🟩 | [Failover](docs/12-reliability/failover.md) | concept | avançado | `redundancy` | 🟩 |
 | 🟩 | [Tolerância a Falhas](docs/12-reliability/fault-tolerance.md) | concept | avançado | `reliability-basics` | 🟩 |
