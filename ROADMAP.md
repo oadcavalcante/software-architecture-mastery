@@ -505,7 +505,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Case: E-commerce Omnicanal](docs/21-case-studies/ecommerce.md) | case-study | avançado | `trade-offs` | 🟩 |
 | 🟩 | [Case: Delivery de Comida](docs/21-case-studies/food-delivery.md) | case-study | avançado | `trade-offs` | 🟩 |
 | 🟩 | [Case: Plataforma de Saúde](docs/21-case-studies/healthcare.md) | case-study | avançado | `trade-offs` | 🟩 |
-| 🟩 | [Case: Processamento de Eventos de Alto Volume](docs/21-case-studies/high-volume-events.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Processamento de Eventos de Alto Volume](docs/21-case-studies/high-volume-events.md) | case-study | avançado | `trade-offs` | 🟩 |
 | 🟩 | [Case Studies](docs/21-case-studies/index.md) | index | avançado | `system-design`, `distributed-systems` | 🟩 |
 | 🟩 | [Case: Modernização de Legado](docs/21-case-studies/legacy-modernization-case.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Logística e Malha de Entregas](docs/21-case-studies/logistics.md) | case-study | avançado | `trade-offs` | 🟩 |
