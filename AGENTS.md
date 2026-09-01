@@ -64,6 +64,40 @@ arquivos, esses arquivos entram no commit. O CI falha se estiverem defasados.
 Os validadores rodam contra `docs/` por padrão. `SAM_ROOT=<dir>` aponta para
 outra árvore — é o que os testes usam.
 
+## O sexto portão: revisão de profundidade
+
+Os cinco validadores verificam forma. Eles não distinguem um documento fundo de
+um documento raso com todas as seções preenchidas — que é a coisa que
+[SPEC.md](SPEC.md) §13.3 chama de revisão humana, e a razão declarada de ela
+existir: *"Automação não detecta conteúdo raso."*
+
+Essa revisão é feita pelo subagente **`revisor-de-profundidade`**, definido em
+[`.claude/agents/revisor-de-profundidade.md`](.claude/agents/revisor-de-profundidade.md).
+
+```
+Agent(subagent_type: "revisor-de-profundidade",
+      prompt: "Revise docs/06-distributed-systems/idempotency.md")
+```
+
+Um documento por invocação. O agente lê o documento e as seções da spec que se
+aplicam ao `doc_type` dele, aplica os dez pontos de §13.3, e devolve um laudo com
+veredito (`aprovado` / `ressalvas` / `reprovado`) e achados citados e localizados
+por linha.
+
+Três restrições fazem o laudo servir para alguma coisa:
+
+| Restrição | Por quê |
+|---|---|
+| Todo achado cita o trecho e a linha | Achado sem evidência não é verificável, e é como um revisor automático inventa problema para parecer útil |
+| Não reporta o que os validadores cobrem | Repetir o CI enterra o julgamento no ruído |
+| Não reporta preferência de estilo | A voz do material é deliberada (§8.1); "eu escreveria diferente" não é defeito |
+
+O agente **não edita**. O laudo é o produto; a correção é decisão editorial, e
+quem a toma precisa do contexto que o revisor de um documento isolado não tem.
+
+Não é portão de commit — é revisão de acervo, rodada por lote. A fase F8 do
+[ROADMAP](ROADMAP.md) é o que ela fecha.
+
 ## Como adicionar um documento
 
 1. **Pegue a tarefa.** Primeira não marcada em [`fix_plan.md`](fix_plan.md).
