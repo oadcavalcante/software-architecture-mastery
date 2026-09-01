@@ -489,7 +489,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Padrões sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-standards.md) | concept | avançado | `leadership-principles` | 🟩 |
 | 🟩 | [Medição de Resultados de Arquitetura](docs/23-architecture-leadership/measuring-architecture-outcomes.md) | concept | avançado | `fitness-functions` | 🟩 |
 | 🟩 | [Negociação de Trade-offs](docs/23-architecture-leadership/negotiating-tradeoffs.md) | concept | avançado | `decision-making` | 🟩 |
-| 🟩 | [Arquitetura Organizacional](docs/23-architecture-leadership/organizational-architecture.md) | concept | avançado | `conways-law` | ⬜ |
+| 🟩 | [Arquitetura Organizacional](docs/23-architecture-leadership/organizational-architecture.md) | concept | avançado | `conways-law` | 🟩 |
 | 🟩 | [Gestão de Risco](docs/23-architecture-leadership/risk-management.md) | concept | avançado | `decision-making` | 🟩 |
 | 🟩 | [Gestão de Interessados](docs/23-architecture-leadership/stakeholder-management.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Topologias de Time](docs/23-architecture-leadership/team-topologies.md) | concept | avançado | `conways-law` | 🟩 |
