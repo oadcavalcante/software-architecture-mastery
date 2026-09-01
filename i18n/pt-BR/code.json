@@ -362,36 +362,28 @@
     "description": "The title of the tag list page"
   },
   "sam.docType.concept": {
-    "message": "Conceito",
-    "description": "Rótulo de doc_type: concept"
+    "message": "Conceito"
   },
   "sam.docType.pattern": {
-    "message": "Padrão",
-    "description": "Rótulo de doc_type: pattern"
+    "message": "Padrão"
   },
   "sam.docType.foundation": {
-    "message": "Fundamento",
-    "description": "Rótulo de doc_type: foundation"
+    "message": "Fundamento"
   },
   "sam.docType.tradeoff": {
-    "message": "Trade-off",
-    "description": "Rótulo de doc_type: tradeoff"
+    "message": "Trade-off"
   },
   "sam.docType.caseStudy": {
-    "message": "Case",
-    "description": "Rótulo de doc_type: case-study"
+    "message": "Case"
   },
   "sam.docType.exercise": {
-    "message": "Exercício",
-    "description": "Rótulo de doc_type: exercise"
+    "message": "Exercício"
   },
   "sam.docType.adr": {
-    "message": "ADR",
-    "description": "Rótulo de doc_type: adr"
+    "message": "ADR"
   },
   "sam.docType.reference": {
-    "message": "Referência",
-    "description": "Rótulo de doc_type: reference"
+    "message": "Referência"
   },
   "readingProgress.toggle.doneTitle": {
     "message": "Documento concluído",
@@ -444,5 +436,57 @@
   "readingProgress.section.hint": {
     "message": "O progresso fica salvo apenas neste navegador.",
     "description": "Aviso de que o progresso fica apenas neste navegador"
+  },
+  "progressPage.import.invalid": {
+    "message": "Arquivo inválido ou sem nenhum documento marcado.",
+    "description": "Erro exibido quando o arquivo importado não serve"
+  },
+  "progressPage.import.done": {
+    "message": "{added} documento(s) acrescentado(s). Nada foi apagado.",
+    "description": "Confirmação de importação bem-sucedida"
+  },
+  "progressPage.clear.confirm": {
+    "message": "Isto apaga todo o seu progresso neste navegador. Não há como desfazer. Continuar?",
+    "description": "Confirmação antes de apagar o progresso"
+  },
+  "progressPage.clear.done": {
+    "message": "Progresso apagado.",
+    "description": "Confirmação de que o progresso foi apagado"
+  },
+  "progressPage.title": {
+    "message": "Progresso de leitura",
+    "description": "Título da página de progresso"
+  },
+  "progressPage.description": {
+    "message": "Exporte, importe ou apague o progresso de leitura guardado neste navegador.",
+    "description": "Descrição da página de progresso"
+  },
+  "progressPage.heading": {
+    "message": "Progresso de leitura",
+    "description": "Cabeçalho da página de progresso"
+  },
+  "progressPage.count": {
+    "message": "{total} documento(s) marcado(s) como lido(s) neste navegador.",
+    "description": "Quantos documentos estão marcados como lidos"
+  },
+  "progressPage.explanation": {
+    "message": "O progresso é guardado no armazenamento local deste navegador, sem conta e sem servidor — ele não atravessa máquinas nem sobrevive à limpeza dos dados do site. Exportar é como levá-lo para outro navegador.",
+    "description": "Por que a página existe"
+  },
+  "progressPage.export": {
+    "message": "Exportar",
+    "description": "Botão de exportar"
+  },
+  "progressPage.import": {
+    "message": "Importar",
+    "description": "Botão de importar"
+  },
+  "progressPage.clear": {
+    "message": "Apagar tudo",
+    "description": "Botão de apagar o progresso"
+  },
+  "progressPage.merge": {
+    "message": "A importação é somatória: documentos já marcados continuam marcados, e os do arquivo são acrescentados.",
+    "description": "Explica que importar não apaga nada"
   }
 }

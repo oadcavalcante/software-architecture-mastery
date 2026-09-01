@@ -34,5 +34,21 @@
   "copyright": {
     "message": "Conteúdo sob CC BY-SA 4.0. Código sob MIT. © 2026.",
     "description": "The footer copyright"
+  },
+  "link.item.label.Como usar": {
+    "message": "Como usar",
+    "description": "The label of footer link with label=Como usar linking to /how-to-use"
+  },
+  "link.item.label.Modelo de maturidade": {
+    "message": "Modelo de maturidade",
+    "description": "The label of footer link with label=Modelo de maturidade linking to /maturity-model"
+  },
+  "link.item.label.Glossário": {
+    "message": "Glossário",
+    "description": "The label of footer link with label=Glossário linking to /glossary"
+  },
+  "link.item.label.Progresso de leitura": {
+    "message": "Progresso de leitura",
+    "description": "The label of footer link with label=Progresso de leitura linking to /progress"
   }
 }

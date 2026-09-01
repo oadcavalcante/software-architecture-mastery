@@ -9,7 +9,7 @@
  */
 
 import {useCallback, useSyncExternalStore} from 'react';
-import {countRead, isRead, subscribe} from '@site/src/lib/readingProgress';
+import {countRead, isRead, readIds, subscribe} from '@site/src/lib/readingProgress';
 
 export function useIsRead(id: string): boolean {
   return useSyncExternalStore(
@@ -27,6 +27,21 @@ export function useReadCount(ids: readonly string[]): number {
     subscribe,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useCallback(() => countRead(ids), [key]),
+    () => 0,
+  );
+}
+
+/**
+ * Total de documentos marcados, sem recorte de seção.
+ *
+ * O instantâneo devolve `.size` — um número — e não o conjunto: `readIds()`
+ * cria um `Set` novo a cada chamada, e devolvê-lo faria `useSyncExternalStore`
+ * ver uma identidade diferente a cada verificação e renderizar em laço.
+ */
+export function useTotalRead(): number {
+  return useSyncExternalStore(
+    subscribe,
+    () => readIds().size,
     () => 0,
   );
 }

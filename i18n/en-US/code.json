@@ -414,35 +414,79 @@
     "description": "Aviso de que o progresso fica apenas neste navegador"
   },
   "sam.docType.concept": {
-    "message": "Concept",
-    "description": "Rótulo de doc_type: concept"
+    "message": "Concept"
   },
   "sam.docType.pattern": {
-    "message": "Pattern",
-    "description": "Rótulo de doc_type: pattern"
+    "message": "Pattern"
   },
   "sam.docType.foundation": {
-    "message": "Foundation",
-    "description": "Rótulo de doc_type: foundation"
+    "message": "Foundation"
   },
   "sam.docType.tradeoff": {
-    "message": "Trade-off",
-    "description": "Rótulo de doc_type: tradeoff"
+    "message": "Trade-off"
   },
   "sam.docType.caseStudy": {
-    "message": "Case study",
-    "description": "Rótulo de doc_type: case-study"
+    "message": "Case study"
   },
   "sam.docType.exercise": {
-    "message": "Exercise",
-    "description": "Rótulo de doc_type: exercise"
+    "message": "Exercise"
   },
   "sam.docType.adr": {
-    "message": "ADR",
-    "description": "Rótulo de doc_type: adr"
+    "message": "ADR"
   },
   "sam.docType.reference": {
-    "message": "Reference",
-    "description": "Rótulo de doc_type: reference"
+    "message": "Reference"
+  },
+  "progressPage.import.invalid": {
+    "message": "Invalid file, or no document marked in it.",
+    "description": "Erro exibido quando o arquivo importado não serve"
+  },
+  "progressPage.import.done": {
+    "message": "{added} document(s) added. Nothing was erased.",
+    "description": "Confirmação de importação bem-sucedida"
+  },
+  "progressPage.clear.confirm": {
+    "message": "This erases all of your progress in this browser. There is no undo. Continue?",
+    "description": "Confirmação antes de apagar o progresso"
+  },
+  "progressPage.clear.done": {
+    "message": "Progress erased.",
+    "description": "Confirmação de que o progresso foi apagado"
+  },
+  "progressPage.title": {
+    "message": "Reading progress",
+    "description": "Título da página de progresso"
+  },
+  "progressPage.description": {
+    "message": "Export, import or erase the reading progress stored in this browser.",
+    "description": "Descrição da página de progresso"
+  },
+  "progressPage.heading": {
+    "message": "Reading progress",
+    "description": "Cabeçalho da página de progresso"
+  },
+  "progressPage.count": {
+    "message": "{total} document(s) marked as read in this browser.",
+    "description": "Quantos documentos estão marcados como lidos"
+  },
+  "progressPage.explanation": {
+    "message": "Progress is kept in this browser’s local storage, with no account and no server — it does not travel between machines and does not survive clearing the site data. Exporting is how you take it to another browser.",
+    "description": "Por que a página existe"
+  },
+  "progressPage.export": {
+    "message": "Export",
+    "description": "Botão de exportar"
+  },
+  "progressPage.import": {
+    "message": "Import",
+    "description": "Botão de importar"
+  },
+  "progressPage.clear": {
+    "message": "Erase everything",
+    "description": "Botão de apagar o progresso"
+  },
+  "progressPage.merge": {
+    "message": "Importing adds up: documents already marked stay marked, and the ones in the file are added.",
+    "description": "Explica que importar não apaga nada"
   }
 }

@@ -22,6 +22,21 @@ const GH_REPO = process.env.GH_REPO ?? 'software-architecture-mastery';
  * e usá-la faria cada preview publicar hreflang e canônicas apontando para si
  * mesmo, o que confunde indexação.
  */
+/**
+ * O Docusaurus constrói uma locale por vez e expõe qual está sendo construída.
+ *
+ * `themeConfig.image` não é extraída por `write-translations` e não tem
+ * variante por locale, então esta variável é o mecanismo disponível para
+ * escolher o card social do idioma certo.
+ */
+const LOCALE = process.env.DOCUSAURUS_CURRENT_LOCALE ?? 'pt-BR';
+
+/** Card Open Graph, 1200×630. Gerado a partir de `static/img/social-card.svg`. */
+const SOCIAL_CARD: Record<string, string> = {
+  'pt-BR': 'img/social-card.png',
+  'en-US': 'img/social-card.en-US.png',
+};
+
 const SITE_URL =
   process.env.SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -114,8 +129,8 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // image: 'img/social-card.png',  // F1: criar o card OG (1200×630 PNG)
-    //
+    image: SOCIAL_CARD[LOCALE] ?? SOCIAL_CARD['pt-BR'],
+
     // Não há barra de anúncio. A que existia avisava que a tradução en-US era
     // progressiva e que páginas sem tradução apareciam em português — o que
     // deixou de ser verdade quando os 446 documentos foram traduzidos. Um
@@ -156,9 +171,9 @@ const config: Config = {
           title: 'Percurso',
           items: [
             {label: 'Comece aqui', to: '/'},
-            // Modelo de maturidade e Glossário entram aqui na F1,
-            // quando os documentos existirem. onBrokenLinks: 'throw'
-            // impede que um link aponte para o vazio enquanto isso.
+            {label: 'Como usar', to: '/how-to-use'},
+            {label: 'Modelo de maturidade', to: '/maturity-model'},
+            {label: 'Glossário', to: '/glossary'},
           ],
         },
         {
@@ -181,6 +196,7 @@ const config: Config = {
         {
           title: 'Mais',
           items: [
+            {label: 'Progresso de leitura', to: '/progress'},
             {label: 'GitHub', href: `https://github.com/${GH_ORG}/${GH_REPO}`},
           ],
         },

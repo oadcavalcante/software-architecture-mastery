@@ -1,0 +1,76 @@
+.page {
+  max-width: 46rem;
+}
+
+.count {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.75rem 0 1rem;
+}
+
+/*
+ * O input existe para ser acionado pelo botão "Importar"; o controle nativo
+ * não aceita rótulo traduzido e destoa dos outros dois. Fica fora do fluxo,
+ * mas continua no DOM e alcançável por teclado através do botão.
+ */
+.fileInput {
+  display: none;
+}
+
+/*
+ * Apagar não tem desfazer. O botão fica visualmente abaixo dos outros dois —
+ * sem preenchimento, em texto — para não ser o alvo óbvio de um toque
+ * distraído, e ganha a cor de perigo só ao passar o cursor.
+ */
+.danger {
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: var(--ifm-button-border-radius);
+  background: transparent;
+  color: var(--ifm-color-emphasis-700);
+  padding: 0 1.25rem;
+  font-size: var(--ifm-button-font-size, 1rem);
+  font-weight: var(--ifm-button-font-weight, 600);
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.danger:hover {
+  border-color: var(--ifm-color-danger);
+  color: var(--ifm-color-danger);
+}
+
+.danger:focus-visible {
+  outline: 2px solid var(--ifm-color-danger);
+  outline-offset: 2px;
+}
+
+.ok,
+.error {
+  font-weight: 500;
+}
+
+.ok {
+  color: var(--ifm-color-success-dark);
+}
+
+.error {
+  color: var(--ifm-color-danger-dark);
+}
+
+.note {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+@media (pointer: coarse) {
+  .danger {
+    min-height: 2.75rem;
+  }
+}
