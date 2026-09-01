@@ -82,5 +82,33 @@
   "sidebar.curriculum.category.Referência": {
     "message": "Referência",
     "description": "The label for category 'Referência' in sidebar 'curriculum'"
+  },
+  "sidebar.curriculum.category.exercises-01-fundamentals": {
+    "message": "Exercícios",
+    "description": "The label for category 'Exercícios' in sidebar 'curriculum'"
+  },
+  "sidebar.curriculum.category.exercises-02-software-design": {
+    "message": "Exercícios",
+    "description": "The label for category 'Exercícios' in sidebar 'curriculum'"
+  },
+  "sidebar.curriculum.category.exercises-05-system-design": {
+    "message": "Exercícios",
+    "description": "The label for category 'Exercícios' in sidebar 'curriculum'"
+  },
+  "sidebar.curriculum.category.exercises-06-distributed-systems": {
+    "message": "Exercícios",
+    "description": "The label for category 'Exercícios' in sidebar 'curriculum'"
+  },
+  "sidebar.curriculum.category.exercises-12-reliability": {
+    "message": "Exercícios",
+    "description": "The label for category 'Exercícios' in sidebar 'curriculum'"
+  },
+  "sidebar.curriculum.category.exercises-16-legacy-modernization": {
+    "message": "Exercícios",
+    "description": "The label for category 'Exercícios' in sidebar 'curriculum'"
+  },
+  "sidebar.curriculum.category.exercises-23-architecture-leadership": {
+    "message": "Exercícios",
+    "description": "The label for category 'Exercícios' in sidebar 'curriculum'"
   }
 }

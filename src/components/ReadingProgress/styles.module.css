@@ -234,7 +234,32 @@
     align-items: stretch;
   }
 
+  .card {
+    padding: 1rem 1.1rem;
+  }
+
+  .panel {
+    padding: 1.1rem 1.2rem;
+  }
+
   .button {
     justify-content: center;
+  }
+}
+
+/*
+ * Alvo de toque. `.action` fechava em ~30px de altura e `.button` em ~42px;
+ * abaixo de 44px o erro de toque aumenta o bastante para incomodar, e os dois
+ * controles são o único jeito de registrar progresso.
+ */
+@media (pointer: coarse) {
+  .button,
+  .action {
+    min-height: 2.75rem;
+  }
+
+  .action {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
   }
 }

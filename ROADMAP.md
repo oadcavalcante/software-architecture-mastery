@@ -552,10 +552,10 @@ Cada fase entrega um site publicável e útil por si só. Ver
 | **F4** | Nível 05: as onze disciplinas de arquitetura + ADRs didáticos | 🟩 |
 | **F5** | Níveis 06–07: corporativo, legado, governança, liderança | 🟩 |
 | **F6** | Case studies, entrevistas, exercícios de revisão de arquitetura | 🟩 |
-| **F7** | Tradução en-US na ordem de prioridade da spec | 🟨 em curso |
+| **F7** | Tradução en-US na ordem de prioridade da spec | 🟩 |
 | **F8** | Revisão cruzada: contradições, duplicações, densidade, verificação factual | 🟨 parcial |
 
-F7 é progressiva por decisão de projeto: ⬜ é estado válido, e a contagem por
+F7 está completa: os 446 documentos têm tradução en-US em dia, e a contagem por
 documento está na tabela de paridade acima. F8 teve a passagem mecânica —
 contradições, duplicação de exemplos, links, densidade — mas o checklist de
 [SPEC.md §13.3](SPEC.md) exige revisão humana, que não foi feita.

@@ -28,20 +28,6 @@ const SITE_URL =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : 'http://localhost:3000');
 
-/**
- * O Docusaurus constrói uma locale por vez e expõe qual está sendo construída.
- * `announcementBar.content` não é extraída por `write-translations`, então este
- * é o mecanismo disponível para localizá-la.
- */
-const LOCALE = process.env.DOCUSAURUS_CURRENT_LOCALE ?? 'pt-BR';
-
-const ANNOUNCEMENT: Record<string, string> = {
-  'pt-BR':
-    'Conteúdo em construção. A tradução para inglês é progressiva — páginas ainda não traduzidas aparecem em português.',
-  'en-US':
-    'Work in progress. The English translation is progressive — untranslated pages appear in Portuguese.',
-};
-
 const config: Config = {
   title: 'Software Architecture Mastery',
   tagline: 'Pensar como arquiteto, não decorar padrões',
@@ -129,16 +115,12 @@ const config: Config = {
 
   themeConfig: {
     // image: 'img/social-card.png',  // F1: criar o card OG (1200×630 PNG)
-    // Traduzido por locale em i18n/<locale>/docusaurus-theme-classic/.
-    // A tradução en-US é progressiva: páginas sem tradução caem no conteúdo
-    // em português, e o leitor precisa saber disso antes de estranhar.
-    announcementBar: {
-      id: 'traducao-progressiva',
-      content: ANNOUNCEMENT[LOCALE] ?? ANNOUNCEMENT['pt-BR'],
-      backgroundColor: '#1f4e79',
-      textColor: '#ffffff',
-      isCloseable: true,
-    },
+    //
+    // Não há barra de anúncio. A que existia avisava que a tradução en-US era
+    // progressiva e que páginas sem tradução apareciam em português — o que
+    // deixou de ser verdade quando os 446 documentos foram traduzidos. Um
+    // aviso permanente que não é mais verdadeiro custa quatro linhas no topo
+    // de toda página em tela estreita e não informa nada.
     colorMode: {
       defaultMode: 'light',
       respectPrefersColorScheme: true,

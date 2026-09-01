@@ -412,5 +412,37 @@
   "readingProgress.section.hint": {
     "message": "Progress is saved in this browser only.",
     "description": "Aviso de que o progresso fica apenas neste navegador"
+  },
+  "sam.docType.concept": {
+    "message": "Concept",
+    "description": "Rótulo de doc_type: concept"
+  },
+  "sam.docType.pattern": {
+    "message": "Pattern",
+    "description": "Rótulo de doc_type: pattern"
+  },
+  "sam.docType.foundation": {
+    "message": "Foundation",
+    "description": "Rótulo de doc_type: foundation"
+  },
+  "sam.docType.tradeoff": {
+    "message": "Trade-off",
+    "description": "Rótulo de doc_type: tradeoff"
+  },
+  "sam.docType.caseStudy": {
+    "message": "Case study",
+    "description": "Rótulo de doc_type: case-study"
+  },
+  "sam.docType.exercise": {
+    "message": "Exercise",
+    "description": "Rótulo de doc_type: exercise"
+  },
+  "sam.docType.adr": {
+    "message": "ADR",
+    "description": "Rótulo de doc_type: adr"
+  },
+  "sam.docType.reference": {
+    "message": "Reference",
+    "description": "Rótulo de doc_type: reference"
   }
 }

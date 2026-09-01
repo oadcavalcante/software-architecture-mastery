@@ -1,10 +1,28 @@
 /**
  * Software Architecture Mastery — tema.
  *
- * O conteúdo é denso e longo. As escolhas aqui priorizam leitura prolongada:
- * medida de linha limitada, contraste calibrado, tabelas legíveis e diagramas
- * que não estouram a coluna. Nada é decorativo.
+ * O material é um manual de engenharia, não um site de produto: 446 documentos
+ * de prosa densa, com 14 seções em média cada um, e 2045 blocos monoespaçados.
+ * Desses blocos, 2002 não são código-fonte — são diagramas, comparações e
+ * escalas em texto puro. Apenas nove são programa de verdade.
+ *
+ * Essa contagem é o que organiza o tema. Quatro decisões seguem dela:
+ *
+ *   figura ≠ código    blocos `text` recebem tratamento de figura, na paleta
+ *                      do site; os poucos blocos de código real mantêm a
+ *                      moldura do Prism
+ *   medida de linha    a prosa é limitada a --sam-measure; figuras, tabelas
+ *                      e diagramas escapam dela e usam a coluna inteira
+ *   hierarquia por
+ *     régua            com 14 títulos por documento, a separação vem de uma
+ *                      régua e não do tamanho da fonte
+ *   rolagem visível    figura que não cabe rola, e a rolagem precisa ser
+ *                      perceptível — em tela de toque não existe barra
+ *
+ * Nada aqui é decorativo. Ver SPEC.md §8.1.
  */
+
+/* ══════════════════════════════════════════════════════════════ tokens */
 
 :root {
   --ifm-color-primary: #1f4e79;
@@ -24,6 +42,32 @@
   --sam-status-done: #2e7d32;
   --sam-status-partial: #b8860b;
   --sam-status-none: #9e9e9e;
+
+  /*
+   * Medida de linha da prosa.
+   *
+   * `ch` acompanha a fonte, que é a razão de ser a unidade certa aqui. 72ch
+   * dá cerca de 80 caracteres por linha, dentro da faixa legível para texto
+   * corrido. A medida anterior — 46rem — dava 92, acima do ponto em que o
+   * olho perde a linha ao voltar para a esquerda, e o material é longo demais
+   * para pagar isso.
+   *
+   * Figuras e tabelas NÃO respeitam esta medida: têm largura própria, ditada
+   * pelo conteúdo, e estreitá-las junto com a prosa só produz rolagem.
+   */
+  --sam-measure: 72ch;
+
+  /* Figuras em texto: painel discreto, na paleta do site. */
+  --sam-figure-bg: var(--ifm-color-emphasis-100);
+  --sam-figure-border: var(--ifm-color-emphasis-300);
+  --sam-figure-ink: var(--ifm-color-emphasis-900);
+
+  /* Régua que separa as seções de um documento de 14 títulos. */
+  --sam-rule: var(--ifm-color-emphasis-300);
+
+  /* Sombra de rolagem: cor do fundo que desliza e sombra que fica. */
+  --sam-scroll-bg: var(--ifm-background-color);
+  --sam-scroll-shadow: rgba(0, 0, 0, 0.14);
 }
 
 [data-theme='dark'] {
@@ -36,15 +80,149 @@
   --ifm-color-primary-lightest: #a0c6e8;
 
   --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.12);
+
+  --sam-figure-ink: var(--ifm-color-emphasis-800);
+  --sam-scroll-shadow: rgba(0, 0, 0, 0.5);
 }
 
-/* Medida de linha: texto técnico longo fica ilegível em colunas largas. */
+/* ════════════════════════════════════════════════════════ tipografia */
+
+/*
+ * Escala de manual, não de página de produto.
+ *
+ * O padrão do tema é h1 3rem / h2 2rem / h3 1.5rem sobre corpo de 1rem. Numa
+ * página de abertura isso funciona; num documento com 14 títulos de segundo
+ * nível, títulos de 32px viram uma sequência de blocos pesados e a leitura
+ * fica em degraus. Aqui a estrutura é marcada pela régua e pelo peso, e a
+ * escala fecha: 2.5 / 1.5 / 1.15.
+ */
+.markdown h1:first-child {
+  --ifm-h1-font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+.markdown > h2 {
+  --ifm-h2-font-size: 1.5rem;
+}
+
+.markdown > h3 {
+  --ifm-h3-font-size: 1.15rem;
+}
+
+/* ════════════════════════════════════════════════ prosa e medida */
+
+/*
+ * A medida vale para o texto corrido, não para o bloco inteiro. Assim a prosa
+ * fica na largura legível e as figuras usam a coluna toda — que em tela larga
+ * é 25% mais larga que a medida.
+ */
 .markdown {
-  max-width: 46rem;
+  max-width: none;
 }
 
-/* Tabelas de trade-off são frequentes e costumam ser largas.
-   Rolam dentro da própria caixa em vez de estourar a página. */
+.markdown > * {
+  max-width: var(--sam-measure);
+}
+
+.markdown > h2,
+.markdown > .theme-code-block,
+.markdown > table,
+.markdown > .docusaurus-mermaid-container {
+  max-width: 100%;
+}
+
+/*
+ * A régua acima do h2 é o que permite localizar "Quando Não Usar" rolando
+ * rápido. Ela atravessa a coluna inteira, alinhada com a borda das figuras —
+ * é a divisão da seção, não do parágrafo.
+ */
+.markdown > h2 {
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--sam-rule);
+}
+
+.markdown > header + h2,
+.markdown > h2:first-child {
+  margin-top: 1rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.markdown > h3 {
+  margin-top: 2rem;
+}
+
+/* ══════════════════════════════════════ figuras em texto (`text`) */
+
+/*
+ * 98% dos blocos do percurso são diagramas em texto puro. Eles recebiam a
+ * moldura de código-fonte do Prism — fundo de editor, cor de token, sombra —
+ * que anuncia "isto é programa" para algo que é figura. A moldura passa a ser
+ * a do site: painel discreto, tinta do texto, sem sombra.
+ */
+.markdown .theme-code-block.language-text {
+  background: var(--sam-figure-bg);
+  border: 1px solid var(--sam-figure-border);
+  border-radius: var(--ifm-code-border-radius);
+  box-shadow: none;
+}
+
+/*
+ * O Prism escreve cor e fundo em atributo `style`, no elemento e em cada
+ * linha. Anular exige `!important`: nenhum seletor vence estilo inline.
+ */
+.markdown .theme-code-block.language-text pre {
+  background-color: transparent !important;
+  color: var(--sam-figure-ink) !important;
+  --sam-scroll-bg: var(--sam-figure-bg);
+}
+
+.markdown .theme-code-block.language-text .token-line,
+.markdown .theme-code-block.language-text .token {
+  color: inherit !important;
+}
+
+.markdown .theme-code-block:not(.language-text) pre {
+  --sam-scroll-bg: var(--ifm-pre-background);
+}
+
+/* ═══════════════════════════════════════════════ rolagem perceptível */
+
+/*
+ * Sombra de rolagem, em CSS puro.
+ *
+ * As duas primeiras camadas são da cor do fundo e rolam com o conteúdo
+ * (`local`); as duas últimas são a sombra e ficam presas às bordas (`scroll`).
+ * Com o conteúdo no início, a camada opaca da esquerda cobre a sombra
+ * esquerda; ao rolar, ela sai e a sombra aparece. É o indicador que a barra de
+ * rolagem daria — e que não existe em tela de toque, porque o Infima só
+ * estiliza barra sob `pointer: fine`.
+ */
+.markdown .theme-code-block pre,
+.markdown > table,
+.docusaurus-mermaid-container {
+  background-image:
+    linear-gradient(to right, var(--sam-scroll-bg) 45%, rgba(0, 0, 0, 0)),
+    linear-gradient(to left, var(--sam-scroll-bg) 45%, rgba(0, 0, 0, 0)),
+    radial-gradient(farthest-side at 0 50%, var(--sam-scroll-shadow), rgba(0, 0, 0, 0)),
+    radial-gradient(farthest-side at 100% 50%, var(--sam-scroll-shadow), rgba(0, 0, 0, 0));
+  background-position: 0 0, 100% 0, 0 0, 100% 0;
+  background-size: 2.5rem 100%, 2.5rem 100%, 0.85rem 100%, 0.85rem 100%;
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll, scroll;
+
+  /* Impede que arrastar a figura de lado dispare o "voltar" do navegador. */
+  overscroll-behavior-x: contain;
+}
+
+/* ═══════════════════════════════════════════════════════════ tabelas */
+
+/*
+ * 660 tabelas, 600 delas com duas colunas: são comparações de trade-off, o
+ * formato mais recorrente do material. Rolam dentro da própria caixa em vez
+ * de estourar a página.
+ */
 .markdown table {
   display: block;
   overflow-x: auto;
@@ -52,17 +230,31 @@
   width: fit-content;
 }
 
-.markdown table th {
-  white-space: nowrap;
+/*
+ * Cabeçalho sem quebra só onde há largura para isso. Em tela estreita,
+ * `nowrap` empurra as tabelas de três ou mais colunas para rolagem sem
+ * necessidade — o texto delas cabe quebrado.
+ */
+@media (min-width: 997px) {
+  .markdown table th {
+    white-space: nowrap;
+  }
 }
 
-/* Diagramas Mermaid centralizados e contidos. */
+/* ═════════════════════════════════════════════════════════ diagramas */
+
+/*
+ * `safe center` em vez de `center`: com sobra negativa, `center` empurra a
+ * borda esquerda para fora da área rolável e ela fica inalcançável.
+ */
 .docusaurus-mermaid-container {
   display: flex;
-  justify-content: center;
+  justify-content: safe center;
   overflow-x: auto;
   margin: 1.5rem 0;
 }
+
+/* ═══════════════════════════════════════════ citações e admonições */
 
 /* Citação usada para as notas de pré-requisito (SPEC.md §7.4). */
 .markdown blockquote {
@@ -71,8 +263,157 @@
   padding: 0.75rem 1rem;
 }
 
-/* Blocos de progressão em ASCII aparecem em vários documentos.
-   Preservam alinhamento sem virar código colorido. */
-.markdown pre code.language-text {
-  line-height: 1.45;
+/* `:::details` guarda a discussão dos exercícios, aberta depois de tentar. */
+.markdown details > summary {
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════════════ cabeçalho e navegação */
+
+/*
+ * O título do site tem 29 caracteres, ou ~238px em 16px semibold. Em 390px a
+ * navbar deixa ~232px depois do menu, do logotipo e da busca: o título trunca,
+ * e em telas de 360px trunca no meio da segunda palavra.
+ *
+ * Reduzir o corpo resolve sem tirar a identificação do site — esconder o
+ * título deixaria apenas o logotipo, que não diz o nome. A 0.9rem o título
+ * precisa de ~214px e cabe até 360px.
+ */
+@media (max-width: 576px) {
+  .navbar__title {
+    font-size: 0.9rem;
+  }
+}
+
+/* Rótulos de seção chegam a 57 caracteres e quebram em três linhas. */
+.menu__link,
+.menu__list-item-collapsible > .menu__link {
+  line-height: 1.35;
+}
+
+/* ═══════════════════════════════════════════ faixa de 997 a 1120px */
+
+/*
+ * iPad em paisagem (1080px) e notebooks pequenos caem aqui. O Docusaurus liga
+ * o layout de três colunas em 997px, mas nessa largura a coluna de conteúdo
+ * fica com ~500px e o sumário lateral com ~180px — pior que no celular.
+ *
+ * Nessa faixa o sumário lateral sai e o retrátil do topo entra, devolvendo
+ * 25% da largura ao conteúdo.
+ */
+@media (min-width: 997px) and (max-width: 1120px) {
+  .theme-doc-toc-mobile {
+    display: block !important;
+  }
+
+  /*
+   * `:has()` identifica exatamente a linha do documento — a única que tem a
+   * coluna do sumário. Sem isso o seletor pegaria também as colunas do rodapé,
+   * que fica dentro do mesmo `<main>`. Navegador sem `:has()` mantém o layout
+   * de três colunas, que é degradação aceitável.
+   */
+  .row:has(> .col--3 > .theme-doc-toc-desktop) > .col--3 {
+    display: none;
+  }
+
+  .row:has(> .col--3 > .theme-doc-toc-desktop) > .col:not(.col--3) {
+    max-width: 100% !important;
+  }
+}
+
+/* ═════════════════════════════════════════════════ até 996px (toque) */
+
+@media (max-width: 996px) {
+  /*
+   * Figuras de borda a borda.
+   *
+   * Em 390px o conteúdo começa a 16px de cada margem e a figura tem mais 16px
+   * de recuo interno: sobram 326px, ou ~37 caracteres a 14,7px. A mediana das
+   * figuras tem 53 caracteres e o percentil 90 tem 70 — praticamente toda
+   * figura rola.
+   *
+   * Sangrar até a borda e reduzir corpo e recuo leva de ~37 para ~50
+   * caracteres visíveis. O resto continua rolando, agora com a sombra
+   * indicando que rola e sem sequestrar o gesto de voltar.
+   */
+  .markdown > .theme-code-block {
+    --ifm-pre-padding: 0.75rem;
+
+    /*
+     * `max-width: none` é o que faz a sangria funcionar: com o limite de 100%
+     * o bloco continuaria com a largura da coluna e apenas escorregaria para
+     * a esquerda, sobrando do lado errado.
+     */
+    max-width: none;
+    margin-left: calc(-1 * var(--ifm-spacing-horizontal));
+    margin-right: calc(-1 * var(--ifm-spacing-horizontal));
+    border-left-width: 0;
+    border-right-width: 0;
+    border-radius: 0;
+  }
+
+  .markdown .theme-code-block pre {
+    font-size: 0.8rem;
+  }
+
+  /*
+   * Tabelas ocupam a largura disponível em vez de encolher ao conteúdo: uma
+   * comparação de duas colunas fica com metade da tela cada, que é como ela
+   * se lê.
+   */
+  .markdown table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .markdown table td,
+  .markdown table th {
+    overflow-wrap: anywhere;
+  }
+
+  /*
+   * A largura fixa serve às 600 comparações de duas colunas, que é o formato
+   * dominante. Nas ~60 tabelas de três ou mais, um terço de 358px não é
+   * coluna — essas voltam a rolar.
+   */
+  .markdown table:has(> thead > tr > th:nth-child(3)) {
+    display: block;
+    width: fit-content;
+    table-layout: auto;
+  }
+
+  .markdown > h2 {
+    margin-top: 2.25rem;
+    padding-top: 1.25rem;
+  }
+}
+
+/* ════════════════════════════════════════════════ ponteiro grosso */
+
+/* Alvos de toque abaixo de 44px são difíceis de acertar. */
+@media (pointer: coarse) {
+  .menu__link,
+  .menu__list-item-collapsible > .menu__link,
+  .pagination-nav__link {
+    min-height: 2.75rem;
+  }
+
+  .menu__link {
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════ impressão */
+
+@media print {
+  .markdown > h2 {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .markdown .theme-code-block pre {
+    background-image: none;
+  }
 }

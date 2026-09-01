@@ -360,5 +360,89 @@
   "theme.tags.tagsPageTitle": {
     "message": "Etiquetas",
     "description": "The title of the tag list page"
+  },
+  "sam.docType.concept": {
+    "message": "Conceito",
+    "description": "Rótulo de doc_type: concept"
+  },
+  "sam.docType.pattern": {
+    "message": "Padrão",
+    "description": "Rótulo de doc_type: pattern"
+  },
+  "sam.docType.foundation": {
+    "message": "Fundamento",
+    "description": "Rótulo de doc_type: foundation"
+  },
+  "sam.docType.tradeoff": {
+    "message": "Trade-off",
+    "description": "Rótulo de doc_type: tradeoff"
+  },
+  "sam.docType.caseStudy": {
+    "message": "Case",
+    "description": "Rótulo de doc_type: case-study"
+  },
+  "sam.docType.exercise": {
+    "message": "Exercício",
+    "description": "Rótulo de doc_type: exercise"
+  },
+  "sam.docType.adr": {
+    "message": "ADR",
+    "description": "Rótulo de doc_type: adr"
+  },
+  "sam.docType.reference": {
+    "message": "Referência",
+    "description": "Rótulo de doc_type: reference"
+  },
+  "readingProgress.toggle.doneTitle": {
+    "message": "Documento concluído",
+    "description": "Título do cartão quando o documento já foi lido"
+  },
+  "readingProgress.toggle.promptTitle": {
+    "message": "Terminou de ler este documento?",
+    "description": "Título do cartão convidando a marcar o documento como lido"
+  },
+  "readingProgress.toggle.hint": {
+    "message": "Seu progresso fica salvo apenas neste navegador.",
+    "description": "Aviso de que o progresso fica apenas neste navegador"
+  },
+  "readingProgress.toggle.title": {
+    "message": "O progresso fica salvo apenas neste navegador",
+    "description": "Tooltip do botão de marcar documento como lido"
+  },
+  "readingProgress.toggle.read": {
+    "message": "Lido",
+    "description": "Rótulo do botão quando o documento já foi lido"
+  },
+  "readingProgress.toggle.unread": {
+    "message": "Marcar como lido",
+    "description": "Rótulo do botão quando o documento ainda não foi lido"
+  },
+  "readingProgress.section.label": {
+    "message": "Progresso de leitura desta seção",
+    "description": "Rótulo acessível do bloco de progresso da seção"
+  },
+  "readingProgress.section.done": {
+    "message": "Seção concluída",
+    "description": "Título do painel quando toda a seção foi lida"
+  },
+  "readingProgress.section.title": {
+    "message": "Seu progresso nesta seção",
+    "description": "Título do painel de progresso da seção"
+  },
+  "readingProgress.section.count": {
+    "message": "{done} de {total} documentos lidos",
+    "description": "Contagem de documentos lidos na seção"
+  },
+  "readingProgress.section.unmarkAll": {
+    "message": "Desmarcar todos",
+    "description": "Botão para desmarcar todos os documentos da seção"
+  },
+  "readingProgress.section.markAll": {
+    "message": "Marcar todos como lidos",
+    "description": "Botão para marcar todos os documentos da seção como lidos"
+  },
+  "readingProgress.section.hint": {
+    "message": "O progresso fica salvo apenas neste navegador.",
+    "description": "Aviso de que o progresso fica apenas neste navegador"
   }
 }
