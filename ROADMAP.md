@@ -475,7 +475,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Propriedade de Arquitetura](docs/23-architecture-leadership/architecture-ownership.md) | concept | avançado | `team-topologies` | ⬜ |
 | 🟩 | [Apresentações de Arquitetura](docs/23-architecture-leadership/architecture-presentations.md) | concept | avançado | `communication` | ⬜ |
 | 🟩 | [Visão de Arquitetura](docs/23-architecture-leadership/architecture-vision.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
-| 🟩 | [Comunicação de Arquitetura](docs/23-architecture-leadership/communication.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Comunicação de Arquitetura](docs/23-architecture-leadership/communication.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Lei de Conway](docs/23-architecture-leadership/conways-law.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Gestão de Custo](docs/23-architecture-leadership/cost-management.md) | concept | avançado | `risk-management` | ⬜ |
 | 🟩 | [Arquitetura entre Times](docs/23-architecture-leadership/cross-team-architecture.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
