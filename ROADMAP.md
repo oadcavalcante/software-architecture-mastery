@@ -490,7 +490,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Medição de Resultados de Arquitetura](docs/23-architecture-leadership/measuring-architecture-outcomes.md) | concept | avançado | `fitness-functions` | 🟩 |
 | 🟩 | [Negociação de Trade-offs](docs/23-architecture-leadership/negotiating-tradeoffs.md) | concept | avançado | `decision-making` | 🟩 |
 | 🟩 | [Arquitetura Organizacional](docs/23-architecture-leadership/organizational-architecture.md) | concept | avançado | `conways-law` | ⬜ |
-| 🟩 | [Gestão de Risco](docs/23-architecture-leadership/risk-management.md) | concept | avançado | `decision-making` | ⬜ |
+| 🟩 | [Gestão de Risco](docs/23-architecture-leadership/risk-management.md) | concept | avançado | `decision-making` | 🟩 |
 | 🟩 | [Gestão de Interessados](docs/23-architecture-leadership/stakeholder-management.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Topologias de Time](docs/23-architecture-leadership/team-topologies.md) | concept | avançado | `conways-law` | 🟩 |
 | 🟩 | [Influência Técnica](docs/23-architecture-leadership/technical-influence.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
