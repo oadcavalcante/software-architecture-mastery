@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, blue-green, canary]
 canonical_for: [implantação em ondas, orçamento de indisponibilidade, tamanho de onda, parada automática]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -74,12 +74,15 @@ crítica:
 ```text
 rasa demais    a instância entra na rotação antes de estar pronta
                → erros durante a implantação
-profunda demais  depende de outros serviços
-               → uma dependência lenta trava a implantação inteira
+profunda demais  depende de recurso compartilhado pelas réplicas
+               → uma dependência lenta trava a implantação inteira,
+                 e derruba junto as instâncias antigas que estavam sãs
 ```
 
 Ver [Kubernetes](/09-cloud-architecture/kubernetes.md) — a distinção entre verificar
-que o processo vive e verificar que ele pode receber tráfego.
+que o processo vive e verificar que ele pode receber tráfego. A prontidão verifica o
+que é próprio da instância; numa implantação em ondas, apontá-la para um recurso
+compartilhado é o que trava a onda e remove as réplicas antigas junto.
 
 A verificação de prontidão precisa considerar o aquecimento: uma instância que subiu
 mas ainda tem cache vazio pode responder e não estar pronta para a fatia completa de
@@ -162,7 +165,7 @@ rapidamente — protege contra indisponibilidade durante a troca.
 
 **Sem configurar excedente**, em serviços com pouca folga.
 
-**Com verificação de saúde que depende de outros serviços.**
+**Com verificação de prontidão apontada para recurso compartilhado.**
 
 **Sem critério de parada.**
 
@@ -216,7 +219,7 @@ plano para resolver.
 
 **Não configurar máximo excedente.**
 
-**Verificação de prontidão consultando dependências.**
+**Verificação de prontidão consultando recurso compartilhado pelas réplicas.**
 
 **Não definir critério de parada.**
 
@@ -287,7 +290,7 @@ implantações.
 ## Perguntas de Entrevista
 
 - Por que máximo excedente importa mais que tamanho da onda?
-- Por que verificação de prontidão não deve consultar dependências?
+- Por que prontidão apontada para recurso compartilhado derruba o serviço inteiro?
 - Por que a reversão em ondas leva o mesmo tempo da implantação?
 
 ## Para Aprofundar

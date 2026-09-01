@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, serverless, managed-services]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -98,7 +98,15 @@ The classic mistake is pointing the liveness check at a check that depends on ot
 gets slow, the check fails, the pod is restarted — and restarting does not fix the database, it only makes
 things worse. See [failure detection](/06-distributed-systems/failure-detection.md).
 
-The rule: liveness checks only its own process; readiness may check dependencies.
+The rule: liveness checks only its own process; readiness checks whether **this
+instance** can serve — initialization done, warm-up complete, connection pool
+established.
+
+The part the short rule hides: readiness must **not** depend on a resource shared by
+all replicas. If all ten query the same database, one blip takes all ten out of
+rotation at once, and the service is left with no destination at all — partial
+degradation became a total outage. See
+[graceful degradation](/12-reliability/graceful-degradation.md).
 
 ### The cost is knowledge, not a license
 

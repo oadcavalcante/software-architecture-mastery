@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, serverless, managed-services]
 canonical_for: [Kubernetes, orquestração de contêineres, reconciliação declarativa]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -105,8 +105,15 @@ serviços: o banco fica lento, a verificação falha, o pod é reiniciado — e 
 não conserta o banco, só piora. Ver
 [detecção de falhas](/06-distributed-systems/failure-detection.md).
 
-Regra: liveness verifica apenas o próprio processo; readiness pode verificar
-dependências.
+Regra: liveness verifica apenas o próprio processo; readiness verifica se **esta
+instância** pode atender — inicialização concluída, aquecimento feito, pool de
+conexões estabelecido.
+
+A parte que a regra curta esconde: readiness **não** deve depender de recurso
+compartilhado por todas as réplicas. Se as dez consultam o mesmo banco, uma
+oscilação dele tira as dez da rotação ao mesmo tempo, e o serviço fica sem nenhum
+destino — degradação parcial virou queda total. Ver
+[degradação graciosa](/12-reliability/graceful-degradation.md).
 
 ### O custo é conhecimento, não licença
 

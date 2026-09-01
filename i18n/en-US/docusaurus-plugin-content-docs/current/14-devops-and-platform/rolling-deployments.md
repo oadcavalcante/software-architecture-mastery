@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, blue-green, canary]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -72,12 +72,15 @@ The wave only advances when the new instances are healthy. That makes the check 
 ```text
 too shallow   the instance enters the rotation before it is ready
               → errors during the deployment
-too deep      it depends on other services
-              → a slow dependency stalls the whole deployment
+too deep      it depends on a resource shared by the replicas
+              → a slow dependency stalls the whole deployment,
+                and takes down the healthy old instances with it
 ```
 
 See [Kubernetes](/09-cloud-architecture/kubernetes.md) — the distinction between checking that the process
-is alive and checking that it can receive traffic.
+is alive and checking that it can receive traffic. Readiness checks what is particular to the instance;
+in a rolling deployment, pointing it at a shared resource is what stalls the wave and removes the old
+replicas along with it.
 
 The readiness check needs to consider warming: an instance that came up but still has an empty cache can
 respond and not be ready for the full slice of traffic.
@@ -157,7 +160,7 @@ protects against unavailability during the switch.
 
 **Without configuring surge**, on services with little headroom.
 
-**With a health check that depends on other services.**
+**With a readiness check pointed at a shared resource.**
 
 **With no stopping criterion.**
 
@@ -211,7 +214,7 @@ resolve it.
 
 **Not configuring max surge.**
 
-**A readiness check querying dependencies.**
+**A readiness check querying a resource shared by the replicas.**
 
 **Not defining a stopping criterion.**
 
@@ -275,7 +278,7 @@ calculation usually explains latency spikes nobody had connected to deployments.
 ## Interview Questions
 
 - Why does max surge matter more than the wave size?
-- Why should the readiness check not query dependencies?
+- Why does readiness pointed at a shared resource take down the whole service?
 - Why does a rolling rollback take the same time as the deployment?
 
 ## Further Reading
