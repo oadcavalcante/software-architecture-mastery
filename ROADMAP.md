@@ -211,7 +211,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Mensagens Duplicadas](docs/06-distributed-systems/duplicate-messages.md) | concept | intermediário | `delivery-guarantees`, `idempotency` | 🟩 |
 | 🟩 | [Sistemas Orientados a Eventos](docs/06-distributed-systems/event-driven-systems.md) | concept | avançado | `messaging` | 🟩 |
 | 🟩 | [Consistência Eventual](docs/06-distributed-systems/eventual-consistency.md) | concept | avançado | `consistency` | 🟩 |
-| 🟩 | [Exercício 04 — Escalar o E-commerce](docs/06-distributed-systems/exercises/04-scaling-ecommerce.md) | exercise | intermediário | `03-ecommerce-backend` | ⬜ |
+| 🟩 | [Exercício 04 — Escalar o E-commerce](docs/06-distributed-systems/exercises/04-scaling-ecommerce.md) | exercise | intermediário | `03-ecommerce-backend` | 🟩 |
 | 🟩 | [Exercício 05 — Introduzir Processamento Assíncrono](docs/06-distributed-systems/exercises/05-async-processing.md) | exercise | avançado | `04-scaling-ecommerce` | 🟩 |
 | 🟩 | [Exercício 06 — Lidar com Falhas Parciais](docs/06-distributed-systems/exercises/06-partial-failure.md) | exercise | avançado | `05-async-processing` | 🟩 |
 | 🟩 | [Detecção de Falha](docs/06-distributed-systems/failure-detection.md) | concept | avançado | `network-failure` | 🟩 |
