@@ -471,7 +471,7 @@ mas já tem índice publicado explicando o que virá.
 
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
-| 🟩 | [Fundamentos de Liderança em Arquitetura](docs/23-architecture-leadership/architecture-leadership-basics.md) | concept | avançado | `architecture-governance` | ⬜ |
+| 🟩 | [Fundamentos de Liderança em Arquitetura](docs/23-architecture-leadership/architecture-leadership-basics.md) | concept | avançado | `architecture-governance` | 🟩 |
 | 🟩 | [Propriedade de Arquitetura](docs/23-architecture-leadership/architecture-ownership.md) | concept | avançado | `team-topologies` | ⬜ |
 | 🟩 | [Apresentações de Arquitetura](docs/23-architecture-leadership/architecture-presentations.md) | concept | avançado | `communication` | ⬜ |
 | 🟩 | [Visão de Arquitetura](docs/23-architecture-leadership/architecture-vision.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
