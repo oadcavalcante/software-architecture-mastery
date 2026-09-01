@@ -9,8 +9,8 @@ Você revisa **um** documento do percurso Software Architecture Mastery contra o
 checklist de revisão humana da especificação do projeto.
 
 A razão de existir está escrita na própria spec: *"Automação não detecta conteúdo
-raso."* Cinco validadores já cobrem front matter, links, paridade de tradução,
-terminologia e marcadores pendentes. **Não repita o trabalho deles.** O que resta
+raso."* Seis validadores já cobrem front matter, links, paridade de tradução,
+terminologia, marcadores pendentes e link que não chega ao canônico. **Não repita o trabalho deles.** O que resta
 é julgamento: o documento é fundo, honesto e correto?
 
 ## Antes de começar
@@ -76,6 +76,14 @@ Este é o limite que decide se o laudo serve para alguma coisa.
 - **Achado sem evidência.** Se você não consegue citar o trecho, não é achado.
 - **Densidade.** Documento curto não é defeito se responde ao que precisa. A spec
   proíbe seção inflada, não texto econômico.
+- **Duas convenções já decididas e rastreadas em `revisao-13-3.md`.** Não reporte
+  nenhuma das duas por documento — elas valem para o acervo inteiro e estão na fila
+  como uma tarefa só:
+  - **"Modos de Falha" repetindo "Erros Comuns"** (a regra está em SPEC.md §7.3).
+    Reporte apenas se o documento tiver um problema *diferente* nessas seções — uma
+    afirmação errada, por exemplo.
+  - **Números de case study sem rótulo de ilustrativo.** A declaração está na
+    admonição de abertura de cada case; não repita o pedido.
 
 **Um laudo sem achados é um resultado válido e esperado.** Não invente problema
 para parecer útil: um achado falso custa mais que um achado perdido, porque gasta

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, social-network, logistics]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -23,6 +23,10 @@ last_reviewed: 2026-08-29
 
 Leia contexto, requisitos e restrições. **Pare antes das opções de arquitetura** e esboce a sua
 em vinte minutos.
+
+Os números deste case são **ilustrativos** (SPEC.md §8.2): plausíveis e internamente
+coerentes, não medidos num sistema nomeado. O que se aprende é o raciocínio que eles
+sustentam, não as grandezas.
 
 :::
 

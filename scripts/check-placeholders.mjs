@@ -148,8 +148,17 @@ function checkDoc(doc, report) {
   }
 
   // Densidade.
+  //
+  // A faixa mede profundidade argumentativa, que é propriedade do conteúdo — e o
+  // conteúdo é decidido no canônico. Aplicá-la também à tradução mede duas vezes
+  // a mesma coisa, com ruído: a razão observada entre tradução e canônico varia
+  // de 0,95 a 1,07, então um canônico logo acima do piso produz uma tradução
+  // logo abaixo dele, e o aviso não diz nada sobre o documento.
+  //
+  // A tradução responde por outra pergunta — perdeu conteúdo? — verificada em
+  // `checkTranslationLength` contra o próprio canônico.
   const range = WORD_RANGE[fm.doc_type];
-  if (range && complete) {
+  if (range && complete && doc.locale === CANONICAL_LOCALE) {
     const words = wordCount(doc.body);
     const [lo, hi] = range;
     if (words < lo) {
@@ -165,9 +174,38 @@ function checkDoc(doc, report) {
   }
 }
 
+/**
+ * Tradução muito mais curta que o canônico perdeu conteúdo.
+ *
+ * Os limites saem da distribuição real dos 446 pares: a razão vai de 0,95 a 1,07,
+ * com mediana 1,01. 0,85 e 1,25 ficam bem fora dessa faixa, de modo que o aviso
+ * sinaliza seção esquecida ou bloco duplicado, não variação de idioma.
+ */
+const RATIO_MIN = 0.85;
+const RATIO_MAX = 1.25;
+
+function checkTranslationLength(all, report) {
+  const canonical = new Map(
+    all.filter((d) => d.locale === CANONICAL_LOCALE).map((d) => [d.docPath, wordCount(d.body)]),
+  );
+  for (const doc of all) {
+    if (doc.locale === CANONICAL_LOCALE) continue;
+    const base = canonical.get(doc.docPath);
+    if (!base) continue; // tradução órfã: `check-parity` responde por ela
+    const words = wordCount(doc.body);
+    const ratio = words / base;
+    if (ratio < RATIO_MIN) {
+      report.warn(doc.repoPath, `${words} palavras contra ${base} do canônico (${(ratio * 100).toFixed(0)}%) — provável seção perdida na tradução`);
+    } else if (ratio > RATIO_MAX) {
+      report.warn(doc.repoPath, `${words} palavras contra ${base} do canônico (${(ratio * 100).toFixed(0)}%) — provável conteúdo duplicado`);
+    }
+  }
+}
+
 const report = new Report('placeholders');
 const all = loadAll();
 for (const doc of all) checkDoc(doc, report);
+checkTranslationLength(all, report);
 
 const completeCount = all.filter((d) => d.frontmatter.status === 'complete').length;
 process.exit(report.finish(`${all.length} documento(s), ${completeCount} com status complete`));

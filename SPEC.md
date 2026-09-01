@@ -453,10 +453,12 @@ O que mais resolve esse problema, e sob que condições cada alternativa vence.
 O que se ganha e o que se perde. Preferencialmente em tabela, com o eixo de comparação explícito.
 
 ## Modos de Falha
-Como isso quebra em produção. Sintoma observável, não só causa.
+Como isso quebra em produção. **O que se observa, antes de saber a causa** — o que aparece
+no painel, no log, no chamado. Escrito da perspectiva de quem opera.
 
 ## Erros Comuns
-Erros que engenheiros de fato cometem — não erros de manual.
+A decisão de quem constrói que leva até lá, com a consequência nomeada. Erros que
+engenheiros de fato cometem — não erros de manual.
 
 ## Exemplo Real
 Um sistema concreto, com números plausíveis e restrições explícitas.
@@ -496,6 +498,27 @@ O tipo `foundation` existe porque exigir "Quando Não Usar" de um documento defi
 incoerente: não há o que aplicar em "Arquitetura vs. Design". Forçar a seção produziria
 exatamente o filler que esta spec proíbe. O que um documento definicional omite não é o
 limite de aplicação — é por que a distinção muda alguma decisão.
+
+#### As duas seções que mais se confundem
+
+"Modos de Falha" e "Erros Comuns" respondem a perguntas diferentes e acabam dizendo a
+mesma coisa duas vezes. O teste que separa:
+
+```text
+Modos de Falha    "a memória cresce entre reinícios até o processo ser morto"
+                  → o operador vê isso e ainda não sabe por quê
+
+Erros Comuns      "registrar observador sem cancelar o registro no descarte —
+                  cada tela aberta deixa um observador vivo"
+                  → quem escreveu o código reconhece a própria decisão
+```
+
+**Se um item cabe nas duas seções, ele está na forma errada em uma delas.** O de "Modos
+de Falha" foi escrito como causa quando devia ser sintoma; ou o de "Erros Comuns" foi
+escrito como rótulo quando devia trazer a consequência.
+
+Um documento pode omitir qualquer das duas — §7.3 não as torna obrigatórias para todo
+tipo. O que ele não pode é trazer as duas dizendo o mesmo.
 
 ### 7.4 Regra antiduplicação
 

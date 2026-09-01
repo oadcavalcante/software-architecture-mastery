@@ -191,6 +191,51 @@ describe('check-placeholders', () => {
     assert.match(r.output, /acima da faixa de "index"/);
   });
 
+  // A faixa mede profundidade do conteúdo, decidida no canônico. Medi-la também na
+  // tradução acusava o idioma, não o documento: a razão real entre os 446 pares vai
+  // de 0,95 a 1,07, então canônico logo acima do piso dava tradução logo abaixo.
+  test('não aplica a faixa de densidade a documento traduzido', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/01-x/index.md': frontmatter({
+        id: 'x', doc_type: 'index', status: 'complete',
+      }) + '\n# X\n\n' + 'palavra '.repeat(600),
+      'i18n/en-US/docusaurus-plugin-content-docs/current/01-x/index.md': frontmatter({
+        id: 'x', doc_type: 'index', status: 'complete',
+        content_version: undefined, translated_from_version: 1, canonical_for: [],
+      }) + '\n# X\n\n' + 'word '.repeat(590),
+    });
+    assert.equal(r.code, 0);
+    assert.doesNotMatch(r.output, /faixa de "index"/);
+    assert.match(r.output, /0 aviso/);
+  });
+
+  test('avisa quando a tradução é muito mais curta que o canônico', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/01-x/index.md': frontmatter({
+        id: 'x', doc_type: 'index', status: 'complete',
+      }) + '\n# X\n\n' + 'palavra '.repeat(600),
+      'i18n/en-US/docusaurus-plugin-content-docs/current/01-x/index.md': frontmatter({
+        id: 'x', doc_type: 'index', status: 'complete',
+        content_version: undefined, translated_from_version: 1, canonical_for: [],
+      }) + '\n# X\n\n' + 'word '.repeat(300),
+    });
+    assert.equal(r.code, 0, 'perda de conteúdo é aviso, não erro');
+    assert.match(r.output, /provável seção perdida na tradução/);
+  });
+
+  test('avisa quando a tradução é muito mais longa que o canônico', () => {
+    const r = check('check-placeholders.mjs', {
+      'docs/01-x/index.md': frontmatter({
+        id: 'x', doc_type: 'index', status: 'complete',
+      }) + '\n# X\n\n' + 'palavra '.repeat(600),
+      'i18n/en-US/docusaurus-plugin-content-docs/current/01-x/index.md': frontmatter({
+        id: 'x', doc_type: 'index', status: 'complete',
+        content_version: undefined, translated_from_version: 1, canonical_for: [],
+      }) + '\n# X\n\n' + 'word '.repeat(900),
+    });
+    assert.match(r.output, /provável conteúdo duplicado/);
+  });
+
   test('rejeita seção declarada e vazia em documento completo', () => {
     fails(
       check('check-placeholders.mjs', {

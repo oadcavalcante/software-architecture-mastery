@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [legacy-modernization-case, logistics, saas-platform]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -26,6 +26,10 @@ sketch your own in twenty minutes. Only then continue.
 
 The value is not in agreeing with the text's decision — it is in discovering which constraint
 you hadn't considered.
+
+This case's numbers are **illustrative** (SPEC.md §8.2): plausible and internally
+consistent, not measured in a named system. What is learned is the reasoning they
+support, not the magnitudes.
 
 :::
 
