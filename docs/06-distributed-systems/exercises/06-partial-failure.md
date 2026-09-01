@@ -13,7 +13,7 @@ objective: >
 prerequisites: [05-async-processing]
 related: [partial-failure, idempotency, retries, duplicate-messages]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::info Continuação
 
 Este exercício resolve o caso `5c` que ficou aberto no
-[exercício 04](/06-distributed-systems/exercises/05-async-processing.md): a autorização é enviada e nenhuma resposta chega.
+[exercício 05](/06-distributed-systems/exercises/05-async-processing.md): a autorização é enviada e nenhuma resposta chega.
 
 :::
 
@@ -68,7 +68,7 @@ retentativa         o adquirente não garante idempotência;
                     reenviar a mesma requisição pode cobrar de novo
 arquivo diário      o adquirente envia um arquivo de conciliação
                     às 4h, com todas as transações do dia anterior
-reserva de estoque  30 minutos, do exercício 02
+reserva de estoque  30 minutos, do exercício 03
 regulatório         cobrança indevida tem prazo de estorno e
                     reporte obrigatório
 ```

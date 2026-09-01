@@ -13,7 +13,7 @@ objective: >
 prerequisites: [04-scaling-ecommerce]
 related: [messaging, delivery-guarantees, idempotency, eventual-consistency]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::info Continuação
 
 Este exercício executa a primeira correção que você identificou no
-[exercício 03](/06-distributed-systems/exercises/04-scaling-ecommerce.md): tirar a chamada ao adquirente de dentro da transação.
+[exercício 04](/06-distributed-systems/exercises/04-scaling-ecommerce.md): tirar a chamada ao adquirente de dentro da transação.
 
 :::
 
@@ -55,7 +55,7 @@ adquirente        API síncrona, sem idempotência garantida;
                   responde entre 400 ms e 3 s, com tempo esgotado
                   em ~0,2% das chamadas
 reserva de
-  estoque         expira em 30 minutos, do exercício 02
+  estoque         expira em 30 minutos, do exercício 03
 aplicativo        versões de até 14 meses em campo; a tela de
                   confirmação atual mostra "pedido confirmado"
                   imediatamente
@@ -123,13 +123,13 @@ Sua resposta é fraca se ela descreve uma fila e um consumidor e termina aí.
 5a. autorizado    → pedido "confirmado", cliente notificado
 5b. recusado      → pedido "recusado", reserva liberada,
                     cliente notificado com o motivo
-5c. sem resposta  → pedido "em verificação" — ver exercício 05
+5c. sem resposta  → pedido "em verificação" — ver exercício 06
 ```
 
 O passo 2 é o que impede pedido sem evento e evento sem pedido. Sem ele, a fila e o banco
 divergem sob falha.
 
-**O passo 5c é onde o exercício 05 começa.** Se você o resolveu aqui assumindo recusa, releia:
+**O passo 5c é onde o exercício 06 começa.** Se você o resolveu aqui assumindo recusa, releia:
 0,2% de 48 mil pedidos por dia são 96 casos diários em que você não sabe se cobrou.
 
 **A parte que custa é a de produto:**
