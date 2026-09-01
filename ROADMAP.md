@@ -476,14 +476,14 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Apresentações de Arquitetura](docs/23-architecture-leadership/architecture-presentations.md) | concept | avançado | `communication` | ⬜ |
 | 🟩 | [Visão de Arquitetura](docs/23-architecture-leadership/architecture-vision.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
 | 🟩 | [Comunicação de Arquitetura](docs/23-architecture-leadership/communication.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
-| 🟩 | [Lei de Conway](docs/23-architecture-leadership/conways-law.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Lei de Conway](docs/23-architecture-leadership/conways-law.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Gestão de Custo](docs/23-architecture-leadership/cost-management.md) | concept | avançado | `risk-management` | ⬜ |
 | 🟩 | [Arquitetura entre Times](docs/23-architecture-leadership/cross-team-architecture.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
 | 🟩 | [Tomada de Decisão](docs/23-architecture-leadership/decision-making.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
 | 🟩 | [Arquitetura Evolutiva](docs/23-architecture-leadership/evolutionary-architecture.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
 | 🟩 | [Exercício 09 — Apresentar e Defender](docs/23-architecture-leadership/exercises/09-present-and-defend.md) | exercise | avançado | `communication` | ⬜ |
 | 🟩 | [Funções de Aptidão](docs/23-architecture-leadership/fitness-functions.md) | concept | avançado | `evolutionary-architecture` | ⬜ |
-| 🟩 | [Liderança em Arquitetura](docs/23-architecture-leadership/index.md) | index | avançado | `architecture-governance`, `enterprise-architecture` | ⬜ |
+| 🟩 | [Liderança em Arquitetura](docs/23-architecture-leadership/index.md) | index | avançado | `architecture-governance`, `enterprise-architecture` | 🟩 |
 | 🟩 | [Governança sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-governance.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
 | 🟩 | [Princípios sob a Ótica de Quem Escreve](docs/23-architecture-leadership/leadership-principles.md) | concept | avançado | `architecture-vision` | ⬜ |
 | 🟩 | [Padrões sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-standards.md) | concept | avançado | `leadership-principles` | ⬜ |
