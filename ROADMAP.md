@@ -484,7 +484,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Exercício 09 — Apresentar e Defender](docs/23-architecture-leadership/exercises/09-present-and-defend.md) | exercise | avançado | `communication` | ⬜ |
 | 🟩 | [Funções de Aptidão](docs/23-architecture-leadership/fitness-functions.md) | concept | avançado | `evolutionary-architecture` | ⬜ |
 | 🟩 | [Liderança em Arquitetura](docs/23-architecture-leadership/index.md) | index | avançado | `architecture-governance`, `enterprise-architecture` | 🟩 |
-| 🟩 | [Governança sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-governance.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Governança sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-governance.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Princípios sob a Ótica de Quem Escreve](docs/23-architecture-leadership/leadership-principles.md) | concept | avançado | `architecture-vision` | 🟩 |
 | 🟩 | [Padrões sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-standards.md) | concept | avançado | `leadership-principles` | 🟩 |
 | 🟩 | [Medição de Resultados de Arquitetura](docs/23-architecture-leadership/measuring-architecture-outcomes.md) | concept | avançado | `fitness-functions` | ⬜ |
