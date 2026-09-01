@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, banking, legacy-modernization-case]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -225,10 +225,11 @@ complexidade      alta
 | Conformidade regulatória | 20% | 9 | 8 | 4 |
 | Complexidade e risco | 15% | 8 | 6 | 3 |
 | Capacidade da equipe | 10% | 8 | 7 | 4 |
-| **Total ponderado** | | **7,3** | **8,2** | **5,3** |
+| **Total ponderado** | | **7,3** | **8,2** | **5,1** |
 
-**Análise de sensibilidade.** Com continuidade em 45%, os totais viram 6,3 / 8,6 / 6,1. Com
-conformidade em 40%, viram 8,0 / 8,2 / 4,6 — a Opção B mantém vantagem estreita. A Opção C não
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais
+critérios. Com continuidade em 45%, os totais viram 6,6 / 8,3 / 5,7. Com conformidade em 40%,
+viram 7,7 / 8,1 / 4,8 — a Opção B mantém vantagem estreita. A Opção C não
 vence em nenhum cenário testado, e a razão é estrutural: ela dificulta simultaneamente
 consolidação e trilha de acesso, que são os dois problemas declarados.
 

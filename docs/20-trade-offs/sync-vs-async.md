@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [consistency-vs-availability, monolith-vs-microservices, strong-vs-eventual-consistency]
 canonical_for: [síncrono contra assíncrono, indisponibilidade composta, custo do estado pendente, resposta imediata]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -47,8 +47,10 @@ enquanto cada equipe olha apenas o seu número.
 
 Ver [disponibilidade](/06-distributed-systems/availability.md).
 
-A latência compõe da mesma forma, e pior: ela **soma**, e o p99 de uma cadeia é dominado
-pelo pior elo.
+A latência compõe de forma parecida, e pior: as médias somam, mas os percentis **não**. O p99
+da cadeia não é o do pior elo — a chance de algum elo cair na própria cauda cresce com o número
+de elos, e a cauda da cadeia fica pior que a de qualquer um deles isoladamente. Ver
+[latência](/06-distributed-systems/latency.md).
 
 ```text
 A 20 ms + B 40 ms + C 80 ms + D 30 ms = 170 ms no caminho feliz
@@ -292,7 +294,7 @@ p99,9                                                24 s
 emissões perdidas por tempo excedido                 ~3 200/mês
 ```
 
-O bureau externo, sozinho, respondia por 71% da indisponibilidade.
+O bureau externo, sozinho, respondia por 84% da indisponibilidade.
 
 A mudança foi híbrida, não um giro completo para assíncrono:
 

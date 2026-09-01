@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, banking, legacy-modernization-case]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -225,10 +225,11 @@ complexity        high
 | Regulatory compliance | 20% | 9 | 8 | 4 |
 | Complexity and risk | 15% | 8 | 6 | 3 |
 | Team capability | 10% | 8 | 7 | 4 |
-| **Weighted total** | | **7.3** | **8.2** | **5.3** |
+| **Weighted total** | | **7.3** | **8.2** | **5.1** |
 
-**Sensitivity analysis.** With continuity at 45%, the totals become 6.3 / 8.6 / 6.1. With
-compliance at 40%, they become 8.0 / 8.2 / 4.6 — Option B keeps a narrow advantage. Option C wins
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other
+criteria. With continuity at 45%, the totals become 6.6 / 8.3 / 5.7. With compliance at 40%, they
+become 7.7 / 8.1 / 4.8 — Option B keeps a narrow advantage. Option C wins
 in no scenario tested, and the reason is structural: it simultaneously hinders consolidation and
 the access trail, which are the two stated problems.
 

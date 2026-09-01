@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [consistency-vs-availability, monolith-vs-microservices, strong-vs-eventual-consistency]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -47,8 +47,10 @@ each team looks only at its own number.
 
 See [availability](/06-distributed-systems/availability.md).
 
-Latency compounds the same way, and worse: it **adds up**, and a chain's p99 is dominated by
-the worst link.
+Latency compounds in a similar way, and worse: means add up, but percentiles **don't**. A
+chain's p99 is not the worst link's — the chance of some link falling into its own tail grows
+with the number of links, and the chain's tail ends up worse than any of them in isolation. See
+[latency](/06-distributed-systems/latency.md).
 
 ```text
 A 20 ms + B 40 ms + C 80 ms + D 30 ms = 170 ms on the happy path
@@ -294,7 +296,7 @@ p99.9                                                24 s
 issuances lost to timeout                            ~3,200/month
 ```
 
-The external bureau alone accounted for 71% of the unavailability.
+The external bureau alone accounted for 84% of the unavailability.
 
 The change was hybrid, not a full swing to asynchronous:
 
