@@ -515,7 +515,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Case: Transporte por Aplicativo](docs/21-case-studies/ride-sharing.md) | case-study | avançado | `trade-offs` | 🟩 |
 | 🟩 | [Case: Plataforma SaaS](docs/21-case-studies/saas-platform.md) | case-study | avançado | `trade-offs` | 🟩 |
 | 🟩 | [Case: Rede Social](docs/21-case-studies/social-network.md) | case-study | avançado | `trade-offs` | 🟩 |
-| 🟩 | [Case: Streaming de Vídeo](docs/21-case-studies/video-streaming.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Streaming de Vídeo](docs/21-case-studies/video-streaming.md) | case-study | avançado | `trade-offs` | 🟩 |
 | 🟩 | [Cálculo de Guardanapo](docs/22-system-design-interviews/back-of-envelope.md) | concept | intermediário | `capacity-estimation` | 🟩 |
 | 🟩 | [Identificação de Gargalo](docs/22-system-design-interviews/bottleneck-identification.md) | concept | intermediário | `high-level-architecture` | 🟩 |
 | 🟩 | [Estimativa em Entrevista](docs/22-system-design-interviews/capacity-estimation.md) | concept | intermediário | `functional-vs-nonfunctional` | 🟩 |
