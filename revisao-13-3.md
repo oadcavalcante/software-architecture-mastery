@@ -32,21 +32,31 @@ dela não se projeta sobre os 53 restantes.
 | `20-trade-offs/sync-vs-async.md` | "o p99 de uma cadeia é dominado pelo pior elo" contradiz `/06-distributed-systems/latency.md`, canônico do tema | Reescrito; link para o canônico acrescentado |
 | `08-integration-architecture/service-mesh.md` | Com 9 chamadas por salto, três saltos dão 9³ = 729, não 27 — o 27 é a conta sem a camada da malha, que é o tema do documento | Duas ocorrências e o exercício corrigidos; a instrução era linear onde a amplificação é exponencial |
 
+### Afirmações absolutas (§8.1) — corrigidas
+
+| Documento | Trecho |
+|---|---|
+| `09-cloud-architecture/multi-region.md` | "divergência passou a ser impossível" — configuração como código reduz divergência, não a elimina; o item seguinte do próprio texto existe para o que fica fora dela |
+| `11-scalability/queue-based-scaling.md` | "\| Exige fila \| Funciona sempre \|" — o eixo é disponibilidade da métrica, e o próprio texto diz que CPU é substituto ruim |
+| `11-scalability/queue-based-scaling.md` | "o melhor indicador de escalonamento", desmentido doze linhas depois pela idade da mensagem mais antiga |
+| `14-devops-and-platform/blue-green.md` | "o desenho mais robusto e o mais usado em sistemas maduros" — superlativo sem eixo mais alegação de adoção sem fonte |
+| `12-reliability/graceful-degradation.md` | "a técnica de **maior retorno em confiabilidade**", que sustentava a `description` e uma pergunta de entrevista; e a justificativa ("não exige infraestrutura nem coordenação") era desmentida pelo próprio Exemplo Real |
+| `06-distributed-systems/distributed-cqrs.md` | "Nenhum índice relacional resolve isso" — contradiz `/05-system-design/search.md`, que trata pular direto para índice dedicado como o erro dominante da área |
+
+Dois efeitos colaterais fechados junto: `12-reliability/index.md` repetia a
+afirmação removida, e `canary.md` tinha a mesma célula absoluta do
+`queue-based-scaling`.
+
 ## Pendente — decisão editorial
 
 Verificados, não corrigidos: mudam o que o texto afirma, e a escolha é do autor.
 
-### Afirmações absolutas (§8.1)
+### Afirmações absolutas que exigem escrever conteúdo novo
 
 | Documento | Trecho |
 |---|---|
-| `06-distributed-systems/idempotency.md` | "**Não há caso em que idempotência seja indesejável.**" — em negrito, abrindo "Quando Não Usar"; e "Consumidores de fila, **sem exceção**", contradito doze linhas depois |
-| `01-fundamentals/coupling.md` | "Não existe reduzir um sem aumentar o outro", contradito pela tabela do próprio documento |
-| `09-cloud-architecture/multi-region.md` | "divergência passou a ser impossível" — configuração como código reduz divergência, não a elimina |
-| `11-scalability/queue-based-scaling.md` | "\| Exige fila \| Funciona sempre \|", contradito pelo próprio texto sobre CPU como substituto ruim |
-| `12-reliability/graceful-degradation.md` | "a técnica de **maior retorno em confiabilidade**" — sustenta a `description`, a Visão Geral e uma pergunta de entrevista que pede para justificar em vez de examinar |
-| `14-devops-and-platform/blue-green.md` | "o desenho mais robusto e o mais usado em sistemas maduros" |
-| `06-distributed-systems/distributed-cqrs.md` | "Nenhum índice relacional resolve isso" — contradiz `/05-system-design/search.md` |
+| `06-distributed-systems/idempotency.md` | "**Não há caso em que idempotência seja indesejável.**" — em negrito, abrindo "Quando Não Usar", e "Consumidores de fila, **sem exceção**", contradito doze linhas depois. Tirar o absoluto deixa a seção obrigatória vazia: alguém precisa **escrever** as condições reais |
+| `01-fundamentals/coupling.md` | "Não existe reduzir um sem aumentar o outro", contradito pela tabela do próprio documento, que mostra reduções de acoplamento sem duplicação nenhuma. Exige reenquadrar o eixo do trade-off |
 
 ### Contradições entre documentos — resolvidas
 
