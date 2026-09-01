@@ -511,7 +511,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Case: Logística e Malha de Entregas](docs/21-case-studies/logistics.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Plataforma de Mensageria](docs/21-case-studies/messaging-platform.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Sistema Corporativo Multi-inquilino](docs/21-case-studies/multi-tenant-enterprise.md) | case-study | avançado | `trade-offs` | ⬜ |
-| 🟩 | [Case: Plataforma de Pagamentos](docs/21-case-studies/payments.md) | case-study | avançado | `trade-offs` | ⬜ |
+| 🟩 | [Case: Plataforma de Pagamentos](docs/21-case-studies/payments.md) | case-study | avançado | `trade-offs` | 🟩 |
 | 🟩 | [Case: Transporte por Aplicativo](docs/21-case-studies/ride-sharing.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Plataforma SaaS](docs/21-case-studies/saas-platform.md) | case-study | avançado | `trade-offs` | ⬜ |
 | 🟩 | [Case: Rede Social](docs/21-case-studies/social-network.md) | case-study | avançado | `trade-offs` | ⬜ |
