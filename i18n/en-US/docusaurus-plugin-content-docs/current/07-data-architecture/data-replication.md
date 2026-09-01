@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-partitioning, data-consistency, olap]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -163,7 +163,7 @@ necessary and they do not replace each other.
 - **Backups with tested restores** — for human error and corruption.
 - **[Partitioning](/07-data-architecture/data-partitioning.md)** — for write scale.
 - **Cache** — to reduce reads without replicating.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — a projection with its own model instead of
+- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — a projection with its own model instead of
   an identical copy.
 
 ## Trade-offs

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [normalization]
 related: [olap, data-modeling, indexing]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -144,7 +144,7 @@ more than you write.
 - **Materialized view** — the database maintains the copy and updates it; less code and less risk of
   divergence.
 - **Cache** — duplication with a deadline, and the expiry takes care of coherence.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — explicit separation with a rebuildable
+- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — explicit separation with a rebuildable
   projection.
 
 The materialized view is underused: it delivers denormalization's benefit with the maintenance handled
@@ -236,7 +236,7 @@ checking is a bet on permanent discipline from every future team.
 - [Normalization](/07-data-architecture/normalization.md) — the inverse decision.
 - [Indexing](/07-data-architecture/indexing.md) — check first.
 - [OLAP](/07-data-architecture/olap.md) — where denormalizing is the default.
-- [CQRS](/06-distributed-systems/distributed-cqrs.md).
+- [CQRS](/03-design-patterns/cqrs.md).
 
 ## Practical Exercise
 

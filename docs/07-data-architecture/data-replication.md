@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-partitioning, data-consistency, olap]
 canonical_for: [réplica de leitura, troca de primário, réplica atrasada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -168,7 +168,7 @@ proteções são necessárias e não se substituem.
 - **Cópia de segurança com restauração testada** — para erro humano e corrupção.
 - **[Particionamento](/07-data-architecture/data-partitioning.md)** — para escala de escrita.
 - **Cache** — para reduzir leitura sem replicar.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — projeção com modelo
+- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — projeção com modelo
   próprio em vez de cópia idêntica.
 
 ## Trade-offs

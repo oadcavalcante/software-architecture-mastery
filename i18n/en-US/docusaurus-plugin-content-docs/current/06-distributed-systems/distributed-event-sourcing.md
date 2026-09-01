@@ -13,7 +13,7 @@ objective: >
 prerequisites: [event-driven-systems]
 related: [distributed-cqrs, eventual-consistency, ordering]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -75,7 +75,7 @@ from the log.
 Querying by replaying events does not scale. Reading happens over **projections** — materialized views
 built from the log.
 
-That makes [CQRS](/06-distributed-systems/distributed-cqrs.md) practically mandatory, and brings
+That makes [distributed CQRS](/06-distributed-systems/distributed-cqrs.md) practically mandatory, and brings
 [eventual consistency](/06-distributed-systems/eventual-consistency.md) between write and read.
 
 Event sourcing's specific gain here: a new projection can be built retroactively, over the entire

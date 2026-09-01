@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-replication, scaling-partitioning, hotspots]
 canonical_for: [escala de banco de dados, pool de conexões, contenção de escrita, escada de escalada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -176,7 +176,7 @@ Cada degrau tem seu momento:
 ## Alternativas
 
 - **Reduzir a escrita** — agrupar, tornar assíncrona, eliminar a desnecessária.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
+- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
   separado.
 - **Armazenamento adequado por carga** — busca num índice invertido, série temporal
   num banco próprio. Ver

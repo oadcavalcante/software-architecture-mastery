@@ -13,7 +13,7 @@ objective: >
 prerequisites: [normalization]
 related: [olap, data-modeling, indexing]
 canonical_for: [desnormalização, duplicação controlada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -151,7 +151,7 @@ ganho.
 - **Visão materializada** — o banco mantém a cópia e a atualiza; menos código e
   menos risco de divergência.
 - **Cache** — duplicação com prazo, e a expiração cuida da coerência.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — separação explícita
+- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — separação explícita
   com projeção reconstruível.
 
 A visão materializada é subutilizada: ela entrega o benefício da desnormalização
@@ -249,7 +249,7 @@ times futuros.
 - [Normalização](/07-data-architecture/normalization.md) — a decisão inversa.
 - [Indexação](/07-data-architecture/indexing.md) — verifique antes.
 - [OLAP](/07-data-architecture/olap.md) — onde desnormalizar é o padrão.
-- [CQRS](/06-distributed-systems/distributed-cqrs.md).
+- [CQRS](/03-design-patterns/cqrs.md).
 
 ## Exercício Prático
 

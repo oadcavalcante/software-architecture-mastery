@@ -13,7 +13,7 @@ objective: >
 prerequisites: [event-driven-systems]
 related: [distributed-cqrs, eventual-consistency, ordering]
 canonical_for: [event sourcing distribuído, reprocessamento de projeção, snapshot de agregado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -78,7 +78,7 @@ regerando a partir do log.
 Consultar reproduzindo eventos não escala. A leitura acontece sobre **projeções** —
 visões materializadas construídas a partir do log.
 
-Isso torna [CQRS](/06-distributed-systems/distributed-cqrs.md) praticamente obrigatório, e traz
+Isso torna [CQRS distribuído](/06-distributed-systems/distributed-cqrs.md) praticamente obrigatório, e traz
 [consistência eventual](/06-distributed-systems/eventual-consistency.md) entre escrita e leitura.
 
 O ganho específico do event sourcing aqui: uma projeção nova pode ser construída

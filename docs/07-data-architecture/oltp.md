@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [olap, indexing, transactions]
 canonical_for: [OLTP, carga transacional]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -157,7 +157,7 @@ deixou de ser opcional.
 
 - **[OLAP](/07-data-architecture/olap.md)** — para a carga analítica.
 - **Réplica de leitura** — separação barata, mesmo modelo.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — modelos separados.
+- **[CQRS](/03-design-patterns/cqrs.md)** — modelos separados.
 - **Cache** — para leitura repetida de dados quentes.
 
 ## Trade-offs

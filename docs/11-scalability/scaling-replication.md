@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, scaling-partitioning, scaling-cache]
 canonical_for: [réplica para escala de leitura, amplificação de escrita, classificação de leitura]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -161,7 +161,7 @@ ponto em que a escrita, aplicada em toda parte, consome os nós.
 
 - **[Cache](/11-scalability/scaling-cache.md)** — mais barato para leitura repetida.
 - **[Particionamento](/11-scalability/scaling-partitioning.md)** — quando o limite é escrita.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
+- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
   próprio, otimizado.
 - **Visão materializada** — pré-cálculo no próprio banco.
 

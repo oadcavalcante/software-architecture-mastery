@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-modeling]
 related: [denormalization, relational-databases, oltp]
 canonical_for: [normalização, forma normal, anomalia de atualização]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -149,7 +149,7 @@ modelagem correta. São fatos diferentes — "o preço do produto" e "o preço p
 - **Visão materializada** — a forma normalizada permanece; a leitura consulta a
   visão.
 - **Modelo dimensional** — para analítico.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — normalizado para
+- **[CQRS](/03-design-patterns/cqrs.md)** — normalizado para
   escrita, desnormalizado para leitura.
 
 ## Trade-offs

@@ -2,71 +2,78 @@
 id: distributed-cqrs
 title: Distributed CQRS
 sidebar_position: 39
-description: Separating the write model from the read model — and why the separation without distinct stores rarely pays off.
+description: CQRS level 3 up close — what changes when the read model lives in another system, fed asynchronously.
 doc_type: pattern
 level: 4
 difficulty: advanced
 status: complete
 objective: >
-  By the end, the reader distinguishes the degrees of CQRS and applies only what the real
-  problem requires.
-prerequisites: [event-driven-systems]
-related: [distributed-event-sourcing, eventual-consistency, replication]
+  By the end, the reader recognizes when CQRS level 3 is justified, and what it costs to
+  operate once it is built.
+prerequisites: [event-driven-systems, cqrs]
+related: [cqrs, distributed-event-sourcing, eventual-consistency, replication]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
 # Distributed CQRS
 
+> Prerequisite: [CQRS](/03-design-patterns/cqrs.md) establishes what the separation is and
+> the three levels it appears in. Here the focus is level 3 — what changes when the read
+> model lives in **another system**, fed asynchronously.
+
 ## Overview
 
-CQRS separates the model used to **change** data from the model used to **query** data.
+At levels 1 and 2 the separation is one of code and of model, inside the same transaction. Level 3
+breaks that: reading becomes a store of its own, updated after the write, by a process that can lag,
+fail or fall behind.
 
-The idea is simple and the degree of application varies a great deal — from separating classes in the
-same database to maintaining completely different stores, fed asynchronously.
-
-Confusion between those degrees is the source of most badly calibrated adoptions: teams pay the cost
-of the maximum degree to solve problems the minimum degree would solve.
+What was a design decision becomes a distributed system. Three things now exist that did not before: a
+projection to rebuild, a window in which the two sides disagree, and a lag to monitor.
 
 ## Problem
 
-A single model serves two purposes with opposite needs.
+Level 3's cost is not in building it — it is in operating it afterwards.
 
-**Writing** needs invariants, normalization, transactions and validation.
+```text
+build      a projection fed by events: days
+operate    tested rebuild, monitored lag, verified divergence,
+           eventual consistency handled in the interface: forever
+```
 
-**Reading** needs ready data, denormalized, in the screen's format.
-
-Serving both with the same model produces queries with many joins, or denormalization that
-complicates writing — and the two workloads compete for the same resource.
+Badly calibrated adoptions pay the second line to solve a problem that level 2, or an index, would
+solve.
 
 ## Core Concepts
 
-### The degrees, and choosing the smallest sufficient one
+### What separates level 3 from a read replica
 
-**Degree 1 — separation in the code.** Commands and queries in different types, the same database,
-the same tables. Nearly zero cost. It solves readability and allows optimizing queries without
-carrying the domain model.
+Both split the read load from the write load, and stop resembling each other there.
 
-**Degree 2 — separate models over the same database.** Reading uses views or direct optimized
-queries; writing uses the domain model. Still transactionally consistent.
+```text
+                    read replica          level 3
+schema              the same              its own, in the query's shape
+technology          the same              chosen by the read side
+feeding             the database itself   a process you write and operate
+rebuild             reprovision           reprocess from scratch
+what you operate    nothing new           projection, lag, divergence
+```
 
-**Degree 3 — read replica.** The same schema, a separate server. It introduces lag. See
+A read replica solves **volume**; level 3 solves **shape and technology**. Confusing the two makes a
+team adopt projections for a problem the replica would solve. See
 [replication](/06-distributed-systems/replication.md).
 
-**Degree 4 — a distinct read store.** A different database, with its own schema, fed by events.
-Eventual consistency, projections to maintain, rebuilds to operate.
+Level 3 is justified when the read side has a technology requirement the write database does not meet —
+full-text search at scale, graph, analytics — or when the load asymmetry requires scaling the two sides
+separately.
 
-The recommendation: **most systems that "need CQRS" need degree 1 or 2.** Degree 4 is justified when
-the read side has a different technology requirement — full-text search, graph, analytics — or when
-the load asymmetry is large enough to require independent scaling.
-
-Adopting degree 4 for elegance pays eventual consistency, projections and rebuild operations to solve
+Adopting level 3 for elegance pays eventual consistency, projections and rebuild operations to solve
 a problem a view would solve.
 
 ### The projection has to be rebuildable
 
-At degree 4, the read model is derived. That means it can be discarded and rebuilt — and that
+At level 3, the read model is derived. That means it can be discarded and rebuilt — and that
 capability has to be exercised, not merely exist in theory.
 
 A defect in the projection corrupts the reads. The fix is to fix the code and rebuild. If the rebuild
@@ -76,7 +83,7 @@ The practice that works: rebuilding periodically in a test environment, and know
 
 ### Eventual consistency leaks into the interface
 
-At degree 3 or 4, a user who performs an action and immediately queries may not see the effect.
+At level 3 — and with a read replica too — a user who performs an action and immediately queries may not see the effect.
 
 See [eventual consistency](/06-distributed-systems/eventual-consistency.md). The mitigations —
 optimistic update, explicit state, reading directly from the write model for the author — have to be
@@ -86,7 +93,7 @@ Ignoring that produces the most common complaint in CQRS systems: "I saved and i
 
 ### Multiple projections are the main benefit
 
-The gain that justifies degree 4 when it is justified: the same write feeds different projections,
+The gain that justifies level 3 when it is justified: the same write feeds different projections,
 each in the appropriate store.
 
 ```text
@@ -110,7 +117,7 @@ leads teams to adopt two expensive patterns when they needed one cheap one.
 
 ## Mental Model
 
-**CQRS is a scale, not a switch.** The right question is what the smallest degree that solves the
+**CQRS is a scale, not a switch.** The right question is what the smallest level that solves the
 real problem is.
 
 ## When to Use
@@ -125,7 +132,7 @@ real problem is.
 
 **In CRUD.** The cost is full and the benefit is nil.
 
-**Degree 4 when degree 1 or 2 solves it.** The most common calibration error.
+**Level 3 when level 1 or 2 solves it.** The most common calibration error.
 
 **When strong consistency between write and read is a requirement.**
 
@@ -151,7 +158,7 @@ index would have solved.
 
 ## Trade-offs
 
-| Degree 1–2 | Degree 4 |
+| Level 1–2 | Level 3 |
 |---|---|
 | Transactional consistency | Eventual |
 | One store | Two or more |
@@ -173,11 +180,11 @@ index would have solved.
 
 **The interface showing stale data as current.**
 
-**Complexity with no benefit.** Degree 4 over CRUD.
+**Complexity with no benefit.** Level 3 over CRUD.
 
 ## Common Mistakes
 
-**Jumping straight to degree 4.**
+**Jumping straight to level 3.**
 
 **Adopting it along with event sourcing without evaluating them separately.**
 
@@ -195,7 +202,7 @@ silent loss.
 A contract management system had slow queries on the main screen: a listing with filters that joined
 seven tables, with a 4-second response time.
 
-The initial proposal was degree 4 CQRS with a projection in a document store, fed by events.
+The initial proposal was level 3 CQRS with a projection in a document store, fed by events.
 
 Before implementing, the team ran a check that changed the decision.
 
@@ -206,9 +213,9 @@ the screen. Removed, the time dropped to 1.8 seconds.
 
 **A materialized view** for the aggregate that was still expensive. Final time: 90 ms.
 
-None of those is degree 4 CQRS. The problem was solved with three days of work.
+None of those is level 3 CQRS. The problem was solved with three days of work.
 
-A year later, a new requirement genuinely justified degree 4: full-text search over the contracts'
+A year later, a new requirement genuinely justified level 3: full-text search over the contracts'
 content, with typo tolerance, facet aggregation and relevance tuned by business
 signals — and with a search load high enough to compete with the transactional one.
 The database's own text search was measured first and did not sustain the last two.
@@ -234,7 +241,8 @@ months to solve an index problem.
 
 - [Distributed Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md) — independent.
 - [Eventual Consistency](/06-distributed-systems/eventual-consistency.md) — the consequence.
-- [Replication](/06-distributed-systems/replication.md) — the intermediate degree.
+- [CQRS](/03-design-patterns/cqrs.md) — the three levels and choosing between them.
+- [Replication](/06-distributed-systems/replication.md) — solves volume, not shape.
 - [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md) — how the projection is fed.
 
 ## Practical Exercise
@@ -247,7 +255,7 @@ candidate.
 
 ## Interview Questions
 
-- What are the degrees of CQRS and how do you choose between them?
+- Why is a read replica not a level of CQRS?
 - Why does CQRS not require event sourcing?
 - How do you detect that a projection has diverged?
 

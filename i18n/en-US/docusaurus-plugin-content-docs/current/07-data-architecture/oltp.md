@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [olap, indexing, transactions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -152,7 +152,7 @@ stopped being optional.
 
 - **[OLAP](/07-data-architecture/olap.md)** — for the analytical workload.
 - **Read replica** — a cheap separation, the same model.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — separate models.
+- **[CQRS](/03-design-patterns/cqrs.md)** — separate models.
 - **Cache** — for repeated reads of hot data.
 
 ## Trade-offs

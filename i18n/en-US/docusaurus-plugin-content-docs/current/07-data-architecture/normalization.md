@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-modeling]
 related: [denormalization, relational-databases, oltp]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -139,7 +139,7 @@ modeling. They are different facts — "the product's price" and "the price paid
 - **Selective [denormalization](/07-data-architecture/denormalization.md)** — at measured points.
 - **Materialized view** — the normalized form remains; the read queries the view.
 - **Dimensional model** — for analytics.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — normalized for writing, denormalized for
+- **[CQRS](/03-design-patterns/cqrs.md)** — normalized for writing, denormalized for
   reading.
 
 ## Trade-offs

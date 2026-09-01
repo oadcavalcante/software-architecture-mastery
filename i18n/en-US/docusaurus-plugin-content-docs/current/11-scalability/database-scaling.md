@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-replication, scaling-partitioning, hotspots]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -168,7 +168,7 @@ Each rung has its moment:
 ## Alternatives
 
 - **Reducing the writes** — batching, making them asynchronous, eliminating the unnecessary ones.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — a separate read model.
+- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — a separate read model.
 - **Appropriate storage per workload** — search in an inverted index, time series in a database of their
   own. See [NoSQL](/07-data-architecture/nosql.md).
 - **A distributed relational database** — it keeps the model and distributes the writes, at the cost of

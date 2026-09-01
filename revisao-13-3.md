@@ -48,14 +48,17 @@ Verificados, não corrigidos: mudam o que o texto afirma, e a escolha é do auto
 | `14-devops-and-platform/blue-green.md` | "o desenho mais robusto e o mais usado em sistemas maduros" |
 | `06-distributed-systems/distributed-cqrs.md` | "Nenhum índice relacional resolve isso" — contradiz `/05-system-design/search.md` |
 
-### Contradições entre documentos
+### Contradições entre documentos — resolvidas
 
-| Onde | O quê |
+As quatro foram fechadas. As duas primeiras exigiram decisão editorial; as duas
+últimas tinham resolução óbvia, porque o canônico decide.
+
+| Onde | Resolução |
 |---|---|
-| `rolling-deployments.md` × `kubernetes.md` | Um trata prontidão consultando dependências como erro; o outro diz "readiness pode verificar dependências" — e o primeiro linka para o segundo |
-| `distributed-cqrs.md` × `03-design-patterns/cqrs.md` | Duas escalas de CQRS em paralelo: quatro graus contra três níveis, com semântica cruzada. Seis documentos citam uma ou outra |
-| `service-mesh.md` × `12-reliability/retry-storms.md` | A aritmética de amplificação foi reproduzida em vez de referenciada, e divergiu do canônico sem ninguém notar |
-| `multi-region.md` × `disaster-recovery.md` | Duas taxonomias de failover sem mapeamento; e ativo-ativo classificado como custo "alto" aqui e "muito alto" lá |
+| `rolling-deployments.md` × `kubernetes.md` | A distinção que faltava não é própria contra externa, é **própria da instância contra compartilhada pelas réplicas**. Readiness verifica se esta instância pode atender; apontada para recurso que todas consultam, uma oscilação tira todas da rotação e degradação parcial vira queda total. Os dois documentos passam a dizer isso, cada um do seu ângulo |
+| `distributed-cqrs.md` × `03-design-patterns/cqrs.md` | O canônico decide (§7.4): o documento distribuído adotou os três níveis, deixou de ter escala própria, abriu com nota de pré-requisito e virou o recorte do nível 3. A réplica de leitura saiu de "grau" e ganhou a comparação que faltava. Os 9 links que o chamavam de "CQRS" foram reavaliados um a um: 5 mantiveram o alvo com rótulo honesto, 3 passaram a apontar para o canônico |
+| `service-mesh.md` × `12-reliability/retry-storms.md` | A aritmética foi corrigida e o link repontado para o canônico |
+| `multi-region.md` × `disaster-recovery.md` | Custo de ativo-ativo alinhado em "muito alto"; "ativo-passivo quente" ganhou a ponte para a "espera quente" do canônico, que o frio já tinha |
 
 ### Lacunas técnicas
 

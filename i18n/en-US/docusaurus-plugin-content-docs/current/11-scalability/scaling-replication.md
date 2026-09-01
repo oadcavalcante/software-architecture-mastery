@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, scaling-partitioning, scaling-cache]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -153,7 +153,7 @@ applied everywhere, consume the nodes.
 
 - **[Caching](/11-scalability/scaling-cache.md)** — cheaper for repeated reads.
 - **[Partitioning](/11-scalability/scaling-partitioning.md)** — when the limit is writes.
-- **[CQRS](/06-distributed-systems/distributed-cqrs.md)** — a read model of its own, optimized.
+- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — a read model of its own, optimized.
 - **A materialized view** — precomputation in the database itself.
 
 ## Trade-offs
