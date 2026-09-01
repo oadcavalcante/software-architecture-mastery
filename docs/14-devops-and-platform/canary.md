@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, blue-green, feature-flags]
 canonical_for: [canary, análise de canary, expansão gradual, comparação de coorte]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -200,7 +200,7 @@ usuários.
 |---|---|
 | Detecta o problema | Não detecta |
 | Exposição mínima | 0% ou 100% |
-| Exige métricas e volume | Funciona sempre |
+| Exige métricas e volume | Aplicável a qualquer serviço |
 | Complexo | Simples |
 | Duas versões por mais tempo | Só na troca |
 

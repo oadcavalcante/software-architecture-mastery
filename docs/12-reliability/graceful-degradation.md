@@ -2,7 +2,7 @@
 id: graceful-degradation
 title: Degradação Graciosa
 sidebar_position: 13
-description: Funcionar pior em vez de parar — a técnica de maior retorno em confiabilidade, e a menos aplicada.
+description: Funcionar pior em vez de parar — barata onde a redundância é cara, e a menos aplicada.
 doc_type: pattern
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, slo]
 canonical_for: [degradação graciosa, funcionalidade essencial, resposta de reserva]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -24,8 +24,10 @@ last_reviewed: 2026-08-28
 Degradação graciosa é continuar funcionando com capacidade reduzida quando parte do
 sistema falha, em vez de parar por completo.
 
-É a técnica de **maior retorno em confiabilidade**, porque não exige redundância,
-infraestrutura adicional nem coordenação. Exige uma decisão: **o que é essencial?**
+Rende mais que redundância quando as dependências não essenciais já estão no
+caminho crítico: ela não exige capacidade ociosa permanente, que é o custo da
+outra. O que exige é uma decisão — **o que é essencial?** — e os caminhos
+alternativos que essa decisão cria.
 
 E é a menos aplicada, porque essa decisão é de produto, e raramente alguém a pede.
 
@@ -297,7 +299,7 @@ classificação e o comportamento atual é o trabalho.
 
 ## Perguntas de Entrevista
 
-- Por que degradação é a técnica de maior retorno em confiabilidade?
+- Em que condições degradar rende mais que redundar?
 - Quando degradar silenciosamente e quando avisar?
 - O que não deve degradar, e por quê?
 

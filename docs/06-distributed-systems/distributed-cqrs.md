@@ -13,7 +13,7 @@ objective: >
 prerequisites: [event-driven-systems]
 related: [distributed-event-sourcing, eventual-consistency, replication]
 canonical_for: [CQRS distribuído, modelo de leitura, modelo de escrita, projeção]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -226,8 +226,10 @@ Nenhuma dessas é CQRS grau 4. O problema estava resolvido com três dias de
 trabalho.
 
 Um ano depois, um requisito novo justificou de fato o grau 4: busca textual sobre o
-conteúdo dos contratos, com relevância e destaque de trechos. Nenhum índice
-relacional resolve isso.
+conteúdo dos contratos, com tolerância a erro de digitação, agregação por faceta e
+relevância ajustada por sinais de negócio — e com volume de busca alto o bastante
+para competir com a carga transacional. A busca textual do banco foi medida antes e
+não sustentou os dois últimos. Ver [busca](/05-system-design/search.md).
 
 A implementação foi limitada ao necessário: uma projeção para o índice de busca,
 alimentada por eventos, com o restante das consultas continuando no banco

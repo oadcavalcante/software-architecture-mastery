@@ -13,7 +13,7 @@ objective: >
 prerequisites: [async-processing]
 related: [async-processing, horizontal-scaling, scaling-capacity-planning]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -26,8 +26,8 @@ A queue between the producer and the consumer decouples the **arrival rate** fro
 That resolves the problem capacity does not resolve well: short, intense peaks that last less than the time
 to provision machines.
 
-And it offers the best scaling indicator available — the **queue depth**, which reacts before any resource
-metric.
+And it offers an indicator that reacts before any resource metric — the **queue
+depth**.
 
 ## Problem
 
@@ -62,7 +62,7 @@ notices.
 The check: the **average processing capacity needs to exceed the average arrival rate**. If it does not, no
 queue resolves it.
 
-### Depth is the best scaling indicator
+### The queue gives the indicator that reacts first
 
 ```text
 CPU            reacts after the work is already running late
@@ -186,7 +186,7 @@ capacity.
 |---|---|
 | Reacts earlier | Later |
 | Translates into experience | It does not |
-| Requires a queue | Always works |
+| Requires a queue | Available in any service |
 
 ## Failure Modes
 

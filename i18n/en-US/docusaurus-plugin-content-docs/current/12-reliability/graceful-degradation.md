@@ -2,7 +2,7 @@
 id: graceful-degradation
 title: Graceful Degradation
 sidebar_position: 13
-description: Working worse instead of stopping — reliability's highest-return technique, and the least applied.
+description: Working worse instead of stopping — cheap where redundancy is expensive, and the least applied.
 doc_type: pattern
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, slo]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,10 @@ last_reviewed: 2026-08-31
 Graceful degradation is continuing to work with reduced capability when part of the system fails, instead
 of stopping completely.
 
-It is reliability's **highest-return technique**, because it requires neither redundancy, nor additional
-infrastructure, nor coordination. It requires one decision: **what is essential?**
+It returns more than redundancy when the non-essential dependencies are already on the
+critical path: it does not require permanently idle capacity, which is the other's
+cost. What it does require is one decision — **what is essential?** — and the
+alternative paths that decision creates.
 
 And it is the least applied, because that decision belongs to product, and somebody rarely asks for it.
 
@@ -295,7 +297,7 @@ current behavior is the work.
 
 ## Interview Questions
 
-- Why is degradation reliability's highest-return technique?
+- Under what conditions does degrading return more than adding redundancy?
 - When to degrade silently and when to notify?
 - What should not degrade, and why?
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [async-processing]
 related: [async-processing, horizontal-scaling, scaling-capacity-planning]
 canonical_for: [escala dirigida por fila, profundidade de fila, amortecedor de carga, descarte por prazo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -27,8 +27,8 @@ processamento**.
 Isso resolve o problema que capacidade não resolve bem: picos curtos e intensos, que
 duram menos que o tempo de provisionar máquinas.
 
-E ela oferece o melhor indicador de escalonamento disponível — a **profundidade da
-fila**, que reage antes de qualquer métrica de recurso.
+E ela oferece um indicador que reage antes de qualquer métrica de recurso — a
+**profundidade da fila**.
 
 ## Problema
 
@@ -66,7 +66,7 @@ crescente que ninguém percebe.
 A verificação: a **capacidade média de processamento precisa exceder a taxa média de
 chegada**. Se não exceder, nenhuma fila resolve.
 
-### A profundidade é o melhor indicador de escalonamento
+### A fila dá o indicador que reage antes
 
 ```text
 CPU                  reage depois que o trabalho já está atrasando
@@ -199,7 +199,7 @@ não substitui capacidade.
 |---|---|
 | Reage antes | Depois |
 | Traduz-se em experiência | Não |
-| Exige fila | Funciona sempre |
+| Exige fila | Disponível em qualquer serviço |
 
 ## Modos de Falha
 

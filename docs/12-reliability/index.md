@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [scalability, cloud-architecture, observability]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -68,7 +68,7 @@ antes do incidente.
 Comece por **SLI, SLO e SLA**, nessa ordem. Sem alvo definido, todo o resto é esforço
 sem critério de parada.
 
-Depois **degradação graciosa**, que é a técnica de maior retorno e a menos aplicada.
+Depois **degradação graciosa**, barata onde a redundância é cara, e a menos aplicada.
 
 **Circuit breaker**, **bulkhead** e **tempestades de retentativa** formam um bloco e
 devem ser lidos juntos — os dois primeiros existem por causa do terceiro.

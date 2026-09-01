@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, blue-green, feature-flags]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -194,7 +194,7 @@ The last is the right choice when the behavior can be compared without affecting
 |---|---|
 | Detects the problem | Does not detect |
 | Minimal exposure | 0% or 100% |
-| Requires metrics and volume | Always works |
+| Requires metrics and volume | Applicable to any service |
 | Complex | Simple |
 | Two versions for longer | Only during the switch |
 

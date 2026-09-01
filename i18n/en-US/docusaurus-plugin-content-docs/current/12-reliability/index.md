@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [scalability, cloud-architecture, observability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -67,7 +67,7 @@ incident.
 Start with **SLI, SLO and SLA**, in that order. With no defined target, everything else is effort with no
 stopping criterion.
 
-Then **graceful degradation**, which is the highest-return technique and the least applied.
+Then **graceful degradation**, cheap where redundancy is expensive, and the least applied.
 
 **Circuit breakers**, **bulkheads** and **retry storms** form a block and should be read together — the
 first two exist because of the third.

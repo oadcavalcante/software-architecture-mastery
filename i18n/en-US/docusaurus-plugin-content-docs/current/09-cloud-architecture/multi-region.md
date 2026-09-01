@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [regions, availability-zones, disaster-recovery]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -256,7 +256,9 @@ problems; the third, none.
 
 **Quota provisioned** for full capacity in both regions.
 
-**Configuration as code**, a single one, applied to both — divergence became impossible.
+**Configuration as code**, a single one, applied to both — configuration divergence
+stopped being silent. What falls outside it goes on diverging, and that is what the
+next item covers.
 
 **A per-region dependency inventory**, verified automatically.
 

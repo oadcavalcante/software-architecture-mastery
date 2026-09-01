@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, canary, rolling-deployments]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -169,7 +169,9 @@ is what needs to be designed.
 - **Blue-green with a canary on the switch** — switching gradually instead of all at once, combining the
   two.
 
-The last is the most robust design and the most used in mature systems.
+The last wins where there is volume for the canary to be statistically significant and
+the cost of the duplicated environment is already paid. Below that, it adds process
+without adding information.
 
 ## Trade-offs
 

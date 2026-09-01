@@ -13,7 +13,7 @@ objective: >
 prerequisites: [event-driven-systems]
 related: [distributed-event-sourcing, eventual-consistency, replication]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -209,7 +209,10 @@ the screen. Removed, the time dropped to 1.8 seconds.
 None of those is degree 4 CQRS. The problem was solved with three days of work.
 
 A year later, a new requirement genuinely justified degree 4: full-text search over the contracts'
-content, with relevance and snippet highlighting. No relational index solves that.
+content, with typo tolerance, facet aggregation and relevance tuned by business
+signals — and with a search load high enough to compete with the transactional one.
+The database's own text search was measured first and did not sustain the last two.
+See [search](/05-system-design/search.md).
 
 The implementation was limited to what was necessary: one projection for the search index, fed by
 events, with the rest of the queries staying on the relational database.

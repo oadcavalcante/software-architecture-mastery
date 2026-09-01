@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, canary, rolling-deployments]
 canonical_for: [blue-green, troca de ambiente, ambiente inativo, aquecimento de ambiente]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -176,7 +176,9 @@ compatibilidade do estado compartilhado é o que precisa ser projetado.
 - **Blue-green com canary na troca** — trocar gradualmente em vez de de uma vez,
   combinando os dois.
 
-A última é o desenho mais robusto e o mais usado em sistemas maduros.
+A última vence quando há volume para o canary ser estatisticamente significativo e
+o custo do ambiente duplicado já está pago. Abaixo disso, ela acrescenta processo
+sem acrescentar informação.
 
 ## Trade-offs
 

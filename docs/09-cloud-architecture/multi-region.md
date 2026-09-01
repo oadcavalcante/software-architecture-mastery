@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [regions, availability-zones, disaster-recovery]
 canonical_for: [multi-região, ativo-passivo, ativo-ativo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -260,8 +260,9 @@ primeiro exercício encontrou dois problemas novos; o terceiro, nenhum.
 
 **Cota provisionada** para capacidade total nas duas regiões.
 
-**Configuração como código**, única, aplicada às duas — divergência passou a ser
-impossível.
+**Configuração como código**, única, aplicada às duas — divergência de
+configuração deixou de ser silenciosa. O que fica fora dela continua divergindo, e
+é o que o item seguinte cobre.
 
 **Inventário de dependências por região**, verificado automaticamente.
 
