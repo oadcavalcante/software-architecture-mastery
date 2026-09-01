@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, food-delivery, ecommerce]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -233,7 +233,7 @@ encomenda entre rotas às 14h exige que dois veículos se encontrem, o que raram
 | Viabilidade física | 20% | 8 | 9 | 3 |
 | Complexidade e risco | 15% | 8 | 6 | 3 |
 | Capacidade da equipe | 10% | 9 | 7 | 4 |
-| **Total ponderado** | | **5,3** | **7,8** | **6,0** |
+| **Total ponderado** | | **5,7** | **7,8** | **5,6** |
 
 O critério de viabilidade física existe porque a Opção C esbarra numa restrição do mundo real,
 não de software: a carga está fisicamente no veículo, e mover encomendas entre rotas durante o
