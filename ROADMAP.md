@@ -442,7 +442,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Radar Tecnológico](docs/15-enterprise-architecture/technology-radar.md) | pattern | intermediário | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Transição](docs/15-enterprise-architecture/transition-architecture.md) | concept | avançado | `target-architecture` | 🟩 |
 | 🟩 | [Migração de Dados](docs/16-legacy-modernization/data-migration.md) | concept | avançado | `legacy-modernization` | 🟩 |
-| 🟩 | [Exercício 08 — Modernizar um Legado](docs/16-legacy-modernization/exercises/08-modernize-legacy.md) | exercise | avançado | `migration-strategies` | ⬜ |
+| 🟩 | [Exercício 08 — Modernizar um Legado](docs/16-legacy-modernization/exercises/08-modernize-legacy.md) | exercise | avançado | `migration-strategies` | 🟩 |
 | 🟩 | [Modernização Incremental](docs/16-legacy-modernization/incremental-modernization.md) | concept | avançado | `migration-strategies` | 🟩 |
 | 🟩 | [Modernização de Legado](docs/16-legacy-modernization/index.md) | index | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Refatoração de Legado](docs/16-legacy-modernization/legacy-refactoring.md) | concept | avançado | `legacy-systems` | 🟩 |
