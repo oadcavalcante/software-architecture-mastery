@@ -13,7 +13,7 @@ objective: >
 prerequisites: [communication]
 related: [architecture-presentations, stakeholder-management, negotiating-tradeoffs, cost-management]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::info O último do percurso
 
 Este exercício usa **a sua própria proposta** do
-[exercício 07](/16-legacy-modernization/exercises/08-modernize-legacy.md). Se você não o
+[exercício 08](/16-legacy-modernization/exercises/08-modernize-legacy.md). Se você não o
 fez, faça antes — não há o que apresentar sem ela.
 
 :::
@@ -115,7 +115,7 @@ Sua resposta está boa se:
 - **Você identificou a menor aprovação suficiente.** Talvez a fase 1 caiba no orçamento vigente,
   e o plurianual possa esperar novembro.
 
-Sua resposta é fraca se ela é a arquitetura do exercício 07 traduzida para uma linguagem mais
+Sua resposta é fraca se ela é a arquitetura do exercício 08 traduzida para uma linguagem mais
 simples. Simplificar não é traduzir.
 
 ## Discussão
@@ -126,7 +126,7 @@ simples. Simplificar não é traduzir.
 
 ```text
 "Peço autorização para contratar oito engenheiros e começar em
- 60 meses uma modernização do sistema de compra de safra.
+ 60 dias uma modernização do sistema de compra de safra.
 
  A razão imediata: a norma de rastreabilidade tem prazo de 30
  meses e multa. As duas pessoas que conseguem mexer no sistema

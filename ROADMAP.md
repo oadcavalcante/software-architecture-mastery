@@ -481,7 +481,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Arquitetura entre Times](docs/23-architecture-leadership/cross-team-architecture.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Tomada de Decisão](docs/23-architecture-leadership/decision-making.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Arquitetura Evolutiva](docs/23-architecture-leadership/evolutionary-architecture.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
-| 🟩 | [Exercício 09 — Apresentar e Defender](docs/23-architecture-leadership/exercises/09-present-and-defend.md) | exercise | avançado | `communication` | ⬜ |
+| 🟩 | [Exercício 09 — Apresentar e Defender](docs/23-architecture-leadership/exercises/09-present-and-defend.md) | exercise | avançado | `communication` | 🟩 |
 | 🟩 | [Funções de Aptidão](docs/23-architecture-leadership/fitness-functions.md) | concept | avançado | `evolutionary-architecture` | 🟩 |
 | 🟩 | [Liderança em Arquitetura](docs/23-architecture-leadership/index.md) | index | avançado | `architecture-governance`, `enterprise-architecture` | 🟩 |
 | 🟩 | [Governança sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-governance.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
