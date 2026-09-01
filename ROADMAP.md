@@ -478,7 +478,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Comunicação de Arquitetura](docs/23-architecture-leadership/communication.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Lei de Conway](docs/23-architecture-leadership/conways-law.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Gestão de Custo](docs/23-architecture-leadership/cost-management.md) | concept | avançado | `risk-management` | 🟩 |
-| 🟩 | [Arquitetura entre Times](docs/23-architecture-leadership/cross-team-architecture.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Arquitetura entre Times](docs/23-architecture-leadership/cross-team-architecture.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Tomada de Decisão](docs/23-architecture-leadership/decision-making.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Arquitetura Evolutiva](docs/23-architecture-leadership/evolutionary-architecture.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Exercício 09 — Apresentar e Defender](docs/23-architecture-leadership/exercises/09-present-and-defend.md) | exercise | avançado | `communication` | ⬜ |
