@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-decomposition]
 related: [service-boundaries, apis, state-management, queues]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 :::info Este exercício tem sequência
 
-O sistema que você projetar aqui reaparece nos exercícios **03**, **04**, **05** e **06**, cada
+O sistema que você projetar aqui reaparece nos exercícios **04**, **05**, **06** e **07**, cada
 vez sob uma restrição nova. As decisões que você tomar agora não são descartáveis — você vai
 conviver com elas.
 
@@ -165,7 +165,7 @@ pedido que não existe. Reserva precisa ser uma entidade com prazo, não uma sub
 3. o formato exposto ao cliente na consulta de pedido
 ```
 
-A segunda é a que os exercícios 03, 04 e 05 vão atacar. Guarde-a.
+A segunda é a que os exercícios 04, 05 e 06 vão atacar. Guarde-a.
 
 :::
 
