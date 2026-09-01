@@ -485,7 +485,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Funções de Aptidão](docs/23-architecture-leadership/fitness-functions.md) | concept | avançado | `evolutionary-architecture` | ⬜ |
 | 🟩 | [Liderança em Arquitetura](docs/23-architecture-leadership/index.md) | index | avançado | `architecture-governance`, `enterprise-architecture` | 🟩 |
 | 🟩 | [Governança sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-governance.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
-| 🟩 | [Princípios sob a Ótica de Quem Escreve](docs/23-architecture-leadership/leadership-principles.md) | concept | avançado | `architecture-vision` | ⬜ |
+| 🟩 | [Princípios sob a Ótica de Quem Escreve](docs/23-architecture-leadership/leadership-principles.md) | concept | avançado | `architecture-vision` | 🟩 |
 | 🟩 | [Padrões sob a Ótica de Quem Estabelece](docs/23-architecture-leadership/leadership-standards.md) | concept | avançado | `leadership-principles` | ⬜ |
 | 🟩 | [Medição de Resultados de Arquitetura](docs/23-architecture-leadership/measuring-architecture-outcomes.md) | concept | avançado | `fitness-functions` | ⬜ |
 | 🟩 | [Negociação de Trade-offs](docs/23-architecture-leadership/negotiating-tradeoffs.md) | concept | avançado | `decision-making` | 🟩 |

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, leadership-standards, leadership-governance]
 canonical_for: [formulação de princípio, princípio derivado de precedente, aposentadoria de princípio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -264,7 +264,7 @@ critério citado                                   ADRs
 demais critérios, com menos de 5 citações         —
 ```
 
-Cinco critérios cobriam 105 das 96 decisões — vários ADRs citavam mais de um.
+Os cinco critérios somavam 105 citações nas 96 decisões — vários ADRs citavam mais de um.
 
 **Teste do inverso** aplicado aos cinco: os quatro primeiros passaram com folga; o quinto foi
 contestado internamente, porque a organização tinha construído três sistemas que o mercado
