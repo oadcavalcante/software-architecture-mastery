@@ -94,7 +94,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Heurísticas de Design](docs/02-software-design/design-heuristics.md) | foundation | intermediário | `clean-code` | 🟩 |
 | 🟩 | [DRY](docs/02-software-design/dry.md) | concept | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Encapsulamento](docs/02-software-design/encapsulation.md) | concept | iniciante | `fundamentals` | 🟩 |
-| 🟩 | [Exercício 02 — Sistema de Biblioteca](docs/02-software-design/exercises/02-library-system.md) | exercise | iniciante | `modular-design` | ⬜ |
+| 🟩 | [Exercício 02 — Sistema de Biblioteca](docs/02-software-design/exercises/02-library-system.md) | exercise | iniciante | `modular-design` | 🟩 |
 | 🟩 | [Arquitetura Hexagonal](docs/02-software-design/hexagonal-architecture.md) | pattern | intermediário | `ports-and-adapters` | 🟩 |
 | 🟩 | [Design de Software](docs/02-software-design/index.md) | index | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Interfaces](docs/02-software-design/interfaces.md) | concept | intermediário | `encapsulation` | 🟩 |

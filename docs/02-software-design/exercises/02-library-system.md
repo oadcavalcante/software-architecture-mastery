@@ -2,7 +2,7 @@
 id: 02-library-system
 title: "Exercício 02 — Sistema de Biblioteca"
 sidebar_position: 1
-description: O primeiro exercício do percurso — fronteiras, direção de dependência e o que acontece quando o requisito muda.
+description: O segundo exercício do percurso — fronteiras, direção de dependência e o que acontece quando o requisito muda.
 doc_type: exercise
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-design]
 related: [coupling, cohesion, dependency-direction, boundaries]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -27,7 +27,7 @@ que hoje é uma planilha compartilhada por unidade.
 O acervo é de cerca de 180 mil exemplares, com 40 mil usuários cadastrados e uma média de 900
 empréstimos por dia em toda a rede. Não há pressão de escala — o sistema roda numa máquina.
 
-Este é o primeiro exercício do percurso, e ele não é sobre escala nem sobre distribuição. É
+Este é o segundo exercício do percurso, e ele não é sobre escala nem sobre distribuição. É
 sobre **fronteiras**: onde separar, o que depende de quê, e o que acontece quando o requisito
 muda.
 
