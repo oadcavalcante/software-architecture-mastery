@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [regions, availability-zones, disaster-recovery]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -51,7 +51,7 @@ If the answer does not justify multi-region's cost, the discussion ends there.
 idle capacity       none                 partial or total     none
 recovery time       hours                minutes              seconds
 data loss           minutes to hours     seconds              close to zero
-additional cost     low                  medium to high       high
+additional cost     low                  medium to high       very high
 complexity          low                  medium               very high
 writes              one region           one region           several regions
 ```
@@ -60,7 +60,9 @@ writes              one region           one region           several regions
 necessary. It is basically [disaster recovery](/09-cloud-architecture/disaster-recovery.md).
 
 **Warm active-passive.** The secondary region exists and receives continuous replication. Promoting is an
-operation, not a construction.
+operation, not a construction. It is the **warm standby** of
+[disaster recovery](/09-cloud-architecture/disaster-recovery.md), seen from the perspective of serving
+traffic rather than surviving a disaster.
 
 **Active-active.** Both regions serve traffic. It is the only one that gives almost transparent continuity,
 and the only one that brings the hard problem: writing in more than one place.

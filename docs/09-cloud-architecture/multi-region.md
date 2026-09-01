@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [regions, availability-zones, disaster-recovery]
 canonical_for: [multi-região, ativo-passivo, ativo-ativo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -52,7 +52,7 @@ Se a resposta não justificar o custo de multi-região, a discussão acaba aí.
 capacidade ociosa   nenhuma              parcial ou total       nenhuma
 tempo de retomada   horas                minutos                segundos
 perda de dados      minutos a horas      segundos               próxima de zero
-custo adicional     baixo                médio a alto           alto
+custo adicional     baixo                médio a alto           muito alto
 complexidade        baixa                média                  muito alta
 escrita             uma região           uma região             várias regiões
 ```
@@ -62,7 +62,9 @@ criada quando necessário. É basicamente
 [recuperação de desastre](/09-cloud-architecture/disaster-recovery.md).
 
 **Ativo-passivo quente.** A região secundária existe e recebe replicação contínua.
-Promover é uma operação, não uma construção.
+Promover é uma operação, não uma construção. É a **espera quente** de
+[recuperação de desastre](/09-cloud-architecture/disaster-recovery.md), vista da
+perspectiva de atender tráfego em vez de sobreviver a um desastre.
 
 **Ativo-ativo.** As duas regiões atendem tráfego. É o único que dá continuidade
 quase transparente, e o único que traz o problema difícil: escrita em mais de um
