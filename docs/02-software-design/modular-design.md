@@ -60,7 +60,7 @@ capacidade *concessão de crédito* está espalhada pelas três entidades.
 
 A divisão que funciona é por **capacidade** — o que o negócio faz — e cada
 capacidade tem sua própria visão das entidades de que precisa. É a mesma ideia
-que o [DDD estratégico](/04-domain-driven-design/index.md) formaliza como
+que o [DDD estratégico](/04-domain-driven-design/strategic-ddd.md) formaliza como
 bounded context.
 
 ### Cada módulo tem estrutura interna completa
@@ -230,7 +230,7 @@ diminui.
 - [Modularidade](/01-fundamentals/modularity.md) — o conceito e o critério.
 - [Fronteiras](/02-software-design/boundaries.md) — o que separa os módulos.
 - [Design de Pacotes](/02-software-design/package-design.md) — a organização dentro de cada um.
-- [DDD estratégico](/04-domain-driven-design/index.md) — bounded context como
+- [DDD estratégico](/04-domain-driven-design/strategic-ddd.md) — bounded context como
   formalização da capacidade.
 
 ## Exercício Prático

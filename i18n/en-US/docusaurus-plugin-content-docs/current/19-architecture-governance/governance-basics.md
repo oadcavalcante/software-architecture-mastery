@@ -166,7 +166,7 @@ See [review](/19-architecture-governance/governance-review.md).
 A mechanism is an architectural decision: it has a context, alternatives, consequences and a
 validity.
 
-Recording it as an [ADR](/18-architecture-decisions/index.md), with a warning signal and
+Recording it as an [ADR](/18-architecture-decisions/what-is-an-adr.md), with a warning signal and
 periodic review, is what keeps mechanisms created for a 2021 problem from still charging a
 toll in 2026 over a problem that no longer exists.
 

@@ -152,7 +152,7 @@ muda de lugar.
 **Contrato canônico impossível.** A tentativa de definir um modelo único para toda
 a empresa — "cliente canônico" — consome anos e não converge, porque cliente
 significa coisas diferentes em áreas diferentes. Ver
-[bounded context](/04-domain-driven-design/index.md).
+[bounded context](/04-domain-driven-design/bounded-context.md).
 
 ## Erros Comuns
 

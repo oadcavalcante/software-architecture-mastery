@@ -183,7 +183,7 @@ changes most. In another system, with the ring empty, it would not be justified.
   without internal vocabulary.
 - [Clean Architecture](/02-software-design/clean-architecture.md) — the variation
   emphasizing use cases.
-- [Tactical DDD](/04-domain-driven-design/index.md) — where the rings' vocabulary
+- [Tactical DDD](/04-domain-driven-design/tactical-ddd.md) — where the rings' vocabulary
   comes from.
 
 ## Practical Exercise

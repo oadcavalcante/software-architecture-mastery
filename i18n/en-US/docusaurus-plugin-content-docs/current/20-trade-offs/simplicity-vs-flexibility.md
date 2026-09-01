@@ -206,7 +206,7 @@ system. The decision is point by point.
 
 - **Minimal seam** — name the boundary without creating an abstraction; cheap and reversible.
 - **Defer with a record** — build simple and record in an
-  [ADR](/18-architecture-decisions/index.md) what would change the decision.
+  [ADR](/18-architecture-decisions/what-is-an-adr.md) what would change the decision.
 - **Isolate instead of generalize** — concentrating the specific in one place is cheaper than
   making it generic.
 - **Rule of three** — wait for the third case before abstracting.

@@ -83,7 +83,7 @@ para não pagar acoplamento.
 
 Uma anti-corruption layer permite construir o novo modelo enquanto o legado
 continua operando. Ela é o mecanismo que torna
-[strangler fig](/16-legacy-modernization/index.md) viável — o novo sistema fala
+[strangler fig](/16-legacy-modernization/strangler-fig.md) viável — o novo sistema fala
 sua própria linguagem desde o primeiro dia, e a camada absorve o legado.
 
 ## Quando Usar

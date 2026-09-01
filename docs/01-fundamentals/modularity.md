@@ -147,7 +147,7 @@ implantação.
 - **Modularidade por convenção** — mais barata, e vale enquanto a equipe é
   estável e pequena; degrada com rotatividade.
 - **Separação por processo** — modularidade máxima, custo máximo. Ver
-  [microsserviços](/03-design-patterns/index.md).
+  [microsserviços](/03-design-patterns/microservices.md).
 
 ## Trade-offs
 
@@ -221,7 +221,7 @@ ruído.
   divisão está boa.
 - [Separação de Responsabilidades](/01-fundamentals/separation-of-concerns.md) — o princípio que
   orienta onde dividir.
-- [Design Modular](/02-software-design/index.md) — a aplicação prática.
+- [Design Modular](/02-software-design/modular-design.md) — a aplicação prática.
 
 ## Exercício Prático
 

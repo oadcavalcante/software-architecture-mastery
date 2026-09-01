@@ -122,7 +122,7 @@ is "everyone".
 ## When Not to Use
 
 **Between trusted internal services, with no need.** It adds a point of failure and a
-configuration to get wrong. There, [backpressure](/06-distributed-systems/index.md) and a
+configuration to get wrong. There, [backpressure](/06-distributed-systems/backpressure.md) and a
 circuit breaker solve it better.
 
 **As a substitute for capacity.** If the limit has to be so low that it makes legitimate use
@@ -140,7 +140,7 @@ unviable, the problem is sizing.
 - **Prioritization and load shedding** — reject the least important first.
 - **Quotas over a long period** — monthly instead of per second, when what matters is total
   consumption.
-- **[Backpressure](/06-distributed-systems/index.md)** — the mechanism between internal
+- **[Backpressure](/06-distributed-systems/backpressure.md)** — the mechanism between internal
   components.
 
 ## Trade-offs

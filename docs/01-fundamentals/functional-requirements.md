@@ -76,7 +76,7 @@ podem cair. Funcionalidades que mudam juntas e compartilham vocabulário tendem 
 pertencer ao mesmo módulo; as que mudam por razões independentes, a módulos
 separados.
 
-Esse é o insumo que o [DDD estratégico](/04-domain-driven-design/index.md)
+Esse é o insumo que o [DDD estratégico](/04-domain-driven-design/strategic-ddd.md)
 transforma em bounded contexts.
 
 ### Casos de exceção são requisito, não detalhe
@@ -150,7 +150,7 @@ As respostas mudam a arquitetura de forma direta. Se cancelar só é possível a
 do pagamento, uma operação simples resolve. Se é possível após captura e envio,
 o sistema precisa de estorno, de reversão de estoque e de coordenação com a
 transportadora — o que provavelmente significa uma
-[saga](/06-distributed-systems/index.md), com tudo o que ela custa.
+[saga](/06-distributed-systems/sagas.md), com tudo o que ela custa.
 
 O mesmo enunciado de uma linha cobre os dois casos. A diferença arquitetural
 entre eles é de meses.

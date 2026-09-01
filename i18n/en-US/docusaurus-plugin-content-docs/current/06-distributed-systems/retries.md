@@ -162,7 +162,7 @@ prevents the alert.
 ## Alternatives
 
 - **Fail fast and propagate** — let the caller decide.
-- **[Circuit breaker](/12-reliability/index.md)** — stop trying when the failure rate indicates a
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — stop trying when the failure rate indicates a
   persistent problem.
 - **Queue** — instead of retrying now, enqueue for later. See
   [queues](/05-system-design/queues.md).

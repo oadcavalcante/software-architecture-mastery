@@ -207,7 +207,7 @@ sem que o negócio soubesse. Para um sistema de saldo, era a troca errada.
 
 A correção foi reabilitar a exigência de maioria e aceitar 90 segundos de
 indisponibilidade em vez de divergência de saldo — desta vez com a decisão
-registrada em [ADR](/18-architecture-decisions/index.md), e com o negócio na
+registrada em [ADR](/18-architecture-decisions/what-is-an-adr.md), e com o negócio na
 conversa.
 
 ## Conceitos Relacionados

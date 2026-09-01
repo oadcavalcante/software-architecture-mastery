@@ -206,7 +206,7 @@ business knowing. For a balance system, it was the wrong trade.
 
 The fix was to re-enable the majority requirement and accept 90 seconds of unavailability instead
 of balance divergence — this time with the decision recorded in an
-[ADR](/18-architecture-decisions/index.md), and with the business in the conversation.
+[ADR](/18-architecture-decisions/what-is-an-adr.md), and with the business in the conversation.
 
 ## Related Concepts
 

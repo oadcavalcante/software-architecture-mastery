@@ -55,7 +55,7 @@ mechanism there is.
 
 None of the three is infinite — the queue has a limit, and what happens when it is reached
 has to be decided. See
-[backpressure](/06-distributed-systems/index.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 ### The three guarantees you inherit
 
@@ -77,7 +77,7 @@ key is very active.
 
 **Poison message.** A message that always fails goes back to the queue, indefinitely,
 blocking processing. It is what requires a
-[dead-letter queue](/06-distributed-systems/index.md): after N attempts, the message goes to
+[dead-letter queue](/06-distributed-systems/dead-letter-queues.md): after N attempts, the message goes to
 a separate queue, with an alert.
 
 A queue with no dead-letter configured stalls on the first malformed record.

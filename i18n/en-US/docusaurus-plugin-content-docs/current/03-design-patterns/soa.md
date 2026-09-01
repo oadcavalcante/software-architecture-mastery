@@ -151,7 +151,7 @@ moves.
 **An impossible canonical contract.** The attempt to define a single model for the whole
 company — a "canonical customer" — consumes years and does not converge, because customer
 means different things in different areas. See
-[bounded context](/04-domain-driven-design/index.md).
+[bounded context](/04-domain-driven-design/bounded-context.md).
 
 ## Common Mistakes
 

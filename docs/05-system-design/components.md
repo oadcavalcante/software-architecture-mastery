@@ -195,7 +195,7 @@ Três práticas que aumentam a vida útil.
 **Documente no nível em que a mudança é rara.** Um diagrama que mostra quatro
 serviços e o banco continua correto por anos. Um que mostra classes está errado no
 mês seguinte. Os níveis de contêiner e componente do
-[modelo C4](/17-architecture-documentation/index.md) existem exatamente para
+[modelo C4](/17-architecture-documentation/c4-model.md) existem exatamente para
 essa separação.
 
 **Declare o tipo de cada caixa.** Módulo, processo, serviço gerenciado,

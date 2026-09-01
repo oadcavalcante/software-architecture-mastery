@@ -568,7 +568,7 @@ redefinição e duplicação.
 
 ```bash
 npm test          # testes dos validadores
-npm run validate  # os cinco validadores de conteúdo
+npm run validate  # os seis validadores de conteúdo
 npm run roadmap   # regenera as tabelas acima
 npm run build     # build nas duas locales
 ```

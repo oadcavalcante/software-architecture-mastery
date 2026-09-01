@@ -152,7 +152,7 @@ protection while preserving the synchronization.
 
 ## Alternatives
 
-- **[Circuit breaker](/12-reliability/index.md)** — stop trying instead of spacing out. More
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — stop trying instead of spacing out. More
   effective when the failure is persistent.
 - **Queue with delay** — let the messaging mechanism handle it.
 - **Retry budget** — limit the proportion instead of the interval.

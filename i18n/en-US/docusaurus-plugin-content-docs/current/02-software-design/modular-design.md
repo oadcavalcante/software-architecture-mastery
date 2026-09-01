@@ -60,7 +60,7 @@ capability *granting credit* is spread across all three entities.
 
 The division that works is by **capability** — what the business does — and each
 capability has its own view of the entities it needs. It is the same idea that
-[strategic DDD](/04-domain-driven-design/index.md) formalizes as a bounded
+[strategic DDD](/04-domain-driven-design/strategic-ddd.md) formalizes as a bounded
 context.
 
 ### Each module has a complete internal structure
@@ -233,7 +233,7 @@ reverse. That makes progress measurable — the size of `legacy` only goes down.
 - [Boundaries](/02-software-design/boundaries.md) — what separates the modules.
 - [Package Design](/02-software-design/package-design.md) — the organization
   inside each one.
-- [Strategic DDD](/04-domain-driven-design/index.md) — bounded context as the
+- [Strategic DDD](/04-domain-driven-design/strategic-ddd.md) — bounded context as the
   formalization of capability.
 
 ## Practical Exercise

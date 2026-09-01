@@ -152,7 +152,7 @@ regras sobre o material:
 
 ```bash
 npm test          # testes dos próprios validadores
-npm run validate  # os cinco validadores de conteúdo
+npm run validate  # os seis validadores de conteúdo
 ```
 
 | Validador | O que impede |

@@ -113,7 +113,7 @@ degradada, uma região afetada, uma fração dos usuários.
 
 Medir disponibilidade como binário esconde isso. A métrica melhor é a **taxa de
 requisições bem-sucedidas** — que captura degradação parcial e é o que
-[SLI](/12-reliability/index.md) formaliza.
+[SLI](/12-reliability/sli.md) formaliza.
 
 ### Meça do lado do cliente
 
@@ -143,7 +143,7 @@ que não obriga a nada.
 - Ao negociar requisito com o negócio, com a tabela na mão.
 - Ao dimensionar redundância.
 - Ao avaliar o custo de uma cadeia de chamadas síncronas.
-- Ao estabelecer [SLO](/12-reliability/index.md).
+- Ao estabelecer [SLO](/12-reliability/slo.md).
 
 ## Quando Não Usar
 

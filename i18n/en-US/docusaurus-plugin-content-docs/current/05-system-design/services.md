@@ -204,7 +204,7 @@ practically static data.
 
 Result: chain from five to three, latency to 620 ms, availability to 99.7% — and the
 rest came from retries with a [circuit
-breaker](/12-reliability/index.md).
+breaker](/12-reliability/circuit-breakers.md).
 
 No service became faster. It was the architecture of the call that changed.
 

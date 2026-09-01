@@ -125,7 +125,7 @@ resposta é "todos".
 ## Quando Não Usar
 
 **Entre serviços internos confiáveis, sem necessidade.** Adiciona um ponto de
-falha e uma configuração a errar. Ali, [backpressure](/06-distributed-systems/index.md)
+falha e uma configuração a errar. Ali, [backpressure](/06-distributed-systems/backpressure.md)
 e circuit breaker resolvem melhor.
 
 **Como substituto de capacidade.** Se o limite precisa ser tão baixo que
@@ -143,7 +143,7 @@ inviabiliza o uso legítimo, o problema é dimensionamento.
 - **Priorização e descarte de carga** — rejeitar o menos importante primeiro.
 - **Cotas por período longo** — mensal em vez de por segundo, quando o que importa
   é consumo total.
-- **[Backpressure](/06-distributed-systems/index.md)** — o mecanismo entre
+- **[Backpressure](/06-distributed-systems/backpressure.md)** — o mecanismo entre
   componentes internos.
 
 ## Trade-offs

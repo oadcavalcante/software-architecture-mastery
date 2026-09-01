@@ -157,7 +157,7 @@ a standard with no recorded reason   obeyed out of fear, kept forever
 a standard with a linked ADR         revisitable when the reason falls
 ```
 
-Linking each standard to the [ADR](/18-architecture-decisions/index.md) that originated it is
+Linking each standard to the [ADR](/18-architecture-decisions/what-is-an-adr.md) that originated it is
 cheap and solves the folklore-standard problem: the one everyone follows and nobody can
 explain.
 

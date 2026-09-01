@@ -18,6 +18,7 @@ const CHECKS = [
   ['parity',       'check-parity.mjs'],
   ['terminology',  'check-terminology.mjs'],
   ['placeholders', 'check-placeholders.mjs'],
+  ['canonical-links', 'check-canonical-links.mjs'],
 ];
 
 const results = [];

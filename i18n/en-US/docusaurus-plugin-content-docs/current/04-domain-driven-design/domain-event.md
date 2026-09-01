@@ -129,7 +129,7 @@ traceability.
 ## Alternatives
 
 - **A direct call to the domain service** — when there is one consumer.
-- **A [saga](/06-distributed-systems/index.md)** — when the coordination needs compensation
+- **A [saga](/06-distributed-systems/sagas.md)** — when the coordination needs compensation
   and deadlines.
 - **An application service orchestrating** — when the flow is critical and has to be
   auditable in one place.

@@ -22,7 +22,7 @@ npm start -- --locale en-US    # dev server, en-US
 npm run build                  # build de produção, ambas as locales
 
 npm test                       # testes dos validadores
-npm run validate               # os cinco validadores de conteúdo
+npm run validate               # os seis validadores de conteúdo
 npm run typecheck              # TypeScript da configuração
 
 npm run plan                   # regenera specs/ e fix_plan.md
@@ -34,7 +34,7 @@ O dev server constrói **uma locale por vez**. O build de produção gera todas.
 
 ## Portões de qualidade
 
-Estes quatro precisam passar antes de qualquer commit. O CI roda os mesmos.
+Estes cinco precisam passar antes de qualquer commit. O CI roda os mesmos.
 
 ```bash
 npm test          # 1. os validadores estão corretos
@@ -51,7 +51,7 @@ existem para impedir.
 Depois de `plan` e `roadmap`, verifique `git status` — se eles alteraram
 arquivos, esses arquivos entram no commit. O CI falha se estiverem defasados.
 
-## Os cinco validadores
+## Os seis validadores
 
 | Validador | O que barra |
 |---|---|
@@ -60,13 +60,14 @@ arquivos, esses arquivos entram no commit. O CI falha se estiverem defasados.
 | `check-parity` | Tradução à frente do canônico, tradução órfã |
 | `check-terminology` | Alternar entre a forma PT e a EN do mesmo termo; traduzir termo da categoria B |
 | `check-placeholders` | `status: complete` com pendência, sem seção obrigatória, com seção vazia, ou fora da faixa de densidade |
+| `check-canonical-links` | Link para o índice de uma seção quando o texto do link é termo `canonical_for` de um documento dela (§7.4) |
 
 Os validadores rodam contra `docs/` por padrão. `SAM_ROOT=<dir>` aponta para
 outra árvore — é o que os testes usam.
 
-## O sexto portão: revisão de profundidade
+## Revisão de profundidade
 
-Os cinco validadores verificam forma. Eles não distinguem um documento fundo de
+Os seis validadores verificam forma. Eles não distinguem um documento fundo de
 um documento raso com todas as seções preenchidas — que é a coisa que
 [SPEC.md](SPEC.md) §13.3 chama de revisão humana, e a razão declarada de ela
 existir: *"Automação não detecta conteúdo raso."*

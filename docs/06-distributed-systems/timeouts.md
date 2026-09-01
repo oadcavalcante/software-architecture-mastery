@@ -152,7 +152,7 @@ destino. Ver [circuit breakers](/12-reliability/index.md).
 
 Timeout não tem alternativa; ele tem complementos:
 
-- **[Circuit breaker](/12-reliability/index.md)** — parar de chamar um destino que
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — parar de chamar um destino que
   está falhando, em vez de esperar e desistir repetidamente.
 - **Prazo propagado** — a forma robusta.
 - **Requisição de reserva** — enviar a duas réplicas e usar a primeira resposta.

@@ -861,6 +861,7 @@ Executadas em cada PR. Falha bloqueia merge.
 | `translated_from_version` > `content_version` | `check-parity.mjs` | Erro |
 | Consistência terminológica (§5.5) | `check-terminology.mjs` | Erro |
 | TODO/placeholder não declarado em front matter | `check-placeholders.mjs` | Erro |
+| Link ao índice da seção com texto que é termo canônico dela (§7.4) | `check-canonical-links.mjs` | Erro |
 | Sintaxe Mermaid | `check-links.mjs` | Erro |
 | `status: complete` sem "Quando Não Usar" ou "Trade-offs" | `check-placeholders.mjs` | Erro |
 | Canônico alterado sem incremento de `content_version` | `check-parity.mjs` | Aviso |

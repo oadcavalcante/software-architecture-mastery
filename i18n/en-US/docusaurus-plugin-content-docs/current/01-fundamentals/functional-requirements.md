@@ -77,7 +77,7 @@ boundaries might fall. Features that change together and share vocabulary tend t
 belong to the same module; those that change for independent reasons, to separate
 modules.
 
-That is the input that [strategic DDD](/04-domain-driven-design/index.md) turns
+That is the input that [strategic DDD](/04-domain-driven-design/strategic-ddd.md) turns
 into bounded contexts.
 
 ### Exception cases are requirements, not details
@@ -155,7 +155,7 @@ The answers change the architecture directly. If cancelling is only possible
 before payment, a simple operation solves it. If it is possible after capture and
 shipping, the system needs refunds, stock reversal and coordination with the
 carrier — which probably means a
-[saga](/06-distributed-systems/index.md), with everything that costs.
+[saga](/06-distributed-systems/sagas.md), with everything that costs.
 
 The same one-line statement covers both cases. The architectural distance between
 them is months.

@@ -81,7 +81,7 @@ translation in order not to pay for coupling.
 
 An anti-corruption layer allows building the new model while the legacy system keeps running.
 It is the mechanism that makes
-[strangler fig](/16-legacy-modernization/index.md) viable — the new system speaks its own
+[strangler fig](/16-legacy-modernization/strangler-fig.md) viable — the new system speaks its own
 language from day one, and the layer absorbs the legacy.
 
 ## When to Use

@@ -55,7 +55,7 @@ barato que existe.
 
 Nenhum dos três é infinito — a fila tem limite, e o que acontece ao atingi-lo
 precisa ser decidido. Ver
-[backpressure](/06-distributed-systems/index.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 ### As três garantias que você herda
 
@@ -77,7 +77,7 @@ desequilíbrio se uma chave for muito ativa.
 
 **Mensagem envenenada.** Uma mensagem que sempre falha volta para a fila,
 indefinidamente, bloqueando o processamento. É o que exige
-[dead-letter queue](/06-distributed-systems/index.md): após N tentativas, a
+[dead-letter queue](/06-distributed-systems/dead-letter-queues.md): após N tentativas, a
 mensagem sai para uma fila separada, com alerta.
 
 Uma fila sem dead-letter configurada trava no primeiro dado malformado.

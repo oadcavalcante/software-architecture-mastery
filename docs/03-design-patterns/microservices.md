@@ -87,7 +87,7 @@ mais comum de fracasso.
 "Micro" é o adjetivo mais enganoso do nome. Não há tamanho correto.
 
 O critério é a fronteira de negócio — um [bounded
-context](/04-domain-driven-design/index.md) — e o tamanho é o que ela produzir.
+context](/04-domain-driven-design/bounded-context.md) — e o tamanho é o que ela produzir.
 Serviços pequenos demais geram acoplamento por chamadas encadeadas, que é o
 monolito distribuído.
 

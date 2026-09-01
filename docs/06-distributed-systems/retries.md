@@ -166,7 +166,7 @@ visivelmente — o que impede o alerta.
 ## Alternativas
 
 - **Falhar rápido e propagar** — deixar o chamador decidir.
-- **[Circuit breaker](/12-reliability/index.md)** — parar de tentar quando a taxa
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — parar de tentar quando a taxa
   de falha indica problema persistente.
 - **Fila** — em vez de repetir agora, enfileirar para depois. Ver
   [filas](/05-system-design/queues.md).

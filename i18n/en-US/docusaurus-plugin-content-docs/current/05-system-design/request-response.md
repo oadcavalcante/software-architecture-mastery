@@ -91,7 +91,7 @@ Not every call in a request has the same weight. A product page that needs price
 reviews can respond without the reviews.
 
 Separating what is essential from what is enrichment allows degrading instead of failing. See
-[graceful degradation](/12-reliability/index.md).
+[graceful degradation](/12-reliability/graceful-degradation.md).
 
 ## Mental Model
 
@@ -203,7 +203,7 @@ user, but it does not need to hold a database lock.
 has a legal deadline of hours, not milliseconds — nobody had checked that before.
 
 Besides that, all calls got an explicit timeout, and the payment one got a
-[circuit breaker](/12-reliability/index.md).
+[circuit breaker](/12-reliability/circuit-breakers.md).
 
 What changed was not technology. It was asking, for each call, whether the result was needed to
 respond — and three of the four were not.

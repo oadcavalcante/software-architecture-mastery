@@ -115,7 +115,7 @@ decomposição custa mais navegação do que economiza em contenção.
 Ver [bounded context](/04-domain-driven-design/bounded-context.md).
 
 **Copiando o organograma sem verificar.** A [lei de
-Conway](/23-architecture-leadership/index.md) descreve o que acontece, não o
+Conway](/23-architecture-leadership/conways-law.md) descreve o que acontece, não o
 que deveria acontecer.
 
 **Decompondo fisicamente por default.** Módulos primeiro.

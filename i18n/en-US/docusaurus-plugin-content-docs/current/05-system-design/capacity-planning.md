@@ -273,7 +273,7 @@ not to size.
 - [Scalability Basics](/05-system-design/scalability-basics.md) — what to do with the result.
 - [Back-of-the-Envelope Calculations](/22-system-design-interviews/index.md) — the technique in an
   interview.
-- [Cost Architecture](/09-cloud-architecture/index.md).
+- [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
 
 ## Practical Exercise
 

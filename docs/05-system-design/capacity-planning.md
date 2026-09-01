@@ -271,7 +271,7 @@ para descartar, não para dimensionar.
 - [Escalabilidade Básica](/05-system-design/scalability-basics.md) — o que fazer com o resultado.
 - [Cálculos de Guardanapo](/22-system-design-interviews/index.md) — a técnica em
   entrevista.
-- [Arquitetura de Custo](/09-cloud-architecture/index.md).
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
 
 ## Exercício Prático
 

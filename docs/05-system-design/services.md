@@ -203,7 +203,7 @@ rede para dado praticamente estático.
 
 Resultado: cadeia de cinco para três, latência para 620 ms, disponibilidade para
 99,7% — e o restante veio de retentativa com [circuit
-breaker](/12-reliability/index.md).
+breaker](/12-reliability/circuit-breakers.md).
 
 Nenhum serviço ficou mais rápido. A arquitetura da chamada é que mudou.
 

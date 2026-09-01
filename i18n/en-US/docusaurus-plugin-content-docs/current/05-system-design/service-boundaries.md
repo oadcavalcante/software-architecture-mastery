@@ -105,7 +105,7 @@ migration, eventual consistency and frequently
 
 The strategy that works: start as modules, let the boundaries prove themselves, and
 extract **one service at a time**, each with the reason documented in an
-[ADR](/18-architecture-decisions/index.md).
+[ADR](/18-architecture-decisions/what-is-an-adr.md).
 
 If there is no specific reason, the module stays where it is.
 

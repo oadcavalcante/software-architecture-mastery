@@ -141,7 +141,7 @@ errado.
 
 **Backpressure ausente.** Um filtro lento acumula fila indefinidamente até
 esgotar recurso. Ver
-[backpressure](/06-distributed-systems/index.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 **Item envenenado travando o pipeline.** Sem dead-letter, um item que sempre falha
 bloqueia os seguintes.

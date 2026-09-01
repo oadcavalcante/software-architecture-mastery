@@ -100,7 +100,7 @@ para argumentar uma decisão de fronteira
 
 O último é o mais legítimo: um diagrama desenhado para embasar uma decisão é descartável
 por natureza — ele vive na
-[ADR](/18-architecture-decisions/index.md), datado, e não precisa ser
+[ADR](/18-architecture-decisions/what-is-an-adr.md), datado, e não precisa ser
 mantido.
 
 ### A alternativa é gerar

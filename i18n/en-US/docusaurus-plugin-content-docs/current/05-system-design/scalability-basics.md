@@ -102,7 +102,7 @@ Each of those is capacity recovered at no architectural cost.
 Scale increases capacity; it does not fix intrinsic slowness. If each request takes 3 seconds
 because of a bad query, ten instances serve ten times more requests — all of them in 3 seconds.
 
-See [performance versus scalability](/11-scalability/index.md).
+See [performance versus scalability](/11-scalability/performance-vs-scalability.md).
 
 ## Mental Model
 

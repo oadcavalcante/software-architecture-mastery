@@ -116,7 +116,7 @@ costs more navigation than it saves in contention.
 See [bounded context](/04-domain-driven-design/bounded-context.md).
 
 **Copying the org chart without checking.** [Conway's
-law](/23-architecture-leadership/index.md) describes what happens, not what should
+law](/23-architecture-leadership/conways-law.md) describes what happens, not what should
 happen.
 
 **Decomposing physically by default.** Modules first.

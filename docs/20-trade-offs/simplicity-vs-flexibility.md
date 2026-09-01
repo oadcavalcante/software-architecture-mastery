@@ -202,7 +202,7 @@ sistema inteiro. A decisão é ponto a ponto.
 
 - **Costura mínima** — nomear a fronteira sem criar abstração; barata e reversível.
 - **Adiar com registro** — construir simples e registrar em
-  [ADR](/18-architecture-decisions/index.md) o que faria a decisão mudar.
+  [ADR](/18-architecture-decisions/what-is-an-adr.md) o que faria a decisão mudar.
 - **Isolar em vez de generalizar** — concentrar o específico num lugar é mais barato que
   torná-lo genérico.
 - **Regra de três** — esperar o terceiro caso antes de abstrair.

@@ -157,7 +157,7 @@ enquanto mantém a sincronização.
 
 ## Alternativas
 
-- **[Circuit breaker](/12-reliability/index.md)** — parar de tentar em vez de
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — parar de tentar em vez de
   espaçar. Mais eficaz quando a falha é persistente.
 - **Fila com atraso** — deixar o mecanismo de mensageria cuidar.
 - **Orçamento de retentativa** — limitar a proporção em vez do intervalo.

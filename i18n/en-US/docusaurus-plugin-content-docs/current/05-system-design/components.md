@@ -194,7 +194,7 @@ practices that extend their useful life.
 **Document at the level where change is rare.** A diagram showing four services and
 the database stays correct for years. One showing classes is wrong the following
 month. The container and component levels of the
-[C4 model](/17-architecture-documentation/index.md) exist for exactly that
+[C4 model](/17-architecture-documentation/c4-model.md) exist for exactly that
 separation.
 
 **Declare each box's type.** Module, process, managed service, storage. A diagram

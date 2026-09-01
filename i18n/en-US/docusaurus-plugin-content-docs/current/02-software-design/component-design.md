@@ -60,7 +60,7 @@ request handling.
 
 **An organizational boundary.** Different teams with release autonomy. It is the
 strongest reason in practice and the least technical — see
-[Conway's law](/23-architecture-leadership/index.md).
+[Conway's law](/23-architecture-leadership/conways-law.md).
 
 **Reuse by external consumers.** Other systems need the capability without the
 rest.
@@ -227,7 +227,7 @@ be cleaner apart" to "what comes off the list?".
   precedes this.
 - [Package Design](/02-software-design/package-design.md) — the release unit.
 - [Boundaries](/02-software-design/boundaries.md) — the levels and their costs.
-- [Microservices](/03-design-patterns/index.md) — the extreme case.
+- [Microservices](/03-design-patterns/microservices.md) — the extreme case.
 
 ## Practical Exercise
 

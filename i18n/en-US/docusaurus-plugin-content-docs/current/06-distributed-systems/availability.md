@@ -109,7 +109,7 @@ fraction of users.
 
 Measuring availability as a binary hides that. The better metric is the **rate of successful
 requests** — which captures partial degradation and is what an
-[SLI](/12-reliability/index.md) formalizes.
+[SLI](/12-reliability/sli.md) formalizes.
 
 ### Measure from the client's side
 
@@ -136,7 +136,7 @@ obliges nothing.
 - When negotiating a requirement with the business, with the table in hand.
 - When sizing redundancy.
 - When evaluating the cost of a chain of synchronous calls.
-- When establishing an [SLO](/12-reliability/index.md).
+- When establishing an [SLO](/12-reliability/slo.md).
 
 ## When Not to Use
 

@@ -61,7 +61,7 @@ Três regras que se sustentam:
   de classe usado em vinte lugares não.
 - **O vocabulário é o do domínio.** Se o negócio diz "apólice", o código diz
   `apolice`. Ver
-  [ubiquitous language](/04-domain-driven-design/index.md).
+  [ubiquitous language](/04-domain-driven-design/ubiquitous-language.md).
 
 ### Funções
 

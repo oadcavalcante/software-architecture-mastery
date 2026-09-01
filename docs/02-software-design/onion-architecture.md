@@ -182,7 +182,7 @@ regra que mais muda. Em outro sistema, com o anel vazio, ele não se justificari
   interno.
 - [Clean Architecture](/02-software-design/clean-architecture.md) — a variação com ênfase em casos de
   uso.
-- [DDD tático](/04-domain-driven-design/index.md) — de onde vem o vocabulário
+- [DDD tático](/04-domain-driven-design/tactical-ddd.md) — de onde vem o vocabulário
   dos anéis.
 
 ## Exercício Prático

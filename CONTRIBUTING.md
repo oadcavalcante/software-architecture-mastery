@@ -110,7 +110,7 @@ sistemas reais precisam de fonte com autor e ano.
 
 ```bash
 npm test          # testes dos validadores
-npm run validate  # os cinco validadores de conteúdo + artefatos derivados em dia
+npm run validate  # os seis validadores de conteúdo + artefatos derivados em dia
 npm run build     # build nas duas locales
 ```
 

@@ -54,6 +54,7 @@
     "check:parity": "node scripts/check-parity.mjs",
     "check:terminology": "node scripts/check-terminology.mjs",
     "check:placeholders": "node scripts/check-placeholders.mjs",
+    "check:canonical-links": "node scripts/check-canonical-links.mjs",
     "roadmap": "node scripts/gen-roadmap.mjs",
     "validate": "node scripts/validate.mjs && npm run check:artifacts",
     "test": "node --test test/*.test.mjs",

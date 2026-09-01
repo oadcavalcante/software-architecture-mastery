@@ -135,7 +135,7 @@ runtime, far from the cause.
 
 **Absent backpressure.** A slow filter accumulates a queue indefinitely until a resource
 is exhausted. See
-[backpressure](/06-distributed-systems/index.md).
+[backpressure](/06-distributed-systems/backpressure.md).
 
 **Poison item freezing the pipeline.** With no dead-letter queue, an item that always
 fails blocks the following ones.

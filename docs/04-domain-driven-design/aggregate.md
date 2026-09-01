@@ -96,7 +96,7 @@ A regra prática de Vernon: **modifique um agregado por transação.**
 Quando uma operação precisa alterar dois, isso é sinal de que as fronteiras estão
 erradas — ou de que a consistência entre eles é eventual, e a coordenação deve ser
 por [evento de domínio](/04-domain-driven-design/domain-event.md) ou por
-[saga](/06-distributed-systems/index.md).
+[saga](/06-distributed-systems/sagas.md).
 
 ### Concorrência
 
@@ -135,7 +135,7 @@ menores ganham.
 - **Agregados menores com consistência eventual** — a resposta mais frequente.
 - **Serviço de domínio** — quando a regra envolve vários agregados. Ver
   [domain service](/04-domain-driven-design/domain-service.md).
-- **[Saga](/06-distributed-systems/index.md)** — quando a coordenação atravessa
+- **[Saga](/06-distributed-systems/sagas.md)** — quando a coordenação atravessa
   fronteiras transacionais.
 - **Modelo sem agregados** — legítimo fora do core.
 

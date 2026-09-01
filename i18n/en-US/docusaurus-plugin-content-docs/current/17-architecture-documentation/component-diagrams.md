@@ -101,7 +101,7 @@ to argue a boundary decision
 
 The last is the most legitimate: a diagram drawn to support a decision is disposable by
 nature — it lives in the
-[ADR](/18-architecture-decisions/index.md), dated, and doesn't have to be
+[ADR](/18-architecture-decisions/what-is-an-adr.md), dated, and doesn't have to be
 maintained.
 
 ### The alternative is to generate it

@@ -154,7 +154,7 @@ padrão sem razão registrada    obedecido por medo, mantido para sempre
 padrão com ADR vinculado       revisável quando a razão cair
 ```
 
-Vincular cada padrão ao [ADR](/18-architecture-decisions/index.md) que o originou é
+Vincular cada padrão ao [ADR](/18-architecture-decisions/what-is-an-adr.md) que o originou é
 barato e resolve o problema do padrão-folclore: aquele que todos seguem e ninguém sabe
 explicar.
 

@@ -95,7 +95,7 @@ precisa de preço, estoque e avaliações pode responder sem as avaliações.
 
 Separar o que é essencial do que é enriquecimento permite degradar em vez de
 falhar. Ver
-[degradação graciosa](/12-reliability/index.md).
+[degradação graciosa](/12-reliability/graceful-degradation.md).
 
 ## Modelo Mental
 
@@ -208,7 +208,7 @@ emissão fiscal tem prazo legal de horas, não de milissegundos — ninguém tin
 verificado isso antes.
 
 Além disso, todas as chamadas ganharam timeout explícito, e a de pagamento ganhou
-[circuit breaker](/12-reliability/index.md).
+[circuit breaker](/12-reliability/circuit-breakers.md).
 
 O que mudou não foi tecnologia. Foi perguntar, para cada chamada, se o resultado
 era necessário para responder — e três das quatro não eram.

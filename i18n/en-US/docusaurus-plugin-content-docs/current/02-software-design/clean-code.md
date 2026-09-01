@@ -61,7 +61,7 @@ Three rules that hold up:
   places cannot.
 - **The vocabulary is the domain's.** If the business says "policy", the code says
   `policy`. See
-  [ubiquitous language](/04-domain-driven-design/index.md).
+  [ubiquitous language](/04-domain-driven-design/ubiquitous-language.md).
 
 ### Functions
 

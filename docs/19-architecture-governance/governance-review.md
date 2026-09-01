@@ -85,7 +85,7 @@ aconselhamento  melhora a decisão de quem segue
 
 No modelo de aconselhamento, a decisão permanece com o time, e o registro de que a
 orientação foi dada permanece com a revisão. Se o time seguir caminho diferente, isso é
-legítimo e fica registrado — no [ADR](/18-architecture-decisions/index.md), com a objeção
+legítimo e fica registrado — no [ADR](/18-architecture-decisions/what-is-an-adr.md), com a objeção
 preservada.
 
 Esse registro é o que substitui a autoridade formal: não há veto, e há memória.

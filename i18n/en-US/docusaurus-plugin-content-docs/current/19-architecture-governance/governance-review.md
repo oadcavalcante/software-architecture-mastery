@@ -85,7 +85,7 @@ advice   improves the decision of whoever proceeds
 
 In the advice model, the decision stays with the team, and the record that the guidance was
 given stays with the review. If the team takes a different path, that is legitimate and gets
-recorded — in the [ADR](/18-architecture-decisions/index.md), with the objection preserved.
+recorded — in the [ADR](/18-architecture-decisions/what-is-an-adr.md), with the objection preserved.
 
 That record is what replaces formal authority: there is no veto, and there is memory.
 

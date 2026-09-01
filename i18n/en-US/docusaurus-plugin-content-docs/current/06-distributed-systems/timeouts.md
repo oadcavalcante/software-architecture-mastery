@@ -150,7 +150,7 @@ destination. See [circuit breakers](/12-reliability/index.md).
 
 A timeout has no alternative; it has complements:
 
-- **[Circuit breaker](/12-reliability/index.md)** — stop calling a destination that is failing,
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — stop calling a destination that is failing,
   instead of waiting and giving up repeatedly.
 - **Propagated deadline** — the robust form.
 - **Hedged request** — send to two replicas and use the first response.

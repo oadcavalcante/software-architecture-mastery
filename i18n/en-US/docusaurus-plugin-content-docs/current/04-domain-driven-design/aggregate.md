@@ -93,7 +93,7 @@ Vernon's practical rule: **modify one aggregate per transaction.**
 When an operation has to change two, that is a sign the boundaries are wrong — or that
 consistency between them is eventual, and the coordination should be through a
 [domain event](/04-domain-driven-design/domain-event.md) or a
-[saga](/06-distributed-systems/index.md).
+[saga](/06-distributed-systems/sagas.md).
 
 ### Concurrency
 
@@ -131,7 +131,7 @@ aggregate, the lock becomes a bottleneck. There, smaller aggregates win.
 - **Smaller aggregates with eventual consistency** — the most frequent answer.
 - **A domain service** — when the rule involves several aggregates. See
   [domain service](/04-domain-driven-design/domain-service.md).
-- **A [saga](/06-distributed-systems/index.md)** — when the coordination crosses
+- **A [saga](/06-distributed-systems/sagas.md)** — when the coordination crosses
   transactional boundaries.
 - **A model with no aggregates** — legitimate outside the core.
 

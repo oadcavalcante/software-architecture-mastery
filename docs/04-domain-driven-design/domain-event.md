@@ -133,7 +133,7 @@ do estilo é rastreabilidade.
 ## Alternativas
 
 - **Chamada direta ao serviço de domínio** — quando há um consumidor.
-- **[Saga](/06-distributed-systems/index.md)** — quando a coordenação precisa de
+- **[Saga](/06-distributed-systems/sagas.md)** — quando a coordenação precisa de
   compensação e prazo.
 - **Serviço de aplicação orquestrando** — quando o fluxo é crítico e precisa ser
   auditável num lugar.

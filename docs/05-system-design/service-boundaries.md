@@ -105,7 +105,7 @@ consistência eventual e frequentemente [sagas](/06-distributed-systems/index.md
 
 A estratégia que funciona: começar como módulos, deixar as fronteiras se provarem,
 e extrair **um serviço por vez**, cada um com a razão documentada em
-[ADR](/18-architecture-decisions/index.md).
+[ADR](/18-architecture-decisions/what-is-an-adr.md).
 
 Se não há razão específica, o módulo fica onde está.
 

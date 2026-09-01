@@ -97,7 +97,7 @@ alternativa, e a condição em que se pretendia pagar se perdeu.
 
 O registro mínimo: o que foi feito, o que teria sido feito com mais tempo, e
 **sob qual condição vale pagar**. Isso pertence a um
-[ADR](/18-architecture-decisions/index.md) quando a dívida é arquitetural.
+[ADR](/18-architecture-decisions/what-is-an-adr.md) quando a dívida é arquitetural.
 
 ## Modelo Mental
 

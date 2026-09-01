@@ -60,7 +60,7 @@ não deveria derrubar o atendimento de requisições.
 
 **Fronteira organizacional.** Times diferentes com autonomia de release. É a
 razão mais forte na prática e a menos técnica — ver
-[lei de Conway](/23-architecture-leadership/index.md).
+[lei de Conway](/23-architecture-leadership/conways-law.md).
 
 **Reúso por consumidores externos.** Outros sistemas precisam da capacidade sem o
 resto.
@@ -228,7 +228,7 @@ limpo separado" para "o que sai da lista?".
 - [Design Modular](/02-software-design/modular-design.md) — a divisão que precede.
 - [Design de Pacotes](/02-software-design/package-design.md) — a unidade de release.
 - [Fronteiras](/02-software-design/boundaries.md) — os níveis e seus custos.
-- [Microsserviços](/03-design-patterns/index.md) — o caso extremo.
+- [Microsserviços](/03-design-patterns/microservices.md) — o caso extremo.
 
 ## Exercício Prático
 

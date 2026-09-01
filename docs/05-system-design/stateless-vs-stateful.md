@@ -114,7 +114,7 @@ Com estado é necessário quando:
 - A latência de acesso ao estado é crítica e a rede não cabe.
 - O protocolo exige conexão contínua — streaming, WebSocket, jogos.
 - Há coordenação que exige um líder — ver
-  [eleição de líder](/06-distributed-systems/index.md).
+  [eleição de líder](/06-distributed-systems/leader-election.md).
 
 ## Quando Não Usar
 

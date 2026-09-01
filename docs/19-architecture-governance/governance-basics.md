@@ -167,7 +167,7 @@ Ver [revisão](/19-architecture-governance/governance-review.md).
 Um mecanismo é uma decisão arquitetural: tem contexto, alternativas, consequências e
 validade.
 
-Registrá-lo como [ADR](/18-architecture-decisions/index.md), com sinal de alerta e
+Registrá-lo como [ADR](/18-architecture-decisions/what-is-an-adr.md), com sinal de alerta e
 revisão periódica, é o que impede que mecanismos criados para um problema de 2021
 continuem cobrando pedágio em 2026 sobre um problema que não existe mais.
 

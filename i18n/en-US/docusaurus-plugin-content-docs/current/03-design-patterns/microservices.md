@@ -85,7 +85,7 @@ most common failure scenario.
 "Micro" is the most misleading adjective in the name. There is no correct size.
 
 The criterion is the business boundary — a
-[bounded context](/04-domain-driven-design/index.md) — and the size is whatever that
+[bounded context](/04-domain-driven-design/bounded-context.md) — and the size is whatever that
 produces. Services that are too small generate coupling through chained calls, which is
 the distributed monolith.
 

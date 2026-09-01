@@ -107,7 +107,7 @@ Escala aumenta capacidade; ela não corrige lentidão intrínseca. Se cada requi
 leva 3 segundos por uma consulta ruim, dez instâncias atendem dez vezes mais
 requisições — todas em 3 segundos.
 
-Ver [desempenho versus escalabilidade](/11-scalability/index.md).
+Ver [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md).
 
 ## Modelo Mental
 

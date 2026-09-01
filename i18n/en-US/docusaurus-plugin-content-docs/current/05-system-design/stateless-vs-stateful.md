@@ -113,7 +113,7 @@ Stateful is necessary when:
 - The latency of accessing the state is critical and the network does not fit.
 - The protocol requires a continuous connection — streaming, WebSocket, games.
 - There is coordination that requires a leader — see
-  [leader election](/06-distributed-systems/index.md).
+  [leader election](/06-distributed-systems/leader-election.md).
 
 ## When Not to Use
 
