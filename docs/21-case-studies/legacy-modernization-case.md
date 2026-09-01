@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [healthcare, banking, multi-tenant-enterprise]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -28,7 +28,7 @@ em vinte minutos.
 
 ## Contexto de Negócio
 
-O **Instituto Previdencial** administra a previdência complementar de 41 servidores públicos
+O **Instituto Previdencial** administra a previdência complementar de 41 entes públicos
 estaduais e municipais — um fundo com 2,9 milhões de participantes e R$ 84 bilhões sob gestão.
 
 O sistema de benefícios roda em mainframe desde 1991. Ele calcula, concede e paga 890 mil
