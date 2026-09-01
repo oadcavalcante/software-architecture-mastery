@@ -67,7 +67,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Restrições](docs/01-fundamentals/constraints.md) | foundation | iniciante | `quality-attributes` | 🟩 |
 | 🟩 | [Acoplamento](docs/01-fundamentals/coupling.md) | concept | iniciante | `modularity` | 🟩 |
 | 🟩 | [Gestão de Dependências](docs/01-fundamentals/dependency-management.md) | concept | intermediário | `coupling` | 🟩 |
-| 🟩 | [Exercício 01 — Recuar até o Problema](docs/01-fundamentals/exercises/01-recuar-ate-o-problema.md) | exercise | iniciante | `problem-space` | ⬜ |
+| 🟩 | [Exercício 01 — Recuar até o Problema](docs/01-fundamentals/exercises/01-recuar-ate-o-problema.md) | exercise | iniciante | `problem-space` | 🟩 |
 | 🟩 | [Requisitos Funcionais](docs/01-fundamentals/functional-requirements.md) | foundation | iniciante | `problem-space` | 🟩 |
 | 🟩 | [Fundamentos](docs/01-fundamentals/index.md) | index | iniciante | — | 🟩 |
 | 🟩 | [Modularidade](docs/01-fundamentals/modularity.md) | concept | iniciante | `architecture-vs-design` | 🟩 |
