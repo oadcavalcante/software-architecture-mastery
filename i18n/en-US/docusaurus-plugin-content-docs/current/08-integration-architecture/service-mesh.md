@@ -13,7 +13,7 @@ objective: >
 prerequisites: [api-gateways]
 related: [api-gateways, grpc, integration-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -108,8 +108,9 @@ mesh:        3 attempts per attempt
 result:      9 calls to the destination
 ```
 
-In chains of three services, that becomes 27. A mild degradation at the destination becomes an avalanche.
-See [retries](/06-distributed-systems/retries.md).
+The factor compounds at every hop: in a chain of three, that is 9³ = 729 calls at the end.
+A mild degradation at the destination becomes an avalanche. See
+[retry storms](/12-reliability/retry-storms.md).
 
 The rule: **retry in one layer only**, and know which one.
 
@@ -239,9 +240,9 @@ timeout policy and gradual rollout by traffic splitting.
 Three problems:
 
 **An avalanche from retries.** The applications already retried three times. The mesh was configured with
-three. In a mild degradation of a query service, the three-hop chain generated 27 calls per original
+three. In a mild degradation of a query service, the three-hop chain generated 729 calls per original
 request. The service, which was slow, went down completely. The diagnosis took six hours because the
-application's metrics showed three attempts, and the destination's showed 27. Retries were removed from the
+application's metrics showed three attempts, and the destination at the end of the chain showed 729. Retries were removed from the
 applications and centralized in the mesh.
 
 **The sidecars' consumption.** Small, low-traffic services came to consume more in the sidecar than in the
@@ -269,8 +270,9 @@ exist in that context.
 
 If you use a mesh, check how many layers retry: the application, the mesh, the HTTP client.
 
-Multiply the numbers by the number of hops in your longest chain. That is the number of calls a single
-request can generate in a degradation.
+Multiply the factors of each layer to get the factor per hop, then raise that factor to the number of
+hops in your longest chain — the amplification is exponential in depth, not linear. That is the number
+of calls a single request can generate in a degradation.
 
 ## Interview Questions
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [api-gateways]
 related: [api-gateways, grpc, integration-architecture]
 canonical_for: [malha de serviço, sidecar, plano de controle, mTLS entre serviços]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -114,8 +114,9 @@ malha:     3 tentativas por tentativa
 resultado: 9 chamadas ao destino
 ```
 
-Em cadeias de três serviços, isso vira 27. Uma degradação leve no destino vira
-avalanche. Ver [retentativas](/06-distributed-systems/retries.md).
+O fator se compõe a cada salto: numa cadeia de três, são 9³ = 729 chamadas no fim.
+Uma degradação leve no destino vira avalanche. Ver
+[tempestade de retentativas](/12-reliability/retry-storms.md).
 
 A regra: **repita numa camada só**, e saiba qual.
 
@@ -250,9 +251,9 @@ Três problemas:
 
 **Avalanche por retentativa.** As aplicações já repetiam três vezes. A malha foi
 configurada com três. Numa degradação leve de um serviço de consulta, a cadeia de
-três saltos gerou 27 chamadas por requisição original. O serviço, que estava
+três saltos gerou 729 chamadas por requisição original. O serviço, que estava
 lento, caiu completamente. O diagnóstico levou seis horas porque as métricas da
-aplicação mostravam três tentativas, e as do destino mostravam 27. A retentativa
+aplicação mostravam três tentativas, e as do destino no fim da cadeia mostravam 729. A retentativa
 foi removida das aplicações e centralizada na malha.
 
 **Consumo dos auxiliares.** Serviços pequenos, de baixo tráfego, passaram a
@@ -283,8 +284,10 @@ custo operacional era real e o benefício não existia naquele contexto.
 Se você usa malha, verifique quantas camadas repetem: a aplicação, a malha, o
 cliente HTTP.
 
-Multiplique os números pelo número de saltos da sua cadeia mais longa. Esse é o
-número de chamadas que uma única requisição pode gerar numa degradação.
+Multiplique os fatores de cada camada para achar o fator por salto, e eleve esse
+fator ao número de saltos da sua cadeia mais longa — a amplificação é exponencial
+na profundidade, não linear. Esse é o número de chamadas que uma única requisição
+pode gerar numa degradação.
 
 ## Perguntas de Entrevista
 
