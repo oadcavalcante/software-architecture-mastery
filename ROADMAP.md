@@ -493,7 +493,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Gestão de Risco](docs/23-architecture-leadership/risk-management.md) | concept | avançado | `decision-making` | ⬜ |
 | 🟩 | [Gestão de Interessados](docs/23-architecture-leadership/stakeholder-management.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
 | 🟩 | [Topologias de Time](docs/23-architecture-leadership/team-topologies.md) | concept | avançado | `conways-law` | 🟩 |
-| 🟩 | [Influência Técnica](docs/23-architecture-leadership/technical-influence.md) | concept | avançado | `architecture-leadership-basics` | ⬜ |
+| 🟩 | [Influência Técnica](docs/23-architecture-leadership/technical-influence.md) | concept | avançado | `architecture-leadership-basics` | 🟩 |
 | 🟩 | [Roadmaps Técnicos](docs/23-architecture-leadership/technical-roadmaps.md) | concept | avançado | `technical-strategy-leadership` | ⬜ |
 | 🟩 | [Estratégia Técnica na Liderança](docs/23-architecture-leadership/technical-strategy-leadership.md) | concept | avançado | `architecture-vision` | ⬜ |
 
