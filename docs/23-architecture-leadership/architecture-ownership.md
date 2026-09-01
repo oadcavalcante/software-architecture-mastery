@@ -13,7 +13,7 @@ objective: >
 prerequisites: [team-topologies]
 related: [team-topologies, organizational-architecture, leadership-governance]
 canonical_for: [propriedade de arquitetura, componente órfão, dono como papel, propriedade verificável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -292,8 +292,8 @@ contribuição, e as que não encontraram dono foram descontinuadas com prazo de
 Resultados após 8 meses:
 
 ```text
-serviços implantados                       241 (de 287)
-com dono válido e reconhecido              241 (100%)
+serviços implantados                       228 (de 287)
+com dono válido e reconhecido              228 (100%)
 órfãos                                     0
 custo de infraestrutura                    -11%
 incidentes sem responsável identificado    de 7/ano para 0
