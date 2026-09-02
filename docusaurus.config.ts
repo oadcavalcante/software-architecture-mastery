@@ -81,6 +81,45 @@ const config: Config = {
     },
   },
 
+  /**
+   * Fontes do tema. O material é para leitura prolongada — 446 documentos de
+   * prosa densa —, e a fonte do sistema muda de máquina para máquina.
+   *
+   * Source Serif 4 na prosa: serifa desenhada para tela, com eixo óptico, que
+   * é o que sustenta parágrafo longo sem cansar. IBM Plex Mono nas figuras:
+   * os 2002 blocos de texto puro são o elemento visual dominante do site, e
+   * ela tem altura de x alta o bastante para continuar legível a 0,8rem no
+   * celular.
+   *
+   * `display: swap` para o texto aparecer na fonte do sistema enquanto a
+   * família carrega, em vez de a página ficar em branco.
+   */
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2' +
+          '?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600' +
+          '&family=IBM+Plex+Mono:wght@400;500;600' +
+          '&display=swap',
+      },
+    },
+  ],
+
   markdown: {
     mermaid: true,
     hooks: {
@@ -165,7 +204,9 @@ const config: Config = {
       ],
     },
     footer: {
-      style: 'dark',
+      // Claro, não escuro: o tema é papel, e uma faixa preta no fim da página
+      // corta a leitura em vez de fechá-la. A separação vem de um fio.
+      style: 'light',
       links: [
         {
           title: 'Percurso',

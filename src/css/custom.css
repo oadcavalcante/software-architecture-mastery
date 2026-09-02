@@ -6,7 +6,12 @@
  * Desses blocos, 2002 não são código-fonte — são diagramas, comparações e
  * escalas em texto puro. Apenas nove são programa de verdade.
  *
- * Essa contagem é o que organiza o tema. Quatro decisões seguem dela:
+ * O tema é de **papel**: fundo creme, tinta quase preta, serifa na prosa e um
+ * único acento em terracota. A referência é o manual impresso, porque é o que
+ * o material é — algo que se lê por horas, não se navega por minutos. O azul
+ * corporativo anterior vinha do gerador, não do conteúdo.
+ *
+ * Quatro decisões organizam o resto:
  *
  *   figura ≠ código    blocos `text` recebem tratamento de figura, na paleta
  *                      do site; os poucos blocos de código real mantêm a
@@ -25,18 +30,59 @@
 /* ══════════════════════════════════════════════════════════════ tokens */
 
 :root {
-  --ifm-color-primary: #1f4e79;
-  --ifm-color-primary-dark: #1d4870;
-  --ifm-color-primary-darker: #1b456b;
-  --ifm-color-primary-darkest: #173959;
-  --ifm-color-primary-light: #215482;
-  --ifm-color-primary-lighter: #235787;
-  --ifm-color-primary-lightest: #276399;
+  /*
+   * Terracota queimada. Um acento só, usado em link, estado e régua de seção —
+   * nunca como fundo de bloco. Em texto sobre creme ele fica em 6,8:1, acima
+   * do mínimo de 4,5:1 para corpo.
+   */
+  --ifm-color-primary: #8a4b2a;
+  --ifm-color-primary-dark: #7c4426;
+  --ifm-color-primary-darker: #754024;
+  --ifm-color-primary-darkest: #60351e;
+  --ifm-color-primary-light: #98522e;
+  --ifm-color-primary-lighter: #9f5630;
+  --ifm-color-primary-lightest: #b46137;
 
-  --ifm-code-font-size: 92%;
-  --ifm-font-size-base: 16px;
-  --ifm-line-height-base: 1.7;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
+  /* Papel e tinta. */
+  --ifm-background-color: #faf8f5;
+  --ifm-background-surface-color: #f5f2ec;
+  --ifm-font-color-base: #1c1a17;
+  --ifm-heading-color: #14120f;
+
+  /*
+   * Escala de cinzas **quentes**. A escala padrão do Infima é neutra e, sobre
+   * creme, cinza neutro puxa para o azul — o que quebra a impressão de papel.
+   */
+  --ifm-color-emphasis-0: #ffffff;
+  --ifm-color-emphasis-100: #f2eee7;
+  --ifm-color-emphasis-200: #e8e2d8;
+  --ifm-color-emphasis-300: #d9d2c7;
+  --ifm-color-emphasis-400: #c2b9ab;
+  --ifm-color-emphasis-500: #a89e8e;
+  --ifm-color-emphasis-600: #8a8073;
+  --ifm-color-emphasis-700: #6b6359;
+  --ifm-color-emphasis-800: #4a443c;
+  --ifm-color-emphasis-900: #2e2a25;
+  --ifm-color-emphasis-1000: #14120f;
+
+  --ifm-font-family-base: 'Source Serif 4', Charter, 'Bitstream Charter',
+    'Iowan Old Style', Georgia, Cambria, 'Times New Roman', serif;
+  --ifm-heading-font-family: var(--ifm-font-family-base);
+  --ifm-font-family-monospace: 'IBM Plex Mono', ui-monospace, SFMono-Regular,
+    Menlo, Consolas, monospace;
+
+  /*
+   * 17px porque a serifa tem altura de x menor que a sans do sistema: no mesmo
+   * corpo nominal ela lê menor. 1,72 de entrelinha acompanha a medida longa.
+   */
+  --ifm-font-size-base: 17px;
+  --ifm-line-height-base: 1.72;
+  --ifm-code-font-size: 88%;
+  --ifm-pre-line-height: 1.5;
+  --ifm-global-radius: 3px;
+  --ifm-code-border-radius: 3px;
+
+  --docusaurus-highlighted-code-line-bg: rgba(138, 75, 42, 0.1);
 
   /* Marcadores de status usados em tabelas de roadmap e paridade. */
   --sam-status-done: #2e7d32;
@@ -46,43 +92,64 @@
   /*
    * Medida de linha da prosa.
    *
-   * `ch` acompanha a fonte, que é a razão de ser a unidade certa aqui. 72ch
-   * dá cerca de 80 caracteres por linha, dentro da faixa legível para texto
-   * corrido. A medida anterior — 46rem — dava 92, acima do ponto em que o
-   * olho perde a linha ao voltar para a esquerda, e o material é longo demais
-   * para pagar isso.
+   * `ch` acompanha a fonte, que é a razão de ser a unidade certa aqui. Com a
+   * serifa, 72ch dá cerca de 80 caracteres por linha — dentro da faixa legível
+   * para texto corrido. A medida anterior, em rem, mudava de sentido a cada
+   * troca de fonte.
    *
    * Figuras e tabelas NÃO respeitam esta medida: têm largura própria, ditada
    * pelo conteúdo, e estreitá-las junto com a prosa só produz rolagem.
    */
   --sam-measure: 72ch;
 
-  /* Figuras em texto: painel discreto, na paleta do site. */
-  --sam-figure-bg: var(--ifm-color-emphasis-100);
-  --sam-figure-border: var(--ifm-color-emphasis-300);
-  --sam-figure-ink: var(--ifm-color-emphasis-900);
+  /* Figuras em texto: papel um tom abaixo, com fio quente. */
+  --sam-figure-bg: #f2eee7;
+  --sam-figure-border: #ded6ca;
+  --sam-figure-ink: #2e2a25;
 
   /* Régua que separa as seções de um documento de 14 títulos. */
-  --sam-rule: var(--ifm-color-emphasis-300);
+  --sam-rule: #e2ddd4;
 
   /* Sombra de rolagem: cor do fundo que desliza e sombra que fica. */
   --sam-scroll-bg: var(--ifm-background-color);
-  --sam-scroll-shadow: rgba(0, 0, 0, 0.14);
+  --sam-scroll-shadow: rgba(28, 26, 23, 0.16);
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #7fb2e0;
-  --ifm-color-primary-dark: #76adde;
-  --ifm-color-primary-darker: #71a9dd;
-  --ifm-color-primary-darkest: #5e9ed8;
-  --ifm-color-primary-light: #88b7e2;
-  --ifm-color-primary-lighter: #8dbbe3;
-  --ifm-color-primary-lightest: #a0c6e8;
+  /* Terracota clareada para manter contraste sobre o fundo escuro. */
+  --ifm-color-primary: #d98f63;
+  --ifm-color-primary-dark: #d38055;
+  --ifm-color-primary-darker: #d0794c;
+  --ifm-color-primary-darkest: #c46433;
+  --ifm-color-primary-light: #df9e71;
+  --ifm-color-primary-lighter: #e2a57a;
+  --ifm-color-primary-lightest: #ebbb9b;
 
-  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.12);
+  /* Escuro quente, não azulado: é a mesma tinta com o papel invertido. */
+  --ifm-background-color: #16161a;
+  --ifm-background-surface-color: #1c1c21;
+  --ifm-font-color-base: #e8e4dd;
+  --ifm-heading-color: #f2efe9;
 
-  --sam-figure-ink: var(--ifm-color-emphasis-800);
-  --sam-scroll-shadow: rgba(0, 0, 0, 0.5);
+  --ifm-color-emphasis-0: #16161a;
+  --ifm-color-emphasis-100: #1e1e23;
+  --ifm-color-emphasis-200: #26262c;
+  --ifm-color-emphasis-300: #33333a;
+  --ifm-color-emphasis-400: #45454e;
+  --ifm-color-emphasis-500: #5e5e69;
+  --ifm-color-emphasis-600: #8a8792;
+  --ifm-color-emphasis-700: #a8a49f;
+  --ifm-color-emphasis-800: #c9c4bc;
+  --ifm-color-emphasis-900: #e2ddd4;
+  --ifm-color-emphasis-1000: #f5f2ec;
+
+  --docusaurus-highlighted-code-line-bg: rgba(217, 143, 99, 0.14);
+
+  --sam-figure-bg: #1e1e23;
+  --sam-figure-border: #33333a;
+  --sam-figure-ink: #d7d2ca;
+  --sam-rule: #2b2b31;
+  --sam-scroll-shadow: rgba(0, 0, 0, 0.55);
 }
 
 /* ════════════════════════════════════════════════════════ tipografia */
@@ -94,19 +161,35 @@
  * página de abertura isso funciona; num documento com 14 títulos de segundo
  * nível, títulos de 32px viram uma sequência de blocos pesados e a leitura
  * fica em degraus. Aqui a estrutura é marcada pela régua e pelo peso, e a
- * escala fecha: 2.5 / 1.5 / 1.15.
+ * escala fecha: 2.2 / 1.42 / 1.12.
  */
 .markdown h1:first-child {
-  --ifm-h1-font-size: 2.5rem;
-  line-height: 1.2;
+  --ifm-h1-font-size: 2.2rem;
+  line-height: 1.18;
+  letter-spacing: -0.012em;
 }
 
 .markdown > h2 {
-  --ifm-h2-font-size: 1.5rem;
+  --ifm-h2-font-size: 1.42rem;
+  letter-spacing: -0.006em;
 }
 
 .markdown > h3 {
-  --ifm-h3-font-size: 1.15rem;
+  --ifm-h3-font-size: 1.12rem;
+}
+
+/* A serifa tem contraste de traço; em títulos, 600 lê melhor que 700. */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  font-weight: 600;
+}
+
+/* Números em tabela e em figura alinham por coluna. */
+.markdown table,
+.markdown .theme-code-block {
+  font-variant-numeric: tabular-nums;
 }
 
 /* ════════════════════════════════════════════════ prosa e medida */
@@ -266,6 +349,93 @@
 /* `:::details` guarda a discussão dos exercícios, aberta depois de tentar. */
 .markdown details > summary {
   font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════ papel: o cromo */
+
+/*
+ * Navbar e rodapé são papel, não faixas de cor. Um cabeçalho colorido sobre
+ * fundo creme cria uma faixa que compete com o texto; um fio embaixo separa
+ * tanto quanto e não pesa.
+ */
+.navbar {
+  background: var(--ifm-background-color);
+  box-shadow: none;
+  border-bottom: 1px solid var(--sam-rule);
+}
+
+.navbar__title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.footer {
+  background: var(--ifm-background-surface-color);
+  border-top: 1px solid var(--sam-rule);
+  color: var(--ifm-color-emphasis-800);
+}
+
+.footer__title {
+  color: var(--ifm-color-emphasis-900);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.footer__link-item {
+  color: var(--ifm-color-emphasis-700);
+}
+
+.footer__copyright {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.85rem;
+}
+
+/*
+ * Barra lateral e sumário em corpo menor e sem serifa nos rótulos: são listas
+ * de navegação, e serifa em lista curta cansa mais que ajuda.
+ */
+.menu,
+.table-of-contents {
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.86rem;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background: var(--ifm-color-emphasis-100);
+  font-weight: 600;
+}
+
+.table-of-contents {
+  border-left: 1px solid var(--sam-rule);
+}
+
+.table-of-contents__link--active {
+  font-weight: 600;
+}
+
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--sam-rule) !important;
+}
+
+/* A trilha é orientação, não conteúdo. */
+.breadcrumbs {
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.8rem;
+}
+
+/*
+ * Link no corpo: sublinhado fino e afastado, que é o que uma serifa pede.
+ * Sublinhado colado na base come as descidas de g, p e q.
+ */
+.markdown a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.markdown a:hover {
+  text-decoration-thickness: 2px;
 }
 
 /* ══════════════════════════════════════════════ cabeçalho e navegação */
