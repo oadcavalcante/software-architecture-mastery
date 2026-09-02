@@ -1,6 +1,8 @@
 <div align="center">
 
-# Software Architecture Mastery
+# Maestria em Arquitetura de Software
+
+<sub>Software Architecture Mastery</sub>
 
 **Um percurso para Engenheiros de Software que querem pensar como Arquitetos.**
 

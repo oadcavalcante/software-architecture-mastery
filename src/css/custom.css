@@ -441,17 +441,28 @@
 /* ══════════════════════════════════════════════ cabeçalho e navegação */
 
 /*
- * O título do site tem 29 caracteres, ou ~238px em 16px semibold. Em 390px a
- * navbar deixa ~232px depois do menu, do logotipo e da busca: o título trunca,
- * e em telas de 360px trunca no meio da segunda palavra.
+ * O título é cromo, não prosa: 17px é corpo de leitura e pesa demais numa
+ * barra. Em 0.94rem ele fica na proporção certa com o logotipo.
  *
- * Reduzir o corpo resolve sem tirar a identificação do site — esconder o
- * título deixaria apenas o logotipo, que não diz o nome. A 0.9rem o título
- * precisa de ~214px e cabe até 360px.
+ * O nome em português tem 35 caracteres, seis a mais que o em inglês. Em 390px
+ * a navbar deixa ~232px depois do menu, do logotipo e da busca, e o título só
+ * cabe inteiro a partir de ~13px — pequeno demais. A escala abaixo mantém o
+ * nome legível e deixa a elipse acontecer só nos telefones mais estreitos, que
+ * é degradação melhor que esconder o nome do site.
  */
+.navbar__title {
+  font-size: 0.94rem;
+}
+
 @media (max-width: 576px) {
   .navbar__title {
-    font-size: 0.9rem;
+    font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar__title {
+    font-size: 0.8rem;
   }
 }
 

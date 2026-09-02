@@ -43,9 +43,27 @@ const SITE_URL =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : 'http://localhost:3000');
 
+/**
+ * Título do site, por locale.
+ *
+ * `siteConfig.title` alimenta a aba do navegador e o sufixo de toda `<title>`,
+ * e não é extraído por `write-translations` — daí a variável de locale, o mesmo
+ * mecanismo usado no card social. O nome do projeto em português é o que o
+ * leitor de pt-BR vê; em en-US ele permanece em inglês.
+ */
+const TITULO: Record<string, string> = {
+  'pt-BR': 'Maestria em Arquitetura de Software',
+  'en-US': 'Software Architecture Mastery',
+};
+
+const TAGLINE: Record<string, string> = {
+  'pt-BR': 'Pensar como arquiteto, não decorar padrões',
+  'en-US': 'Think like an architect, not memorize patterns',
+};
+
 const config: Config = {
-  title: 'Software Architecture Mastery',
-  tagline: 'Pensar como arquiteto, não decorar padrões',
+  title: TITULO[LOCALE] ?? TITULO['pt-BR'],
+  tagline: TAGLINE[LOCALE] ?? TAGLINE['pt-BR'],
   favicon: 'img/favicon.svg',
 
   url: SITE_URL,

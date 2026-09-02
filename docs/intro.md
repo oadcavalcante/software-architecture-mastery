@@ -3,7 +3,7 @@ id: intro
 title: Comece aqui
 slug: /
 sidebar_position: 1
-description: O que é o Software Architecture Mastery, para quem é e como percorrer os sete níveis.
+description: O que é a Maestria em Arquitetura de Software, para quem é e como percorrer os sete níveis.
 doc_type: index
 level: 0
 difficulty: iniciante
@@ -14,11 +14,11 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-30
 ---
 
-# Software Architecture Mastery
+# Maestria em Arquitetura de Software
 
 Um percurso para Engenheiros de Software que querem pensar como Arquitetos de Software.
 

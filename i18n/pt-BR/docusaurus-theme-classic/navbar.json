@@ -1,10 +1,10 @@
 {
   "title": {
-    "message": "Software Architecture Mastery",
+    "message": "Maestria em Arquitetura de Software",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Software Architecture Mastery",
+    "message": "Maestria em Arquitetura de Software",
     "description": "The alt text of navbar logo"
   },
   "item.label.Percurso": {
