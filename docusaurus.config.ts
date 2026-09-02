@@ -172,8 +172,9 @@ const config: Config = {
           // Modo docs-only: o guia É o site. Não há landing page separada.
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl: `https://github.com/${GH_ORG}/${GH_REPO}/tree/main/`,
-          editLocalizedFiles: true,
+          // Sem `editUrl`: o repositório é privado, e o "Editar esta página"
+          // levava todo visitante a um 404 do GitHub. Voltar a ligá-lo é uma
+          // linha, no dia em que o repositório for publicado.
           showLastUpdateTime: true,
           breadcrumbs: true,
         },
@@ -238,17 +239,14 @@ const config: Config = {
           type: 'localeDropdown',
           position: 'right',
         },
-        {
-          href: `https://github.com/${GH_ORG}/${GH_REPO}`,
-          label: 'GitHub',
-          position: 'right',
-        },
       ],
     },
     footer: {
       // Claro, não escuro: o tema é papel, e uma faixa preta no fim da página
       // corta a leitura em vez de fechá-la. A separação vem de um fio.
       style: 'light',
+      // Uma coluna só: sobraram cinco links depois que os do repositório saíram,
+      // e duas colunas com dois e três itens leem como categoria sem conteúdo.
       links: [
         {
           title: 'Percurso',
@@ -257,30 +255,7 @@ const config: Config = {
             {label: 'Como usar', to: '/how-to-use'},
             {label: 'Modelo de maturidade', to: '/maturity-model'},
             {label: 'Glossário', to: '/glossary'},
-          ],
-        },
-        {
-          title: 'Projeto',
-          items: [
-            {
-              label: 'Especificação',
-              href: `https://github.com/${GH_ORG}/${GH_REPO}/blob/main/SPEC.md`,
-            },
-            {
-              label: 'Roadmap',
-              href: `https://github.com/${GH_ORG}/${GH_REPO}/blob/main/ROADMAP.md`,
-            },
-            {
-              label: 'Como contribuir',
-              href: `https://github.com/${GH_ORG}/${GH_REPO}/blob/main/CONTRIBUTING.md`,
-            },
-          ],
-        },
-        {
-          title: 'Mais',
-          items: [
             {label: 'Progresso de leitura', to: '/progress'},
-            {label: 'GitHub', href: `https://github.com/${GH_ORG}/${GH_REPO}`},
           ],
         },
       ],

@@ -399,6 +399,34 @@ html[data-theme='dark'] {
 }
 
 /*
+ * Rodapé de uma coluna só.
+ *
+ * Depois que os links do repositório saíram, restaram cinco itens numa coluna,
+ * e a grade do tema os empilhava à esquerda deixando três quartos da largura
+ * vazios — o que lê como coluna faltando, não como escolha. Em linha, os cinco
+ * ocupam a faixa inteira, e aí o título da coluna vira redundância.
+ */
+.footer .row > .col:only-child {
+  --ifm-col-width: 100%;
+  text-align: center;
+}
+
+.footer .row > .col:only-child .footer__title {
+  display: none;
+}
+
+.footer .row > .col:only-child .footer__items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.6rem;
+}
+
+.footer .row > .col:only-child .footer__item {
+  margin: 0;
+}
+
+/*
  * Barra lateral e sumário em corpo menor e sem serifa nos rótulos: são listas
  * de navegação, e serifa em lista curta cansa mais que ajuda.
  */
