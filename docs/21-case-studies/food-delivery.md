@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, logistics, ecommerce]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -124,7 +124,7 @@ pedidos/dia, média                     1,9 milhão
 pedidos/s, média                       ~22
 pico (sexta e sábado, 19h-21h)         ~340 mil/h  →  ~94/s
 pico instantâneo observado             ~210/s
-margem de projeto (3×)                 ~650/s
+margem de projeto (3×)                 ~630/s
 ```
 
 O volume de pedidos, mais uma vez, é modesto. O que não é modesto é o volume de **posição**:
@@ -483,7 +483,7 @@ Números ao fim da Fase 4, 18 meses após o início:
 ```text
 custo de infraestrutura                 de R$ 31 mi/ano para R$ 19 mi/ano,
                                         com crescimento de 34% em pedidos
-custo por pedido                        -47%
+custo por pedido                        -54%
 tempo até atribuição, p95               de 34 s para 9 s
 pedidos sem entregador em 60 s          de 4,1% para 0,6%
 erro da estimativa, média               de 11 min para 6,2 min
@@ -508,7 +508,7 @@ em todos.
 
 **Dado efêmero não merece durabilidade.** Posições que envelhecem em 4 segundos não precisam de
 transação, replicação síncrona nem retenção quente. Tratá-las como dado transacional custava
-R$ 21 milhões por ano para garantir uma propriedade que ninguém usava.
+R$ 13,6 milhões por ano para garantir uma propriedade que ninguém usava.
 
 **A restrição de conectividade moldou o desenho.** Lote acumulado, carimbo de tempo original,
 TTL em vez de gestão de desconexão — três decisões que só fazem sentido para quem opera com

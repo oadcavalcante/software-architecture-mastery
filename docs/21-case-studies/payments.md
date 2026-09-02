@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [banking, ecommerce, high-volume-events]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -457,9 +457,10 @@ fraude no intervalo, e o volume aprovado nesse modo é limitado por valor e por 
 
 O cálculo que sustenta essa decisão foi feito com números e revisado anualmente. Recusar todas
 as transações durante uma hora de indisponibilidade do serviço de fraude custa cerca de
-R$ 1,4 milhão em volume não processado, com efeito direto sobre lojistas. A perda esperada por
-fraude aprovada no mesmo intervalo, com os limites de valor aplicados, é estimada em R$ 40 mil.
-A relação de 35 para 1 justifica a escolha, e os limites de valor e de lojista existem
+R$ 4,3 milhões em volume não processado — R$ 38 bilhões ao ano divididos por 8.760 horas —, com
+efeito direto sobre lojistas. A perda esperada por fraude aprovada no mesmo intervalo, com os
+limites de valor aplicados, é estimada em R$ 40 mil. A relação de mais de cem para um justifica
+a escolha, e os limites de valor e de lojista existem
 justamente para manter essa relação — sem eles, o modo degradado seria um convite conhecido.
 
 Esse é um exemplo de decisão que parece de segurança e é comercial: quem responde por ela é a

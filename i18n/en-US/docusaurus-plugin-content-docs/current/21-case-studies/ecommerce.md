@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [legacy-modernization-case, logistics, saas-platform]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -150,7 +150,7 @@ read peak                               ~4,800/s
 with margin                             ~12,000/s
 ```
 
-Reads are 1,500× writes. That shifts the design toward caching and read replication, not
+Reads are 555× writes, by monthly volume. That shifts the design toward caching and read replication, not
 toward write partitioning.
 
 **Inventory volume.**

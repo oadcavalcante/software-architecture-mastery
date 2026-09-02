@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [saas-platform, healthcare, legacy-modernization-case]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -87,7 +87,7 @@ product. The whole architecture is about resolving that tension without choosing
 
 ```text
 time between a fix being ready and production   < 1 week (against 11)
-customers on the current version                100% (against 57%)
+customers on the current version                100% (against 58%)
 time to onboard a new customer                  < 6 weeks (against ~7 months)
 p95 of an interactive operation                 < 700 ms
 availability                                    99.9%
@@ -545,7 +545,7 @@ if a regulated sector requires customization in the core
 Numbers at the end of Phase 5, 28 months after the start:
 
 ```text
-customers on the current version        from 57% to 100%
+customers on the current version        from 58% to 100%
 time between a fix and production       from 11 weeks to 4 days
 customer conditionals in the code       from 594 to 3
 effort on maintenance                   from 73% to 34%

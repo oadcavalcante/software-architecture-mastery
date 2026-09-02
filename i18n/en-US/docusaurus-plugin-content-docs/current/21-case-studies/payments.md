@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [banking, ecommerce, high-volume-events]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -452,10 +452,10 @@ trade-off: declining every transaction during an outage costs more than the frau
 interval, and the volume approved in that mode is capped by amount and by merchant.
 
 The calculation behind that decision was done with numbers and is reviewed annually. Declining
-every transaction during one hour of fraud service downtime costs about $280 thousand in
-unprocessed volume, with a direct effect on merchants. The expected loss from fraud approved
-over the same interval, with the amount caps applied, is estimated at $8 thousand. The 35-to-1
-ratio justifies the choice, and the amount and merchant caps exist precisely to keep that
+every transaction during one hour of fraud service downtime costs about $870 thousand in
+unprocessed volume — $7.6 billion a year divided by 8,760 hours — with a direct effect on
+merchants. The expected loss from fraud approved over the same interval, with the amount caps
+applied, is estimated at $8 thousand. The ratio of over a hundred to one justifies the choice, and the amount and merchant caps exist precisely to keep that
 ratio — without them, the degraded mode would be a known invitation.
 
 That is an example of a decision that looks like security and is commercial: whoever answers

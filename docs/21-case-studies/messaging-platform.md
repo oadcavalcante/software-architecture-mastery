@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, video-streaming, ride-sharing]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -159,7 +159,8 @@ entregas/s no pico (mensagens × destinatários)   ~1,4 milhão/s
 ```
 
 Um milhão e quatrocentas mil entregas por segundo é o número que dimensiona o sistema — e ele é
-40× maior que o número de mensagens, por causa dos grupos.
+12,5× o número de mensagens no mesmo pico, porque cada mensagem alcança 12,5 destinatários em
+média, por causa dos grupos.
 
 ```text
 armazenamento

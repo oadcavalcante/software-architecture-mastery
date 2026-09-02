@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [payments, healthcare, high-volume-events]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -101,7 +101,8 @@ traceability                            every entry linked to its origin,
 ```
 
 RPO zero is the requirement that constrains the design most: no transaction confirmed to the
-customer may be lost, under any circumstances. It eliminates any asynchronous replication on
+customer may be lost within the region. In a declared regional disaster the design accepts ~30 s
+of loss, and that exception is decided, not overlooked. It eliminates any asynchronous replication on
 the confirmation path.
 
 ## Constraints
@@ -570,7 +571,8 @@ The choice to start the notice period in Phase 3, and not Phase 5, was a conscio
 decision: it creates an irreversible 12-month deadline to complete the write migration. The
 recorded justification is that, without that deadline, the organization's experience with long
 projects indicated a high probability of Phase 4 being deferred indefinitely by competing
-priorities — and the cost of maintaining both systems is $880 thousand a year.
+priorities — and the supplier contract, which keeps running while both systems coexist, costs
+$10.6 million a year.
 
 The risk was mitigated with an extension clause negotiated in advance, at an agreed price,
 which never had to be invoked.
@@ -619,8 +621,8 @@ problem that doesn't exist.
 business rules. Products generate entries; the ledger merely accepts them balanced and writes
 them.
 
-**The parallel comparison is the product, not the bureaucracy.** The 11 classes of divergence
-found in the shadow phase were undocumented behaviors of the old system. None would have been
+**The parallel comparison is the product, not the bureaucracy.** Of the 11 classes of divergence
+found in the shadow phase, 7 were undocumented behaviors of the old system. None would have been
 discovered by reading a specification.
 
 **RPO zero has a price in latency, and it is always paid.** Twelve milliseconds per

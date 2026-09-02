@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [payments, healthcare, high-volume-events]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -100,7 +100,8 @@ rastreabilidade                         todo lançamento vinculado à origem,
 ```
 
 RPO zero é o requisito que mais restringe o desenho: nenhuma transação confirmada ao cliente
-pode ser perdida, em nenhuma circunstância. Ele elimina qualquer replicação assíncrona no
+pode ser perdida dentro da região. Em desastre regional declarado o desenho aceita ~30 s de
+perda, e essa exceção é decidida, não esquecida. Ele elimina qualquer replicação assíncrona no
 caminho de confirmação.
 
 ## Restrições
@@ -569,7 +570,8 @@ A escolha de iniciar o aviso prévio na Fase 3, e não na Fase 5, foi uma decis�
 consciente: ela cria um prazo irreversível de 12 meses para concluir a migração de escrita. A
 justificativa registrada é que, sem esse prazo, a experiência da organização com projetos
 longos indicava alta probabilidade de a Fase 4 ser adiada indefinidamente por prioridades
-concorrentes — e o custo de manter os dois sistemas é de R$ 4,4 milhões por ano.
+concorrentes — e o contrato do fornecedor, que segue correndo enquanto os dois sistemas convivem, custa
+R$ 52,8 milhões por ano.
 
 O risco foi mitigado com uma cláusula de extensão negociada previamente, a preço acordado, que
 nunca precisou ser acionada.
@@ -617,9 +619,9 @@ que não existe.
 **O núcleo deve ser burro.** Toda a liberdade de produto veio de manter o razão sem regra de
 negócio. Produtos geram lançamentos; o razão apenas os aceita balanceados e os grava.
 
-**A comparação em paralelo é o produto, não a burocracia.** As 11 classes de divergência
-encontradas na fase de sombra eram comportamentos não documentados do sistema antigo.
-Nenhuma teria sido descoberta por leitura de especificação.
+**A comparação em paralelo é o produto, não a burocracia.** Das 11 classes de divergência
+encontradas na fase de sombra, 7 eram comportamentos não documentados do sistema antigo.
+Nenhuma delas teria sido descoberta por leitura de especificação.
 
 **RPO zero tem preço em latência, e ele é pago sempre.** Doze milissegundos por transação, em
 14 milhões de transações diárias. A decisão foi registrada com o número, não com o adjetivo.

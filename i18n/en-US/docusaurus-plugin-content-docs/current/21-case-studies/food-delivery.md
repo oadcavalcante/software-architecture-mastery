@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, logistics, ecommerce]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -124,7 +124,7 @@ orders/day, average                    1.9 million
 orders/s, average                      ~22
 peak (Friday and Saturday, 7-9pm)      ~340 thousand/h  →  ~94/s
 observed instantaneous peak            ~210/s
-design margin (3×)                     ~650/s
+design margin (3×)                     ~630/s
 ```
 
 The order volume, once again, is modest. What is not modest is the volume of **positions**:
@@ -482,7 +482,7 @@ Numbers at the end of Phase 4, 18 months after the start:
 ```text
 infrastructure cost                     from $6.2M/year to $3.8M/year,
                                         with 34% growth in orders
-cost per order                          -47%
+cost per order                          -54%
 time to assignment, p95                 from 34 s to 9 s
 orders with no courier within 60 s      from 4.1% to 0.6%
 estimate error, average                 from 11 min to 6.2 min
@@ -508,7 +508,7 @@ three would be expensive in all of them.
 
 **Ephemeral data doesn't deserve durability.** Positions that age in 4 seconds don't need
 transactions, synchronous replication or hot retention. Treating them as transactional data cost
-$4.2 million a year to guarantee a property nobody used.
+$2.7 million a year to guarantee a property nobody used.
 
 **The connectivity constraint shaped the design.** Accumulated batches, original timestamps, TTL
 instead of disconnection management — three decisions that only make sense for someone operating

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [saas-platform, healthcare, legacy-modernization-case]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -87,7 +87,7 @@ produto só. Toda a arquitetura é sobre resolver essa tensão sem escolher um d
 
 ```text
 tempo entre correção pronta e produção      < 1 semana (contra 11)
-clientes em versão corrente                 100% (contra 57%)
+clientes em versão corrente                 100% (contra 58%)
 tempo de onboarding de cliente novo         < 6 semanas (contra ~7 meses)
 p95 de operação interativa                  < 700 ms
 disponibilidade                             99,9%
@@ -547,7 +547,7 @@ se um setor regulado exigir customização no núcleo
 Números ao fim da Fase 5, 28 meses após o início:
 
 ```text
-clientes na versão corrente             de 57% para 100%
+clientes na versão corrente             de 58% para 100%
 tempo entre correção e produção         de 11 semanas para 4 dias
 condicionais de cliente no código       de 594 para 3
 esforço em manutenção                   de 73% para 34%

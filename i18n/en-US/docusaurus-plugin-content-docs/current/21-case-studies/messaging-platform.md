@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, video-streaming, ride-sharing]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -158,7 +158,8 @@ deliveries/s at peak (messages × recipients)    ~1.4 million/s
 ```
 
 One million four hundred thousand deliveries per second is the number that sizes the system —
-and it is 40× larger than the number of messages, because of groups.
+and it is 12.5× the number of messages at the same peak, because each message reaches 12.5
+recipients on average, thanks to groups.
 
 ```text
 storage

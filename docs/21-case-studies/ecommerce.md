@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [legacy-modernization-case, logistics, saas-platform]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -151,7 +151,7 @@ pico de leitura                         ~4 800/s
 com margem                              ~12 000/s
 ```
 
-A leitura é 1.500× a escrita. Isso desloca o desenho para cache e replicação de leitura, não
+A leitura é 555× a escrita, no volume mensal. Isso desloca o desenho para cache e replicação de leitura, não
 para particionamento de escrita.
 
 **Volume de estoque.**
