@@ -207,7 +207,7 @@ risco             médio — negociação com 6 parceiros, não dezenas
 | Prazo até resultado | 15% | 9 | 2 | 7 |
 | Risco de execução | 15% | 9 | 3 | 6 |
 | Capacidade da equipe | 10% | 9 | 3 | 6 |
-| **Total ponderado** | | **5,5** | **6,6** | **7,4** |
+| **Total ponderado** | | **5,6** | **6,5** | **7,4** |
 
 **Análise de sensibilidade.** Com risco em 40% e custo em 15%, os totais viram 7,6 / 4,4 / 6,8 —
 a Opção A vence. Esse é o único cenário testado em que a conclusão muda, e ele corresponde a uma

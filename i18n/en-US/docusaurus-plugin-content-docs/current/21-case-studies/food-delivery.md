@@ -210,7 +210,7 @@ team                 nobody with experience in the technology
 | Team capability | 15% | 9 | 8 | 3 |
 | Support for prediction logic | 10% | 4 | 5 | 9 |
 | Operational complexity | 5% | 9 | 7 | 3 |
-| **Weighted total** | | **4.7** | **8.4** | **6.5** |
+| **Weighted total** | | **4.6** | **8.4** | **6.4** |
 
 The 30% weight on cost reflects the leadership constraint — it is a declared business
 constraint, and ignoring it would produce a proposal that wouldn't be approved.

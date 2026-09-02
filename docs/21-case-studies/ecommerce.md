@@ -244,7 +244,7 @@ definidos **antes** da avaliação:
 | Custo total em 4 anos | 15% | 3 | 6 | 7 |
 | Capacidade da equipe atual | 10% | 8 | 3 | 6 |
 | Reversibilidade | 5% | 7 | 1 | 9 |
-| **Total ponderado** | | **5,0** | **4,4** | **7,3** |
+| **Total ponderado** | | **5,2** | **4,4** | **7,3** |
 
 Os pesos merecem explicação. Tempo até as funcionalidades novas e redução do prazo de
 mudança somam 50% porque **são o projeto** — a empresa não está resolvendo um problema

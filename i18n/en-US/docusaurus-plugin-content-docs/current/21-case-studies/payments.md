@@ -231,7 +231,7 @@ debugging            hard
 | Operational complexity | 15% | 8 | 7 | 3 |
 | Team capability | 10% | 8 | 7 | 4 |
 | Infrastructure cost | 5% | 9 | 8 | 6 |
-| **Weighted total** | | **5.9** | **8.3** | **5.9** |
+| **Weighted total** | | **6.1** | **8.3** | **5.7** |
 
 Correctness under failure weighs 35% because it is the stated problem: 900 duplicate charges a
 month and 900 ambiguous cases a day. Any lower weight would make the analysis incoherent with

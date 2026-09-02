@@ -225,7 +225,7 @@ capacidade preditiva  preservada — o centro vê todas as plantas
 | Resiliência a falha de enlace | 20% | 1 | 2 | 10 | 9 |
 | Capacidade preditiva entre plantas | 15% | 9 | 9 | 2 | 9 |
 | Complexidade operacional | 10% | 9 | 6 | 3 | 3 |
-| **Total ponderado** | | **3,3** | **6,4** | **7,8** | **8,5** |
+| **Total ponderado** | | **3,3** | **6,5** | **7,9** | **8,5** |
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais
 critérios. Com complexidade em 30%, os totais viram 4,6 / 6,3 / 6,8 / 7,2. Com capacidade

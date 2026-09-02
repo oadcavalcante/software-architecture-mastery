@@ -219,7 +219,7 @@ comum de um banco.
 | Prazo até resolver o fechamento | 15% | 6 | 7 | 3 |
 | Capacidade da equipe | 10% | 8 | 6 | 3 |
 | Complexidade operacional | 5% | 9 | 7 | 3 |
-| **Total ponderado** | | **5,1** | **7,6** | **5,7** |
+| **Total ponderado** | | **5,1** | **7,7** | **5,5** |
 
 **Análise de sensibilidade.** Com risco de migração em 40%, os totais viram 5,6 / 6,8 / 4,0 —
 a Opção B continua vencendo. Com custo em 45%, viram 4,2 / 8,3 / 6,4. A conclusão é estável.

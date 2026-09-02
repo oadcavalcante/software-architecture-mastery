@@ -220,7 +220,7 @@ risco             previsão ruim piora o resultado em vez de melhorar
 | Complexidade e risco | 20% | 9 | 6 | 3 |
 | Custo por corrida | 15% | 4 | 8 | 8 |
 | Capacidade da equipe | 10% | 9 | 7 | 4 |
-| **Total ponderado** | | **6,0** | **7,3** | **7,1** |
+| **Total ponderado** | | **6,2** | **7,3** | **7,0** |
 
 A disputa entre B e C é apertada, e a diferença está em risco: a Opção C depende de previsão, e
 uma previsão ruim degrada o casamento em vez de melhorá-lo. A Opção B entrega a maior parte do

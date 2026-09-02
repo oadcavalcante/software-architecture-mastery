@@ -206,7 +206,7 @@ risk              medium — negotiating with 6 partners, not dozens
 | Time to result | 15% | 9 | 2 | 7 |
 | Execution risk | 15% | 9 | 3 | 6 |
 | Team capability | 10% | 9 | 3 | 6 |
-| **Weighted total** | | **5.5** | **6.6** | **7.4** |
+| **Weighted total** | | **5.6** | **6.5** | **7.4** |
 
 **Sensitivity analysis.** With risk at 40% and cost at 15%, the totals become 7.6 / 4.4 / 6.8 —
 Option A wins. That is the only scenario tested in which the conclusion changes, and it corresponds

@@ -237,7 +237,7 @@ knowledge         the main problem is not solved; when the
 | Value delivery over time | 20% | 1 | 5 | 9 | 7 |
 | Cost reduction | 15% | 8 | 8 | 7 | 1 |
 | Speed of future change | 10% | 9 | 3 | 9 | 2 |
-| **Weighted total** | | **4.6** | **6.2** | **8.7** | **5.1** |
+| **Weighted total** | | **4.9** | **5.9** | **8.7** | **5.0** |
 
 **Sensitivity analysis.** With risk of error at 50%, the totals become 3.6 / 7.3 / 8.9 / 8.1 —
 Option C keeps its advantage. With cost at 40%, they become 5.9 / 7.3 / 8.0 / 3.0. No scenario

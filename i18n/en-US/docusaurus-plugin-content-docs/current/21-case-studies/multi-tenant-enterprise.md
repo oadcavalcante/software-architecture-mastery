@@ -229,7 +229,7 @@ limit              explicit and negotiable
 | Ability to meet requests | 20% | 10 | 6 | 9 | 8 |
 | Onboarding time | 15% | 2 | 9 | 6 | 8 |
 | Operational risk | 10% | 5 | 9 | 3 | 7 |
-| **Weighted total** | | **3.3** | **8.6** | **7.0** | **8.3** |
+| **Weighted total** | | **3.4** | **8.7** | **6.9** | **8.2** |
 
 The contest between B and D is close. The difference is in the ability-to-meet-requests criterion:
 pure Option B has a hard limit, and when a $1.8-million customer asks for something the

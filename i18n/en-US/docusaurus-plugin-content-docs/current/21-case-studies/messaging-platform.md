@@ -223,7 +223,7 @@ cost              high for low-activity conversations
 | Cost | 15% | 9 | 8 | 3 |
 | Operational complexity | 10% | 9 | 7 | 3 |
 | Team capability | 10% | 9 | 8 | 4 |
-| **Weighted total** | | **5.1** | **8.3** | **7.5** |
+| **Weighted total** | | **5.0** | **8.3** | **7.5** |
 
 **Sensitivity analysis.** With cross-device synchronization at 35%, the totals become 4.5 / 7.9 /
 8.4 — Option C starts winning. That is the scenario in which the product becomes heavily

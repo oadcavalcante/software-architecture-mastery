@@ -211,7 +211,7 @@ equipe               nenhuma pessoa com experiência na tecnologia
 | Capacidade da equipe | 15% | 9 | 8 | 3 |
 | Suporte a lógica de previsão | 10% | 4 | 5 | 9 |
 | Complexidade operacional | 5% | 9 | 7 | 3 |
-| **Total ponderado** | | **4,7** | **8,4** | **6,5** |
+| **Total ponderado** | | **4,6** | **8,4** | **6,4** |
 
 O peso de 30% em custo reflete a restrição da diretoria — é uma restrição de negócio
 declarada, e ignorá-la produziria uma proposta que não seria aprovada.

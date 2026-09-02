@@ -220,7 +220,7 @@ operation.
 | Time to fix the closing window | 15% | 6 | 7 | 3 |
 | Team capability | 10% | 8 | 6 | 3 |
 | Operational complexity | 5% | 9 | 7 | 3 |
-| **Weighted total** | | **5.1** | **7.6** | **5.7** |
+| **Weighted total** | | **5.1** | **7.7** | **5.5** |
 
 **Sensitivity analysis.** With migration risk at 40%, the totals become 5.6 / 6.8 / 4.0 —
 Option B still wins. With cost at 45%, they become 4.2 / 8.3 / 6.4. The conclusion is stable.

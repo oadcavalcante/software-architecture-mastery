@@ -235,7 +235,7 @@ conhecimento      o problema principal não é resolvido; quando
 | Entrega de valor ao longo do tempo | 20% | 1 | 5 | 9 | 7 |
 | Redução de custo | 15% | 8 | 8 | 7 | 1 |
 | Velocidade de mudança futura | 10% | 9 | 3 | 9 | 2 |
-| **Total ponderado** | | **4,6** | **6,2** | **8,7** | **5,1** |
+| **Total ponderado** | | **4,9** | **5,9** | **8,7** | **5,0** |
 
 **Análise de sensibilidade.** Com risco de erro em 50%, os totais viram 3,6 / 7,3 / 8,9 / 8,1 — a
 Opção C mantém vantagem. Com custo em 40%, viram 5,9 / 7,3 / 8,0 / 3,0. Nenhum cenário inverte.

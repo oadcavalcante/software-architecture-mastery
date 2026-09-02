@@ -231,7 +231,7 @@ depuração            difícil
 | Complexidade operacional | 15% | 8 | 7 | 3 |
 | Capacidade da equipe | 10% | 8 | 7 | 4 |
 | Custo de infraestrutura | 5% | 9 | 8 | 6 |
-| **Total ponderado** | | **5,9** | **8,3** | **5,9** |
+| **Total ponderado** | | **6,1** | **8,3** | **5,7** |
 
 Correção sob falha pesa 35% porque é o problema declarado: 900 cobranças duplicadas por mês e
 900 casos ambíguos por dia. Qualquer peso menor tornaria a análise incoerente com o

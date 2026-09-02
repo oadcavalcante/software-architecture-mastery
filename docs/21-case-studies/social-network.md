@@ -228,7 +228,7 @@ armazenamento          moderado
 | Viabilidade com a distribuição real | 20% | 8 | 1 | 9 |
 | Complexidade | 15% | 9 | 7 | 5 |
 | Capacidade da equipe | 10% | 9 | 7 | 7 |
-| **Total ponderado** | | **5,0** | **5,4** | **7,7** |
+| **Total ponderado** | | **5,2** | **5,4** | **7,7** |
 
 O critério "viabilidade com a distribuição real" existe porque a Opção B não é apenas cara —
 ela é **impossível** de cumprir dentro do requisito de 5 segundos para comunidades grandes.

@@ -243,7 +243,7 @@ defined **before** the evaluation:
 | Total cost over 4 years | 15% | 3 | 6 | 7 |
 | Current team's capability | 10% | 8 | 3 | 6 |
 | Reversibility | 5% | 7 | 1 | 9 |
-| **Weighted total** | | **5.0** | **4.4** | **7.3** |
+| **Weighted total** | | **5.2** | **4.4** | **7.3** |
 
 The weights deserve an explanation. Time to the new features and reduction in change lead
 time add up to 50% because **they are the project** — the company is not solving a technical

@@ -229,7 +229,7 @@ limite             explícito e negociável
 | Capacidade de atender pedidos | 20% | 10 | 6 | 9 | 8 |
 | Tempo de onboarding | 15% | 2 | 9 | 6 | 8 |
 | Risco operacional | 10% | 5 | 9 | 3 | 7 |
-| **Total ponderado** | | **3,3** | **8,6** | **7,0** | **8,3** |
+| **Total ponderado** | | **3,4** | **8,7** | **6,9** | **8,2** |
 
 A disputa entre B e D é apertada. A diferença está no critério de capacidade de atender pedidos:
 a Opção B pura tem um limite duro, e quando um cliente de R$ 9 milhões pede algo que a

@@ -227,7 +227,7 @@ storage                moderate
 | Viability with the real distribution | 20% | 8 | 1 | 9 |
 | Complexity | 15% | 9 | 7 | 5 |
 | Team capability | 10% | 9 | 7 | 7 |
-| **Weighted total** | | **5.0** | **5.4** | **7.7** |
+| **Weighted total** | | **5.2** | **5.4** | **7.7** |
 
 The "viability with the real distribution" criterion exists because Option B is not merely
 expensive — it is **impossible** to meet within the 5-second requirement for large communities. An

@@ -227,7 +227,7 @@ predictive capability preserved — the center sees every plant
 | Resilience to link failure | 20% | 1 | 2 | 10 | 9 |
 | Cross-plant predictive capability | 15% | 9 | 9 | 2 | 9 |
 | Operational complexity | 10% | 9 | 6 | 3 | 3 |
-| **Weighted total** | | **3.3** | **6.4** | **7.8** | **8.5** |
+| **Weighted total** | | **3.3** | **6.5** | **7.9** | **8.5** |
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other
 criteria. With complexity at 30%, the totals become 4.6 / 6.3 / 6.8 / 7.2. With predictive

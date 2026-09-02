@@ -218,7 +218,7 @@ risk              a bad prediction worsens the result instead of improving it
 | Complexity and risk | 20% | 9 | 6 | 3 |
 | Cost per ride | 15% | 4 | 8 | 8 |
 | Team capability | 10% | 9 | 7 | 4 |
-| **Weighted total** | | **6.0** | **7.3** | **7.1** |
+| **Weighted total** | | **6.2** | **7.3** | **7.0** |
 
 The contest between B and C is close, and the difference is risk: Option C depends on
 prediction, and a bad prediction degrades matching instead of improving it. Option B delivers

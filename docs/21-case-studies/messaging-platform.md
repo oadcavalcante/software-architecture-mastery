@@ -224,7 +224,7 @@ custo             alto para conversas pouco ativas
 | Custo | 15% | 9 | 8 | 3 |
 | Complexidade operacional | 10% | 9 | 7 | 3 |
 | Capacidade da equipe | 10% | 9 | 8 | 4 |
-| **Total ponderado** | | **5,1** | **8,3** | **7,5** |
+| **Total ponderado** | | **5,0** | **8,3** | **7,5** |
 
 **Análise de sensibilidade.** Com sincronização entre dispositivos em 35%, os totais viram 4,5 /
 7,9 / 8,4 — a Opção C passa a vencer. Esse é o cenário em que o produto se torna
