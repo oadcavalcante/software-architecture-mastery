@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, serverless, cloud-native]
 canonical_for: [dependência de fornecedor, custo de saída, portabilidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -163,7 +163,8 @@ Aceitar dependência alta faz sentido quando:
 
 **Quando o fornecedor tem risco de continuidade.**
 
-**Multi-nuvem por princípio.**
+**Multi-nuvem por princípio** — este e o item seguinte invertem o sinal: não são condições em
+que aceitar dependência é errado, são as formas de recusá-la que custam sem entregar.
 
 **Abstrair tudo por precaução.** Paga permanentemente por uma opção improvável.
 
@@ -227,36 +228,55 @@ custa demais.
 
 ## Exemplo Real
 
-Uma empresa de logística estabeleceu, na fundação, a regra de não usar nenhum
-serviço proprietário de nuvem. Tudo em contêineres, tudo com software de código
-aberto autogerido, tudo portável.
+É a mesma empresa de
+[gerenciado contra autogerido](/20-trade-offs/managed-vs-self-hosted.md) — 26 engenheiros,
+cinco componentes de infraestrutura operados internamente —, vista por outro eixo. Lá a
+pergunta é quanto custa operar; aqui é o que a política de portabilidade comprou com esse
+custo.
+
+A empresa estabeleceu, na fundação, a regra de não usar nenhum serviço proprietário de nuvem.
+Tudo em contêineres, tudo com software de código aberto autogerido, tudo portável.
 
 Quatro anos depois, o balanço:
 
 **Três engenheiros em tempo integral** operando banco, fila, busca, cache e
-Kubernetes autogeridos — para uma equipe de 25.
+Kubernetes autogeridos — para uma equipe de 26.
 
 **A portabilidade nunca foi exercida.** Nenhuma migração foi cogitada em quatro
 anos.
 
-**O custo de operação** superou, com folga, o que os serviços gerenciados
-equivalentes teriam custado.
+**O custo de operação** superou o que os serviços gerenciados equivalentes teriam custado:
+
+```text
+três engenheiros, custo anual carregado    ~R$ 1,7 milhão
+gerenciados equivalentes, custo anual      ~R$ 780 mil
+diferença                                  ~R$ 920 mil/ano, por quatro anos
+```
+
+A conta não inclui o custo das máquinas próprias, que seria abatido dos gerenciados nos dois
+lados, nem o valor dos recursos de produto adiados — que a equipe considerou maior que a
+diferença, e não conseguiu estimar.
 
 **Atraso de entrega.** Vários recursos de produto foram adiados por indisponibilidade
 de gente, alocada em operação.
 
-A revisão levou a uma política diferente, por grau de dependência:
+A revisão levou a uma política diferente, classificada pelo critério de valor contra custo de
+saída — não pelo grau de dependência, que descreve o componente e não a decisão:
 
-**Adotado sem hesitar:** banco gerenciado, fila gerenciada, cache gerenciado — todos
-com motores de código aberto, o que mantém a dependência em nível médio. Dois dos
-três engenheiros voltaram ao produto.
+**Adotado sem hesitar:** cache gerenciado, com protocolo compatível e custo de saída de dias.
+Alto valor, custo de saída baixo.
 
-**Adotado com registro:** um serviço proprietário de processamento de eventos, com
-alto valor e alto custo de saída. A decisão foi registrada com estimativa de quatro
-meses para substituir, e aceita.
+**Adotado com registro:** banco gerenciado e fila gerenciada, ambos com motor de código aberto
+— o que reduz a reescrita, mas não os três meses de migração de dados e de reconfiguração que
+a estimativa apontou. Alto valor e alto custo de saída caem no segundo quadrante, e o segundo
+quadrante exige registro. Junto com eles, um serviço proprietário de processamento de eventos,
+com estimativa de quatro meses. Dois dos três engenheiros voltaram ao produto.
 
 **Mantido portável:** o núcleo de domínio, sem nenhuma dependência de biblioteca do
-provedor, e os dados em formatos abertos.
+provedor, e os dados em formatos abertos. Também a busca e o agrupamento de contêineres, que
+seguiram autogeridos — a busca por uma extensão de idioma sem equivalente gerenciado, os
+contêineres porque a dependência já era baixa e migrar não economizaria operação. É por isso
+que o saldo é de dois engenheiros, e não de três.
 
 **Recusado:** multi-nuvem, e um serviço proprietário de fluxo de trabalho cujo valor
 não justificava o acoplamento.

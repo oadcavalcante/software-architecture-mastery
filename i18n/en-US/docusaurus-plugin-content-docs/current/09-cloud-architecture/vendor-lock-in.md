@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, serverless, cloud-native]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -156,7 +156,8 @@ Accepting high dependency makes sense when:
 
 **When the vendor has continuity risk.**
 
-**Multi-cloud by principle.**
+**Multi-cloud by principle** — this item and the next one invert the sign: they are not conditions under
+which accepting dependency is wrong, they are the ways of refusing it that cost without delivering.
 
 **Abstracting everything out of caution.** It pays permanently for an unlikely option.
 
@@ -216,30 +217,51 @@ longer a choice.
 
 ## Real-World Example
 
-A logistics company established, at its founding, the rule of not using any proprietary cloud service.
-Everything in containers, everything with self-managed open source software, everything portable.
+It is the same company as in [managed versus
+self-hosted](/20-trade-offs/managed-vs-self-hosted.md) — 26 engineers, five infrastructure components
+operated in-house — seen along a different axis. There the question is what operating them costs; here it
+is what the portability policy bought with that cost.
+
+The company established, at its founding, the rule of not using any proprietary cloud service. Everything
+in containers, everything with self-managed open source software, everything portable.
 
 Four years later, the balance:
 
 **Three full-time engineers** operating a self-managed database, queue, search, cache and Kubernetes — for
-a team of 25.
+a team of 26.
 
 **The portability was never exercised.** No migration was ever considered in four years.
 
-**The operational cost** exceeded, comfortably, what the equivalent managed services would have cost.
+**The operational cost** exceeded what the equivalent managed services would have cost:
+
+```text
+three engineers, loaded annual cost     ~R$ 1.7 million
+equivalent managed services, per year   ~R$ 780 thousand
+difference                              ~R$ 920 thousand/year, for four years
+```
+
+The calculation excludes the cost of the company's own machines, which would net out on both sides, and the
+value of the postponed product features — which the team judged larger than the difference, and could not
+estimate.
 
 **Delayed delivery.** Several product features were postponed for lack of people, allocated to operations.
 
-The review led to a different policy, by degree of dependency:
+The review led to a different policy, classified by the value-against-exit-cost criterion — not by degree
+of dependency, which describes the component rather than the decision:
 
-**Adopted without hesitation:** a managed database, a managed queue, a managed cache — all with open source
-engines, which keeps the dependency at a medium level. Two of the three engineers went back to the product.
+**Adopted without hesitation:** a managed cache, with a compatible protocol and an exit cost measured in
+days. High value, low cost of leaving.
 
-**Adopted with a record:** a proprietary event processing service, with high value and a high cost of
-leaving. The decision was recorded with an estimate of four months to replace it, and accepted.
+**Adopted with a record:** a managed database and a managed queue, both with open source engines — which
+reduces the rewrite, but not the three months of data migration and reconfiguration the estimate showed.
+High value and a high cost of leaving fall in the second quadrant, and the second quadrant requires a
+record. Alongside them, a proprietary event processing service, estimated at four months. Two of the three
+engineers went back to the product.
 
 **Kept portable:** the domain core, with no dependency on the provider's libraries, and the data in open
-formats.
+formats. Also search and the container cluster, which stayed self-managed — search because of a
+language-specific extension with no managed equivalent, the containers because the dependency was already
+low and migrating would not save operational effort. That is why the net is two engineers, not three.
 
 **Refused:** multi-cloud, and a proprietary workflow service whose value did not justify the coupling.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [blue-green, canary, rolling-deployments]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -37,8 +37,9 @@ comes from the change's risk.
 
 ## Problem
 
-Deployment is the moment of greatest risk in a stable system's life. A high fraction of incidents is caused
-by a recent change.
+In a stable system, change is the main source of incidents — which makes deployment the moment where the
+risk concentrates. It is the premise of chapter 27 of Beyer et al. (2016), listed in Going Deeper, and the
+reason it treats deployment as a reliability problem rather than a process one.
 
 That does not mean deploying less — the opposite, see
 [continuous integration](/14-devops-and-platform/ci-cd.md). It means that **how** you deploy matters.
@@ -96,15 +97,20 @@ canary             1% to 5%, for a defined time, before expanding
 
 The smaller the exposed fraction and the faster the detection, the smaller the damage from a bad version.
 
-Canary minimizes both. It costs comparison infrastructure and requires enough volume for the fraction to be
-statistically significant.
+Canary minimizes both. It costs comparison infrastructure and requires volume: the fraction alone says
+nothing, and what counts is how many events reach each side during the period. See
+[canary](/14-devops-and-platform/canary.md), where the criterion is developed.
 
 ### Reverting needs to be easier than fixing
 
-The operational principle that guides everything: under pressure, reverting is always the right first
-decision. Investigate afterward, with the system stable.
+The operational principle that guides everything: under pressure, revert first and investigate afterward,
+with the system stable. But that is only the right decision **while reverting stays cheap** — which is why
+the four requirements below are requirements and not recommendations. Where the migration has already run
+or the state has already diverged, reverting stops being automatic and becomes a decision with a risk of
+its own, to be thought through in the middle of an incident. Keeping rollback cheap is what avoids that
+situation.
 
-That requires the rollback to be:
+The rollback needs to be:
 
 ```text
 fast         minutes, not the duration of a complete deployment
@@ -156,7 +162,8 @@ Teams that combine the two techniques deploy frequently and release carefully.
 
 **Any gradual strategy with no compatibility between versions.**
 
-**Canary with insufficient volume** for significance.
+**Canary below the volume that makes the comparison significant** — the
+[criterion](/14-devops-and-platform/canary.md) is the number of events per side, not the fraction.
 
 **Blue-green with no capacity for the duplicated environment.**
 
@@ -172,7 +179,9 @@ Teams that combine the two techniques deploy frequently and release carefully.
 - **Shadow deployment** — the new version receives a copy of the traffic with no response to the user. It
   verifies behavior at zero risk, at the cost of doubling the load.
 
-The last is underused for algorithm and performance changes.
+The last one wins when the new behavior can be compared against the old without the user receiving the
+answer — a change of algorithm, of ranking, of query engine — and the cost of processing the traffic twice
+is acceptable.
 
 ## Trade-offs
 
@@ -222,16 +231,26 @@ An incident exposed the limits: a change in the availability calculation had an 
 with real data from certain hotels — around 4% of searches returned the wrong result, with no error and no
 slowness.
 
-The rolling deployment took the version to every instance in 12 minutes. The problem was detected 6 hours
-later, by a partner. In that period, thousands of searches returned incorrect availability, and some became
-bookings that had to be cancelled.
+The platform served about 240 searches per second. The rolling deployment took the version to every
+instance in 12 minutes, and the problem was detected 6 hours later, by a partner — more than 200 thousand
+searches with incorrect availability, some of them turned into bookings that had to be cancelled.
 
 No technical metric changed: normal latency, no errors, normal traffic.
 
 The changes:
 
-**Canary for behavior changes**, with 2% of the traffic for 30 minutes and automatic comparison of business
-metrics — conversion rate, result distribution, average value.
+**Canary for behavior changes**, with automatic comparison of business metrics — conversion rate, result
+distribution, average value. The fraction and the window came from the [significance
+criterion](/14-devops-and-platform/canary.md), not from a round number:
+
+```text
+5% of 240 searches/s for 45 min   ~32 thousand searches per side
+defect in 4% of them              ~1.3 thousand cases in the canary
+```
+
+The 2% for 30 minutes the team proposed first would give 8.6 thousand searches and 350 cases — detectable,
+but with too narrow a margin for an automatic threshold that must not fire on noise. The canary's design is
+in the canonical document; what this one decides is **when** to use it.
 
 The **result distribution** comparison is what would have caught the problem: the new version returned
 significantly fewer options for a subset of searches.
@@ -263,9 +282,13 @@ it did that well. It simply does not protect against what happened, and nobody h
 
 ## Practical Exercise
 
-Time a real rollback in your system, from the command to the confirmation that the old version is serving.
+Classify the last twenty deployed changes into three groups: those that change behavior observable by the
+user, those that change infrastructure only, and those that change neither. Then check which strategy each
+one used.
 
-That number is the lower bound on the duration of any incident caused by a deployment.
+The question is how many changes in the first group were deployed with a strategy that protects against
+unavailability and not against wrong behavior. That is the same mismatch as the Real Example, and it tends
+to be invisible because none of those deployments failed.
 
 ## Interview Questions
 

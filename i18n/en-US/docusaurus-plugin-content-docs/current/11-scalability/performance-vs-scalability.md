@@ -11,9 +11,9 @@ objective: >
   By the end, the reader identifies whether a problem is performance or scale, and
   chooses the measurement that answers that question.
 prerequisites: [scalability]
-related: [scaling-capacity-planning, hotspots, horizontal-scaling]
+related: [scaling-capacity-planning, hotspots, horizontal-scaling, latency]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -68,7 +68,8 @@ by load level. The average mixes the two regimes.
 
 ### Throughput and latency are not the same thing
 
-**Latency** is the time of one operation.
+**Latency** is the time of one operation — and what matters about it is the distribution, not the
+average. See [latency](/06-distributed-systems/latency.md).
 
 **Throughput** is the number of operations per unit of time.
 
@@ -119,15 +120,13 @@ return more than doubling the machines.
 
 The ideal — double the resources, double the capacity — rarely happens.
 
-What is observed in practice:
+The degradation curve and the saturation point are in [horizontal
+scaling](/11-scalability/horizontal-scaling.md), with the numbers and the efficiency column.
 
-```text
-2 nodes  → 1.9× the capacity
-4 nodes  → 3.6×
-8 nodes  → 6.5×
-16 nodes → 10×
-32 nodes → 11×   ← the coordination comes to cost more than the gain
-```
+What matters for the distinction in this document is how to read it: each node added delivers less than
+the previous one, and past a certain point delivers less than it costs. Which means **scale is no
+substitute for performance** — from saturation onward, the only way to add capacity is to reduce the work
+per operation, and that is optimization.
 
 The degradation comes from coordination and from contention over shared resources. There is a point beyond
 which adding nodes **worsens** the result.
@@ -135,9 +134,16 @@ which adding nodes **worsens** the result.
 Knowing that point for your system — by measuring, not estimating — is what avoids spending on capacity
 that does not deliver.
 
-### There is always only one bottleneck at a time
+### One execution path has one bottleneck at a time
 
-A system has one limiting resource at each moment. Optimizing any other changes nothing.
+On a given path, one resource is the limiting one, and optimizing another **does not add capacity** — it
+adds slack to something that already had slack. See [bottleneck
+analysis](/05-system-design/bottleneck-analysis.md).
+
+What does not hold is generalizing that to the system: different paths saturate different resources at the
+same time, and this document's Real Example has three operations with three distinct limiting resources at
+the same peak. "The system's bottleneck" is a useful shorthand when one path dominates the load, and a
+misleading one when no path does.
 
 ```text
 high CPU, idle disk               → CPU is the bottleneck
@@ -168,15 +174,22 @@ Making the distinction explicit is necessary whenever:
 
 ## When Not to Use
 
-**Adding capacity without identifying the bottleneck.**
+The distinction costs one measurement at two load levels, and there are cases where it does not pay off.
 
-**Optimizing without measuring under load.**
+**When concurrency is fixed by design.** A batch process that runs alone, a scheduled job with one
+instance: there is no high-load regime, and measuring at two levels measures the same thing twice. There
+is only performance there.
 
-**Chasing linear scale.** It does not exist; know your saturation point.
+**When the fix is the same under either diagnosis.** A query with no index hurts latency alone and
+throughput under load; if the index is missing and cheap, classifying the problem first is ceremony.
+Measure afterward, to know whether it worked.
 
-**Optimizing what is not the bottleneck.**
+**When the cost of measuring under load exceeds the cost of the fix.** Building an environment that
+reproduces the peak is not free. For a small system, with one dominant path and one obvious hypothesis,
+testing the hypothesis is cheaper than instrumenting to choose between two.
 
-**Measuring only the average.** It hides the tail and mixes load regimes.
+**Chasing linear scale beyond the range where it holds.** Workloads with no shared resource scale nearly
+linearly for a stretch; what does not exist is the infinite stretch. Know your saturation point.
 
 **Scaling before needing to.** Permanent complexity for a hypothetical problem.
 
@@ -202,9 +215,11 @@ Ways to resolve "it is slow" without adding capacity:
 
 | Vertical scaling | Horizontal |
 |---|---|
-| No coordination | Coordination costs |
-| The bigger machine's ceiling | A contention ceiling |
-| Simple | Permanent complexity |
+| Simple: no coordination | Permanent coordination complexity |
+| Hard ceiling: the largest machine available | Moving ceiling: whatever contention remains |
+| Cost grows more than proportionally at the top of the range | Cost nearly proportional |
+| Resizing requires a downtime window | A node joins and leaves in operation |
+| The instance is a single point of failure | Redundancy as a side effect |
 
 ## Failure Modes
 

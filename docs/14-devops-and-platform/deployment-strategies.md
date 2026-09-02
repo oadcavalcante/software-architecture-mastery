@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [blue-green, canary, rolling-deployments]
 canonical_for: [estratégia de implantação, implantação sem interrupção, janela de exposição, compatibilidade entre versões]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -37,8 +37,10 @@ diferentes, e a escolha vem do risco da mudança.
 
 ## Problema
 
-A implantação é o momento de maior risco na vida de um sistema estável. Uma fração alta
-dos incidentes é causada por mudança recente.
+Num sistema estável, a mudança é a principal fonte de incidentes — o que faz da implantação
+o momento em que o risco se concentra. É a premissa do capítulo 27 de Beyer et al. (2016),
+listado em Para Aprofundar, e a razão de ele tratar implantação como problema de
+confiabilidade e não de processo.
 
 Isso não significa implantar menos — o oposto, ver
 [integração contínua](/14-devops-and-platform/ci-cd.md). Significa que **como** se implanta importa.
@@ -97,15 +99,20 @@ canary          1% a 5%, por tempo definido, antes de expandir
 
 Quanto menor a fração exposta e mais rápida a detecção, menor o dano de uma versão ruim.
 
-Canary minimiza os dois. Custa infraestrutura de comparação e exige volume suficiente
-para que a fração seja estatisticamente significativa.
+Canary minimiza os dois. Custa infraestrutura de comparação e exige volume: a fração sozinha
+não diz nada, e o que conta é quantos eventos chegam a cada lado no período. Ver
+[canary](/14-devops-and-platform/canary.md), onde o critério está desenvolvido.
 
 ### Reverter precisa ser mais fácil que corrigir
 
-O princípio operacional que orienta tudo: sob pressão, reverter é sempre a decisão certa
-primeiro. Investigar depois, com o sistema estável.
+O princípio operacional que orienta tudo: sob pressão, reverter primeiro e investigar depois,
+com o sistema estável. Mas isso só é a decisão certa **enquanto a reversão for barata** — e é
+por isso que os quatro requisitos abaixo são requisitos, e não recomendações. Onde a migração
+já rodou ou o estado já divergiu, reverter deixa de ser automático e passa a ser uma decisão
+com risco próprio, que precisa ser pensada no meio do incidente. Manter a reversão barata é o
+que evita essa situação.
 
-Isso exige que a reversão seja:
+A reversão precisa ser:
 
 ```text
 rápida       minutos, não a duração de uma implantação completa
@@ -160,7 +167,8 @@ resto é consequência.
 
 **Qualquer estratégia gradual sem compatibilidade entre versões.**
 
-**Canary sem volume suficiente** para significância.
+**Canary abaixo do volume que torna a comparação significativa** — o
+[critério](/14-devops-and-platform/canary.md) é o número de eventos por lado, não a fração.
 
 **Blue-green sem capacidade para o ambiente duplicado.**
 
@@ -177,7 +185,9 @@ resto é consequência.
 - **Implantação sombra** — a versão nova recebe cópia do tráfego sem responder ao
   usuário. Verifica comportamento com risco zero, ao custo de dobrar a carga.
 
-A última é subutilizada para mudanças de algoritmo e de desempenho.
+A última vence quando o comportamento novo pode ser comparado com o antigo sem que o usuário
+receba a resposta — mudança de algoritmo, de ranqueamento, de motor de consulta — e o custo de
+processar o tráfego duas vezes é aceitável.
 
 ## Trade-offs
 
@@ -229,18 +239,27 @@ Um incidente expôs os limites: uma mudança no cálculo de disponibilidade tinh
 que só aparecia com dados reais de certos hotéis — cerca de 4% das buscas retornavam
 resultado errado, sem erro nem lentidão.
 
-A implantação em ondas levou a versão a todas as instâncias em 12 minutos. O problema
-foi detectado 6 horas depois, por um parceiro. Nesse período, milhares de buscas
-retornaram disponibilidade incorreta, e algumas viraram reservas que precisaram ser
-canceladas.
+A plataforma atendia cerca de 240 buscas por segundo. A implantação em ondas levou a versão
+a todas as instâncias em 12 minutos, e o problema foi detectado 6 horas depois, por um
+parceiro — mais de 200 mil buscas com disponibilidade incorreta, algumas delas viradas em
+reservas que precisaram ser canceladas.
 
 Nenhuma métrica técnica mudou: latência normal, sem erros, tráfego normal.
 
 As mudanças:
 
-**Canary para mudanças de comportamento**, com 2% do tráfego por 30 minutos e comparação
-automática de métricas de negócio — taxa de conversão, distribuição de resultados,
-valor médio.
+**Canary para mudanças de comportamento**, com comparação automática de métricas de negócio —
+taxa de conversão, distribuição de resultados, valor médio. A fração e a janela saíram do
+[critério de significância](/14-devops-and-platform/canary.md), não de um número redondo:
+
+```text
+5% de 240 buscas/s por 45 min   ~32 mil buscas por lado
+defeito em 4% delas             ~1,3 mil casos no canary
+```
+
+Os 2% por 30 minutos que a equipe tinha proposto primeiro dariam 8,6 mil buscas e 350 casos —
+detectável, mas com margem estreita demais para um limiar automático que não pode disparar por
+ruído. O desenho do canary está no canônico; o que este documento decide é **quando** usá-lo.
 
 A comparação de **distribuição de resultados** foi o que teria pego o problema: a versão
 nova retornava significativamente menos opções para um subconjunto de buscas.
@@ -275,8 +294,13 @@ aconteceu, e ninguém tinha feito essa distinção.
 
 ## Exercício Prático
 
-Cronometre uma reversão real no seu sistema, do comando à confirmação de que a versão
-antiga está atendendo.
+Classifique as últimas vinte mudanças implantadas em três grupos: as que alteram
+comportamento observável pelo usuário, as que alteram só infraestrutura, e as que não alteram
+nenhum dos dois. Depois confira qual estratégia cada uma usou.
+
+A pergunta é quantas mudanças do primeiro grupo foram implantadas com uma estratégia que
+protege contra indisponibilidade e não contra comportamento errado. Esse é o mesmo descasamento
+do Exemplo Real, e ele costuma estar invisível porque nenhuma dessas implantações falhou.
 
 Esse número é o limite inferior da duração de qualquer incidente causado por
 implantação.

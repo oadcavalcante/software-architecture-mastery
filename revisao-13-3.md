@@ -16,19 +16,17 @@ nenhum.
 | `pattern` (10 de 63, os de maior risco) | 10 | 9 | 1 | 0 |
 | Amostra aleatória (semente declarada) | 10 | 10 | 0 | 0 |
 | `tradeoff` de `20-trade-offs/` (15 de 20) | 15 | 15 | 0 | 0 |
+| `tradeoff` fora do diretório (5) | 5 | 5 | 0 | 0 |
 | `case-study` (14) | 14 | — | — | 0 |
-| **Total** | **44** | | | **0** |
+| **Total** | **49** | | | **0** |
 
-Faltam **5 `tradeoff`**, 53 `pattern`, 275 `concept`, 31 `foundation`, 9
-`exercise`, 5 `adr`, 4 `reference` e 25 `index`.
+Os 20 `tradeoff` estão fechados. Faltam 53 `pattern`, 275 `concept`, 31
+`foundation`, 9 `exercise`, 5 `adr`, 4 `reference` e 25 `index`.
 
-Os cinco `tradeoff` que faltam **não estão em `docs/20-trade-offs/`** — o
-`doc_type` não segue o diretório. São `09-cloud-architecture/vendor-lock-in.md`,
-`10-security/authz-models.md`, `11-scalability/performance-vs-scalability.md`,
-`14-devops-and-platform/deployment-strategies.md` e
-`16-legacy-modernization/migration-strategies.md`. Varrer por diretório em vez de
-por `doc_type` os deixaria de fora, e o `vendor-lock-in` é canônico de um tema
-que esta onda mexeu.
+**Cinco `tradeoff` não estavam em `docs/20-trade-offs/`** — o `doc_type` não segue
+o diretório, e varrer por pasta os teria deixado de fora. Um deles,
+`vendor-lock-in`, é canônico de um tema que esta onda mexeu. **Varra por
+`doc_type`, nunca por diretório.**
 
 Os vereditos por documento dos 14 `case-study` não foram tabulados na época; a
 coluna fica vazia em vez de estimada.
@@ -138,6 +136,35 @@ Alinhado ao canônico.
 segundo caso. Não é contradição, são operações diferentes — unificar duplicação
 contra esconder implementação —, e agora o documento diz isso em vez de deixar
 os dois pisos soltos no acervo.
+
+### O mesmo caso contado como duas empresas
+
+`vendor-lock-in.md` e `managed-vs-self-hosted.md` narravam a mesma história — empresa
+de logística, os mesmos cinco componentes de infraestrutura autogeridos, a mesma
+conclusão de migração seletiva — como se fossem duas empresas, uma com 25 e outra com
+26 engenheiros. **Nenhum laudo pegou isso**, porque cada agente revisa um documento
+só e a duplicação está entre dois.
+
+Resolvido declarando que é o mesmo caso, com link nos dois sentidos e o eixo de cada
+leitura: lá é quanto custa operar, aqui é o que a portabilidade comprou com esse custo.
+
+A medição que isso motivou: os cenários de exemplo estão bem distribuídos — nenhum
+setor passa de 5% dos 446 documentos ("empresa de serviços" e "empresa de logística"
+empatam em 24 cada). Não é padrão sistêmico; era este par.
+
+### Um achado que exigiu fonte primária
+
+`authz-models.md` dizia que, no modelo de relação, responder "quem tem acesso a este
+documento?" é caro "porque exige percorrer o grafo ao contrário". A direção estava
+**trocada**: no artigo do Zanzibar, `Expand` responde exatamente essa pergunta e corre
+a favor do índice, que é organizado por objeto. A cara é a inversa — "que documentos
+esta pessoa vê" —, que nem está no artigo e exigiu um índice invertido próprio nos
+sistemas derivados. Corrigido nos dois pontos que dependiam da afirmação.
+
+Duas referências do mesmo documento também não passavam em §7.3: a do NIST sem ano, a
+do Zanzibar atribuída a "Google." em vez dos autores. E `migration-strategies.md`
+citava um relatório da Gartner cujo título não existe — a publicação real é Watson
+(2011), com cinco opções, não sete.
 
 ## Uma ponta que o validador novo não cobre
 

@@ -266,7 +266,9 @@ A terceira reduz custo de forma significativa sem afetar a confiabilidade onde e
 
 ## Exemplo Real
 
-Uma empresa de logística com 26 engenheiros operava internamente cinco componentes de
+Uma empresa de logística com 26 engenheiros — a mesma de
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md), onde o caso é lido pelo
+eixo da portabilidade — operava internamente cinco componentes de
 infraestrutura: banco relacional, cache, mensageria, mecanismo de busca e agrupamento de
 contêineres.
 

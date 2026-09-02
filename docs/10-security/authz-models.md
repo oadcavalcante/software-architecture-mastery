@@ -13,7 +13,7 @@ objective: >
 prerequisites: [identity]
 related: [least-privilege, identity, secure-boundaries]
 canonical_for: [RBAC, ABAC, ReBAC, política de autorização]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -105,8 +105,13 @@ colaboração. É o modelo de sistemas de arquivos compartilhados e ferramentas
 colaborativas.
 
 **Onde custa:** exige infraestrutura própria — um armazenamento de relações e um
-mecanismo de travessia. E responder "quem tem acesso a este documento?" pode ser
-caro, porque exige percorrer o grafo ao contrário.
+mecanismo de travessia. E as duas perguntas de listagem não custam a mesma coisa. "Quem tem
+acesso a este documento?" corre a favor do índice, que é organizado por objeto, embora exija
+resolver recursivamente os conjuntos de usuários que a resposta referencia. Já "que documentos
+esta pessoa vê?" corre contra o índice: é a direção que o artigo original não cobre, e que os
+sistemas derivados dele acrescentaram depois com um índice invertido próprio. Se o produto
+precisa de listagem filtrada por usuário — e produtos de colaboração quase sempre precisam —,
+esse é o custo a orçar, não a verificação.
 
 ### O critério de escolha
 
@@ -127,18 +132,30 @@ quanto de políticas por atributo ilegíveis.
 
 ### Separar a decisão da aplicação
 
-Independentemente do modelo, uma separação estrutural vale sempre:
+Independentemente do modelo, uma separação estrutural se paga quando há mais de um serviço
+aplicando a mesma política, ou quando a política muda com frequência maior que a implantação.
+Em serviço único e política estável, decisão e aplicação no mesmo processo é o desenho certo
+— e o [canônico de autorização](/05-system-design/authorization.md) trata o serviço
+centralizado em sistema pequeno como caso de não usar.
 
 **Ponto de decisão.** Avalia a política e responde permitido ou negado.
 
-**Ponto de aplicação.** Pergunta e obedece.
+**Ponto de imposição** (ou de aplicação). Pergunta e obedece. O canônico usa a primeira
+forma.
 
 Isso permite mudar política sem tocar em cada serviço, e auditar decisões num lugar
 só.
 
-O risco é a latência de uma chamada por verificação. As implementações práticas
-resolvem com avaliação local — a política é distribuída para os serviços e avaliada
-em memória, com atualização periódica.
+O risco é a latência de uma chamada por verificação. As implementações práticas trocam essa
+latência por **avaliação local**: a política é distribuída para os serviços e avaliada em
+memória, com atualização periódica.
+
+A troca tem preço, e é o mesmo que a seção sobre atributos desatualizados descreve, um nível
+acima. Uma revogação só passa a valer na próxima atualização, e a janela de propagação vira um
+número que precisa ser conhecido e declarado — de segundos a minutos, conforme o mecanismo. Se
+a distribuição trava, os serviços continuam decidindo, e decidem por política velha sem que
+nada falhe: é o modo de falha silencioso do desenho, e por isso a idade da política em cada
+serviço precisa ser observável.
 
 ### A autorização pertence a quem detém o recurso
 
@@ -180,11 +197,9 @@ modelo errado produz complexidade que ninguém consegue manter.
 **Relação sem infraestrutura.** Implementar travessia de grafo à mão sobre um banco
 relacional escala mal.
 
-**Verificação espalhada** pelo código, sem ponto de decisão claro.
-
-**Permitir por padrão.**
-
-**Autorização baseada em parâmetro do chamador.**
+**Relação para autorização que não é sobre compartilhamento.** Se ninguém concede acesso a
+ninguém — se a permissão vem de quem a pessoa é ou de onde ela está —, o grafo é uma estrutura
+sem arestas interessantes, e a infraestrutura se paga sem entregar nada.
 
 ## Alternativas
 
@@ -201,9 +216,9 @@ relacional escala mal.
 
 | Papel | Atributo | Relação |
 |---|---|---|
-| Simples de entender | Expressivo | Natural para compartilhamento |
-| Explode com contexto | Difícil de depurar | Exige infraestrutura |
-| Revisão por função fácil | Revisão difícil | "Quem tem acesso?" é caro |
+| Prever o resultado: leia o papel | Prever o resultado: simule a política | Prever o resultado: percorra o grafo |
+| O que a decisão precisa saber: quem é | O que a decisão precisa saber: o contexto | O que a decisão precisa saber: as relações |
+| Revisão por função fácil | Revisão difícil | Listagem por usuário é cara |
 | Sem busca de dados | Precisa dos atributos | Precisa do grafo |
 | Estável | Muda sem código | Muda com os dados |
 
@@ -233,13 +248,17 @@ relacional escala mal.
 
 ## Erros Comuns
 
-**Escolher por familiaridade.**
+**Escolher por familiaridade.** Papel é o modelo que todo mundo conhece, então a regra
+dependente de contexto vira um papel novo — e é assim que se chega a 214 papéis, como no
+Exemplo Real.
 
 **Criar papéis para expressar contexto.**
 
-**Espalhar verificações pelo código.**
+**Espalhar verificações pelo código.** Um endpoint novo esquece a verificação, e nada
+falha: a rota funciona, e ninguém percebe até alguém acessar o que não devia.
 
-**Permitir por padrão.**
+**Permitir por padrão.** O erro de configuração passa a ser silencioso, e a ausência de
+regra vira permissão. Negar por padrão faz o mesmo erro aparecer como chamado de suporte.
 
 **Não registrar negações.**
 
@@ -323,6 +342,8 @@ formação.
 
 ## Para Aprofundar
 
-- NIST SP 800-162 — controle de acesso baseado em atributos.
-- Google. *Zanzibar: Google's Consistent, Global Authorization System*, 2019.
+- Hu, Vincent C. et al. *Guide to Attribute Based Access Control (ABAC) Definition and
+  Considerations*. NIST SP 800-162, 2014.
+- Pang, Ruoming et al. *Zanzibar: Google's Consistent, Global Authorization System*. USENIX
+  ATC, 2019.
 - Sandhu, Ravi et al. *Role-Based Access Control Models*. IEEE Computer, 1996.

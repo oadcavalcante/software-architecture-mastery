@@ -13,7 +13,7 @@ objective: >
 prerequisites: [identity]
 related: [least-privilege, identity, secure-boundaries]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -99,8 +99,12 @@ user is a viewer of folder X → inherits view access to the documents
 model of shared file systems and collaborative tools.
 
 **Where it costs:** it requires its own infrastructure — a relationship store and a traversal engine. And
-answering "who has access to this document?" can be expensive, because it requires traversing the graph
-backward.
+the two listing questions do not cost the same. "Who has access to this document?" runs with the index,
+which is organized by object, though it does require recursively resolving the usersets the answer refers
+to. "Which documents does this person see?" runs against the index: it is the direction the original paper
+does not cover, and the one systems derived from it added later with an inverted index of their own. If the
+product needs listing filtered by user — and collaboration products almost always do — that is the cost to
+budget for, not the check.
 
 ### The choice criterion
 
@@ -120,7 +124,11 @@ attribute policies.
 
 ### Separate the decision from the enforcement
 
-Regardless of the model, one structural separation always pays off:
+Regardless of the model, one structural separation pays off when more than one service enforces the same
+policy, or when the policy changes more often than it is deployed. In a single service with a stable
+policy, decision and enforcement in the same process is the right design — and the [canonical document on
+authorization](/05-system-design/authorization.md) treats a centralized authorization service in a small
+system as a case for not using it.
 
 **A decision point.** It evaluates the policy and answers allowed or denied.
 
@@ -128,8 +136,14 @@ Regardless of the model, one structural separation always pays off:
 
 That allows changing policy without touching each service, and auditing decisions in one place.
 
-The risk is the latency of one call per check. Practical implementations resolve it with local evaluation —
-the policy is distributed to the services and evaluated in memory, with periodic refresh.
+The risk is the latency of one call per check. Practical implementations trade that latency for **local
+evaluation**: the policy is distributed to the services and evaluated in memory, with periodic refresh.
+
+The trade has a price, and it is the same one the section on stale attributes describes, one level up. A
+revocation only takes effect at the next refresh, and the propagation window becomes a number that has to
+be known and stated — from seconds to minutes, depending on the mechanism. If distribution stalls, the
+services keep deciding, and they decide on a stale policy without anything failing: it is the design's
+silent failure mode, which is why the policy's age in each service has to be observable.
 
 ### Authorization belongs to whoever holds the resource
 
@@ -167,11 +181,9 @@ model produces complexity nobody can maintain.
 **Relationship with no infrastructure.** Implementing graph traversal by hand on a relational database
 scales badly.
 
-**Checks scattered** through the code, with no clear decision point.
-
-**Allow by default.**
-
-**Authorization based on a caller's parameter.**
+**Relationship for authorization that is not about sharing.** If nobody grants access to anybody — if the
+permission comes from who the person is or where they are — the graph is a structure with no interesting
+edges, and the infrastructure costs without delivering.
 
 ## Alternatives
 
@@ -187,9 +199,9 @@ scales badly.
 
 | Role | Attribute | Relationship |
 |---|---|---|
-| Simple to understand | Expressive | Natural for sharing |
-| Explodes with context | Hard to debug | Requires infrastructure |
-| Review by function is easy | Review is hard | "Who has access?" is expensive |
+| Predicting the outcome: read the role | Predicting the outcome: simulate the policy | Predicting the outcome: walk the graph |
+| What the decision needs to know: who you are | What the decision needs to know: the context | What the decision needs to know: the relationships |
+| Review by function is easy | Review is hard | Listing by user is expensive |
 | No data fetching | Needs the attributes | Needs the graph |
 | Stable | Changes with no code | Changes with the data |
 
@@ -218,13 +230,16 @@ scales badly.
 
 ## Common Mistakes
 
-**Choosing by familiarity.**
+**Choosing by familiarity.** Role is the model everyone knows, so the context-dependent rule becomes yet
+another role — and that is how you get to 214 roles, as in the Real Example.
 
 **Creating roles to express context.**
 
-**Scattering checks through the code.**
+**Scattering checks through the code.** A new endpoint forgets the check, and nothing fails: the route
+works, and nobody notices until someone accesses what they should not.
 
-**Allowing by default.**
+**Allowing by default.** The misconfiguration becomes silent, and the absence of a rule becomes
+permission. Denying by default makes the same mistake show up as a support ticket.
 
 **Not logging denials.**
 
@@ -302,6 +317,7 @@ If most are relationships and you use roles, you have a role explosion forming.
 
 ## Further Reading
 
-- NIST SP 800-162 — attribute-based access control.
-- Google. *Zanzibar: Google's Consistent, Global Authorization System*, 2019.
+- Hu, Vincent C. et al. *Guide to Attribute Based Access Control (ABAC) Definition and Considerations*.
+  NIST SP 800-162, 2014.
+- Pang, Ruoming et al. *Zanzibar: Google's Consistent, Global Authorization System*. USENIX ATC, 2019.
 - Sandhu, Ravi et al. *Role-Based Access Control Models*. IEEE Computer, 1996.

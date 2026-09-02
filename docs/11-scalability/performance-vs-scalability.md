@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor identifica se um problema é de desempenho ou de escala, e
   escolhe a medição que responde a essa pergunta.
 prerequisites: [scalability]
-related: [scaling-capacity-planning, hotspots, horizontal-scaling]
+related: [scaling-capacity-planning, hotspots, horizontal-scaling, latency]
 canonical_for: [desempenho versus escalabilidade, latência sob carga, lei de Little, lei de Amdahl]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -71,7 +71,8 @@ por nível de carga. A média mistura os dois regimes.
 
 ### Vazão e latência não são a mesma coisa
 
-**Latência** é o tempo de uma operação.
+**Latência** é o tempo de uma operação — e o que interessa dela é a distribuição, não a média.
+Ver [latência](/06-distributed-systems/latency.md).
 
 **Vazão** é o número de operações por unidade de tempo.
 
@@ -123,15 +124,14 @@ somados na leitura pode render mais que dobrar as máquinas.
 
 O ideal — dobrar recursos, dobrar capacidade — raramente acontece.
 
-O que se observa na prática:
+A curva de degradação e o ponto de saturação estão em
+[escala horizontal](/11-scalability/horizontal-scaling.md), com os números e a coluna de
+eficiência.
 
-```text
-2 nós  → 1,9× da capacidade
-4 nós  → 3,6×
-8 nós  → 6,5×
-16 nós → 10×
-32 nós → 11×   ← a coordenação passa a custar mais que o ganho
-```
+O que importa para a distinção deste documento é a leitura: cada nó acrescentado entrega menos
+que o anterior, e passado certo ponto entrega menos que custa. Isso significa que **escala não
+é substituta de desempenho** — a partir da saturação, a única forma de aumentar capacidade é
+reduzir o trabalho por operação, que é otimização.
 
 A degradação vem de coordenação e de contenção sobre recursos compartilhados. Existe um
 ponto além do qual adicionar nós **piora** o resultado.
@@ -139,10 +139,16 @@ ponto além do qual adicionar nós **piora** o resultado.
 Conhecer esse ponto para o seu sistema — medindo, não estimando — é o que evita gastar
 com capacidade que não entrega.
 
-### O gargalo é sempre um só de cada vez
+### Um caminho de execução tem um gargalo de cada vez
 
-Um sistema tem um recurso limitante em cada momento. Otimizar qualquer outro não muda
-nada.
+Num dado caminho, um recurso é o limitante, e otimizar outro **não aumenta a capacidade** —
+aumenta a folga de algo que já tinha folga. Ver
+[análise de gargalo](/05-system-design/bottleneck-analysis.md).
+
+O que não vale é generalizar isso para o sistema: caminhos diferentes saturam recursos
+diferentes ao mesmo tempo, e o Exemplo Real deste documento tem três operações com três
+limitantes distintos no mesmo pico. "O gargalo do sistema" é uma abreviação útil quando um
+caminho domina a carga, e enganosa quando não domina.
 
 ```text
 CPU alta, disco ocioso        → CPU é o gargalo
@@ -173,13 +179,23 @@ Fazer a distinção explícita é necessário sempre que:
 
 ## Quando Não Usar
 
-**Adicionar capacidade sem identificar o gargalo.**
+A distinção custa uma medição em dois níveis de carga, e há casos em que ela não se paga.
 
-**Otimizar sem medir sob carga.**
+**Quando a concorrência é fixa por desenho.** Um processo em lote que roda sozinho, um
+trabalho agendado com uma instância: não existe regime de carga alta, e medir em dois níveis
+mede duas vezes a mesma coisa. Aí só há desempenho.
 
-**Perseguir escala linear.** Ela não existe; conheça o seu ponto de saturação.
+**Quando a correção é a mesma nos dois diagnósticos.** Consulta sem índice piora a latência
+sozinha e a vazão sob carga; se o índice está faltando e é barato, classificar o problema
+primeiro é cerimônia. Meça depois, para saber se resolveu.
 
-**Otimizar o que não é o gargalo.**
+**Quando o custo da medição sob carga excede o da correção.** Montar um ambiente que reproduz
+o pico não é grátis. Para um sistema pequeno, com um caminho dominante e uma hipótese óbvia,
+testar a hipótese sai mais barato que instrumentar para escolher entre duas.
+
+**Perseguir escala linear além da faixa em que ela se sustenta.** Cargas sem recurso
+compartilhado escalam quase linearmente por um trecho; o que não existe é o trecho infinito.
+Conheça o seu ponto de saturação.
 
 **Medir só a média.** Ela esconde a cauda e mistura regimes de carga.
 
@@ -210,9 +226,11 @@ Formas de resolver "está lento" sem adicionar capacidade:
 
 | Escala vertical | Horizontal |
 |---|---|
-| Sem coordenação | Coordenação custa |
-| Teto da máquina maior | Teto de contenção |
-| Simples | Complexidade permanente |
+| Simples: sem coordenação | Complexidade permanente de coordenação |
+| Teto rígido: a maior máquina disponível | Teto móvel: a contenção que restar |
+| Custo cresce mais que proporcionalmente no topo da linha | Custo quase proporcional |
+| Redimensionar exige janela de indisponibilidade | Nó entra e sai em operação |
+| A instância é ponto único de falha | Redundância como efeito colateral |
 
 ## Modos de Falha
 

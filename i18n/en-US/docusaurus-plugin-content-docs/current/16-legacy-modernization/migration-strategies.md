@@ -11,9 +11,9 @@ objective: >
   By the end, the reader chooses the strategy from the problem, and recognizes that the
   answer is frequently a combination.
 prerequisites: [modernization-drivers]
-related: [replatforming, legacy-refactoring, rebuilding, replacing]
+related: [replatforming, legacy-refactoring, rebuilding, replacing, strangler-fig]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -75,9 +75,13 @@ itself is wrong — it reflects a business that no longer exists — rebuilding 
 
 ### Cost and risk grow in that order
 
+The first three columns are about **execution**: what each strategy charges to be carried out. The last one
+is about outcome.
+
 ```text
                 cost     risk     time        value delivered
-do nothing      zero     low      zero        zero
+                of exec. of exec. of exec.
+do nothing      zero     zero     zero        zero
 replatform      low      low      months      infrastructure
 refactor        medium   low      continuous  speed
 replace         medium   medium   months      capability ready
@@ -143,6 +147,11 @@ product competitors also use eliminates the differentiation. See
 
 It is the only strategy with no execution cost, and it rarely enters the comparison.
 
+What the table above does **not** show, because it measures execution, is that doing nothing has costs and
+risks of its own — continuous, and therefore invisible. See [what drives
+modernization](/16-legacy-modernization/modernization-drivers.md), where that cost is the calculation that
+decides. Zero in the execution column is not zero in the comparison.
+
 ```text
 makes sense   the system serves, it is stable, nobody needs to change it
               the cost of any strategy exceeds the cost of living with it
@@ -196,14 +205,17 @@ riskiest, and it is the default choice by reflex.
 
 **Deciding by whole system** when the parts have different problems.
 
-**Replacing a differentiating capability.** Swapping what distinguishes the company for an off-the-shelf product levels the process down to the competitor's — and the customization to recover the difference costs more than building would have.
+**Replacing a differentiating capability.** Swapping what distinguishes the company for an off-the-shelf product levels the process down to the competitor's — and the customization to recover the difference tends to cancel out the benefit — and, when it is extensive
+enough to rebuild the rule inside the product, it comes out more expensive than having built.
 
 **Replatforming and stopping there**, when the problem was something else.
 
 **Refactoring when the model is wrong** — it improves the structure of something that
 should not exist in that form.
 
-**Without assessing doing nothing.**
+**Without assessing doing nothing**, which is the only alternative with zero execution cost. Skipping that
+assessment makes the comparison start out biased: every remaining option costs something, so the cheapest of
+them looks like the right choice even when none of them pays off.
 
 ## Alternatives
 
@@ -224,7 +236,7 @@ larger investment.
 | Rebuild | Refactor |
 |---|---|
 | New model | Model kept |
-| High cost | Incremental |
+| Concentrated cost | Spread-out cost |
 | Value at the end | Continuous |
 | Embedded knowledge lost | Preserved |
 | High risk | Low |
@@ -242,11 +254,19 @@ larger investment.
 
 **Refactoring what has a wrong model.** Refactoring improves the code's structure on top of the same data model. If the model is the cause, the result is clean code with the problem intact.
 
-**Replacing a differentiating capability.**
+**The right strategy, applied too late.** The decision was good when it was made, and the system changed
+during execution — what was going to be refactored gained a requirement the model does not support. Nobody
+revisits the strategy midway, because revisiting looks like backing down.
 
-**Replatforming and expecting it to solve a code problem.** Changing infrastructure reduces operating cost and touches neither coupling nor model.
+**A migration that never ends.** The new system serves the main cases, the old one serves the rest, and both
+stay. The cost of keeping two is smaller than the cost of finishing, month by month, and larger in
+aggregate — but the comparison is never made over that horizon.
 
-**Deciding by whole system.** Different parts have different diagnoses, and a single decision wastes effort on one half and under-scopes the other.
+**A gain consumed by coexistence.** The strangling works, and the layer routing between old and new becomes
+permanent, with rules of its own. The system has three parts where it had one.
+
+**Knowledge that leaves with the system.** The rebuild copies the observable behavior and loses the rules
+nobody knew were there — discovered one at a time, in production, through customer complaints.
 
 **Not considering doing nothing.** A stable, cheap system nobody needs to change generates no return from being modernized — and it is the option that almost never enters the comparison.
 
@@ -258,7 +278,7 @@ larger investment.
 
 **Not assessing replatforming as a first step.** It is frequently cheap, reduces operating cost immediately and buys time to decide the rest calmly.
 
-**Not checking the product's boundary** when replacing. If the off-the-shelf product doesn't cover exactly the capability, what's left over becomes customization — and customization is what makes replacing more expensive than building.
+**Not checking the product's boundary** when replacing. If the off-the-shelf product doesn't cover exactly the capability, what's left over becomes customization — and, past a certain point, it eats the gain that motivated the purchase. See [replacing](/16-legacy-modernization/replacing.md).
 
 **Not recording the decision not to act.** Without a record, the same proposal comes back every year and the analysis is redone from scratch, with the same result.
 
@@ -291,7 +311,8 @@ observability and frequent deployment, which reduced the cost of everything else
 
 **Replace reports** with an off-the-shelf product — three months, with the team freed up.
 
-**Rebuild the replenishment engine** — nine months, with strangling. The unified
+**Rebuild the replenishment engine** — nine months, with
+[strangling](/16-legacy-modernization/strangler-fig.md). The unified
 inventory capability launched in month 11.
 
 **Refactor stock movement** incrementally, over two years, alongside the product changes
@@ -299,8 +320,12 @@ that touched it.
 
 **Records and UI kept.** No problem, no investment.
 
-Total cost: about 40% of the original estimate, with the business capability delivered in
-month 11 instead of month 24.
+The directed work added up to 14 team-months — two of replatforming, three of replacing, nine of rebuilding
+— against the 24 estimated for the full rebuild: about 60%. Refactoring stock movement does not enter that
+count because it was absorbed by the product changes that already touched that code, and that is precisely
+why it was chosen.
+
+And the business capability that motivated all of it shipped in month 11, instead of month 24.
 
 And one recorded decision: the product records were assessed and the decision not to
 touch them was documented, with annual review. Two years later, it still holds.
@@ -334,4 +359,5 @@ enough.
 
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.
-- Gartner. *Application Modernization Approaches* — the seven approaches.
+- Watson, Richard. *Migrating Applications to the Cloud: Rehost, Refactor, Revise, Rebuild, or Replace?*
+  Gartner, 2011 — the five original options, which later publications expanded to seven.

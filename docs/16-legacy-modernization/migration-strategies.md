@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor escolhe a estratégia a partir do problema, e reconhece que a
   resposta frequentemente é uma combinação.
 prerequisites: [modernization-drivers]
-related: [replatforming, legacy-refactoring, rebuilding, replacing]
+related: [replatforming, legacy-refactoring, rebuilding, replacing, strangler-fig]
 canonical_for: [estratégia de migração, critério de escolha, combinação de estratégias]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -75,9 +75,13 @@ está errado — reflete um negócio que não existe mais —, reconstruir se ju
 
 ### Custo e risco crescem na ordem
 
+As três primeiras colunas são de **execução**: o que cada estratégia cobra para ser feita. A
+última é de resultado.
+
 ```text
                  custo    risco    tempo    valor entregue
-não fazer nada    zero     baixo    zero     zero
+                 de exec. de exec. de exec.
+não fazer nada    zero     zero     zero     zero
 replataformar     baixo    baixo    meses    infraestrutura
 refatorar         médio    baixo    contínuo velocidade
 substituir        médio    médio    meses    capacidade pronta
@@ -141,6 +145,11 @@ que os concorrentes também usam elimina a diferenciação. Ver
 
 Ela é a única estratégia sem custo de execução, e raramente entra na comparação.
 
+O que a tabela acima **não** mostra, porque mede execução, é que não fazer nada tem custo e
+risco próprios — contínuos, e por isso invisíveis. Ver
+[o que motiva modernizar](/16-legacy-modernization/modernization-drivers.md), onde esse custo
+é a conta que decide. Zero na coluna de execução não é zero na comparação.
+
 ```text
 faz sentido   o sistema atende, é estável, ninguém precisa mudá-lo
               o custo de qualquer estratégia supera o de conviver
@@ -192,14 +201,17 @@ escolha padrão por reflexo.
 
 **Decidir por sistema inteiro** quando as partes têm problemas diferentes.
 
-**Substituir capacidade diferenciadora.** Trocar por produto de mercado o que distingue a empresa nivela o processo ao do concorrente — e a customização para recuperar a diferença custa mais que ter construído.
+**Substituir capacidade diferenciadora.** Trocar por produto de mercado o que distingue a empresa nivela o processo ao do concorrente — e a customização para recuperar a diferença tende a anular o benefício — e, quando é extensa o
+bastante para reconstruir a regra dentro do produto, sai mais cara que ter construído.
 
 **Replataformar e parar aí**, quando o problema era outro.
 
 **Refatorar quando o modelo está errado** — ela melhora a estrutura de algo que não
 deveria existir daquela forma.
 
-**Sem avaliar não fazer nada.**
+**Sem avaliar não fazer nada**, que é a única alternativa com custo de execução zero. Pular a
+avaliação faz a comparação começar já enviesada: todas as opções restantes custam algo, então
+a mais barata delas parece a escolha certa mesmo quando nenhuma se paga.
 
 ## Alternativas
 
@@ -219,7 +231,7 @@ investimento maior.
 | Reconstruir | Refatorar |
 |---|---|
 | Modelo novo | Modelo mantido |
-| Custo alto | Incremental |
+| Custo concentrado | Custo diluído |
 | Valor no fim | Contínuo |
 | Conhecimento embutido perdido | Preservado |
 | Risco alto | Baixo |
@@ -237,11 +249,20 @@ investimento maior.
 
 **Refatorar o que tem modelo errado.** Refatoração melhora a estrutura do código sobre o mesmo modelo de dados. Se o modelo é a causa, o resultado é código limpo com o problema intacto.
 
-**Substituir capacidade diferenciadora.**
+**A estratégia certa, aplicada tarde demais.** A decisão foi boa quando tomada, e o sistema
+mudou durante a execução — o que ia ser refatorado ganhou um requisito que o modelo não
+suporta. Ninguém revisa a estratégia no meio, porque revisar parece recuar.
 
-**Replataformar esperando que resolva problema de código.** Mudar de infraestrutura reduz custo operacional e não toca em acoplamento nem em modelo.
+**Migração que não termina.** O sistema novo atende os casos principais, o antigo atende o
+resto, e os dois ficam. O custo de manter dois é menor que o de acabar, mês a mês, e maior no
+acumulado — mas a comparação nunca é feita nesse prazo.
 
-**Decidir por sistema inteiro.** Partes diferentes têm diagnósticos diferentes, e uma decisão única desperdiça esforço numa metade e subdimensiona a outra.
+**Ganho consumido pela coexistência.** O estrangulamento funciona, e a camada que roteia entre
+o velho e o novo vira permanente, com regra própria. O sistema tem três partes onde tinha uma.
+
+**Conhecimento que sai com o sistema.** A reconstrução copia o comportamento observável e
+perde as regras que ninguém sabia estarem lá — descobertas uma a uma, em produção, por
+reclamação de cliente.
 
 **Não considerar não fazer nada.** Sistema estável, barato e que ninguém precisa mudar não gera retorno ao ser modernizado — e é a opção que quase nunca entra na comparação.
 
@@ -253,7 +274,7 @@ investimento maior.
 
 **Não avaliar replataformar como primeiro passo.** É frequentemente barato, reduz custo operacional imediato e compra tempo para decidir o resto com calma.
 
-**Não verificar a fronteira do produto** ao substituir. Se o produto de mercado não cobre exatamente a capacidade, o que sobra vira customização — e customização é o que torna a substituição mais cara que construir.
+**Não verificar a fronteira do produto** ao substituir. Se o produto de mercado não cobre exatamente a capacidade, o que sobra vira customização — e, passado certo ponto, ela consome o ganho que motivou a compra. Ver [substituir](/16-legacy-modernization/replacing.md).
 
 **Não registrar a decisão de não fazer.** Sem registro, a mesma proposta volta todo ano e a análise é refeita do zero, com o mesmo resultado.
 
@@ -286,7 +307,8 @@ e implantação frequente, o que reduziu o custo de tudo o mais.
 
 **Substituir relatórios** por um produto de mercado — três meses, com o time liberado.
 
-**Reconstruir o motor de reposição** — nove meses, com estrangulamento. A capacidade de
+**Reconstruir o motor de reposição** — nove meses, com
+[estrangulamento](/16-legacy-modernization/strangler-fig.md). A capacidade de
 estoque unificado foi lançada no mês 11.
 
 **Refatorar movimentação** incrementalmente, ao longo de dois anos, junto com as mudanças
@@ -294,8 +316,12 @@ de produto que a tocavam.
 
 **Cadastro e interface mantidos.** Nenhum problema, nenhum investimento.
 
-Custo total: cerca de 40% da estimativa original, com a capacidade de negócio entregue no
-mês 11 em vez de no 24.
+O trabalho dirigido somou 14 meses-equipe — dois de replataforma, três de substituição, nove
+de reconstrução — contra os 24 estimados para a reconstrução completa: cerca de 60%. A
+refatoração da movimentação não entra nessa conta porque foi absorvida pelas mudanças de
+produto que já tocavam aquele código, e é justamente essa a razão de ela ter sido escolhida.
+
+E a capacidade de negócio que motivava tudo saiu no mês 11, em vez do 24.
 
 E uma decisão registrada: o cadastro de produtos foi avaliado e a decisão de não mexer
 foi documentada, com revisão anual. Dois anos depois, ela continua válida.
@@ -329,4 +355,6 @@ rigor suficiente.
 
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.
-- Gartner. *Application Modernization Approaches* — as sete abordagens.
+- Watson, Richard. *Migrating Applications to the Cloud: Rehost, Refactor, Revise, Rebuild, or
+  Replace?* Gartner, 2011 — as cinco opções originais, que publicações posteriores expandiram
+  para sete.
