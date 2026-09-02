@@ -566,13 +566,29 @@ F8 é a única fase aberta. Ela se decompõe assim:
 | Sexto validador: link ao índice quando existe canônico (§7.4) | 🟩 42 corrigidos |
 | Convenções de acervo: "Modos de Falha" × "Erros Comuns", números ilustrativos, faixa de densidade | 🟩 decididas e aplicadas |
 | Revisão de profundidade (§13.3) — instrumento | 🟩 [`revisor-de-profundidade`](.claude/agents/revisor-de-profundidade.md) |
-| Revisão de profundidade — acervo | 🟨 **15 de 446 (3,4%)**, com todos os achados fechados |
+| Revisão de profundidade — acervo | 🟨 **49 de 446 (11%)**, com todos os achados fechados |
 | Verificação visual da interface | ⬜ exige olho humano no navegador |
 
 O inventário dos laudos, com o que foi corrigido e por quê, está em
-[`revisao-13-3.md`](revisao-13-3.md). A amostra revisada não é aleatória: foi
-triada por risco, e a taxa de reprovação dela — 13 em 15 — não se projeta sobre os
-431 restantes.
+[`revisao-13-3.md`](revisao-13-3.md).
+
+Por `doc_type`, o que já fechou e o que falta:
+
+| `doc_type` | Revisados | Total |
+|---|---:|---:|
+| `tradeoff` | 20 | 20 |
+| `case-study` | 14 | 14 |
+| `pattern` | 10 | 63 |
+| `concept` | 4 | 275 |
+| `foundation` | 1 | 31 |
+| `index` · `exercise` · `adr` · `reference` | 0 | 43 |
+
+**A taxa de reprovação não é artefato de triagem.** A amostra aleatória de dez
+documentos deu 10 em 10, contra 13 em 15 da amostra triada por risco — os defeitos
+estão distribuídos, não concentrados nos suspeitos. Dos 49 revisados, 46 reprovaram.
+
+Ao varrer, use `doc_type` e não o diretório: cinco `tradeoff` viviam fora de
+`docs/20-trade-offs/` e uma varredura por pasta os teria deixado de fora.
 
 Dentro de cada fase, a ordem segue o grafo de pré-requisitos: um tópico não é
 escrito antes dos seus pré-requisitos, porque escrever fora de ordem produz
