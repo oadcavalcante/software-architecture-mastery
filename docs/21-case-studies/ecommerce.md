@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [legacy-modernization-case, logistics, saas-platform]
 canonical_for: []
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -27,7 +27,7 @@ sua em vinte minutos. Só então continue.
 O valor não está em concordar com a decisão do texto — está em descobrir qual restrição você
 não tinha considerado.
 
-Os números deste case são **ilustrativos** (SPEC.md §8.2): plausíveis e internamente
+Os números deste case são **ilustrativos**: plausíveis e internamente
 coerentes, não medidos num sistema nomeado. O que se aprende é o raciocínio que eles
 sustentam, não as grandezas.
 

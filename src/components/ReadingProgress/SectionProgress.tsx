@@ -55,6 +55,13 @@ export default function SectionProgress(): React.ReactElement | null {
   // Seção ainda sem tópicos escritos não tem progresso a mostrar.
   if (ids.length === 0) return null;
 
+  // A abertura do percurso também é `doc_type: index`, mas o permalink dela é a
+  // raiz — e prefixo raiz casa com os 446 documentos do site. O painel dizia
+  // "seu progresso nesta seção: 0 de 445", que não é uma seção e não é o que a
+  // pessoa foi ali fazer: ela chegou para começar, não para medir. O progresso
+  // do percurso inteiro tem página própria.
+  if (prefix === '/') return null;
+
   const pct = Math.round((done / ids.length) * 100);
   const complete = done === ids.length;
 

@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -25,19 +25,6 @@ Um percurso para Engenheiros de Software que querem pensar como Arquitetos de So
 O objetivo não é ensinar padrões, frameworks ou serviços de nuvem. É desenvolver
 raciocínio arquitetural: entender o problema, identificar restrições, avaliar
 alternativas, raciocinar sobre trade-offs, decidir, comunicar e evoluir.
-
-:::info Estado do percurso
-
-<!-- PROGRESS:INTRO -->
-O percurso em português está completo: **446 de 446 documentos**, nas **23 seções**.
-<!-- /PROGRESS:INTRO -->
-
-A tradução para inglês é progressiva e está no início: páginas ainda não
-traduzidas aparecem em português. O plano completo está na
-[especificação do projeto](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md)
-e o estado detalhado, no [roadmap](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/ROADMAP.md).
-
-:::
 
 ## Os sete níveis
 

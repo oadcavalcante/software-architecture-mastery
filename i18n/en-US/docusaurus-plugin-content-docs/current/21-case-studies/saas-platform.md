@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, ecommerce, healthcare]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Read the context, requirements and constraints. **Stop before the architecture options** and
 sketch your own in twenty minutes.
 
-This case's numbers are **illustrative** (SPEC.md §8.2): plausible and internally
+This case's numbers are **illustrative**: plausible and internally
 consistent, not measured in a named system. What is learned is the reasoning they
 support, not the magnitudes.
 

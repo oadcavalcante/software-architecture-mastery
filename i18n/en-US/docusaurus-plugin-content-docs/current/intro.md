@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -25,20 +25,6 @@ A learning path for Software Engineers who want to think like Software Architect
 The goal is not to teach patterns, frameworks, or cloud services. It is to develop
 architectural reasoning: understand the problem, identify constraints, evaluate
 alternatives, reason about trade-offs, decide, communicate, and evolve.
-
-:::info Track status
-
-<!-- PROGRESS:INTRO -->
-The Portuguese track is complete: **446 of 446 documents**, across all **23 sections**.
-<!-- /PROGRESS:INTRO -->
-
-Translation to English is progressive and still early: pages not yet translated
-appear in Portuguese. The full plan lives in the
-[project specification](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md),
-and the detailed state in the
-[roadmap](https://github.com/oadcavalcante/software-architecture-mastery/blob/main/ROADMAP.md).
-
-:::
 
 ## The seven levels
 

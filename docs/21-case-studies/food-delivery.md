@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, logistics, ecommerce]
 canonical_for: []
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-29
 Leia contexto, requisitos e restrições. **Pare antes das opções de arquitetura** e esboce a
 sua em vinte minutos.
 
-Os números deste case são **ilustrativos** (SPEC.md §8.2): plausíveis e internamente
+Os números deste case são **ilustrativos**: plausíveis e internamente
 coerentes, não medidos num sistema nomeado. O que se aprende é o raciocínio que eles
 sustentam, não as grandezas.
 
