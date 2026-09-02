@@ -556,9 +556,23 @@ Cada fase entrega um site publicável e útil por si só. Ver
 | **F8** | Revisão cruzada: contradições, duplicações, densidade, verificação factual | 🟨 parcial |
 
 F7 está completa: os 446 documentos têm tradução en-US em dia, e a contagem por
-documento está na tabela de paridade acima. F8 teve a passagem mecânica —
-contradições, duplicação de exemplos, links, densidade — mas o checklist de
-[SPEC.md §13.3](SPEC.md) exige revisão humana, que não foi feita.
+documento está na tabela de paridade acima.
+
+F8 é a única fase aberta. Ela se decompõe assim:
+
+| Item | Estado |
+|---|---|
+| Passagem mecânica — contradições, duplicação de exemplos, links, densidade | 🟩 |
+| Sexto validador: link ao índice quando existe canônico (§7.4) | 🟩 42 corrigidos |
+| Convenções de acervo: "Modos de Falha" × "Erros Comuns", números ilustrativos, faixa de densidade | 🟩 decididas e aplicadas |
+| Revisão de profundidade (§13.3) — instrumento | 🟩 [`revisor-de-profundidade`](.claude/agents/revisor-de-profundidade.md) |
+| Revisão de profundidade — acervo | 🟨 **15 de 446 (3,4%)**, com todos os achados fechados |
+| Verificação visual da interface | ⬜ exige olho humano no navegador |
+
+O inventário dos laudos, com o que foi corrigido e por quê, está em
+[`revisao-13-3.md`](revisao-13-3.md). A amostra revisada não é aleatória: foi
+triada por risco, e a taxa de reprovação dela — 13 em 15 — não se projeta sobre os
+431 restantes.
 
 Dentro de cada fase, a ordem segue o grafo de pré-requisitos: um tópico não é
 escrito antes dos seus pré-requisitos, porque escrever fora de ordem produz

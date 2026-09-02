@@ -47,50 +47,42 @@ Dois efeitos colaterais fechados junto: `12-reliability/index.md` repetia a
 afirmação removida, e `canary.md` tinha a mesma célula absoluta do
 `queue-based-scaling`.
 
-## Pendente — decisão editorial
+## Decidido e aplicado
 
-Verificados, não corrigidos: mudam o que o texto afirma, e a escolha é do autor.
+### Convenções de repositório
 
-### Afirmações absolutas que exigem escrever conteúdo novo
+Apareciam em quase todo laudo. Decididas uma vez, registradas na spec, e o revisor
+passou a tratá-las como dívida rastreada — sem isso, cada um dos 431 documentos
+restantes repetiria o mesmo achado.
 
-| Documento | Trecho |
+| Convenção | Decisão |
 |---|---|
-| `06-distributed-systems/idempotency.md` | "**Não há caso em que idempotência seja indesejável.**" — em negrito, abrindo "Quando Não Usar", e "Consumidores de fila, **sem exceção**", contradito doze linhas depois. Tirar o absoluto deixa a seção obrigatória vazia: alguém precisa **escrever** as condições reais |
-| `01-fundamentals/coupling.md` | "Não existe reduzir um sem aumentar o outro", contradito pela tabela do próprio documento, que mostra reduções de acoplamento sem duplicação nenhuma. Exige reenquadrar o eixo do trade-off |
+| "Modos de Falha" × "Erros Comuns" | Registrada em [SPEC.md](SPEC.md) §7.3 com teste explícito: Modos de Falha é **o que se observa antes de saber a causa**, da perspectiva de quem opera; Erros Comuns é a decisão de quem construiu que leva até lá, com a consequência. Se um item cabe nas duas, está na forma errada em uma |
+| Números de case study | A declaração de que são ilustrativos (§8.2) entra **uma vez**, na admonição de abertura de cada um dos 14, em vez de pulverizada por número |
+| Faixa de densidade | Vale só para o canônico. Aplicá-la à tradução medía o idioma: a razão entre os 446 pares vai de 0,95 a 1,07, então canônico logo acima do piso dava tradução logo abaixo. A tradução passa a responder por outra pergunta — perdeu conteúdo? — contra o próprio canônico, fora da faixa 0,85–1,25 |
 
-### Contradições entre documentos — resolvidas
+### Contradições entre documentos
 
-As quatro foram fechadas. As duas primeiras exigiram decisão editorial; as duas
-últimas tinham resolução óbvia, porque o canônico decide.
+As quatro foram fechadas. Duas exigiram decisão editorial; duas tinham resolução
+óbvia, porque o canônico decide.
 
 | Onde | Resolução |
 |---|---|
-| `rolling-deployments.md` × `kubernetes.md` | A distinção que faltava não é própria contra externa, é **própria da instância contra compartilhada pelas réplicas**. Readiness verifica se esta instância pode atender; apontada para recurso que todas consultam, uma oscilação tira todas da rotação e degradação parcial vira queda total. Os dois documentos passam a dizer isso, cada um do seu ângulo |
-| `distributed-cqrs.md` × `03-design-patterns/cqrs.md` | O canônico decide (§7.4): o documento distribuído adotou os três níveis, deixou de ter escala própria, abriu com nota de pré-requisito e virou o recorte do nível 3. A réplica de leitura saiu de "grau" e ganhou a comparação que faltava. Os 9 links que o chamavam de "CQRS" foram reavaliados um a um: 5 mantiveram o alvo com rótulo honesto, 3 passaram a apontar para o canônico |
-| `service-mesh.md` × `12-reliability/retry-storms.md` | A aritmética foi corrigida e o link repontado para o canônico |
+| `rolling-deployments.md` × `kubernetes.md` | A distinção que faltava não é própria contra externa, é **própria da instância contra compartilhada pelas réplicas**. Readiness verifica se esta instância pode atender; apontada para recurso que todas consultam, uma oscilação tira todas da rotação e degradação parcial vira queda total |
+| `distributed-cqrs.md` × `03-design-patterns/cqrs.md` | O canônico decide (§7.4): o distribuído adotou os três níveis, perdeu a escala própria, abriu com nota de pré-requisito e virou o recorte do nível 3. Réplica de leitura saiu de "grau" e ganhou a comparação que faltava. Dos 9 links que o chamavam de "CQRS", 5 mantiveram o alvo com rótulo honesto e 3 passaram ao canônico |
+| `service-mesh.md` × `12-reliability/retry-storms.md` | Aritmética corrigida e link repontado para o canônico |
 | `multi-region.md` × `disaster-recovery.md` | Custo de ativo-ativo alinhado em "muito alto"; "ativo-passivo quente" ganhou a ponte para a "espera quente" do canônico, que o frio já tinha |
 
-### Lacunas técnicas
+### Achados que exigiam escrever conteúdo
 
-- `idempotency.md` — gravar chave e efeito na mesma transação não resolve chegada
-  concorrente; falta a restrição de unicidade e o que a segunda chamada recebe.
-- `21-case-studies/healthcare.md` — o resultado de 1,2 h/ano equivale a 99,9863%,
-  abaixo dos 99,99% que o próprio case declara como requisito. Ou se reconhece que
-  o alvo não foi atingido, ou o número muda.
-- `feature-flags.md` — "280 flags removidas, a maioria por remoção efetiva, não por
-  renovação de prazo": renovar prazo não remove flag; as duas leituras se excluem.
-
-### Padrão recorrente
-
-Em 11 dos 15 laudos, **"Modos de Falha" e "Erros Comuns" dizem a mesma coisa duas
-vezes**, e ambas nomeiam a causa em vez do sintoma que o template pede de "Modos
-de Falha". Não há sobreposição *literal* de rótulos em nenhum dos 355 documentos
-que têm as duas seções — a duplicação é semântica, que é o que nenhum validador
-pega. Vale decidir a convenção uma vez, no nível do repositório, em vez de
-documento a documento.
-
-Mesma natureza: nenhum dos 14 case studies rotula seus números como ilustrativos,
-o que §8.2 pede. É convenção da seção, não defeito de um arquivo.
+| Documento | O que era | O que ficou |
+|---|---|---|
+| `idempotency.md` | "**Não há caso em que idempotência seja indesejável**" abria a seção obrigatória e a esvaziava | Condições reais, começando pela única em que a idempotência é **errada** e não apenas cara: quando a repetição *é* o dado — medição por chamada, trilha de auditoria, contador |
+| `idempotency.md` | "Consumidores de fila, **sem exceção**", contradito doze linhas depois | Condicionado ao efeito observável fora do sistema ou irreversível |
+| `idempotency.md` | Mesma transação apresentada como suficiente | Acrescentada a **restrição de unicidade** — duas retentativas simultâneas abrem transações que não enxergam a chave não confirmada uma da outra — e o que a segunda chamada recebe enquanto a primeira não terminou |
+| `coupling.md` | "Não existe reduzir um sem aumentar o outro", desmentido pela tabela do próprio documento | O eixo vale onde há conhecimento compartilhado; acoplamento de marca e de controle saem de graça, e fila troca temporal por formato sem duplicar |
+| `healthcare.md` | 1,2 h/ano apresentado como "o resultado do projeto" contra um requisito declarado de 99,99% (que permite 0,88 h/ano) | Reconhece os dezenove minutos, dá o custo de fechá-los e registra a revisão do alvo — que é o comportamento que o material cobra dos outros |
+| `feature-flags.md` | "280 removidas, a maioria por remoção efetiva, não por renovação de prazo" — as duas leituras se excluem | 280 decisões: 231 remoções e 49 renovações com justificativa |
 
 ## Uma ponta que o validador novo não cobre
 
