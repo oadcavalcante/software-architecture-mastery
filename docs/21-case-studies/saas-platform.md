@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, ecommerce, healthcare]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -243,9 +243,9 @@ migração              o mecanismo de migração entre modelos vira
 | Consulta entre inquilinos (contador) | 5% | 10 | 7 | 3 | 6 |
 | **Total ponderado** | | **5,0** | **6,3** | **6,9** | **8,2** |
 
-**Análise de sensibilidade.** Com custo em 40%, os totais viram 6,8 / 7,4 / 4,6 / 8,0 — a Opção D
-mantém a vantagem. Com isolamento em 45%, viram 3,6 / 6,0 / 8,0 / 8,7. Nenhum cenário testado
-inverte, o que é esperado de uma opção construída para aplicar cada modelo onde ele é adequado.
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com custo em 40%, os totais viram
+6,2 / 6,9 / 5,6 / 8,1 — a Opção D mantém a vantagem. Com isolamento em 45%, viram
+4,4 / 6,5 / 7,7 / 8,4. Nenhum cenário testado inverte, o que é esperado de uma opção construída para aplicar cada modelo onde ele é adequado.
 
 ## Decisão
 

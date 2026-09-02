@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, food-delivery, ecommerce]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -244,8 +244,8 @@ não de software: a carga está fisicamente no veículo, e mover encomendas entr
 dia é caro e lento. Uma arquitetura que otimiza ignorando isso produz planos que a operação não
 executa.
 
-**Análise de sensibilidade.** Com prazo em 50%, os totais viram 4,8 / 8,2 / 7,1 — a Opção B
-mantém a vantagem. Nenhum cenário testado inverte o resultado, o que é consequência de a Opção C
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com prazo em 50%, os totais viram
+5,2 / 7,9 / 6,3 — a Opção B mantém a vantagem. Nenhum cenário testado inverte o resultado, o que é consequência de a Opção C
 ter uma limitação estrutural e não apenas um custo maior.
 
 ## Decisão

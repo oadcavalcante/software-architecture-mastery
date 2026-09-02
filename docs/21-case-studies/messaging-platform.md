@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, video-streaming, ride-sharing]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -226,11 +226,12 @@ custo             alto para conversas pouco ativas
 | Capacidade da equipe | 10% | 9 | 8 | 4 |
 | **Total ponderado** | | **5,0** | **8,3** | **7,5** |
 
-**Análise de sensibilidade.** Com sincronização entre dispositivos em 35%, os totais viram 4,5 /
-7,9 / 8,4 — a Opção C passa a vencer. Esse é o cenário em que o produto se torna
-multiplataforma pesado, com desktop, web e vários móveis por usuário.
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com sincronização entre dispositivos em 35%, os
+totais viram 4,5 / 8,0 / 8,1 — B e C empatam na prática, com 0,1 de diferença numa escala
+subjetiva. Esse é o cenário em que o produto se torna multiplataforma pesado, com desktop, web e
+vários móveis por usuário; ele não decide sozinho, mas mostra onde a decisão fica frágil.
 
-Com custo em 40%, viram 6,9 / 8,4 / 4,6 — a Opção B amplia a vantagem.
+Com custo em 40%, viram 6,2 / 8,2 / 6,1 — a Opção B amplia a vantagem sobre C.
 
 ## Decisão
 

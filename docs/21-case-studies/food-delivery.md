@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, logistics, ecommerce]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -216,10 +216,10 @@ equipe               nenhuma pessoa com experiência na tecnologia
 O peso de 30% em custo reflete a restrição da diretoria — é uma restrição de negócio
 declarada, e ignorá-la produziria uma proposta que não seria aprovada.
 
-**Análise de sensibilidade.** Com custo em 10% e capacidade de previsão em 30%, os totais viram
-5,1 / 7,5 / 7,3 — a Opção B ainda vence, por pouco. Com isolamento em 40%, viram 3,6 / 8,7 /
-7,2. A conclusão é estável, e o cenário em que C se aproxima é justamente aquele em que a
-previsão de chegada vira o produto.
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com custo em 10% e capacidade de previsão em 30%,
+os totais viram 5,0 / 7,6 / 6,8 — a Opção B ainda vence, com a vantagem sobre C caindo de 1,9
+para 0,8. Com isolamento em 40%, viram 4,0 / 8,5 / 6,8. A conclusão é estável, e o cenário em
+que C se aproxima é justamente aquele em que a previsão de chegada vira o produto.
 
 ## Decisão
 

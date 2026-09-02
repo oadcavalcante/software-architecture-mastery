@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [legacy-modernization-case, logistics, saas-platform]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -260,17 +260,17 @@ se a conclusão dependia de uma escolha específica:
 
 ```text
 cenário                                    A      B      C
-pesos originais                           5,0    4,4    7,3
-custo em 40%, prazo de mudança em 5%      4,6    5,3    7,2
-risco de interrupção em 40%               6,1    3,4    7,4
-capacidade da equipe em 30%               5,6    3,8    7,0
+pesos originais                           5,2    4,4    7,3
+custo em 40%, prazo de mudança em 5%      5,3    4,0    7,2
+risco de interrupção em 40%               6,1    3,8    7,2
+capacidade da equipe em 30%               5,8    4,1    7,0
 ```
 
 A Opção C vence em todos os cenários testados, o que aumenta a confiança na decisão. E a
-análise revela algo sobre as outras duas: a Opção B só se aproxima quando o custo domina,
-e a Opção A só se aproxima quando o risco domina — o que é coerente com a natureza de cada
-uma, e serve como verificação de que a avaliação não foi enviesada para produzir o
-resultado desejado.
+análise revela algo sobre as outras duas: a Opção A se aproxima quando o risco domina, e a
+Opção B não se aproxima em nenhum cenário — ao contrário, cai, porque todo o valor dela está
+no critério que o projeto mais preza. A verificação serve justamente para isso: mostrar que a
+avaliação não foi enviesada para produzir o resultado desejado.
 
 Um critério considerado e **descartado** da matriz: "modernidade da arquitetura". Ele foi
 proposto e recusado por não corresponder a nenhum resultado de negócio verificável — e por
@@ -671,11 +671,13 @@ bidirecional adia a decisão e cobra em divergência.
 
 ## Exercício Prático
 
-Refaça a matriz de decisão trocando um peso: coloque **custo total em 4 anos** em 40% e
-reduza **redução do prazo de mudança** para 5%.
+Refaça a matriz de decisão procurando um conjunto de pesos que faça a Opção B vencer.
 
-Recalcule. A opção vencedora muda? Esse exercício mostra que a decisão não estava na
-análise — estava nos pesos, que são uma escolha de negócio.
+Nenhuma variação de peso único consegue: os três cenários da análise de sensibilidade já
+mostram isso, e o motivo é que B pontua alto num critério só. Para inverter é preciso mexer nas
+**notas**, não nos pesos — e aí a pergunta deixa de ser "quanto isso importa para o negócio" e
+passa a ser "a avaliação está certa". Distinguir as duas é o que a análise de sensibilidade
+serve para ensinar.
 
 ## Perguntas de Entrevista
 

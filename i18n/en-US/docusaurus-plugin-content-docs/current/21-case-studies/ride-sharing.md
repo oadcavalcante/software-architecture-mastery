@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [food-delivery, logistics, messaging-platform]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -224,8 +224,8 @@ The contest between B and C is close, and the difference is risk: Option C depen
 prediction, and a bad prediction degrades matching instead of improving it. Option B delivers
 most of the gain without that dependency.
 
-**Sensitivity analysis.** With quality at 50% and complexity at 10%, the totals become 4.8 /
-7.7 / 8.2 — Option C wins. That scenario corresponds to an organization with a mature data
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With quality at 50% and complexity at 10%, the totals
+become 5.3 / 7.5 / 7.6 — Option C edges ahead by 0.1, which is a tie on a subjective scale. That scenario corresponds to an organization with a mature data
 science capability and an appetite for operating a model in production on the critical path.
 
 ## Decision

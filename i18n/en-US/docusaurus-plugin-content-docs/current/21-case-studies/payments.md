@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [banking, ecommerce, high-volume-events]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -237,9 +237,9 @@ Correctness under failure weighs 35% because it is the stated problem: 900 dupli
 month and 900 ambiguous cases a day. Any lower weight would make the analysis incoherent with
 the diagnosis.
 
-**Sensitivity analysis.** With latency at 40% and correctness at 20%, the totals become 7.1 /
-8.0 / 5.1 — Option B still wins, which indicates it doesn't depend on the chosen weight. With
-operational complexity at 35%, they become 6.7 / 7.4 / 4.3.
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With latency at 40% and correctness at 20%, the totals
+become 7.0 / 8.1 / 5.3 — Option B still wins, which indicates it doesn't depend on the chosen
+weight. With operational complexity at 35%, they become 6.5 / 8.0 / 5.1.
 
 ## Decision
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [healthcare, banking, multi-tenant-enterprise]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -237,8 +237,9 @@ conhecimento      o problema principal não é resolvido; quando
 | Velocidade de mudança futura | 10% | 9 | 3 | 9 | 2 |
 | **Total ponderado** | | **4,9** | **5,9** | **8,7** | **5,0** |
 
-**Análise de sensibilidade.** Com risco de erro em 50%, os totais viram 3,6 / 7,3 / 8,9 / 8,1 — a
-Opção C mantém vantagem. Com custo em 40%, viram 5,9 / 7,3 / 8,0 / 3,0. Nenhum cenário inverte.
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com risco de erro em 50%, os totais viram
+4,1 / 6,5 / 8,8 / 6,4 — a Opção C mantém vantagem, e por margem maior do que na matriz base.
+Com custo em 40%, viram 5,8 / 6,5 / 8,2 / 3,8. Nenhum cenário testado inverte.
 
 O peso de 30% em risco de erro reflete a natureza do domínio: um erro de cálculo em benefício
 previdenciário afeta a renda de uma pessoa idosa e gera passivo judicial. É o critério que a

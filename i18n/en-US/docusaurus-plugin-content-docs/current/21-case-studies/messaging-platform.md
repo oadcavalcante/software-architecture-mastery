@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, video-streaming, ride-sharing]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -225,9 +225,11 @@ cost              high for low-activity conversations
 | Team capability | 10% | 9 | 8 | 4 |
 | **Weighted total** | | **5.0** | **8.3** | **7.5** |
 
-**Sensitivity analysis.** With cross-device synchronization at 35%, the totals become 4.5 / 7.9 /
-8.4 — Option C starts winning. That is the scenario in which the product becomes heavily
-multi-platform, with desktop, web and several mobile devices per user.
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With cross-device synchronization at 35%, the totals
+become 4.5 / 8.0 / 8.1 — B and C tie in practice, 0.1 apart on a subjective scale. That is the
+scenario in which the product becomes heavily multi-platform, with desktop, web and several
+mobile devices per user; it does not decide on its own, but it shows where the decision gets
+fragile.
 
 With cost at 40%, they become 6.9 / 8.4 / 4.6 — Option B widens its advantage.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, food-delivery, ecommerce]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -242,8 +242,8 @@ a software one: the cargo is physically in the vehicle, and moving parcels betwe
 the day is expensive and slow. An architecture that optimizes while ignoring that produces plans
 operations doesn't execute.
 
-**Sensitivity analysis.** With deadlines at 50%, the totals become 4.8 / 8.2 / 7.1 — Option B
-keeps its advantage. No scenario tested inverts the result, which follows from Option C having a
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With deadlines at 50%, the totals become
+5.2 / 7.9 / 6.3 — Option B keeps its advantage. No scenario tested inverts the result, which follows from Option C having a
 structural limitation and not merely a higher cost.
 
 ## Decision

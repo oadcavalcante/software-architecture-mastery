@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [legacy-modernization-case, logistics, saas-platform]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -259,16 +259,17 @@ whether the conclusion depended on a specific choice:
 
 ```text
 scenario                                   A      B      C
-original weights                          5.0    4.4    7.3
-cost at 40%, change lead time at 5%       4.6    5.3    7.2
-risk of disruption at 40%                 6.1    3.4    7.4
-team capability at 30%                    5.6    3.8    7.0
+original weights                          5.2    4.4    7.3
+cost at 40%, change lead time at 5%       5.3    4.0    7.2
+risk of disruption at 40%                 6.1    3.8    7.2
+team capability at 30%                    5.8    4.1    7.0
 ```
 
 Option C wins in every scenario tested, which increases confidence in the decision. And the
-analysis reveals something about the other two: Option B only gets close when cost dominates,
-and Option A only gets close when risk dominates — which is coherent with each one's nature,
-and serves as a check that the evaluation was not biased to produce the desired result.
+analysis reveals something about the other two: Option A gets close when risk dominates, and
+Option B gets close in no scenario — it drops instead, because all of its value sits in the one
+criterion the project prizes most. The check serves precisely for that: showing the evaluation
+was not biased to produce the desired result.
 
 One criterion considered and **discarded** from the matrix: "architectural modernity". It was
 proposed and refused for not corresponding to any verifiable business outcome — and for being
@@ -671,11 +672,13 @@ Bidirectional synchronization defers the decision and charges for it in divergen
 
 ## Practical Exercise
 
-Redo the decision matrix swapping one weight: put **total cost over 4 years** at 40% and
-reduce **reduction in change lead time** to 5%.
+Redo the decision matrix looking for a set of weights that makes Option B win.
 
-Recalculate. Does the winning option change? That exercise shows the decision was not in the
-analysis — it was in the weights, which are a business choice.
+No single-weight variation manages it: the three sensitivity scenarios already show that, and the
+reason is that B scores high on one criterion only. Inverting it requires changing the **scores**,
+not the weights — and then the question stops being "how much does this matter to the business"
+and becomes "is the evaluation right". Telling the two apart is what sensitivity analysis exists
+to teach.
 
 ## Interview Questions
 

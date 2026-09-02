@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, logistics, ecommerce]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -215,10 +215,11 @@ team                 nobody with experience in the technology
 The 30% weight on cost reflects the leadership constraint — it is a declared business
 constraint, and ignoring it would produce a proposal that wouldn't be approved.
 
-**Sensitivity analysis.** With cost at 10% and prediction capability at 30%, the totals become
-5.1 / 7.5 / 7.3 — Option B still wins, narrowly. With isolation at 40%, they become 3.6 / 8.7 /
-7.2. The conclusion is stable, and the scenario in which C gets close is precisely the one
-where arrival prediction becomes the product.
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With cost at 10% and prediction capability at 30%, the
+totals become 5.0 / 7.6 / 6.8 — Option B still wins, with its lead over C falling from 1.9 to
+0.8. With isolation at 40%, they become 4.0 / 8.5 / 6.8. The conclusion is stable, and the
+scenario in which C gets close is precisely the one where arrival prediction becomes the
+product.
 
 ## Decision
 

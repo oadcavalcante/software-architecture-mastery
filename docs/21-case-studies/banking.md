@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [payments, healthcare, high-volume-events]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -221,8 +221,9 @@ comum de um banco.
 | Complexidade operacional | 5% | 9 | 7 | 3 |
 | **Total ponderado** | | **5,1** | **7,7** | **5,5** |
 
-**Análise de sensibilidade.** Com risco de migração em 40%, os totais viram 5,6 / 6,8 / 4,0 —
-a Opção B continua vencendo. Com custo em 45%, viram 4,2 / 8,3 / 6,4. A conclusão é estável.
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com risco de migração em 40%, os totais viram
+5,3 / 7,3 / 4,9 — a Opção B continua vencendo. Com custo em 45%, viram 4,5 / 8,0 / 5,9. A
+conclusão é estável.
 
 O critério que mais separa A de B é liberdade de produto, e ele foi deliberadamente
 quantificado: multimoeda, conta conjunta e investimentos têm estimativa comercial de R$ 180

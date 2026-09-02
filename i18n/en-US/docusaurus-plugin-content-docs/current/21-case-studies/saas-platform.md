@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, ecommerce, healthcare]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -240,9 +240,9 @@ migration             the mechanism for migrating between models becomes
 | Cross-tenant queries (accountant) | 5% | 10 | 7 | 3 | 6 |
 | **Weighted total** | | **5.0** | **6.3** | **6.9** | **8.2** |
 
-**Sensitivity analysis.** With cost at 40%, the totals become 6.8 / 7.4 / 4.6 / 8.0 — Option D
-keeps its advantage. With isolation at 45%, they become 3.6 / 6.0 / 8.0 / 8.7. No scenario tested
-inverts it, which is expected of an option built to apply each model where it fits.
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With cost at 40%, the totals become
+6.2 / 6.9 / 5.6 / 8.1 — Option D keeps its advantage. With isolation at 45%, they become
+4.4 / 6.5 / 7.7 / 8.4. No scenario tested inverts it, which is expected of an option built to apply each model where it fits.
 
 ## Decision
 

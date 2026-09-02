@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, messaging-platform, high-volume-events]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -234,8 +234,8 @@ expensive — it is **impossible** to meet within the 5-second requirement for l
 unviable option gets a score of 1, it is not excluded from the matrix: showing why it loses is
 part of the record.
 
-**Sensitivity analysis.** With latency at 50%, the totals become 3.8 / 6.9 / 8.0. With cost at
-50%, they become 3.6 / 3.8 / 8.2. Option C wins in every scenario tested, which is expected when
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With latency at 50%, the totals become
+4.3 / 6.4 / 7.8. With cost at 50%, they become 4.5 / 4.6 / 7.8. Option C wins in every scenario tested, which is expected when
 one option combines the advantages of the other two — and the check serves to confirm that the
 additional complexity doesn't bring it down.
 

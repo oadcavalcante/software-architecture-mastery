@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, high-volume-events, saas-platform]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -209,8 +209,8 @@ risco             médio — negociação com 6 parceiros, não dezenas
 | Capacidade da equipe | 10% | 9 | 3 | 6 |
 | **Total ponderado** | | **5,6** | **6,5** | **7,4** |
 
-**Análise de sensibilidade.** Com risco em 40% e custo em 15%, os totais viram 7,6 / 4,4 / 6,8 —
-a Opção A vence. Esse é o único cenário testado em que a conclusão muda, e ele corresponde a uma
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com risco em 40% e custo em 15%, os totais viram
+7,1 / 5,1 / 6,9 — a Opção A vence, por 0,2. Esse é o único cenário testado em que a conclusão muda, e ele corresponde a uma
 organização com apetite de risco muito baixo ou sem capacidade de negociar com provedores de
 acesso.
 

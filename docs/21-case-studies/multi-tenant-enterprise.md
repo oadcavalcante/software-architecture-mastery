@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [saas-platform, healthcare, legacy-modernization-case]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -235,9 +235,15 @@ A disputa entre B e D é apertada. A diferença está no critério de capacidade
 a Opção B pura tem um limite duro, e quando um cliente de R$ 9 milhões pede algo que a
 configuração não expressa, a resposta "não" é comercialmente cara.
 
-**Análise de sensibilidade.** Com capacidade de atender pedidos em 35%, os totais viram 5,0 /
-7,8 / 7,8 / 8,2 — a Opção D vence. Com risco em 30%, viram 3,8 / 9,0 / 5,7 / 8,3 — a Opção B
-vence.
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com capacidade de atender pedidos em 35%, os
+totais viram 4,6 / 8,2 / 7,3 / 8,2 — B e D empatam. Com risco em 30%, viram
+3,7 / 8,8 / 6,0 / 7,9 — a Opção B vence.
+
+**A matriz aponta para B, e a decisão é D.** D só ultrapassa B quando o peso de capacidade de
+atender pedidos passa de 37%, e nenhum cenário testado chega lá. A diferença de 0,5 na matriz
+base é o preço que a análise cobra da Opção D; o que ela não precifica é o custo comercial de
+dizer "não" a um cliente de R$ 9 milhões, que é a razão declarada da escolha. Registrar isso é
+mais honesto que ajustar os pesos até a matriz produzir a resposta já escolhida.
 
 ## Decisão
 

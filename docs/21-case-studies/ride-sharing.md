@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [food-delivery, logistics, messaging-platform]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -226,8 +226,9 @@ A disputa entre B e C é apertada, e a diferença está em risco: a Opção C de
 uma previsão ruim degrada o casamento em vez de melhorá-lo. A Opção B entrega a maior parte do
 ganho sem essa dependência.
 
-**Análise de sensibilidade.** Com qualidade em 50% e complexidade em 10%, os totais viram 4,8 /
-7,7 / 8,2 — a Opção C vence. O cenário corresponde a uma organização com capacidade de ciência
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com qualidade em 50% e complexidade em 10%, os
+totais viram 5,3 / 7,5 / 7,6 — a Opção C passa à frente por 0,1, o que é empate numa escala
+subjetiva. O cenário corresponde a uma organização com capacidade de ciência
 de dados madura e apetite para operar um modelo em produção no caminho crítico.
 
 ## Decisão

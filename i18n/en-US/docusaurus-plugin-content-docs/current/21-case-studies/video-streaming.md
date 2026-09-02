@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, high-volume-events, saas-platform]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -208,8 +208,8 @@ risk              medium — negotiating with 6 partners, not dozens
 | Team capability | 10% | 9 | 3 | 6 |
 | **Weighted total** | | **5.6** | **6.5** | **7.4** |
 
-**Sensitivity analysis.** With risk at 40% and cost at 15%, the totals become 7.6 / 4.4 / 6.8 —
-Option A wins. That is the only scenario tested in which the conclusion changes, and it corresponds
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With risk at 40% and cost at 15%, the totals become
+7.1 / 5.1 / 6.9 — Option A wins, by 0.2. That is the only scenario tested in which the conclusion changes, and it corresponds
 to an organization with very low risk appetite or with no ability to negotiate with access
 providers.
 

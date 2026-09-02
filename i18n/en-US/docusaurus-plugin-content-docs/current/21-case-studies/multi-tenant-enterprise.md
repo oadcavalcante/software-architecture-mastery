@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [saas-platform, healthcare, legacy-modernization-case]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -235,8 +235,15 @@ The contest between B and D is close. The difference is in the ability-to-meet-r
 pure Option B has a hard limit, and when a $1.8-million customer asks for something the
 configuration cannot express, the answer "no" is commercially expensive.
 
-**Sensitivity analysis.** With ability to meet requests at 35%, the totals become 5.0 / 7.8 / 7.8
-/ 8.2 — Option D wins. With risk at 30%, they become 3.8 / 9.0 / 5.7 / 8.3 — Option B wins.
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With ability to meet requests at 35%, the totals become
+4.6 / 8.2 / 7.3 / 8.2 — B and D tie. With risk at 30%, they become 3.7 / 8.8 / 6.0 / 7.9 —
+Option B wins.
+
+**The matrix points at B, and the decision is D.** D only overtakes B once the weight on ability
+to meet requests passes 37%, and no scenario tested reaches that. The 0.5 gap in the base matrix
+is the price the analysis charges Option D; what it does not price is the commercial cost of
+saying "no" to a $1.8 million client, which is the stated reason for the choice. Recording that is
+more honest than tuning the weights until the matrix produces the answer already chosen.
 
 ## Decision
 

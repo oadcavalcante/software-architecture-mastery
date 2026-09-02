@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [banking, ecommerce, high-volume-events]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -237,9 +237,9 @@ Correção sob falha pesa 35% porque é o problema declarado: 900 cobranças dup
 900 casos ambíguos por dia. Qualquer peso menor tornaria a análise incoerente com o
 diagnóstico.
 
-**Análise de sensibilidade.** Com latência em 40% e correção em 20%, os totais viram 7,1 /
-8,0 / 5,1 — a Opção B ainda vence, o que indica que ela não depende do peso escolhido. Com
-complexidade operacional em 35%, viram 6,7 / 7,4 / 4,3.
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com latência em 40% e correção em 20%, os totais
+viram 7,0 / 8,1 / 5,3 — a Opção B ainda vence, o que indica que ela não depende do peso
+escolhido. Com complexidade operacional em 35%, viram 6,5 / 8,0 / 5,1.
 
 ## Decisão
 

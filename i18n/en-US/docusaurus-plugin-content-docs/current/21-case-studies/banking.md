@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [payments, healthcare, high-volume-events]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -222,8 +222,9 @@ operation.
 | Operational complexity | 5% | 9 | 7 | 3 |
 | **Weighted total** | | **5.1** | **7.7** | **5.5** |
 
-**Sensitivity analysis.** With migration risk at 40%, the totals become 5.6 / 6.8 / 4.0 —
-Option B still wins. With cost at 45%, they become 4.2 / 8.3 / 6.4. The conclusion is stable.
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With migration risk at 40%, the totals become
+5.3 / 7.3 / 4.9 — Option B still wins. With cost at 45%, they become 4.5 / 8.0 / 5.9. The
+conclusion is stable.
 
 The criterion that most separates A from B is product freedom, and it was deliberately
 quantified: multi-currency, joint accounts and investments have a commercial estimate of $36

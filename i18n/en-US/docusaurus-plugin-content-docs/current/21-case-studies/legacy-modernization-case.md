@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [healthcare, banking, multi-tenant-enterprise]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -239,9 +239,9 @@ knowledge         the main problem is not solved; when the
 | Speed of future change | 10% | 9 | 3 | 9 | 2 |
 | **Weighted total** | | **4.9** | **5.9** | **8.7** | **5.0** |
 
-**Sensitivity analysis.** With risk of error at 50%, the totals become 3.6 / 7.3 / 8.9 / 8.1 —
-Option C keeps its advantage. With cost at 40%, they become 5.9 / 7.3 / 8.0 / 3.0. No scenario
-inverts it.
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With risk of error at 50%, the totals become
+4.1 / 6.5 / 8.8 / 6.4 — Option C keeps its advantage, by a wider margin than in the base matrix.
+With cost at 40%, they become 5.8 / 6.5 / 8.2 / 3.8. No scenario tested inverts it.
 
 The 30% weight on risk of error reflects the domain's nature: a calculation error in a pension
 benefit affects an elderly person's income and creates legal liability. It is the criterion

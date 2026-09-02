@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, messaging-platform, high-volume-events]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -235,8 +235,8 @@ ela é **impossível** de cumprir dentro do requisito de 5 segundos para comunid
 Uma opção inviável recebe nota 1, não é excluída da matriz: mostrar por que ela perde é parte
 do registro.
 
-**Análise de sensibilidade.** Com latência em 50%, os totais viram 3,8 / 6,9 / 8,0. Com custo em
-50%, viram 3,6 / 3,8 / 8,2. A Opção C vence em todos os cenários testados, o que é esperado
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com latência em 50%, os totais viram
+4,3 / 6,4 / 7,8. Com custo em 50%, viram 4,5 / 4,6 / 7,8. A Opção C vence em todos os cenários testados, o que é esperado
 quando uma opção combina as vantagens das outras duas — e a checagem serve para confirmar que
 a complexidade adicional não a derruba.
 
