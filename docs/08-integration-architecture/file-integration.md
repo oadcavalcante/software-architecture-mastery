@@ -13,7 +13,7 @@ objective: >
 prerequisites: [batch-integration]
 related: [batch-integration, integration-contracts, data-lifecycle]
 canonical_for: [integração por arquivo, arquivo de controle, escrita atômica]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -27,9 +27,9 @@ sendo a mais comum entre organizações diferentes.
 Bancos, operadoras, governo, seguradoras, folha de pagamento — a maior parte do
 volume corporativo trafega como arquivo depositado em algum lugar.
 
-Ela é subestimada porque parece primitiva. Ela é primitiva, e é a única
-integração que funciona quando as duas pontas não compartilham nada além de um
-protocolo de transferência e um formato acordado.
+Ela é subestimada porque parece primitiva. Ela é primitiva, e é a que exige menos
+das duas pontas: nenhuma precisa expor endpoint nem manter disponibilidade síncrona
+para a outra — basta um protocolo de transferência e um formato acordado.
 
 ## Problema
 
@@ -99,8 +99,10 @@ que chegaram estão bem formadas; as que faltam simplesmente não estão lá.
 A defesa é um rodapé ou um arquivo de controle com a contagem de registros e a
 soma dos valores. O leitor confere antes de processar.
 
-Isso detecta truncamento, corrupção e a linha que se perdeu num filtro
-intermediário — nenhum dos quais aparece de outra forma.
+Isso detecta o que muda a contagem ou o campo somado: truncamento e a linha perdida
+num filtro intermediário. Não detecta corrupção fora do campo somado — o Exemplo Real
+deste documento traz um caso que rodou três semanas com contagem e soma batendo. Para
+essa classe, a defesa é validação de esquema e de codificação na entrada.
 
 ### Formato: o texto delimitado é traiçoeiro
 
@@ -185,7 +187,7 @@ continua sendo o dado, e a chegada dele vira evento.
 | Nenhuma garantia nativa | Contrato, erro, retentativa |
 | Volume alto barato | Custo por registro |
 | Latência de horas | Segundos |
-| Funciona entre qualquer par | Exige compatibilidade |
+| Nenhuma ponta expõe endpoint | As duas precisam estar de pé |
 | Dados parados em repouso | Em trânsito apenas |
 
 ## Modos de Falha

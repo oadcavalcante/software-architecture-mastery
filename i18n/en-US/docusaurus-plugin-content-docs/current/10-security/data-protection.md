@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [encryption, auditability, data-lifecycle]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ earlier:
 **Does this data need to exist?**
 
 Data that is not collected does not leak, does not need to be encrypted, does not go into a backup, does
-not appear in a log, does not need to be deleted when somebody asks. No other control has that return.
+not appear in a log, does not need to be deleted when somebody asks. For data no process uses, it is the control with the best ratio of risk eliminated to effort.
 
 What remains after that question is what deserves protection — proportional to what it is.
 
@@ -176,7 +176,7 @@ missing control was authorization, or not collecting.
 ## Alternatives
 
 - **Not collecting** — the definitive control.
-- **Tokenization** — it removes the data from scope.
+- **Tokenization** — it shrinks the scope drastically; the vault stays inside it.
 - **Aggregation** — keeping the summary, discarding the detail.
 - **Processing without storing** — using the data in the request and not persisting it.
 - **[Per-subject encryption](/10-security/encryption.md)** — it allows deletion by discarding a key.
@@ -239,7 +239,7 @@ support, third parties — there is no way to serve a deletion request or to res
 
 A fintech received a data deletion request and discovered it did not know where the data was.
 
-The inventory, done hastily, found customers' personal data in fifteen places — six of which nobody had
+The inventory, done hastily, found customers' personal data in ten places — seven of which nobody had
 listed:
 
 ```text
@@ -255,7 +255,7 @@ the email platform         names and amounts in templates
 third-party monitoring     traces with request data
 ```
 
-The last four were outside direct control.
+The last three were outside direct control.
 
 And two aggravating findings:
 
@@ -273,7 +273,7 @@ of the complete address, the last digits instead of the complete document number
 mattered.
 
 **Tokenization** of the document number. A separate vault came to exist; the rest of the system works with
-a token. That removed the field from twelve databases and from the warehouse.
+a token. That removed the field from the production database, the replicas and the warehouse.
 
 **Classification** into four levels, with controls defined per level — including "may not appear in a log"
 and "may not leave for a non-production environment".

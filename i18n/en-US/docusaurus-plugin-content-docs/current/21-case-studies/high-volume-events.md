@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, social-network, logistics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -45,7 +45,8 @@ emergency shutdown into scheduled maintenance.
 
 Two pressures motivate the review:
 
-**Cost.** The platform spends $14.2 million a year, of which 58% goes to storing raw telemetry
+**Cost.** The platform spends $14.2 million a year, of which 58% — $8.2 million — goes to storing
+raw telemetry
 that is almost never read. Leadership set a target of a 40% reduction in cost per monitored
 sensor.
 
@@ -148,8 +149,9 @@ events used only in aggregates                 ~97.6%
 events never read in any form                  ~71%
 ```
 
-Seventy-one percent of events are never read. Storing them raw for 30 days costs $8.2 million a
-year — and that line is the answer to the cost problem.
+Seventy-one percent of events are never read. Raw storage as a whole costs $8.2 million a year, and
+since the event has a fixed size, those 71% account for about $5.8 million — and that line is the
+answer to the cost problem.
 
 Obtaining that distribution was a project in itself. The previous system did not record which
 events were read; the information had to be reconstructed by instrumenting queries for three
@@ -225,12 +227,13 @@ predictive capability preserved — the center sees every plant
 | Resilience to link failure | 20% | 1 | 2 | 10 | 9 |
 | Cross-plant predictive capability | 15% | 9 | 9 | 2 | 9 |
 | Operational complexity | 10% | 9 | 6 | 3 | 3 |
-| **Weighted total** | | **3.2** | **6.6** | **8.0** | **8.7** |
+| **Weighted total** | | **3.3** | **6.4** | **7.8** | **8.5** |
 
-**Sensitivity analysis.** With complexity at 30%, the totals become 5.0 / 6.7 / 6.6 / 7.1 — Option
-D keeps its advantage. With predictive capability at 35%, they become 4.4 / 7.8 / 4.4 / 8.8.
+**Sensitivity analysis**, redistributing the remaining weight proportionally across the other
+criteria. With complexity at 30%, the totals become 4.6 / 6.3 / 6.8 / 7.2. With predictive
+capability at 35%, they become 4.6 / 7.1 / 6.5 / 8.6 — Option D keeps its advantage in both.
 
-Option C loses in both scenarios for the same reason: with no central view, the predictive model
+Option C wins in no scenario for the same reason: with no central view, the predictive model
 is trained only on one plant's history, and most of the product's value comes from learning from
 340.
 

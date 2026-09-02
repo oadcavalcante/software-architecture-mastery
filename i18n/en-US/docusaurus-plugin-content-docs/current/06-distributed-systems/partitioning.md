@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [sharding, hotspots, replication]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -94,8 +94,9 @@ With a simple hash — `hash(key) mod N` — adding a node changes the destinati
 Consistent hashing arranges the keys and the nodes on a ring: adding a node moves only the keys
 between it and its neighbor — about `1/N` of the total.
 
-It is what makes growth operationally viable, and it is used by practically every modern partitioned
-system.
+It is what makes growth operationally viable. The other way out of the same problem is to fix far more
+logical partitions than physical instances and move whole partitions — see
+[sharding](/06-distributed-systems/sharding.md). Current systems split between the two.
 
 ### Partitioning and replication are orthogonal
 
@@ -147,7 +148,7 @@ corresponding cost.
 | Partitioned | Single instance |
 |---|---|
 | Writes scale | Limited by one node |
-| Practically unlimited volume | Limited |
+| Volume scales with the number of nodes | Limited by one node |
 | Cross-partition operations expensive | All local |
 | A cross-partition transaction is distributed | Local |
 | Rebalancing to operate | Nothing |

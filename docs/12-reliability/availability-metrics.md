@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [sli, slo, reliability-basics]
 canonical_for: [tempo médio entre falhas, tempo médio de recuperação, tempo médio de detecção, duração de indisponibilidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -88,8 +88,8 @@ exercitado, procedimentos ensaiados e detecção automática são o que produzem
 
 ### A média esconde a distribuição
 
-Tempo médio de recuperação de 15 minutos pode ser dez incidentes de 3 minutos e um de
-2 horas.
+Tempo médio de recuperação de 15 minutos pode ser dez incidentes de 4,5 minutos e um
+de 2 horas.
 
 O incidente de 2 horas é o que o cliente lembra, e a média não o representa.
 
@@ -190,7 +190,7 @@ incomparáveis.
 ## Alternativas
 
 - **[SLI](/12-reliability/sli.md) por jornada** — mede a experiência, não o tempo de atividade.
-- **Contagem de usuários afetados por minuto** — combina alcance e duração numa medida
+- **Minutos de usuário afetados** — combina alcance e duração numa medida
   que o negócio entende.
 - **Contagem de incidentes por severidade** — mais legível que média em amostras
   pequenas.

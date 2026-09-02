@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [sli, slo, reliability-basics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -84,7 +84,7 @@ and automatic detection are what produce that.
 
 ### The average hides the distribution
 
-A mean time to recover of 15 minutes can be ten incidents of 3 minutes and one of 2 hours.
+A mean time to recover of 15 minutes can be ten incidents of 4.5 minutes and one of 2 hours.
 
 The 2-hour incident is the one the customer remembers, and the average does not represent it.
 

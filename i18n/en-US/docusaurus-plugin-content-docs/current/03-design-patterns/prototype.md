@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, memento, flyweight]
 canonical_for: [prototype, cloning]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Prototype creates new objects by **copying** an existing instance, rather than
 constructing them from scratch.
 
-It is the GoF pattern that appears least in modern code, and it is worth understanding
+It is one of the GoF patterns that appear least in modern code, and it is worth understanding
 why — as much as the cases where it is still the right answer.
 
 ## Problem
@@ -93,7 +93,9 @@ a [Liskov](/02-software-design/solid.md) violation the compiler does not detect.
 
 **When the object is immutable.** Share it. There is nothing to copy.
 
-**When constructing is cheap.** The common case.
+**When constructing is cheap.** No I/O and no computation, just allocation and field
+assignment — the common case. Cloning there pays the shallow-copy risk and the per-class
+clone method for nothing in return.
 
 **When the deep copy is complex or ambiguous.** If the object holds references to
 resources, connections or external identity, "copying" has no obvious meaning — and a
@@ -170,8 +172,11 @@ deciding, field by field, what duplication means in the domain.
 
 ## Where it appears in practice
 
-**JavaScript.** The language is prototype-based: objects inherit directly from other
-objects. It is the most literal example of the pattern, built into the semantics.
+**JavaScript.** The name coincides and the mechanism does not. The language's prototype
+is **delegation**: `Object.create(p)` points at `p` and property lookup walks the chain at
+runtime — nothing is copied. The GoF pattern copies. Whoever looks for the pattern in
+JavaScript finds `structuredClone` and the spread, and the spread is shallow — the trap
+from this document's first section.
 
 **Graphical editors and modelling tools.** Duplicating an element is a domain operation,
 and the pattern models that directly.

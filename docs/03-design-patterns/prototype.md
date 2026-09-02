@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, memento, flyweight]
 canonical_for: [prototype, clonagem]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Prototype cria objetos novos **copiando** uma instância existente, em vez de
 construí-los do zero.
 
-É o padrão do GoF que menos aparece em código moderno, e vale entender por quê —
+É um dos padrões do GoF que menos aparecem em código moderno, e vale entender por quê —
 tanto quanto os casos em que ele ainda é a resposta certa.
 
 ## Problema
@@ -94,7 +94,9 @@ Nada avisa. É uma violação de
 
 **Quando o objeto é imutável.** Compartilhe. Não há o que copiar.
 
-**Quando construir é barato.** O caso comum.
+**Quando construir é barato.** Sem E/S nem cálculo, só alocação e atribuição de
+campos — o caso comum. Clonar aí paga o risco de cópia rasa e a manutenção do método
+de clonagem por classe sem ganho nenhum em troca.
 
 **Quando a cópia profunda é complexa ou ambígua.** Se o objeto tem referências a
 recursos, conexões ou identidade externa, "copiar" não tem significado óbvio — e
@@ -173,8 +175,11 @@ decidir campo a campo o que a duplicação significa no domínio.
 
 ## Onde ele aparece na prática
 
-**JavaScript.** A linguagem é baseada em protótipos: objetos herdam diretamente
-de outros objetos. É o exemplo mais literal do padrão, embutido na semântica.
+**JavaScript.** O nome coincide e o mecanismo não. O protótipo da linguagem é
+**delegação**: `Object.create(p)` aponta para `p` e a busca de propriedade caminha a
+cadeia em execução — nada é copiado. O padrão do GoF copia. Quem procura o padrão em
+JavaScript encontra `structuredClone` e o espalhamento, e o espalhamento é raso — a
+armadilha da primeira seção deste documento.
 
 **Editores gráficos e ferramentas de modelagem.** Duplicar um elemento é uma
 operação do domínio, e o padrão modela isso diretamente.

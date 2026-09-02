@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [sharding, hotspots, replication]
 canonical_for: [particionamento, chave de partição]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -104,8 +104,10 @@ todas as chaves.
 Hash consistente organiza as chaves e os nós num anel: adicionar um nó move apenas
 as chaves entre ele e o vizinho — cerca de `1/N` do total.
 
-É o que torna o crescimento operacionalmente viável, e é usado por praticamente
-todo sistema particionado moderno.
+É o que torna o crescimento operacionalmente viável. A outra saída para o mesmo
+problema é fixar muito mais partições lógicas que instâncias físicas e mover partições
+inteiras — ver [sharding](/06-distributed-systems/sharding.md). Os sistemas correntes
+se dividem entre as duas.
 
 ### Particionamento e replicação são ortogonais
 
@@ -160,7 +162,7 @@ correspondente.
 | Particionado | Instância única |
 |---|---|
 | Escrita escala | Limitada por um nó |
-| Volume ilimitado na prática | Limitado |
+| Volume escala com o número de nós | Limitado por um nó |
 | Operações entre partições caras | Todas locais |
 | Transação entre partições é distribuída | Local |
 | Rebalanceamento a operar | Nada |

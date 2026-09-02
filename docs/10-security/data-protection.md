@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [encryption, auditability, data-lifecycle]
 canonical_for: [minimização de dados, classificação de dados, pseudonimização, tokenização]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -28,7 +28,8 @@ Ela deveria começar antes:
 
 Dado que não é coletado não vaza, não precisa ser cifrado, não entra em cópia de
 segurança, não aparece em registro, não precisa ser apagado quando alguém pede.
-Nenhum outro controle tem esse retorno.
+Para dado que nenhum processo usa, é o controle com a melhor relação entre risco
+eliminado e esforço.
 
 O que resta depois dessa pergunta é o que merece proteção — proporcional ao que ele
 é.
@@ -184,7 +185,7 @@ controle que faltava era autorização, ou não coletar.
 ## Alternativas
 
 - **Não coletar** — o controle definitivo.
-- **Tokenização** — remove o dado do escopo.
+- **Tokenização** — reduz drasticamente o escopo; o cofre continua dentro dele.
 - **Agregação** — guardar o resumo, descartar o detalhe.
 - **Processar sem armazenar** — usar o dado na requisição e não persistir.
 - **[Cifragem por titular](/10-security/encryption.md)** — permite apagamento por descarte de
@@ -241,8 +242,8 @@ controle que faltava era autorização, ou não coletar.
 Uma fintech recebeu uma solicitação de exclusão de dados e descobriu que não sabia
 onde eles estavam.
 
-O inventário, feito às pressas, encontrou dados pessoais de clientes em quinze
-lugares — dos quais seis ninguém tinha listado:
+O inventário, feito às pressas, encontrou dados pessoais de clientes em dez lugares —
+dos quais sete ninguém tinha listado:
 
 ```text
 banco de produção            esperado
@@ -257,7 +258,7 @@ plataforma de e-mail         nome e valores em templates
 monitoramento de terceiro    rastros com dados de requisição
 ```
 
-Os quatro últimos estavam fora do controle direto.
+Os três últimos estavam fora do controle direto.
 
 E dois achados agravantes:
 
@@ -275,7 +276,8 @@ reduzida: faixa de renda em vez de valor, município em vez de endereço complet
 últimos dígitos em vez do documento completo onde só a conferência importava.
 
 **Tokenização** do documento. Passou a existir um cofre separado; o restante do
-sistema trabalha com token. Isso removeu o campo de doze bancos e do warehouse.
+sistema trabalha com token. Isso removeu o campo do banco de produção, das réplicas e
+do warehouse.
 
 **Classificação** em quatro níveis, com controles definidos por nível — inclusive
 "não pode aparecer em registro" e "não pode sair para ambiente não produtivo".

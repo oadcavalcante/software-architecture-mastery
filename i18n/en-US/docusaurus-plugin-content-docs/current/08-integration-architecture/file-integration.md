@@ -13,7 +13,7 @@ objective: >
 prerequisites: [batch-integration]
 related: [batch-integration, integration-contracts, data-lifecycle]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -26,8 +26,9 @@ different organizations.
 
 Banks, carriers, government, insurers, payroll — most corporate volume travels as a file dropped somewhere.
 
-It is underestimated because it looks primitive. It is primitive, and it is the only integration that works
-when the two ends share nothing beyond a transfer protocol and an agreed format.
+It is underestimated because it looks primitive. It is primitive, and it is the one that demands least of
+the two ends: neither has to expose an endpoint or keep synchronous availability for the other — a transfer
+protocol and an agreed format are enough.
 
 ## Problem
 
@@ -173,7 +174,7 @@ arrival becomes an event.
 | No native guarantee | A contract, errors, retries |
 | High volume, cheap | A cost per record |
 | Latency of hours | Seconds |
-| Works between any pair | Requires compatibility |
+| Neither end exposes an endpoint | Both have to be up |
 | Data sitting at rest | In transit only |
 
 ## Failure Modes

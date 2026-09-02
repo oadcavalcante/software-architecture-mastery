@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, social-network, logistics]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -45,7 +45,8 @@ uma parada de emergência em manutenção programada.
 
 Duas pressões motivam a revisão:
 
-**Custo.** A plataforma gasta R$ 71 milhões por ano, dos quais 58% em armazenamento de telemetria
+**Custo.** A plataforma gasta R$ 71 milhões por ano, dos quais 58% — R$ 41 milhões — em
+armazenamento de telemetria
 bruta que quase nunca é lida. A diretoria estabeleceu meta de redução de 40% no custo por sensor
 monitorado.
 
@@ -146,8 +147,9 @@ eventos usados apenas em agregados             ~97,6%
 eventos nunca lidos de nenhuma forma           ~71%
 ```
 
-Setenta e um por cento dos eventos nunca são lidos. Armazená-los brutos por 30 dias custa
-R$ 41 milhões por ano — e essa linha é a resposta ao problema de custo.
+Setenta e um por cento dos eventos nunca são lidos. O armazenamento bruto inteiro custa
+R$ 41 milhões por ano, e como o evento tem tamanho fixo, esses 71% respondem por cerca de
+R$ 29 milhões — e essa linha é a resposta ao problema de custo.
 
 Obter essa distribuição foi um projeto em si. O sistema anterior não registrava quais eventos
 eram lidos; a informação teve de ser reconstruída instrumentando as consultas por três meses e
@@ -223,12 +225,13 @@ capacidade preditiva  preservada — o centro vê todas as plantas
 | Resiliência a falha de enlace | 20% | 1 | 2 | 10 | 9 |
 | Capacidade preditiva entre plantas | 15% | 9 | 9 | 2 | 9 |
 | Complexidade operacional | 10% | 9 | 6 | 3 | 3 |
-| **Total ponderado** | | **3,2** | **6,6** | **8,0** | **8,7** |
+| **Total ponderado** | | **3,3** | **6,4** | **7,8** | **8,5** |
 
-**Análise de sensibilidade.** Com complexidade em 30%, os totais viram 5,0 / 6,7 / 6,6 / 7,1 — a
-Opção D mantém vantagem. Com capacidade preditiva em 35%, viram 4,4 / 7,8 / 4,4 / 8,8.
+**Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais
+critérios. Com complexidade em 30%, os totais viram 4,6 / 6,3 / 6,8 / 7,2. Com capacidade
+preditiva em 35%, viram 4,6 / 7,1 / 6,5 / 8,6 — a Opção D mantém vantagem nos dois.
 
-A Opção C perde nos dois cenários pelo mesmo motivo: sem visão central, o modelo preditivo é
+A Opção C não vence em nenhum cenário pelo mesmo motivo: sem visão central, o modelo preditivo é
 treinado apenas com o histórico de uma planta, e a maior parte do valor do produto vem de
 aprender com 340.
 

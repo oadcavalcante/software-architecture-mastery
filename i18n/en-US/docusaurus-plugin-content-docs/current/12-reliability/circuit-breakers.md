@@ -13,7 +13,7 @@ objective: >
 prerequisites: [retry-storms]
 related: [retry-storms, bulkheads, graceful-degradation]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -254,13 +254,17 @@ The fixes:
 **A circuit breaker** with a 30% failure threshold, a minimum volume of 20 calls, a 30-second open period
 and a test with 10% of the traffic in half-open.
 
-**Slowness counted as failure.** Calls above 800 ms count toward the threshold — without that, the original
-scenario would not have triggered the circuit, because there was no error.
+**Slowness counted as failure.** Calls above **400 ms** count toward the threshold. The number sits below
+the timeout on purpose: at the timeout boundary the call already becomes an error by itself, and the rule
+would add nothing. Between 400 and 800 ms the call responds successfully and still counts — which is the
+case only this rule catches.
 
 **A fallback behavior.** An open circuit means displaying the page without reviews, with the block omitted.
 See [graceful degradation](/12-reliability/graceful-degradation.md).
 
-**A bulkhead.** A separate connection pool for external calls, limited to 50 simultaneous — so that, even
+**A bulkhead.** A separate connection pool for external calls, limited to 80 simultaneous — 400 req/s ×
+120 ms require 48 in normal operation, and the headroom follows the sizing in
+[bulkheads](/12-reliability/bulkheads.md) — so that, even
 with no circuit breaker, the exhaustion does not reach the main pool. See
 [bulkheads](/12-reliability/bulkheads.md).
 
@@ -270,7 +274,9 @@ Two months later, the same external service degraded again. The circuit opened i
 came to be served without reviews, and no user reported a problem. The incident was recorded as
 degradation, not as unavailability.
 
-The recorded conclusion: the adjustment that mattered most was counting slowness as failure. The circuit
+The recorded conclusion: the adjustment that mattered most was the timeout — 15 seconds was what let the
+queue grow. Counting slowness came after, and it is what catches degradation that answers inside the
+timeout without ever failing. The circuit
 breaker's first version, installed months earlier, counted only errors — and it would have stayed closed
 during the original incident, because the service responded successfully, very slowly.
 

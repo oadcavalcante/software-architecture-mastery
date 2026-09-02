@@ -13,7 +13,7 @@ objective: >
 prerequisites: [retry-storms]
 related: [retry-storms, bulkheads, graceful-degradation]
 canonical_for: [circuit breaker, disjuntor, estado semiaberto, limiar de abertura]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -257,15 +257,18 @@ generosa.
 **Circuit breaker** com limiar de 30% de falha, volume mínimo de 20 chamadas, período
 aberto de 30 segundos e teste com 10% do tráfego no semiaberto.
 
-**Lentidão contada como falha.** Chamadas acima de 800 ms contam para o limiar — sem
-isso, o cenário original não teria disparado o circuito, porque não havia erro.
+**Lentidão contada como falha.** Chamadas acima de **400 ms** contam para o limiar. O
+número fica abaixo do timeout de propósito: no limiar do timeout a chamada já vira erro
+sozinha, e a regra não acrescentaria nada. Entre 400 e 800 ms a chamada responde com
+sucesso e ainda assim conta — que é o caso que só esta regra pega.
 
 **Comportamento de reserva.** Circuito aberto significa exibir a página sem avaliações,
 com o bloco omitido. Ver
 [degradação graciosa](/12-reliability/graceful-degradation.md).
 
-**Bulkhead.** Um pool de conexões separado para chamadas externas, limitado a 50
-simultâneas — para que, mesmo sem circuit breaker, o esgotamento não alcance o pool
+**Bulkhead.** Um pool de conexões separado para chamadas externas, limitado a 80
+simultâneas — 400 req/s × 120 ms exigem 48 em regime normal, e a folga acompanha o
+dimensionamento de [bulkheads](/12-reliability/bulkheads.md) — para que, mesmo sem circuit breaker, o esgotamento não alcance o pool
 principal. Ver [bulkheads](/12-reliability/bulkheads.md).
 
 **Alerta** quando um circuito fica aberto por mais de 5 minutos.
@@ -274,7 +277,9 @@ Dois meses depois, o mesmo serviço externo degradou de novo. O circuito abriu e
 segundos, as páginas passaram a ser servidas sem avaliações, e nenhum usuário reportou
 problema. O incidente foi registrado como degradação, não como indisponibilidade.
 
-A conclusão registrada: o ajuste que mais importou foi contar lentidão como falha. A
+A conclusão registrada: o ajuste que mais importou foi o timeout — 15 segundos era o
+que permitia a fila crescer. Contar lentidão veio depois, e é o que pega a degradação
+que responde dentro do timeout sem nunca falhar. A
 primeira versão do circuit breaker, instalada meses antes, contava apenas erro — e
 teria ficado fechado durante o incidente original, porque o serviço respondia com
 sucesso, muito devagar.
