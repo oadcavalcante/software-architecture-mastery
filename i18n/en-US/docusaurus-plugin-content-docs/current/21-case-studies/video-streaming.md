@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, high-volume-events, saas-platform]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -121,11 +121,11 @@ What sizes this system is not requests per second — it is bandwidth.
 
 ```text
 subscribers                         6.1 million
-simultaneous sessions, average      ~310 thousand
+simultaneous sessions, average      ~210 thousand
 peak (Saturday, 9pm)                ~980 thousand
 average bitrate per session         ~4.1 Mbps
 bandwidth at peak                   ~4.0 Tbps
-hours watched/month                 ~412 million
+hours watched/month                 ~151 million
 volume delivered/year               ~3.4 exabytes
 ```
 
@@ -270,7 +270,8 @@ windows change frequently and the required precision is one minute. Materializin
 invalidation at that granularity, which is more expensive than evaluating.
 
 **Playback progress.** Key-value store, with one entry per profile and title. Written every 30
-seconds during playback — about 10 thousand writes per second at peak — and read when the app
+seconds during playback — about 7 thousand writes per second on average, 33 thousand at peak —
+and read when the app
 opens.
 
 It is data with loss tolerance: losing the last 30 seconds of progress is imperceptible. That

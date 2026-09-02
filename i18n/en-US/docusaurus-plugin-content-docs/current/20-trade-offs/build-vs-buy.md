@@ -13,7 +13,7 @@ objective: >
 prerequisites: [saas]
 related: [managed-vs-self-hosted, cost-vs-reliability, centralization-vs-decentralization]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 

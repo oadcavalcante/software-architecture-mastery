@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [strong-vs-eventual-consistency, sync-vs-async, cost-vs-reliability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -204,7 +204,7 @@ Prefer **availability** when:
 
 **Without the error-cost numbers** for both sides.
 
-**Outside a partition** — there is no trade-off, and citing CAP to justify weak consistency in
+**Outside a partition** — there is no *that* trade-off, and citing CAP to justify weak consistency in
 normal operation is a conceptual error.
 
 **Without designing the reconciliation.**
@@ -227,7 +227,7 @@ availability with a fraction of the risk.
 
 | Consistency | Availability |
 |---|---|
-| Never accepts invalid | Never refuses valid |
+| Prioritizes not accepting invalid | Prioritizes not refusing valid |
 | Unavailable during partition | Divergence to reconcile |
 | Higher latency | Lower |
 | No reconciliation | Requires reconciliation design |

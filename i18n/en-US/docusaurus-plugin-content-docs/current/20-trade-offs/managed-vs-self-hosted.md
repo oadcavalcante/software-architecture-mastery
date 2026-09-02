@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [build-vs-buy, cost-vs-reliability, cloud-native-vs-portable]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -84,7 +84,8 @@ See [cost vs. reliability](/20-trade-offs/cost-vs-reliability.md).
 
 ### The premium buys reliability you would not build
 
-Mature managed services deliver, by default, things a small team does not build:
+Mature managed services make available, with no internal project, things a small team does not
+build — several of them requiring configuration, as the canonical document records:
 
 ```text
 automatic node recovery

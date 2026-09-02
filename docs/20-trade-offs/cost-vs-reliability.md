@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability-basics]
 related: [consistency-vs-availability, managed-vs-self-hosted, speed-vs-quality]
 canonical_for: [custo contra confiabilidade, custo do nono adicional, confiabilidade proporcional, alvo derivado do negócio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -164,7 +164,7 @@ saldo esgotado          → congela mudanças até o mês seguinte
 Isso transforma confiabilidade de aspiração em recurso administrável, e resolve a tensão
 entre entregar e estabilizar com uma regra em vez de com discussão.
 
-Ver [confiabilidade](/12-reliability/reliability-basics.md).
+Ver [SLO e orçamento de erro](/12-reliability/slo.md).
 
 ### Sinais de escolha errada
 
@@ -359,7 +359,8 @@ custo apareceu como redundância inútil e plantão desgastado.
 
 ## Conceitos Relacionados
 
-- [Confiabilidade](/12-reliability/reliability-basics.md) — o orçamento de erro.
+- [SLO](/12-reliability/slo.md) — o orçamento de erro.
+- [Métricas de Disponibilidade](/12-reliability/availability-metrics.md) — frequência e duração.
 - [Degradação Graciosa](/12-reliability/graceful-degradation.md) — a alternativa barata.
 - [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md).
 - [Diagramas de Implantação](/17-architecture-documentation/deployment-diagrams.md) — a

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [saas]
 related: [managed-vs-self-hosted, cost-vs-reliability, centralization-vs-decentralization]
 canonical_for: [construir contra comprar, capacidade diferenciadora, custo total de propriedade, viés de construção]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -254,7 +254,7 @@ exige disciplina para não virar customização sem fim.
 
 **Capacidade de apoio construída.** Equipe permanente fora do produto.
 
-**Compra para evitar processo de compra.** Decisão técnica por atrito administrativo.
+**Construção para evitar processo de compra.** Decisão técnica por atrito administrativo.
 
 **Customização sem fim.** A ferramenta comprada vira projeto de desenvolvimento.
 

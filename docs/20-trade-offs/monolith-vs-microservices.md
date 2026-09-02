@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [centralization-vs-decentralization, coupling-vs-duplication, sync-vs-async]
 canonical_for: [monólito contra microsserviços, pré-requisito operacional, granularidade de implantação, fronteira instável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -121,8 +121,9 @@ verificação automática das fronteiras
 Ele entrega a maior parte do benefício organizacional de fronteiras claras sem nenhum dos
 custos da distribuição, e mantém a opção de extrair depois.
 
-O modo de falha é conhecido: sem verificação automática, as fronteiras erodem em 12 a 18
-meses. Com ela, não erodem. Ver
+O modo de falha é conhecido: sem verificação automática, as fronteiras erodem em prazo de
+meses. Com ela, a erosão fica visível e mensurável — e passa a se concentrar na lista de
+exclusões, que é onde ela se esconde. Ver
 [funções de aptidão](/19-architecture-governance/fitness-functions-governance.md).
 
 ### Granularidade: quantos serviços
@@ -249,7 +250,7 @@ A última resolve o caso "um componente precisa de escala diferente" sem dividir
 
 **Fila de implantação ignorada.** O monólito passou da hora.
 
-**Modularidade sem verificação.** Erosão em 12 a 18 meses.
+**Modularidade sem verificação.** Erosão silenciosa, descoberta na primeira extração.
 
 ## Erros Comuns
 

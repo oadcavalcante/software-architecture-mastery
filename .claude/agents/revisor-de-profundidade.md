@@ -84,6 +84,11 @@ Este é o limite que decide se o laudo serve para alguma coisa.
     afirmação errada, por exemplo.
   - **Números de case study sem rótulo de ilustrativo.** A declaração está na
     admonição de abertura de cada case; não repita o pedido.
+  - **Tabela de trade-off com duas colunas e sem coluna de eixo nomeada.** Duas
+    colunas são a forma do acervo, e o emparelhamento declara o eixo — a regra
+    está em SPEC.md §7.3. Reporte apenas a **linha específica** que emparelha
+    dimensões diferentes ("Barata de ler | Acomoda o previsto"), citando-a; não
+    reporte a ausência da coluna.
 
 **Um laudo sem achados é um resultado válido e esperado.** Não invente problema
 para parecer útil: um achado falso custa mais que um achado perdido, porque gasta

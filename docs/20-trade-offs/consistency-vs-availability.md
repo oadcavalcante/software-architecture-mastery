@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [strong-vs-eventual-consistency, sync-vs-async, cost-vs-reliability]
 canonical_for: [consistência contra disponibilidade, escolha por operação, degradação escolhida, custo do erro de negócio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -203,7 +203,7 @@ Prefira **disponibilidade** quando:
 
 **Sem os números de custo de erro** dos dois lados.
 
-**Fora de uma partição** — não há trade-off, e citar CAP para justificar consistência fraca
+**Fora de uma partição** — não há *esse* trade-off, e citar CAP para justificar consistência fraca
 em operação normal é erro conceitual.
 
 **Sem desenhar a reconciliação.**
@@ -227,7 +227,7 @@ disponibilidade com uma fração do risco.
 
 | Consistência | Disponibilidade |
 |---|---|
-| Nunca aceita inválido | Nunca recusa válido |
+| Prioriza não aceitar inválido | Prioriza não recusar válido |
 | Indisponível na partição | Divergência a reconciliar |
 | Latência maior | Menor |
 | Sem reconciliação | Exige desenho de reconciliação |

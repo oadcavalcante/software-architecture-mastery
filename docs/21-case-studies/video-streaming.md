@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, high-volume-events, saas-platform]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -122,11 +122,11 @@ O que dimensiona este sistema não é requisição por segundo — é banda.
 
 ```text
 assinantes                          6,1 milhões
-sessões simultâneas, média          ~310 mil
+sessões simultâneas, média          ~210 mil
 pico (sábado, 21h)                  ~980 mil
 taxa média por sessão               ~4,1 Mbps
 banda no pico                       ~4,0 Tbps
-horas assistidas/mês                ~412 milhões
+horas assistidas/mês                ~151 milhões
 volume entregue/ano                 ~3,4 exabytes
 ```
 
@@ -272,7 +272,8 @@ janelas mudam com frequência e a precisão exigida é de um minuto. Materializa
 invalidação com essa granularidade, o que é mais caro que avaliar.
 
 **Progresso de reprodução.** Armazenamento chave-valor, com uma entrada por perfil e título.
-Escrito a cada 30 segundos durante a reprodução — cerca de 10 mil gravações por segundo no pico
+Escrito a cada 30 segundos durante a reprodução — cerca de 7 mil gravações por segundo na média,
+e 33 mil no pico
 — e lido na abertura do aplicativo.
 
 É um dado com tolerância a perda: perder os últimos 30 segundos de progresso é imperceptível.

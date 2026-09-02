@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [centralization-vs-decentralization, coupling-vs-duplication, sync-vs-async]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -120,8 +120,9 @@ automated boundary checking
 It delivers most of the organizational benefit of clear boundaries with none of the costs of
 distribution, and it preserves the option to extract later.
 
-The failure mode is well known: without automated checking, boundaries erode in 12 to 18
-months. With it, they do not. See
+The failure mode is well known: without automated checking, boundaries erode within months.
+With it, the erosion becomes visible and measurable — and starts concentrating in the exclusion
+list, which is where it hides. See
 [fitness functions](/19-architecture-governance/fitness-functions-governance.md).
 
 ### Granularity: how many services
@@ -248,7 +249,7 @@ The last solves the "one component needs different scale" case without splitting
 
 **Deployment queue ignored.** The monolith is past its point.
 
-**Modularity without checking.** Erosion in 12 to 18 months.
+**Modularity without checking.** Silent erosion, discovered at the first extraction.
 
 ## Common Mistakes
 

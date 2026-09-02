@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, messaging-platform, high-volume-events]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -536,9 +536,10 @@ essa razão varia por fonte dentro do mesmo sistema.
 extremo — 84 seguidores contra 2 milhões — é o que torna qualquer solução uniforme errada. Ler
 essa distribuição antes de decidir teria evitado o desenho original.
 
-**Materializar exige revalidar.** Todo sistema que grava uma visão precisa checar autorização de
-novo na leitura, porque permissões mudam depois do retrato. É um custo permanente e é o preço da
-distribuição na escrita.
+**Materializar cobra revalidação.** Sistema que grava uma visão precisa revalidar a autorização
+na leitura quando a permissão muda depois do retrato **e** a janela de propagação por invalidação
+não é aceitável para aquele escopo — é escolha entre latência e janela, não necessidade. Aqui foi
+necessidade, e é o preço da distribuição na escrita.
 
 **A média escondia o produto.** O p95 agregado do feed parecia aceitável, e 8% dos usuários
 tinham experiência três vezes pior. Segmentar a métrica pelo que a arquitetura trata de forma

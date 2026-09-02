@@ -13,7 +13,7 @@ objective: >
 prerequisites: [eventual-consistency]
 related: [consistency-vs-availability, sync-vs-async, sql-vs-nosql]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -112,7 +112,7 @@ See [consistency](/06-distributed-systems/consistency.md).
 ### The cost of coordination is daily
 
 ```text
-strong consistency across zones      tens of milliseconds per operation
+strong consistency across zones      a few milliseconds per operation
 across regions                       hundreds
 write quorum                         latency of the slowest node in the quorum
 ```
@@ -226,7 +226,7 @@ The first is the most cost-effective and the least used.
 |---|---|
 | No divergence | Lower write latency |
 | Coordination on every operation | Scale and distribution |
-| Unavailable if a replica goes down | Available |
+| Unavailable under partition | Available under partition |
 | No window design | Requires window, product and monitoring |
 
 | Strong everywhere | Strong per operation |

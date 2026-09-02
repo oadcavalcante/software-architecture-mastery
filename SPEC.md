@@ -499,6 +499,32 @@ incoerente: não há o que aplicar em "Arquitetura vs. Design". Forçar a seçã
 exatamente o filler que esta spec proíbe. O que um documento definicional omite não é o
 limite de aplicação — é por que a distinção muda alguma decisão.
 
+#### A tabela de trade-off e o eixo
+
+A tabela de duas colunas é a forma do acervo, e ela **declara o eixo pelo
+emparelhamento**: cada linha põe, dos dois lados, o valor de uma mesma dimensão.
+Coluna de eixo nomeada é opcional, e só se paga quando as dimensões não são
+óbvias pelo par.
+
+```text
+certo    | Latência de reversão | Segundos          | Minutos          |
+         → o eixo é o tempo de reversão, e ele aparece nos dois lados
+
+certo    | Reversão em segundos | Reversão em minutos |
+         → sem coluna de eixo, e ainda assim o par declara qual é
+
+errado   | Barata de ler        | Acomoda o previsto  |
+         → esquerda fala de custo de leitura, direita de cobertura.
+           Nenhuma troca fica visível: são dois elogios, um de cada lado
+```
+
+**O teste: se a linha some e nada se perde da comparação, ela não era uma linha
+de trade-off — era um elogio.** É essa a forma que §8.1 chama de "prós e contras
+sem eixo de comparação declarado".
+
+O mesmo vale para a valência: uma tabela em que uma coluna só recebe vantagens e
+a outra só ônus não é comparação, é recomendação disfarçada.
+
 #### As duas seções que mais se confundem
 
 "Modos de Falha" e "Erros Comuns" respondem a perguntas diferentes e acabam dizendo a

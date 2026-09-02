@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [build-vs-buy, cost-vs-reliability, cloud-native-vs-portable]
 canonical_for: [gerenciado contra autogerido, esforço operacional, prêmio de gestão, competência operacional]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -84,8 +84,8 @@ Ver [custo vs. confiabilidade](/20-trade-offs/cost-vs-reliability.md).
 
 ### O prêmio compra confiabilidade que você não construiria
 
-Serviços gerenciados maduros entregam, por padrão, coisas que uma equipe pequena não
-constrói:
+Serviços gerenciados maduros tornam disponíveis, sem projeto interno, coisas que uma equipe
+pequena não constrói — várias delas exigindo configuração, como o canônico registra:
 
 ```text
 recuperação automática de nó

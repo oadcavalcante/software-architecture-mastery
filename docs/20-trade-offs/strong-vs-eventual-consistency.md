@@ -13,7 +13,7 @@ objective: >
 prerequisites: [eventual-consistency]
 related: [consistency-vs-availability, sync-vs-async, sql-vs-nosql]
 canonical_for: [consistência forte contra eventual, janela de inconsistência, leitura das próprias escritas, convergência observável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -114,7 +114,7 @@ Ver [consistência](/06-distributed-systems/consistency.md).
 ### O custo da coordenação é diário
 
 ```text
-consistência forte entre zonas       dezenas de milissegundos por operação
+consistência forte entre zonas       poucos milissegundos por operação
 entre regiões                        centenas
 quórum de escrita                    latência do nó mais lento do quórum
 ```
@@ -228,7 +228,7 @@ A primeira é a mais eficiente em relação custo-benefício e a menos usada.
 |---|---|
 | Sem divergência | Latência de escrita menor |
 | Coordenação em toda operação | Escala e distribuição |
-| Indisponível se a réplica cai | Disponível |
+| Indisponível sob partição | Disponível sob partição |
 | Sem desenho de janela | Exige janela, produto e monitoração |
 
 | Forte em tudo | Forte por operação |

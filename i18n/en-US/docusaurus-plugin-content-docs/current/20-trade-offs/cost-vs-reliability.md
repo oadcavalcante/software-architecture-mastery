@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability-basics]
 related: [consistency-vs-availability, managed-vs-self-hosted, speed-vs-quality]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -164,7 +164,7 @@ balance exhausted       → freeze changes until the next month
 This turns reliability from an aspiration into a manageable resource, and resolves the tension
 between shipping and stabilizing with a rule instead of with a discussion.
 
-See [reliability](/12-reliability/reliability-basics.md).
+See [SLOs and the error budget](/12-reliability/slo.md).
 
 ### Signs of the wrong choice
 
@@ -359,7 +359,8 @@ cost showed up as useless redundancy and a worn-out on-call rotation.
 
 ## Related Concepts
 
-- [Reliability](/12-reliability/reliability-basics.md) — the error budget.
+- [SLO](/12-reliability/slo.md) — the error budget.
+- [Availability Metrics](/12-reliability/availability-metrics.md) — frequency and duration.
 - [Graceful Degradation](/12-reliability/graceful-degradation.md) — the cheap alternative.
 - [Managed vs. Self-Hosted](/20-trade-offs/managed-vs-self-hosted.md).
 - [Deployment Diagrams](/17-architecture-documentation/deployment-diagrams.md) — the backing

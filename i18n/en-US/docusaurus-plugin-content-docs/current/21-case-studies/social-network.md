@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, messaging-platform, high-volume-events]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -528,9 +528,10 @@ varies per source within the same system.
 and the extreme — 84 followers against 2 million — is what makes any uniform solution wrong.
 Reading that distribution before deciding would have avoided the original design.
 
-**Materializing requires revalidating.** Every system that writes a view has to check authorization
-again on read, because permissions change after the snapshot. It is a permanent cost and it is the
-price of fan-out on write.
+**Materializing charges for revalidation.** A system that writes a view has to revalidate
+authorization on read when the permission changes after the snapshot **and** the invalidation
+propagation window is not acceptable for that scope — it is a choice between latency and window,
+not a necessity. Here it was a necessity, and it is the price of fan-out on write.
 
 **The average was hiding the product.** The feed's aggregate p95 looked acceptable, and 8% of users
 had a three times worse experience. Segmenting the metric by what the architecture treats

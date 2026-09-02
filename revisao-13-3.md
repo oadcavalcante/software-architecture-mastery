@@ -59,6 +59,7 @@ restantes repetiria o mesmo achado.
 |---|---|
 | "Modos de Falha" × "Erros Comuns" | Registrada em [SPEC.md](SPEC.md) §7.3 com teste explícito: Modos de Falha é **o que se observa antes de saber a causa**, da perspectiva de quem opera; Erros Comuns é a decisão de quem construiu que leva até lá, com a consequência. Se um item cabe nas duas, está na forma errada em uma |
 | Números de case study | A declaração de que são ilustrativos (§8.2) entra **uma vez**, na admonição de abertura de cada um dos 14, em vez de pulverizada por número |
+| Tabela de trade-off sem coluna de eixo | Registrada em [SPEC.md](SPEC.md) §7.3. **18 dos 20 `tradeoff` usam só tabelas de duas colunas** — é a forma do acervo, e o emparelhamento declara o eixo. O defeito não é a ausência da coluna: é a **linha** que emparelha dimensões diferentes ("Barata de ler \| Acomoda o previsto"), que é elogio de cada lado e não troca. O teste: se a linha some e nada se perde da comparação, ela não era trade-off |
 | Faixa de densidade | Vale só para o canônico. Aplicá-la à tradução medía o idioma: a razão entre os 446 pares vai de 0,95 a 1,07, então canônico logo acima do piso dava tradução logo abaixo. A tradução passa a responder por outra pergunta — perdeu conteúdo? — contra o próprio canônico, fora da faixa 0,85–1,25 |
 
 ### Contradições entre documentos
