@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, serverless, cloud-native]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -273,6 +273,6 @@ If you cannot estimate it, that is the information missing from a decision that 
 
 ## Further Reading
 
-- Fowler, Martin. *Utility vs Strategic Dichotomy*, 2007.
+- Fowler, Martin. *Utility vs Strategic Dichotomy*. martinfowler.com, 2010.
 - Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021.
 - Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2nd ed. O'Reilly, 2023.

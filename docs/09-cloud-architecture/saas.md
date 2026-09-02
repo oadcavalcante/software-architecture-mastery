@@ -13,7 +13,7 @@ objective: >
 prerequisites: [paas]
 related: [paas, vendor-lock-in, managed-services]
 canonical_for: [SaaS, software como serviço, construir ou comprar]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -265,6 +265,6 @@ time gasta mantendo o que existe.
 
 ## Para Aprofundar
 
-- Fowler, Martin. *Utility vs Strategic Dichotomy*, 2007.
+- Fowler, Martin. *Utility vs Strategic Dichotomy*. martinfowler.com, 2010.
 - Moore, Geoffrey. *Dealing with Darwin*. Portfolio, 2005 — core versus context.
 - Cagan, Marty. *Inspired*. 2ª ed. Wiley, 2017.

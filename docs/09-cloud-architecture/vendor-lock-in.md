@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, serverless, cloud-native]
 canonical_for: [dependência de fornecedor, custo de saída, portabilidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -293,6 +293,6 @@ foi tomada.
 
 ## Para Aprofundar
 
-- Fowler, Martin. *Utility vs Strategic Dichotomy*, 2007.
+- Fowler, Martin. *Utility vs Strategic Dichotomy*. martinfowler.com, 2010.
 - Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021.
 - Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2ª ed. O'Reilly, 2023.

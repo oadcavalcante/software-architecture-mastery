@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, rebuilding, saas]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -301,4 +301,4 @@ than expected.
 
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Moore, Geoffrey. *Dealing with Darwin*. Portfolio, 2005.
-- Fowler, Martin. *Utility vs Strategic Dichotomy*, 2007.
+- Fowler, Martin. *Utility vs Strategic Dichotomy*. martinfowler.com, 2010.
