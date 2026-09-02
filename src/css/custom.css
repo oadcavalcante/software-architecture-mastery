@@ -500,31 +500,6 @@
   outline: none;
 }
 
-/*
- * Botão de recolher a barra lateral. Ele é uma faixa no rodapé da coluna e
- * vinha com fundo de superfície; aqui vira um fio, coerente com o resto.
- */
-.theme-doc-sidebar-container button[title],
-.theme-doc-sidebar-container .clean-btn[class*='collapseSidebarButton'] {
-  background: var(--ifm-background-color);
-  border-top: 1px solid var(--sam-rule);
-  color: var(--ifm-color-emphasis-600);
-}
-
-.theme-doc-sidebar-container .clean-btn[class*='collapseSidebarButton']:hover {
-  background: var(--ifm-color-emphasis-100);
-  color: var(--ifm-color-primary);
-}
-
-/*
- * A faixa que reabre a barra recolhida usa duas variáveis próprias do tema, e
- * o padrão delas é um cinza que não existe nesta paleta.
- */
-:root {
-  --docusaurus-collapse-button-bg: var(--ifm-color-emphasis-100);
-  --docusaurus-collapse-button-bg-hover: var(--ifm-color-emphasis-200);
-}
-
 /* Trilha: o item ativo vinha com pílula preenchida, que compete com o título. */
 .breadcrumbs__item--active .breadcrumbs__link {
   background: transparent;

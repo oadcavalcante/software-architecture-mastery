@@ -1,0 +1,34 @@
+/*
+ * Controle, não rodapé. O botão do tema é uma faixa de largura total com
+ * moldura de botão secundário; aqui ele vira uma linha discreta no pé da
+ * coluna, alinhada com os itens do menu, separada por um fio.
+ */
+.collapse {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-top: 1px solid var(--sam-rule);
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-600);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.collapse:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+}
+
+.collapse:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: -2px;
+}
+
+.rotulo {
+  white-space: nowrap;
+}

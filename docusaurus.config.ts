@@ -185,6 +185,12 @@ const config: Config = {
     ],
   ],
 
+  /**
+   * Atalhos de teclado da busca. Ver o módulo para a razão de duplicar o
+   * atalho que o plugin já registra.
+   */
+  clientModules: ['./src/clientModules/searchShortcut.ts'],
+
   themeConfig: {
     docs: {
       sidebar: {
