@@ -212,12 +212,17 @@ const config: Config = {
     // de toda página em tela estreita e não informa nada.
     colorMode: {
       defaultMode: 'light',
-      respectPrefersColorScheme: true,
+      // `true` acrescenta um terceiro estado ("sistema") ao botão, e o leitor
+      // passa a precisar de dois cliques para chegar ao que quer sem saber
+      // qual dos três está ativo. Duas opções, alternância previsível.
+      respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Software Architecture Mastery',
+      // O título do site é localizado por `TITULO`; o da barra estava fixo em
+      // inglês, o que deixava o cabeçalho em pt-BR com o nome em inglês.
+      title: TITULO[LOCALE] ?? TITULO['pt-BR'],
       logo: {
-        alt: 'Software Architecture Mastery',
+        alt: TITULO[LOCALE] ?? TITULO['pt-BR'],
         src: 'img/logo.svg',
       },
       // Sem item de conteúdo à esquerda: num site em modo docs-only a barra
