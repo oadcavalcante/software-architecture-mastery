@@ -115,7 +115,13 @@
   --sam-scroll-shadow: rgba(28, 26, 23, 0.16);
 }
 
-[data-theme='dark'] {
+/*
+ * `html[...]` e nao `[...]`: o tema do Docusaurus declara as variaveis escuras
+ * com `html[data-theme='dark']`, que tem especificidade maior. Com o seletor
+ * curto, metade desta paleta era ignorada em silencio — o fundo e a escala
+ * de enfase ficavam no cinza azulado do Infima enquanto o resto era quente.
+ */
+html[data-theme='dark'] {
   /* Terracota clareada para manter contraste sobre o fundo escuro. */
   --ifm-color-primary: #d98f63;
   --ifm-color-primary-dark: #d38055;
@@ -441,28 +447,67 @@
 /* ══════════════════════════════════════════════ cabeçalho e navegação */
 
 /*
+ * O botão que fecha a barra lateral no telefone media 21×21 — abaixo do
+ * mínimo de 24px que a WCAG 2.2 pede para alvo de toque, e é o único controle
+ * da tela quando a barra está aberta. A área cresce por padding, sem mudar o
+ * tamanho do ícone.
+ */
+.navbar-sidebar__close {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/*
  * O título é cromo, não prosa: 17px é corpo de leitura e pesa demais numa
  * barra. Em 0.94rem ele fica na proporção certa com o logotipo.
  *
- * O nome em português tem 35 caracteres, seis a mais que o em inglês. Em 390px
- * a navbar deixa ~232px depois do menu, do logotipo e da busca, e o título só
- * cabe inteiro a partir de ~13px — pequeno demais. A escala abaixo mantém o
- * nome legível e deixa a elipse acontecer só nos telefones mais estreitos, que
- * é degradação melhor que esconder o nome do site.
+ * A escala por si não resolvia o telefone. Medido no build: em 320, 360, 390 e
+ * 414px o título **sobrepunha** o botão de busca — 32px de invasão nos dois
+ * primeiros. Não havia elipse para degradar, porque o item de marca não encolhe
+ * sem `min-width: 0`, e reduzir a fonte até caber exigiria ~11px, ilegível.
+ *
+ * Abaixo de 576px o nome longo dá lugar a uma forma curta. O texto original
+ * continua no DOM, lido por leitor de tela; some só visualmente. O `min-width`
+ * e a elipse ficam como rede: se um dia o nome curto crescer, ele corta em vez
+ * de invadir.
  */
 .navbar__title {
   font-size: 0.94rem;
 }
 
-@media (max-width: 576px) {
-  .navbar__title {
-    font-size: 0.86rem;
-  }
+.navbar__inner > .navbar__items:not(.navbar__items--right) {
+  min-width: 0;
 }
 
-@media (max-width: 400px) {
+.navbar__brand {
+  min-width: 0;
+}
+
+.navbar__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+  /* Esconde o texto longo sem tirá-lo da árvore de acessibilidade. */
   .navbar__title {
-    font-size: 0.8rem;
+    font-size: 0;
+  }
+
+  .navbar__title::after {
+    content: 'Maestria';
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  html[lang='en-US'] .navbar__title::after {
+    content: 'Mastery';
   }
 }
 
@@ -580,6 +625,31 @@
 
   .markdown .theme-code-block pre {
     font-size: 0.8rem;
+  }
+
+  /*
+   * As figuras deste material são tabelas monoespaçadas de até ~70 colunas.
+   * Medido num telefone de 390px: os treze blocos de um case study rolam, em
+   * média 196px e no pior caso 266px. Não há corpo de fonte que faça 70
+   * colunas caberem em 358px úteis — a partir de ~8px o texto deixa de ser
+   * legível —, então a rolagem é inevitável e o que importa é ela ser óbvia.
+   *
+   * Duas medidas: um corpo menor, que reduz a rolagem em cerca de um quinto
+   * sem sair da faixa legível, e uma sombra de borda mais forte que a do
+   * desktop, porque no telefone ela é o único aviso de que há mais à direita.
+   */
+  @media (max-width: 576px) {
+    .markdown .theme-code-block pre {
+      font-size: 0.72rem;
+    }
+
+    .markdown .theme-code-block {
+      --sam-scroll-shadow: rgba(28, 26, 23, 0.3);
+    }
+
+    html[data-theme='dark'] .markdown .theme-code-block {
+      --sam-scroll-shadow: rgba(0, 0, 0, 0.75);
+    }
   }
 
   /*

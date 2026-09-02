@@ -567,7 +567,7 @@ F8 é a única fase aberta. Ela se decompõe assim:
 | Convenções de acervo: "Modos de Falha" × "Erros Comuns", números ilustrativos, faixa de densidade | 🟩 decididas e aplicadas |
 | Revisão de profundidade (§13.3) — instrumento | 🟩 [`revisor-de-profundidade`](.claude/agents/revisor-de-profundidade.md) |
 | Revisão de profundidade — acervo | 🟨 **49 de 446 (11%)**, com todos os achados fechados |
-| Verificação visual da interface | ⬜ exige olho humano no navegador |
+| Verificação visual da interface | 🟩 auditada em Chromium — 120 combinações de página × largura × tema |
 
 O inventário dos laudos, com o que foi corrigido e por quê, está em
 [`revisao-13-3.md`](revisao-13-3.md).
@@ -589,6 +589,14 @@ estão distribuídos, não concentrados nos suspeitos. Dos 49 revisados, 46 repr
 
 Ao varrer, use `doc_type` e não o diretório: cinco `tradeoff` viviam fora de
 `docs/20-trade-offs/` e uma varredura por pasta os teria deixado de fora.
+
+A verificação da interface deixou de depender de olho humano: o build é servido
+localmente e medido em Chromium por script — estouro horizontal, sobreposição na
+barra, tema aplicado, tamanho de alvo de toque e rolagem das figuras, em cinco
+páginas × doze larguras × dois temas. Quatro defeitos saíram dessa passagem, e
+três deles não apareciam em captura de tela: o seletor do tema escuro perdia por
+especificidade, o logotipo não existia em versão escura, e o título invadia a
+busca em todo telefone comum.
 
 Dentro de cada fase, a ordem segue o grafo de pré-requisitos: um tópico não é
 escrito antes dos seus pré-requisitos, porque escrever fora de ordem produz

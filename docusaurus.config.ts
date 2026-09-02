@@ -224,6 +224,11 @@ const config: Config = {
       logo: {
         alt: TITULO[LOCALE] ?? TITULO['pt-BR'],
         src: 'img/logo.svg',
+        // Sem `srcDark`, o tema esconde a imagem clara no modo escuro e não
+        // coloca nada no lugar — o logo simplesmente sumia. A variante escura
+        // usa a mesma forma com a terracota clareada, que o fundo #1c1a17
+        // apagaria na tonalidade original.
+        srcDark: 'img/logo-dark.svg',
       },
       // Sem item de conteúdo à esquerda: num site em modo docs-only a barra
       // lateral **é** o percurso, e um link para ela na barra superior duplica
