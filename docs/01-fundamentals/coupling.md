@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modularity]
 related: [cohesion, dependency-management, separation-of-concerns]
 canonical_for: [acoplamento, coupling]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -145,8 +145,17 @@ custo de navegação da indireção supera o benefício.
 
 ## Trade-offs
 
-O eixo real é **acoplamento versus duplicação**. Não existe reduzir um sem
-aumentar o outro; a decisão é qual dos dois custa menos neste caso.
+O eixo real é **acoplamento versus duplicação** — mas ele só vale onde as duas
+partes compartilham conhecimento. Aí a troca é direta: quem reduz o acoplamento
+passa a manter duas cópias do que sabia uma vez, e a decisão é qual dos dois custa
+menos neste caso.
+
+Fora desse eixo há acoplamento que se reduz de graça. O acoplamento de marca e o de
+controle, na escala acima, saem sem produzir duplicação: passar o identificador e a
+quantia em vez do objeto inteiro não duplica nada. E há troca de um tipo por outro —
+uma mensagem em fila troca acoplamento temporal por acoplamento de formato, sem
+duplicar. O eixo abaixo é o do conhecimento compartilhado, não o de todo
+acoplamento.
 
 | Mais acoplamento | Menos acoplamento |
 |---|---|

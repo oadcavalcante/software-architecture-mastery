@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, banking, legacy-modernization-case]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -536,6 +536,13 @@ image storage cost                            -61%
 The first number is the project's result: the hours in which a unit cannot treat patients dropped
 from 41 to 1.2 a year, and that did not come from making the center more available — it came from
 making the unit able to operate without it.
+
+And 1.2 h/year **does not meet the declared requirement**. The 99.99% in the requirements table
+allows 0.88 h/year; 1.2 amounts to 99.986%. The difference is nineteen minutes a year, and the
+decision to accept it was explicit: closing those nineteen minutes required power and link redundancy
+across the 244 sites, at an estimated cost above that of the whole project. The requirement was
+revised to 99.98% at the site, and kept at 99.99% for the consolidated record query — which is served
+by both the center and the local node, where the redundancy already exists.
 
 ## What this case teaches
 

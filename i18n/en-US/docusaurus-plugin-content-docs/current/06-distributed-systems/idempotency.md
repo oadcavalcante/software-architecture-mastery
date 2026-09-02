@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [retries, timeouts, duplicate-messages]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -94,6 +94,23 @@ retry duplicates.
 **The key has an expiry.** Keeping them indefinitely is a leak. The expiry has to be longer than
 the realistic retry window — typically hours or days.
 
+**The key has a uniqueness constraint.** This is the detail the same transaction does not solve on
+its own: two retries arriving at the same time open transactions that cannot see each other's
+uncommitted key, and both process. Uniqueness is what makes the second one fail on write instead of
+duplicating the effect.
+
+```text
+without uniqueness   T1 reads "not there" → processes → writes
+                     T2 reads "not there" → processes → writes      duplicated
+with uniqueness      T1 reads "not there" → processes → writes
+                     T2 reads "not there" → processes → write fails → rolls back
+```
+
+What remains is deciding what the second call gets while the first has not finished. Waiting holds a
+connection with no guaranteed bound; the usual answer is to refuse the concurrent one with an error
+saying "this key is being processed", leaving the client to retry later. Returning the result is not an
+option — it does not exist yet.
+
 ### What to do when the key repeats with different content
 
 An edge case that usually goes unhandled: the same key arrives with a different body.
@@ -118,23 +135,31 @@ the time between executions, it is not idempotent.
 ## When to Use
 
 - Any operation that can be repeated — which includes every network call.
-- [Queue](/05-system-design/queues.md) consumers, without exception.
+- [Queue](/05-system-design/queues.md) consumers whose effect is observable outside
+  the system or irreversible.
 - API endpoints that change state.
 - Steps of a [saga](/06-distributed-systems/sagas.md) or of a resumable process.
 - Batch processing that can be re-executed.
 
 ## When Not to Use
 
-**There is no case in which idempotency is undesirable.** What exists is the cost of implementing
-it, and it does not always pay off:
+**When the repetition is the data.** Per-call metering, an audit trail of attempts, an access
+counter: there every occurrence has to count, and collapsing two into one loses the information the
+system exists to keep. It is the one case where idempotency is not merely expensive — it is wrong.
 
-**Operations with no side effect.** They are already idempotent.
+**Operations with no side effect.** They are already idempotent; the key only adds a write.
 
 **When the duplicated effect is harmless and cheap.** Writing a log line twice. It is worth
 recognizing that explicitly, not assuming it.
 
 **When the volume of keys would be prohibitive.** Millions of operations per second with a
-persisted key have a real cost — there the strategy changes to windowed deduplication.
+persisted key have a real cost — there the strategy changes to
+[windowed deduplication](/06-distributed-systems/duplicate-messages.md), which trades guarantee for
+cost.
+
+**When the natural identifier already solves it.** If the operation writes to a record whose primary
+key comes from the domain, its own uniqueness gives the effect, and the idempotency key is a second
+mechanism for the same thing.
 
 The error is deciding "we don't need it here" without checking whether the duplicated effect is
 actually harmless.

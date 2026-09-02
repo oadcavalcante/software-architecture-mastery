@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [retries, timeouts, duplicate-messages]
 canonical_for: [idempotência, chave de idempotência]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -99,6 +99,24 @@ registrada — e a retentativa duplica.
 **A chave tem prazo.** Guardá-las indefinidamente é um vazamento. O prazo precisa
 ser maior que a janela realista de retentativa — tipicamente horas ou dias.
 
+**A chave tem restrição de unicidade.** É o detalhe que a mesma transação não
+resolve sozinha: duas retentativas que chegam ao mesmo tempo abrem transações que
+não enxergam a chave não confirmada uma da outra, e as duas processam. A unicidade
+é o que faz a segunda falhar na gravação em vez de duplicar o efeito.
+
+```text
+sem unicidade   T1 lê "não existe" → processa → grava
+                T2 lê "não existe" → processa → grava     duplicou
+com unicidade   T1 lê "não existe" → processa → grava
+                T2 lê "não existe" → processa → grava falha → desfaz
+```
+
+Sobra decidir o que a segunda chamada recebe enquanto a primeira ainda não
+terminou. Esperar prende conexão e não tem prazo garantido; a resposta usual é
+recusar a concorrente com um erro que diz "esta chave está em processamento",
+deixando o cliente repetir depois. Devolver o resultado não é opção — ele ainda
+não existe.
+
 ### O que fazer quando a chave repete com conteúdo diferente
 
 Caso de borda que costuma ficar sem tratamento: a mesma chave chega com um corpo
@@ -125,24 +143,33 @@ sorte com o tempo entre as execuções, não é idempotente.
 ## Quando Usar
 
 - Qualquer operação que possa ser repetida — o que inclui toda chamada de rede.
-- Consumidores de [fila](/05-system-design/queues.md), sem exceção.
+- Consumidores de [fila](/05-system-design/queues.md) cujo efeito é observável fora
+  do sistema ou irreversível.
 - Endpoints de API que alteram estado.
 - Passos de uma [saga](/06-distributed-systems/sagas.md) ou de um processo retomável.
 - Processamento em lote que pode ser reexecutado.
 
 ## Quando Não Usar
 
-**Não há caso em que idempotência seja indesejável.** O que existe é o custo de
-implementá-la, e ele nem sempre se paga:
+**Quando a repetição é o dado.** Medição por chamada, trilha de auditoria de
+tentativas, contador de acessos: nesses casos cada ocorrência precisa contar, e
+colapsar duas em uma perde a informação que o sistema existe para guardar. É o
+único caso em que a idempotência não é apenas cara — é errada.
 
-**Operações sem efeito colateral.** Já são idempotentes.
+**Operações sem efeito colateral.** Já são idempotentes; a chave só acrescenta
+escrita.
 
 **Quando o efeito duplicado é inofensivo e barato.** Registrar um log duas vezes.
 Vale reconhecer explicitamente, não presumir.
 
 **Quando o volume de chaves seria proibitivo.** Milhões de operações por segundo
-com chave persistida têm custo real — aí a estratégia muda para deduplicação por
-janela.
+com chave persistida têm custo real — aí a estratégia muda para
+[deduplicação por janela](/06-distributed-systems/duplicate-messages.md), que
+troca garantia por custo.
+
+**Quando o identificador natural já resolve.** Se a operação escreve num registro
+cuja chave primária vem do domínio, a própria unicidade dela dá o efeito, e a
+chave de idempotência é uma segunda mecânica para a mesma coisa.
 
 O erro é decidir que "aqui não precisa" sem verificar se o efeito duplicado é de
 fato inofensivo.

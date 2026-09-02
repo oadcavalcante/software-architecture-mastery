@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, canary, release-management]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -257,8 +257,9 @@ The reformulation:
 
 **Mandatory typing.** Each flag declares its type and, for the temporary ones, an expiration date.
 
-**A build failure** for release flags more than 60 days past their deadline. That removed 280 flags in the
-first four months — most through actual code removal, not through deadline renewal.
+**A build failure** for release flags more than 60 days past their deadline. That forced a decision on 280
+expired flags in the first four months: 231 ended in code removal and 49 in renewal with a recorded
+justification.
 
 **Independence verified.** A review rule came to require that new flags not depend on other flags' state.
 Legitimate cases of dependency became a single flag with more than two states.

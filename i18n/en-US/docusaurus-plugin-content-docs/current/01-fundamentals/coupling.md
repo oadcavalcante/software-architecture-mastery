@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modularity]
 related: [cohesion, dependency-management, separation-of-concerns]
 canonical_for: [coupling]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -146,9 +146,17 @@ changes, the navigation cost of indirection exceeds the benefit.
 
 ## Trade-offs
 
-The real axis is **coupling versus duplication**. There is no reducing one
-without increasing the other; the decision is which of the two costs less in this
-case.
+The real axis is **coupling versus duplication** — but it only holds where the two
+parts share knowledge. There the trade is direct: whoever reduces the coupling now
+maintains two copies of what was known once, and the decision is which of the two
+costs less in this case.
+
+Outside that axis there is coupling that can be reduced for free. Stamp coupling and
+control coupling, on the scale above, go away without producing any duplication:
+passing the identifier and the amount instead of the whole object duplicates nothing.
+And there is trading one kind for another — a queued message trades temporal coupling
+for format coupling, with no duplication. The axis below is the one of shared
+knowledge, not of all coupling.
 
 | More coupling | Less coupling |
 |---|---|

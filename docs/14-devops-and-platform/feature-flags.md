@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, canary, release-management]
 canonical_for: [feature flag, alternância de funcionalidade, dívida de flag, liberação progressiva]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -267,8 +267,8 @@ A reformulação:
 expiração.
 
 **Falha na construção** para flags de liberação vencidas há mais de 60 dias. Isso
-removeu 280 flags nos primeiros quatro meses — a maioria por remoção efetiva do código,
-não por renovação de prazo.
+forçou decisão sobre 280 flags vencidas nos primeiros quatro meses: 231 terminaram em
+remoção do código e 49 em renovação com justificativa registrada.
 
 **Independência verificada.** Uma regra de revisão passou a exigir que flags novas não
 dependam do estado de outras. Casos legítimos de dependência viraram uma flag só com

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, banking, legacy-modernization-case]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -543,6 +543,13 @@ custo de armazenamento de imagem              -61%
 O primeiro número é o resultado do projeto: as horas em que uma unidade não consegue atender
 caíram de 41 para 1,2 por ano, e isso não veio de tornar o central mais disponível — veio de
 tornar a unidade capaz de operar sem ele.
+
+E 1,2 h/ano **não cumpre o requisito declarado**. Os 99,99% da tabela de requisitos permitem
+0,88 h/ano; 1,2 equivale a 99,986%. A diferença é de dezenove minutos por ano, e a decisão de
+aceitá-la foi explícita: fechar os dezenove minutos exigia redundância de energia e de enlace
+nas 244 unidades, com custo estimado acima do de todo o projeto. O requisito foi revisto para
+99,98% na unidade, mantido em 99,99% para a consulta ao prontuário consolidado — que é servida
+pelo central e pelo nó local, e onde a redundância já existe.
 
 ## O que este case ensina
 
