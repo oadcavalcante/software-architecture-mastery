@@ -220,13 +220,10 @@ const config: Config = {
         alt: 'Software Architecture Mastery',
         src: 'img/logo.svg',
       },
+      // Sem item de conteúdo à esquerda: num site em modo docs-only a barra
+      // lateral **é** o percurso, e um link para ela na barra superior duplica
+      // a navegação e afasta o rótulo da marca.
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'curriculum',
-          position: 'left',
-          label: 'Percurso',
-        },
         {
           type: 'localeDropdown',
           position: 'right',
