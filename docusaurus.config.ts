@@ -83,14 +83,14 @@ const config: Config = {
     locales: ['pt-BR', 'en-US'],
     localeConfigs: {
       'pt-BR': {
-        label: 'Português (Brasil)',
+        label: 'Português',
         direction: 'ltr',
         htmlLang: 'pt-BR',
         calendar: 'gregory',
         path: 'pt-BR',
       },
       'en-US': {
-        label: 'English (US)',
+        label: 'English',
         direction: 'ltr',
         htmlLang: 'en-US',
         calendar: 'gregory',
@@ -186,6 +186,17 @@ const config: Config = {
   ],
 
   themeConfig: {
+    docs: {
+      sidebar: {
+        // Botão de recolher a barra lateral. Com 24 seções e sete níveis, ela é
+        // alta; quem está lendo um documento longo quer a coluna inteira.
+        hideable: true,
+        // Abrir um nível fecha os outros: a barra tem 446 documentos, e todos
+        // os níveis abertos ao mesmo tempo deixam de ser navegáveis.
+        autoCollapseCategories: true,
+      },
+    },
+
     image: SOCIAL_CARD[LOCALE] ?? SOCIAL_CARD['pt-BR'],
 
     // Não há barra de anúncio. A que existia avisava que a tradução en-US era

@@ -466,6 +466,76 @@
   }
 }
 
+/*
+ * Organização da barra.
+ *
+ * O lado direito acumulava idioma, GitHub, alternador de tema e busca, com o
+ * rótulo de idioma escrito por extenso. O respiro entre os itens é o que separa
+ * cada um sem precisar de moldura.
+ */
+.navbar__items--right {
+  gap: 0.15rem;
+}
+
+.navbar__items--right > .navbar__item {
+  font-size: 0.92rem;
+}
+
+/*
+ * Busca: campo de papel com fio, não pílula cinza. A pílula cinza é a única
+ * peça de superfície preenchida do cabeçalho, e sobre creme ela lê como um
+ * remendo.
+ */
+.navbar__search-input {
+  background-color: var(--ifm-background-color);
+  border: 1px solid var(--sam-rule);
+  border-radius: var(--ifm-global-radius);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.88rem;
+  transition: border-color 150ms ease;
+}
+
+.navbar__search-input:focus {
+  border-color: var(--ifm-color-primary);
+  outline: none;
+}
+
+/*
+ * Botão de recolher a barra lateral. Ele é uma faixa no rodapé da coluna e
+ * vinha com fundo de superfície; aqui vira um fio, coerente com o resto.
+ */
+.theme-doc-sidebar-container button[title],
+.theme-doc-sidebar-container .clean-btn[class*='collapseSidebarButton'] {
+  background: var(--ifm-background-color);
+  border-top: 1px solid var(--sam-rule);
+  color: var(--ifm-color-emphasis-600);
+}
+
+.theme-doc-sidebar-container .clean-btn[class*='collapseSidebarButton']:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+}
+
+/*
+ * A faixa que reabre a barra recolhida usa duas variáveis próprias do tema, e
+ * o padrão delas é um cinza que não existe nesta paleta.
+ */
+:root {
+  --docusaurus-collapse-button-bg: var(--ifm-color-emphasis-100);
+  --docusaurus-collapse-button-bg-hover: var(--ifm-color-emphasis-200);
+}
+
+/* Trilha: o item ativo vinha com pílula preenchida, que compete com o título. */
+.breadcrumbs__item--active .breadcrumbs__link {
+  background: transparent;
+  color: var(--ifm-color-emphasis-800);
+  font-weight: 600;
+}
+
+.breadcrumbs__link {
+  border-radius: var(--ifm-global-radius);
+}
+
 /* Rótulos de seção chegam a 57 caracteres e quebram em três linhas. */
 .menu__link,
 .menu__list-item-collapsible > .menu__link {
