@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [simplicity-vs-flexibility, speed-vs-quality, abstraction-vs-complexity]
 canonical_for: [desempenho contra manutenibilidade, orçamento de desempenho, otimização localizada, código quente]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -89,8 +89,10 @@ Isso muda o cálculo: uma otimização que dá 15% num trecho que responde por 2
 custa clareza para sempre e ganha 0,3%.
 
 E há um efeito adicional: hardware, compiladores e bibliotecas melhoram. Otimizações
-manuais de dez anos atrás frequentemente são hoje mais lentas que a versão simples, porque
-impedem que a plataforma otimize.
+manuais de dez anos atrás podem ser hoje mais lentas que a versão simples, quando impedem a
+plataforma de otimizar — desenrolar de laço que bloqueia vetorização, cache manual de objeto
+que atrapalha a alocação, chamada indireta escrita para evitar uma que o compilador hoje
+resolve em linha. Não é regra: é a razão para remedir antes de manter.
 
 ### Registre por que o código é assim
 
@@ -121,8 +123,10 @@ tempo de construção        abaixo de 8 min
 consumo de memória         abaixo de 512 MB por instância
 ```
 
-Com orçamento, a pergunta deixa de ser "isto está rápido?" e passa a ser "estamos dentro?".
-Trechos dentro do orçamento não recebem otimização, por melhor que seja a ideia.
+Com orçamento, a pergunta deixa de ser "isto está rápido?" e passa a ser "estamos dentro, e com
+quanta folga?". Trecho com folga confortável não recebe otimização, por melhor que seja a
+ideia; trecho que raspa o limite é candidato, porque a folga é o que absorve a variação de
+carga e a degradação de dependência.
 
 E o orçamento vira [função de aptidão](/19-architecture-governance/fitness-functions-governance.md):
 verificação automática que falha quando o limite é ultrapassado.
@@ -137,9 +141,10 @@ latência alta          o problema é chamada síncrona encadeada
 ```
 
 Nesses casos, a correção **melhora** legibilidade e desempenho ao mesmo tempo. Antes de
-aceitar o trade-off, vale verificar se ele existe: a maior parte dos problemas de desempenho
-em sistemas de informação é de acesso a dados e de topologia de chamadas, não de
-microdecisões de código.
+aceitar o trade-off, vale verificar se ele existe. Em sistemas de informação, o perfil quase
+sempre aponta primeiro para acesso a dados e topologia de chamadas, e não para microdecisões
+de código — e essa é uma razão para perfilar antes de otimizar, não um número que dispense o
+perfil.
 
 Ver [indexação](/07-data-architecture/indexing.md).
 
@@ -206,11 +211,13 @@ Prefira legibilidade quando:
 
 **Como decisão global** — otimizar tudo, ou recusar otimizar.
 
-**Sem medição.**
+**Sem medição.** Sem perfil, a intuição aponta para o código que se lembra de ter escrito, não
+para o que consome tempo.
 
 **Sem orçamento definido** — sem alvo, a discussão é interminável.
 
-**Antes de verificar se o conflito é falso.**
+**Antes de verificar se o conflito é falso.** Índice ausente e consulta em laço custam clareza
+zero para corrigir — aceitar o trade-off antes de olhar é pagar por nada.
 
 **Sem registrar o porquê** — o código estranho vira permanente.
 
@@ -231,15 +238,15 @@ A última é a técnica mais útil deste tema: o custo de legibilidade fica cont
 
 | Desempenho | Manutenibilidade |
 |---|---|
-| Ganho medido | Mudança barata |
+| Ganho verificável em número | Ganho real e não medível |
 | Custo permanente de clareza | Pode estourar orçamento |
 | Localizado | Global |
 | Envelhece com a plataforma | Envelhece bem |
 
 | Otimizar código | Corrigir arquitetura |
 |---|---|
-| Rápido de fazer | Ganho de ordem maior |
-| Ganho limitado | Custo de mudança grande |
+| Dias de trabalho | Semanas a meses |
+| Ganho limitado pelo peso do trecho | Ganho de ordem de grandeza |
 | Local | Afeta o desenho |
 
 ## Modos de Falha
@@ -281,33 +288,43 @@ Resultado: p99 de 2,4 s para 2,1 s. Ganho de 12%.
 Uma investigação com perfilamento e rastreamento distribuído mostrou onde o tempo estava:
 
 ```text
-consultas ao banco (23 consultas sequenciais)     1 420 ms
+consultas ao banco (23 consultas sequenciais)     1 320 ms
 chamada síncrona ao serviço de bureau externo       610 ms
 serialização e transporte                            90 ms
 lógica de decisão (o que foi otimizado)              80 ms
+                                                 ————————
+p99 medido                                        2 100 ms
 ```
 
-As três semanas tinham sido gastas nos 80 ms.
+Antes das três semanas, a lógica de decisão media 380 ms — os mesmos 2 400 ms com essa parcela
+no lugar. As três semanas renderam 300 ms reais, e foram gastas no trecho que respondia por
+16% do tempo, enquanto os 2 020 ms de consultas e bureau ficaram intocados.
 
 O que foi feito depois:
 
-**As 23 consultas viraram 4.** Onze eram o mesmo padrão dentro de um laço; sete podiam ser
-uma única consulta com junção; as demais foram cobertas por índice ausente.
+**As 23 consultas viraram 4.** Onze eram o mesmo padrão dentro de um laço e viraram uma; sete
+podiam ser uma única consulta com junção; das cinco restantes, três buscavam dados que outra
+consulta já trazia, e as duas que sobraram ganharam um índice que faltava.
 
 ```text
-1 420 ms → 180 ms
+1 320 ms → 180 ms
 ```
 
 **Chamada ao bureau paralelizada** com as consultas locais, já que não havia dependência
 entre elas: 610 ms deixaram de somar e passaram a ser o piso.
 
-```text
-p99 final   740 ms, dentro do orçamento
-```
-
 **As otimizações de código foram revertidas**, exceto uma — uma função de cálculo de escore
 executada 40 mil vezes por decisão, que ficou como laço manual com comentário registrando
-medição e condição de reversão.
+medição e condição de reversão. A reversão foi medida antes de ser aceita: as demais
+otimizações não tinham ganho isolável, e a lógica de decisão ficou nos mesmos 80 ms. As três
+semanas, na prática, valeram por uma função.
+
+```text
+p99 final   max(180, 610) + 90 + 80 = 780 ms, dentro do orçamento de 800 ms
+```
+
+A folga é de 20 ms, o que a equipe registrou como risco: qualquer degradação do bureau estoura
+o contrato, e o orçamento passou a ter alerta em 700 ms.
 
 O time então instituiu:
 

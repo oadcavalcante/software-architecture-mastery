@@ -13,7 +13,7 @@ objective: >
 prerequisites: [technical-debt]
 related: [cost-vs-reliability, performance-vs-maintainability, simplicity-vs-flexibility]
 canonical_for: [velocidade contra qualidade, prazo de validade do atalho, qualidade como velocidade, atalho deliberado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -87,11 +87,14 @@ A pergunta que torna a decisão honesta: **quantas semanas isso vai durar, e qua
 semana?**
 
 ```text
-atalho de 2 semanas, custando ~4 h/semana de retrabalho   ~8 h
-o mesmo atalho por 18 meses                              ~300 h
+atalho de 2 semanas, a 4 h/semana de retrabalho    ~8 h
+o mesmo atalho por 18 meses                       ~900 h
 ```
 
-O mesmo atalho, decisão completamente diferente.
+O mesmo atalho, decisão completamente diferente. E o segundo número não é o primeiro
+multiplicado pelo prazo: 78 semanas a 4 h/semana dariam ~310 h, e a taxa não fica em 4 — é o
+que a seção sobre [juros compostos](#a-dívida-cobra-juros-compostos) mede. A conta linear
+subestima o custo em cerca de três vezes, e é a conta que quase todo mundo faz de cabeça.
 
 ### O que nunca vale cortar
 
@@ -144,6 +147,8 @@ Ver [entrega contínua](/14-devops-and-platform/ci-cd.md).
 mês 1    o atalho custa 4 h/semana
 mês 6    o código ao redor foi construído sobre ele; custa 9 h/semana
 mês 18   desfazer exige mexer em três módulos; custa 20 h/semana
+
+acumulado até o mês 18, interpolando entre os três pontos   ~900 h
 ```
 
 O crescimento não é linear porque cada mudança feita sobre o atalho o consolida. Isso

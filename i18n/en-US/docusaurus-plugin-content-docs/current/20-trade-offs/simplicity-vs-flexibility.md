@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [abstraction-vs-complexity, coupling-vs-duplication, speed-vs-quality]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -96,16 +96,19 @@ variation is allowed.
 
 See [complexity](/01-fundamentals/complexity.md).
 
-### The right flexibility comes from the second case
+### The right flexibility comes from the cases, not from anticipation
 
 ```text
 one known case   the abstraction is guesswork
-two cases        the real variation becomes visible
-three cases      the axis is clear
+two cases        the variation is a hypothesis
+three cases      the real axis becomes visible
 ```
 
 This is the practical reason for the rule of three: the structure that accommodates variation
 is derivable from cases, not anticipatable from one.
+
+Stopping at the second trades guesswork for a hypothesis with one sample: the variation the two
+of them show may be the one that matters, or may be the only one they happen to share.
 
 Building from one case produces an abstraction shaped like that case — which is exactly what
 does not fit when the second appears.

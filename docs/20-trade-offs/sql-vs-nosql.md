@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [strong-vs-eventual-consistency, managed-vs-self-hosted, performance-vs-maintainability]
 canonical_for: [SQL contra NoSQL, padrão de acesso, consulta não prevista, custo do segundo banco]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -52,9 +52,8 @@ A decisão é comumente tomada por argumentos que não decidem:
 "vamos precisar de escala"   → precisa de qual escala, medida como?
 ```
 
-E o custo esquecido é o operacional. Um banco a mais significa: mais uma competência na
-equipe, mais um procedimento de cópia e restauração, mais uma atualização, mais um alarme,
-mais um item no plantão, mais uma consistência a coordenar.
+E o custo esquecido é o operacional, que a seção sobre
+[o segundo banco](#o-segundo-banco-custa-mais-que-o-primeiro) detalha.
 
 Ver [gerenciado vs. autogerido](/20-trade-offs/managed-vs-self-hosted.md).
 
@@ -113,14 +112,30 @@ Ver [transações](/07-data-architecture/transactions.md).
 
 ### Escala não é o argumento que parece
 
+Contagem de linhas é o eixo errado. Uma instância relacional moderna comporta dezenas de
+terabytes e dezenas de milhares de transações por segundo — o acervo tem casos de 400 milhões e
+de 12 bilhões de linhas em relacional, sem migração. Ver
+[bancos relacionais](/07-data-architecture/relational-databases.md).
+
+O que de fato empurra para fora do relacional:
+
 ```text
-até ~milhões de linhas com índices adequados   relacional, sem esforço
-dezenas de milhões, com particionamento        relacional, com trabalho
-escrita distribuída global, multirregião       o não relacional tem vantagem clara
-chave-valor com latência de microssegundos     idem
+taxa de escrita acima do que uma instância aceita,
+  sem partição natural por chave                     não relacional tem vantagem
+escrita aceita em mais de uma região, com
+  disponibilidade sob partição de rede               idem
+conjunto quente maior que a memória disponível,
+  com acesso uniforme (sem localidade)               idem
+latência de leitura sub-milissegundo consistente,
+  por chave                                          chave-valor
+janela de manutenção menor que o tempo de uma
+  operação de esquema na tabela maior                sinal de partição, não de família
 ```
 
-A maior parte dos sistemas de negócio vive na primeira faixa e nunca sai dela. Escolher pelo
+Note que só a quarta linha fala de latência e nenhuma fala de contagem de linhas. Volume por si
+não decide: decide o que o volume faz com a escrita, com a memória e com a janela.
+
+A maior parte dos sistemas de negócio nunca cruza nenhuma dessas linhas. Escolher pelo
 cenário de escala que talvez nunca chegue custa hoje, com certeza, para um benefício
 incerto.
 
@@ -159,7 +174,10 @@ escolheu relacional e não devia
   particionamento manual feito à mão
 ```
 
-O primeiro sinal de cada lista aparece cedo e é o mais confiável.
+Os sinais das duas listas não aparecem no mesmo momento. Os da primeira surgem cedo, nas
+primeiras semanas de uso, porque são consequência imediata do modelo. Os da segunda são estado
+acumulado — colunas nulas e tabela de atributos genéricos levam muitas migrações para se formar —
+e por isso a segunda lista é a que se descobre tarde.
 
 ### Custo de mudar de ideia
 
@@ -198,16 +216,22 @@ Prefira **relacional** quando:
 
 ## Quando Não Usar
 
-**Escolhendo por escala hipotética.**
+**Escolhendo por escala hipotética** — quando nenhuma das cinco linhas da escada acima foi
+cruzada e nenhuma projeção com data as cruza. O custo é hoje; o benefício, talvez.
 
-**Adotando um segundo banco sem contar o custo operacional.**
+**Adotando um segundo banco quando o ganho não cobre os seis itens duplicados.** A pergunta é
+quantitativa: o caso que motiva o segundo banco economiza mais do que uma competência, um
+plantão e uma restauração testada custam por ano?
 
-**Tratando "sem esquema" como ausência de esquema.**
+**Tratando "sem esquema" como ausência de esquema** — o esquema passa a viver no código que lê,
+espalhado por cada leitor, e a divergência só aparece quando um deles falha em produção.
 
-**Usando não relacional para consulta exploratória.**
+**Usando não relacional quando existe pergunta não prevista** — a distinção decisiva deste
+documento. Se o produto vai segmentar por combinações que ninguém listou, o modelo desnormalizado
+obriga a exportar para responder.
 
 **Usando relacional com tabela de atributos genéricos** — sintoma de modelo errado, não de
-banco errado.
+banco errado; trocar de família não corrige, só move o problema.
 
 ## Alternativas
 
@@ -239,17 +263,23 @@ para o que varia, um só banco a operar.
 
 ## Modos de Falha
 
-**Junção na aplicação.** Modelo não relacional usado para acesso relacional.
+Os sintomas de escolha errada estão [na lista acima](#sinais-de-escolha-errada). O que segue é o
+que se observa depois, quando a escolha já foi absorvida pelo sistema e não é mais atribuída a
+ela.
 
-**Documentos heterogêneos acumulados.** Migração futura vira arqueologia.
+**Consistência entre bancos improvisada.** Não há transação entre os dois, então alguém escreveu
+uma rotina de reconciliação — e ela é a peça menos testada do sistema, porque só roda quando algo
+já deu errado.
 
-**Tabela de atributos genéricos.** Relacional usado contra sua natureza.
+**Migração que virou arqueologia.** Os documentos acumularam formatos, e sair exige um analista
+lendo dados para descobrir quantos existem. O custo de sair cresceu sem que ninguém decidisse.
 
-**Segundo banco sem justificativa.** Custo operacional dobrado.
+**O banco certo pelo motivo errado.** A escolha era adequada e ninguém sabe por quê — quem
+decidiu saiu, não há registro, e a revisão fica bloqueada porque mexer parece arriscado.
 
-**Escolha por escala hipotética.** Custo hoje, benefício talvez.
-
-**Consistência entre bancos improvisada.**
+**Desempenho atribuído à família.** O sistema está lento, e a conversa vira relacional contra não
+relacional em vez de perfil de consulta. Trocar de família reescreve tudo e mantém a consulta
+ruim.
 
 ## Erros Comuns
 
@@ -257,7 +287,7 @@ para o que varia, um só banco a operar.
 
 **Não perguntar se haverá consulta não prevista.** É a distinção decisiva: o relacional responde bem ao que ninguém antecipou; o desnormalizado, não.
 
-**Não contar o custo do segundo banco.** Backup, monitoramento, atualização e uma competência a manter no time são custo recorrente que não aparece na comparação de desempenho.
+**Não contar o custo do segundo banco.** A comparação é feita em desempenho, e o custo recorrente — [seis itens duplicados](#o-segundo-banco-custa-mais-que-o-primeiro) — não entra em nenhum dos dois lados dela.
 
 **Ignorar JSON em banco relacional** como opção. Ela cobre boa parte do que se busca em documento sem abrir mão de transação, junção e consulta ad hoc — e raramente entra na lista.
 
@@ -315,14 +345,34 @@ Resultados após a migração:
 formatos coexistindo                            1
 junções na aplicação                            0
 transações simuladas                            0 — viraram transações
-consultas exploratórias                         direto no relacional, sem exportação
+consultas exploratórias                         no relacional, sem exportação manual
+segmentação do produto                          índice dedicado, alimentado continuamente
 incidentes por divergência                      0 em 10 meses
-bancos em produção                              2 (contra 1, com propósito claro)
+componentes com estado em produção              3 (contra 1)
 custo de infraestrutura                         -12%
 ```
 
-Os dois bancos remanescentes têm justificativa registrada em ADR, com condição de reversão:
-se o registro de refeições passar a exigir consulta cruzada, ele volta para o relacional.
+Duas linhas dessa tabela merecem cuidado, porque é fácil lê-las como vitória maior do que foi.
+
+**A consulta exploratória não voltou toda para o relacional.** O que acabou foi a exportação
+semanal manual para planilha e banco temporário: perguntas sobre plano, aderência e histórico
+passaram a ser respondidas com uma consulta. Mas a segmentação por combinação de restrições — a
+pergunta não prevista que motivou a migração — não é respondida pelo relacional sozinho: ela vive
+num índice de busca alimentado a partir dele. A migração trocou uma exportação manual por um
+fluxo contínuo, o que é melhor, e não por nada.
+
+**E o índice conta como componente com estado.** Pelo próprio modelo de custo deste documento, ele
+traz competência, restauração testada, atualização, alarme, plantão e uma consistência a
+coordenar — a defasagem entre o relacional e o índice. Contar "dois bancos" seria não aplicar a
+régua que o documento cobra dos outros: o desenho saiu de um armazenamento para três.
+
+Os 12% vêm de duas fontes, nenhuma delas do número de componentes: o agrupamento de documentos
+caiu de nove nós para três quando 80% do volume de escrita foi o único caso que sobrou nele, e a
+coluna JSON eliminou uma camada de cache que existia só para evitar as junções na aplicação.
+
+Os três componentes têm justificativa registrada em ADR, com condição de reversão: se o registro
+de refeições passar a exigir consulta cruzada, ele volta para o relacional; se a segmentação
+couber num índice do próprio relacional, o índice dedicado sai.
 
 A decisão de 2022 não era absurda — a variação de atributos era
 real. O erro foi de método: a escolha foi feita a partir de uma característica do dado, sem

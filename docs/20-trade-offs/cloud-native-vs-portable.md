@@ -13,7 +13,7 @@ objective: >
 prerequisites: [vendor-lock-in]
 related: [managed-vs-self-hosted, build-vs-buy, simplicity-vs-flexibility]
 canonical_for: [nativo contra portável, prêmio de portabilidade, superfície de dependência, migração hipotética]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -31,8 +31,10 @@ eixo real   qual a probabilidade real de migrar, e qual o custo de saída
 ```
 
 Portabilidade é um **seguro**: prêmio pago continuamente contra um evento raro. Como todo
-seguro, ele se justifica quando o prêmio é baixo em relação ao sinistro — e não quando o
-medo é grande.
+seguro, ele se justifica quando o prêmio contínuo é baixo em relação à probabilidade de
+migrar multiplicada pelo custo de saída — e não quando o medo é grande. Os três termos são
+necessários: sinistro grande com probabilidade desprezível não justifica prêmio nenhum, que
+é o erro que este documento trata.
 
 E o prêmio, ao contrário do de um seguro real, não aparece em nenhuma fatura.
 
@@ -85,6 +87,16 @@ quase sempre superior, porque concentra o prêmio onde ele é barato.
 Ver [aprisionamento](/09-cloud-architecture/vendor-lock-in.md).
 
 ### Meça o custo de saída, não o suponha
+
+O custo de saída e a portabilidade seletiva são desenvolvidos em
+[dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md), pré-requisito deste
+documento. O que segue é o uso desse método numa decisão concreta; o recorte próprio daqui é o
+prêmio como seguro, o que ele custa em velocidade, e a probabilidade por motivo de migração.
+
+As estimativas abaixo são de **esforço de reescrita** e supõem volume de dados que cabe numa
+janela de corte de um fim de semana. Acima disso, a parcela que domina não é reescrita: é
+transferência de saída, e ela precisa entrar como linha própria — volume, preço de egresso e
+janela.
 
 ```text
 componente               esforço estimado de migração
@@ -148,7 +160,11 @@ infraestrutura declarada em ferramenta multiprovedor
 observabilidade com protocolo aberto
 ```
 
-Nenhuma dessas sacrifica capacidade relevante, e todas reduzem a superfície de dependência.
+Todas reduzem a superfície de dependência, e o sacrifício de capacidade é pequeno o bastante
+para valer o padrão — com duas exceções conhecidas: carga que depende de extensão ou motor
+proprietário não cabe no motor padrão, e serviço recém-lançado costuma chegar à ferramenta
+multiprovedor meses depois do provedor. Nos dois casos, a exceção é identificável antes de
+decidir.
 
 Ver [infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md).
 
@@ -169,21 +185,21 @@ exigência de cliente            baixa           multiprovedor parcial
 O primeiro é o mais comum e não exige migração — exige **credibilidade de que a migração é
 possível**, que é diferente e mais barata de obter.
 
-### Sinais de escolha errada
+### Para qual lado a equipe errou
+
+Os sintomas estão em Modos de Falha e em Erros Comuns. O que a equipe precisa antes deles é
+saber a direção do erro, e um teste basta:
 
 ```text
-nativo demais
-  dependência crítica de serviço proprietário sem alternativa
-  custo de saída nunca estimado
-  requisito regulatório novo impossível de atender
-  preço alterado sem poder de negociação
+pergunte por que o serviço proprietário X não é usado
 
-portável demais
-  reimplementando o que o provedor oferece pronto
-  camadas de abstração com um único provedor por trás, há anos
-  capacidade do provedor não usada por política
-  velocidade de entrega abaixo de concorrentes que usam a nuvem a fundo
+"não conhecemos alternativa se ele acabar"   → nativo demais
+"a política não permite"                     → portável demais
+"medimos e não compensa"                     → nenhum dos dois; está certo
 ```
+
+A terceira resposta é rara, e é o alvo. As duas primeiras têm em comum a ausência de número —
+uma teme sem estimar, a outra proíbe sem comparar.
 
 ### Custo de mudar de ideia
 
@@ -233,8 +249,9 @@ Prefira **nativo** quando:
 
 ## Alternativas
 
-- **Isolar sem abstrair** — módulo identificável, sem camada genérica; a melhor relação
-  custo-benefício.
+- **Isolar sem abstrair** — módulo identificável, sem camada genérica. Vence quando a
+  probabilidade de migrar é baixa mas não nula e o serviço tem substituto de função
+  equivalente: custa dias e corta a maior parte do esforço de extração.
 - **Portabilidade seletiva** — nas camadas onde é barata, nativo no resto.
 - **Multiprovedor real** — caro; justificável apenas com exigência concreta.
 - **Nativo com custo de saída documentado** — usar a fundo, e manter a estimativa atualizada.
@@ -246,16 +263,18 @@ impossível, e é suficiente para negociar.
 
 | Nativo | Portável |
 |---|---|
-| Capacidade máxima | Opção preservada |
-| Velocidade de entrega | Menor denominador comum |
+| Capacidade disponível: a do provedor | Menor denominador comum |
+| Entrega rápida | Entrega mais lenta |
 | Custo de saída maior | Prêmio contínuo |
 | Menos código próprio | Mais |
 
 | Isolar sem abstrair | Camada de abstração |
 |---|---|
-| Custo quase zero | Ilusão de portabilidade |
+| Custo de construção quase zero | Camada a construir e manter |
 | Usa o serviço a fundo | Menor denominador comum |
-| Migração ainda exige trabalho | Reescrita na migração, mesmo assim |
+| Interface interna a cada uso | Interface interna uniforme |
+| Substituição em teste caso a caso | Substituição em teste de graça |
+| Migração exige trabalho, contido no módulo | Migração exige reescrita, mesmo assim |
 
 ## Modos de Falha
 
@@ -312,7 +331,23 @@ migrações de provedor realizadas                       0
 ```
 
 A revisão começou por um exercício que nunca tinha sido feito: estimar o custo de saída,
-componente a componente, do cenário hipotético.
+componente a componente. Primeiro o da arquitetura que existia, que era o que a política
+comprava:
+
+```text
+contêineres                   1 semana
+banco (motor padrão)          3 semanas
+armazenamento de objetos      1 semana
+observabilidade               2 semanas
+                              ————————————————
+saída da arquitetura de 2021  ~7 semanas
+```
+
+Sete semanas. Esse era o sinistro coberto pelo prêmio de 4,5 engenheiros permanentes e de uma
+entrega 2,3× mais lenta — e o desproporcional entre os dois é o achado que abriu a discussão.
+
+Depois o do cenário que a política existia para evitar: a mesma empresa tendo adotado
+identidade e funções do provedor, sem isolamento.
 
 ```text
 componente                    esforço de migração estimado
@@ -329,7 +364,7 @@ migração completa hipotética  ~9 meses
 ```
 
 Nove meses, para um evento que ninguém conseguia associar a um prazo ou a um gatilho
-concreto — contra 4,5 engenheiros permanentes e uma entrega 2,3× mais lenta.
+concreto.
 
 E o exercício revelou o ponto que mudou a conversa com o conselho: **a preocupação real era
 poder de negociação, não migração.** Uma estimativa de saída documentada e crível atende a
@@ -362,8 +397,33 @@ tempo médio de entrega                             -45%
 custo de saída consolidado, estimado               ~11 meses
 ```
 
-O custo de saída **subiu** — de 9 para 11 meses — e isso foi apresentado ao conselho junto
-com os demais números, e aceito.
+O custo de saída **subiu**, e é preciso dizer de quanto para quanto: de sete semanas para onze
+meses. A comparação com os nove meses do cenário hipotético não vale, porque aquele cenário
+nunca existiu — comparar o real de hoje com um hipotético de ontem é o tipo de conta que faz
+uma decisão parecer melhor do que foi.
+
+Os onze meses se decompõem assim:
+
+```text
+contêineres, banco, armazenamento, observabilidade    7 semanas (inalterado)
+identidade do provedor, isolada                       6 semanas
+funções do provedor, isoladas                        10 semanas
+fila gerenciada proprietária, isolada                 4 semanas
+armazém de dados proprietário                        14 semanas
+serviço gerenciado de aprendizado de máquina          6 semanas
+                                                     ————————————————
+total                                                ~47 semanas ≈ 11 meses
+```
+
+Duas leituras saem da tabela. A primeira é que o isolamento fez o que prometia: identidade e
+funções, que sem isolamento somariam trinta semanas, somam dezesseis. A segunda é que isso não
+impediu o total de subir, porque a reforma adotou três serviços proprietários que a política
+antiga não deixava existir. Isolar não barateia a saída em termos absolutos — mantém o custo
+**estimável e contido no módulo**, em vez de difuso pelo sistema. É uma promessa menor do que
+"portabilidade", e é a que se cumpre.
+
+Isso foi apresentado ao conselho junto com os demais números, e aceito: onze meses de saída,
+contra 34% de custo e 45% de prazo, com a estimativa revisada todo ano.
 
 A política de 2021 respondia a uma preocupação legítima com o
 instrumento errado. O conselho queria não ficar refém; o que ele precisava era de uma

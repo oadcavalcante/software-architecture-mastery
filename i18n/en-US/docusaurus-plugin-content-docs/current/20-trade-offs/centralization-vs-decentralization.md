@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [federated-governance, monolith-vs-microservices, build-vs-buy]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -66,20 +66,14 @@ appears between them — in integration, in the shared on-call, in hiring, in mi
 
 ### Externality decides the common case
 
-```text
-the consequence stays in the team         → decentralize
-the consequence crosses a boundary        → coordinate
-the consequence belongs to the org        → centralize
-```
+The criterion is the one from [federated
+governance](/19-architecture-governance/federated-governance.md), canonical for decision
+externality: **if it goes wrong, who pays?** A consequence that stays in the team gets
+decentralized; one that crosses a boundary gets coordinated; one that belongs to the organization
+gets centralized.
 
-See [federated governance](/19-architecture-governance/federated-governance.md), where this
-criterion is developed for decisions.
-
-The operational question is always the same: **if it goes wrong, who pays?**
-
-And it is more precise than "technical versus strategic", because apparently small decisions have
-high externality — the format of a published event is a technical decision with consequences for
-every consumer.
+What this document adds is applying the criterion outside decisions — to data, services, teams and
+tooling — and the cost of undoing, which the next section covers.
 
 ### The cost of converging decides the ties
 
@@ -130,7 +124,8 @@ desirable arrangement and the most expensive to build.
 ```text
 3 teams     centralizing nearly everything is cheap and works
 15 teams    centralization becomes a queue; coordinate interfaces
-50 teams    federation with a strong platform is the only viable option
+50 teams    centralizing decisions turns into a queue faster than the organization
+            absorbs it; the practiced way out is federation over a platform
 ```
 
 A centralization decision that is correct for 3 teams is wrong for 30, and organizations
@@ -185,25 +180,34 @@ Decentralize when:
 
 - The consequence stays in the team.
 - The local context genuinely varies.
-- The central point is already a queue.
-- The capability is available as self-service.
+- The capability is already available as self-service — and it is not enough that the central
+  point's queue is annoying: a queue with no platform to replace it returns duplication, not
+  autonomy.
 - The reversal is cheap.
 
 ## When Not to Use
 
-**As a binary choice** — the answer almost always splits interface and implementation.
+The framing does not help in three situations, and insisting on it there costs decision time.
 
-**Without computing the cost of converging.**
+**Below roughly five teams.** In that range almost everything is central and the arrangement fits
+in everyone's head; discussing the axis is anticipating a problem that does not exist yet.
 
-**Centralizing decisions** when centralizing capability was possible.
+**When the cost of converging is negligible.** Choice of internal library, log format, naming
+convention: if undoing takes an afternoon, let it diverge and revisit later. The axis only pays
+for the discussion when undoing costs months — which is what the section on the cost of
+converging measures.
 
-**Decentralizing with no platform** — it produces duplication, not autonomy.
+**When the measured problem is capability, not arrangement.** A six-week queue on the data team
+may be understaffing, and in that case changing the arrangement solves nothing and trades a known
+problem for an unknown one. Measure utilization first.
 
-**Keeping the arrangement after scale changed.**
+And, in any case, **do not treat it as a binary choice**: the answer almost always splits
+interface and implementation.
 
 ## Alternatives
 
-- **Platform** — central capability, decentralized use; the best arrangement when viable.
+- **Platform** — central capability, decentralized use: it gets coherence without creating a
+  coordination point, at the cost of building and maintaining the self-service.
 - **Federation** — local decision with a central contract. See
   [federated governance](/19-architecture-governance/federated-governance.md).
 - **Temporary centralization** — build centrally and distribute when mature.
@@ -217,7 +221,7 @@ with the on-call and hiring cost declared.
 | Centralized | Decentralized |
 |---|---|
 | Coherence | Local context |
-| Concentrated specialization | Speed |
+| Concentrated specialization | Diffuse specialization |
 | Becomes a queue | Accumulated divergence |
 | Single point of failure | No coordination |
 
@@ -229,17 +233,21 @@ with the on-call and hiring cost declared.
 
 ## Failure Modes
 
-**Queue at the central point.** The bottleneck that coherence costs.
+The symptoms are in the list of [signs of a wrong choice](#signs-of-the-wrong-choice). What follows
+is what shows up when the arrangement fails without any sign from that list having fired — the
+cases that are hard to attribute.
 
-**Accumulated divergence.** Nobody decided, and the cost belongs to everyone.
+**A queue that does not show in the metric.** The central point's turnaround looks good because
+teams stopped asking and started working around. The queue became invisible work.
 
-**Generic decision.** It serves no concrete case.
+**Facade coherence.** The central standard exists, is obeyed in form and worked around in
+substance — the same event published with the generic field that accepts anything.
 
-**Decentralization with no platform.** Each team rebuilds the same thing.
+**A platform adopted and not used.** Adoption is high because it is mandatory; the paved path is
+not the shortest one, and the team uses the minimum needed to pass the check.
 
-**Obsolete arrangement.** Correct for 3 teams, kept at 30.
-
-**Central service as a single point of failure.**
+**Reversal blocked by knowledge.** The old arrangement could come back, but the people who knew
+how to operate it left. The cost of converging grew through turnover, not through technology.
 
 ## Common Mistakes
 
@@ -255,7 +263,7 @@ with the on-call and hiring cost declared.
 
 ## Real-World Example
 
-A fintech company with 24 teams went through two arrangements in five years.
+A fintech company with 24 teams went through three arrangements in five years.
 
 **Phase 1 — centralized (2021).** An architecture team decided technology, a data team served all
 data requests, an infrastructure team provisioned resources.
@@ -265,6 +273,7 @@ average time to provision a new environment      19 days
 average turnaround on a data request             6 weeks
 teams that built their own alternatives
   to work around the queue                       11 of 24
+languages in production                          4 (2 approved)
 unapproved technologies in use                   estimated at 8
 ```
 
@@ -312,17 +321,23 @@ time to integrate two teams                      3 days
 languages in production                          4 (one being retired)
 queue engines                                    1
 infrastructure cost                              -21%, with usage +30%
-incidents from unknown technology                 2
+incidents from unknown technology                 2 in 12 months
 platform adoption in new services                93%
 ```
 
-Converging from 7 languages to 4 took two years and is not finished — whereas diverging from 1 to
-7 had taken eighteen months.
+Divergence went from 4 languages to 7 in eighteen months. Converging back to 4 took twenty, and is
+not finished: the short list has three, and the fourth is being retired.
 
-What the team records: that ratio — eighteen months to diverge, more than two years to converge
-half the way — is the argument the organization now uses to evaluate any decentralization
-proposal. The question is not whether the team can decide well; it is how much it costs to undo
-the sum of good decisions.
+The time, then, is nearly the same in both directions — and that is not where the asymmetry is. It
+is in what each direction required. Diverging required no project: it happened as a sum of local
+decisions, none of them wrong, without anyone approving the result. Converging required building a
+self-service platform, negotiating a short list with the on-call cost stated, instituting an
+exception process and repositioning an entire team — and the cost of that appears in neither
+number.
+
+That is the argument the organization now uses to evaluate any decentralization proposal. The
+question is not whether the team can decide well; it is how much it costs to build the thing that
+will undo the sum of good decisions.
 
 ## Related Concepts
 

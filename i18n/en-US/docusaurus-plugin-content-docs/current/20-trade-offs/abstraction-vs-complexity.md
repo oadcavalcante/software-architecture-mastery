@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [simplicity-vs-flexibility, coupling-vs-duplication, performance-vs-maintainability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -206,7 +206,13 @@ Prefer concrete when:
 
 **When it leaks** what the user needs to know.
 
-**Before the second case.**
+**Before the second case.** This floor is lower than the
+[rule of three](/20-trade-offs/coupling-vs-duplication.md), and the difference is one of
+operation: there you decide whether to **unify** fragments that repeat, and the third case
+exists to reveal the axis of variation; here you decide whether to **hide** an implementation
+behind an interface, and the second case is already enough because the interface does not have
+to accommodate any variation — it has to hide something volatile. If the abstraction also
+unifies duplication, the floor over there applies.
 
 **To look organized** — visual organization is not abstraction.
 

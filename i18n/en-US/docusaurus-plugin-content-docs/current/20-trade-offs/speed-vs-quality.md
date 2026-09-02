@@ -13,7 +13,7 @@ objective: >
 prerequisites: [technical-debt]
 related: [cost-vs-reliability, performance-vs-maintainability, simplicity-vs-flexibility]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -87,11 +87,15 @@ The question that makes the decision honest: **how many weeks will this last, an
 it cost per week?**
 
 ```text
-a 2-week shortcut, costing ~4 h/week of rework   ~8 h
-the same shortcut for 18 months                  ~300 h
+a 2-week shortcut, at 4 h/week of rework   ~8 h
+the same shortcut for 18 months           ~900 h
 ```
 
-The same shortcut, a completely different decision.
+The same shortcut, a completely different decision. And the second number is not the first one
+multiplied by the timeframe: 78 weeks at 4 h/week would give ~310 h, and the rate does not stay
+at 4 — that is what the section on [compound interest](#debt-charges-compound-interest)
+measures. The linear calculation understates the cost by about three times, and it is the
+calculation almost everyone does in their head.
 
 ### What is never worth cutting
 
@@ -144,6 +148,8 @@ See [continuous delivery](/14-devops-and-platform/ci-cd.md).
 month 1    the shortcut costs 4 h/week
 month 6    the code around it was built on top of it; it costs 9 h/week
 month 18   undoing requires touching three modules; it costs 20 h/week
+
+accumulated through month 18, interpolating between the three points   ~900 h
 ```
 
 The growth is not linear because each change made on top of the shortcut consolidates it. That

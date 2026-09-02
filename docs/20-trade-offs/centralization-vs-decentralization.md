@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [federated-governance, monolith-vs-microservices, build-vs-buy]
 canonical_for: [centralização contra descentralização, custo de convergir, ponto de coordenação, divergência acumulada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -66,20 +66,13 @@ aparece entre eles — na integração, no plantão compartilhado, na contrataç
 
 ### Externalidade decide o caso comum
 
-```text
-a consequência fica no time            → descentralize
-a consequência atravessa fronteira     → coordene
-a consequência é da organização        → centralize
-```
+O critério é o da [governança federada](/19-architecture-governance/federated-governance.md),
+canônico de externalidade de decisão: **se der errado, quem paga?** Consequência que fica no
+time se descentraliza; consequência que atravessa fronteira se coordena; consequência da
+organização se centraliza.
 
-Ver [governança federada](/19-architecture-governance/federated-governance.md), onde esse
-critério é desenvolvido para decisões.
-
-A pergunta operacional é sempre a mesma: **se der errado, quem paga?**
-
-E ela é mais precisa que "técnico contra estratégico", porque decisões aparentemente pequenas
-têm externalidade alta — o formato de um evento publicado é uma decisão técnica com
-consequência para todos os consumidores.
+O que este documento acrescenta é a aplicação do critério fora de decisões — a dados, serviços,
+times e ferramentas — e o custo de desfazer, que a seção seguinte trata.
 
 ### O custo de convergir decide os empates
 
@@ -129,7 +122,8 @@ mais caro de construir.
 ```text
 3 times      centralizar quase tudo é barato e funciona
 15 times     centralização vira fila; coordenar interfaces
-50 times     federação com plataforma forte é a única opção viável
+50 times     centralizar decisão vira fila mais rápido do que a organização
+             absorve; a saída praticada é federação sobre plataforma
 ```
 
 Uma decisão de centralização correta para 3 times é errada para 30, e organizações
@@ -185,25 +179,32 @@ Descentralize quando:
 
 - A consequência fica no time.
 - O contexto local varia de verdade.
-- O ponto central já é fila.
-- A capacidade está disponível como autoatendimento.
+- A capacidade já está disponível como autoatendimento — e não só a fila do ponto central
+  incomoda: fila sem plataforma que a substitua devolve duplicação, não autonomia.
 - A reversão é barata.
 
 ## Quando Não Usar
 
-**Como escolha binária** — a resposta quase sempre divide interface e implementação.
+O enquadramento não ajuda em três situações, e insistir nele nelas custa tempo de decisão.
 
-**Sem calcular o custo de convergir.**
+**Abaixo de cerca de cinco times.** Nessa faixa quase tudo é central e o arranjo cabe na
+cabeça de todos; a discussão de eixo é antecipação de um problema que ainda não existe.
 
-**Centralizando decisão** quando dava para centralizar capacidade.
+**Quando o custo de convergir é desprezível.** Escolha de biblioteca interna, formato de log,
+convenção de nome: se desfazer é uma tarde, deixe divergir e revise depois. O eixo só paga a
+discussão quando desfazer custa meses — é o que a seção sobre o custo de convergir mede.
 
-**Descentralizando sem plataforma** — produz duplicação, não autonomia.
+**Quando o problema medido é de capacidade, não de arranjo.** Fila de seis semanas na equipe
+de dados pode ser subdimensionamento, e nesse caso mudar o arranjo não resolve nada e ainda
+troca um problema conhecido por um desconhecido. Meça a utilização antes.
 
-**Mantendo o arranjo depois de a escala mudar.**
+E, em qualquer caso, **não trate como escolha binária**: a resposta quase sempre divide
+interface e implementação.
 
 ## Alternativas
 
-- **Plataforma** — capacidade central, uso descentralizado; o melhor arranjo quando viável.
+- **Plataforma** — capacidade central, uso descentralizado: obtém coerência sem criar ponto de
+  coordenação, ao custo de construir e manter o autoatendimento.
 - **Federação** — decisão local com contrato central. Ver
   [governança federada](/19-architecture-governance/federated-governance.md).
 - **Centralização temporária** — construir central e distribuir quando maduro.
@@ -217,7 +218,7 @@ com o custo de plantão e contratação declarado.
 | Centralizado | Descentralizado |
 |---|---|
 | Coerência | Contexto local |
-| Especialização concentrada | Velocidade |
+| Especialização concentrada | Especialização difusa |
 | Vira fila | Divergência acumulada |
 | Ponto único de falha | Sem coordenação |
 
@@ -229,17 +230,21 @@ com o custo de plantão e contratação declarado.
 
 ## Modos de Falha
 
-**Fila no ponto central.** O gargalo que a coerência custa.
+Os sintomas estão na lista de [sinais de escolha errada](#sinais-de-escolha-errada). O que
+segue é o que se observa quando o arranjo falha sem que nenhum sinal daquela lista tenha
+disparado — os casos difíceis de atribuir.
 
-**Divergência acumulada.** Ninguém decidiu, e o custo é de todos.
+**Fila que não aparece na métrica.** O tempo de atendimento do ponto central está bom porque
+os times pararam de pedir e passaram a contornar. A fila virou trabalho invisível.
 
-**Decisão genérica.** Não serve a nenhum caso concreto.
+**Coerência de fachada.** O padrão central existe, é obedecido na forma e contornado no
+conteúdo — o mesmo evento publicado com o campo genérico que aceita qualquer coisa.
 
-**Descentralização sem plataforma.** Cada time reconstrói o mesmo.
+**Plataforma adotada e não usada.** A adoção é alta porque é obrigatória; o caminho pavimentado
+não é o mais curto, e o time usa o mínimo para passar na verificação.
 
-**Arranjo obsoleto.** Correto para 3 times, mantido com 30.
-
-**Serviço central como ponto único de falha.**
+**Reversão bloqueada por conhecimento.** O arranjo antigo poderia voltar, mas quem sabia operá-lo
+saiu. O custo de convergir cresceu por rotatividade, não por tecnologia.
 
 ## Erros Comuns
 
@@ -255,7 +260,7 @@ com o custo de plantão e contratação declarado.
 
 ## Exemplo Real
 
-Uma empresa de tecnologia financeira com 24 times passou por dois arranjos em cinco anos.
+Uma empresa de tecnologia financeira com 24 times passou por três arranjos em cinco anos.
 
 **Fase 1 — centralizada (2021).** Uma equipe de arquitetura decidia tecnologia, uma equipe
 de dados atendia todos os pedidos de dados, uma equipe de infraestrutura provisionava
@@ -266,6 +271,7 @@ tempo médio para provisionar ambiente novo       19 dias
 tempo médio de atendimento de pedido de dados    6 semanas
 times que construíram alternativas próprias
   para contornar a fila                          11 de 24
+linguagens em produção                           4 (2 aprovadas)
 tecnologias em uso não aprovadas                 estimadas em 8
 ```
 
@@ -313,17 +319,23 @@ tempo de integração entre times                  3 dias
 linguagens em produção                           4 (uma em desativação)
 mecanismos de fila                               1
 custo de infraestrutura                          -21%, com uso +30%
-incidentes por tecnologia desconhecida            2
+incidentes por tecnologia desconhecida            2 em 12 meses
 adoção da plataforma em serviços novos           93%
 ```
 
-A convergência de 7 linguagens para 4 levou dois anos e ainda não terminou — enquanto a
-divergência de 1 para 7 tinha levado dezoito meses.
+A divergência foi de 4 linguagens para 7 em dezoito meses. A convergência de volta a 4 levou
+vinte, e ainda não terminou: a lista curta tem três, e a quarta está em desativação.
 
-O que a equipe registra: essa razão — dezoito meses para divergir, mais de dois anos para
-convergir metade do caminho — é o argumento que a organização passou a usar para avaliar
-qualquer proposta de descentralização. A pergunta não é se o time consegue decidir bem; é
-quanto custa desfazer a soma de decisões boas.
+O tempo, portanto, é quase o mesmo nas duas direções — e não é aí que está a assimetria. Ela
+está no que cada direção exigiu. Divergir não exigiu projeto: aconteceu como soma de decisões
+locais, nenhuma delas errada, sem que ninguém aprovasse o resultado. Convergir exigiu construir
+uma plataforma de autoatendimento, negociar uma lista curta com o custo de plantão declarado,
+instituir processo de exceção e reposicionar uma equipe inteira — e o custo disso não aparece
+em nenhum dos dois números.
+
+É esse o argumento que a organização passou a usar para avaliar qualquer proposta de
+descentralização. A pergunta não é se o time consegue decidir bem; é quanto custa construir o
+que vai desfazer a soma de decisões boas.
 
 ## Conceitos Relacionados
 

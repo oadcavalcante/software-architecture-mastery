@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [simplicity-vs-flexibility, speed-vs-quality, abstraction-vs-complexity]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -89,7 +89,7 @@ That changes the math: an optimization giving 15% in a snippet that accounts for
 costs clarity forever and gains 0.3%.
 
 And there is an additional effect: hardware, compilers and libraries improve. Manual optimizations
-from ten years ago are frequently slower today than the simple version, because they prevent the
+from ten years ago can be slower today than the simple version, when they prevent the
 platform from optimizing.
 
 ### Record why the code is like that
@@ -121,8 +121,10 @@ build time               under 8 min
 memory consumption       under 512 MB per instance
 ```
 
-With a budget, the question stops being "is this fast?" and becomes "are we within it?".
-Snippets within the budget get no optimization, however good the idea is.
+With a budget, the question stops being "is this fast?" and becomes "are we within it, and by
+how much?". A passage with a comfortable margin gets no optimization, however good the idea is;
+a passage that scrapes the limit is a candidate, because the margin is what absorbs load
+variation and dependency degradation.
 
 And the budget becomes a [fitness function](/19-architecture-governance/fitness-functions-governance.md):
 an automated check that fails when the limit is exceeded.
@@ -137,8 +139,10 @@ high latency    the problem is chained synchronous calls
 ```
 
 In those cases, the fix **improves** readability and performance at the same time. Before
-accepting the trade-off, it is worth checking whether it exists: most performance problems in
-information systems are about data access and call topology, not about code-level micro-decisions.
+accepting the trade-off, it is worth checking whether it exists. In information systems, the
+profile almost always points first at data access and call topology rather than at micro-decisions
+in code — and that is a reason to profile before optimizing, not a number that excuses the
+profile.
 
 See [indexing](/07-data-architecture/indexing.md).
 
@@ -204,11 +208,13 @@ Prefer readability when:
 
 **As a global decision** — optimizing everything, or refusing to optimize.
 
-**Without measurement.**
+**Without measurement.** With no profile, intuition points at the code you remember writing, not
+at what consumes time.
 
 **Without a defined budget** — with no target, the discussion is endless.
 
-**Before checking whether the conflict is false.**
+**Before checking whether the conflict is false.** A missing index and a query in a loop cost zero
+clarity to fix — accepting the trade-off before looking is paying for nothing.
 
 **Without recording why** — the strange code becomes permanent.
 
@@ -228,15 +234,15 @@ The last is the most useful technique in this topic: the readability cost stays 
 
 | Performance | Maintainability |
 |---|---|
-| Measured gain | Cheap change |
+| Gain verifiable in a number | Real gain, not measurable |
 | Permanent clarity cost | May blow the budget |
 | Localized | Global |
 | Ages with the platform | Ages well |
 
 | Optimize code | Fix architecture |
 |---|---|
-| Fast to do | Gain of a larger order |
-| Limited gain | Large cost of change |
+| Days of work | Weeks to months |
+| Gain capped by the passage's weight | Gain of an order of magnitude |
 | Local | Affects the design |
 
 ## Failure Modes
@@ -278,33 +284,43 @@ Result: p99 from 2.4 s to 2.1 s. A gain of 12%.
 An investigation with profiling and distributed tracing showed where the time was:
 
 ```text
-database queries (23 sequential queries)          1,420 ms
+database queries (23 sequential queries)          1,320 ms
 synchronous call to the external bureau service     610 ms
 serialization and transport                          90 ms
 decision logic (what was optimized)                  80 ms
+                                                  ————————
+measured p99                                       2,100 ms
 ```
 
-The three weeks had been spent on the 80 ms.
+Before the three weeks, the decision logic measured 380 ms — the same 2,400 ms with that item in
+place. The three weeks did return 300 real milliseconds, and they were spent on the passage that
+accounted for 16% of the time, while the 2,020 ms of queries and bureau went untouched.
 
 What was done afterwards:
 
-**The 23 queries became 4.** Eleven were the same pattern inside a loop; seven could be a single
-query with a join; the rest were covered by a missing index.
+**The 23 queries became 4.** Eleven were the same pattern inside a loop and became one; seven
+could be a single query with a join; of the five that remained, three fetched data another query
+already brought back, and the two left over got a missing index.
 
 ```text
-1,420 ms → 180 ms
+1,320 ms → 180 ms
 ```
 
 **The bureau call parallelized** with the local queries, since there was no dependency between
 them: 610 ms stopped adding up and became the floor.
 
-```text
-final p99   740 ms, within the budget
-```
-
 **The code optimizations were reverted**, except one — a score calculation function executed
 40,000 times per decision, which stayed as a manual loop with a comment recording the measurement
-and the reversal condition.
+and the reversal condition. The reversal was measured before being accepted: the other
+optimizations had no isolable gain, and the decision logic stayed at the same 80 ms. The three
+weeks, in practice, were worth one function.
+
+```text
+final p99   max(180, 610) + 90 + 80 = 780 ms, within the 800 ms budget
+```
+
+The margin is 20 ms, which the team recorded as a risk: any degradation of the bureau breaks the
+contract, and the budget got an alert at 700 ms.
 
 The team then instituted:
 

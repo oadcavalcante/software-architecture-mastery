@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [build-vs-buy, cost-vs-reliability, cloud-native-vs-portable]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -285,7 +285,8 @@ containers                 44            9                   12
 total                     121           32                   42
 ```
 
-121 hours per month is about 0.75 full-time engineer, permanently. Added to the on-call cost and
+121 hours per month is about 0.75 full-time engineer, permanently — the conversion base used was
+160 working hours per month. Added to the on-call cost and
 the post-incident recovery time, the estimate landed at ~1.1 people.
 
 And the comparison redone:
@@ -320,14 +321,21 @@ procedure was out of date.
 Results after 14 months:
 
 ```text
-hours/month operating infrastructure         121 → 34
+hours/month operating infrastructure         121 → 48
 incidents/year                               32 → 11
-night on-call/year                           42 → 13
+night on-call/year                           42 → 16
 total cost (machines + managed + headcount)  +6%
 turnover in the platform team                from 3 departures/year to 0
 ```
 
-The total cost rose 6%, and the decision was still considered right: 87 hours per month went back
+The floor for these numbers is set by what stayed: the database and search alone accounted for 40
+of the 121 hours and for 14 of the 42 on-call nights, and nothing about the migration reduces
+them. What is left above the floor — 8 hours a month and two on-call nights a year — is the
+residual cost of the three managed services: watching quotas, reviewing configuration that
+arrived turned off, and checking an invoice that grows with volume. Managed is not zero; it is
+less.
+
+The total cost rose 6%, and the decision was still considered right: 73 hours per month went back
 to the product, and the reduction in night on-call was pointed out by the team as the change with
 the greatest effect on quality of work.
 

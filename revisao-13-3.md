@@ -14,10 +14,28 @@ nenhum.
 |---|---:|---:|---:|---:|
 | Amostra de calibração | 5 | 4 | 1 | 0 |
 | `pattern` (10 de 63, os de maior risco) | 10 | 9 | 1 | 0 |
-| **Total** | **15** | **13** | **2** | **0** |
+| Amostra aleatória (semente declarada) | 10 | 10 | 0 | 0 |
+| `tradeoff` de `20-trade-offs/` (15 de 20) | 15 | 15 | 0 | 0 |
+| `case-study` (14) | 14 | — | — | 0 |
+| **Total** | **44** | | | **0** |
 
-Faltam 53 `pattern`, 20 `tradeoff`, 14 `case-study`, 275 `concept`, 31
-`foundation`, 9 `exercise`, 5 `adr`, 4 `reference` e 25 `index`.
+Faltam **5 `tradeoff`**, 53 `pattern`, 275 `concept`, 31 `foundation`, 9
+`exercise`, 5 `adr`, 4 `reference` e 25 `index`.
+
+Os cinco `tradeoff` que faltam **não estão em `docs/20-trade-offs/`** — o
+`doc_type` não segue o diretório. São `09-cloud-architecture/vendor-lock-in.md`,
+`10-security/authz-models.md`, `11-scalability/performance-vs-scalability.md`,
+`14-devops-and-platform/deployment-strategies.md` e
+`16-legacy-modernization/migration-strategies.md`. Varrer por diretório em vez de
+por `doc_type` os deixaria de fora, e o `vendor-lock-in` é canônico de um tema
+que esta onda mexeu.
+
+Os vereditos por documento dos 14 `case-study` não foram tabulados na época; a
+coluna fica vazia em vez de estimada.
+
+**A taxa de reprovação não é artefato de triagem.** A amostra aleatória
+(`sam-13.3-amostra-aleatoria-2026-09-01`) deu 10 em 10, contra 13 em 15 da
+amostra triada por risco. Os defeitos estão distribuídos pelo acervo.
 
 A amostra dos dez padrões **não é aleatória**: foi triada pela proporção de
 condições de "Quando Não Usar" que são rótulo sem explicação. A taxa de reprovação
@@ -84,6 +102,42 @@ As quatro foram fechadas. Duas exigiram decisão editorial; duas tinham resoluç
 | `coupling.md` | "Não existe reduzir um sem aumentar o outro", desmentido pela tabela do próprio documento | O eixo vale onde há conhecimento compartilhado; acoplamento de marca e de controle saem de graça, e fila troca temporal por formato sem duplicar |
 | `healthcare.md` | 1,2 h/ano apresentado como "o resultado do projeto" contra um requisito declarado de 99,99% (que permite 0,88 h/ano) | Reconhece os dezenove minutos, dá o custo de fechá-los e registra a revisão do alvo — que é o comportamento que o material cobra dos outros |
 | `feature-flags.md` | "280 removidas, a maioria por remoção efetiva, não por renovação de prazo" — as duas leituras se excluem | 280 decisões: 231 remoções e 49 renovações com justificativa |
+
+### Contas que não fecham — a família mais frequente
+
+Nove dos vinte `tradeoff` publicavam um número que não deriva das próprias
+parcelas. O padrão se repete: a conta é feita uma vez, o texto ao redor é
+reescrito, e o número fica.
+
+| Documento | O que não fechava |
+|---|---|
+| `video-streaming.md` | As quatro linhas de capacidade eram incompatíveis em 2,7×. Reancorado nos 3,4 EB, que sustentam a receita e o exercício |
+| `performance-vs-maintainability.md` | O perfil somava 2 200 ms e era apresentado como o retrato de um p99 de 2,1 s; o p99 final de 740 ms não saía das parcelas (dão 780); e "as três semanas nos 80 ms" usava o valor **pós**-otimização como tamanho do alvo — o trecho media 380 ms antes, e é isso que fecha os 2 400 ms iniciais |
+| `centralization-vs-decentralization.md` | "Divergência de 1 para 7" partia de uma contagem que a Fase 1 nunca deu e que o próprio texto desmente ("a centralização não impediu divergência, tornou-a invisível"). E "dois anos para convergir" contradizia o instantâneo declarado de 20 meses |
+| `cloud-native-vs-portable.md` | "O custo de saída subiu de 9 para 11 meses" comparava o **hipotético** de ontem com o real de hoje: os 9 meses incluíam identidade e funções que a empresa não usava. A saída real de 2021 era de 7 semanas |
+| `managed-vs-self-hosted.md` | Os resultados pós-migração ficavam **abaixo do piso aritmético**: os dois componentes mantidos já somavam 40 h/mês e 14 plantões, e o publicado era 34 e 13 |
+| `speed-vs-quality.md` | As "~300 h" eram 78 semanas × 4 h/semana — taxa constante, contradita cinquenta linhas depois pela curva 4 → 9 → 20 h/semana do próprio documento. Pela curva são ~900 h |
+| `sql-vs-nosql.md` | "Bancos em produção: 2" excluía o índice de busca que a mesma migração criou, e "consultas exploratórias direto no relacional" contradizia esse índice — construído justamente para a pergunta não prevista que motivou tudo |
+| `healthcare.md` | Total ponderado e cenário de sensibilidade acima do teto matemático |
+| `sync-vs-async.md` | 84% da indisponibilidade publicados como 71% |
+
+O caso do `social-network.md` merece registro por ser o contrário: recalculei a
+cadeia inteira — 38:1, 2,3:1, 3 900/s, 410 mil/s, 16 bilhões de publicações — e
+ela fecha. O achado de que as arestas do grafo eram poucas **não se sustentou**:
+o piso da cauda dá ~1,1 bilhão, e 2 bilhões passa. Achado descartado.
+
+### A "regra de três" dizia duas coisas diferentes
+
+`coupling-vs-duplication.md` é canônico e define: 2ª ocorrência duplique e
+observe; com três, o eixo real fica visível. `simplicity-vs-flexibility.md`
+intitulava a seção "A flexibilidade certa vem do **segundo** caso" e atribuía a
+dois casos o que o canônico atribui a três — **citando o canônico como apoio**.
+Alinhado ao canônico.
+
+`abstraction-vs-complexity.md` tinha uma tensão menor e legítima: seu piso é o
+segundo caso. Não é contradição, são operações diferentes — unificar duplicação
+contra esconder implementação —, e agora o documento diz isso em vez de deixar
+os dois pisos soltos no acervo.
 
 ## Uma ponta que o validador novo não cobre
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [vendor-lock-in]
 related: [managed-vs-self-hosted, build-vs-buy, simplicity-vs-flexibility]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -31,8 +31,10 @@ real axis   what is the real probability of migrating, and what is the exit cost
 ```
 
 Portability is **insurance**: a premium paid continuously against a rare event. Like any
-insurance, it is justified when the premium is low relative to the claim — and not when the fear
-is large.
+insurance, it is justified when the continuous premium is low relative to the probability of
+migrating times the exit cost — and not when the fear is large. All three terms are needed: a
+large claim with negligible probability justifies no premium at all, which is the mistake this
+document is about.
 
 And the premium, unlike that of real insurance, appears on no invoice.
 
@@ -84,6 +86,16 @@ is almost always superior, because it concentrates the premium where it is cheap
 See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
 ### Measure the exit cost, do not assume it
+
+Exit cost and selective portability are developed in [vendor
+lock-in](/09-cloud-architecture/vendor-lock-in.md), a prerequisite for this document. What follows
+is that method applied to a concrete decision; the angle that belongs here is the premium as
+insurance, what it costs in delivery speed, and the probability broken down by reason for
+migrating.
+
+The estimates below are of **rewrite effort** and assume a data volume that fits a weekend
+cutover window. Above that, the dominant item is not rewriting: it is egress, and it needs its own
+line — volume, egress price, and window.
 
 ```text
 component                estimated migration effort
@@ -146,7 +158,11 @@ infrastructure declared in a multi-provider tool
 observability with an open protocol
 ```
 
-None of those sacrifices relevant capability, and all of them reduce the dependency surface.
+All of them reduce the dependency surface, and the capability sacrificed is small enough to make
+them the default — with two known exceptions: a workload that depends on a proprietary extension
+or engine does not fit the standard engine, and a recently launched service usually reaches the
+multi-provider tool months after the provider. In both cases, the exception is identifiable before
+deciding.
 
 See [infrastructure as code](/14-devops-and-platform/infrastructure-as-code.md).
 
@@ -167,21 +183,21 @@ customer requirement            low           partial multi-provider
 The first is the most common and does not require migration — it requires **credibility that
 migration is possible**, which is different and cheaper to obtain.
 
-### Signs of the wrong choice
+### Which way the team erred
+
+The symptoms are in Failure Modes and Common Mistakes. What the team needs before those is the
+direction of the error, and one test is enough:
 
 ```text
-too native
-  critical dependency on a proprietary service with no alternative
-  exit cost never estimated
-  new regulatory requirement impossible to meet
-  price changed with no negotiating power
+ask why proprietary service X is not used
 
-too portable
-  reimplementing what the provider offers ready-made
-  abstraction layers with a single provider behind them, for years
-  provider capability unused by policy
-  delivery speed below competitors that use the cloud deeply
+"we know of no alternative if it goes away"   → too native
+"policy does not allow it"                    → too portable
+"we measured and it does not pay off"         → neither; this is right
 ```
+
+The third answer is rare, and it is the target. The first two have something in common: no
+number — one fears without estimating, the other forbids without comparing.
 
 ### Cost of changing your mind
 
@@ -231,8 +247,9 @@ Prefer **native** when:
 
 ## Alternatives
 
-- **Isolate without abstracting** — an identifiable module, with no generic layer; the best
-  cost-benefit ratio.
+- **Isolate without abstracting** — an identifiable module, with no generic layer. It wins when
+  the probability of migrating is low but not zero and the service has a functionally equivalent
+  substitute: it costs days and removes most of the extraction effort.
 - **Selective portability** — in the layers where it is cheap, native in the rest.
 - **Real multi-provider** — expensive; justifiable only with a concrete requirement.
 - **Native with a documented exit cost** — use it deeply, and keep the estimate up to date.
@@ -244,16 +261,18 @@ it is impossible, and it is enough to negotiate.
 
 | Native | Portable |
 |---|---|
-| Maximum capability | Option preserved |
-| Delivery speed | Lowest common denominator |
+| Capability available: the provider's | Lowest common denominator |
+| Fast delivery | Slower delivery |
 | Higher exit cost | Continuous premium |
 | Less in-house code | More |
 
 | Isolate without abstracting | Abstraction layer |
 |---|---|
-| Nearly zero cost | Illusion of portability |
+| Nearly zero build cost | A layer to build and maintain |
 | Uses the service deeply | Lowest common denominator |
-| Migration still requires work | Rewrite during migration anyway |
+| An internal interface per use site | A uniform internal interface |
+| Test substitution case by case | Test substitution for free |
+| Migration requires work, contained in the module | Migration requires a rewrite anyway |
 
 ## Failure Modes
 
@@ -310,7 +329,22 @@ provider migrations performed                          0
 ```
 
 The review began with an exercise that had never been done: estimating the exit cost, component by
-component, of the hypothetical scenario.
+component. First for the architecture that existed, which is what the policy was buying:
+
+```text
+containers                       1 week
+database (standard engine)       3 weeks
+object storage                   1 week
+observability                    2 weeks
+                                 ————————————————
+exit from the 2021 architecture  ~7 weeks
+```
+
+Seven weeks. That was the claim covered by a premium of 4.5 permanent engineers and delivery 2.3×
+slower — and the disproportion between the two is the finding that opened the discussion.
+
+Then for the scenario the policy existed to avoid: the same company having adopted the provider's
+identity and functions, with no isolation.
 
 ```text
 component                     estimated migration effort
@@ -326,8 +360,7 @@ functions (if they were the
 hypothetical full migration   ~9 months
 ```
 
-Nine months, for an event nobody could associate with a deadline or a concrete trigger — against
-4.5 permanent engineers and delivery 2.3× slower.
+Nine months, for an event nobody could associate with a deadline or a concrete trigger.
 
 And the exercise revealed the point that changed the conversation with the board: **the real
 concern was negotiating power, not migration.** A documented and credible exit estimate addresses
@@ -360,8 +393,33 @@ average delivery time                              -45%
 consolidated exit cost, estimated                  ~11 months
 ```
 
-The exit cost **rose** — from 9 to 11 months — and that was presented to the board along with the
-other numbers, and accepted.
+The exit cost **rose**, and it matters to say from what to what: from seven weeks to eleven
+months. The comparison against the nine months of the hypothetical scenario does not hold, because
+that scenario never existed — comparing today's real against yesterday's hypothetical is the kind
+of arithmetic that makes a decision look better than it was.
+
+The eleven months break down like this:
+
+```text
+containers, database, object storage, observability   7 weeks (unchanged)
+provider identity, isolated                           6 weeks
+provider functions, isolated                         10 weeks
+proprietary managed queue, isolated                   4 weeks
+proprietary data warehouse                           14 weeks
+managed machine learning service                      6 weeks
+                                                     ————————————————
+total                                                ~47 weeks ≈ 11 months
+```
+
+Two readings come out of the table. The first is that isolation did what it promised: identity and
+functions, which without isolation would add up to thirty weeks, add up to sixteen. The second is
+that this did not stop the total from rising, because the reform adopted three proprietary
+services the old policy would not let exist. Isolating does not make the exit cheaper in absolute
+terms — it keeps the cost **estimable and contained in the module**, instead of diffuse across the
+system. That is a smaller promise than "portability", and it is the one that gets kept.
+
+This was presented to the board along with the other numbers, and accepted: eleven months of exit,
+against 34% of cost and 45% of lead time, with the estimate revised every year.
 
 The 2021 policy answered a legitimate concern with the wrong instrument. The board wanted not to
 be held hostage; what it needed was a credible exit estimate, not an architecture that avoided the

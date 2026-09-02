@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [simplicity-vs-flexibility, coupling-vs-duplication, performance-vs-maintainability]
 canonical_for: [abstração contra complexidade, profundidade de abstração, camada rasa, abstração vazada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -204,7 +204,12 @@ Prefira concreto quando:
 
 **Quando ela vaza** o que o usuário precisa saber.
 
-**Antes do segundo caso.**
+**Antes do segundo caso.** Este piso é mais baixo que o da
+[regra de três](/20-trade-offs/coupling-vs-duplication.md), e a diferença é de operação:
+ali se decide **unificar** trechos que se repetem, e o terceiro caso existe para revelar o
+eixo da variação; aqui se decide **esconder** uma implementação atrás de uma interface, e o
+segundo caso já basta porque a interface não precisa acomodar variação nenhuma — precisa
+esconder algo volátil. Se a abstração também unifica duplicação, vale o piso de lá.
 
 **Para parecer organizado** — organização visual não é abstração.
 

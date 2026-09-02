@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [document-databases, key-value-databases, column-stores]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -207,9 +207,9 @@ necessary — only with no tooling.
 from the queries. Choosing first and modeling later usually ends in a full scan to answer what was
 trivial in relational.
 
-**Adding technology without counting the operational cost.** Each new store brings backups, monitoring,
-version upgrades and a skill to maintain in the team — a recurring cost that rarely enters the
-comparison.
+**Adding technology without counting the operational cost.** Each new store is a duplicated set of
+procedures, and the [cost of the second database](/20-trade-offs/sql-vs-nosql.md) rarely enters
+the comparison — which tends to be made on performance alone.
 
 ## Real-World Example
 

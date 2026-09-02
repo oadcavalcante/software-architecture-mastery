@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [build-vs-buy, cost-vs-reliability, cloud-native-vs-portable]
 canonical_for: [gerenciado contra autogerido, esforço operacional, prêmio de gestão, competência operacional]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -286,9 +286,10 @@ contêineres             44           9                   12
 total                  121          32                   42
 ```
 
-121 horas por mês equivalem a cerca de 0,75 engenheiro em tempo integral, permanente. Somado
-ao custo de plantão e ao tempo de recuperação pós-incidente, a estimativa ficou em ~1,1
-pessoa.
+121 horas por mês equivalem a cerca de 0,75 engenheiro em tempo integral, permanente — a
+base de conversão usada foi 160 horas úteis por mês. Somado ao custo de plantão e ao tempo de
+recuperação pós-incidente, a estimativa ficou em ~1,1 pessoa, a R$ 47 mil/mês por pessoa com
+encargos e benefícios.
 
 E a comparação refeita:
 
@@ -322,14 +323,20 @@ procedimento documentado estava desatualizado.
 Resultados após 14 meses:
 
 ```text
-horas/mês em operação de infraestrutura      121 → 34
+horas/mês em operação de infraestrutura      121 → 48
 incidentes/ano                               32 → 11
-plantão noturno/ano                          42 → 13
+plantão noturno/ano                          42 → 16
 custo total (máquinas + gerenciados + pessoal) +6%
 rotatividade na equipe de plataforma          de 3 saídas/ano para 0
 ```
 
-O custo total subiu 6%, e a decisão foi considerada acertada mesmo assim: 87 horas por mês
+O piso desses números é dado pelo que ficou: banco e busca sozinhos respondiam por 40 das 121
+horas e por 14 dos 42 plantões, e nada da migração os reduz. O que sobra acima do piso — 8
+horas por mês e dois plantões por ano — é o custo residual dos três gerenciados: acompanhar
+cota, revisar configuração que veio desligada, e conferir fatura que cresce com o volume.
+Gerenciado não é zero; é menos.
+
+O custo total subiu 6%, e a decisão foi considerada acertada mesmo assim: 73 horas por mês
 voltaram para o produto, e a redução de plantão noturno foi apontada pela equipe como a
 mudança de maior efeito na qualidade de trabalho.
 

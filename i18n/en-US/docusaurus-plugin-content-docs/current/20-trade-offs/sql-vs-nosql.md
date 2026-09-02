@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [strong-vs-eventual-consistency, managed-vs-self-hosted, performance-vs-maintainability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -52,9 +52,8 @@ The decision is commonly made on arguments that do not decide:
 "we'll need scale"           → which scale, measured how?
 ```
 
-And the forgotten cost is operational. One more database means: one more skill in the team, one
-more backup and restore procedure, one more upgrade, one more alarm, one more item on-call, one
-more consistency to coordinate.
+And the forgotten cost is operational, which the section on [the second
+database](#the-second-database-costs-more-than-the-first) details.
 
 See [managed vs. self-hosted](/20-trade-offs/managed-vs-self-hosted.md).
 
@@ -113,14 +112,29 @@ See [transactions](/07-data-architecture/transactions.md).
 
 ### Scale is not the argument it appears to be
 
+Row count is the wrong axis. A modern relational instance handles tens of terabytes and tens of
+thousands of transactions per second — this material has cases of 400 million and of 12 billion
+rows on relational, with no migration. See [relational
+databases](/07-data-architecture/relational-databases.md).
+
+What actually pushes you out of relational:
+
 ```text
-up to ~millions of rows with adequate indexes   relational, effortlessly
-tens of millions, with partitioning             relational, with work
-globally distributed, multi-region writes       non-relational has a clear advantage
-key-value with microsecond latency              likewise
+write rate above what one instance accepts, with
+  no natural partition key                           non-relational has the advantage
+writes accepted in more than one region, with
+  availability under network partition               likewise
+hot set larger than available memory, with
+  uniform access (no locality)                       likewise
+consistent sub-millisecond read latency, by key      key-value
+maintenance window shorter than a schema operation
+  on the largest table                               a sign for partitioning, not family
 ```
 
-Most business systems live in the first band and never leave it. Choosing for the scale
+Note that only the fourth line is about latency and none is about row count. Volume by itself does
+not decide: what decides is what the volume does to writes, to memory, and to the window.
+
+Most business systems never cross any of those lines. Choosing for the scale
 scenario that may never arrive costs today, for certain, for an uncertain benefit.
 
 See [simplicity vs. flexibility](/20-trade-offs/simplicity-vs-flexibility.md) — it is the same
@@ -158,7 +172,10 @@ chose relational and should not have
   partitioning done manually by hand
 ```
 
-The first sign in each list appears early and is the most reliable.
+The signs in the two lists do not appear at the same time. Those in the first show up early, in
+the first weeks of use, because they are an immediate consequence of the model. Those in the
+second are accumulated state — null columns and a generic attribute table take many migrations to
+form — and that is why the second list is the one discovered late.
 
 ### Cost of changing your mind
 
@@ -197,16 +214,23 @@ Prefer **relational** when:
 
 ## When Not to Use
 
-**Choosing by hypothetical scale.**
+**Choosing by hypothetical scale** — when none of the five lines above has been crossed and no
+dated projection crosses them. The cost is today; the benefit, maybe.
 
-**Adopting a second database without counting the operational cost.**
+**Adopting a second database when the gain does not cover the six duplicated items.** The question
+is quantitative: does the case motivating the second database save more than a skill, an on-call
+rotation and a tested restore cost per year?
 
-**Treating "schemaless" as the absence of a schema.**
+**Treating "schemaless" as the absence of a schema** — the schema moves into the code that reads,
+scattered across every reader, and the divergence only surfaces when one of them fails in
+production.
 
-**Using non-relational for exploratory queries.**
+**Using non-relational when an unanticipated question exists** — the decisive distinction in this
+document. If the product is going to segment by combinations nobody listed, the denormalized model
+forces an export to answer.
 
-**Using relational with a generic attribute table** — a symptom of the wrong model, not the
-wrong database.
+**Using relational with a generic attribute table** — a symptom of the wrong model, not the wrong
+database; switching families does not fix it, it just moves the problem.
 
 ## Alternatives
 
@@ -238,17 +262,25 @@ for what varies, one database to operate.
 
 ## Failure Modes
 
-**Join in the application.** A non-relational model used for relational access.
+The symptoms of a wrong choice are in [the list above](#signs-of-the-wrong-choice). What follows is
+what shows up later, once the choice has been absorbed by the system and is no longer attributed
+to it.
 
-**Accumulated heterogeneous documents.** A future migration becomes archaeology.
+**Improvised consistency between databases.** There is no transaction across the two, so someone
+wrote a reconciliation routine — and it is the least tested piece of the system, because it only
+runs when something has already gone wrong.
 
-**Generic attribute table.** Relational used against its nature.
+**A migration that became archaeology.** The documents accumulated formats, and leaving requires
+an analyst reading data to find out how many exist. The cost of leaving grew without anyone
+deciding it.
 
-**Second database with no justification.** Doubled operational cost.
+**The right database for the wrong reason.** The choice was sound and nobody knows why — whoever
+decided has left, there is no record, and the review stays blocked because touching it feels
+risky.
 
-**Choice by hypothetical scale.** Cost today, benefit maybe.
-
-**Improvised consistency between databases.**
+**Performance blamed on the family.** The system is slow, and the conversation turns into
+relational versus non-relational instead of query profiling. Switching families rewrites
+everything and keeps the bad query.
 
 ## Common Mistakes
 
@@ -259,8 +291,9 @@ necessary query is not expressible.
 **Not asking whether there will be unforeseen queries.** It is the decisive distinction: the
 relational one answers well what nobody anticipated; the denormalized one does not.
 
-**Not counting the cost of the second database.** Backup, monitoring, upgrades and one more skill
-to maintain in the team are a recurring cost that does not show up in a performance comparison.
+**Not counting the cost of the second database.** The comparison is made on performance, and the
+recurring cost — [six duplicated items](#the-second-database-costs-more-than-the-first) — enters
+neither side of it.
 
 **Ignoring JSON in a relational database** as an option. It covers a good part of what is sought
 in a document store without giving up transactions, joins and ad hoc queries — and it rarely
@@ -320,14 +353,34 @@ Results after the migration:
 coexisting formats                              1
 joins in the application                        0
 simulated transactions                          0 — they became transactions
-exploratory queries                             directly on the relational one, no export
+exploratory queries                             on the relational one, no manual export
+product segmentation                            dedicated index, continuously fed
 incidents from divergence                       0 in 10 months
-databases in production                         2 (against 1, with a clear purpose)
+stateful components in production               3 (against 1)
 infrastructure cost                             -12%
 ```
 
-The two remaining databases have a justification recorded in an ADR, with a reversal condition:
-if the meal log starts requiring cross-cutting queries, it goes back to the relational one.
+Two lines in that table deserve care, because they are easy to read as a bigger win than it was.
+
+**Exploratory querying did not all come back to the relational database.** What ended was the
+weekly manual export to a spreadsheet and a temporary database: questions about plans, adherence
+and history became a single query. But segmentation by combinations of restrictions — the
+unanticipated question that motivated the migration — is not answered by the relational database
+alone: it lives in a search index fed from it. The migration traded a manual export for a
+continuous pipeline, which is better, and not for nothing.
+
+**And the index counts as a stateful component.** By this document's own cost model it brings a
+skill, a tested restore, upgrades, alarms, on-call and a consistency to coordinate — the lag
+between the relational database and the index. Counting "two databases" would mean not applying
+the yardstick the document demands of others: the design went from one store to three.
+
+The 12% comes from two sources, neither of them the number of components: the document cluster
+went from nine nodes to three once 80% of the write volume was the only case left on it, and the
+JSON column removed a cache layer that existed only to avoid the joins in the application.
+
+The three components have a justification recorded in an ADR, with a reversal condition: if the
+meal log starts requiring cross-cutting queries, it goes back to the relational one; if
+segmentation fits an index on the relational database itself, the dedicated index goes away.
 
 The 2022 decision was not absurd — the attribute variation was real. The error was one of
 method: the choice was made from a characteristic of the data, without listing the foreseen

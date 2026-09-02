@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [abstraction-vs-complexity, coupling-vs-duplication, speed-vs-quality]
 canonical_for: [simplicidade contra flexibilidade, custo de opcionalidade, flexibilidade não exercida, eixo de comparação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -94,19 +94,21 @@ a variação é permitida.
 
 Ver [complexidade](/01-fundamentals/complexity.md).
 
-### A flexibilidade certa vem do segundo caso
+### A flexibilidade certa vem dos casos, não da antecipação
 
 ```text
 um caso conhecido    a abstração é adivinhação
-dois casos           a variação real fica visível
-três casos           o eixo está claro
+dois casos           a variação é uma hipótese
+três casos           o eixo real fica visível
 ```
 
 Esta é a razão prática da regra de três: a estrutura que acomoda variação é derivável dos
 casos, não antecipável a partir de um.
 
 Construir a partir de um caso produz uma abstração com a forma daquele caso — que é
-exatamente o que não serve quando o segundo aparece.
+exatamente o que não serve quando o segundo aparece. E parar no segundo troca a
+adivinhação por uma hipótese com uma amostra: a variação que os dois exibem pode ser a
+que importa, ou pode ser a única que eles têm em comum.
 
 Ver [acoplamento contra duplicação](/20-trade-offs/coupling-vs-duplication.md).
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [document-databases, key-value-databases, column-stores]
 canonical_for: [NoSQL]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -212,7 +212,7 @@ nova.
 
 **Escolher a ferramenta antes de descrever o padrão de acesso.** Bancos orientados a chave exigem modelar a partir das consultas. Escolher primeiro e modelar depois costuma terminar em varredura completa para responder o que era trivial no relacional.
 
-**Adicionar tecnologia sem contar o custo operacional.** Cada armazenamento novo traz cópia de segurança, monitoramento, atualização de versão e uma competência a manter no time — custo recorrente que raramente entra na comparação.
+**Adicionar tecnologia sem contar o custo operacional.** Cada armazenamento novo é um conjunto de procedimentos duplicado, e o [custo do segundo banco](/20-trade-offs/sql-vs-nosql.md) raramente entra na comparação — que costuma ser feita só em desempenho.
 
 ## Exemplo Real
 
