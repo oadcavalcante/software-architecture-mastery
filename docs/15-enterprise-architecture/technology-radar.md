@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-principles, technical-strategy]
 canonical_for: [radar tecnológico, anel de adoção, movimento de tecnologia]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -28,7 +28,7 @@ confia nelas**, e registra o movimento entre esses anéis ao longo do tempo.
 adotar       usamos, recomendamos, é o padrão
 experimentar vale tentar em um projeto real, com escopo limitado
 avaliar      vale entender, sem compromisso
-evitar       não usamos, e há razão registrada
+evitar       não iniciamos nada novo com isso, e há razão registrada
 ```
 
 Ele substitui a lista de tecnologias aprovadas — que é binária, sem contexto, e congela.
@@ -120,7 +120,7 @@ o que o mantém vivo, porque as pessoas participam da construção.
 ### Frequência de revisão
 
 ```text
-trimestral   o intervalo usual — acompanha sem virar burocracia
+trimestral   o mais usado; acompanha sem virar burocracia
 semestral    aceitável em organizações estáveis
 anual        envelhece entre revisões
 contínuo     entradas podem ser propostas a qualquer momento
@@ -142,13 +142,22 @@ quê; o radar diz por quê e desde quando.
 
 ## Quando Não Usar
 
-**Como lista de proibições.**
+**Com um time só, ou com poucos.** O radar existe para propagar aprendizado entre times que
+não se falam. Com oito engenheiros num time, o aprendizado circula na conversa, e a revisão
+trimestral vira cerimônia sobre decisões que todos já conhecem.
 
-**Sem justificativa por item.**
+**Quando a divergência tecnológica é baixa por outra razão.** Se o caminho pavimentado já
+embute as escolhas — a esteira só constrói neste runtime, a plataforma só provisiona este
+banco —, o radar descreve o que a ferramenta já decide. Foi o que aconteceu ao fim do
+Exemplo Real, e é sinal de sucesso, não de falha.
 
-**Produzido sem os times.**
+**Quando ninguém vai manter a revisão.** Um radar que envelhece é pior que a ausência dele:
+continua sendo citado como se descrevesse a realidade. Sem quem convoque a sessão e escreva
+o que mudou, a lista de aprovados é mais honesta.
 
-**Copiado de radar público.**
+**Quando a decisão precisa ser verificável automaticamente.** Em contexto regulatório ou de
+compra, o que se exige é resposta binária e auditável. O radar orienta e admite exceção, que
+é o oposto do que esse caso pede.
 
 **Sem revisão periódica.**
 
@@ -173,11 +182,12 @@ periódica, e é isso que o mantém descrevendo a realidade.
 
 | Radar | Lista de aprovados |
 |---|---|
-| Gradação e contexto | Binário |
+| Gradação e contexto | Resposta binária |
 | Registra movimento e aprendizado | Estático |
-| Manutenção contínua | Baixa, e envelhece |
-| Orienta, admite exceção | Controla, produz contorno |
-| Construído com os times | Imposto |
+| Manutenção contínua | Manutenção baixa, e envelhece |
+| Orienta, e a exceção é conversa | Controla, e a exceção é processo |
+| Difícil de verificar na esteira | Verificável automaticamente |
+| Construído com os times, e leva tempo | Decidido por poucos, e sai rápido |
 
 E a frequência de revisão equilibra esforço e atualidade:
 
@@ -220,8 +230,9 @@ E a frequência de revisão equilibra esforço e atualidade:
 Uma empresa de tecnologia tinha uma lista de 60 tecnologias aprovadas, mantida por um
 grupo de arquitetos.
 
-Uma auditoria dos serviços em produção encontrou 31 tecnologias em uso que não estavam
-na lista — mais da metade do que estava rodando.
+Uma auditoria dos serviços em produção encontrou 69 tecnologias rodando, das quais 31 não
+estavam na lista. E o descolamento valia nos dois sentidos: 22 das 60 aprovadas não eram
+usadas por ninguém.
 
 A lista não era consultada. Ela era citada apenas quando alguém queria bloquear uma
 proposta.
@@ -235,12 +246,13 @@ A migração da lista para o radar exigiu escrever esse contexto — e 18 dos 60
 tinham ninguém que soubesse por que estavam ali. Foram removidos.
 
 **Anel de "evitar" com razão.** Sete tecnologias foram para "evitar" com relato do que
-tinha sido tentado e por que não funcionou. Um deles — um banco de grafo — tinha sido
+tinha sido tentado e por que não funcionou. Uma delas — um banco de grafo — tinha sido
 tentado por três times diferentes em quatro anos, cada um sem saber dos anteriores.
 
 **Construção com os times.** Revisão trimestral, com relatos de quem usou. A primeira
-sessão levou três horas e produziu mais conhecimento compartilhado que qualquer
-documento anterior.
+sessão levou três horas e produziu quatorze relatos de uso que não estavam escritos em
+lugar nenhum — incluindo dois casos em que times diferentes tinham abandonado a mesma
+tecnologia pelo mesmo motivo, sem saber um do outro.
 
 **Movimento registrado.** Em dezoito meses, 23 movimentos — nove entradas em avaliar,
 seis promoções a experimentar, cinco a adotar, três para evitar.
@@ -280,6 +292,7 @@ orientando nada.
 
 ## Para Aprofundar
 
-- Thoughtworks. *Technology Radar* — o formato original e as edições públicas.
+- Thoughtworks. *Technology Radar*, vol. 29, 2023 — uma edição como âncora do formato; as
+  demais estão publicadas e mostram o movimento dos itens entre anéis.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
 - Ford, Neal et al. *Building Evolutionary Architectures*. 2ª ed. O'Reilly, 2022.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [dependency-inversion]
 related: [hexagonal-architecture, onion-architecture, clean-architecture]
 canonical_for: [ports and adapters, primary port, secondary port]
-translated_from_version: 1
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,10 +28,11 @@ rule:
 > through **ports** that the core defines, and **adapters** that the world
 > implements.
 
-It is the original formulation of which
-[Hexagonal](/02-software-design/hexagonal-architecture.md),
+It is the original formulation. [Hexagonal](/02-software-design/hexagonal-architecture.md) **is not
+a variation**: it is the other name for the same pattern, and changing the name changes no rule.
 [Onion](/02-software-design/onion-architecture.md) and
-[Clean Architecture](/02-software-design/clean-architecture.md) are variations.
+[Clean Architecture](/02-software-design/clean-architecture.md), on the other hand, are variations in
+fact — they add rings and vocabulary on top of the same direction rule.
 
 ## Problem
 
@@ -63,17 +64,21 @@ persist, notify, quote.
 
 An adapter translates between the world's protocol and the port.
 
+Note the direction of the dashed arrows: it is the adapters that point at the port, not the
+other way around. That is what distinguishes this drawing from a layered architecture.
+
 ```mermaid
 graph LR
   HTTP[HTTP adapter] --> PP["«primary port»<br/>CreateOrder"]
   CLI[CLI adapter] --> PP
   PP --> N[Core]
   N --> PS["«secondary port»<br/>OrderRepository"]
-  PS -.implements.-> SQL[SQL adapter]
-  PS -.implements.-> MEM[In-memory adapter]
+  SQL[SQL adapter] -.implements.-> PS
+  MEM[In-memory adapter] -.implements.-> PS
 ```
 
-Every dependency arrow points at the core. That is the only rule.
+Every dependency arrow points at the core. That is the only rule — and it is why the SQL
+adapter depends on the port, and not the port on the adapter.
 
 ### The symmetry is the point
 
@@ -99,8 +104,9 @@ nonexistent.
 **When there is one channel and one persistence, and that will remain so.** The
 pattern buys substitutability. Without it, it is pure cost.
 
-**In small systems.** The number of files per use case grows considerably; in a
-system with few cases, that dominates.
+**When there are fewer than three external dependencies that can change.** It is the same
+threshold measured in [Hexagonal](/02-software-design/hexagonal-architecture.md): below it, the
+indirection costs about 30% more files to protect a swap that never comes.
 
 **When the ports become mirrors of the infrastructure.** If `OrderRepository` has
 `findByStatusIn` and returns the ORM's type, the core stays coupled with extra
@@ -112,9 +118,9 @@ is crossed within months and the system is left with the cost and not the proper
 
 ## Alternatives
 
-- **Layers with inversion only at persistence** — captures most of the benefit for
-  a fraction of the cost. It is the most common arrangement and frequently the
-  right one.
+- **Layers with inversion only at persistence** — captures most of the benefit for a
+  fraction of the cost, and it is the right arrangement when the only volatile dependency is
+  the database.
 - **Adapters only for volatile dependencies** — invert what is unstable and call
   what is stable directly.
 - **Transaction script** — in simple domains, a direct procedure is clearer.
@@ -141,12 +147,14 @@ the core.
 
 **Anemic core.** All the logic in the adapters; the core only defines types.
 
-**Unenforced rule.** Without verification, the core imports infrastructure within
-months.
+**Unenforced rule.** Without verification, the core goes back to importing infrastructure —
+and the first violation usually arrives before anyone thinks to look for it.
 
 ## Common Mistakes
 
-**Applying it to CRUD.** The most common.
+**Applying it to CRUD.** A port, an adapter and a test double for an operation that only
+moves fields between the form and the table: the cost is paid in full and there is no rule to
+protect.
 
 **Putting the ports next to the adapters.** It cancels the inversion.
 
@@ -186,8 +194,9 @@ behavioural: a fast suite is run on every change; a slow one is run in CI and
 ignored locally.
 
 **Determinism.** With no database, no network and no real clock, the test does not
-fail for reasons unrelated to the change. Tests that fail sporadically stop being
-consulted, and an unreliable suite is worse than none.
+fail for reasons unrelated to the change. Tests that fail for reasons unrelated to the change
+stop serving as a merge criterion — and the damage is not being left without a signal, it is
+being left with a signal nobody trusts and that still consumes time on every run.
 
 **Difficult scenarios become trivial.** Simulating the payment provider being down,
 the call that times out, the duplicate identifier — all of that is one line in an

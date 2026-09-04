@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [facade, bridge, proxy]
 canonical_for: [adapter]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,9 +24,11 @@ last_reviewed: 2026-08-31
 Adapter converts one class's interface into another that the client expects, letting
 classes with incompatible interfaces work together.
 
-It is the pattern with the greatest practical utility and the least controversy in
-the catalogue. It is also the only one that is practically always correct when
-applied at the boundary with code you do not control.
+It is one of the most directly applicable patterns in the catalogue, and the one that
+demands the least justification: at the boundary with code you do not control,
+translating in a single place is almost always preferable to spreading someone else's
+shape through your domain. The caveat is in "at the boundary" — inside your own code, an
+adapter usually signals that the interface should have been different from the start.
 
 ## Problem
 

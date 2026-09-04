@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ports-and-adapters]
 related: [onion-architecture, clean-architecture, dependency-inversion]
 canonical_for: [hexagonal architecture]
-translated_from_version: 1
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -49,24 +49,37 @@ adopt as though they were alternatives.
 
 ### What the drawing communicates
 
+Follow the arrows: none of them goes from the inside out. The database and the external API
+point at the core just as much as the Web does — that symmetry is what the drawing exists to
+show.
+
 ```mermaid
 graph TB
   subgraph Outside
-    W[Web] --- Q[Queue] --- C[CLI]
-    DB[(Database)] --- EXT[External API]
+    W[Web]
+    Q[Queue]
+    C[CLI]
+    DB[(Database)]
+    EXT[External API]
   end
   subgraph Inside
+    PP["driving port"]
     N[Domain core<br/>knows nothing of the outside]
+    PS["driven port"]
   end
-  W --> N
-  Q --> N
-  C --> N
-  N --> DB
-  N --> EXT
+  W --> PP
+  Q --> PP
+  C --> PP
+  PP --> N
+  N --> PS
+  DB -.implements.-> PS
+  EXT -.implements.-> PS
 ```
 
 Two ideas, and only two: there is an **inside** and an **outside**; and all code
-dependencies point inward.
+dependencies point inward. The driven side is the deceptive one: the core *uses* the
+database, but *depends* on the port it declares itself — and what depends on the database is
+the adapter.
 
 The absence of hierarchy among the elements on the outside is the point. In a
 layered architecture, the user interface sits at the top and the database at the
@@ -138,8 +151,9 @@ The same as Ports and Adapters, plus two specific to the name:
 
 **Reading the six sides as prescription.** They are drawing.
 
-**Adopting the directories without the rule.** The most common and the most
-expensive, because it produces the full cost and no benefit.
+**Adopting the directories without the rule.** The most expensive mistake on this list,
+because it produces the full cost and no benefit: the structure suggests an isolation the
+compiler does not enforce.
 
 **Debating which of the four names to adopt.** The choice between Hexagonal, Onion
 and Clean is one of vocabulary; the decision that matters is whether the direction
@@ -147,18 +161,18 @@ rule holds and how it will be enforced.
 
 ## Real-World Example
 
-A team adopted hexagonal in a new service and, six months later, had nineteen
-imports of `infra` inside `domain` — the case described in
-[architecture vs. implementation](/01-fundamentals/architecture-vs-implementation.md),
-where the lesson is about the distance between the declared and the implemented
-architecture.
+A team adopted hexagonal in a new service and, six months later, two architecture tests
+written in an afternoon reported nineteen violations — the domain importing `infra` and an
+adapter importing an adapter. It is the case described in
+[architecture vs. implementation](/01-fundamentals/architecture-vs-implementation.md), where
+the lesson is about the distance between the declared and the implemented architecture.
 
 What matters here is what came afterwards, because it answers the pattern's
 specific question: **once fixed, did hexagonal pay off?**
 
-The nineteen violations were fixed in three weeks, and an architecture test began
-preventing new ones. From then on the service operated with the structure actually
-isolated for eighteen months, during which three infrastructure swaps happened:
+The nineteen violations were fixed in three weeks, and the two tests began preventing new
+ones. From then on the service operated with the structure actually isolated for eighteen
+months, during which three infrastructure swaps happened:
 
 ```text
 swap                              files touched      duration
@@ -174,15 +188,19 @@ the use cases — took seven weeks and touched 41 files.
 The cost of the pattern, measured over the same period:
 
 ```text
-extra files in the service                   ~30%
-onboarding time for a new person             +1.5 days, estimated
-use cases that needed a new port             4 of 23
-ports with a single adapter, after 18 months 6 of 9
+extra files in the service                    ~30%
+onboarding time for a new person              +1.5 days, estimated
+use cases that needed a new port              4 of 23
+ports that never had a second adapter
+  at any point in the 18 months                 6 of 9
 ```
 
-The last line is the one the team considers most honest: two thirds of the ports
-never had a second adapter, and probably never will. They are indirection cost with
-no substitution return — paid so that the three that mattered would work.
+The last line is the one the team considers most honest, and its criterion matters: it counts
+the ports that never had a second adapter **at any point** in the period. The other three did
+— not simultaneously, but in sequence, when the infrastructure was swapped. Counted at any
+given instant, all nine would have a single adapter, and the metric would say nothing. Two
+thirds of them never exercised the indirection, and probably never will. They are indirection
+cost with no substitution return — paid so that the three that mattered would work.
 
 In retrospect: the balance was positive because the service was integration-heavy,
 with four volatile external dependencies. In a service with a stable domain and
@@ -194,10 +212,12 @@ services: count the external dependencies that can change. Above three, the
 isolation pays off; below, it produces indirection nobody exercises.
 
 And there is a detail of sequence the team considers decisive: the three swaps were
-made **after** the architecture test existed. Without it, the dependencies would
-have leaked again between one swap and the next, and the second swap would no
-longer have found the isolation the first assumed. The pattern without a
-verification mechanism has a half-life of months.
+made **after** the architecture test existed. Without it, the dependencies would have leaked
+again between one swap and the next, and the second swap would no longer have found the
+isolation the first assumed. In this service, six months without verification were enough for
+nineteen violations — and there is no reason to treat that number as law, but there is reason
+to treat the direction as expected: with no mechanism enforcing the rule, the erosion starts
+before anyone notices.
 
 ## Related Concepts
 

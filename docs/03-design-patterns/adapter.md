@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [facade, bridge, proxy]
 canonical_for: [adapter, adaptador]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -24,9 +24,11 @@ last_reviewed: 2026-08-26
 Adapter converte a interface de uma classe em outra que o cliente espera,
 permitindo que classes com interfaces incompatíveis trabalhem juntas.
 
-É o padrão de maior utilidade prática e menor controvérsia do catálogo. Também é
-o único que é praticamente sempre correto quando aplicado na fronteira com código
-que você não controla.
+É um dos padrões de aplicação mais direta do catálogo, e o que menos exige
+justificativa: na fronteira com código que você não controla, traduzir num ponto
+só é quase sempre preferível a espalhar a forma alheia pelo domínio. A ressalva
+está em "na fronteira" — dentro do próprio código, um adaptador costuma sinalizar
+que a interface deveria ter sido outra desde o começo.
 
 ## Problema
 

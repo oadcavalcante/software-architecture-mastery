@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, graceful-degradation, retry-storms]
 canonical_for: [bulkhead, isolamento de recursos, pool dedicado, isolamento por cliente]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -52,16 +52,27 @@ de todos os outros.
 
 ### As dimensões de isolamento
 
+São duas escolhas independentes, e confundi-las é o erro de leitura mais comum aqui.
+A primeira é **por qual eixo** compartimentar:
+
 ```text
-por dependência   pool de conexões e fios separados por serviço chamado
-por cliente       cota por inquilino, para que um não afete os outros
-por operação      leitura e escrita, ou crítico e não crítico
-por criticidade   caminho de pagamento separado do de navegação
-por instância     processos ou máquinas dedicados
+por dependência   um compartimento por serviço chamado
+por cliente       um por inquilino, para que um não afete os outros
+por criticidade   caminho de pagamento separado do de navegação, leitura de escrita
 ```
 
-A força cresce na lista: separar pools é configuração; separar processos é isolamento
-real; separar máquinas é isolamento que nenhuma configuração errada anula.
+A segunda é **com que mecanismo**, e aqui sim há uma escala de força:
+
+```text
+pool separado       configuração; isola conexões e fios, não memória nem CPU
+processo separado   isola memória e CPU, não disco nem rede
+máquina separada    isola o que nenhuma configuração errada anula
+```
+
+Os dois eixos se combinam: dá para separar por cliente com pools, ou por dependência
+com máquinas. Isolar por cliente não é mais forte que isolar por dependência — são
+perguntas diferentes. O que cresce em força é a coluna da direita, e ela custa na mesma
+ordem.
 
 A escolha depende do que se protege e do custo aceitável.
 
@@ -139,8 +150,10 @@ um conjunto específico de falhas, e é preciso saber qual.
 
 ## Modelo Mental
 
-**Bulkhead limita o dano ao compartimento.** Ele é a proteção que funciona quando as
-outras foram mal configuradas.
+**Dimensionar um compartimento é decidir de antemão quanto se aceita perder.** O número
+que se escolhe para o pool não é uma configuração técnica: é a resposta à pergunta
+"quantas requisições desta dependência eu aceito falhar para que as outras sobrevivam?".
+Quem dimensiona por intuição está respondendo essa pergunta sem saber que a fez.
 
 ## Quando Usar
 
@@ -152,16 +165,26 @@ outras foram mal configuradas.
 
 ## Quando Não Usar
 
-**Compartimentos que enfileiram em vez de rejeitar.**
+**Quando a dependência é única e o serviço não sobrevive sem ela.** Compartimentar
+supõe que há algo a salvar do outro lado da parede. Um serviço que só consulta um banco
+e não tem resposta degradada não tem: se o pool esgota, o compartimento protegido não
+atende nada de útil. O que esse caso pede é limite de concorrência e resposta rápida de
+erro, não isolamento.
 
-**Dimensionados sem medir.** Gargalo artificial.
+**Quando rejeitar custa mais que esperar.** Bulkhead recusa para preservar o
+compartimento, e isso pressupõe um chamador que sabe o que fazer com a recusa. Num lote
+noturno ou numa ingestão assíncrona sem prazo, a fila é a resposta certa e a recusa
+apenas transfere o trabalho para uma retentativa.
 
-**Granularidade excessiva.** Dezenas de pools que ninguém dimensiona nem monitora.
+**Quando a concorrência já é limitada acima.** Consumidor de fila com paralelismo fixo,
+função com concorrência reservada, servidor com pool de trabalhadores dimensionado: o
+teto já existe, e um segundo teto dentro dele só acrescenta um número a manter.
 
-**Quando o isolamento não é real.** Pools separados no mesmo processo não protegem
-contra esgotamento de memória.
-
-**Em aplicação simples** com uma dependência.
+**Quando o recurso que satura está abaixo do compartimento.** Pools separados no mesmo
+processo não protegem contra esgotamento de memória, e cotas por cliente não protegem
+contra um banco compartilhado saturado. Não é que o isolamento parcial seja inútil — ele
+protege contra um conjunto de falhas —, é que ele não protege contra **esta**, e adotá-lo
+achando que sim é pior que não tê-lo.
 
 ## Alternativas
 
@@ -229,7 +252,8 @@ outras 899 empresas ficavam sem serviço.
 **Relatório pesado.** Um cliente grande gerava relatórios que ocupavam trabalhadores de
 fila por horas. Os relatórios dos demais ficavam na fila atrás.
 
-As correções, em três camadas:
+As correções, em três camadas — mais uma quarta, adotada depois que as três estavam
+em produção:
 
 **Pool por dependência.** Chamadas externas — bureaus de crédito, gateways de pagamento
 — passaram a ter pools separados, dimensionados pela lei de Little com folga de 60%. O
@@ -243,8 +267,10 @@ empresa com o laço passou a esgotar apenas a própria cota.
 trabalhadores dedicados. Clientes grandes ganharam fila própria, para que não
 dominassem a compartilhada.
 
-**Isolamento por instância** para os doze maiores clientes, que juntos representavam
-45% do volume. Infraestrutura dedicada, dimensionada separadamente.
+**Isolamento por instância**, seis meses depois, para os doze maiores clientes, que
+juntos representavam 45% do volume. Infraestrutura dedicada, dimensionada
+separadamente. Foi a única medida que exigiu orçamento próprio, e só se justificou
+depois que as três camadas anteriores mostraram onde a concentração estava.
 
 Dois problemas apareceram durante a implementação:
 
@@ -288,5 +314,7 @@ de responder — e compare com o tamanho do pool.
 ## Para Aprofundar
 
 - Nygard, Michael. *Release It!*. 2ª ed. Pragmatic Bookshelf, 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 21.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 21
+  ("Handling Overload") para cota por cliente e criticidade, capítulo 22 ("Addressing
+  Cascading Failures") para esgotamento de recursos e contenção de propagação.
 - Fowler, Susan. *Production-Ready Microservices*. O'Reilly, 2016.

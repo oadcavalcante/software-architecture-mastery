@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [incremental-modernization, migration-strategies, transition-architecture]
 canonical_for: [strangler fig, ponto de interceptação, fachada de migração, desligamento gradual]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -54,12 +54,15 @@ risco é distribuído em muitas trocas pequenas.
 A camada que roteia precisa existir em algum lugar:
 
 ```text
-gateway ou proxy HTTP    intercepta requisições — o mais comum e o mais simples
+gateway ou proxy HTTP    intercepta requisições — o mais simples de montar
 fachada na aplicação     um módulo que decide para onde delegar
 evento                   o novo consome os mesmos eventos que o antigo
-banco de dados           o novo lê a mesma base, temporariamente
 interface de usuário     telas migradas uma a uma
 ```
+
+Base compartilhada não entra nesta lista: ela não desvia chamada nenhuma, é arranjo de
+fonte de dados durante a coexistência — tratado adiante, em "os dados são a parte
+difícil".
 
 A escolha depende de onde é possível interceptar **sem modificar o sistema antigo** — que
 é frequentemente a restrição real, porque modificá-lo pode ser exatamente o que não se
@@ -168,11 +171,16 @@ desligamento é uma entrega, não uma consequência.
 
 **Sem plano de desligamento.**
 
-**Quando o sistema é pequeno** e a substituição direta é viável e barata.
+**Quando reescrever inteiro leva semanas, não anos.** É o limiar de
+[reconstruir](/16-legacy-modernization/rebuilding.md): abaixo dele, a camada de
+roteamento, a coexistência de dados e o plano de desligamento custam mais que o
+sistema que se quer substituir.
 
 **Sem compatibilidade de dados** nos dois sentidos.
 
-**Migrando o periférico indefinidamente**, sem tocar no que motivou.
+**Quando o que motivou o projeto não cabe nas primeiras fatias.** Se a razão de
+modernizar está no núcleo e ele só pode ser tocado no fim, o padrão entrega dois anos de
+risco antes do primeiro benefício — e é assim que a migração perde o patrocínio no meio.
 
 **Quando o antigo será descontinuado por outra razão** antes de a migração terminar.
 
@@ -208,6 +216,12 @@ desligamento é uma entrega, não uma consequência.
 
 **Sem ponto de interceptação.** O projeto não começa.
 
+**A camada de roteamento cai.** Ela fica no caminho de 100% do tráfego durante toda a
+transição, e passa a exigir a disponibilidade da soma dos dois sistemas — mais um salto de
+rede em cada chamada. É [ponto único de falha por
+construção](/08-integration-architecture/api-gateways.md), e a migração costuma tratá-la
+como detalhe de infraestrutura até o primeiro incidente.
+
 **Migração do periférico.** Progresso sem valor.
 
 **Volta impossível.** Os dados divergiram.
@@ -226,7 +240,7 @@ desligamento é uma entrega, não uma consequência.
 
 **Não mapear os casos difíceis cedo.** Descobrir no décimo mês que uma funcionalidade não é extraível muda a viabilidade da estratégia inteira — e é informação que se obtém no primeiro.
 
-**Não manter compatibilidade de dados nos dois sentidos.** Durante a convivência, os dois sistemas leem e escrevem o mesmo dado. Compatibilidade só de ida impede reverter a fatia.
+**Não manter compatibilidade de dados nos dois sentidos.** Durante a convivência, a fonte da verdade muda de lado. Compatibilidade só de ida impede reverter a fatia.
 
 **Não monitorar o que ainda usa o antigo.** Sem medir o tráfego residual, ninguém sabe se restou um consumidor esquecido — e o desligamento vira aposta.
 
@@ -304,6 +318,7 @@ estimativa.
 
 ## Para Aprofundar
 
-- Fowler, Martin. *StranglerFigApplication*, 2004.
+- Fowler, Martin. *StranglerApplication*, 2004 — renomeado depois para
+  *StranglerFigApplication*, e é por esse título que a entrada é encontrada hoje.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.

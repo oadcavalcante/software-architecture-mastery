@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ports-and-adapters]
 related: [onion-architecture, clean-architecture, dependency-inversion]
 canonical_for: [arquitetura hexagonal, hexagonal architecture]
-content_version: 1
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -49,24 +49,37 @@ fossem alternativas.
 
 ### O que o desenho comunica
 
+Siga as setas: nenhuma delas sai de dentro para fora. O banco e a API externa apontam
+para o núcleo tanto quanto a Web aponta — é essa simetria que o desenho existe para
+mostrar.
+
 ```mermaid
 graph TB
   subgraph Fora
-    W[Web] --- Q[Fila] --- C[CLI]
-    DB[(Banco)] --- EXT[API externa]
+    W[Web]
+    Q[Fila]
+    C[CLI]
+    DB[(Banco)]
+    EXT[API externa]
   end
   subgraph Dentro
+    PP["porta condutora"]
     N[Núcleo do domínio<br/>não conhece nada do lado de fora]
+    PS["porta conduzida"]
   end
-  W --> N
-  Q --> N
-  C --> N
-  N --> DB
-  N --> EXT
+  W --> PP
+  Q --> PP
+  C --> PP
+  PP --> N
+  N --> PS
+  DB -.implementa.-> PS
+  EXT -.implementa.-> PS
 ```
 
 Duas ideias, e só duas: existe um **dentro** e um **fora**; e todas as
-dependências de código apontam para dentro.
+dependências de código apontam para dentro. O lado conduzido é o que engana: o núcleo
+*usa* o banco, mas *depende* da porta que ele mesmo declara — e quem depende do banco é
+o adaptador.
 
 A ausência de hierarquia entre os elementos do lado de fora é o ponto. Numa
 arquitetura em camadas, a interface do usuário fica no topo e o banco na base, o
@@ -137,8 +150,9 @@ imposta.
 
 **Ler os seis lados como prescrição.** São desenho.
 
-**Adotar os diretórios sem a regra.** O mais comum e o mais caro, porque produz o
-custo integral e nenhum benefício.
+**Adotar os diretórios sem a regra.** É o mais caro dos erros desta lista, porque
+produz o custo integral e nenhum benefício: a estrutura sugere um isolamento que o
+compilador não impõe.
 
 **Debater qual dos quatro nomes adotar.** A escolha entre Hexagonal, Onion e Clean
 é de vocabulário; a decisão que importa é se a regra de direção vale e como será
@@ -146,15 +160,16 @@ imposta.
 
 ## Exemplo Real
 
-Um time adotou hexagonal num serviço novo e, seis meses depois, tinha dezenove imports de `infra`
-dentro de `dominio` — o caso descrito em
+Um time adotou hexagonal num serviço novo e, seis meses depois, dois testes de arquitetura
+escritos numa tarde acusaram dezenove violações — domínio importando `infra` e adaptador
+importando adaptador. É o caso descrito em
 [arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md), onde a
 lição é sobre a distância entre a arquitetura declarada e a implementada.
 
 O que interessa aqui é o que veio depois, porque ele responde à pergunta específica do padrão:
 **depois de corrigido, o hexagonal se pagou?**
 
-As dezenove violações foram corrigidas em três semanas, e um teste de arquitetura passou a impedir
+As dezenove violações foram corrigidas em três semanas, e os dois testes passaram a impedir
 novas. A partir daí o serviço operou com a estrutura de fato isolada por dezoito meses, durante os
 quais três trocas de infraestrutura aconteceram:
 
@@ -175,11 +190,15 @@ O custo do padrão, medido no mesmo período:
 arquivos a mais no serviço                    ~30%
 tempo de integração de pessoa nova            +1,5 dia, estimado
 casos de uso que precisaram de porta nova     4 de 23
-portas com um único adaptador, após 18 meses  6 de 9
+portas que nunca tiveram um segundo adaptador
+  em nenhum momento dos 18 meses                6 de 9
 ```
 
-A última linha é a que o time considera a mais honesta: dois terços das portas nunca tiveram um
-segundo adaptador, e provavelmente nunca terão. Elas são custo de indireção sem retorno de
+A última linha é a que o time considera a mais honesta, e o critério dela importa: conta as
+portas que nunca tiveram um segundo adaptador **em momento algum** do período. As outras três
+tiveram — não simultaneamente, mas em sequência, quando a infraestrutura foi trocada. Contadas
+num instante qualquer, as nove teriam um adaptador só, e a métrica não diria nada. Dois terços
+delas nunca exerceram a indireção, e provavelmente nunca vão. Elas são custo de indireção sem retorno de
 substituição — pagas para que as três que importaram funcionassem.
 
 Na retrospectiva: o saldo foi positivo porque o serviço era de integração intensa, com quatro
@@ -193,7 +212,9 @@ produz indireção que ninguém exerce.
 E há um detalhe de sequência que a equipe considera decisivo: as três trocas foram feitas
 **depois** de o teste de arquitetura existir. Sem ele, as dependências teriam voltado a vazar
 entre uma troca e outra, e a segunda troca já não encontraria o isolamento que a primeira
-supunha. O padrão sem mecanismo de verificação tem meia-vida de meses.
+supunha. Neste serviço, seis meses sem verificação bastaram para dezenove violações — e não
+há razão para tratar esse número como lei, mas há para tratar a direção como esperada: sem
+mecanismo que imponha a regra, a erosão começa antes de alguém notar.
 
 ## Conceitos Relacionados
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [service-mesh, rest, graphql]
 canonical_for: [API gateway, backend para frontend, gateway de borda]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -254,10 +254,13 @@ o time de negócio consegue lê-la.
 gradual. Publicação direta deixou de ser possível.
 
 **BFFs por cliente** — corretor, segurado e parceiro — cada um mantido pelo time
-do respectivo cliente. O gargalo de três semanas desapareceu.
+do respectivo cliente. As duas semanas de fila desapareceram; a mudança de campo passou a
+levar cerca de uma semana, que é o trabalho em si.
 
-**Autorização em profundidade.** O gateway continua verificando, e cada serviço
-verifica também. A redundância foi aceita conscientemente.
+**Autorização em profundidade, com a divisão nomeada.** O gateway verifica o que é de
+borda — token válido, escopo, cota — e cada serviço verifica o que é de domínio: se *este*
+corretor pode ver *esta* apólice. A redundância existe só na primeira camada, e foi aceita
+conscientemente; o que acabou foi a regra de domínio morando no gateway.
 
 O que a equipe registra: o gateway nunca foi um erro. O erro foi não ter uma regra
 escrita sobre o que pode entrar nele — e, sem regra, cada exceção individual era

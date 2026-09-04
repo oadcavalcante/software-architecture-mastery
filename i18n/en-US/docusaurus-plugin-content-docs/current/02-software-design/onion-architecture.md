@@ -13,7 +13,7 @@ objective: >
 prerequisites: [hexagonal-architecture]
 related: [ports-and-adapters, clean-architecture, layering]
 canonical_for: [onion architecture]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -55,11 +55,15 @@ graph TB
 **Domain model** — entities and value objects, with the rules that depend only on
 themselves.
 
-**Domain services** — rules that involve more than one entity and belong to none.
-They are still domain: they know nothing of infrastructure.
+**[Domain services](/04-domain-driven-design/domain-service.md)** — rules that involve more
+than one entity and belong to none. They are still domain: they know nothing of
+infrastructure.
 
-**Application services** — use case orchestration. They coordinate, control the
-transaction, and define the interfaces that infrastructure implements.
+**[Application services](/04-domain-driven-design/application-service.md)** — use case
+orchestration. They coordinate and control the transaction. The interfaces that
+infrastructure implements are declared by whoever needs them, which includes the domain ring
+— restricting them to this ring would leave a domain service with no way to declare what it
+consumes.
 
 **Infrastructure, UI and tests** — the outer ring. All equally external, which is
 the same symmetry as the hexagon.
@@ -133,9 +137,10 @@ the entities.
 orchestration because it is easier to write it there, and the domain model becomes
 a data structure.
 
-**Anemic domain model.** The most common failure mode of all four patterns:
-entities with no behaviour, all the logic in services. See
-[encapsulation](/02-software-design/encapsulation.md).
+**Anemic domain model.** Entities with no behaviour, all the logic in services. Onion makes
+that outcome more likely than its siblings precisely by naming a ring for domain services:
+with the place already there, it is cheaper to write the rule in it than to work out which
+entity it belongs to. See [encapsulation](/02-software-design/encapsulation.md).
 
 **Rings as directories with no enforced rule.**
 

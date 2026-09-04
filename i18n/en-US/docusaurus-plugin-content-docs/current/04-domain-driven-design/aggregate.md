@@ -13,7 +13,7 @@ objective: >
 prerequisites: [entity, value-object]
 related: [entity, domain-event, repository]
 canonical_for: [aggregate, aggregate root]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -236,5 +236,5 @@ that do not are candidates for separate aggregates.
 ## Further Exploration
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Vernon, Vaughn. *Effective Aggregate Design*, 2011 — the three-article series, the best
-  reference on the subject.
+- Vernon, Vaughn. *Effective Aggregate Design*, 2011 — the three-article series, with the
+  most detailed treatment of the rules on size and on references between aggregates.

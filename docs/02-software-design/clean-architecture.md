@@ -13,7 +13,7 @@ objective: >
 prerequisites: [onion-architecture]
 related: [ports-and-adapters, hexagonal-architecture, layering]
 canonical_for: [clean architecture, regra da dependência]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -75,7 +75,7 @@ Não a entidade. Não o objeto do ORM. Um tipo simples que o caso de uso define.
 Isso significa mapeamento em cada travessia. É onde o padrão cobra mais caro, e
 onde a maioria das adoções desvia.
 
-### Inversão de fluxo de controle
+### A dependência aponta contra o fluxo de controle
 
 Quando o fluxo vai de dentro para fora — o caso de uso precisa apresentar um
 resultado — a dependência ainda precisa apontar para dentro. A solução é a mesma
@@ -99,8 +99,9 @@ mapeamento em cada borda — domina completamente o valor.
 **Quando o framework é a aplicação.** Alguns sistemas são, honestamente,
 configuração de framework com pouca lógica. Isolá-lo custa muito e protege pouco.
 
-**Em sistemas pequenos ou de vida curta.** O número de artefatos por caso de uso é
-alto.
+**Quando a maior parte dos casos de uso é CRUD.** São seis artefatos por caso, e no CRUD
+cinco deles só repassam — como no Exemplo Real, em que nove dos vinte e três casos não
+tinham regra a proteger.
 
 **Quando adotada parcialmente sem decidir o que fica de fora.** Este é o caso mais
 comum: times adotam os diretórios e o vocabulário, e mantêm entidades do ORM
@@ -133,16 +134,19 @@ discutida — porque não tem nome próprio.
 
 ## Modos de Falha
 
-**Adoção decorativa.** Diretórios e vocabulário, sem a regra imposta. O mais
-comum.
+**Adoção decorativa.** Diretórios e vocabulário, sem a regra imposta: o custo da
+estrutura sem a garantia que ela deveria comprar.
 
 **Entidade do ORM atravessando.** A anotação de persistência na entidade de
 domínio é o sinal.
 
-**Explosão de artefatos.** Cinco arquivos por caso de uso CRUD.
+**Explosão de artefatos.** Seis por caso de uso, e no CRUD cinco deles só repassam —
+sobra o repositório.
 
-**Apresentador ignorado.** A inversão de fluxo de saída é omitida e o caso de uso
-devolve o tipo diretamente — desvio comum e, na maioria dos casos, aceitável.
+**Apresentador ignorado.** O caso de uso devolve o tipo diretamente, sem inverter a
+saída. Só cobra preço quando a mesma saída tem mais de um formato, quando a apresentação
+tem regra própria, ou quando ela é progressiva — nesses casos a formatação migra para o
+caso de uso e leva a regra junto. Fora deles é adoção parcial legítima, não defeito.
 
 **Regra sem verificação.** Ver
 [arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md).

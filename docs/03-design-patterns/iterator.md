@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [composite, visitor, flyweight]
 canonical_for: [iterator, iterador]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -28,7 +28,7 @@ representação interna.
 ser um padrão e virou recurso de linguagem**. Praticamente toda linguagem moderna
 tem laço de iteração, geradores, ou ambos.
 
-Isso torna o padrão interessante por outra razão: ele é o melhor exemplo do que
+Isso torna o padrão interessante por outra razão: é um caso nítido do que
 acontece quando uma solução recorrente é absorvida pela plataforma.
 
 ## Problema

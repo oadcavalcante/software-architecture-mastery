@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [composite, visitor, flyweight]
 canonical_for: [iterator]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ It is the most successful pattern in the catalogue, in the specific sense that *
 stopped being a pattern and became a language feature**. Practically every modern
 language has an iteration loop, generators, or both.
 
-That makes the pattern interesting for another reason: it is the best example of what
+That makes the pattern interesting for another reason: it is a sharp case of what
 happens when a recurring solution is absorbed by the platform.
 
 ## Problem

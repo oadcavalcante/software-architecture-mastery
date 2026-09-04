@@ -13,7 +13,7 @@ objective: >
 prerequisites: [hexagonal-architecture]
 related: [ports-and-adapters, clean-architecture, layering]
 canonical_for: [arquitetura onion, onion architecture]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -54,11 +54,15 @@ graph TB
 **Modelo de domínio** — entidades e objetos de valor, com as regras que dependem
 apenas de si.
 
-**Serviços de domínio** — regras que envolvem mais de uma entidade e não
-pertencem a nenhuma. Continuam sendo domínio: não conhecem infraestrutura.
+**[Serviços de domínio](/04-domain-driven-design/domain-service.md)** — regras que
+envolvem mais de uma entidade e não pertencem a nenhuma. Continuam sendo domínio: não
+conhecem infraestrutura.
 
-**Serviços de aplicação** — orquestração de casos de uso. Coordenam, controlam
-transação, e definem as interfaces que a infraestrutura implementa.
+**[Serviços de aplicação](/04-domain-driven-design/application-service.md)** —
+orquestração de casos de uso. Coordenam e controlam transação. As interfaces que a
+infraestrutura implementa são declaradas por quem precisa delas, o que inclui o anel de
+domínio — restringi-las a este anel deixaria um serviço de domínio sem como declarar o
+que consome.
 
 **Infraestrutura, UI e testes** — o anel externo. Todos igualmente externos, o
 que é a mesma simetria do hexágono.
@@ -133,8 +137,10 @@ para as entidades.
 porque é mais fácil escrevê-la ali, e o modelo de domínio vira estrutura de
 dados.
 
-**Modelo de domínio anêmico.** O modo de falha mais comum de todos os quatro
-padrões: entidades sem comportamento, toda a lógica nos serviços. Ver
+**Modelo de domínio anêmico.** Entidades sem comportamento, toda a lógica nos
+serviços. Onion torna esse desfecho mais provável que os irmãos justamente por nomear
+um anel para serviços de domínio: com o lugar pronto, sai mais barato escrever a regra
+ali do que descobrir a qual entidade ela pertence. Ver
 [encapsulamento](/02-software-design/encapsulation.md).
 
 **Anéis como diretórios sem regra imposta.**

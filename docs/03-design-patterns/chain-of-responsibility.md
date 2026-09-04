@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, command, mediator]
 canonical_for: [chain of responsibility, cadeia de responsabilidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -72,9 +72,13 @@ O que acontece se ninguém tratar?
 O padrão não responde, e essa omissão é a fonte da maior parte dos defeitos: a
 requisição desaparece silenciosamente.
 
-A correção é sempre a mesma: **um tratador final que sempre trata** — mesmo que
-seja para registrar e lançar erro. Uma cadeia sem esse elo tem um caminho de
-falha invisível.
+Na semântica "primeiro que trata para", a correção é **um tratador final que sempre
+trata** — mesmo que seja para registrar e lançar erro. Uma cadeia sem esse elo tem um
+caminho de falha invisível.
+
+Na semântica "todos processam" o problema não existe: não há "ninguém tratou", porque
+ninguém deveria interromper. Um evento de log que nenhum *appender* processa é o
+comportamento projetado.
 
 ### Ordem é dependência oculta
 
@@ -123,7 +127,7 @@ em fluxo crítico, isso custa.
 | Emissor não conhece os tratadores | Conhece todos |
 | Tratador novo não toca o emissor | Toca |
 | Ordem implícita e frágil | Explícita |
-| Risco de ninguém tratar | Todos os casos cobertos ou erro claro |
+| Lacuna espalhada pela cadeia | Lacuna concentrada e visível no emissor |
 | Percurso a rastrear | Fluxo direto |
 
 ## Modos de Falha
@@ -162,9 +166,12 @@ ordem explícita.
 **Registro de log com níveis.** Um evento passa por *appenders* que decidem se o
 processam.
 
-O caso das exceções é instrutivo: a linguagem **garante** um elo final — se
-ninguém trata, o programa termina com erro visível. É exatamente a garantia que
-implementações manuais costumam esquecer.
+O caso das exceções é instrutivo: a linguagem fornece um tratador final padrão, que
+**reporta** em vez de deixar sumir. No fluxo principal isso costuma encerrar o programa
+com erro visível; fora dele o comportamento varia — em Java e em Python, exceção não
+tratada numa thread secundária mata só aquela thread, e o processo segue. É a garantia que
+implementações manuais esquecem, e o caso da thread secundária mostra que nem a linguagem a
+dá de graça em todo contexto.
 
 ## Exemplo Real
 

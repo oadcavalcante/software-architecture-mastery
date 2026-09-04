@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, schema-evolution]
 canonical_for: [tradução de fronteira, modelo externo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -29,9 +29,10 @@ O conceito vem de
 Aqui ele é visto pelo ângulo da integração: **o que acontece quando você não a
 tem**, e quando o custo dela não se justifica.
 
-O acoplamento que ela previne é o mais caro que existe numa integração —
-acoplamento de modelo — e o menos visível, porque nunca aparece como incidente.
-Aparece como incapacidade de mudar.
+O acoplamento que ela previne — acoplamento de modelo — é o mais caro quando o modelo do
+fornecedor é estranho ao seu e a troca é plausível; fora dessas duas condições pode ser
+barato o bastante para aceitar, e o quadrante adiante trata disso. É também o menos visível,
+porque quase nunca chega como incidente: aparece como incapacidade de mudar.
 
 ## Problema
 
@@ -48,7 +49,9 @@ A partir daí:
 - Conceitos que não fazem sentido no seu domínio ocupam espaço nele.
 - Discussões de negócio usam o vocabulário do fornecedor.
 
-Nenhuma dessas aparece como defeito. Aparece como estimativa que triplicou.
+Só a segunda chega como defeito, e mesmo ela chega deslocada — a quebra aparece longe de
+onde a causa está. As outras três não chegam de forma alguma: aparecem como estimativa que
+triplicou.
 
 ## Conceitos Centrais
 
@@ -108,8 +111,8 @@ sistema contábil interno da empresa, não.
 
 ```text
 modelo estranho + troca plausível   → camada completa, sem discussão
-modelo estranho + troca improvável  → tradução leve, para preservar vocabulário
-modelo próximo  + troca plausível   → tradução fina, focada em isolar o contrato
+modelo estranho + troca improvável  → renomear na borda, sem modelo intermediário
+modelo próximo  + troca plausível   → isolar só o tipo do contrato, num ponto
 modelo próximo  + troca improvável  → provavelmente não vale
 ```
 
@@ -125,9 +128,11 @@ a tradução deve ser feita uma vez.
 
 **No consumidor de eventos** — traduzindo o evento externo antes de ele entrar.
 
-A segunda opção tem um risco: um serviço de tradução compartilhado tende a
-acumular regras de negócio de vários consumidores e virar um ponto de acoplamento
-próprio.
+A segunda opção custa mais do que parece. O serviço de tradução compartilhado tende a
+acumular regras de negócio de vários consumidores e virar um ponto de acoplamento próprio —
+e, antes disso, já cobra um salto de rede em toda chamada, mais uma unidade de implantação e
+de plantão, e um domínio de falha novo: se ele cai, caem **todas** as integrações de uma vez,
+não uma.
 
 ### Sistema legado é o caso clássico
 
@@ -170,8 +175,10 @@ compartilhado.
 
 - **Adaptador simples** — tradução fina, sem modelo intermediário completo.
 - **Mapeamento na desserialização** — para casos leves, converter na entrada.
-- **Contrato dirigido pelo consumidor** — em vez de traduzir, negociar o formato.
-  Só funciona dentro da organização. Ver
+- **Contrato dirigido pelo consumidor** — em vez de traduzir, negociar o formato. Exige
+  consumidores conhecidos e um provedor disposto a rodar os testes deles, o que a inviabiliza
+  em API pública e a torna cara com fornecedor de prateleira — mas a mantém viva quando há
+  relação contratual real. Ver
   [contratos de integração](/08-integration-architecture/integration-contracts.md).
 - **Aceitar o acoplamento conscientemente** — decisão legítima quando o modelo é
   próximo e a troca é implausível, desde que registrada.

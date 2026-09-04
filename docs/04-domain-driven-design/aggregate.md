@@ -13,7 +13,7 @@ objective: >
 prerequisites: [entity, value-object]
 related: [entity, domain-event, repository]
 canonical_for: [aggregate, agregado, aggregate root, raiz de agregado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -244,4 +244,5 @@ invariantes? Os que não participam são candidatos a agregados separados.
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
 - Vernon, Vaughn. *Effective Aggregate Design*, 2011 — a série de três artigos,
-  a melhor referência sobre o assunto.
+  com o tratamento mais detalhado das regras de tamanho e de referência entre
+  agregados.

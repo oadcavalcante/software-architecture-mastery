@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-transactions]
 related: [idempotency, event-driven-systems, distributed-transactions]
 canonical_for: [saga, compensação, passo pivô]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -71,8 +71,9 @@ a API de terceiro sem operação de cancelamento. Impressão. Envio físico.
 Para passos não compensáveis, a técnica é **ordenar a saga para colocá-los por
 último** — depois que todos os passos compensáveis já sucederam.
 
-Essa reordenação é a decisão de projeto mais importante de uma saga, e é comumente
-omitida.
+A reordenação é o que decide se a saga tem ponto de retorno: com os não compensáveis no
+fim, todo passo anterior ao primeiro deles é reversível; com um no meio, a saga passa a ter
+um trecho em que nem avançar nem voltar são garantidos.
 
 ### Passos pivô
 
@@ -103,9 +104,16 @@ o passo 2, e assim por diante.
 O fluxo é explícito, legível e testável. Em contrapartida, há um componente que
 conhece todos os passos — acoplamento concentrado.
 
-**A recomendação prática:** coreografia para sagas de dois ou três passos simples;
-orquestração a partir daí. A dificuldade de depurar coreografia cresce mais rápido
-que o benefício do desacoplamento.
+Os dois estilos são desenvolvidos em
+[arquitetura orientada a eventos](/03-design-patterns/event-driven.md), canônico do tema. O
+que muda numa saga é a compensação: ela é ordem, tem responsável e precisa acontecer mesmo
+quando ninguém está escutando — e é por isso que o canônico manda orquestrar fluxos com
+ordem e compensação.
+
+**A ressalva deste documento:** numa saga de dois ou três passos sem passo pivô, a
+coreografia ainda é defensável, porque não há ordem de compensação a coordenar. A partir do
+momento em que existe um pivô, vale a regra do canônico — a dificuldade de depurar
+coreografia cresce mais rápido que o benefício do desacoplamento.
 
 ### A saga precisa ser durável
 
@@ -149,7 +157,9 @@ a transação resolve.
 **Para operações de dois passos triviais.** A caixa de saída transacional pode ser
 suficiente. Ver [transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
-**Sem estado durável.** Uma saga que não sobrevive a reinício é pior que nada.
+**Sem persistência a cada transição, e sem processo que detecte sagas paradas.** Uma saga
+que não sobrevive a reinício deixa o limbo permanente e invisível: ninguém sabe quais
+ficaram no meio, e a operação multi-passo que ela autorizou já aconteceu pela metade.
 
 **Sem idempotência.** A repetição vai duplicar efeitos.
 
@@ -239,8 +249,15 @@ tudo é cancelável; depois, a saga avança até completar, repetindo indefinida
 os passos restantes.
 
 **Compensação com prazo.** Descobriu-se que o fornecedor de hotel só aceitava
-cancelamento sem multa dentro de 30 minutos. Isso virou requisito da saga: se ela
-não completar em 25 minutos, compensa preventivamente.
+cancelamento sem multa dentro de 30 minutos. Isso virou requisito do trecho **antes do
+pivô**: se a saga não chega ao pagamento em 25 minutos, compensa preventivamente, enquanto
+compensar ainda é grátis.
+
+Depois do pivô a regra não se aplica — e não pode se aplicar, porque ali a saga só avança.
+Para o caso em que a janela do hotel expirava com o pagamento já confirmado, a decisão foi
+mover a reserva para depois do pivô: ela deixou de ser um passo a compensar e passou a ser
+um passo a repetir até suceder. As sagas que pivotaram antes dessa mudança pagaram a multa,
+lançada como custo conhecido em vez de surpresa na conciliação.
 
 Esse último ponto é o que a equipe registra como a lição principal: **a
 compensação tinha uma janela de validade**, e ninguém tinha perguntado. Havia
@@ -251,8 +268,10 @@ conciliação financeira mensal sem que ninguém ligasse à saga.
 
 - [Transações Distribuídas](/06-distributed-systems/distributed-transactions.md) — a alternativa.
 - [Idempotência](/06-distributed-systems/idempotency.md) — requisito.
-- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md) — onde a coreografia
-  vive.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — canônico de
+  coreografia e orquestração.
+- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md) — o custo
+  de rastrear um fluxo que ninguém coordena.
 - [Filas de Mensagens Mortas](/06-distributed-systems/dead-letter-queues.md) — para compensação que falha.
 
 ## Exercício Prático

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [dependency-inversion]
 related: [hexagonal-architecture, onion-architecture, clean-architecture]
 canonical_for: [ports and adapters, porta primária, porta secundária]
-content_version: 1
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -28,9 +28,11 @@ Ports and Adapters, formulado por Alistair Cockburn em 2005, propõe uma regra
 > passa por **portas** que o núcleo define, e **adaptadores** que o mundo
 > implementa.
 
-É a formulação original da qual [Hexagonal](/02-software-design/hexagonal-architecture.md),
-[Onion](/02-software-design/onion-architecture.md) e [Clean Architecture](/02-software-design/clean-architecture.md) são
-variações.
+É a formulação original. [Hexagonal](/02-software-design/hexagonal-architecture.md) **não é
+uma variação**: é o outro nome do mesmo padrão, e trocar de nome não muda regra nenhuma. Já
+[Onion](/02-software-design/onion-architecture.md) e
+[Clean Architecture](/02-software-design/clean-architecture.md) são variações de fato —
+acrescentam anéis e vocabulário sobre a mesma regra de direção.
 
 ## Problema
 
@@ -63,17 +65,21 @@ persistir, notificar, cotar.
 
 Um adaptador traduz entre o protocolo do mundo e a porta.
 
+Repare na direção das setas tracejadas: são os adaptadores que apontam para a porta, não
+o contrário. É o que distingue este desenho de uma arquitetura em camadas.
+
 ```mermaid
 graph LR
   HTTP[Adaptador HTTP] --> PP["«porta primária»<br/>CriarPedido"]
   CLI[Adaptador CLI] --> PP
   PP --> N[Núcleo]
   N --> PS["«porta secundária»<br/>RepositorioDePedidos"]
-  PS -.implementa.-> SQL[Adaptador SQL]
-  PS -.implementa.-> MEM[Adaptador em memória]
+  SQL[Adaptador SQL] -.implementa.-> PS
+  MEM[Adaptador em memória] -.implementa.-> PS
 ```
 
-Toda seta de dependência aponta para o núcleo. É a única regra.
+Toda seta de dependência aponta para o núcleo. É a única regra — e é por isso que o
+adaptador SQL depende da porta, e não a porta dele.
 
 ### A simetria é o ponto
 
@@ -100,8 +106,9 @@ inexistente.
 **Quando há um canal e uma persistência, e continuará assim.** O padrão compra
 substituibilidade. Sem ela, é custo puro.
 
-**Em sistemas pequenos.** O número de arquivos por caso de uso cresce
-consideravelmente; num sistema de poucos casos, isso domina.
+**Quando há menos de três dependências externas que podem mudar.** É o mesmo limiar
+medido em [Hexagonal](/02-software-design/hexagonal-architecture.md): abaixo dele, a
+indireção custa cerca de 30% de arquivos a mais para proteger uma troca que não vem.
 
 **Quando as portas viram espelho da infraestrutura.** Se `RepositorioDePedidos`
 tem `findByStatusIn` e devolve o tipo do ORM, o núcleo continua acoplado com
@@ -114,7 +121,8 @@ regra é atravessada em meses e o sistema fica com o custo sem a propriedade.
 ## Alternativas
 
 - **Camadas com inversão só na persistência** — captura a maior parte do benefício
-  por uma fração do custo. É o arranjo mais comum e frequentemente o correto.
+  por uma fração do custo, e é o arranjo certo quando a única dependência volátil é o
+  banco.
 - **Adaptador só nas dependências voláteis** — inverter o que é instável e chamar
   direto o que é estável.
 - **Transaction script** — em domínios simples, procedimento direto é mais claro.
@@ -141,11 +149,13 @@ contornando o núcleo.
 
 **Núcleo anêmico.** Toda a lógica nos adaptadores; o núcleo só define tipos.
 
-**Regra não imposta.** Sem verificação, o núcleo importa infraestrutura em meses.
+**Regra não imposta.** Sem verificação, o núcleo volta a importar infraestrutura — e a
+primeira violação costuma chegar antes de alguém pensar em procurá-la.
 
 ## Erros Comuns
 
-**Aplicar a CRUD.** O mais comum.
+**Aplicar a CRUD.** Porta, adaptador e teste duplo para uma operação que só move campos
+entre o formulário e a tabela: o custo é integral e não há regra a proteger.
 
 **Colocar as portas junto dos adaptadores.** Anula a inversão.
 
@@ -185,8 +195,9 @@ e o efeito colateral é comportamental: uma suíte rápida é executada a cada
 alteração; uma lenta é executada no CI e ignorada localmente.
 
 **Determinismo.** Sem banco, sem rede e sem relógio real, o teste não falha por
-motivo alheio à mudança. Testes que falham esporadicamente deixam de ser
-consultados, e uma suíte não confiável é pior que nenhuma.
+motivo alheio à mudança. Testes que falham por motivo alheio à mudança
+deixam de servir como critério de mérge — e o dano não é ficar sem sinal, é ficar com um
+sinal em que ninguém confia e que ainda consome tempo a cada execução.
 
 **Cenários difíceis viram triviais.** Simular o provedor de pagamento fora do ar,
 a chamada que expira, o identificador duplicado — tudo isso é uma linha num
