@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance]
 related: [technical-influence, communication, decision-making]
 canonical_for: [liderança em arquitetura, autoridade sem cargo, papel do arquiteto sênior, crédito técnico]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -113,7 +113,7 @@ opção — especialmente quando a decisão trava o trabalho de outras pessoas.
 A postura que funciona: decidir com o que se tem, declarar as premissas, registrar a condição que
 faria a decisão mudar, e seguir. Ver
 [tomada de decisão](/23-architecture-leadership/decision-making.md) e
-[ADRs](/18-architecture-decisions/index.md).
+[ADRs](/18-architecture-decisions/what-is-an-adr).
 
 ### A organização é uma restrição de arquitetura
 

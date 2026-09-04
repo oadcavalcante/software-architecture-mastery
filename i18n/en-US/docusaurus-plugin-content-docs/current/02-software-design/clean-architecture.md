@@ -13,7 +13,7 @@ objective: >
 prerequisites: [onion-architecture]
 related: [ports-and-adapters, hexagonal-architecture, layering]
 canonical_for: [clean architecture, dependency rule]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -74,7 +74,7 @@ Not the entity. Not the ORM object. A simple type the use case defines.
 That means mapping at every crossing. It is where the pattern charges most, and
 where most adoptions deviate.
 
-### Inverting the flow of control
+### The dependency points against the flow of control
 
 When the flow goes from inside out — the use case needs to present a result — the
 dependency still has to point inward. The solution is the same
@@ -98,7 +98,9 @@ at every edge — completely dominates the value.
 **When the framework is the application.** Some systems are, honestly, framework
 configuration with little logic. Isolating it costs a lot and protects little.
 
-**In small or short-lived systems.** The number of artifacts per use case is high.
+**When most of the use cases are CRUD.** It is six artifacts per case, and in CRUD five of
+them only forward — as in the Real-World Example, where nine of the eleven cases had no
+rule to protect.
 
 **When adopted partially without deciding what is left out.** This is the most
 common case: teams adopt the directories and the vocabulary, and keep ORM entities
@@ -132,16 +134,20 @@ because it has no name of its own.
 
 ## Failure Modes
 
-**Decorative adoption.** Directories and vocabulary, with no enforced rule. The
-most common.
+**Decorative adoption.** Directories and vocabulary, with no enforced rule: the cost of the
+structure without the guarantee it was supposed to buy.
 
 **ORM entity crossing.** The persistence annotation on the domain entity is the
 sign.
 
-**Artifact explosion.** Five files per CRUD use case.
+**Artifact explosion.** Six per use case, and in CRUD five of them only forward — the
+repository is what is left.
 
-**Presenter ignored.** The output flow inversion is omitted and the use case
-returns the type directly — a common deviation and, in most cases, acceptable.
+**Presenter ignored.** The use case returns the type directly, without inverting the output.
+It only charges a price when the same output has more than one format, when the presentation
+has rules of its own, or when it is progressive — in those cases the formatting migrates into
+the use case and takes the rule with it. Outside them it is legitimate partial adoption, not
+a defect.
 
 **Rule with no verification.** See
 [architecture vs. implementation](/01-fundamentals/architecture-vs-implementation.md).

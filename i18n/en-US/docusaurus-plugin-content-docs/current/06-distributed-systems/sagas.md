@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-transactions]
 related: [idempotency, event-driven-systems, distributed-transactions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -67,7 +67,9 @@ third-party API with no cancellation operation. Printing. A physical shipment.
 For non-compensable steps, the technique is **to order the saga so they come last** — after every
 compensable step has already succeeded.
 
-That reordering is a saga's most important design decision, and it is commonly omitted.
+The reordering is what decides whether the saga has a point of return: with the non-compensable steps
+at the end, every step before the first of them is reversible; with one in the middle, the saga comes to
+have a stretch in which neither moving forward nor going back is guaranteed.
 
 ### Pivot steps
 
@@ -97,8 +99,15 @@ and so on.
 The flow is explicit, readable and testable. On the other hand, there is a component that knows every
 step — concentrated coupling.
 
-**The practical recommendation:** choreography for sagas of two or three simple steps; orchestration
-from there on. The difficulty of debugging choreography grows faster than the benefit of the
+Both styles are developed in
+[event-driven architecture](/03-design-patterns/event-driven.md), the canonical document on the subject.
+What changes in a saga is compensation: it is an order, it has an owner and it has to happen even when
+nobody is listening — and that is why the canonical document says to orchestrate flows with order and
+compensation.
+
+**This document's caveat:** in a saga of two or three steps with no pivot step, choreography is still
+defensible, because there is no compensation order to coordinate. From the moment a pivot exists, the
+canonical rule holds — the difficulty of debugging choreography grows faster than the benefit of the
 decoupling.
 
 ### The saga has to be durable
@@ -143,7 +152,9 @@ transaction solves it.
 **For trivial two-step operations.** The transactional outbox may be sufficient. See
 [distributed transactions](/06-distributed-systems/distributed-transactions.md).
 
-**With no durable state.** A saga that does not survive a restart is worse than nothing.
+**With no persistence on each transition, and no process that detects stalled sagas.** A saga that does
+not survive a restart leaves the limbo permanent and invisible: nobody knows which ones were left midway,
+and the multi-step operation it authorized has already half happened.
 
 **With no idempotency.** Retries will duplicate effects.
 
@@ -227,8 +238,15 @@ existence: the payment confirmation. Before it, everything is cancellable; after
 forward to completion, retrying the remaining steps indefinitely.
 
 **Compensation with a deadline.** It turned out that the hotel supplier only accepted cancellation
-without a penalty within 30 minutes. That became a saga requirement: if it does not complete in 25
-minutes, it compensates preemptively.
+without a penalty within 30 minutes. That became a requirement of the stretch **before the pivot**: if
+the saga does not reach payment in 25 minutes, it compensates preemptively, while compensating is still
+free.
+
+After the pivot the rule does not apply — and cannot apply, because there the saga only moves forward.
+For the case where the hotel's window expired with the payment already confirmed, the decision was to
+move the booking to after the pivot: it stopped being a step to compensate and became a step to retry
+until it succeeds. The sagas that pivoted before that change paid the penalty, booked as a known cost
+instead of a surprise in the reconciliation.
 
 That last point is what the team records as the main lesson: **the compensation had a validity
 window**, and nobody had asked. There were sagas that compensated hours later and generated a penalty
@@ -239,7 +257,10 @@ saga.
 
 - [Distributed Transactions](/06-distributed-systems/distributed-transactions.md) — the alternative.
 - [Idempotency](/06-distributed-systems/idempotency.md) — a requirement.
-- [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md) — where choreography lives.
+- [Event-Driven Architecture](/03-design-patterns/event-driven.md) — the canonical document on
+  choreography and orchestration.
+- [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md) — the cost of tracing a flow
+  nobody coordinates.
 - [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md) — for compensation that fails.
 
 ## Practical Exercise

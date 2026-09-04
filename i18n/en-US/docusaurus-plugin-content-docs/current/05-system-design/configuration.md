@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [secrets, environment-management, feature-flags]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -53,7 +53,7 @@ layer of indirection.
 | **Secret** | Configuration that cannot leak | A vault, injected at runtime |
 
 A secret is configuration with an additional requirement: never in a repository, never in logs,
-rotatable. See [secrets](/10-security/index.md).
+rotatable. See [secrets](/10-security/secrets).
 
 The frequent error is treating the three the same — constants become unnecessary configuration,
 and secrets become environment variables in a versioned file.
@@ -90,7 +90,7 @@ through the deployment process — which means less review and less trace.
 It is worth it for what needs to change fast — log level, feature flags. It is not worth it for
 what changes rarely.
 
-See [feature flags](/14-devops-and-platform/index.md), which is a specific case with its own
+See [feature flags](/14-devops-and-platform/feature-flags), which is a specific case with its own
 tooling.
 
 ### Configuration is not an extension point

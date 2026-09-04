@@ -84,7 +84,7 @@ mas já tem índice publicado explicando o que virá.
 | Estado | Documento | Tipo | Dificuldade | Pré-requisitos | en-US |
 |:-:|---|---|---|---|:-:|
 | 🟩 | [Fronteiras](docs/02-software-design/boundaries.md) | concept | intermediário | `interfaces` | 🟩 |
-| 🟩 | [Clean Architecture](docs/02-software-design/clean-architecture.md) | pattern | intermediário | `onion-architecture` | 🟨 |
+| 🟩 | [Clean Architecture](docs/02-software-design/clean-architecture.md) | pattern | intermediário | `onion-architecture` | 🟩 |
 | 🟩 | [Clean Code](docs/02-software-design/clean-code.md) | concept | iniciante | `fundamentals` | 🟩 |
 | 🟩 | [Code Smells](docs/02-software-design/code-smells.md) | concept | intermediário | `clean-code` | 🟩 |
 | 🟩 | [Design de Componentes](docs/02-software-design/component-design.md) | concept | avançado | `package-design` | 🟩 |
@@ -111,7 +111,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Adapter](docs/03-design-patterns/adapter.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Bridge](docs/03-design-patterns/bridge.md) | pattern | avançado | `adapter` | 🟩 |
 | 🟩 | [Builder](docs/03-design-patterns/builder.md) | pattern | iniciante | `design-patterns` | 🟩 |
-| 🟩 | [Chain of Responsibility](docs/03-design-patterns/chain-of-responsibility.md) | pattern | intermediário | `design-patterns` | 🟨 |
+| 🟩 | [Chain of Responsibility](docs/03-design-patterns/chain-of-responsibility.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Command](docs/03-design-patterns/command.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Composite](docs/03-design-patterns/composite.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [CQRS](docs/03-design-patterns/cqrs.md) | pattern | avançado | `event-driven` | 🟩 |
@@ -125,8 +125,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Iterator](docs/03-design-patterns/iterator.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Mediator](docs/03-design-patterns/mediator.md) | pattern | intermediário | `observer` | 🟩 |
 | 🟩 | [Memento](docs/03-design-patterns/memento.md) | pattern | intermediário | `command` | 🟩 |
-| 🟩 | [Microsserviços](docs/03-design-patterns/microservices.md) | pattern | avançado | `modular-monolith` | 🟩 |
-| 🟩 | [Monolito Modular](docs/03-design-patterns/modular-monolith.md) | pattern | intermediário | `design-patterns` | 🟩 |
+| 🟩 | [Microsserviços](docs/03-design-patterns/microservices.md) | pattern | avançado | `modular-monolith` | 🟨 |
+| 🟩 | [Monolito Modular](docs/03-design-patterns/modular-monolith.md) | pattern | intermediário | `design-patterns` | 🟨 |
 | 🟩 | [Observer](docs/03-design-patterns/observer.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Pipes and Filters](docs/03-design-patterns/pipes-and-filters.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Prototype](docs/03-design-patterns/prototype.md) | pattern | intermediário | `design-patterns` | 🟩 |
@@ -157,7 +157,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Supporting Domain](docs/04-domain-driven-design/supporting-domain.md) | foundation | iniciante | `subdomain` | 🟩 |
 | 🟩 | [DDD Tático](docs/04-domain-driven-design/tactical-ddd.md) | foundation | avançado | `aggregate`, `repository` | 🟩 |
 | 🟩 | [Ubiquitous Language](docs/04-domain-driven-design/ubiquitous-language.md) | concept | intermediário | `domain` | 🟩 |
-| 🟩 | [Value Object](docs/04-domain-driven-design/value-object.md) | pattern | iniciante | `entity` | 🟩 |
+| 🟩 | [Value Object](docs/04-domain-driven-design/value-object.md) | pattern | iniciante | `entity` | 🟨 |
 
 ### Nível 03 — Design de Sistemas
 
@@ -172,7 +172,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Planejamento de Capacidade](docs/05-system-design/capacity-planning.md) | concept | intermediário | `components` | 🟩 |
 | 🟩 | [CDN](docs/05-system-design/cdn.md) | concept | iniciante | `caching` | 🟩 |
 | 🟩 | [Componentes](docs/05-system-design/components.md) | concept | intermediário | `system-decomposition` | 🟩 |
-| 🟩 | [Configuração](docs/05-system-design/configuration.md) | concept | iniciante | `components` | 🟩 |
+| 🟩 | [Configuração](docs/05-system-design/configuration.md) | concept | iniciante | `components` | 🟨 |
 | 🟩 | [Exercício 03 — Backend de E-commerce](docs/05-system-design/exercises/03-ecommerce-backend.md) | exercise | intermediário | `system-decomposition` | 🟩 |
 | 🟩 | [Armazenamento de Arquivos](docs/05-system-design/file-storage.md) | concept | iniciante | `state-management` | 🟩 |
 | 🟩 | [Design de Sistemas](docs/05-system-design/index.md) | index | intermediário | `design-patterns`, `domain-driven-design` | 🟩 |
@@ -228,10 +228,10 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Poison Messages](docs/06-distributed-systems/poison-messages.md) | concept | intermediário | `messaging` | 🟩 |
 | 🟩 | [Replicação](docs/06-distributed-systems/replication.md) | concept | avançado | `consistency` | 🟩 |
 | 🟩 | [Retries](docs/06-distributed-systems/retries.md) | concept | intermediário | `timeouts`, `idempotency` | 🟩 |
-| 🟩 | [Sagas](docs/06-distributed-systems/sagas.md) | pattern | avançado | `distributed-transactions` | 🟨 |
+| 🟩 | [Sagas](docs/06-distributed-systems/sagas.md) | pattern | avançado | `distributed-transactions` | 🟩 |
 | 🟩 | [Sharding](docs/06-distributed-systems/sharding.md) | concept | avançado | `partitioning` | 🟩 |
 | 🟩 | [Consistência Forte](docs/06-distributed-systems/strong-consistency.md) | concept | avançado | `consistency` | 🟩 |
-| 🟩 | [Timeouts](docs/06-distributed-systems/timeouts.md) | concept | intermediário | `latency` | 🟩 |
+| 🟩 | [Timeouts](docs/06-distributed-systems/timeouts.md) | concept | intermediário | `latency` | 🟨 |
 
 ### Nível 05 — Arquitetura
 
@@ -259,7 +259,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [OLTP](docs/07-data-architecture/oltp.md) | concept | intermediário | `data-architecture` | 🟩 |
 | 🟩 | [Bancos Relacionais](docs/07-data-architecture/relational-databases.md) | concept | intermediário | `data-architecture` | 🟩 |
 | 🟩 | [Transações](docs/07-data-architecture/transactions.md) | concept | intermediário | `relational-databases` | 🟩 |
-| 🟩 | [API Gateways](docs/08-integration-architecture/api-gateways.md) | pattern | intermediário | `rest` | 🟨 |
+| 🟩 | [API Gateways](docs/08-integration-architecture/api-gateways.md) | pattern | intermediário | `rest` | 🟩 |
 | 🟩 | [Integração em Lote](docs/08-integration-architecture/batch-integration.md) | concept | intermediário | `integration-architecture` | 🟩 |
 | 🟩 | [Enterprise Integration Patterns](docs/08-integration-architecture/enterprise-integration-patterns.md) | reference | intermediário | `messaging-integration` | 🟩 |
 | 🟩 | [Integração Orientada a Eventos](docs/08-integration-architecture/event-driven-integration.md) | concept | avançado | `messaging-integration` | 🟩 |
@@ -267,7 +267,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [GraphQL](docs/08-integration-architecture/graphql.md) | concept | avançado | `rest` | 🟩 |
 | 🟩 | [gRPC](docs/08-integration-architecture/grpc.md) | concept | avançado | `rest` | 🟩 |
 | 🟩 | [Arquitetura de Integração](docs/08-integration-architecture/index.md) | index | avançado | `distributed-systems` | 🟩 |
-| 🟩 | [Anti-Corruption Layer na Integração](docs/08-integration-architecture/integration-anti-corruption.md) | pattern | avançado | `integration-contracts` | 🟨 |
+| 🟩 | [Anti-Corruption Layer na Integração](docs/08-integration-architecture/integration-anti-corruption.md) | pattern | avançado | `integration-contracts` | 🟩 |
 | 🟩 | [Contratos de Integração](docs/08-integration-architecture/integration-contracts.md) | concept | avançado | `integration-architecture` | 🟩 |
 | 🟩 | [Integração por Mensageria](docs/08-integration-architecture/messaging-integration.md) | concept | avançado | `integration-architecture` | 🟩 |
 | 🟩 | [REST](docs/08-integration-architecture/rest.md) | concept | intermediário | `integration-architecture` | 🟩 |
@@ -326,7 +326,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Ausência de Estado](docs/11-scalability/statelessness.md) | concept | intermediário | `horizontal-scaling` | 🟩 |
 | 🟩 | [Escala Vertical](docs/11-scalability/vertical-scaling.md) | concept | intermediário | `scalability` | 🟩 |
 | 🟩 | [Métricas de Disponibilidade](docs/12-reliability/availability-metrics.md) | concept | intermediário | `reliability` | 🟩 |
-| 🟩 | [Bulkheads](docs/12-reliability/bulkheads.md) | pattern | intermediário | `reliability` | 🟨 |
+| 🟩 | [Bulkheads](docs/12-reliability/bulkheads.md) | pattern | intermediário | `reliability` | 🟩 |
 | 🟩 | [Engenharia do Caos](docs/12-reliability/chaos-engineering.md) | concept | avançado | `reliability` | 🟩 |
 | 🟩 | [Circuit Breakers](docs/12-reliability/circuit-breakers.md) | pattern | intermediário | `retry-storms` | 🟩 |
 | 🟩 | [Planejamento de Recuperação](docs/12-reliability/disaster-recovery-planning.md) | concept | avançado | `rto` | 🟩 |
@@ -439,7 +439,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Arquitetura Alvo](docs/15-enterprise-architecture/target-architecture.md) | concept | avançado | `current-state-architecture` | 🟩 |
 | 🟩 | [Estratégia Técnica](docs/15-enterprise-architecture/technical-strategy.md) | concept | avançado | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Tecnologia](docs/15-enterprise-architecture/technology-architecture.md) | concept | avançado | `enterprise-architecture` | 🟩 |
-| 🟩 | [Radar Tecnológico](docs/15-enterprise-architecture/technology-radar.md) | pattern | intermediário | `enterprise-architecture` | 🟨 |
+| 🟩 | [Radar Tecnológico](docs/15-enterprise-architecture/technology-radar.md) | pattern | intermediário | `enterprise-architecture` | 🟩 |
 | 🟩 | [Arquitetura de Transição](docs/15-enterprise-architecture/transition-architecture.md) | concept | avançado | `target-architecture` | 🟩 |
 | 🟩 | [Migração de Dados](docs/16-legacy-modernization/data-migration.md) | concept | avançado | `legacy-modernization` | 🟩 |
 | 🟩 | [Exercício 08 — Modernizar um Legado](docs/16-legacy-modernization/exercises/08-modernize-legacy.md) | exercise | avançado | `migration-strategies` | 🟩 |
@@ -454,7 +454,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Reconstrução](docs/16-legacy-modernization/rebuilding.md) | concept | avançado | `migration-strategies` | 🟩 |
 | 🟩 | [Substituição](docs/16-legacy-modernization/replacing.md) | concept | avançado | `migration-strategies` | 🟩 |
 | 🟩 | [Replataforma](docs/16-legacy-modernization/replatforming.md) | concept | intermediário | `migration-strategies` | 🟩 |
-| 🟩 | [Strangler Fig](docs/16-legacy-modernization/strangler-fig.md) | pattern | avançado | `legacy-modernization` | 🟨 |
+| 🟩 | [Strangler Fig](docs/16-legacy-modernization/strangler-fig.md) | pattern | avançado | `legacy-modernization` | 🟩 |
 | 🟩 | [Conformidade](docs/19-architecture-governance/compliance.md) | concept | avançado | `governance-standards` | 🟩 |
 | 🟩 | [Exceções](docs/19-architecture-governance/exceptions.md) | concept | avançado | `governance-standards` | 🟩 |
 | 🟩 | [Governança Federada](docs/19-architecture-governance/federated-governance.md) | concept | avançado | `governance-basics` | 🟩 |

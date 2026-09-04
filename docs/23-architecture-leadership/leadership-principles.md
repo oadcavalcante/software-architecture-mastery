@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, leadership-standards, leadership-governance]
 canonical_for: [formulação de princípio, princípio derivado de precedente, aposentadoria de princípio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -72,7 +72,7 @@ Isso produz princípios que descrevem o que a organização já faz — e a dife
 eles são reconhecidos imediatamente, e a discussão passa a ser sobre se o critério está certo, e
 não sobre se ele é o critério.
 
-Ver [ADRs](/18-architecture-decisions/index.md).
+Ver [ADRs](/18-architecture-decisions/what-is-an-adr).
 
 Quando o acervo de decisões não existe, construí-lo vem antes de escrever princípios.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [services]
 related: [system-decomposition, microservices, bounded-context]
 canonical_for: [fronteira de serviço]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -99,7 +99,7 @@ esquema sem contrato, que é pior que acoplamento de código.
 
 Isso implica que decidir a fronteira é decidir a partição dos dados. E é a parte
 mais difícil: separar código é refatoração; separar dados envolve migração,
-consistência eventual e frequentemente [sagas](/06-distributed-systems/index.md).
+consistência eventual e frequentemente [sagas](/06-distributed-systems/sagas).
 
 ### Extraia um de cada vez, com razão registrada
 

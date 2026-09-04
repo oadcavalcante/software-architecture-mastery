@@ -14,7 +14,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [architecture-vs-implementation, coupling]
 canonical_for: [arquitetura vs design]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -130,7 +130,7 @@ vira comitê — ou surpresa — decisões de alcance amplo aparecem prontas.
 **Determina o que se registra.** Decisão de design fica no código: um leitor
 atento reconstrói o raciocínio. Decisão arquitetural precisa de registro
 explícito, porque o contexto que a justificou não está visível em lugar nenhum
-do código. É a base dos [ADRs](/18-architecture-decisions/index.md).
+do código. É a base dos [ADRs](/18-architecture-decisions/what-is-an-adr).
 
 **Determina onde a revisão vale a pena.** Revisar todo design exaustivamente não
 escala. Revisar arquitetura sempre vale, porque o erro se espalha.

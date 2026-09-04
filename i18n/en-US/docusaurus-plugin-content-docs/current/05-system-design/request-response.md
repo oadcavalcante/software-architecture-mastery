@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [queues, background-processing, timeouts]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -80,7 +80,7 @@ exhausts resources — and the failure propagates upward.
 
 The timeout has to be **shorter** than the caller's, otherwise it gives up first and the
 chain works for nobody. See
-[timeouts](/06-distributed-systems/index.md).
+[timeouts](/06-distributed-systems/timeouts).
 
 And the timeout does not resolve the central ambiguity: when it fires, you do not know
 whether the operation happened.

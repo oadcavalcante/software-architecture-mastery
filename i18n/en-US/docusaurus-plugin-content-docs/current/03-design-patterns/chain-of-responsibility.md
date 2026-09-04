@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, command, mediator]
 canonical_for: [chain of responsibility]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -73,8 +73,13 @@ What happens if nobody handles it?
 The pattern does not answer, and that omission is the source of most of the defects:
 the request disappears silently.
 
-The fix is always the same: **a final handler that always handles** — even if only to
-log and raise an error. A chain without that link has an invisible failure path.
+Under the "first to handle stops" semantics, the fix is **a final handler that always
+handles** — even if only to log and raise an error. A chain without that link has an
+invisible failure path.
+
+Under the "everyone processes" semantics the problem does not exist: there is no "nobody
+handled it", because nobody was supposed to interrupt. A log event that no *appender*
+processes is the designed behaviour.
 
 ### Order is a hidden dependency
 
@@ -122,7 +127,7 @@ in a critical flow, that costs.
 | Sender does not know the handlers | Knows all of them |
 | A new handler does not touch the sender | Touches it |
 | Implicit, fragile order | Explicit |
-| Risk of nobody handling | All cases covered or a clear error |
+| A gap spread across the chain | A gap concentrated and visible in the sender |
 | Traversal to trace | Direct flow |
 
 ## Failure Modes
@@ -161,9 +166,12 @@ order.
 **Logging with levels.** An event goes through *appenders* that decide whether to
 process it.
 
-The exceptions case is instructive: the language **guarantees** a final link — if
-nobody handles it, the program terminates with a visible error. That is exactly the
-guarantee manual implementations tend to forget.
+The exceptions case is instructive: the language supplies a default final handler, which
+**reports** instead of letting the case vanish. On the main path that usually terminates
+the program with a visible error; off it the behaviour varies — in Java and in Python, an
+unhandled exception on a secondary thread kills only that thread, and the process carries
+on. It is the guarantee manual implementations forget, and the secondary-thread case shows
+that not even the language gives it for free in every context.
 
 ## Real-World Example
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [queues, background-processing, timeouts]
 canonical_for: [request/response, acoplamento temporal, síncrono]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -83,7 +83,7 @@ indefinidamente e esgota recursos — e a falha se propaga para cima.
 
 O timeout precisa ser **menor** que o do chamador, senão ele desiste antes e a
 cadeia trabalha para ninguém. Ver
-[timeouts](/06-distributed-systems/index.md).
+[timeouts](/06-distributed-systems/timeouts).
 
 E o timeout não resolve a ambiguidade central: quando ele estoura, você não sabe
 se a operação aconteceu.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-views]
 related: [architecture-views, documentation-standards, documentation-principles]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -117,7 +117,7 @@ structure changes — because it tells you whether the change contradicts a real
 "we discarded W because V"      avoids revisiting
 ```
 
-This is the argument for [ADRs](/18-architecture-decisions/index.md), and the reason the
+This is the argument for [ADRs](/18-architecture-decisions/what-is-an-adr), and the reason the
 consolidated description should point at them instead of duplicating them.
 
 ### Write it afterwards, not beforehand

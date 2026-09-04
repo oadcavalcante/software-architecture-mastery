@@ -13,7 +13,7 @@ objective: >
 prerequisites: [entity, value-object]
 related: [entity, domain-event, repository]
 canonical_for: [aggregate, agregado, aggregate root, raiz de agregado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -120,7 +120,8 @@ agregados separados que se referenciam por identidade.
 consistentes na mesma transação na maioria dos negócios — e assumir que precisam
 produz o agregado grande.
 
-**Em subdomínios de apoio ou genéricos.** Ver
+**Em subdomínios de apoio ou genéricos**, onde o custo de descobrir e modelar a invariante
+não se paga contra CRUD direto — não há regra a proteger, só dado a guardar. Ver
 [DDD tático](/04-domain-driven-design/tactical-ddd.md).
 
 **Quando o conjunto é grande ou cresce sem limite.** Um agregado com uma coleção
@@ -183,14 +184,15 @@ invariante transacional é.
 
 ## Exemplo Real
 
-Um sistema de e-commerce modelava `Pedido` contendo `Cliente`, que continha
+Um sistema de e-commerce modelava `Cliente` como raiz, contendo `Pedidos`,
 `Enderecos`, `HistoricoDeCompras` e `Preferencias`.
 
 Carregar um pedido para alterar a quantidade de um item trazia todo o histórico de
 compras do cliente — em clientes antigos, milhares de registros.
 
-Além do custo, havia conflito: dois operadores alterando pedidos diferentes do
-mesmo cliente colidiam no bloqueio otimista do agregado `Cliente`.
+Além do custo, havia conflito: como a unidade de controle de concorrência é a raiz, dois
+operadores alterando **pedidos diferentes** do mesmo cliente colidiam no bloqueio otimista
+de `Cliente` — nada no negócio ligava um pedido ao outro, mas o modelo ligava.
 
 A remodelagem aplicou o critério da invariante.
 
@@ -201,11 +203,12 @@ transação?* Não.
 itens por pedido precisa valer sempre.
 
 Resultado: `Pedido` com seus `Itens` e um `ClienteId`. `Cliente` como agregado
-separado. `HistoricoDeCompras` como projeção de leitura, não como parte de nenhum
-agregado.
+separado. `HistoricoDeCompras` como [projeção de leitura](/03-design-patterns/cqrs.md), não
+como parte de nenhum agregado.
 
-Tempo de carga de um pedido caiu de 800 ms para 15 ms. Conflitos de concorrência
-desapareceram.
+Tempo de carga de um pedido caiu de 800 ms para 15 ms, e os conflitos **entre pedidos do
+mesmo cliente** desapareceram. Dois operadores no mesmo pedido continuam colidindo, e devem
+mesmo: ali a colisão é real.
 
 O caso interessante apareceu depois: o negócio pediu "cliente com mais de três
 pedidos em aberto não pode fazer um quarto". Isso parece exigir consistência entre
@@ -213,8 +216,9 @@ pedidos.
 
 A conversa com o negócio revelou que uma janela de segundos era aceitável — se um
 quarto pedido escapasse ocasionalmente, ele seria bloqueado na etapa de
-aprovação. A regra virou verificação no serviço de aplicação, com consistência
-eventual.
+aprovação. A regra virou um [serviço de domínio](/04-domain-driven-design/domain-service.md) — ela
+decide sobre o negócio e existiria sem software, então não pertence à camada que só
+orquestra —, consultado com consistência eventual.
 
 Sem essa conversa, a regra teria justificado um agregado `Cliente` contendo todos
 os pedidos abertos — e o problema teria voltado.

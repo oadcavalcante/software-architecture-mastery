@@ -103,6 +103,57 @@ describe('check-canonical-links', () => {
     );
   });
 
+  // O casamento era por forma exata, e o plural passava batido: vinte links
+  // do acervo sobreviveram a uma passagem do validador por estarem no plural.
+  test('pega o plural simples do termo canônico', () => {
+    fails(
+      check('check-canonical-links.mjs', {
+        ...secao,
+        'docs/12-reliability/exemplo.md': doc(
+          '# X\n\nUse [circuit breakers](/12-reliability/index.md).\n',
+          {id: 'exemplo-plural'},
+        ),
+      }),
+      /circuit breakers.*circuit-breakers\.md/s,
+    );
+  });
+
+  test('pega plural em -ões do termo canônico', () => {
+    fails(
+      check('check-canonical-links.mjs', {
+        'docs/03-design-patterns/index.md': doc('# Padrões\n\nÍndice.\n', {
+          id: 'design-patterns-index',
+          title: 'Padrões de Projeto',
+          doc_type: 'index',
+        }),
+        'docs/03-design-patterns/padrao.md': doc('# Padrão\n\nTexto.\n', {
+          id: 'padrao',
+          title: 'Padrão',
+          canonical_for: ['padrão'],
+        }),
+        'docs/03-design-patterns/exemplo.md': doc(
+          '# X\n\nVer [padrões](/03-design-patterns/index.md).\n',
+          {id: 'exemplo-oes'},
+        ),
+      }),
+      /padrões.*padrao\.md/s,
+    );
+  });
+
+  // Despluralizar não pode inventar um termo: se nenhuma variante é
+  // `canonical_for` de um documento da seção, não há achado.
+  test('não inventa termo ao despluralizar', () => {
+    ok(
+      check('check-canonical-links.mjs', {
+        ...secao,
+        'docs/12-reliability/exemplo.md': doc(
+          '# X\n\nVer [as reliabilities](/12-reliability/index.md).\n',
+          {id: 'exemplo-nao-existe'},
+        ),
+      }),
+    );
+  });
+
   // A tradução não declara `canonical_for`; a verificação é sobre o canônico,
   // que é de onde a estrutura de link é herdada.
   test('não avalia documentos traduzidos', () => {

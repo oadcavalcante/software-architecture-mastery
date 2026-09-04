@@ -13,7 +13,7 @@ objective: >
 prerequisites: [entity]
 related: [entity, aggregate, code-smells]
 canonical_for: [value object, objeto de valor]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -67,8 +67,9 @@ compartilhado por acidente, e não há necessidade de cópia defensiva.
 
 ### Válido por construção
 
-O construtor valida. Se `Cpf` existe, ele é válido — não há como criar um
-inválido.
+O construtor valida. Se `Cpf` foi criado pelo construtor, ele é válido — e a ressalva
+importa, porque esse não é o único caminho: ORMs e desserializadores reconstituem objetos
+por reflexão, sem passar por ele. É por aí que valor inválido entra no domínio.
 
 Isso concentra a validação em um lugar e a torna impossível de esquecer. Quem
 recebe um `Cpf` não precisa verificar nada.
@@ -114,11 +115,13 @@ sempre passados juntos são um `Periodo`.
 de caracteres, sem nenhuma regra, adiciona cerimônia sem retorno. Vale quando há
 pelo menos validação.
 
-**Em subdomínios genéricos ou de apoio.** A cerimônia não se paga fora do core.
+**Em subdomínios genéricos ou de apoio, quando o tipo não tem regra própria.** O corte é
+mais alto fora do core: lá, nome próprio sozinho não paga o invólucro. Com validação ou
+comportamento — um `Cpf` que se valida — ele paga em qualquer subdomínio.
 
-**Quando a linguagem torna caro.** Em plataformas onde cada objeto tem custo
-significativo e o volume é enorme, o impacto precisa ser medido — embora isso
-seja menos comum do que se supõe.
+**Quando a alocação aparece no perfil.** Laço quente que cria um objeto por elemento, ou
+coleção na casa dos milhões de instâncias, em plataforma sem tipo de valor achatado. A
+condição é aparecer no perfil — não parecer que apareceria.
 
 **Para dados de transporte.** Um DTO de API não precisa de objetos de valor
 internos.
@@ -126,8 +129,10 @@ internos.
 ## Alternativas
 
 - **Tipo primitivo com validação centralizada** — menos seguro, mais barato.
-- **Alias de tipo** — em linguagens que oferecem tipos nominais leves, dá
-  segurança de tipo sem classe.
+- **Tipo nominal leve** — *newtype*, *opaque type*, unidade de medida: dá segurança de
+  tipo sem classe. Alias **transparente** não serve: o `type` do TypeScript, o `typealias`
+  do Kotlin e o `typedef` do C são apelidos para o mesmo tipo, e deixam passar qualquer
+  valor da forma certa.
 - **Registro imutável** — quando há valores agrupados e pouco comportamento.
 
 ## Trade-offs

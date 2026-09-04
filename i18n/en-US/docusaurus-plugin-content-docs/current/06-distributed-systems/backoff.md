@@ -13,7 +13,7 @@ objective: >
 prerequisites: [retries]
 related: [retries, rate-limiting, retry-storms]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -222,7 +222,7 @@ No capacity was added. What changed was the clients no longer all trying at the 
 
 - [Retries](/06-distributed-systems/retries.md) — the mechanism backoff regulates.
 - [Rate Limiting](/05-system-design/rate-limiting.md) — the server's side.
-- [Circuit Breakers](/12-reliability/index.md) — the alternative when the failure persists.
+- [Circuit Breakers](/12-reliability/circuit-breakers) — the alternative when the failure persists.
 - [Retry Storms](/12-reliability/index.md).
 
 ## Practical Exercise

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-monolith]
 related: [modular-monolith, event-driven, soa]
 canonical_for: [microsserviços, microservices]
-content_version: 1
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -79,8 +79,7 @@ que leva semanas.
 **Times com autonomia real.** Se as decisões continuam centralizadas, a autonomia
 técnica não se materializa.
 
-Adotar sem esses pré-requisitos produz os custos sem os benefícios. É o cenário
-mais comum de fracasso.
+Adotar sem esses pré-requisitos produz os custos sem os benefícios.
 
 ### O tamanho é consequência
 
@@ -93,14 +92,16 @@ monolito distribuído.
 
 ### Dados por serviço
 
-A regra que não admite exceção: **cada serviço é dono dos seus dados, e ninguém
-mais acessa diretamente.**
+A regra, como estado final: **cada serviço é dono dos seus dados, e ninguém mais acessa
+diretamente.** Durante uma decomposição, banco compartilhado é passo de transição legítimo —
+com prazo e dono declarados. O que não é legítimo é chegar ao estado final com ele.
 
 Compartilhar banco entre serviços produz todo o acoplamento de um monolito, com
-todo o custo de distribuição, e sem contrato. É a pior combinação possível.
+todo o custo de distribuição, e sem contrato — paga-se a rede e não se ganha a
+independência que ela deveria comprar.
 
 A consequência é que consistência entre serviços passa a ser eventual, e
-transações viram [sagas](/06-distributed-systems/index.md).
+transações viram [sagas](/06-distributed-systems/sagas).
 
 ## Quando Usar
 
@@ -127,7 +128,9 @@ por pessoa é desproporcional.
 são caras e sagas mudam a semântica do negócio — o que precisa ser aceito pelo
 negócio, não decidido pela engenharia.
 
-**Por reputação.** É a razão mais comum e a pior.
+**Por reputação.** A decisão é tomada antes da pergunta que a justificaria, e depois a
+pergunta não é mais feita — porque respondê-la agora seria admitir que a resposta já
+estava dada.
 
 ## Alternativas
 
@@ -149,13 +152,13 @@ times frequentemente precisam.
 ## Modos de Falha
 
 **Monolito distribuído.** Serviços que sempre são implantados juntos e cuja
-indisponidade mútua derruba tudo. Custo de distribuição, nenhum benefício.
+indisponibilidade mútua derruba tudo. Custo de distribuição, nenhum benefício.
 
 **Banco compartilhado.** Acoplamento sem contrato.
 
 **Cascata síncrona.** Uma requisição atravessa sete serviços; a falha de um
 derruba a cadeia. Ver
-[circuit breakers](/12-reliability/index.md).
+[circuit breakers](/12-reliability/circuit-breakers).
 
 **Granularidade excessiva.** Mais serviços do que o time consegue operar.
 

@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor reconhece quando o histórico é requisito de negócio e o
   compromisso permanente de versionamento que o padrão impõe.
 prerequisites: [cqrs]
-related: [cqrs, memento, event-driven]
+related: [cqrs, memento, event-driven, distributed-event-sourcing]
 canonical_for: [event sourcing]
-content_version: 1
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,8 +24,9 @@ last_reviewed: 2026-08-26
 Event sourcing persiste a **sequência de eventos** que levou ao estado atual, em
 vez do estado. O estado passa a ser derivado: uma função dos eventos.
 
-É [Memento](/03-design-patterns/memento.md) em escala de sistema, e um dos padrões de maior
-consequência do catálogo — porque a decisão é irreversível na prática.
+É [Memento](/03-design-patterns/memento.md) em escala de sistema, e um dos padrões cuja
+adoção é mais assimétrica: barata de tomar, cara de desfazer. Sair é possível — o Exemplo
+Real narra uma saída concluída —, mas custa desproporcionalmente mais do que entrar.
 
 ## Problema
 
@@ -106,7 +107,10 @@ rastreabilidade por uma fração do custo.
 **Em domínios CRUD.** O padrão adiciona complexidade proporcional ao domínio
 inteiro, não à parte que precisa de histórico.
 
-**Quando o time não domina consistência eventual.**
+**Quando o time não domina consistência eventual.** A projeção fica atrás do log por um
+intervalo, e é nele que os defeitos aparecem: a tela de confirmação que mostra o estado
+anterior à ação que o usuário acabou de fazer, e a projeção que processa o mesmo evento duas
+vezes por não ser idempotente.
 
 **Quando não há disposição para versionamento permanente.** É o critério que mais
 deveria eliminar candidatos e menos é considerado.
@@ -142,8 +146,9 @@ precisam ser projetadas desde o início.
 
 ## Modos de Falha
 
-**Evento sem versionamento.** Uma mudança de estrutura torna eventos antigos
-ilegíveis. É irrecuperável sem reescrever o histórico.
+**Evento sem versionamento.** Sem marcador de versão no evento, o conversor certo passa a
+ser escolhido por inferência da estrutura — presença ou ausência de campo. Funciona até duas
+versões coincidirem em forma, e aí não há como distingui-las sem reescrever o histórico.
 
 **Reconstrução lenta.** Sem instantâneos, carregar um agregado com dezenas de
 milhares de eventos leva segundos.
@@ -176,14 +181,19 @@ persistência; a outra sobre comunicação. Podem existir separadamente.
 **Sistemas contábeis.** O livro-razão é event sourcing por definição, e há
 séculos — lançamentos imutáveis, saldo derivado, correção por estorno.
 
-**Controle de versão.** Git armazena a sequência de mudanças; o estado da árvore é
-derivado.
+**Controle de versão.** O grafo de commits é imutável e só cresce por acréscimo, e
+qualquer estado da árvore é alcançável percorrendo-o — é essa a semelhança. Note que ela
+para aí: Git guarda **snapshots** completos da árvore a cada commit e deriva o *diff*, que
+é o inverso do event sourcing. Os deltas existem só como compressão dentro do packfile.
 
 **Sistemas de negociação financeira.** Ordens e execuções como eventos, com
 exigência regulatória de reconstrução.
 
-**Bancos de dados.** O registro de transações de qualquer banco relacional é event
-sourcing usado internamente — replicação e recuperação derivam dele.
+**Bancos de dados.** Em PostgreSQL, Oracle e SQL Server, o log de escrita antecipada é
+event sourcing usado internamente: a recuperação após queda deriva o estado dele. Nem todo
+banco funciona assim — o SQLite em modo padrão usa diário de desfazer, do qual o estado não
+é derivado —, e nem sempre é o mesmo log: no MySQL a recuperação vem do redo log do InnoDB
+e a replicação vem do binlog, que é outro, lógico e separado.
 
 A contabilidade é o exemplo mais útil, porque mostra o padrão funcionando por
 séculos num domínio onde o histórico é a razão de ser. Onde o histórico é
@@ -220,7 +230,7 @@ adoção.
 - [Memento](/03-design-patterns/memento.md) — a mesma ideia em memória.
 - [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — comunicação, não
   persistência.
-- [Sagas](/06-distributed-systems/index.md).
+- [Sagas](/06-distributed-systems/sagas).
 
 ## Exercício Prático
 

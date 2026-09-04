@@ -13,7 +13,7 @@ objective: >
 prerequisites: [entity, value-object]
 related: [entity, domain-event, repository]
 canonical_for: [aggregate, aggregate root]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -117,8 +117,9 @@ they are separate aggregates referencing each other by identity.
 the same transaction in most businesses — and assuming they do produces the large
 aggregate.
 
-**In supporting or generic subdomains.** See
-[tactical DDD](/04-domain-driven-design/tactical-ddd.md).
+**In supporting or generic subdomains**, where the cost of discovering and modelling the
+invariant does not pay off against plain CRUD — there is no rule to protect, only data to
+store. See [tactical DDD](/04-domain-driven-design/tactical-ddd.md).
 
 **When the set is large or grows without bound.** An aggregate with a collection that grows
 indefinitely — history, logs, messages — is unworkable.
@@ -178,14 +179,15 @@ transactional invariant is.
 
 ## Real-World Example
 
-An e-commerce system modelled `Order` containing `Customer`, which contained `Addresses`,
+An e-commerce system modelled `Customer` as the root, containing `Orders`, `Addresses`,
 `PurchaseHistory` and `Preferences`.
 
 Loading an order to change an item's quantity brought the customer's entire purchase
 history — in long-standing customers, thousands of records.
 
-Beyond the cost, there was conflict: two operators changing different orders of the same
-customer collided on the `Customer` aggregate's optimistic lock.
+Beyond the cost, there was conflict: since the unit of concurrency control is the root, two
+operators changing **different orders** of the same customer collided on `Customer`'s
+optimistic lock — nothing in the business tied one order to the other, but the model did.
 
 The remodelling applied the invariant criterion.
 
@@ -196,9 +198,12 @@ transaction?* No.
 limit per order has to hold at all times.
 
 Result: `Order` with its `Items` and a `CustomerId`. `Customer` as a separate aggregate.
-`PurchaseHistory` as a read projection, not part of any aggregate.
+`PurchaseHistory` as a [read projection](/03-design-patterns/cqrs.md), not part of any
+aggregate.
 
-Order load time dropped from 800 ms to 15 ms. Concurrency conflicts disappeared.
+Order load time dropped from 800 ms to 15 ms, and the conflicts **between orders of the same
+customer** disappeared. Two operators on the same order still collide, and they should: there
+the collision is real.
 
 The interesting case came afterwards: the business asked for "a customer with more than
 three open orders cannot place a fourth". That looks like it requires consistency across
@@ -206,7 +211,9 @@ orders.
 
 The conversation with the business revealed that a window of seconds was acceptable — if a
 fourth order occasionally slipped through, it would be blocked at the approval stage. The
-rule became a check in the application service, with eventual consistency.
+rule became a [domain service](/04-domain-driven-design/domain-service.md) — it decides about
+the business and would exist without software, so it does not belong in the layer that only
+orchestrates — consulted with eventual consistency.
 
 Without that conversation, the rule would have justified a `Customer` aggregate containing
 every open order — and the problem would have come back.

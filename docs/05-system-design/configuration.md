@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [secrets, environment-management, feature-flags]
 canonical_for: [configuração, variável de ambiente]
-content_version: 1
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -53,7 +53,7 @@ configuração — são código com uma camada de indireção.
 | **Segredo** | Configuração que não pode vazar | Cofre, injetado em execução |
 
 Segredo é configuração com requisito adicional: nunca em repositório, nunca em
-log, rotacionável. Ver [segredos](/10-security/index.md).
+log, rotacionável. Ver [segredos](/10-security/secrets).
 
 O erro frequente é tratar as três igual — constantes viram configuração
 desnecessária, e segredos viram variável de ambiente em arquivo versionado.
@@ -92,7 +92,7 @@ revisão e menos rastro.
 Vale para o que precisa mudar rápido — nível de log, chaves de funcionalidade. Não
 vale para o que muda raramente.
 
-Ver [feature flags](/14-devops-and-platform/index.md), que é um caso específico
+Ver [feature flags](/14-devops-and-platform/feature-flags), que é um caso específico
 com ferramentas próprias.
 
 ### Configuração não é ponto de extensão

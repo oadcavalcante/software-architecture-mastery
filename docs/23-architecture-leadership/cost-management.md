@@ -13,7 +13,7 @@ objective: >
 prerequisites: [risk-management]
 related: [risk-management, technical-strategy-leadership, measuring-architecture-outcomes]
 canonical_for: [custo como atributo arquitetural, unidade econômica, atribuição de custo, visibilidade de custo por time]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -101,7 +101,7 @@ Isso é uma decisão de arquitetura com informação completa. Sem o número, el
 preferência técnica e o custo aparece depois.
 
 Incluir estimativa de custo em toda proposta arquitetural relevante é uma prática barata e rara.
-Ver [ADRs](/18-architecture-decisions/index.md).
+Ver [ADRs](/18-architecture-decisions/what-is-an-adr).
 
 ### O custo operacional humano é o maior e o menos contado
 

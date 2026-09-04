@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [service-mesh, rest, graphql]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -242,10 +242,12 @@ discount rule went back to the policy service, where the business team can read 
 being possible.
 
 **BFFs per client** — broker, policyholder and partner — each maintained by the respective client's team.
-The three-week bottleneck disappeared.
+The two weeks of queueing disappeared; a field change came to take about a week, which is the work itself.
 
-**Authorization in depth.** The gateway still checks, and each service checks too. The redundancy was
-accepted consciously.
+**Authorization in depth, with the split named.** The gateway checks what is edge-level — a valid token,
+scope, quota — and each service checks what is domain-level: whether *this* broker may see *this* policy.
+The redundancy exists only in the first layer, and it was accepted consciously; what ended was the domain
+rule living in the gateway.
 
 What the team records: the gateway was never a mistake. The mistake was not having a written rule about
 what may get into it — and, with no rule, each individual exception was reasonable.

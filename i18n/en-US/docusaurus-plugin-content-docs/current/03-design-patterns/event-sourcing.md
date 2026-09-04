@@ -11,9 +11,9 @@ objective: >
   By the end, the reader recognizes when history is a business requirement and the
   permanent versioning commitment the pattern imposes.
 prerequisites: [cqrs]
-related: [cqrs, memento, event-driven]
+related: [cqrs, memento, event-driven, distributed-event-sourcing]
 canonical_for: [event sourcing]
-translated_from_version: 1
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,9 +24,10 @@ last_reviewed: 2026-08-31
 Event sourcing persists the **sequence of events** that led to the current state, rather
 than the state. The state becomes derived: a function of the events.
 
-It is [Memento](/03-design-patterns/memento.md) at system scale, and one of the
-most consequential patterns in the catalogue — because the decision is irreversible in
-practice.
+It is [Memento](/03-design-patterns/memento.md) at system scale, and one of the patterns
+whose adoption is most asymmetric: cheap to take on, expensive to undo. Getting out is
+possible — the Real-World Example recounts a completed exit — but it costs
+disproportionately more than getting in.
 
 ## Problem
 
@@ -103,7 +104,10 @@ state solves most traceability needs for a fraction of the cost.
 **In CRUD domains.** The pattern adds complexity proportional to the whole domain, not to
 the part that needs history.
 
-**When the team does not have a grip on eventual consistency.**
+**When the team does not have a grip on eventual consistency.** The projection lags the
+log by an interval, and that is where the defects show up: the confirmation screen that
+shows the state before the action the user has just taken, and the projection that
+processes the same event twice because it is not idempotent.
 
 **When there is no willingness for permanent versioning.** It is the criterion that should
 eliminate the most candidates and is considered the least.
@@ -139,8 +143,10 @@ the start.
 
 ## Failure Modes
 
-**Event with no versioning.** A structural change makes old events unreadable. It is
-unrecoverable without rewriting the history.
+**Event with no versioning.** With no version marker on the event, the right converter
+comes to be chosen by inference from the structure — the presence or absence of a field.
+That works until two versions coincide in shape, and then there is no way to tell them
+apart without rewriting the history.
 
 **Slow rebuild.** Without snapshots, loading an aggregate with tens of thousands of events
 takes seconds.
@@ -174,13 +180,21 @@ persistence; the other about communication. They can exist separately.
 **Accounting systems.** The general ledger is event sourcing by definition, and has been
 for centuries — immutable entries, derived balance, correction by reversal.
 
-**Version control.** Git stores the sequence of changes; the tree's state is derived.
+**Version control.** The commit graph is immutable and grows only by appending, and any
+state of the tree is reachable by walking it — that is the resemblance. Note that it stops
+there: Git stores complete **snapshots** of the tree at each commit and derives the *diff*,
+which is the inverse of event sourcing. The deltas exist only as compression inside the
+packfile.
 
 **Financial trading systems.** Orders and executions as events, with a regulatory
 requirement for reconstruction.
 
-**Databases.** The transaction log of any relational database is event sourcing used
-internally — replication and recovery derive from it.
+**Databases.** In PostgreSQL, Oracle and SQL Server, the write-ahead log is event sourcing
+used internally: recovery after a crash derives the state from it. Not every database works
+that way — SQLite in its default mode uses a rollback journal, from which the state is not
+derived — and it is not always the same log: in MySQL, recovery comes from InnoDB's redo
+log and replication comes from the binlog, which is a different one, logical and
+separate.
 
 Accounting is the most useful example, because it shows the pattern working for centuries
 in a domain where history is the reason for being. Where history is incidental, the same
@@ -217,7 +231,7 @@ one.
 - [Memento](/03-design-patterns/memento.md) — the same idea in memory.
 - [Event-Driven Architecture](/03-design-patterns/event-driven.md) — communication, not
   persistence.
-- [Sagas](/06-distributed-systems/index.md).
+- [Sagas](/06-distributed-systems/sagas).
 
 ## Practical Exercise
 

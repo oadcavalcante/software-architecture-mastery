@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [partial-failure, timeouts, failure-detection]
 canonical_for: [falha de rede, partição de rede]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -95,7 +95,7 @@ Um nó que caiu é detectado e removido. Um nó **lento** continua respondendo �
 verificações de saúde, continua recebendo tráfego e continua entregando devagar.
 
 Isso propaga a lentidão para quem depende dele, e é a origem de boa parte das
-cascatas. Ver [circuit breakers](/12-reliability/index.md).
+cascatas. Ver [circuit breakers](/12-reliability/circuit-breakers).
 
 Detectar degradação exige medir latência, não apenas disponibilidade — e é por
 isso que verificação de saúde binária é insuficiente.

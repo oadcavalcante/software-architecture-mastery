@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [incremental-modernization, migration-strategies, transition-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -54,12 +54,14 @@ risk is distributed across many small switchovers.
 The routing layer has to exist somewhere:
 
 ```text
-HTTP gateway or proxy   intercepts requests — the most common and the simplest
+HTTP gateway or proxy    intercepts requests — the simplest to set up
 facade in the application  a module that decides where to delegate
-event                   the new one consumes the same events as the old one
-database                the new one reads the same store, temporarily
-user interface          screens migrated one at a time
+event                    the new one consumes the same events as the old one
+user interface           screens migrated one at a time
 ```
+
+A shared database is not on this list: it diverts no call at all, it is a data source
+arrangement during coexistence — dealt with further on, in "the data is the hard part".
 
 The choice depends on where it is possible to intercept **without modifying the old
 system** — which is frequently the real constraint, because modifying it may be exactly
@@ -94,8 +96,7 @@ Intercepting calls is mechanical. Deciding where the data lives, during coexiste
 not.
 
 ```text
-the old one is the source   the new one reads from there — simple, and couples to
-                            the old schema
+the old one is the source   the new one reads from there — simple, couples to the old schema
 the new one is the source   the old one reads from there — requires changing the old one
 dual write                  both write — divergence to manage
 by slice                    each entity has a source, as the migration advances
@@ -172,11 +173,16 @@ and the shutdown is a delivery, not a consequence.
 
 **With no shutdown plan.**
 
-**When the system is small** and direct replacement is viable and cheap.
+**When rewriting the whole thing takes weeks, not years.** It is the threshold for
+[rebuilding](/16-legacy-modernization/rebuilding.md): below it, the routing layer, the data
+coexistence and the shutdown plan cost more than the system being replaced.
 
 **Without data compatibility** in both directions.
 
-**Migrating the peripheral indefinitely**, without touching what motivated it.
+**When what motivated the project does not fit in the first slices.** If the reason to
+modernize is in the core and the core can only be touched at the end, the pattern delivers two
+years of risk before the first benefit — and that is how a migration loses its sponsorship
+halfway through.
 
 **When the old one will be discontinued for another reason** before the migration
 finishes.
@@ -213,6 +219,12 @@ finishes.
 
 **No interception point.** The project doesn't start.
 
+**The routing layer goes down.** It sits in the path of 100% of the traffic throughout the
+transition, and comes to require the availability of the sum of the two systems — plus one
+network hop on every call. It is a [single point of failure by
+construction](/08-integration-architecture/api-gateways.md), and migrations tend to treat it
+as an infrastructure detail until the first incident.
+
 **Migrating the peripheral.** Progress with no value.
 
 **Going back is impossible.** The data has diverged.
@@ -231,7 +243,7 @@ finishes.
 
 **Not mapping the hard cases early.** Discovering in month ten that a feature is not extractable changes the viability of the entire strategy — and it is information you can get in month one.
 
-**Not maintaining data compatibility in both directions.** During coexistence, both systems read and write the same data. One-way compatibility makes it impossible to roll a slice back.
+**Not maintaining data compatibility in both directions.** During coexistence, the source of truth changes sides. One-way compatibility makes it impossible to roll a slice back.
 
 **Not monitoring what still uses the old one.** Without measuring the residual traffic, nobody knows whether a forgotten consumer remains — and the shutdown becomes a gamble.
 
@@ -308,6 +320,7 @@ estimate.
 
 ## Further Reading
 
-- Fowler, Martin. *StranglerFigApplication*, 2004.
+- Fowler, Martin. *StranglerApplication*, 2004 — later renamed
+  *StranglerFigApplication*, and it is under that title that the entry is found today.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.

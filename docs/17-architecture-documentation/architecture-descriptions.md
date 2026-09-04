@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-views]
 related: [architecture-views, documentation-standards, documentation-principles]
 canonical_for: [descrição de arquitetura, arc42, documento de arquitetura, ISO 42010]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -117,7 +117,7 @@ a estrutura mudar — porque ela informa se a mudança contradiz uma restrição
 "descartamos W porque V"           evita revisitar
 ```
 
-Este é o argumento para [ADRs](/18-architecture-decisions/index.md), e a razão de a
+Este é o argumento para [ADRs](/18-architecture-decisions/what-is-an-adr), e a razão de a
 descrição consolidada apontar para elas em vez de duplicá-las.
 
 ### Escrever depois, não antes

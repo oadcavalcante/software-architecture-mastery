@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [architecture-evolution, dependency-management]
 canonical_for: [technical debt]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -223,7 +223,7 @@ record.
 - [Complexity](/01-fundamentals/complexity.md) — the form accumulated debt takes.
 - [Architecture Evolution](/01-fundamentals/architecture-evolution.md) — how the system changes over
   time.
-- [ADRs](/18-architecture-decisions/index.md) — where deliberate debt is
+- [ADRs](/18-architecture-decisions/what-is-an-adr) — where deliberate debt is
   recorded.
 
 ## Practical Exercise

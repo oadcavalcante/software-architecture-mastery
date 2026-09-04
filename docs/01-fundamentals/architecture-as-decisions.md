@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-principles]
 related: [architecture-evolution, solution-space]
 canonical_for: [arquitetura como decisões, decisão arquitetural]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -167,7 +167,7 @@ serviço de outra área.
 - [O que é Arquitetura](/01-fundamentals/what-is-software-architecture.md) — o critério de quais
   decisões merecem registro.
 - [Espaço da Solução](/01-fundamentals/solution-space.md) — de onde as alternativas vêm.
-- [ADRs](/18-architecture-decisions/index.md) — o formato prático de registro.
+- [ADRs](/18-architecture-decisions/what-is-an-adr) — o formato prático de registro.
 - [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md) — o que acontece quando o
   contexto muda.
 

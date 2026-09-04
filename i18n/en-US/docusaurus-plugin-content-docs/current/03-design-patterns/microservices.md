@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-monolith]
 related: [modular-monolith, event-driven, soa]
 canonical_for: [microservices]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -98,7 +98,7 @@ Sharing a database between services produces all the coupling of a monolith, wit
 cost of distribution, and with no contract. It is the worst possible combination.
 
 The consequence is that consistency between services becomes eventual, and transactions
-become [sagas](/06-distributed-systems/index.md).
+become [sagas](/06-distributed-systems/sagas).
 
 ## When to Use
 
@@ -151,7 +151,7 @@ brings everything down. The cost of distribution, none of the benefit.
 **Shared database.** Coupling with no contract.
 
 **Synchronous cascade.** A request crosses seven services; one failing brings down the
-chain. See [circuit breakers](/12-reliability/index.md).
+chain. See [circuit breakers](/12-reliability/circuit-breakers).
 
 **Excessive granularity.** More services than the team can operate.
 

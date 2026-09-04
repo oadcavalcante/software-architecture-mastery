@@ -100,7 +100,7 @@ mapeamento em cada borda — domina completamente o valor.
 configuração de framework com pouca lógica. Isolá-lo custa muito e protege pouco.
 
 **Quando a maior parte dos casos de uso é CRUD.** São seis artefatos por caso, e no CRUD
-cinco deles só repassam — como no Exemplo Real, em que nove dos vinte e três casos não
+cinco deles só repassam — como no Exemplo Real, em que nove dos onze casos não
 tinham regra a proteger.
 
 **Quando adotada parcialmente sem decidir o que fica de fora.** Este é o caso mais

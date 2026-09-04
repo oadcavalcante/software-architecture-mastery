@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, leadership-standards, leadership-governance]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -73,7 +73,7 @@ That produces principles that describe what the organization already does — an
 difference is enormous: they are recognized immediately, and the discussion becomes about whether
 the criterion is right, not about whether it is the criterion.
 
-See [ADRs](/18-architecture-decisions/index.md).
+See [ADRs](/18-architecture-decisions/what-is-an-adr).
 
 When the decision archive doesn't exist, building it comes before writing principles.
 

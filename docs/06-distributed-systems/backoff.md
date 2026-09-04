@@ -13,7 +13,7 @@ objective: >
 prerequisites: [retries]
 related: [retries, rate-limiting, retry-storms]
 canonical_for: [backoff, backoff exponencial, jitter]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -232,7 +232,7 @@ tentar todos no mesmo instante.
 
 - [Retries](/06-distributed-systems/retries.md) — o mecanismo que o backoff regula.
 - [Rate Limiting](/05-system-design/rate-limiting.md) — o lado do servidor.
-- [Circuit Breakers](/12-reliability/index.md) — a alternativa quando a falha
+- [Circuit Breakers](/12-reliability/circuit-breakers) — a alternativa quando a falha
   persiste.
 - [Retry Storms](/12-reliability/index.md).
 

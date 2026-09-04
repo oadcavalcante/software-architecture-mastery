@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance]
 related: [technical-influence, communication, decision-making]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -114,7 +114,7 @@ The asymmetry in visibility pushes toward deferring, and deferring is frequently
 The stance that works: decide with what you have, declare the premises, record the condition that
 would change the decision, and move on. See
 [decision-making](/23-architecture-leadership/decision-making.md) and
-[ADRs](/18-architecture-decisions/index.md).
+[ADRs](/18-architecture-decisions/what-is-an-adr).
 
 ### The organization is an architectural constraint
 

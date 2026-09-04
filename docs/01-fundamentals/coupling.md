@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modularity]
 related: [cohesion, dependency-management, separation-of-concerns]
 canonical_for: [acoplamento, coupling]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -179,7 +179,7 @@ outro serviço sem aviso.
 
 **Cascata de falha por acoplamento temporal.** Um serviço lento derruba os que o
 chamam de forma síncrona, que derrubam os seus chamadores. Ver
-[circuit breakers](/12-reliability/index.md).
+[circuit breakers](/12-reliability/circuit-breakers).
 
 **Acoplamento oculto por convenção.** Duas partes que concordam sobre um formato
 sem contrato explícito. Nada quebra na compilação; quebra em produção.

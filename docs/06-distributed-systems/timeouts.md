@@ -13,7 +13,7 @@ objective: >
 prerequisites: [latency]
 related: [retries, latency, circuit-breakers]
 canonical_for: [timeout, orçamento de tempo]
-content_version: 1
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -146,7 +146,7 @@ relatório não merecem o mesmo limite.
 padrão — o que significa que não configurar é escolher esperar para sempre.
 
 **Timeout como único mecanismo.** Ele evita a espera; não evita a sobrecarga do
-destino. Ver [circuit breakers](/12-reliability/index.md).
+destino. Ver [circuit breakers](/12-reliability/circuit-breakers).
 
 ## Alternativas
 
@@ -239,7 +239,7 @@ antes.
 - [Latência](/06-distributed-systems/latency.md) — a distribuição que calibra o timeout.
 - [Retries](/06-distributed-systems/retries.md) — o que vem depois de desistir.
 - [Idempotência](/06-distributed-systems/idempotency.md) — o que torna a retentativa segura.
-- [Circuit Breakers](/12-reliability/index.md) — o complemento.
+- [Circuit Breakers](/12-reliability/circuit-breakers) — o complemento.
 
 ## Exercício Prático
 

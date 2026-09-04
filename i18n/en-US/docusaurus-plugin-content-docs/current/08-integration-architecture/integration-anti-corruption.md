@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, schema-evolution]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -28,8 +28,10 @@ The concept comes from
 [domain-driven design](/04-domain-driven-design/anti-corruption-layer.md). Here it is seen from the
 integration angle: **what happens when you do not have it**, and when its cost is not justified.
 
-The coupling it prevents is the most expensive one in an integration — model coupling — and the least
-visible, because it never appears as an incident. It appears as an inability to change.
+The coupling it prevents — model coupling — is the most expensive one when the provider's model is
+foreign to yours and switching is plausible; outside those two conditions it can be cheap enough to
+accept, and the quadrant further on deals with that. It is also the least visible, because it almost never
+arrives as an incident: it appears as an inability to change.
 
 ## Problem
 
@@ -46,7 +48,8 @@ From then on:
 - Concepts that make no sense in your domain occupy space in it.
 - Business discussions use the provider's vocabulary.
 
-None of that appears as a defect. It appears as an estimate that tripled.
+Only the second arrives as a defect, and even that one arrives displaced — the break shows up far from
+where the cause is. The other three do not arrive at all: they appear as an estimate that tripled.
 
 ## Core Concepts
 
@@ -104,8 +107,8 @@ accounting system cannot.
 
 ```text
 foreign model + plausible switch    → a complete layer, no discussion
-foreign model + implausible switch  → light translation, to preserve the vocabulary
-close model   + plausible switch    → thin translation, focused on isolating the contract
+foreign model + implausible switch  → renaming at the boundary, no intermediate model
+close model   + plausible switch    → isolating the contract's type alone, in one place
 close model   + implausible switch  → probably not worth it
 ```
 
@@ -120,8 +123,10 @@ translation should be done once.
 
 **In the event consumer** — translating the external event before it enters.
 
-The second option has a risk: a shared translation service tends to accumulate business rules from several
-consumers and become a coupling point of its own.
+The second option costs more than it looks. A shared translation service tends to accumulate business
+rules from several consumers and become a coupling point of its own — and, before that, it already charges
+a network hop on every call, one more deployment and on-call unit, and a new failure domain: if it goes
+down, **all** the integrations go down at once, not one.
 
 ### A legacy system is the classic case
 
@@ -163,8 +168,10 @@ having it appears when you need to change.
 
 - **A simple adapter** — thin translation, with no complete intermediate model.
 - **Mapping at deserialization** — for light cases, converting on input.
-- **A consumer-driven contract** — instead of translating, negotiating the format. It only works within
-  the organization. See
+- **A consumer-driven contract** — instead of translating, negotiating the format. It requires known
+  consumers and a provider willing to run their tests, which rules it out for a public API and makes it
+  expensive with an off-the-shelf vendor — but keeps it viable where there is a real contractual
+  relationship. See
   [integration contracts](/08-integration-architecture/integration-contracts.md).
 - **Accepting the coupling consciously** — a legitimate decision when the model is close and switching is
   implausible, as long as it is recorded.

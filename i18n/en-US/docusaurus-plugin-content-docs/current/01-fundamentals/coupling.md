@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modularity]
 related: [cohesion, dependency-management, separation-of-concerns]
 canonical_for: [coupling]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -180,7 +180,7 @@ service without warning.
 
 **Failure cascade through temporal coupling.** A slow service brings down those
 that call it synchronously, which bring down their own callers. See
-[circuit breakers](/12-reliability/index.md).
+[circuit breakers](/12-reliability/circuit-breakers).
 
 **Hidden coupling by convention.** Two parts that agree on a format without an
 explicit contract. Nothing breaks at compile time; it breaks in production.

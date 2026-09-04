@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-principles, technical-strategy]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ trusts them**, and records the movement between those rings over time.
 adopt    we use it, we recommend it, it is the standard
 trial    worth trying in a real project, with limited scope
 assess   worth understanding, with no commitment
-hold     we don't use it, and there is a recorded reason
+hold     we start nothing new with it, and there is a recorded reason
 ```
 
 It replaces the approved technology list — which is binary, context-free, and freezes.
@@ -120,7 +120,7 @@ it alive, because people take part in building it.
 ### Review frequency
 
 ```text
-quarterly    the usual interval — keeps up without becoming bureaucracy
+quarterly    the most used one; keeps up without becoming bureaucracy
 biannual     acceptable in stable organizations
 annual       ages between reviews
 continuous   entries can be proposed at any time
@@ -142,13 +142,23 @@ radar says why and since when.
 
 ## When Not to Use
 
-**As a list of prohibitions.**
+**With a single team, or with few.** The radar exists to propagate learning across teams
+that don't talk to each other. With eight engineers on one team, learning circulates in
+conversation, and the quarterly review becomes ceremony over decisions everyone already
+knows.
 
-**Without a justification per item.**
+**When technological divergence is low for another reason.** If the paved road already
+embeds the choices — the pipeline only builds on this runtime, the platform only provisions
+this database —, the radar describes what the tooling already decides. That is what happened
+at the end of the Real-World Example, and it is a sign of success, not of failure.
 
-**Produced without the teams.**
+**When nobody is going to keep the review going.** A radar that ages is worse than not
+having one: it goes on being cited as if it described reality. Without someone to convene
+the session and write down what changed, the approved list is more honest.
 
-**Copied from a public radar.**
+**When the decision has to be automatically verifiable.** In a regulatory or procurement
+context, what is demanded is a binary, auditable answer. The radar guides and admits
+exceptions, which is the opposite of what that case asks for.
 
 **Without periodic review.**
 
@@ -173,11 +183,12 @@ review, and that is what keeps it describing reality.
 
 | Radar | Approved list |
 |---|---|
-| Gradation and context | Binary |
+| Gradation and context | A binary answer |
 | Records movement and learning | Static |
-| Continuous maintenance | Low, and it ages |
-| Guides, admits exceptions | Controls, produces circumvention |
-| Built with the teams | Imposed |
+| Continuous maintenance | Low maintenance, and it ages |
+| Guides, and the exception is a conversation | Controls, and the exception is a process |
+| Hard to verify in the pipeline | Automatically verifiable |
+| Built with the teams, and takes time | Decided by a few, and comes out fast |
 
 And review frequency balances effort against currency:
 
@@ -220,8 +231,9 @@ And review frequency balances effort against currency:
 A technology company had a list of 60 approved technologies, maintained by a group of
 architects.
 
-An audit of the services in production found 31 technologies in use that were not on the
-list — more than half of what was running.
+An audit of the services in production found 69 technologies running, of which 31 were not
+on the list. And the drift ran both ways: 22 of the 60 approved ones were not used by
+anyone.
 
 The list was not consulted. It was cited only when someone wanted to block a proposal.
 
@@ -238,8 +250,9 @@ what had been tried and why it hadn't worked. One of them — a graph database �
 tried by three different teams in four years, each unaware of the previous ones.
 
 **Built with the teams.** Quarterly review, with reports from those who used them. The
-first session took three hours and produced more shared knowledge than any previous
-document.
+first session took three hours and produced fourteen usage reports that were written down
+nowhere — including two cases in which different teams had abandoned the same technology
+for the same reason, unaware of each other.
 
 **Movement recorded.** In eighteen months, 23 movements — nine entries into assess, six
 promotions to trial, five to adopt, three to hold.
@@ -279,6 +292,7 @@ guiding nothing.
 
 ## Further Reading
 
-- Thoughtworks. *Technology Radar* — the original format and the public editions.
+- Thoughtworks. *Technology Radar*, vol. 29, 2023 — one edition as an anchor for the
+  format; the rest are published and show items moving between rings.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
 - Ford, Neal et al. *Building Evolutionary Architectures*. 2nd ed. O'Reilly, 2022.

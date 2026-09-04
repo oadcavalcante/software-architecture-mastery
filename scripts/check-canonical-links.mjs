@@ -37,6 +37,41 @@ function normalize(text) {
     .trim();
 }
 
+/**
+ * Formas singulares plausíveis de um termo, para casar "sagas" com "saga".
+ *
+ * O casamento era por forma exata, e o plural passava batido — foi assim que
+ * `[sagas](/06-distributed-systems/index.md)` e
+ * `[circuit breakers](/12-reliability/index.md)` sobreviveram a uma passagem do
+ * validador. Devolve variantes candidatas em vez de uma forma canônica: a
+ * despluralização do português é ambígua, e testar várias só amplia a detecção
+ * sem inventar um termo que não existe — o achado só vale se alguma variante
+ * for `canonical_for` de um documento da própria seção.
+ */
+function singularForms(term) {
+  const formas = new Set([term]);
+  const ultima = term.split(' ').pop();
+  if (!ultima || !ultima.endsWith('s')) return formas;
+
+  const trocar = (sufixo, por) => {
+    if (!ultima.endsWith(sufixo) || ultima.length <= sufixo.length) return;
+    const raiz = term.slice(0, term.length - sufixo.length);
+    formas.add(raiz + por);
+  };
+
+  trocar('s', '');
+  trocar('es', '');
+  trocar('oes', 'ao');   // padroes → padrao (o acento já caiu em normalize)
+  trocar('aes', 'ao');   // paes → pao
+  trocar('ais', 'al');   // sinais → sinal
+  trocar('eis', 'el');   // niveis → nivel
+  trocar('ois', 'ol');
+  trocar('uis', 'ul');
+  trocar('ns', 'm');     // armazens → armazem
+  trocar('ses', 's');    // ingleses → ingles
+  return formas;
+}
+
 const LINK_TO_SECTION_INDEX = /\[([^\]]+)\]\((\/[0-9]{2}-[a-z0-9-]+)\/index\.md\)/g;
 
 export function run() {
@@ -72,8 +107,15 @@ export function run() {
 
       if (sectionTitle.get(section) === text) continue;
 
-      const target = owner.get(text);
-      if (!target || !target.startsWith(`${section.slice(1)}/`)) continue;
+      let target;
+      for (const forma of singularForms(text)) {
+        const dono = owner.get(forma);
+        if (dono && dono.startsWith(`${section.slice(1)}/`)) {
+          target = dono;
+          break;
+        }
+      }
+      if (!target) continue;
 
       report.error(
         doc.repoPath,

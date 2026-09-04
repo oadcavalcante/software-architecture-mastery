@@ -13,7 +13,7 @@ objective: >
 prerequisites: [services]
 related: [system-decomposition, microservices, bounded-context]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -99,7 +99,7 @@ coupling with no contract, which is worse than code coupling.
 That implies that deciding the boundary is deciding the partitioning of the data. And
 it is the hardest part: separating code is refactoring; separating data involves
 migration, eventual consistency and frequently
-[sagas](/06-distributed-systems/index.md).
+[sagas](/06-distributed-systems/sagas).
 
 ### Extract one at a time, with the reason recorded
 

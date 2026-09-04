@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, graceful-degradation, retry-storms]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -51,16 +51,27 @@ The same holds between customers: one customer sending abnormal volume consumes 
 
 ### The isolation dimensions
 
+They are two independent choices, and confusing them is the most common reading error here. The
+first is **along which axis** to compartmentalize:
+
 ```text
-per dependency  separate connection and thread pools per service called
-per customer    a quota per tenant, so that one does not affect the others
-per operation   reads and writes, or critical and non-critical
-per criticality the payment path separate from the browsing path
-per instance    dedicated processes or machines
+per dependency   one compartment per service called
+per customer     one per tenant, so that one does not affect the others
+per criticality  the payment path separate from the browsing path, reads from writes
 ```
 
-The strength grows down the list: separating pools is configuration; separating processes is real
-isolation; separating machines is isolation no wrong configuration nullifies.
+The second is **with which mechanism**, and here there is indeed a scale of strength:
+
+```text
+separate pool      configuration; isolates connections and threads, not memory or CPU
+separate process   isolates memory and CPU, not disk or network
+separate machine   isolates what no wrong configuration nullifies
+```
+
+The two axes combine: you can separate per customer with pools, or per dependency with
+machines. Isolating per customer is not stronger than isolating per dependency — they are
+different questions. What grows in strength is the right-hand column, and it costs in the same
+order.
 
 The choice depends on what is being protected and on the acceptable cost.
 
@@ -134,8 +145,10 @@ and you need to know which.
 
 ## Mental Model
 
-**A bulkhead limits the damage to the compartment.** It is the protection that works when the others were
-badly configured.
+**Sizing a compartment is deciding in advance how much you accept losing.** The number chosen
+for the pool is not a technical setting: it is the answer to the question "how many requests to
+this dependency do I accept failing so that the others survive?". Whoever sizes by intuition is
+answering that question without knowing they asked it.
 
 ## When to Use
 
@@ -147,16 +160,26 @@ badly configured.
 
 ## When Not to Use
 
-**Compartments that enqueue instead of rejecting.**
+**When the dependency is single and the service does not survive without it.**
+Compartmentalizing assumes there is something to save on the other side of the wall. A service
+that only queries a database and has no degraded response has nothing: if the pool is
+exhausted, the protected compartment serves nothing useful. What that case calls for is a
+concurrency limit and a fast error response, not isolation.
 
-**Sized without measuring.** An artificial bottleneck.
+**When rejecting costs more than waiting.** A bulkhead refuses in order to preserve the
+compartment, and that presupposes a caller that knows what to do with the refusal. In an
+overnight batch or an asynchronous ingestion with no deadline, the queue is the right answer and
+the refusal merely transfers the work to a retry.
 
-**Excessive granularity.** Dozens of pools nobody sizes or monitors.
+**When the concurrency is already limited above.** A queue consumer with fixed parallelism, a
+function with reserved concurrency, a server with a sized worker pool: the ceiling already
+exists, and a second ceiling inside it only adds a number to maintain.
 
-**When the isolation is not real.** Separate pools in the same process do not protect against memory
-exhaustion.
-
-**In a simple application** with one dependency.
+**When the resource that saturates is below the compartment.** Separate pools in the same
+process do not protect against memory exhaustion, and quotas per customer do not protect against
+a saturated shared database. It is not that partial isolation is useless — it protects against a
+set of failures —, it is that it does not protect against **this** one, and adopting it thinking
+it does is worse than not having it.
 
 ## Alternatives
 
@@ -229,7 +252,7 @@ without service.
 **A heavy report.** One large customer generated reports that occupied queue workers for hours. The others'
 reports sat in the queue behind them.
 
-The fixes, in three layers:
+The fixes, in three layers — plus a fourth, adopted after the three were in production:
 
 **A pool per dependency.** External calls — credit bureaus, payment gateways — came to have separate pools,
 sized by Little's law with 60% margin. One's exhaustion stopped reaching the main one.
@@ -241,8 +264,10 @@ exhaust only its own quota.
 **Queues by priority and by size.** Reports went to a separate queue, with dedicated workers. Large
 customers got their own queue, so they would not dominate the shared one.
 
-**Isolation per instance** for the twelve largest customers, who together represented 45% of the volume.
-Dedicated infrastructure, sized separately.
+**Isolation per instance**, six months later, for the twelve largest customers, who together
+represented 45% of the volume. Dedicated infrastructure, sized separately. It was the only
+measure that required a budget of its own, and it was only justified after the three previous
+layers showed where the concentration was.
 
 Two problems appeared during the implementation:
 
@@ -282,5 +307,7 @@ with the pool's size.
 ## Further Reading
 
 - Nygard, Michael. *Release It!*. 2nd ed. Pragmatic Bookshelf, 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 21.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 21
+  ("Handling Overload") for quota per customer and criticality, chapter 22 ("Addressing
+  Cascading Failures") for resource exhaustion and containment of propagation.
 - Fowler, Susan. *Production-Ready Microservices*. O'Reilly, 2016.

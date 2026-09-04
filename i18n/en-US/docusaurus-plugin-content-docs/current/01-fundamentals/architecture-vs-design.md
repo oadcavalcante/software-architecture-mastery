@@ -14,7 +14,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [architecture-vs-implementation, coupling]
 canonical_for: [architecture vs design]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -131,7 +131,7 @@ up already made.
 **It determines what gets recorded.** A design decision lives in the code: an
 attentive reader reconstructs the reasoning. An architectural decision needs an
 explicit record, because the context that justified it is visible nowhere in the
-code. That is the basis of [ADRs](/18-architecture-decisions/index.md).
+code. That is the basis of [ADRs](/18-architecture-decisions/what-is-an-adr).
 
 **It determines where review is worth it.** Reviewing all design exhaustively
 does not scale. Reviewing architecture always pays, because the mistake spreads.
