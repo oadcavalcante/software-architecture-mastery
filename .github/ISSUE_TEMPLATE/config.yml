@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Como contribuir
+    url: https://github.com/oadcavalcante/software-architecture-mastery/blob/main/CONTRIBUTING.md
+    about: O padrão de qualidade, o template por tipo de documento e os portões
+  - name: Especificação do projeto
+    url: https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md
+    about: O que o material é, e as regras que governam o conteúdo

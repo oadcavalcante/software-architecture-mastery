@@ -26,5 +26,25 @@
   "link.item.label.Progresso de leitura": {
     "message": "Reading progress",
     "description": "The label of footer link with label=Progresso de leitura linking to /progress"
+  },
+  "link.title.Projeto": {
+    "message": "Project",
+    "description": "The title of the footer links column with title=Projeto in the footer"
+  },
+  "link.item.label.Especificação": {
+    "message": "Specification",
+    "description": "The label of footer link with label=Especificação linking to https://github.com/oadcavalcante/software-architecture-mastery/blob/main/SPEC.md"
+  },
+  "link.item.label.Roadmap": {
+    "message": "Roadmap",
+    "description": "The label of footer link with label=Roadmap linking to https://github.com/oadcavalcante/software-architecture-mastery/blob/main/ROADMAP.md"
+  },
+  "link.item.label.Como contribuir": {
+    "message": "How to contribute",
+    "description": "The label of footer link with label=Como contribuir linking to https://github.com/oadcavalcante/software-architecture-mastery/blob/main/CONTRIBUTING.md"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/oadcavalcante/software-architecture-mastery"
   }
 }

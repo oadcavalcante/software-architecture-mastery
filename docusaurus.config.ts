@@ -172,9 +172,11 @@ const config: Config = {
           // Modo docs-only: o guia É o site. Não há landing page separada.
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          // Sem `editUrl`: o repositório é privado, e o "Editar esta página"
-          // levava todo visitante a um 404 do GitHub. Voltar a ligá-lo é uma
-          // linha, no dia em que o repositório for publicado.
+          // `edit/` e não `tree/`: leva direto ao editor do GitHub, que oferece
+          // criar o fork e abrir o pull request em um passo — que é o fluxo que
+          // CONTRIBUTING.md descreve para quem não tem acesso de escrita.
+          editUrl: `https://github.com/${GH_ORG}/${GH_REPO}/edit/main/`,
+          editLocalizedFiles: true,
           showLastUpdateTime: true,
           breadcrumbs: true,
         },
@@ -239,14 +241,17 @@ const config: Config = {
           type: 'localeDropdown',
           position: 'right',
         },
+        {
+          href: `https://github.com/${GH_ORG}/${GH_REPO}`,
+          label: 'GitHub',
+          position: 'right',
+        },
       ],
     },
     footer: {
       // Claro, não escuro: o tema é papel, e uma faixa preta no fim da página
       // corta a leitura em vez de fechá-la. A separação vem de um fio.
       style: 'light',
-      // Uma coluna só: sobraram cinco links depois que os do repositório saíram,
-      // e duas colunas com dois e três itens leem como categoria sem conteúdo.
       links: [
         {
           title: 'Percurso',
@@ -256,6 +261,24 @@ const config: Config = {
             {label: 'Modelo de maturidade', to: '/maturity-model'},
             {label: 'Glossário', to: '/glossary'},
             {label: 'Progresso de leitura', to: '/progress'},
+          ],
+        },
+        {
+          title: 'Projeto',
+          items: [
+            {
+              label: 'Especificação',
+              href: `https://github.com/${GH_ORG}/${GH_REPO}/blob/main/SPEC.md`,
+            },
+            {
+              label: 'Roadmap',
+              href: `https://github.com/${GH_ORG}/${GH_REPO}/blob/main/ROADMAP.md`,
+            },
+            {
+              label: 'Como contribuir',
+              href: `https://github.com/${GH_ORG}/${GH_REPO}/blob/main/CONTRIBUTING.md`,
+            },
+            {label: 'GitHub', href: `https://github.com/${GH_ORG}/${GH_REPO}`},
           ],
         },
       ],

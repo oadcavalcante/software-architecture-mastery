@@ -185,6 +185,46 @@ factuais, melhoria de trade-offs existentes, traduções, exercícios e case stu
 Fora de escopo: tutoriais de tecnologia, projetos de exemplo executáveis,
 conteúdo que só faz sentido para uma stack específica.
 
+## Como enviar
+
+**Para uma correção pequena** — um número que não fecha, uma frase errada, um
+link quebrado —, o caminho mais curto é o botão **"Editar esta página"** no fim
+de cada documento do site. Ele abre o arquivo no editor do GitHub, e ao salvar
+o próprio GitHub cria o fork e abre o pull request. Não precisa clonar nada.
+
+**Para qualquer coisa maior**, o fluxo é o de sempre:
+
+```bash
+# 1. faça o fork pelo GitHub, depois:
+git clone https://github.com/<você>/software-architecture-mastery.git
+cd software-architecture-mastery
+npm install
+
+# 2. um ramo por assunto
+git checkout -b corrige-conta-do-video-streaming
+
+# 3. escreva, e rode os cinco portões antes de commitar
+npm test && npm run validate && npm run plan && npm run roadmap && npm run build
+
+# 4. envie e abra o pull request
+git push origin corrige-conta-do-video-streaming
+```
+
+O CI roda os mesmos cinco em cada pull request, nas duas locales. Um PR que
+falhe qualquer um deles não é mérgeado — inclusive o build, que é o único a
+pegar link que os validadores não alcançam.
+
+### O que faz um pull request ser aceito rápido
+
+Um assunto por PR. Correção de conteúdo com a conta refeita ou a fonte citada
+no corpo do PR. E, se você alterou um documento canônico de forma substantiva,
+o `content_version` incrementado com a tradução en-US sincronizada — sem isso o
+`check-parity` reprova, e é uma ida e volta que dá para evitar.
+
+Se achou um erro mas não quer corrigi-lo, abra uma issue com o trecho e o
+porquê. É contribuição igual: boa parte dos defeitos deste material foi
+encontrada por quem estava lendo, não por quem estava escrevendo.
+
 ## Licença
 
 Contribuições de conteúdo entram sob [CC BY-SA 4.0](LICENSE); contribuições de
