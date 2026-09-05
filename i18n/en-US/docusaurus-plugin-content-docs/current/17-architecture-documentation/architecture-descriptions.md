@@ -117,7 +117,7 @@ structure changes — because it tells you whether the change contradicts a real
 "we discarded W because V"      avoids revisiting
 ```
 
-This is the argument for [ADRs](/18-architecture-decisions/what-is-an-adr), and the reason the
+This is the argument for [ADRs](/18-architecture-decisions/what-is-an-adr.md), and the reason the
 consolidated description should point at them instead of duplicating them.
 
 ### Write it afterwards, not beforehand

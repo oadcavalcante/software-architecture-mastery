@@ -231,7 +231,7 @@ one.
 - [Memento](/03-design-patterns/memento.md) — the same idea in memory.
 - [Event-Driven Architecture](/03-design-patterns/event-driven.md) — communication, not
   persistence.
-- [Sagas](/06-distributed-systems/sagas).
+- [Sagas](/06-distributed-systems/sagas.md).
 
 ## Practical Exercise
 

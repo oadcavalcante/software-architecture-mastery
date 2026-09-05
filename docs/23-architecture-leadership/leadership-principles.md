@@ -72,7 +72,7 @@ Isso produz princípios que descrevem o que a organização já faz — e a dife
 eles são reconhecidos imediatamente, e a discussão passa a ser sobre se o critério está certo, e
 não sobre se ele é o critério.
 
-Ver [ADRs](/18-architecture-decisions/what-is-an-adr).
+Ver [ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 Quando o acervo de decisões não existe, construí-lo vem antes de escrever princípios.
 

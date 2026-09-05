@@ -204,7 +204,7 @@ precedência, quem decide é o poder.
 
 - **[Padrões](/19-architecture-governance/governance-standards.md)** — quando a decisão já é conhecida.
 - **Gabaritos** — o princípio embutido no ponto de partida.
-- **[ADRs](/18-architecture-decisions/what-is-an-adr)** — precedente concreto vale mais que
+- **[ADRs](/18-architecture-decisions/what-is-an-adr.md)** — precedente concreto vale mais que
   abstração; um conjunto de decisões bem registradas ensina o critério da organização.
 - **Nada** — em times pequenos, o critério compartilhado é tácito e funciona.
 

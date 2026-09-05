@@ -117,7 +117,7 @@ a estrutura mudar — porque ela informa se a mudança contradiz uma restrição
 "descartamos W porque V"           evita revisitar
 ```
 
-Este é o argumento para [ADRs](/18-architecture-decisions/what-is-an-adr), e a razão de a
+Este é o argumento para [ADRs](/18-architecture-decisions/what-is-an-adr.md), e a razão de a
 descrição consolidada apontar para elas em vez de duplicá-las.
 
 ### Escrever depois, não antes

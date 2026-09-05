@@ -99,7 +99,7 @@ coupling with no contract, which is worse than code coupling.
 That implies that deciding the boundary is deciding the partitioning of the data. And
 it is the hardest part: separating code is refactoring; separating data involves
 migration, eventual consistency and frequently
-[sagas](/06-distributed-systems/sagas).
+[sagas](/06-distributed-systems/sagas.md).
 
 ### Extract one at a time, with the reason recorded
 

@@ -180,7 +180,7 @@ service without warning.
 
 **Failure cascade through temporal coupling.** A slow service brings down those
 that call it synchronously, which bring down their own callers. See
-[circuit breakers](/12-reliability/circuit-breakers).
+[circuit breakers](/12-reliability/circuit-breakers.md).
 
 **Hidden coupling by convention.** Two parts that agree on a format without an
 explicit contract. Nothing breaks at compile time; it breaks in production.

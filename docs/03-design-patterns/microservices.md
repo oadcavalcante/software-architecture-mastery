@@ -101,7 +101,7 @@ todo o custo de distribuição, e sem contrato — paga-se a rede e não se ganh
 independência que ela deveria comprar.
 
 A consequência é que consistência entre serviços passa a ser eventual, e
-transações viram [sagas](/06-distributed-systems/sagas).
+transações viram [sagas](/06-distributed-systems/sagas.md).
 
 ## Quando Usar
 
@@ -158,7 +158,7 @@ indisponibilidade mútua derruba tudo. Custo de distribuição, nenhum benefíci
 
 **Cascata síncrona.** Uma requisição atravessa sete serviços; a falha de um
 derruba a cadeia. Ver
-[circuit breakers](/12-reliability/circuit-breakers).
+[circuit breakers](/12-reliability/circuit-breakers.md).
 
 **Granularidade excessiva.** Mais serviços do que o time consegue operar.
 

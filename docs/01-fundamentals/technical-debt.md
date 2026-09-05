@@ -219,7 +219,7 @@ A diferença não estava na qualidade da decisão original. Estava no registro.
 - [Complexidade](/01-fundamentals/complexity.md) — a forma que a dívida acumulada assume.
 - [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md) — como o sistema muda ao
   longo do tempo.
-- [ADRs](/18-architecture-decisions/what-is-an-adr) — onde a dívida deliberada é
+- [ADRs](/18-architecture-decisions/what-is-an-adr.md) — onde a dívida deliberada é
   registrada.
 
 ## Exercício Prático

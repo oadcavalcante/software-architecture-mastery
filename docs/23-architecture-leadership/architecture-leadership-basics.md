@@ -113,7 +113,7 @@ opção — especialmente quando a decisão trava o trabalho de outras pessoas.
 A postura que funciona: decidir com o que se tem, declarar as premissas, registrar a condição que
 faria a decisão mudar, e seguir. Ver
 [tomada de decisão](/23-architecture-leadership/decision-making.md) e
-[ADRs](/18-architecture-decisions/what-is-an-adr).
+[ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 ### A organização é uma restrição de arquitetura
 

@@ -232,7 +232,7 @@ tentar todos no mesmo instante.
 
 - [Retries](/06-distributed-systems/retries.md) — o mecanismo que o backoff regula.
 - [Rate Limiting](/05-system-design/rate-limiting.md) — o lado do servidor.
-- [Circuit Breakers](/12-reliability/circuit-breakers) — a alternativa quando a falha
+- [Circuit Breakers](/12-reliability/circuit-breakers.md) — a alternativa quando a falha
   persiste.
 - [Retry Storms](/12-reliability/index.md).
 

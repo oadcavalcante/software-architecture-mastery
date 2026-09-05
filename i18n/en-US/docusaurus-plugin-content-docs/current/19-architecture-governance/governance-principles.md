@@ -205,7 +205,7 @@ precedence rule, what decides is power.
 - **[Standards](/19-architecture-governance/governance-standards.md)** — when the decision
   is already known.
 - **Templates** — the principle built into the starting point.
-- **[ADRs](/18-architecture-decisions/what-is-an-adr)** — a concrete precedent is worth more than
+- **[ADRs](/18-architecture-decisions/what-is-an-adr.md)** — a concrete precedent is worth more than
   an abstraction; a set of well-recorded decisions teaches the organization's criteria.
 - **Nothing** — in small teams, the shared criterion is tacit and works.
 

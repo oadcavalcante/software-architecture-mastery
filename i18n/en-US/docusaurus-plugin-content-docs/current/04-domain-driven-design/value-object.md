@@ -13,7 +13,7 @@ objective: >
 prerequisites: [entity]
 related: [entity, aggregate, code-smells]
 canonical_for: [value object]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -65,8 +65,10 @@ accident, and no need for defensive copying.
 
 ### Valid by construction
 
-The constructor validates. If a `TaxId` exists, it is valid — there is no way to create an
-invalid one.
+The constructor validates. If a `TaxId` was created by the constructor, it is valid — and
+the caveat matters, because that is not the only path: ORMs and deserializers reconstitute
+objects by reflection, without going through it. That is how an invalid value gets into the
+domain.
 
 That concentrates the validation in one place and makes it impossible to forget. Whoever
 receives a `TaxId` does not have to check anything.
@@ -111,19 +113,23 @@ passed together are a `Period`.
 rule at all, adds ceremony with no return. It is worth it when there is at least
 validation.
 
-**In generic or supporting subdomains.** The ceremony does not pay off outside the core.
+**In generic or supporting subdomains, when the type has no rule of its own.** The bar is
+higher outside the core: there, a proper name on its own does not pay for the wrapper. With
+validation or behaviour — a `TaxId` that validates itself — it pays off in any subdomain.
 
-**When the language makes it expensive.** On platforms where each object has a significant
-cost and the volume is enormous, the impact has to be measured — though that is less common
-than assumed.
+**When the allocation shows up in the profile.** A hot loop that creates one object per
+element, or a collection in the millions of instances, on a platform with no flattened value
+type. The condition is showing up in the profile — not looking like it would.
 
 **For transport data.** An API DTO does not need internal value objects.
 
 ## Alternatives
 
 - **A primitive type with centralized validation** — less safe, cheaper.
-- **A type alias** — in languages offering lightweight nominal types, it gives type safety
-  with no class.
+- **A lightweight nominal type** — *newtype*, *opaque type*, a unit of measure: it gives
+  type safety with no class. A **transparent** alias does not do the job: TypeScript's
+  `type`, Kotlin's `typealias` and C's `typedef` are nicknames for the same type, and they
+  let through any value of the right shape.
 - **An immutable record** — when there are grouped values and little behaviour.
 
 ## Trade-offs

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-monolith]
 related: [modular-monolith, event-driven, soa]
 canonical_for: [microservices]
-translated_from_version: 2
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -77,8 +77,7 @@ weeks.
 **Teams with real autonomy.** If decisions remain centralized, the technical autonomy
 does not materialize.
 
-Adopting without those prerequisites produces the costs without the benefits. It is the
-most common failure scenario.
+Adopting without those prerequisites produces the costs without the benefits.
 
 ### Size is a consequence
 
@@ -91,14 +90,17 @@ the distributed monolith.
 
 ### Data per service
 
-The rule that admits no exception: **each service owns its data, and nobody else accesses
-it directly.**
+The rule, as an end state: **each service owns its data, and nobody else accesses it
+directly.** During a decomposition, a shared database is a legitimate transitional step —
+with a declared deadline and owner. What is not legitimate is reaching the end state with
+it.
 
 Sharing a database between services produces all the coupling of a monolith, with all the
-cost of distribution, and with no contract. It is the worst possible combination.
+cost of distribution, and with no contract — you pay for the network and do not gain the
+independence it was supposed to buy.
 
 The consequence is that consistency between services becomes eventual, and transactions
-become [sagas](/06-distributed-systems/sagas).
+become [sagas](/06-distributed-systems/sagas.md).
 
 ## When to Use
 
@@ -125,7 +127,9 @@ disproportionate.
 expensive and sagas change the business semantics — which has to be accepted by the
 business, not decided by engineering.
 
-**For reputation.** It is the most common reason and the worst.
+**For reputation.** The decision is made before the question that would justify it, and
+afterwards the question is no longer asked — because answering it now would mean admitting
+the answer was already given.
 
 ## Alternatives
 
@@ -151,7 +155,7 @@ brings everything down. The cost of distribution, none of the benefit.
 **Shared database.** Coupling with no contract.
 
 **Synchronous cascade.** A request crosses seven services; one failing brings down the
-chain. See [circuit breakers](/12-reliability/circuit-breakers).
+chain. See [circuit breakers](/12-reliability/circuit-breakers.md).
 
 **Excessive granularity.** More services than the team can operate.
 

@@ -73,7 +73,7 @@ That produces principles that describe what the organization already does — an
 difference is enormous: they are recognized immediately, and the discussion becomes about whether
 the criterion is right, not about whether it is the criterion.
 
-See [ADRs](/18-architecture-decisions/what-is-an-adr).
+See [ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 When the decision archive doesn't exist, building it comes before writing principles.
 

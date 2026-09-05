@@ -94,7 +94,7 @@ A node that went down is detected and removed. A **slow** node keeps answering h
 keeps receiving traffic and keeps delivering slowly.
 
 That propagates the slowness to whoever depends on it, and it is the origin of a good part of
-cascades. See [circuit breakers](/12-reliability/circuit-breakers).
+cascades. See [circuit breakers](/12-reliability/circuit-breakers.md).
 
 Detecting degradation requires measuring latency, not only availability — and that is why a
 binary health check is insufficient.

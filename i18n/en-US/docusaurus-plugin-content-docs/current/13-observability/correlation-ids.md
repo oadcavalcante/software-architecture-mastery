@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [distributed-tracing, logs, debuggability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -27,8 +27,9 @@ every component that takes part in serving it.
 With it, you can gather every log, every message and every event belonging to the same operation — even if
 they passed through twelve services and three queues.
 
-It is this section's lowest-cost, highest-return technique. And it is the prerequisite for almost
-everything: with no correlation, distributed system logs are collections of fragments nobody can assemble.
+The cost of putting it in place is low next to that of full distributed tracing, and it is a prerequisite
+for this section's other techniques: with no correlation, distributed system logs are collections of
+fragments nobody can assemble.
 
 ## Problem
 
@@ -50,7 +51,7 @@ With correlation, it is one query.
 ```text
 1. the identifier is generated at the entry — the gateway, the balancer or the first service
 2. it travels on every subsequent call
-3. it appears in every log, high-cardinality metric and event emitted
+3. it appears in every log and event emitted — **not** in a metric label
 4. it goes back to the client in the response
 ```
 
@@ -110,6 +111,8 @@ An identifier propagated and not recorded is useless. It needs to appear:
 ```text
 in every application log
 in errors returned to the client
+never in a metric label: it is one value per request, and each value becomes
+  a time series
 in published messages
 in the gateway's and the balancer's access logs
 in audit events
@@ -118,8 +121,8 @@ in audit events
 That is easier to guarantee through infrastructure than through discipline: a context that follows the
 execution and a logging library that includes it automatically eliminate the forgetting.
 
-Teams that depend on each developer remembering to include it have partial coverage — and the missing part
-is always the one that is missed.
+Teams that depend on each developer remembering to include it have partial coverage, and the missing part
+tends to be discovered in the middle of the incident.
 
 ### Do not put sensitive data in it
 
@@ -146,17 +149,20 @@ separate story.
 
 ## When Not to Use
 
-**As a business identifier.** It is operational, it is not a domain key.
+**When there is already end-to-end distributed tracing.** Correlation is its minimal subset — keeping a
+scheme of your own alongside it duplicates propagation, header and instrumentation to answer the same
+question with less information.
 
-**Containing personal data.**
+**In a single process, with no network hop.** The logging library's own context already covers the whole
+operation, and the identifier crosses nothing.
 
-**Generated in each service.** That produces identifiers that correlate nothing.
+**When the chain that matters passes through a third party that does not forward the header.** The
+identifier dies there, and what is left is partial coverage — worse than none, because it gives confidence
+where there is none. If the critical hop is precisely that one, the effort pays off better in
+reconciliation by business key.
 
-**Propagated only on synchronous calls.** The chain breaks at the first queue.
-
-**Depending on discipline** instead of infrastructure.
-
-**Without validating** the format of identifiers received from outside.
+**As a business identifier.** It is operational, it is not a domain key: it disappears in the log purge, it
+has no guarantee of eternal uniqueness and it belongs to no aggregate.
 
 ## Alternatives
 
@@ -178,7 +184,7 @@ separate story.
 
 | One identifier | Several |
 |---|---|
-| Simple | Distinguishes a request from an operation |
+| One field to propagate | Four fields to propagate and keep coherent |
 | Does not separate retries | Separates them |
 
 ## Failure Modes
@@ -271,5 +277,7 @@ How long it takes — and how much you can reconstruct — is the measure of you
 
 - Sigelman, Benjamin et al. *Dapper, a Large-Scale Distributed Systems Tracing Infrastructure*. Google,
   2010.
-- W3C Trace Context — the propagation specification.
+- W3C. *Trace Context*, Recommendation, 2021 — standardizes `traceparent` and `tracestate`, which carry
+  **trace** context; it does not define a generic correlation header. Level 2 remains a candidate
+  recommendation draft.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.

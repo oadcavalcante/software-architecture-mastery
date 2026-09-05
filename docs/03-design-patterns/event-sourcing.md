@@ -230,7 +230,7 @@ adoção.
 - [Memento](/03-design-patterns/memento.md) — a mesma ideia em memória.
 - [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — comunicação, não
   persistência.
-- [Sagas](/06-distributed-systems/sagas).
+- [Sagas](/06-distributed-systems/sagas.md).
 
 ## Exercício Prático
 

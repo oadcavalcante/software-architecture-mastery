@@ -101,7 +101,7 @@ That is an architectural decision with complete information. Without the number,
 technical preference and the cost shows up later.
 
 Including a cost estimate in every significant architectural proposal is a cheap and rare practice.
-See [ADRs](/18-architecture-decisions/what-is-an-adr).
+See [ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 ### The human operating cost is the largest and the least counted
 

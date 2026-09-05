@@ -83,7 +83,7 @@ indefinidamente e esgota recursos — e a falha se propaga para cima.
 
 O timeout precisa ser **menor** que o do chamador, senão ele desiste antes e a
 cadeia trabalha para ninguém. Ver
-[timeouts](/06-distributed-systems/timeouts).
+[timeouts](/06-distributed-systems/timeouts.md).
 
 E o timeout não resolve a ambiguidade central: quando ele estoura, você não sabe
 se a operação aconteceu.

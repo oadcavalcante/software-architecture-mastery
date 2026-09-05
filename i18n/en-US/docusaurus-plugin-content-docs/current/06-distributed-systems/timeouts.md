@@ -13,7 +13,7 @@ objective: >
 prerequisites: [latency]
 related: [retries, latency, circuit-breakers]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -144,7 +144,7 @@ the same limit.
 which means not configuring it is choosing to wait forever.
 
 **A timeout as the only mechanism.** It avoids the wait; it does not avoid overloading the
-destination. See [circuit breakers](/12-reliability/circuit-breakers).
+destination. See [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ## Alternatives
 
@@ -241,7 +241,7 @@ has value for the operator to decide, and nobody had asked that before.
 - [Latency](/06-distributed-systems/latency.md) — the distribution that calibrates the timeout.
 - [Retries](/06-distributed-systems/retries.md) — what comes after giving up.
 - [Idempotency](/06-distributed-systems/idempotency.md) — what makes retrying safe.
-- [Circuit Breakers](/12-reliability/circuit-breakers) — the complement.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md) — the complement.
 
 ## Practical Exercise
 

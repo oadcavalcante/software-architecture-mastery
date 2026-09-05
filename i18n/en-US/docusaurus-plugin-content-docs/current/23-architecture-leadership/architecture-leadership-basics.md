@@ -114,7 +114,7 @@ The asymmetry in visibility pushes toward deferring, and deferring is frequently
 The stance that works: decide with what you have, declare the premises, record the condition that
 would change the decision, and move on. See
 [decision-making](/23-architecture-leadership/decision-making.md) and
-[ADRs](/18-architecture-decisions/what-is-an-adr).
+[ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 ### The organization is an architectural constraint
 

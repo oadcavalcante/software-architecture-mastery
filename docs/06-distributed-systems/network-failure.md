@@ -95,7 +95,7 @@ Um nó que caiu é detectado e removido. Um nó **lento** continua respondendo �
 verificações de saúde, continua recebendo tráfego e continua entregando devagar.
 
 Isso propaga a lentidão para quem depende dele, e é a origem de boa parte das
-cascatas. Ver [circuit breakers](/12-reliability/circuit-breakers).
+cascatas. Ver [circuit breakers](/12-reliability/circuit-breakers.md).
 
 Detectar degradação exige medir latência, não apenas disponibilidade — e é por
 isso que verificação de saúde binária é insuficiente.

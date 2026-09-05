@@ -179,7 +179,7 @@ outro serviço sem aviso.
 
 **Cascata de falha por acoplamento temporal.** Um serviço lento derruba os que o
 chamam de forma síncrona, que derrubam os seus chamadores. Ver
-[circuit breakers](/12-reliability/circuit-breakers).
+[circuit breakers](/12-reliability/circuit-breakers.md).
 
 **Acoplamento oculto por convenção.** Duas partes que concordam sobre um formato
 sem contrato explícito. Nada quebra na compilação; quebra em produção.

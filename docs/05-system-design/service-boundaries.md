@@ -99,7 +99,7 @@ esquema sem contrato, que é pior que acoplamento de código.
 
 Isso implica que decidir a fronteira é decidir a partição dos dados. E é a parte
 mais difícil: separar código é refatoração; separar dados envolve migração,
-consistência eventual e frequentemente [sagas](/06-distributed-systems/sagas).
+consistência eventual e frequentemente [sagas](/06-distributed-systems/sagas.md).
 
 ### Extraia um de cada vez, com razão registrada
 

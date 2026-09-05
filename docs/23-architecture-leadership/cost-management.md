@@ -101,7 +101,7 @@ Isso é uma decisão de arquitetura com informação completa. Sem o número, el
 preferência técnica e o custo aparece depois.
 
 Incluir estimativa de custo em toda proposta arquitetural relevante é uma prática barata e rara.
-Ver [ADRs](/18-architecture-decisions/what-is-an-adr).
+Ver [ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 ### O custo operacional humano é o maior e o menos contado
 

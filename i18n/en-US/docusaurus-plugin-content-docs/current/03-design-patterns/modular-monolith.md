@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [microservices, modular-design, boundaries]
 canonical_for: [modular monolith]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,9 +24,10 @@ last_reviewed: 2026-08-31
 A modular monolith is an application deployed as a single unit, with explicit and
 **enforced** internal boundaries between capability modules.
 
-It is the right answer for most systems, and the least considered — because "monolith"
-carries a negative connotation that conflates two different things: single deployment
-and absence of structure.
+It is the right answer whenever the need is for **logical** isolation and not operational
+isolation — and it is the least considered, because "monolith" carries a negative
+connotation that conflates two different things: single deployment and absence of
+structure.
 
 ## Problem
 
@@ -44,7 +45,8 @@ monolith delivers that in full, for a fraction of the cost.
 services deliver that, and this is where the real cost is.
 
 The useful question is not "monolith or microservices?". It is **"do I need operational
-isolation, or only logical isolation?"** — and the second answer is the more common one.
+isolation, or only logical isolation?"** — and the second is enough for anything with no
+scaling, failure or compliance requirement of its own.
 
 ## Core Concepts
 
@@ -105,7 +107,9 @@ boundary has to be a deployment one.
 **When failure isolation is a requirement.** A module that cannot take the others down
 needs a separate process.
 
-**When parts have incompatible regulatory or security requirements.**
+**When parts have incompatible regulatory or security requirements** — data that cannot
+reside in the same process or the same jurisdiction as the rest, or an artifact that has to
+be certified and audited separately. There, the single deployment unit is what breaks.
 
 **When the codebase is already too large for a viable build and test.** If the feedback
 cycle exceeds tens of minutes and there is no way to parallelize, that is a real cost.
@@ -116,8 +120,9 @@ cycle exceeds tens of minutes and there is no way to parallelize, that is a real
   is necessary.
 - **A monolith with no modules** — legitimate in small, short-lived systems.
 - **Selective extraction** — a modular monolith with one or two services extracted for a
-  specific reason. It is the most common arrangement in mature systems and the least
-  named.
+  specific reason. It is the arrangement that is least named and the one that shows up most
+  when you look closely at a mature system, because that is where the decision was made
+  component by component.
 
 ## Trade-offs
 
@@ -130,7 +135,7 @@ cycle exceeds tens of minutes and there is no way to parallelize, that is a real
 | Scaling as a block | Scaling per service |
 | Shared failure | Isolatable failure |
 | Release coupled across teams | Autonomous |
-| Boundary erodes without a mechanism | Enforced by the network |
+| Boundary erodes without a mechanism | The network blocks reaching the code, not the data |
 
 The first four rows are advantages of the monolith usually forgotten in the comparison.
 The last four are what microservices buy — and the price is in the rows above.
@@ -157,7 +162,9 @@ change crosses modules.
 
 **Not enforcing the boundaries.** With no mechanism, there is no modularity.
 
-**Sharing tables between modules.**
+**Sharing tables between modules.** It is the decision that looks like it saves a query and
+costs the future extraction: the boundary never comes to exist where it matters, and that is
+found out when someone tries to separate them.
 
 **Adopting microservices to obtain logical isolation.** You pay the operational cost for
 something modules deliver.
@@ -166,19 +173,23 @@ something modules deliver.
 
 ## Where it appears in practice
 
-**Shopify.** Publicly documented the choice of a modular monolith in Ruby, with boundaries
-enforced by a purpose-built tool, rather than migrating to microservices.
+**Shopify.** Westeinde, Kirsten. *Deconstructing the Monolith*, Shopify Engineering, 2019,
+and the 2020 assessment, *Under Deconstruction: The State of Shopify's Monolith*: the Ruby
+commerce monolith was split into components within the same repository, with boundaries
+enforced by the Packwerk tool. The documented decision is about that core — the company
+operates services outside it — and that is what makes it useful here: the choice was made
+component by component, not for the whole architecture.
 
-**Many systems that reversed microservices.** Several public accounts of consolidating
-services back into modular monoliths, motivated by operational cost and debugging
-complexity.
+**Consolidations of services back into modular monoliths.** There are public accounts, and
+the stated reason is usually operational cost and debugging difficulty.
 
 **Enterprise applications with language modules.** Module systems in Java and .NET allow
 enforcing boundaries at compile time.
 
-The pattern in the reversal accounts is consistent: the teams kept the modularity and
-abandoned the distribution. That confirms the two were separable — which is exactly this
-document's thesis.
+In the accounts that reach the public, the pattern is the same: the teams kept the
+modularity and abandoned the distribution. That is compatible with this document's thesis —
+that the two are separable — but does not confirm it: whoever reverses and regrets it rarely
+writes about it, so the sample leans toward the cases that worked.
 
 ## Real-World Example
 
@@ -190,8 +201,12 @@ because the bottleneck was the shared database; and the average time to diagnose
 incident was forty minutes, almost all of it spent correlating logs across services.
 
 The consolidation merged the four coupled ones into a modular monolith, keeping the
-boundaries as modules with an architecture test. Three services were kept separate — the
-ones with a real scaling or failure-isolation requirement. Two were decommissioned.
+boundaries as modules with an architecture test. Two were decommissioned.
+
+Three services stayed separate, and that decision required first resolving the diagnosed
+bottleneck: the data of the three moved out of the shared database into their own. Without
+that, keeping them outside would buy no scaling at all — they would stay stuck at the same
+limit, which was exactly why the nine did not scale.
 
 Result: from nine to four deployable units. Diagnosis time dropped to under ten minutes.
 No logical boundary was lost.
@@ -227,4 +242,6 @@ some mechanism? Do modules read each other's tables?
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019 — the modular monolith as a
   starting point.
 - Fowler, Martin. *MonolithFirst*, 2015.
-- Shopify's public documentation on monolith modularization.
+- Westeinde, Kirsten. *Deconstructing the Monolith: Designing Software that Maximizes
+  Developer Productivity*. Shopify Engineering, 2019 — and *Under Deconstruction: The State
+  of Shopify's Monolith*, 2020, with what they would do differently.

@@ -125,8 +125,8 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Iterator](docs/03-design-patterns/iterator.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Mediator](docs/03-design-patterns/mediator.md) | pattern | intermediário | `observer` | 🟩 |
 | 🟩 | [Memento](docs/03-design-patterns/memento.md) | pattern | intermediário | `command` | 🟩 |
-| 🟩 | [Microsserviços](docs/03-design-patterns/microservices.md) | pattern | avançado | `modular-monolith` | 🟨 |
-| 🟩 | [Monolito Modular](docs/03-design-patterns/modular-monolith.md) | pattern | intermediário | `design-patterns` | 🟨 |
+| 🟩 | [Microsserviços](docs/03-design-patterns/microservices.md) | pattern | avançado | `modular-monolith` | 🟩 |
+| 🟩 | [Monolito Modular](docs/03-design-patterns/modular-monolith.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Observer](docs/03-design-patterns/observer.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Pipes and Filters](docs/03-design-patterns/pipes-and-filters.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Prototype](docs/03-design-patterns/prototype.md) | pattern | intermediário | `design-patterns` | 🟩 |
@@ -157,7 +157,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Supporting Domain](docs/04-domain-driven-design/supporting-domain.md) | foundation | iniciante | `subdomain` | 🟩 |
 | 🟩 | [DDD Tático](docs/04-domain-driven-design/tactical-ddd.md) | foundation | avançado | `aggregate`, `repository` | 🟩 |
 | 🟩 | [Ubiquitous Language](docs/04-domain-driven-design/ubiquitous-language.md) | concept | intermediário | `domain` | 🟩 |
-| 🟩 | [Value Object](docs/04-domain-driven-design/value-object.md) | pattern | iniciante | `entity` | 🟨 |
+| 🟩 | [Value Object](docs/04-domain-driven-design/value-object.md) | pattern | iniciante | `entity` | 🟩 |
 
 ### Nível 03 — Design de Sistemas
 
@@ -172,7 +172,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Planejamento de Capacidade](docs/05-system-design/capacity-planning.md) | concept | intermediário | `components` | 🟩 |
 | 🟩 | [CDN](docs/05-system-design/cdn.md) | concept | iniciante | `caching` | 🟩 |
 | 🟩 | [Componentes](docs/05-system-design/components.md) | concept | intermediário | `system-decomposition` | 🟩 |
-| 🟩 | [Configuração](docs/05-system-design/configuration.md) | concept | iniciante | `components` | 🟨 |
+| 🟩 | [Configuração](docs/05-system-design/configuration.md) | concept | iniciante | `components` | 🟩 |
 | 🟩 | [Exercício 03 — Backend de E-commerce](docs/05-system-design/exercises/03-ecommerce-backend.md) | exercise | intermediário | `system-decomposition` | 🟩 |
 | 🟩 | [Armazenamento de Arquivos](docs/05-system-design/file-storage.md) | concept | iniciante | `state-management` | 🟩 |
 | 🟩 | [Design de Sistemas](docs/05-system-design/index.md) | index | intermediário | `design-patterns`, `domain-driven-design` | 🟩 |
@@ -204,7 +204,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Dead-Letter Queues](docs/06-distributed-systems/dead-letter-queues.md) | concept | intermediário | `poison-messages` | 🟩 |
 | 🟩 | [Garantias de Entrega](docs/06-distributed-systems/delivery-guarantees.md) | concept | avançado | `messaging`, `idempotency` | 🟩 |
 | 🟩 | [CQRS Distribuído](docs/06-distributed-systems/distributed-cqrs.md) | pattern | avançado | `event-driven-systems`, `cqrs` | 🟩 |
-| 🟩 | [Event Sourcing Distribuído](docs/06-distributed-systems/distributed-event-sourcing.md) | pattern | avançado | `event-driven-systems` | 🟩 |
+| 🟩 | [Event Sourcing Distribuído](docs/06-distributed-systems/distributed-event-sourcing.md) | pattern | avançado | `event-driven-systems` | 🟨 |
 | 🟩 | [Fundamentos de Sistemas Distribuídos](docs/06-distributed-systems/distributed-fundamentals.md) | foundation | avançado | `system-design` | 🟩 |
 | 🟩 | [Locks Distribuídos](docs/06-distributed-systems/distributed-locks.md) | concept | avançado | `consensus` | 🟩 |
 | 🟩 | [Transações Distribuídas](docs/06-distributed-systems/distributed-transactions.md) | pattern | avançado | `distributed-fundamentals`, `partial-failure` | 🟩 |
@@ -231,7 +231,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Sagas](docs/06-distributed-systems/sagas.md) | pattern | avançado | `distributed-transactions` | 🟩 |
 | 🟩 | [Sharding](docs/06-distributed-systems/sharding.md) | concept | avançado | `partitioning` | 🟩 |
 | 🟩 | [Consistência Forte](docs/06-distributed-systems/strong-consistency.md) | concept | avançado | `consistency` | 🟩 |
-| 🟩 | [Timeouts](docs/06-distributed-systems/timeouts.md) | concept | intermediário | `latency` | 🟨 |
+| 🟩 | [Timeouts](docs/06-distributed-systems/timeouts.md) | concept | intermediário | `latency` | 🟩 |
 
 ### Nível 05 — Arquitetura
 
@@ -345,10 +345,10 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [SLI](docs/12-reliability/sli.md) | concept | intermediário | `reliability` | 🟩 |
 | 🟩 | [SLO](docs/12-reliability/slo.md) | concept | avançado | `sli` | 🟩 |
 | 🟩 | [Alertas](docs/13-observability/alerting.md) | concept | avançado | `golden-signals` | 🟩 |
-| 🟩 | [Identificadores de Correlação](docs/13-observability/correlation-ids.md) | pattern | intermediário | `observability` | 🟨 |
+| 🟩 | [Identificadores de Correlação](docs/13-observability/correlation-ids.md) | pattern | intermediário | `observability` | 🟩 |
 | 🟩 | [Painéis](docs/13-observability/dashboards.md) | concept | intermediário | `golden-signals` | 🟩 |
 | 🟩 | [Depurabilidade](docs/13-observability/debuggability.md) | concept | avançado | `observability` | 🟩 |
-| 🟩 | [Rastreamento Distribuído](docs/13-observability/distributed-tracing.md) | concept | avançado | `traces` | 🟨 |
+| 🟩 | [Rastreamento Distribuído](docs/13-observability/distributed-tracing.md) | concept | avançado | `traces` | 🟩 |
 | 🟩 | [Sinais Dourados](docs/13-observability/golden-signals.md) | concept | intermediário | `observability` | 🟩 |
 | 🟩 | [Observabilidade](docs/13-observability/index.md) | index | avançado | `distributed-systems` | 🟩 |
 | 🟩 | [Logs](docs/13-observability/logs.md) | concept | intermediário | `observability` | 🟩 |

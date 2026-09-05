@@ -146,7 +146,7 @@ relatório não merecem o mesmo limite.
 padrão — o que significa que não configurar é escolher esperar para sempre.
 
 **Timeout como único mecanismo.** Ele evita a espera; não evita a sobrecarga do
-destino. Ver [circuit breakers](/12-reliability/circuit-breakers).
+destino. Ver [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ## Alternativas
 
@@ -239,7 +239,7 @@ antes.
 - [Latência](/06-distributed-systems/latency.md) — a distribuição que calibra o timeout.
 - [Retries](/06-distributed-systems/retries.md) — o que vem depois de desistir.
 - [Idempotência](/06-distributed-systems/idempotency.md) — o que torna a retentativa segura.
-- [Circuit Breakers](/12-reliability/circuit-breakers) — o complemento.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md) — o complemento.
 
 ## Exercício Prático
 
