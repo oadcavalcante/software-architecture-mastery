@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [living-documentation, architecture-views, diagram-quality]
 canonical_for: [leitor da documentação, meia-vida da documentação, documentação sob demanda]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -189,17 +189,22 @@ só a escrita humana captura.
 
 ## Quando Não Usar
 
-**Documentar sem leitor definido.**
+**Quando não há quem assuma a manutenção do detalhe que se pretende escrever.** Todo nível
+de detalhe cria uma obrigação recorrente, e detalhe sem dono é o que envelhece primeiro — e
+mais rápido, porque é o que mais muda.
 
-**No mesmo nível de detalhe para tudo.**
+**Quando o conhecimento ainda não foi descoberto.** Documentação sob demanda tem um limite:
+ela só registra o que alguém já perguntou. Para o que se descobre tarde — a razão de uma
+restrição, o que se tentou e não funcionou —, esperar a pergunta significa perder a resposta
+junto com quem a tinha.
 
-**Longe do código.**
+**Quando não há resposta para "quem mantém, e com qual gatilho".** Sem as duas, o documento
+nasce com data de validade e ninguém sabe qual é. Ver
+[padrões de documentação](/17-architecture-documentation/documentation-standards.md), que
+trata do gatilho e do dono.
 
-**Preventivamente, o que ninguém pergunta.**
-
-**Descrevendo o que o código já diz**, em vez do porquê.
-
-**Mantendo o que não é confiável** em vez de remover.
+**Quando o que se ia escrever é o que o código já diz.** Aí o texto não é redundante: é uma
+segunda fonte que vai divergir, e a divergência custa mais que a ausência.
 
 ## Alternativas
 
@@ -235,7 +240,8 @@ acompanhamento que por documento.
 
 **Detalhe demais.** Envelhece antes de ser útil.
 
-**Longe do código.** Diverge inevitavelmente.
+**Longe do código, sem gatilho que force a atualização.** Nada obriga quem muda o
+comportamento a mexer no texto, e a divergência só aparece quando alguém confia nele.
 
 **Descreve o que, não o porquê.** O código já dizia o quê.
 
@@ -297,7 +303,7 @@ partir da infraestrutura declarada. Ver
 Dezoito meses depois:
 
 ```text
-documentos mantidos                       78
+documentos mantidos                       78 (40 sobreviventes, 38 escritos na reformulação)
 acessados mais de 10 vezes no ano         61
 proporção considerada confiável (pesquisa) 84%, contra 22% antes
 ```
@@ -330,5 +336,6 @@ tiverem resposta são candidatos a remoção.
 ## Para Aprofundar
 
 - Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015.
-- Parnas, David; Clements, Paul. *A Rational Design Process*. IEEE TSE, 1986.
+- Parnas, David; Clements, Paul. *A Rational Design Process: How and Why to Fake It*.
+  IEEE TSE, vol. SE-12, n. 2, 1986.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
