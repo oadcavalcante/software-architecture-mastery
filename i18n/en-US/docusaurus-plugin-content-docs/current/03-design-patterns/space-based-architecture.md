@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [event-driven, cqrs, scalability]
 canonical_for: [space-based architecture]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -201,9 +201,17 @@ there; persistence is asynchronous.
 The rest of the system — registration, payment, ticket issuance — stayed on the central
 database.
 
-Two consequences the team accepted explicitly. A window of up to two seconds in which two
-units may reserve the same seat, resolved by reconciliation with cancellation and refund —
-which happens in about 0.01% of reservations and is treated as a cost of business.
+Two consequences the team accepted explicitly. The first is a window of up to two seconds in
+which two units may reserve the same seat, resolved by reconciliation with cancellation and
+refund.
+
+The rate of that is not negligible, and the arithmetic is worth doing: at peak, 400 thousand
+arrivals in two minutes, concentrated on the best seats, put thousands of attempts inside the
+same window over an inventory of tens of thousands of seats. At the first opening, double
+reservation ran at around 2% of confirmations — far too high to treat as noise. That is why
+the inventory came to be **partitioned by section**, with each unit owning a range of seats
+instead of a copy of everything: the collision dropped to what crosses ranges, on the order
+of 0.05%, and only then did it become a cost of business.
 
 And a data loss window of seconds, mitigated by triple replication.
 

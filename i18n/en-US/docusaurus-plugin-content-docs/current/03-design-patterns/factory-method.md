@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [abstract-factory, builder, strategy]
 canonical_for: [factory method]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -100,8 +100,9 @@ change at runtime, and requires no hierarchy.
 [YAGNI](/02-software-design/yagni.md). A hierarchy of creators with one concrete
 creator is pure indirection.
 
-**When there is more than one axis of variation.** Inheritance ties you to one; two
-axes produce a combinatorial explosion. Compose.
+**When there is more than one axis of variation.** Inheritance ties you to one; two axes
+produce a combinatorial explosion, which is the subject of
+[bridge](/03-design-patterns/bridge.md). Compose.
 
 **In languages with flexible constructors.** Where it is possible to pass the
 creation function, the pattern loses its reason to exist.
@@ -174,11 +175,15 @@ return, and the consumer neither knows nor needs to know.
 **Test frameworks.** The lifecycle defines when to create the test instance; the
 subclass or the annotation decides which.
 
-**Database connections.** `DriverManager.getConnection` selects the concrete
-implementation from the URL — type variation decided somewhere other than the
-caller.
+**Creation hooks in frameworks.** The lifecycle calls a method the subclass overrides to
+decide which instance gets created — the canonical form, with dispatch by subclass.
 
-What those three share: the caller is inside a library that cannot know the concrete
+`DriverManager.getConnection` usually makes this list and should not: it is a static method
+that scans a driver registry, exactly what the section "Do not confuse it with 'a static
+method that creates an object'" rejects. The criterion "decided somewhere other than the
+caller" would cover any service locator.
+
+What the legitimate cases share: the caller is inside a library that cannot know the concrete
 classes of whoever uses it. That is the condition that justifies the pattern, and its
 absence in an application system is why it is rarely justified there.
 

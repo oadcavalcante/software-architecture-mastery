@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [strategy, factory-method, composition-vs-inheritance]
 canonical_for: [template method]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,10 @@ last_reviewed: 2026-08-31
 Template Method defines the skeleton of an algorithm in a base class, leaving
 specific steps to the subclasses.
 
-It is the pattern that depends most on inheritance, and therefore the one that most
-frequently has a better alternative in [Strategy](/03-design-patterns/strategy.md).
+The pattern's mechanism is implementation inheritance, and so it carries inheritance's
+costs in full: coupling to the base, a hierarchy that is hard to recombine, and the
+subclass that has to know what the base does in order to override correctly. That is what
+makes [Strategy](/03-design-patterns/strategy.md) the mandatory comparison.
 
 ## Problem
 
@@ -101,7 +103,9 @@ correlation, they are two strategies, not one subclass.
 **When there are many hooks.** A base with ten hooks is an implicit contract nobody
 can retain.
 
-**When Strategy solves it.** Which is most cases in application code.
+**When both sides of the hierarchy belong to the same team and no variant needs to be
+fixed at compile time.** Then the inherited base only adds coupling: passing the steps as
+arguments gives the same skeleton without tying down the hierarchy.
 
 ## Alternatives
 
@@ -115,7 +119,7 @@ can retain.
 
 | Template Method | Strategy |
 |---|---|
-| Sequence guaranteed in the base | Sequence up to whoever composes |
+| Skeleton in the inherited base | Skeleton in the composing function |
 | Less code in the subclass | More wiring |
 | One axis of variation | Combinable axes |
 | Fixed at compile time | Swappable at runtime |

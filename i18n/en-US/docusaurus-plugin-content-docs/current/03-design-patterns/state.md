@@ -13,7 +13,7 @@ objective: >
 prerequisites: [strategy]
 related: [strategy, command, memento]
 canonical_for: [state, state machine]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -77,8 +77,11 @@ exist in an identifiable place.
 That allows answering questions that previously required a full reading: which
 transitions exist? Which states are terminal? How do you get from here to there?
 
-And it allows verification: a test can walk the machine and confirm there is no
-unreachable state and no missing transition.
+And it allows automatic verification of part of that: walking the machine finds
+unreachable states, states with no exit and duplicate transitions. What it does **not**
+find is a missing transition — for that the machine has to be confronted with the
+business, because the code does not know what ought to exist and is not there. It is what
+the Real-World Example uncovers, by human reading.
 
 ### Who performs the transition
 

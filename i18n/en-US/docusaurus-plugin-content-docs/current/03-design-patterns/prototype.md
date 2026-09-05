@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, memento, flyweight]
 canonical_for: [prototype, cloning]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -189,8 +189,10 @@ derived — which is conceptually what the test builder solves, by another route
 
 In languages with support for immutability, the last case migrated to derivation
 operations: `config.with(timeout: 30)` returns a new instance with no explicit cloning.
-That is Prototype with another syntax and without the shallow-copy risk — which explains
-why the named pattern disappeared while the idea remained.
+That is Prototype with another syntax, and the shallow-copy risk does not vanish with the
+syntax: a derivation operation **is** a shallow copy, and the unaltered fields go through by
+reference. What removes the risk is the remaining parts being immutable — with a mutable map
+or list inside, `config.with(timeout: 30)` falls into the same trap described above.
 
 ## Related Concepts
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, factory, dependency-inversion]
 canonical_for: [repository]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -81,8 +81,10 @@ five fields of a hundred orders does not need a hundred aggregates — it needs 
 See [CQRS](/03-design-patterns/cqrs.md) level 2: reads go straight to the database, with a
 query returning exactly what the screen needs.
 
-Insisting on using the repository for reads is the origin of the large aggregate and of the
-N+1 problem.
+Insisting on using the repository for reads **aggravates** both classic defects: it pressures
+the aggregate to grow in order to serve screens — whose cause is in
+[aggregate](/04-domain-driven-design/aggregate.md) — and it multiplies trips to the database
+through lazy loading, whose mechanism is in [proxy](/03-design-patterns/proxy.md).
 
 ### The collection is a useful illusion
 
@@ -175,7 +177,8 @@ loaded tens of thousands of objects.
 report — a business decision hidden in an SQL clause, which the compliance team could not
 audit.
 
-And any schema change touched all 47 methods.
+And schema changes spread through dozens of methods with nothing saying which: the last column
+migration touched nineteen of the 47.
 
 The separation went in three directions.
 

@@ -8,12 +8,12 @@ level: 2
 difficulty: advanced
 status: complete
 objective: >
-  By the end, the reader recognizes the axis of variation Visitor favours and why it
-  is the most frequently misapplied pattern.
+  By the end, the reader recognizes the axis of variation Visitor favours and why its
+  ceremony only pays off under narrow conditions.
 prerequisites: [composite]
 related: [composite, iterator, strategy]
 canonical_for: [visitor, double dispatch]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,9 +24,11 @@ last_reviewed: 2026-08-31
 Visitor separates an algorithm from the object structure it operates on, allowing new
 operations to be added without altering the structure's classes.
 
-It is the most complex pattern in the catalogue and the most frequently applied where
-it does not serve. The reason lies in a single axis, and understanding it settles
-almost every decision about the pattern.
+It is the pattern with the most ceremony in the catalogue: it requires an `accept` method
+on every type in the hierarchy, a visitor interface with one operation per type, and the
+double dispatch almost nobody reads without stopping to think. That ceremony is what makes
+it the case where the question "do I really need this?" pays off most. The reason lies in a
+single axis, and understanding it settles almost every decision about the pattern.
 
 ## Problem
 
@@ -50,7 +52,10 @@ The formulation that settles everything. There are two axes of growth:
 **New types** — more node types in the structure.
 **New operations** — more things to do with the structure.
 
-No organization makes both cheap at the same time.
+Among the usual organizations of object-oriented code, none makes both cheap at the same
+time — it is the expression problem, stated by Wadler in 1998. There are encodings that buy
+both directions (*object algebras*, *tagless final*), at the cost of even more ceremony and
+of features not every language offers.
 
 | | Method on the node | Visitor |
 |---|---|---|
@@ -128,8 +133,11 @@ each operation, and in frequently read code that weighs.
 
 ## Failure Modes
 
-**A new type forgotten in a visitor.** Without exhaustiveness checking, the compiler
-does not warn and the behaviour is silently wrong.
+**A new type forgotten in a visitor.** It depends on the visitor's form: with an **abstract
+interface**, adding a type breaks the compilation of every one of them — expensive, and it is
+the cost the table above charges. With a **base class providing default implementations**, or
+in a dynamic language, nothing breaks: the new type falls into the default and the behaviour
+is wrong in silence.
 
 **Visitor with shared state.** Reusing the instance across traversals produces
 contamination.

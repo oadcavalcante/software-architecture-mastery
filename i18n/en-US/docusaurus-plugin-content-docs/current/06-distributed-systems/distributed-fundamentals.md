@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [network-failure, partial-failure, latency]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -198,7 +198,9 @@ for a latency spike.
 
 ## Further Reading
 
-- Deutsch, Peter; Gosling, James. *The Fallacies of Distributed Computing*, 1994–1997.
+- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006 — expands on the
+  list attributed to L. Peter Deutsch (the first seven, around 1994) and to James Gosling (the
+  eighth), which circulated without formal publication under that title.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 8, on
   the problems of distributed systems.
 - Waldo, Jim et al. *A Note on Distributed Computing*, 1994 — the classic argument against

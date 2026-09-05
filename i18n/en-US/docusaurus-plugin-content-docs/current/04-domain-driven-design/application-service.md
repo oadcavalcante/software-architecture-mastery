@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-service]
 related: [domain-service, aggregate, clean-architecture]
 canonical_for: [application service, use case]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -179,9 +179,9 @@ subscription determined.
 
 Two concrete gains.
 
-When the statutory period changed from 7 to 14 days, the change was one line in the entity,
-with the corresponding unit test. Before, it would have required finding the rule among 700
-lines of coordination.
+When the company started offering thirty days of withdrawal as a commercial differentiator —
+above the legal minimum — the change was one line in the entity, with the corresponding unit
+test. Before, it would have required finding the rule among 700 lines of coordination.
 
 And the same cancellation came to apply to the three channels that triggered it — portal,
 customer service and the automatic delinquency process — which previously had slightly

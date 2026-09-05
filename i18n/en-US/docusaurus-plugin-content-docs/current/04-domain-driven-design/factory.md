@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, repository, factory-method]
 canonical_for: [domain factory]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -190,7 +190,10 @@ Plan.byPortability(origin)           → variant with its own rules
 
 Two named operations, in the business's vocabulary, inside the domain.
 
-The constructor became private. There is no longer a way to create an invalid `Plan`.
+The constructor became private: there is no longer an **application path** that creates an
+invalid `Plan`. The mapper remains the open door — see the caveat on reconstitution,
+below — and that is why the repository's loading test came to validate the aggregate after
+reconstituting it.
 
 When the waiting period changed again, six months later, the change was one line — and it
 applied to all three channels simultaneously.

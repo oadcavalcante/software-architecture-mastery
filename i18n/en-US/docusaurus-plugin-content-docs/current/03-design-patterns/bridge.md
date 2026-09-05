@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adapter]
 related: [adapter, strategy, abstract-factory]
 canonical_for: [bridge]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -45,8 +45,13 @@ and four renderers, sixteen.
 Bridge replaces the product with the sum:
 
 ```text
-2 shapes + 3 renderers = 5 classes
+2 shapes + 3 renderers + 2 hierarchy roots = 7 types
 ```
+
+Note that at this size the pattern has not won yet: inheritance gave 7 types as well (the
+base plus the six concrete ones). The gain is asymptotic and shows up at 4×4 — 17 types
+against 10 —, and that is exactly why "When Not to Use" says to wait for the third or fourth
+class before splitting the hierarchies.
 
 The shape holds a reference to the renderer. The two hierarchies exist separately and
 combine by composition.

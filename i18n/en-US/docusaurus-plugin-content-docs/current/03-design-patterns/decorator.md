@@ -13,7 +13,7 @@ objective: >
 prerequisites: [composite]
 related: [proxy, composite, strategy]
 canonical_for: [decorator]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -40,7 +40,7 @@ Decorator makes the combination additive: one decorator per behaviour, stacked a
 needed.
 
 ```text
-new Buffer(new Cipher(new Compression(baseStream)))
+new Buffer(new Compression(new Cipher(baseStream)))
 ```
 
 ## Core Concepts
@@ -74,6 +74,12 @@ caching, validation, measurement, access control.
 Stacking compress-then-encrypt produces a different result from
 encrypt-then-compress — and the second compresses badly, because encrypted data is
 incompressible.
+
+It is worth rereading the stack above with that in mind: on the write path, the
+**outermost** layer processes first. `Buffer(Compression(Cipher(...)))` compresses before
+encrypting, which is the right order. Swapping `Compression` and `Cipher` produces no
+compilation error, breaks no unit test of either one, and yields a file that takes up the
+same space as the original.
 
 The order is a design decision the pattern does not document. Whoever assembles the
 stack has to know, and nothing in the code enforces the correct order.

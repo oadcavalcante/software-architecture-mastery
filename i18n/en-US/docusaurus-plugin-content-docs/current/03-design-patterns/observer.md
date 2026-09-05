@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [mediator, command, event-driven]
 canonical_for: [observer, publish-subscribe]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -25,8 +25,9 @@ Observer defines a one-to-many dependency: when one object changes state, everyt
 depending on it is notified automatically.
 
 It is the conceptual basis of event-driven systems, reactive interfaces and
-publish-subscribe. It is also the pattern that introduces the most non-obvious
-problems.
+publish-subscribe. The problems it introduces — leaks from uncancelled registration,
+order dependence and cascading notifications — get little attention when the pattern is
+taught, which usually stops at dependency inversion.
 
 ## Problem
 
@@ -133,7 +134,9 @@ of the flow costs more than the decoupling yields.
 
 ## Failure Modes
 
-**Leak from uncancelled registration.** The most common.
+**Leak from uncancelled registration.** The registered observer keeps the reference to
+itself alive, and with it everything it reaches — the object leaves the screen and does
+not leave memory.
 
 **Infinite cascade.** An observer that modifies the subject.
 
@@ -165,8 +168,10 @@ use and where leaks from uncancelled registration are most frequent.
 handling, composition and backpressure added — precisely the raw pattern's gaps.
 
 **Declarative UI frameworks.** The reactivity model of modern interface libraries is
-Observer under the hood, with the registration lifecycle managed by the framework —
-which eliminates the leak by construction.
+Observer under the hood, with the registration lifecycle managed by the framework — which
+eliminates the leak **in the subscriptions it creates itself**. A manual subscription to
+an external source, made inside a component, still requires cancelling on disposal, and
+that is precisely the leak described above.
 
 **Domain events inside a process.** An aggregate publishes; subscribers react. See
 [DDD](/04-domain-driven-design/index.md).

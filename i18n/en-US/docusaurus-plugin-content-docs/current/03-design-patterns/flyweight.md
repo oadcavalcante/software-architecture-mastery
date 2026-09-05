@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [prototype, proxy, singleton]
 canonical_for: [flyweight, intrinsic state, extrinsic state]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,9 +24,10 @@ last_reviewed: 2026-08-31
 Flyweight reduces memory consumption by sharing common state across many similar
 objects.
 
-It is explicitly an **optimization**, and the only one in the GoF catalogue that is.
-That changes how it should be treated: applying it without measuring first is the
-mistake by definition.
+It is explicitly an **optimization** — and the only pattern in the catalogue whose declared
+gain is memory consumption alone, which makes it the only one that cannot be justified
+without measuring first. That changes how it should be treated: applying it without
+measuring first is the mistake by definition.
 
 ## Problem
 
@@ -91,8 +92,10 @@ harder to understand and to debug.
 **Without measurement.** The central mistake. Applying it in anticipation is
 [premature optimization](/02-software-design/yagni.md) with a structural cost.
 
-**When the number of objects is moderate.** A few thousand objects do not justify the
-complexity on any modern platform.
+**When count × size of the intrinsic part amounts to nothing.** The axis is not the number
+of objects: it is how much memory the sharing gives back. A thousand objects carrying a
+texture of megabytes justify the pattern; a million carrying two integers do not. Measure the
+intrinsic part first, and only consider it if the saving is in the hundreds of megabytes.
 
 **When the shareable state is small.** If the intrinsic part is one field and the
 extrinsic part is ten, there is nothing to save.
@@ -197,8 +200,10 @@ pattern's trade-off, and it was paid.
 If your system keeps many similar objects in memory, count how many distinct
 combinations of attributes actually exist.
 
-The ratio between the number of objects and the number of combinations is the potential
-gain. Below an order of magnitude, it probably is not worth it.
+The ratio between the number of objects and the number of combinations bounds the sharing of
+the **intrinsic share**, not of total memory — that is why 400 thousand points against 37
+combinations, a ratio of 10,800 to 1, yielded 6.7× in the case above and not 10,800×. Measure
+first what fraction of the object is intrinsic: that is the part the pattern gives back.
 
 ## Interview Questions
 

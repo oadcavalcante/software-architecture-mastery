@@ -2,7 +2,7 @@
 id: strategy
 title: Strategy
 sidebar_position: 20
-description: Encapsulating interchangeable algorithms — the most useful pattern in the catalogue and the most applied without need.
+description: Encapsulating interchangeable algorithms — and, in most application code, a function is enough.
 doc_type: pattern
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [state, template-method, bridge]
 canonical_for: [strategy]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,11 @@ last_reviewed: 2026-08-31
 Strategy defines a family of algorithms, encapsulates each one, and makes them
 interchangeable.
 
-It is probably the most useful pattern in the catalogue — and the most applied where
-an `if` would do.
+It is the pattern that turns up in more places in application code than any other, almost
+always in the degenerate form of a function passed as an argument. And it is where the
+ceremony of the full version — interface, implementations, selection — most often charges
+without delivering: with two variants nobody is going to extend, an `if` says the same
+thing in fewer lines.
 
 ## Problem
 
@@ -151,7 +154,8 @@ several places that choose the strategy.
 
 ## Common Mistakes
 
-**Applying it with two variants.** The most common.
+**Applying it with two variants.** Three files to replace a two-line `if`, and the third
+variant that would justify the structure never arrives.
 
 **Creating an interface where a function suffices.**
 

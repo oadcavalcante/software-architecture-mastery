@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, facade, dependency-inversion]
 canonical_for: [singleton]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -63,8 +63,10 @@ injected into whoever needs it.
 **If you need convenient access** — pass the dependency. A signature declaring
 `(Configuration config)` is honest about what the method needs.
 
-Combining a single instance with explicit injection delivers everything Singleton
-promises, with none of the costs.
+Combining a single instance with explicit injection delivers the uniqueness and the
+testability Singleton promises, at the cost of the explicit wiring — which pays for itself
+in almost everything, and turns into disproportionate noise on the cross-cutting dependencies
+that run through the entire codebase.
 
 ### A stateless singleton is less bad
 
@@ -124,8 +126,11 @@ spreads a hidden dependency across the whole system.
 | Risk of shared state | Controlled scope |
 | One instance guaranteed | One instance configured |
 
-The only column where Singleton wins is convenience. It is little, and it is what
-explains its popularity.
+Singleton wins in two columns. One is convenience. The other is the strength of the
+guarantee: the uniqueness is structural, whereas an injection registration wrongly configured
+as transient hands out two instances without warning anyone. The second advantage is real and
+still does not compensate — registration configuration is verifiable in a test, and the
+coupling that global access creates is not verifiable anywhere.
 
 ## Failure Modes
 

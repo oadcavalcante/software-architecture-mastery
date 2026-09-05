@@ -13,7 +13,7 @@ objective: >
 prerequisites: [command]
 related: [command, prototype, event-sourcing]
 canonical_for: [memento]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -108,8 +108,9 @@ it has to be estimated beforehand.
 **When the state includes external resources.** A connection, an open file or an effect
 already sent are not restorable by memento.
 
-**When persistence already solves it.** If the object is written on every change, the
-database's history can serve as the restoration mechanism.
+**When persistence already keeps versions.** A temporal table, an audit trail or
+append-only storage already give you the history. Writing on every change does not, by
+itself: an `UPDATE` leaves only the current state, and there is nothing to go back to.
 
 **When the object is immutable.** There is nothing to capture — the previous version
 still exists.
@@ -130,9 +131,9 @@ still exists.
 |---|---|
 | Works for any operation | Has to be implemented per operation |
 | Restoration guaranteed correct | Correctness depends on each inverse |
-| Memory cost proportional | Constant cost |
+| Memory: state × number of operations | Memory: small record × number of operations |
 | No need to understand the operation | Needs to |
-| Does not restore external effects | Nor does it |
+| Does not know the external effect exists | Can declare its compensation |
 
 ## Failure Modes
 

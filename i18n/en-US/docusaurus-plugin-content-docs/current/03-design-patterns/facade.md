@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [adapter, proxy, mediator]
 canonical_for: [facade]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -170,8 +170,11 @@ because each developer had copied from a different point and adapted it.
 Two of those places forgot to close the session, which exhausted the ERP's connection
 limit every few days.
 
-The facade exposed `queryOrder(number)` and concentrated the sequence. The session
-leak became impossible.
+The facade exposed `queryOrder(number)` and concentrated the sequence. The session leak
+stopped happening on the common path — but it did not become impossible, and the case itself
+shows why: the low-level client stayed accessible, and six months later someone used it
+directly. What covered that path was a test that exhausts the connection pool and fails when
+one does not come back.
 
 What the team did right afterwards: **it kept the low-level client accessible.** Six
 months later, a report needed a batch query the facade did not anticipate, and it was
@@ -180,8 +183,10 @@ wait for it.
 
 ## How to stop it growing
 
-Every facade tends to accumulate methods. Without deliberate containment, it becomes
-the system's central object within two years.
+Facades serving clients with divergent needs tend to accumulate methods: every new client
+brings a composition only it uses. Without deliberate containment, it becomes the system's
+central object — and the speed of that is set by the number of distinct clients, not by the
+calendar.
 
 Three mechanisms that work:
 

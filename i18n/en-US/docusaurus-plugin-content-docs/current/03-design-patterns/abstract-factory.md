@@ -13,7 +13,7 @@ objective: >
 prerequisites: [factory-method]
 related: [factory-method, builder, facade]
 canonical_for: [abstract factory]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -121,7 +121,7 @@ environment overlaps something the configuration mechanism already does.
 | Swapping the family is one line | Swapping touches several points |
 | A new product touches every factory | A new product is independent |
 | A parallel hierarchy to maintain | No hierarchy |
-| Client fully decoupled | Coupling only to the interface |
+| Knows the factory and the interfaces | Knows only the interfaces |
 
 ## Failure Modes
 
@@ -163,19 +163,28 @@ The expensive axis was never exercised: no new product was added to the family i
 years. That was exactly the condition that justified the pattern — a stable set of
 products, varying families — and it held.
 
-Had a fifth product emerged, it would have touched eleven classes.
+Had a fifth product emerged, it would have touched twelve existing files — the factory
+interface and the eleven implementations — plus eleven new product classes, one per family.
+That is the cost the rigid axis charges, and it is why the stability of the product set is a
+prerequisite and not a detail.
 
 ## Where it appears in practice
 
-**XML parsing APIs in Java.** `DocumentBuilderFactory` produces a coherent set of parsing
-objects. Mixing components from different implementations would break, and the factory
-prevents it.
+**XML parsing APIs in Java.** The case is usually cited here, and should not be:
+`DocumentBuilderFactory` declares a single creation operation — `newDocumentBuilder()` — which
+by the criterion of the previous section is [factory method](/03-design-patterns/factory-method.md),
+not this pattern. The coherent family exists one level below, among `Document`, `Element` and
+`Text` from the same implementation, and what holds it together is the document, not the
+factory.
 
 **Cross-platform widget libraries.** The case that originated the pattern, today solved by
 themes in most frameworks.
 
-**Database drivers.** A driver supplies a connection, a statement and a result set
-compatible with each other. You do not combine one's connection with another's statement.
+**Database drivers.** The compatibility is real — you do not combine one driver's connection
+with another's statement — but the form is different: in JDBC the chain is `Connection`
+creates `Statement` creates `ResultSet`, chained factory methods, not a factory interface with
+four operations. It serves as an illustration of the *compatibility constraint*, not of the
+pattern's structure.
 
 The common denominator is the compatibility constraint: the family's objects were designed
 to work together and assume things about each other.

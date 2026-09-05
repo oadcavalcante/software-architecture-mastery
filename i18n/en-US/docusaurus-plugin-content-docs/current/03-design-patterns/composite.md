@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, iterator, visitor]
 canonical_for: [composite, part-whole hierarchy]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -69,9 +69,14 @@ for it, typically by throwing.
 **Safe** — only the composite has `add` and `remove`. There is no meaningless
 operation; the client has to check the type in order to compose.
 
-Transparent wins on uniformity and loses on type safety. Safe, the reverse. There is
-no third option, and choosing requires knowing whether the client composes or merely
-traverses.
+Transparent wins on uniformity and loses on type safety; safe, the reverse. The choice is
+binary when the interface has to be closed and the platform offers no safe query — outside
+that there is a middle ground: a query accessor, `asComposite()`, returning empty on the
+leaf. It preserves the uniform traversal and gives whoever composes a total check, with no
+`instanceof`; in a language with sealed types and pattern matching, the cost of that check is
+lower still.
+
+Either way, choosing requires knowing whether the client composes or merely traverses.
 
 When the client only traverses, the safe variant costs nothing and is preferable.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [application-service, aggregate, entity]
 canonical_for: [domain service]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -89,8 +89,11 @@ find where it belongs in the entity.
 The result is the anemic model — entities with no behaviour and services with all the logic.
 See [encapsulation](/02-software-design/encapsulation.md).
 
-The check: before creating a domain service, ask whether the rule genuinely involves more
-than one aggregate. If it involves only one, it belongs to that one.
+The check: before creating a domain service, apply the three conditions from the
+definition — it is domain rule, it belongs to no entity, it is stateless. "Involves more than
+one aggregate" is a **heuristic**, not a test: it is right most of the time, and it fails in
+cases like the `ShippingCalculator` above, which meets the three conditions over a single
+aggregate. When the rule involves one aggregate and fits in it, it is that aggregate's.
 
 ## When to Use
 
@@ -163,7 +166,9 @@ A banking system had a `TransferService` with 400 lines, containing: balance val
 calculation, daily limit checking, audit logging, email notification and transaction
 control.
 
-Six responsibilities, of which two were domain and four were not.
+Six responsibilities: three of domain and three not. Two belonged to `Account`, one to a
+domain service, and the other three — auditing, notification and transaction control — to the
+application layer and to effects.
 
 The separation:
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [context-mapping]
 related: [adapter, bounded-context, legacy-modernization]
 canonical_for: [anti-corruption layer, ACL]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -125,11 +125,14 @@ impression of protection that does not exist.
 | Anti-corruption layer | Direct consumption |
 |---|---|
 | Domain protected from the other's model | The other's model enters |
-| Replacing the vendor is local | Touches the whole system |
 | Semantics translated and validated | Traps get through |
 | Continuous maintenance of the translation | None |
-| One layer to understand | Direct flow |
 | Cost paid even with no external change | Cost paid when it changes |
+
+The **vendor replacement** axis and the criterion for when the layer pays off are in
+[boundary translation](/08-integration-architecture/integration-anti-corruption.md), which
+treats the pattern from the integration angle — including the quadrant that decides between
+a full layer and translation at the edge, and where the layer lives.
 
 ## Failure Modes
 
@@ -183,8 +186,9 @@ the business, and `NormalizedScore` on its own scale.
 The 40 kinds of occurrence became four. The decision of which four was taken with the risk
 team — and it is exactly the modelling decision the layer exists to concentrate.
 
-The second bureau was added as a second translation, in three weeks, with zero change in the
-domain.
+The second bureau was added as a second translation, with zero change in the domain: the
+fourteen conditional points the previous integration had scattered through the business code
+became none, and the work stayed contained in two mapping files.
 
 The detail that paid off most: the layer rejects bureau responses that cannot be translated
 safely — rather than mapping them to the nearest value. That turned a class of silent defect
@@ -195,7 +199,9 @@ into an explicit integration error.
 - [Context Mapping](/04-domain-driven-design/context-mapping.md) — where this pattern sits.
 - [Adapter](/03-design-patterns/adapter.md) — the interface version.
 - [Bounded Context](/04-domain-driven-design/bounded-context.md) — what is protected.
-- [Legacy Modernization](/16-legacy-modernization/index.md) — the most frequent use.
+- [Boundary Translation](/08-integration-architecture/integration-anti-corruption.md) — the
+  same pattern from the integration angle: when it pays off, and where the layer lives.
+- [Legacy Modernization](/16-legacy-modernization/index.md) — a recurring use.
 
 ## Practical Exercise
 

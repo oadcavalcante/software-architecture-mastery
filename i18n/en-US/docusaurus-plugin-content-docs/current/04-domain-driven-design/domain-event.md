@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, event-driven, event-sourcing]
 canonical_for: [domain event, integration event]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -95,8 +95,10 @@ integration event, with a format of its own.
 If the transaction writes to the database and the publication goes to a message broker, the
 two are not atomic. It can write and not publish, or publish and fail to write.
 
-The usual solution is the *outbox* pattern: the event is written to a table in the same
-transaction, and a separate process publishes it. See
+The usual solution is the *outbox* pattern — see
+[delivery guarantees](/06-distributed-systems/delivery-guarantees.md), the canonical document
+on the topic: the event is written to a table in the same transaction, and a separate
+process publishes it. See
 [distributed systems](/06-distributed-systems/index.md).
 
 Ignoring that produces silent event loss, which is this pattern's hardest defect to
@@ -209,7 +211,9 @@ period, premium, coverages in a format of its own.
 
 Internal refactorings stopped reaching consumers.
 
-And publishing came to use an outbox: the integration event is written in the same
+The four consumers became idempotent, deduplicating by the event key on write — without
+that, trading loss for at-least-once delivery would have turned into duplicate charges, which
+is worse. And publishing came to use an outbox: the integration event is written in the same
 transaction as the policy, and a process publishes it with at-least-once guarantees.
 
 The silent loss became impossible.
