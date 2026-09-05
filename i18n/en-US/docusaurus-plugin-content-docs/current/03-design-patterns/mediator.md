@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observer]
 related: [observer, facade, command]
 canonical_for: [mediator]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -64,7 +64,10 @@ know who reacts. The reactions are independent and the order does not matter.
 the reactions are exactly what it encapsulates.
 
 When order matters and there are dependencies between reactions, Observer is the wrong
-structure and Mediator is the right one.
+structure — it has nowhere to keep the sequence. Which coordinator takes its place depends
+on the nature of the coordination, and the Alternatives cover that: a mediator when it is
+interaction among peers, a state machine when it is a transition, an application service
+when it is a use case.
 
 ### The central risk
 

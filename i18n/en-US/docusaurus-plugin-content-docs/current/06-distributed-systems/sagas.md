@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-transactions]
 related: [idempotency, event-driven-systems, distributed-transactions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -34,8 +34,8 @@ most underestimated.
 
 Without a distributed transaction, a multi-step operation that fails midway leaves partial state.
 
-The saga accepts that the partial state exists and makes it **temporary and handled** — instead of
-invisible (2PC) or permanent (nothing).
+The saga accepts that the partial state exists and makes it **temporary, named and handled** — instead of
+short and unnamed (2PC) or permanent (nothing).
 
 The difficulty is not in the success flow. It is in answering, for each step, "how do I undo this?" —
 and discovering that the answer does not always exist.

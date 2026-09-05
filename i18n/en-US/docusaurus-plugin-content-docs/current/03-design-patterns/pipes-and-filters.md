@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [event-driven, chain-of-responsibility, decorator]
 canonical_for: [pipes and filters, pipeline]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -49,7 +49,10 @@ graph LR
 ```
 
 The contract between filters is the shape of the data in the pipe. As long as it is
-respected, any filter can be inserted, removed or reordered.
+respected, a filter can be inserted or removed without changing its neighbors — which is
+mechanical fit, not interchangeability. Order remains a constraint of the domain: in the
+Real-World Example, tax computation cannot precede enrichment from the registry, and no
+format contract says so.
 
 ### Stateless filters are recombinable
 
@@ -163,11 +166,14 @@ charges or sends an email on every pass makes that operation impossible.
 
 ## Where it appears in practice
 
-**Unix command-line pipes.** The origin and the purest example: `grep | sort | uniq`.
-Stateless filters, a text format, recombinable by any user.
+**Unix command-line pipes.** The origin, and an example that teaches the distinction:
+`grep | sort | uniq`. Only `grep` is stateless — `sort` needs the whole input before
+emitting the first line, and `uniq` compares each item with the previous one. A real
+pipeline mixes both kinds, and it is the `sort` in the middle that prevents parallelizing
+and forces waiting for the end of the input.
 
-**Data pipelines.** Ingestion, cleaning, enrichment and loading. It is the dominant use
-today.
+**Data pipelines.** Ingestion, cleaning, enrichment and loading — where the pattern appears
+most today, with queues between the steps instead of the in-memory pipe.
 
 **Compilers.** Lexical, syntactic and semantic analysis, optimization, generation — each
 phase consumes the previous one's output.
@@ -193,8 +199,16 @@ synthetic input.
 
 Two problems appeared and are worth more than the gain.
 
-The first: the enrichment filter queried the registry per record, and parallelized it
-produced load that brought the registry service down. The fix was batching and adding rate
+The first: the enrichment filter queried the registry per record and brought the registry
+service down — without having been parallelized. It stayed on one instance; what changed
+was the **rate**. In the 400-line method, each registry query only happened after the
+previous record's tax computation, which was 80% of the time: the bottleneck paced
+everything. Decomposed, enrichment began running at the throughput of the set, about an
+order of magnitude higher, and the registry received that rate all at once.
+
+That is the lesson worth more than the scaling gain: decomposing does not change the total
+number of calls to dependencies, it changes the speed at which they arrive — and whoever
+was protected by the bottleneck stops being. The fix was batching and adding rate
 limiting.
 
 The second: a malformed record made the validation filter throw, and the message returned

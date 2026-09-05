@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [microservices, event-driven, integration-architecture]
 canonical_for: [SOA, arquitetura orientada a serviços, ESB]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -106,7 +106,11 @@ autonomia sobre reúso — uma inversão deliberada.
 
 **Para sistemas novos com times autônomos.** A centralização vira gargalo.
 
-**Quando o barramento acumularia regra de negócio.** É a degeneração previsível.
+**Quando não há regra escrita sobre o que pode morar no barramento.** A degeneração não é
+misteriosa: ela começa com uma decisão que depende de dados de dois sistemas e não tem dono
+declarado, e o barramento é o único lugar que enxerga os dois. Sem uma regra que diga o que
+ele pode conter — e alguém que a aplique na revisão —, essa decisão vai para lá, e a
+próxima também.
 
 **Quando a autonomia de release importa.** Coordenação centralizada a impede.
 
@@ -156,14 +160,21 @@ significa coisas diferentes em áreas diferentes. Ver
 
 ## Erros Comuns
 
-**Colocar regra de negócio no barramento.**
+**Colocar regra de negócio no barramento.** Quem escreve ali entrega mais rápido, porque
+não precisa negociar com o time dono do sistema. O custo aparece meses depois, na fila de
+oito meses do Exemplo Real: a regra virou responsabilidade de uma equipe que não conhece
+nenhum dos domínios.
 
-**Perseguir modelo canônico único.**
+**Perseguir modelo canônico único.** A tentativa consome anos sem convergir, porque cada
+sistema tem uma razão legítima para o seu modelo — e enquanto não converge, nada depende
+dela, então o trabalho não aparece como atraso de ninguém.
 
 **Tratar SOA como versão antiga de microsserviços.** As filosofias de integração
 são opostas.
 
-**Adotar ESB para resolver acoplamento.**
+**Adotar ESB para resolver acoplamento.** O acoplamento não some: ele muda de forma, de
+ponto a ponto entre sistemas para radial em torno do barramento — e agora com um time no
+meio de toda mudança.
 
 ## Onde ele aparece na prática
 

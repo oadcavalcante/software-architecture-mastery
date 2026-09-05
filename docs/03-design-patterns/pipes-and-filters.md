@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [event-driven, chain-of-responsibility, decorator]
 canonical_for: [pipes and filters, pipeline]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -49,8 +49,11 @@ graph LR
   E[Entrada] --> F1[Validar] --> F2[Enriquecer] --> F3[Transformar] --> F4[Agregar] --> S[Saída]
 ```
 
-O contrato entre filtros é o formato do dado no tubo. Enquanto ele for
-respeitado, qualquer filtro pode ser inserido, removido ou reordenado.
+O contrato entre filtros é o formato do dado no tubo. Enquanto ele for respeitado, um
+filtro pode ser inserido ou removido sem alterar os vizinhos — o que é encaixe mecânico, e
+não intercambialidade. A ordem continua sendo restrição do domínio: no Exemplo Real, o
+cálculo de impostos não pode preceder o enriquecimento com o cadastro, e nenhum contrato de
+formato diz isso.
 
 ### Filtros sem estado são recombináveis
 
@@ -160,11 +163,14 @@ bloqueia os seguintes.
 
 ## Onde ele aparece na prática
 
-**Tubos de linha de comando do Unix.** A origem e o exemplo mais puro: `grep | sort
-| uniq`. Filtros sem estado, formato de texto, recombináveis por qualquer usuário.
+**Tubos de linha de comando do Unix.** A origem, e um exemplo que ensina a distinção:
+`grep | sort | uniq`. Só o `grep` é sem estado — `sort` precisa da entrada inteira antes de
+emitir a primeira linha, e `uniq` compara cada item com o anterior. Um pipeline real mistura
+os dois tipos, e é o `sort` no meio que impede paralelizar e obriga a esperar o fim da
+entrada.
 
-**Pipelines de dados.** Ingestão, limpeza, enriquecimento e carga. É o uso
-dominante hoje.
+**Pipelines de dados.** Ingestão, limpeza, enriquecimento e carga — onde o padrão mais
+aparece hoje, com filas entre as etapas em vez do tubo em memória.
 
 **Compiladores.** Análise léxica, sintática, semântica, otimização, geração — cada
 fase consome a saída da anterior.
@@ -191,9 +197,16 @@ ganhou testes próprios com entrada sintética.
 
 Dois problemas apareceram e valem mais que o ganho.
 
-O primeiro: o filtro de enriquecimento consultava o cadastro por registro, e
-paralelizado produziu carga que derrubou o serviço de cadastro. A correção foi
-processar em lotes e adicionar limitação de taxa.
+O primeiro: o filtro de enriquecimento consultava o cadastro por registro e derrubou o
+serviço de cadastro — sem ter sido paralelizado. Ele continuou com uma instância; o que
+mudou foi a **taxa**. No método de 400 linhas, cada consulta ao cadastro só acontecia depois
+do cálculo de impostos do registro anterior, que era 80% do tempo: o gargalo cadenciava
+tudo. Decomposto, o enriquecimento passou a rodar na vazão do conjunto, cerca de uma ordem
+de grandeza maior, e o cadastro recebeu essa taxa de uma vez.
+
+É a lição que vale mais que o ganho de escala: decompor não muda o total de chamadas às
+dependências, muda a velocidade com que elas chegam — e quem estava protegido pelo gargalo
+deixa de estar. A correção foi processar em lotes e adicionar limitação de taxa.
 
 O segundo: um registro malformado fazia o filtro de validação lançar exceção, e a
 mensagem voltava para a fila indefinidamente — bloqueando a fila inteira. Dead-letter

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [microservices, event-driven, integration-architecture]
 canonical_for: [SOA, service-oriented architecture, ESB]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -105,7 +105,11 @@ generic services that served everyone badly. Microservices prioritize autonomy o
 
 **For new systems with autonomous teams.** The centralization becomes a bottleneck.
 
-**When the bus would accumulate business rules.** It is the predictable degeneration.
+**When there is no written rule about what may live in the bus.** The degeneration is not
+mysterious: it starts with a decision that depends on data from two systems and has no
+declared owner, and the bus is the only place that sees both. Without a rule saying what it
+may contain — and someone who enforces it at review time —, that decision goes there, and so
+does the next one.
 
 **When release autonomy matters.** Centralized coordination prevents it.
 
@@ -155,14 +159,21 @@ means different things in different areas. See
 
 ## Common Mistakes
 
-**Putting business rules in the bus.**
+**Putting business rules in the bus.** Whoever writes them there delivers faster, because
+they do not have to negotiate with the team that owns the system. The cost shows up months
+later, in the eight-month queue of the Real-World Example: the rule became the
+responsibility of a team that knows none of the domains.
 
-**Pursuing a single canonical model.**
+**Pursuing a single canonical model.** The attempt consumes years without converging,
+because each system has a legitimate reason for its own model — and while it does not
+converge, nothing depends on it, so the work does not show up as anyone's delay.
 
 **Treating SOA as an old version of microservices.** The integration philosophies are
 opposite.
 
-**Adopting an ESB to solve coupling.**
+**Adopting an ESB to solve coupling.** The coupling does not disappear: it changes shape,
+from point-to-point between systems to radial around the bus — and now with a team in the
+middle of every change.
 
 ## Where it appears in practice
 

@@ -155,6 +155,27 @@ function checkLinks(doc, byLocale, report) {
       continue;
     }
 
+    /*
+     * Link para seção de conteúdo sem a extensão.
+     *
+     * O bloco acima só verifica alvos terminados em `.md`; o que não termina
+     * caía neste `continue` e não era verificado por ninguém. Foi assim que
+     * vinte links quebrados passaram no `validate` e derrubaram o build de
+     * produção, que roda com `onBrokenLinks: 'throw'`.
+     *
+     * A regra é estreita de propósito: só alvos sob um diretório de seção
+     * numerado. Páginas de `src/pages` — `/progress`, `/glossary` — são links
+     * legítimos sem extensão e não casam com o padrão.
+     */
+    if (/^\/\d{2}-[a-z0-9-]+\//.test(pathPart)) {
+      report.error(
+        doc.repoPath,
+        `link de conteúdo sem a extensão .md: ${pathPart} — ` +
+          'o Docusaurus não resolve, e o build falha (SPEC.md §7.4)',
+      );
+      continue;
+    }
+
     if (pathPart.startsWith('/')) continue;
 
     // Outros arquivos relativos (imagens, anexos).

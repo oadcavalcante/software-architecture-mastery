@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [messaging-integration, event-driven-integration, integration-contracts]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -54,7 +54,8 @@ queue jams. Five to ten seconds is the usual, and it needs to be in the contract
 **A signature.** The receiver needs to prove the request came from you. A header with a signature over the
 body, using a shared secret, is the standard. Without it, anyone can forge events.
 
-**A timestamp in the signature.** It prevents a captured request from being replayed later.
+**A timestamp in the signature.** It lets the receiver reject an old request — the timestamp alone
+prevents nothing; what prevents is the check on the other side.
 
 **A unique event identifier.** It lets the receiver deduplicate — which they will need to do, because your
 retry will duplicate.
@@ -69,7 +70,10 @@ indefinitely. And the deactivation needs to be communicated, or the partner find
 **Answer fast, process later.** Accept, enqueue, return `200`. Processing synchronously inside the webhook
 is the most common cause of timeouts and redelivery.
 
-**Verify the signature before anything else.**
+**Verify the signature before anything else** — and, along with it, the timestamp: reject anything
+outside a tolerance window, on the order of minutes. Without that check, a captured request stays valid
+forever, and the signature only attests that it was legitimate once. Inside the window, what blocks the
+repeat is the unique event identifier.
 
 **Be idempotent.** It will arrive duplicated. See [idempotency](/06-distributed-systems/idempotency.md).
 
@@ -79,7 +83,8 @@ is the most common cause of timeouts and redelivery.
 the API for the real state — which eliminates the ordering and stale-content problems in one move.
 
 **Return an error when you fail.** Answering `200` for what you did not process makes the provider consider
-it delivered, and the event is lost forever.
+it delivered: the event leaves the delivery queue and only comes back if there is a redelivery panel — and
+even then it depends on you noticing that you lost it.
 
 ### Notification or state
 

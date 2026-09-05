@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observer]
 related: [observer, facade, command]
 canonical_for: [mediator, mediador]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -64,8 +64,10 @@ são independentes e a ordem não importa.
 **Mediator** — conhece todos e coordena. A ordem e as dependências entre as
 reações são exatamente o que ele encapsula.
 
-Quando a ordem importa e há dependência entre as reações, Observer é a estrutura
-errada e Mediator é a certa.
+Quando a ordem importa e há dependência entre as reações, Observer é a estrutura errada —
+ele não tem onde guardar a sequência. Qual coordenador entra no lugar depende da natureza da
+coordenação, e as Alternativas tratam disso: mediador quando é interação entre pares, máquina
+de estados quando é transição, serviço de aplicação quando é caso de uso.
 
 ### O risco central
 

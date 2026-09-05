@@ -20,6 +20,36 @@ describe('check-links', () => {
     }));
   });
 
+  /*
+   * Link de conteúdo sem `.md`.
+   *
+   * Este teste existe por um incidente: uma correção automática gravou vinte
+   * links sem a extensão, o `validate` passou verde porque o verificador só
+   * olhava alvos terminados em `.md`, e o build de produção caiu — ele roda
+   * com `onBrokenLinks: 'throw'`.
+   */
+  test('rejeita link para seção de conteúdo sem a extensão .md', () => {
+    fails(
+      check('check-links.mjs', {
+        'docs/12-reliability/circuit-breakers.md': frontmatter({id: 'circuit-breakers'}) + '\n# CB\n',
+        'docs/a.md':
+          frontmatter({id: 'a'}) +
+          '\n# A\n\nVeja [disjuntores](/12-reliability/circuit-breakers).\n',
+      }),
+      /sem a extensão \.md/,
+    );
+  });
+
+  // `/progress` e `/glossary` são páginas de `src/pages`, não documentos —
+  // a regra acima não pode alcançá-las.
+  test('aceita link para página fora de diretório de seção', () => {
+    ok(
+      check('check-links.mjs', {
+        'docs/a.md': frontmatter({id: 'a'}) + '\n# A\n\nVeja [progresso](/progress).\n',
+      }),
+    );
+  });
+
   // A forma relativa é recusada mesmo quando o arquivo existe: ela funciona
   // hoje e quebra no lote de tradução que mover qualquer das pontas.
   test('rejeita link interno relativo ainda que o alvo exista', () => {

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals, partial-failure]
 related: [sagas, consensus, idempotency]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -64,8 +64,15 @@ commit later, even if it restarts. It holds the locks until phase 2.
 Between answering "yes" and receiving the decision, the participant is **prepared** — with resources
 locked and no authority to decide on its own.
 
-If the coordinator fails in that interval, the participant is stuck indefinitely. It cannot commit
-(it does not know whether everyone agreed) nor abort (committing may have been decided).
+If the coordinator fails in that interval, the participant is stuck waiting for the decision. It
+cannot commit (it does not know whether everyone agreed) nor abort (committing may have been
+decided).
+
+The wait is not necessarily infinite: the XA specification provides for a **heuristic decision** —
+after some time in doubt, the resource manager can break the wait and decide on its own, releasing
+the locks. The price is that participants may decide differently, and the transaction ends in a mixed
+outcome: part committed, part rolled back. It is atomicity being traded for availability, without the
+application taking part in the choice — and the record of it usually goes to a log nobody reads.
 
 That is **2PC's blocking**, and it is the main reason to avoid it: the coordinator's unavailability
 propagates to every participant, locking resources other operations need.
@@ -156,7 +163,7 @@ process.
 | 2PC | Saga | Outbox |
 |---|---|---|
 | Strict atomicity | Eventual consistency | Eventual |
-| No visible intermediate state | Visible intermediate states | Visible |
+| Short, unmodelled inconsistency window | Explicit intermediate states | Explicit |
 | Locks resources | No locks | No locks |
 | Blocks if the coordinator goes down | No critical coordinator | No coordinator |
 | Combined availability | Each step independent | Local |
@@ -167,7 +174,9 @@ process.
 
 **Pending transaction.** The coordinator goes down between the phases; the participants lock.
 
-**Coordinator timeout.** It decides to abort; a participant already committed on its own.
+**Mixed heuristic outcome.** The coordinator decides to abort, and a participant that had already
+broken out of the doubt on its own had already committed. The transaction ends partially applied, and
+reconciling it is manual work.
 
 **Heuristic recovery.** An operator manually resolves a pending item, possibly inconsistently with
 the other participants.
@@ -178,15 +187,24 @@ the other participants.
 
 ## Common Mistakes
 
-**Using 2PC out of an atomicity reflex.**
+**Using 2PC out of an atomicity reflex.** The question that goes unasked is whether the business
+accepts compensation — and it almost always does, because it already compensates outside the
+software: refund, cancellation, adjustment.
 
-**Not considering that the service boundary is wrong.**
+**Not considering that the service boundary is wrong.** Needing atomicity between two services is
+usually a symptom that that data belongs to the same owner. 2PC treats the symptom and freezes the
+wrong boundary.
 
-**A coordinator with no high availability.**
+**A coordinator with no high availability.** It becomes a single point of failure for every
+participant at once — and its failure does not bring the system down, which would be visible: it
+locks resources, which is harder to diagnose.
 
-**Not measuring the lock duration.**
+**Not measuring the lock duration.** It is what happened in the Real-World Example: an external query
+inside the prepared phase held locks for tens of seconds, and operations for the same customer piled
+up behind it.
 
-**Ignoring the transactional outbox** for the "database + event" case.
+**Ignoring the transactional outbox** for the "database + event" case — which is most of the cases
+where anyone considers 2PC.
 
 ## Real-World Example
 
@@ -213,7 +231,8 @@ The migration to a saga changed the model.
 local transaction. A failure at any point triggers the compensations for the previous steps.
 
 **Explicit intermediate states.** The shipment came to have an "awaiting confirmation" state visible
-in the interface — which was strictly invisible in 2PC.
+in the interface — under 2PC the intermediate state existed just the same, it simply had no name and
+no declared duration, and that is why nobody handled it.
 
 **Idempotency at every step.** See [idempotency](/06-distributed-systems/idempotency.md).
 

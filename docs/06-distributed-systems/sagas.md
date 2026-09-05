@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-transactions]
 related: [idempotency, event-driven-systems, distributed-transactions]
 canonical_for: [saga, compensação, passo pivô]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -36,8 +36,8 @@ obrigação de modelar o desfazer — que é a parte difícil e a mais subestima
 Sem transação distribuída, uma operação de múltiplos passos que falha no meio deixa
 estado parcial.
 
-A saga aceita que o estado parcial existe e o torna **temporário e tratado** — em
-vez de invisível (2PC) ou permanente (nada).
+A saga aceita que o estado parcial existe e o torna **temporário, nomeado e tratado** — em
+vez de curto e sem nome (2PC) ou permanente (nada).
 
 A dificuldade não está no fluxo de sucesso. Está em responder, para cada passo,
 "como desfazer isto?" — e descobrir que a resposta nem sempre existe.

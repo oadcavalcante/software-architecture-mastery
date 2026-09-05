@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [messaging-integration, event-driven-integration, integration-contracts]
 canonical_for: [webhook, assinatura de webhook, reentrega]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -59,8 +59,8 @@ estar no contrato.
 cabeçalho com assinatura sobre o corpo, usando um segredo compartilhado, é o
 padrão. Sem isso, qualquer um pode forjar eventos.
 
-**Marca de tempo na assinatura.** Impede que uma requisição capturada seja
-reenviada depois.
+**Marca de tempo na assinatura.** Permite ao receptor rejeitar requisição antiga — a marca
+sozinha não impede nada; quem impede é a checagem do outro lado.
 
 **Identificador único do evento.** Permite ao receptor deduplicar — o que ele vai
 precisar fazer, porque sua retentativa vai duplicar.
@@ -76,7 +76,11 @@ ou o parceiro descobre pela ausência.
 **Responda rápido, processe depois.** Aceite, enfileire, devolva `200`. Processar
 de forma síncrona dentro do webhook é a causa mais comum de timeout e reentrega.
 
-**Verifique a assinatura antes de qualquer coisa.**
+**Verifique a assinatura antes de qualquer coisa** — e, junto dela, a marca de tempo:
+recuse o que estiver fora de uma janela de tolerância, na ordem de minutos. Sem essa
+checagem, uma requisição capturada continua válida para sempre, e a assinatura passa a
+atestar apenas que ela um dia foi legítima. Dentro da janela, quem barra a repetição é o
+identificador único do evento.
 
 **Seja idempotente.** Vai chegar duplicado. Ver
 [idempotência](/06-distributed-systems/idempotency.md).
@@ -88,8 +92,9 @@ chegar antes do de criação.
 como gatilho e consultar a API para obter o estado real — o que elimina de uma vez
 os problemas de ordem e de conteúdo defasado.
 
-**Devolva erro quando falhar.** Responder `200` para o que você não processou faz
-o provedor considerar entregue, e o evento se perde para sempre.
+**Devolva erro quando falhar.** Responder `200` para o que você não processou faz o
+provedor considerar entregue: o evento sai da fila de entregas e só volta se houver painel de
+reentrega — e ainda assim depende de você perceber que perdeu.
 
 ### Notificação ou estado
 

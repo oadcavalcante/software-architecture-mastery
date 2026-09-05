@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals, partial-failure]
 related: [sagas, consensus, idempotency]
 canonical_for: [transação distribuída, commit em duas fases, 2PC]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -65,9 +65,16 @@ confirmar depois, mesmo que reinicie. Ele mantém as travas até a fase 2.
 Entre responder "sim" e receber a decisão, o participante está **preparado** — com
 recursos travados e sem autoridade para decidir sozinho.
 
-Se o coordenador falhar nesse intervalo, o participante fica travado
-indefinidamente. Não pode confirmar (não sabe se todos concordaram) nem cancelar
-(pode ter sido decidido confirmar).
+Se o coordenador falhar nesse intervalo, o participante fica travado esperando a decisão.
+Não pode confirmar (não sabe se todos concordaram) nem cancelar (pode ter sido decidido
+confirmar).
+
+A espera não é necessariamente infinita: a especificação XA prevê **decisão heurística** —
+passado um tempo de incerteza, o gerenciador de recursos pode romper a espera e decidir
+sozinho, liberando as travas. O preço é que os participantes podem decidir diferente, e a
+transação termina em resultado misto: parte confirmada, parte desfeita. É a atomicidade
+sendo trocada por disponibilidade, sem que a aplicação participe da escolha — e o registro
+disso costuma sair num log que ninguém lê.
 
 Isso é o **bloqueio do 2PC**, e é a razão principal para evitá-lo: a
 indisponibilidade do coordenador se propaga para todos os participantes, travando
@@ -164,7 +171,7 @@ transação local mais um processo de publicação.
 | 2PC | Saga | Caixa de saída |
 |---|---|---|
 | Atomicidade estrita | Consistência eventual | Eventual |
-| Nunca há estado intermediário visível | Estados intermediários visíveis | Visíveis |
+| Janela de inconsistência curta e não modelada | Estados intermediários explícitos | Explícitos |
 | Trava recursos | Sem travas | Sem travas |
 | Bloqueia se o coordenador cair | Sem coordenador crítico | Sem coordenador |
 | Disponibilidade combinada | Cada passo independente | Local |
@@ -175,8 +182,9 @@ transação local mais um processo de publicação.
 
 **Transação pendente.** O coordenador cai entre as fases; os participantes travam.
 
-**Timeout do coordenador.** Ele decide cancelar; um participante já confirmou por
-conta.
+**Resultado heurístico misto.** O coordenador decide cancelar, e um participante que já
+tinha rompido a incerteza por conta própria já havia confirmado. A transação termina
+parcialmente aplicada, e reconciliar é trabalho manual.
 
 **Recuperação heurística.** Um operador resolve manualmente uma pendência,
 possivelmente de forma inconsistente com os outros participantes.
@@ -187,15 +195,24 @@ possivelmente de forma inconsistente com os outros participantes.
 
 ## Erros Comuns
 
-**Usar 2PC por reflexo de atomicidade.**
+**Usar 2PC por reflexo de atomicidade.** A pergunta que fica sem ser feita é se o negócio
+aceita compensação — e ele quase sempre aceita, porque já compensa fora do software:
+estorno, cancelamento, ajuste.
 
-**Não considerar que a fronteira do serviço está errada.**
+**Não considerar que a fronteira do serviço está errada.** Precisar de atomicidade entre
+dois serviços costuma ser sintoma de que aqueles dados pertencem ao mesmo dono. O 2PC
+resolve o sintoma e congela a fronteira errada.
 
-**Coordenador sem alta disponibilidade.**
+**Coordenador sem alta disponibilidade.** Ele vira ponto único de falha de todos os
+participantes ao mesmo tempo — e a falha dele não derruba o sistema, o que seria visível:
+trava recursos, que é pior de diagnosticar.
 
-**Não medir a duração das travas.**
+**Não medir a duração das travas.** É o que aconteceu no Exemplo Real: uma consulta externa
+dentro da fase de preparação segurou travas por dezenas de segundos, e as operações do mesmo
+cliente foram enfileirando atrás.
 
-**Ignorar a caixa de saída transacional** para o caso "banco + evento".
+**Ignorar a caixa de saída transacional** para o caso "banco + evento" — que é a maioria dos
+casos em que alguém cogita 2PC.
 
 ## Exemplo Real
 
@@ -227,7 +244,8 @@ crédito. Cada passo é uma transação local. Falha em qualquer ponto dispara a
 compensações dos passos anteriores.
 
 **Estados intermediários explícitos.** A remessa passou a ter estado "aguardando
-confirmação" visível na interface — o que era estritamente invisível no 2PC.
+confirmação" visível na interface — no 2PC o estado intermediário existia igual, só não
+tinha nome nem duração declarada, e por isso ninguém o tratava.
 
 **Idempotência em todos os passos.** Ver [idempotência](/06-distributed-systems/idempotency.md).
 

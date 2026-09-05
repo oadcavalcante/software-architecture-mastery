@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [memento, strategy, cqrs]
 canonical_for: [command, comando]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -75,9 +75,13 @@ A escolha depende do tamanho do estado e de quão confiável precisa ser.
 
 ### Command e CQRS
 
-O padrão dá nome ao lado de escrita de
-[CQRS](/03-design-patterns/cqrs.md): comandos alteram estado e não devolvem dados; consultas
-devolvem dados e não alteram.
+A separação entre comandos que alteram estado sem devolver dados e consultas que devolvem
+sem alterar é de Meyer (1988), e é o nível 1 de [CQRS](/03-design-patterns/cqrs.md) — não vem
+deste padrão, apesar da coincidência de nome.
+
+O que o padrão Command acrescenta é a **reificação**: transformar a operação em objeto. É por
+isso que ele aparece na implementação do lado de escrita — um comando que se pode enfileirar,
+registrar ou repetir —, mas a separação existiria sem ele.
 
 Essa separação de intenção é útil mesmo sem adotar CQRS como arquitetura.
 

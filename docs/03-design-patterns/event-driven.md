@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [observer, cqrs, event-sourcing]
 canonical_for: [arquitetura orientada a eventos, coreografia, orquestração]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -81,8 +81,10 @@ as duas.
 O que se ganha em desacoplamento se paga em capacidade de responder "o que
 aconteceu com este pedido?".
 
-Num sistema síncrono, a pilha de chamadas responde. Num orientado a eventos, é
-preciso correlacionar registros de vários serviços, ao longo do tempo, com o
+Num sistema síncrono, o fluxo é legível no código — dá para segui-lo lendo, e o erro volta
+a quem chamou. Num orientado a eventos não há esse fio: a sequência só existe em tempo de
+execução. Atravessar processos exige correlacionar registros de vários serviços nos dois
+casos, ao longo do tempo, com o
 mesmo identificador.
 
 Isso torna [observabilidade](/13-observability/index.md) um pré-requisito, não
@@ -90,10 +92,14 @@ um complemento. Correlation ID atravessando todo evento não é opcional.
 
 ### As garantias herdadas
 
-O canal é uma rede. Isso traz, obrigatoriamente:
+O canal é uma rede, e isso obriga a **escolher** a garantia de entrega — não impõe uma
+delas. Ver [garantias de entrega](/06-distributed-systems/delivery-guarantees.md): no máximo
+uma vez é escolha legítima onde a perda é aceitável, e o canônico registra que ela raramente
+é considerada.
 
-Entrega ao menos uma vez, portanto **duplicação** — consumidores precisam ser
-idempotentes.
+Quem escolhe **ao menos uma vez**, que é o caso comum, herda:
+
+Duplicação — consumidores precisam ser idempotentes.
 Ordem não garantida entre partições.
 Mensagens que sempre falham — *poison messages* — precisam de dead-letter queue.
 E consistência eventual entre os serviços.
@@ -182,8 +188,8 @@ muito mais cara.
 
 ## Onde ele aparece na prática
 
-**Processamento de pedidos em comércio eletrônico.** O uso mais comum e o mais
-adequado: muitos interessados independentes num fato.
+**Processamento de pedidos em comércio eletrônico.** A condição que o torna adequado:
+muitos interessados independentes no mesmo fato, todos com reação assíncrona tolerável.
 
 **Sistemas de dados em tempo real.** Ingestão, transformação e distribuição por
 fluxos de eventos.

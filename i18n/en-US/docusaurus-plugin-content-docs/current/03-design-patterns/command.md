@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [memento, strategy, cqrs]
 canonical_for: [command]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -76,9 +76,14 @@ The choice depends on the size of the state and how reliable it has to be.
 
 ### Command and CQRS
 
-The pattern gives its name to the write side of
-[CQRS](/03-design-patterns/cqrs.md): commands change state and return no data; queries
-return data and change nothing.
+The separation between commands that change state without returning data and queries that
+return without changing is Meyer's (1988), and it is level 1 of
+[CQRS](/03-design-patterns/cqrs.md) — it does not come from this pattern, despite the
+coincidence of names.
+
+What the Command pattern adds is **reification**: turning the operation into an object.
+That is why it shows up in the implementation of the write side — a command you can queue,
+log or replay — but the separation would exist without it.
 
 That separation of intent is useful even without adopting CQRS as an architecture.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [observer, cqrs, event-sourcing]
 canonical_for: [event-driven architecture, choreography, orchestration]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -81,17 +81,24 @@ both.
 What you gain in decoupling you pay in the ability to answer "what happened to this
 order?".
 
-In a synchronous system, the call stack answers. In an event-driven one, you have to
-correlate logs from several services, over time, with the same identifier.
+In a synchronous system, the flow is readable in the code — you can follow it by reading,
+and the error comes back to the caller. In an event-driven one there is no such thread: the
+sequence only exists at runtime. Crossing processes requires correlating logs from several
+services in both cases, over time, with the same identifier.
 
 That makes [observability](/13-observability/index.md) a prerequisite, not a complement. A
 correlation ID travelling through every event is not optional.
 
 ### The inherited guarantees
 
-The channel is a network. That brings, unavoidably:
+The channel is a network, and that forces you to **choose** the delivery guarantee — it
+does not impose one. See [delivery guarantees](/06-distributed-systems/delivery-guarantees.md):
+at-most-once is a legitimate choice where loss is acceptable, and the canonical document
+notes that it is rarely considered.
 
-At-least-once delivery, therefore **duplication** — consumers have to be idempotent.
+Whoever chooses **at-least-once**, which is the common case, inherits:
+
+Duplication — consumers have to be idempotent.
 Order not guaranteed across partitions.
 Messages that always fail — *poison messages* — need a dead-letter queue.
 And eventual consistency between the services.
@@ -179,8 +186,9 @@ expensive.
 
 ## Where it appears in practice
 
-**Order processing in e-commerce.** The most common use and the most appropriate: many
-independent parties interested in one fact.
+**Order processing in e-commerce.** The condition that makes it appropriate: many
+independent parties interested in the same fact, all with a tolerable asynchronous
+reaction.
 
 **Real-time data systems.** Ingestion, transformation and distribution through event
 streams.

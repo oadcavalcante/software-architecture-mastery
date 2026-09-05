@@ -48,6 +48,12 @@ npm run build     # 5. o site constrói nas duas locales
 conteúdo raso; tratá-los como ruído é o começo da degradação que os validadores
 existem para impedir.
 
+**E `validate` não substitui `build`.** Os validadores verificam o conteúdo; o
+build verifica o que o Docusaurus consegue resolver, e ele roda com
+`onBrokenLinks: 'throw'`. Já aconteceu de os seis passarem verdes com vinte links
+que derrubavam a produção — depois de uma alteração mecânica em muitos arquivos,
+que é justamente quando pular o build custa caro.
+
 Depois de `plan` e `roadmap`, verifique `git status` — se eles alteraram
 arquivos, esses arquivos entram no commit. O CI falha se estiverem defasados.
 
@@ -56,7 +62,7 @@ arquivos, esses arquivos entram no commit. O CI falha se estiverem defasados.
 | Validador | O que barra |
 |---|---|
 | `check-frontmatter` | Schema inválido, `id` duplicado, `id` divergente do arquivo, referência a id inexistente, ciclo no grafo de pré-requisitos, dois documentos com o mesmo `canonical_for` |
-| `check-links` | Link relativo quebrado, âncora inexistente, Mermaid com tipo desconhecido ou delimitador desbalanceado |
+| `check-links` | Link relativo quebrado, link de conteúdo sem `.md`, âncora inexistente, Mermaid com tipo desconhecido ou delimitador desbalanceado |
 | `check-parity` | Tradução à frente do canônico, tradução órfã |
 | `check-terminology` | Alternar entre a forma PT e a EN do mesmo termo; traduzir termo da categoria B |
 | `check-placeholders` | `status: complete` com pendência, sem seção obrigatória, com seção vazia, ou fora da faixa de densidade |
