@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, graceful-degradation]
 canonical_for: [tempestade de retentativa, amplificação de retentativa, orçamento de retentativa, recuperação metaestável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -310,4 +310,5 @@ serviço mais profundo durante uma degradação.
 
 - Bronson, Nathan et al. *Metastable Failures in Distributed Systems*. HotOS, 2021.
 - Nygard, Michael. *Release It!*. 2ª ed. Pragmatic Bookshelf, 2018.
-- Brooker, Marc. *Timeouts, retries and backoff with jitter*. AWS, 2015.
+- Brooker, Marc. *Timeouts, Retries, and Backoff with Jitter*. Amazon Builders' Library,
+  2019.

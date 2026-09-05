@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [technical-debt, modularity]
 canonical_for: [complexidade, complexidade essencial, complexidade acidental]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -234,7 +234,8 @@ complexidade acidental.
 
 ## Para Aprofundar
 
-- Brooks, Fred. *No Silver Bullet*, 1986 — a distinção essencial/acidental.
+- Brooks, Frederick P. *No Silver Bullet: Essence and Accidents of Software Engineering*.
+  IFIP, 1986 — a distinção essencial/acidental.
 - Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
 - Moseley, Ben; Marks, Peter. *Out of the Tar Pit*, 2006 — complexidade
   originada de estado.

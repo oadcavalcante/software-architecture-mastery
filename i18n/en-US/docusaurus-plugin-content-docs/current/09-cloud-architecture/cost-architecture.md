@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [managed-services, serverless, cloud-storage]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -287,5 +287,6 @@ trend says more than the absolute value.
 ## Further Reading
 
 - Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2nd ed. O'Reilly, 2023.
-- Fowler, Martin. *Cloud Cost Attribution*, 2021.
+- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2ª ed. O'Reilly, 2023 — atribuição de
+  custo por marcação de recursos.
 - The major providers' cost best practices documentation.

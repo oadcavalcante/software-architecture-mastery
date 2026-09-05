@@ -13,7 +13,7 @@ objective: >
 prerequisites: [platform-engineering]
 related: [platform-engineering, environment-management, ci-cd]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -308,4 +308,4 @@ The number explains a good part of the architectural decisions your team makes.
 
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Bottcher, Evan. *What I Talk About When I Talk About Platforms*, 2018.
-- Fowler, Martin. *Developer Effectiveness*, 2021.
+- Cochran, Tim. *Maximizing Developer Effectiveness*. martinfowler.com, 2021.

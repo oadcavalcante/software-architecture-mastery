@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [managed-services, serverless, cloud-storage]
 canonical_for: [arquitetura de custo, custo por transação, desperdício estrutural]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -296,5 +296,6 @@ A tendência dessa razão diz mais que o valor absoluto.
 ## Para Aprofundar
 
 - Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2ª ed. O'Reilly, 2023.
-- Fowler, Martin. *Cloud Cost Attribution*, 2021.
+- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2ª ed. O'Reilly, 2023 — atribuição de
+  custo por marcação de recursos.
 - Documentação de boas práticas de custo dos principais provedores.

@@ -72,7 +72,7 @@ describe('check-placeholders', () => {
         {status: 'complete', doc_type: 'concept'},
       ),
     });
-    assert.equal(r.code, 0, r.out);
+    assert.equal(r.code, 0, r.output);
   });
 
   test('detecta "em breve" isolado como marcador', () => {
@@ -111,7 +111,7 @@ describe('check-placeholders', () => {
         {status: 'complete', doc_type: 'concept'},
       ),
     });
-    assert.equal(r.code, 0, r.out);
+    assert.equal(r.code, 0, r.output);
   });
 
   // "escrever depois" também é prosa legítima — a orientação de documentar o
@@ -125,7 +125,7 @@ describe('check-placeholders', () => {
         {status: 'complete', doc_type: 'concept'},
       ),
     });
-    assert.equal(r.code, 0, r.out);
+    assert.equal(r.code, 0, r.output);
   });
 
   test('detecta "escrever depois" isolado como marcador', () => {

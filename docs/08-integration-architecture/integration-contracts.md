@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [schema-evolution, integration-anti-corruption, rest]
 canonical_for: [contrato de integração, contrato dirigido pelo consumidor, teste de contrato]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -286,7 +286,8 @@ as duas listas é a sua próxima quebra.
 
 ## Para Aprofundar
 
-- Fowler, Martin. *Consumer-Driven Contracts*, 2006.
+- Robinson, Ian. *Consumer-Driven Contracts: A Service Evolution Pattern*.
+  martinfowler.com, 2006.
 - Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021 — capítulo 5.
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*.
   Addison-Wesley, 2003.

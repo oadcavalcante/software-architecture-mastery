@@ -221,16 +221,22 @@ function checkMermaid(doc, report) {
     }
 
     /*
-     * `end` fecha `subgraph` e nada mais. Um `end` sem par não é aviso: o
-     * Mermaid falha o parse e o leitor recebe uma caixa de erro onde deveria
-     * estar o diagrama — e o build passa, porque o erro é de renderização.
+     * `end` sem abridor não é aviso: o Mermaid falha o parse e o leitor recebe
+     * uma caixa de erro onde deveria estar o diagrama — e o build passa, porque
+     * o erro é de renderização, não de link.
+     *
+     * `subgraph` não é o único a fechar com `end`: em `sequenceDiagram`,
+     * `alt`/`opt`/`loop`/`par`/`critical`/`break`/`rect`/`box` também abrem
+     * bloco. Contar só `subgraph` acusaria um diagrama de sequência correto.
+     * `else` e `and` são continuações — não abrem nem fecham.
      */
-    const subgraphs = (code.match(/^\s*subgraph\b/gm) ?? []).length;
+    const ABRE = /^\s*(subgraph|alt|opt|loop|par|critical|break|rect|box)\b/gm;
+    const abridores = (code.match(ABRE) ?? []).length;
     const ends = (code.match(/^\s*end\s*$/gm) ?? []).length;
-    if (subgraphs !== ends) {
+    if (abridores !== ends) {
       report.error(
         doc.repoPath,
-        `${label}: "subgraph" e "end" desbalanceados (${subgraphs} vs ${ends}) — ` +
+        `${label}: blocos e "end" desbalanceados (${abridores} abridor(es) vs ${ends} end) — ` +
           'o diagrama não compila e vira caixa de erro na página',
       );
     }
@@ -265,7 +271,9 @@ function checkMdxHazards(doc, report) {
   //
   // O teste é a ausência de fechamento: JSX legítimo neste corpus (`<Tabs>`,
   // `<details>`) sempre fecha, e tag vazia se escreve `<br />`, que não casa.
-  for (const m of prose.matchAll(/<([a-zA-Z][\w-]*)\s*>/g)) {
+  // `[\w -]` e não `[\w-]`: o marcador que se escreve é `<nome do serviço>`,
+  // com espaços, e a versão anterior só pegava uma palavra.
+  for (const m of prose.matchAll(/<([a-zA-Z][\w -]*)>/g)) {
     if (prose.includes(`</${m[1]}>`)) continue;
     report.error(
       doc.repoPath,

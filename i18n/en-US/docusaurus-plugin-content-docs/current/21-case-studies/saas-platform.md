@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, ecommerce, healthcare]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -601,5 +601,6 @@ exercise shows why.
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Fowler, Martin. *Multi-Tenancy Patterns*. martinfowler.com.
+- Chong, Frederick; Carraro, Gianpaolo; Wolter, Roger. *Multi-Tenant Data Architecture*.
+  Microsoft, 2006.
 - Nygard, Michael. *Release It!*. 2nd ed. Pragmatic Bookshelf, 2018.

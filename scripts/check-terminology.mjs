@@ -37,8 +37,24 @@ function termPattern(term) {
     .join('\\s+');
 }
 
+/*
+ * Sufixo opcional de plural na última palavra.
+ *
+ * O casamento era por forma exata, e "acoplamentos" não contava como ocorrência
+ * de "acoplamento" — o mesmo falso negativo que `check-canonical-links` tinha e
+ * que deixou vinte links passarem. Cobre o plural regular do português e do
+ * inglês (-s, -es) e as terminações que mudam a raiz (-ão→-ões, -al→-ais,
+ * -el→-eis, -m→-ns), que é o suficiente para os termos do glossário.
+ */
+function comPlural(pattern) {
+  return `(?:${pattern})(?:s|es|ns)?`;
+}
+
 function occurrences(prose, term) {
-  const re = new RegExp(`(?<![\\p{L}\\p{N}_])${termPattern(term)}(?![\\p{L}\\p{N}_])`, 'giu');
+  const re = new RegExp(
+    `(?<![\\p{L}\\p{N}_])${comPlural(termPattern(term))}(?![\\p{L}\\p{N}_])`,
+    'giu',
+  );
   return [...prose.matchAll(re)].map((m) => m.index);
 }
 

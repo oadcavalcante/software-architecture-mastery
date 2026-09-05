@@ -52,7 +52,17 @@ function walk(dir, acc = []) {
 
 function toDoc(absPath, baseDir, locale) {
   const raw = readFileSync(absPath, 'utf8');
-  const {data, content} = matter(raw);
+  // Front matter inválido — um dois-pontos não escapado num título basta — fazia
+  // js-yaml lançar de dentro daqui, e o validador morria com pilha de erro em vez
+  // de dizer qual arquivo está quebrado.
+  let data;
+  let content;
+  try {
+    ({data, content} = matter(raw));
+  } catch (erro) {
+    const rel = relative(baseDir, absPath).split(sep).join('/');
+    throw new Error(`front matter YAML inválido em ${rel}: ${erro.message}`);
+  }
   const docPath = relative(baseDir, absPath).split(sep).join('/');
   return {
     absPath,

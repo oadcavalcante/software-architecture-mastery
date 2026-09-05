@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [technical-debt, modularity]
 canonical_for: [complexity, essential complexity, accidental complexity]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -237,7 +237,8 @@ accidental complexity.
 
 ## Further Exploration
 
-- Brooks, Fred. *No Silver Bullet*, 1986 — the essential/accidental distinction.
+- Brooks, Frederick P. *No Silver Bullet: Essence and Accidents of Software Engineering*.
+  IFIP, 1986 — the essential/accidental distinction.
 - Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
 - Moseley, Ben; Marks, Peter. *Out of the Tar Pit*, 2006 — complexity arising from
   state.

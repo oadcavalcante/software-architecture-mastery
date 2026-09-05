@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, graceful-degradation]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -304,4 +304,5 @@ degradation.
 
 - Bronson, Nathan et al. *Metastable Failures in Distributed Systems*. HotOS, 2021.
 - Nygard, Michael. *Release It!*. 2nd ed. Pragmatic Bookshelf, 2018.
-- Brooker, Marc. *Timeouts, retries and backoff with jitter*. AWS, 2015.
+- Brooker, Marc. *Timeouts, Retries, and Backoff with Jitter*. Amazon Builders' Library,
+  2019.

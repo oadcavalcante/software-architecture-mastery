@@ -23,10 +23,20 @@ export function buildParity() {
   const locales = translationLocales();
   const rows = [];
 
+  // Carrega cada locale UMA vez e indexa por caminho. Antes, `loadTranslations`
+  // rodava dentro do laço: 446 canônicos × 446 traduções lidas e passadas por
+  // gray-matter a cada um.
+  const porLocale = new Map(
+    locales.map((locale) => [
+      locale,
+      new Map(loadTranslations(locale).map((t) => [t.docPath, t])),
+    ]),
+  );
+
   for (const doc of canonical.sort((a, b) => a.docPath.localeCompare(b.docPath))) {
     const row = {docPath: doc.docPath, title: doc.frontmatter.title, states: {}};
     for (const locale of locales) {
-      const translated = loadTranslations(locale).find((t) => t.docPath === doc.docPath);
+      const translated = porLocale.get(locale).get(doc.docPath);
       if (!translated) {
         row.states[locale] = {state: 'missing'};
         continue;
@@ -69,8 +79,16 @@ function checkVersionBumps(report) {
     } catch {
       continue; // arquivo novo
     }
-    const now = execSync(`git show HEAD:${file}`, {cwd: ROOT, encoding: 'utf8'});
-    const newVersion = /^content_version:\s*(\d+)\s*$/m.exec(now)?.[1] ?? null;
+    // Também em try/catch: `git diff --name-only` lista o arquivo apagado ou
+    // renomeado, e `git show HEAD:<apagado>` sai com erro — que derrubava a
+    // verificação inteira em vez de pular o arquivo.
+    let newVersion;
+    try {
+      const now = execSync(`git show HEAD:${file}`, {cwd: ROOT, encoding: 'utf8'});
+      newVersion = /^content_version:\s*(\d+)\s*$/m.exec(now)?.[1] ?? null;
+    } catch {
+      continue; // apagado ou renomeado neste intervalo
+    }
     if (oldVersion !== null && oldVersion === newVersion) {
       report.warn(file, `alterado sem incrementar content_version (segue em ${newVersion}) — se a mudança foi substantiva, incremente`);
       flagged += 1;

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, rest]
 canonical_for: [evolução de esquema, compatibilidade retroativa, compatibilidade futura, registro de esquema]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -318,5 +318,5 @@ quebra.
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
   capítulo 4.
-- Kreps, Jay. *Schema Evolution and Compatibility*. Confluent, 2015.
+- Confluent. *Schema Evolution and Compatibility* — documentação do Schema Registry.
 - Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021 — capítulo 5.

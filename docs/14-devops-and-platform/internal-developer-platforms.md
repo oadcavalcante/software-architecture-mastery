@@ -13,7 +13,7 @@ objective: >
 prerequisites: [platform-engineering]
 related: [platform-engineering, environment-management, ci-cd]
 canonical_for: [plataforma interna de desenvolvimento, autosserviço, portal do desenvolvedor, catálogo de serviços]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -318,4 +318,4 @@ O número explica boa parte das decisões de arquitetura que o seu time toma.
 
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Bottcher, Evan. *What I Talk About When I Talk About Platforms*, 2018.
-- Fowler, Martin. *Developer Effectiveness*, 2021.
+- Cochran, Tim. *Maximizing Developer Effectiveness*. martinfowler.com, 2021.

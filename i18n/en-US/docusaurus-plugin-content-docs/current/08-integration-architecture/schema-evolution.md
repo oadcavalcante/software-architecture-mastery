@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, rest]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -297,5 +297,5 @@ have no forward compatibility at all — and every addition is a break.
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 4.
-- Kreps, Jay. *Schema Evolution and Compatibility*. Confluent, 2015.
+- Confluent. *Schema Evolution and Compatibility* — documentação do Schema Registry.
 - Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021 — chapter 5.
