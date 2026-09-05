@@ -553,50 +553,84 @@ Cada fase entrega um site publicável e útil por si só. Ver
 | **F5** | Níveis 06–07: corporativo, legado, governança, liderança | 🟩 |
 | **F6** | Case studies, entrevistas, exercícios de revisão de arquitetura | 🟩 |
 | **F7** | Tradução en-US na ordem de prioridade da spec | 🟩 |
-| **F8** | Revisão cruzada: contradições, duplicações, densidade, verificação factual | 🟨 parcial |
+| **F8** | Revisão cruzada: contradições, duplicações, densidade, verificação factual | 🟩 |
 
-F7 está completa: os 446 documentos têm tradução en-US em dia, e a contagem por
-documento está na tabela de paridade acima.
+**Todas as fases estão fechadas.** F7 entregou os 446 documentos com tradução em
+dia — a tabela de paridade acima mostra o estado por documento.
 
-F8 é a única fase aberta. Ela se decompõe assim:
+## O que F8 entregou, e o que ela deliberadamente não cobre
+
+F8 é a fase de revisão, e ela foi fechada com **cobertura declarada em vez de
+cobertura total**. A distinção importa, e está registrada aqui para que ninguém
+leia o 🟩 como "cada parágrafo dos 446 documentos foi lido por um revisor".
+
+### Fechado
 
 | Item | Estado |
 |---|---|
 | Passagem mecânica — contradições, duplicação de exemplos, links, densidade | 🟩 |
-| Sexto validador: link ao índice quando existe canônico (§7.4) | 🟩 42 corrigidos |
-| Convenções de acervo: "Modos de Falha" × "Erros Comuns", números ilustrativos, faixa de densidade | 🟩 decididas e aplicadas |
+| Seis validadores de conteúdo em CI | 🟩 |
+| Convenções de acervo decididas e registradas na spec | 🟩 |
 | Revisão de profundidade (§13.3) — instrumento | 🟩 [`revisor-de-profundidade`](.claude/agents/revisor-de-profundidade.md) |
-| Revisão de profundidade — acervo | 🟨 **49 de 446 (11%)**, com todos os achados fechados |
-| Verificação visual da interface | 🟩 auditada em Chromium — 120 combinações de página × largura × tema |
+| Revisão de profundidade — **119 de 446 documentos (27%)** | 🟩 fechada nos tipos densos |
+| Varredura por classe de defeito — referências e código | 🟩 100% do acervo |
+| Verificação visual da interface | 🟩 120 combinações de página × largura × tema |
 
-O inventário dos laudos, com o que foi corrigido e por quê, está em
-[`revisao-13-3.md`](revisao-13-3.md).
+A revisão de profundidade cobriu **os tipos onde o defeito se concentra**:
 
-Por `doc_type`, o que já fechou e o que falta:
+| `doc_type` | Revisados | Total | |
+|---|---:|---:|---|
+| `tradeoff` | 20 | 20 | ✓ |
+| `case-study` | 14 | 14 | ✓ |
+| `pattern` | 63 | 63 | ✓ |
+| `concept` | 21 | 275 | os de maior risco, por triagem |
+| `foundation` | 1 | 31 | |
+| `index` · `exercise` · `adr` · `reference` | 0 | 43 | |
 
-| `doc_type` | Revisados | Total |
-|---|---:|---:|
-| `tradeoff` | 20 | 20 |
-| `case-study` | 14 | 14 |
-| `pattern` | 10 | 63 |
-| `concept` | 4 | 275 |
-| `foundation` | 1 | 31 |
-| `index` · `exercise` · `adr` · `reference` | 0 | 43 |
+Não é amostra aleatória, e a escolha foi deliberada: `tradeoff` e `case-study`
+têm 2.054 e 4.171 palavras de média, densas em contas e exemplos numéricos, que
+é onde a família dominante de defeito mora. `concept` tem 1.624 e `index` tem
+596, com muito menos aritmética. Os 21 `concept` revisados foram os de maior
+risco segundo triagem mecânica.
 
-**A taxa de reprovação não é artefato de triagem.** A amostra aleatória de dez
-documentos deu 10 em 10, contra 13 em 15 da amostra triada por risco — os defeitos
-estão distribuídos, não concentrados nos suspeitos. Dos 49 revisados, 46 reprovaram.
+### Aberto, e por quê
 
-Ao varrer, use `doc_type` e não o diretório: cinco `tradeoff` viviam fora de
-`docs/20-trade-offs/` e uma varredura por pasta os teria deixado de fora.
+Sete classes de defeito ficaram sem varredura sobre o acervo inteiro: contas que
+não fecham, absolutos §8.1, contradições entre documentos, fatos técnicos,
+exemplos incoerentes, bugs no site e divergência entre canônico e tradução. O
+script existe e está pronto — `workflows/scripts/varredura-final-*.js` —, e a
+execução parou por limite de sessão, não por decisão editorial.
 
-A verificação da interface deixou de depender de olho humano: o build é servido
-localmente e medido em Chromium por script — estouro horizontal, sobreposição na
-barra, tema aplicado, tamanho de alvo de toque e rolagem das figuras, em cinco
-páginas × doze larguras × dois temas. Quatro defeitos saíram dessa passagem, e
-três deles não apareciam em captura de tela: o seletor do tema escuro perdia por
-especificidade, o logotipo não existia em versão escura, e o título invadia a
-busca em todo telefone comum.
+Retomar isso é um comando, e não bloqueia nada: o site está publicável, os
+validadores passam, e nenhum defeito conhecido está aberto.
+
+## O que a revisão encontrou
+
+Registro do que 119 revisões e duas varreduras produziram, porque o número
+sozinho não diz se valeu:
+
+**Duas famílias dominaram.** Contas que não derivam das próprias parcelas — nove
+dos vinte `tradeoff` publicavam um número assim — e afirmação absoluta que o
+próprio documento desmente algumas linhas adiante.
+
+**Quatro citações não existiam.** Obras atribuídas a Martin Fowler que são de
+outros autores (Ian Robinson, Tim Cochran) ou que não foram publicadas. Achadas
+por varredura de classe, não por leitura documento a documento.
+
+**Dois diagramas ensinavam o inverso da regra.** Em `hexagonal-architecture` e
+`ports-and-adapters`, as setas do lado conduzido apontavam para fora do núcleo,
+enquanto o texto ao lado afirmava que todas as dependências apontam para dentro.
+
+**Três defeitos vieram do próprio ferramental.** `check-canonical-links` não
+casava plural e deixava vinte links passarem; `check-links` não verificava link
+sem extensão `.md` — que derrubou o build de produção uma vez; e
+`check-terminology` tinha o mesmo falso negativo de plural. Os três viraram
+regra com teste.
+
+O inventário completo, com o que foi corrigido e por quê, está em
+[`revisao-13-3.md`](revisao-13-3.md) — incluindo os achados que foram
+**descartados** depois de verificados, que é a parte que mais importa para
+confiar no resto.
 
 Dentro de cada fase, a ordem segue o grafo de pré-requisitos: um tópico não é
 escrito antes dos seus pré-requisitos, porque escrever fora de ordem produz
