@@ -13,7 +13,7 @@ objective: >
 prerequisites: [command]
 related: [command, prototype, event-sourcing]
 canonical_for: [memento]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -106,8 +106,9 @@ produção, e precisa ser estimado antes.
 **Quando o estado inclui recursos externos.** Uma conexão, um arquivo aberto ou um
 efeito já enviado não são restauráveis por memento.
 
-**Quando a persistência já resolve.** Se o objeto é gravado a cada mudança, o
-histórico do banco pode servir como mecanismo de restauração.
+**Quando a persistência já mantém versões.** Tabela temporal, trilha de auditoria ou
+armazenamento que só acrescenta já dão o histórico. Gravar a cada mudança, por si, não dá:
+um `UPDATE` deixa só o estado atual, e não há a que voltar.
 
 **Quando o objeto é imutável.** Não há o que capturar — a versão anterior ainda
 existe.
@@ -127,9 +128,9 @@ existe.
 |---|---|
 | Funciona para qualquer operação | Precisa ser implementado por operação |
 | Restauração garantidamente correta | Correção depende de cada inverso |
-| Custo de memória proporcional | Custo constante |
+| Memória: estado × número de operações | Memória: registro pequeno × número de operações |
 | Não precisa entender a operação | Precisa |
-| Não restaura efeitos externos | Também não |
+| Não sabe que o efeito externo existe | Pode declarar a compensação dele |
 
 ## Modos de Falha
 

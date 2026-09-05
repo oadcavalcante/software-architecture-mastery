@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ubiquitous-language]
 related: [value-object, aggregate, repository]
 canonical_for: [entity, entidade, identidade de domínio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -85,8 +85,8 @@ pode mudar.
 Identificador gerado pelo banco só existe depois da persistência. Isso impede
 construir um grafo de objetos em memória antes de gravar, e complica testes.
 
-Gerar na aplicação — UUID ou equivalente — resolve, e é o que a maioria das
-implementações de DDD adota.
+Gerar na aplicação — UUID ou equivalente — resolve: a identidade existe antes da gravação, o
+grafo se monta em memória e o teste não precisa de banco.
 
 ### A entidade tem comportamento
 
@@ -109,8 +109,10 @@ coordenada. Ver [objeto de valor](/04-domain-driven-design/value-object.md).
 **Quando a identidade não tem significado no domínio.** Se ninguém pergunta "qual
 deles?", provavelmente não é entidade.
 
-**Quando a mutabilidade não é necessária.** Objetos imutáveis são mais simples e
-mais seguros; se nada muda ao longo do tempo, não force identidade.
+**Quando o domínio não distingue duas ocorrências idênticas.** É o mesmo eixo da condição
+acima, pelo avesso: imutabilidade não decide nada aqui — dois pagamentos de mesmo valor, no
+mesmo dia, pela mesma pessoa são pagamentos diferentes, e nenhum deles muda depois de
+criado. Entidade imutável existe; o que não existe é entidade sem identidade.
 
 **Em subdomínios de apoio ou genéricos.** A cerimônia de modelagem tática não se
 paga fora do [core](/04-domain-driven-design/core-domain.md).
@@ -130,7 +132,7 @@ paga fora do [core](/04-domain-driven-design/core-domain.md).
 | Comparação por identidade | Por valor |
 | Ciclo de vida e histórico | Substituído, não alterado |
 | Persistência com identificador | Pode ser embutido |
-| Referenciável de fora | Compartilhável sem risco |
+| Referenciada por identificador | Copiada onde é usada |
 
 ## Modos de Falha
 

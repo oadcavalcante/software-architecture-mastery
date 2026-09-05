@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, event-driven, event-sourcing]
 canonical_for: [domain event, evento de domínio, evento de integração]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -96,7 +96,9 @@ de integração, com formato próprio.
 Se a transação grava no banco e a publicação vai para um message broker, os dois
 não são atômicos. Pode gravar e não publicar, ou publicar e falhar ao gravar.
 
-A solução usual é o padrão *outbox*: o evento é gravado numa tabela na mesma
+A solução usual é o padrão *outbox* — ver
+[garantias de entrega](/06-distributed-systems/delivery-guarantees.md), canônico do tema: o
+evento é gravado numa tabela na mesma
 transação, e um processo separado o publica. Ver
 [sistemas distribuídos](/06-distributed-systems/index.md).
 
@@ -206,7 +208,10 @@ coberturas em formato próprio.
 
 Refatorações internas deixaram de alcançar os consumidores.
 
-E a publicação passou a usar outbox: o evento de integração é gravado na mesma
+Os quatro consumidores passaram a ser idempotentes, com deduplicação pela chave do evento na
+gravação — sem isso, trocar perda por entrega ao menos uma vez teria virado cobrança
+duplicada, que é pior. E a publicação passou a usar outbox: o evento de integração é gravado
+na mesma
 transação da apólice, e um processo o publica com garantia de ao menos uma vez.
 
 A perda silenciosa deixou de ser possível.

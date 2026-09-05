@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [application-service, aggregate, entity]
 canonical_for: [domain service, serviço de domínio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -91,8 +91,11 @@ O resultado é o modelo anêmico — entidades sem comportamento e serviços com
 a lógica. Ver
 [encapsulamento](/02-software-design/encapsulation.md).
 
-A verificação: antes de criar um serviço de domínio, pergunte se a regra
-envolve genuinamente mais de um agregado. Se envolve um só, ela pertence a ele.
+A verificação: antes de criar um serviço de domínio, aplique as três condições da
+definição — é regra de domínio, não pertence a nenhuma entidade, é sem estado. "Envolve mais
+de um agregado" é **heurística**, não teste: acerta na maioria das vezes, e falha em casos
+como o `CalculadoraDeFrete` acima, que atende às três condições sobre um agregado só. Quando
+a regra envolve um agregado e cabe nele, é dele que ela é.
 
 ## Quando Usar
 
@@ -169,7 +172,9 @@ Um sistema bancário tinha `TransferenciaService` com 400 linhas, contendo:
 validação de saldo, cálculo de tarifa, verificação de limite diário, registro de
 auditoria, notificação por e-mail e controle de transação.
 
-Seis responsabilidades, das quais duas eram de domínio e quatro não.
+Seis responsabilidades: três de domínio e três não. Duas pertenciam a `Conta`, uma a um
+serviço de domínio, e as outras três — auditoria, notificação e controle de transação — à
+camada de aplicação e a efeitos.
 
 A separação:
 

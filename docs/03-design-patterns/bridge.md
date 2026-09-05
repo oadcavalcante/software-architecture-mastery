@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adapter]
 related: [adapter, strategy, abstract-factory]
 canonical_for: [bridge]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -45,8 +45,13 @@ Com quatro formas e quatro renderizadores, dezesseis.
 Bridge substitui o produto pela soma:
 
 ```text
-2 formas + 3 renderizadores = 5 classes
+2 formas + 3 renderizadores + 2 topos de hierarquia = 7 tipos
 ```
+
+Note que nesse tamanho o padrão ainda não venceu: a herança dava 7 tipos também (a base mais
+as seis concretas). O ganho é assintótico e aparece com 4×4 — 17 tipos contra 10 —, e é
+exatamente por isso que "Quando Não Usar" manda esperar a terceira ou quarta classe antes de
+separar as hierarquias.
 
 A forma tem uma referência ao renderizador. As duas hierarquias existem
 separadamente e se combinam por composição.

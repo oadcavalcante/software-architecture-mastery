@@ -107,51 +107,51 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Refatoração](docs/02-software-design/refactoring.md) | concept | intermediário | `code-smells` | 🟩 |
 | 🟩 | [SOLID](docs/02-software-design/solid.md) | concept | intermediário | `fundamentals` | 🟩 |
 | 🟩 | [YAGNI](docs/02-software-design/yagni.md) | concept | iniciante | `fundamentals` | 🟩 |
-| 🟩 | [Abstract Factory](docs/03-design-patterns/abstract-factory.md) | pattern | intermediário | `factory-method` | 🟩 |
+| 🟩 | [Abstract Factory](docs/03-design-patterns/abstract-factory.md) | pattern | intermediário | `factory-method` | 🟨 |
 | 🟩 | [Adapter](docs/03-design-patterns/adapter.md) | pattern | iniciante | `design-patterns` | 🟩 |
-| 🟩 | [Bridge](docs/03-design-patterns/bridge.md) | pattern | avançado | `adapter` | 🟩 |
+| 🟩 | [Bridge](docs/03-design-patterns/bridge.md) | pattern | avançado | `adapter` | 🟨 |
 | 🟩 | [Builder](docs/03-design-patterns/builder.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Chain of Responsibility](docs/03-design-patterns/chain-of-responsibility.md) | pattern | intermediário | `design-patterns` | 🟩 |
 | 🟩 | [Command](docs/03-design-patterns/command.md) | pattern | intermediário | `design-patterns` | 🟩 |
-| 🟩 | [Composite](docs/03-design-patterns/composite.md) | pattern | intermediário | `design-patterns` | 🟩 |
+| 🟩 | [Composite](docs/03-design-patterns/composite.md) | pattern | intermediário | `design-patterns` | 🟨 |
 | 🟩 | [CQRS](docs/03-design-patterns/cqrs.md) | pattern | avançado | `event-driven` | 🟩 |
-| 🟩 | [Decorator](docs/03-design-patterns/decorator.md) | pattern | intermediário | `composite` | 🟩 |
+| 🟩 | [Decorator](docs/03-design-patterns/decorator.md) | pattern | intermediário | `composite` | 🟨 |
 | 🟩 | [Arquitetura Orientada a Eventos](docs/03-design-patterns/event-driven.md) | pattern | avançado | `microservices` | 🟩 |
 | 🟩 | [Event Sourcing](docs/03-design-patterns/event-sourcing.md) | pattern | avançado | `cqrs` | 🟩 |
-| 🟩 | [Facade](docs/03-design-patterns/facade.md) | pattern | iniciante | `design-patterns` | 🟩 |
-| 🟩 | [Factory Method](docs/03-design-patterns/factory-method.md) | pattern | intermediário | `design-patterns` | 🟩 |
-| 🟩 | [Flyweight](docs/03-design-patterns/flyweight.md) | pattern | avançado | `design-patterns` | 🟩 |
+| 🟩 | [Facade](docs/03-design-patterns/facade.md) | pattern | iniciante | `design-patterns` | 🟨 |
+| 🟩 | [Factory Method](docs/03-design-patterns/factory-method.md) | pattern | intermediário | `design-patterns` | 🟨 |
+| 🟩 | [Flyweight](docs/03-design-patterns/flyweight.md) | pattern | avançado | `design-patterns` | 🟨 |
 | 🟩 | [Design Patterns](docs/03-design-patterns/index.md) | index | intermediário | `software-design` | 🟩 |
 | 🟩 | [Iterator](docs/03-design-patterns/iterator.md) | pattern | iniciante | `design-patterns` | 🟩 |
 | 🟩 | [Mediator](docs/03-design-patterns/mediator.md) | pattern | intermediário | `observer` | 🟩 |
-| 🟩 | [Memento](docs/03-design-patterns/memento.md) | pattern | intermediário | `command` | 🟩 |
+| 🟩 | [Memento](docs/03-design-patterns/memento.md) | pattern | intermediário | `command` | 🟨 |
 | 🟩 | [Microsserviços](docs/03-design-patterns/microservices.md) | pattern | avançado | `modular-monolith` | 🟩 |
 | 🟩 | [Monolito Modular](docs/03-design-patterns/modular-monolith.md) | pattern | intermediário | `design-patterns` | 🟩 |
-| 🟩 | [Observer](docs/03-design-patterns/observer.md) | pattern | intermediário | `design-patterns` | 🟩 |
+| 🟩 | [Observer](docs/03-design-patterns/observer.md) | pattern | intermediário | `design-patterns` | 🟨 |
 | 🟩 | [Pipes and Filters](docs/03-design-patterns/pipes-and-filters.md) | pattern | intermediário | `design-patterns` | 🟩 |
-| 🟩 | [Prototype](docs/03-design-patterns/prototype.md) | pattern | intermediário | `design-patterns` | 🟩 |
-| 🟩 | [Proxy](docs/03-design-patterns/proxy.md) | pattern | intermediário | `decorator` | 🟩 |
-| 🟩 | [Singleton](docs/03-design-patterns/singleton.md) | pattern | iniciante | `design-patterns` | 🟩 |
+| 🟩 | [Prototype](docs/03-design-patterns/prototype.md) | pattern | intermediário | `design-patterns` | 🟨 |
+| 🟩 | [Proxy](docs/03-design-patterns/proxy.md) | pattern | intermediário | `decorator` | 🟨 |
+| 🟩 | [Singleton](docs/03-design-patterns/singleton.md) | pattern | iniciante | `design-patterns` | 🟨 |
 | 🟩 | [SOA](docs/03-design-patterns/soa.md) | pattern | intermediário | `microservices` | 🟩 |
-| 🟩 | [Space-Based Architecture](docs/03-design-patterns/space-based-architecture.md) | pattern | avançado | `microservices` | 🟩 |
-| 🟩 | [State](docs/03-design-patterns/state.md) | pattern | intermediário | `strategy` | 🟩 |
-| 🟩 | [Strategy](docs/03-design-patterns/strategy.md) | pattern | iniciante | `design-patterns` | 🟩 |
-| 🟩 | [Template Method](docs/03-design-patterns/template-method.md) | pattern | iniciante | `design-patterns` | 🟩 |
-| 🟩 | [Visitor](docs/03-design-patterns/visitor.md) | pattern | avançado | `composite` | 🟩 |
+| 🟩 | [Space-Based Architecture](docs/03-design-patterns/space-based-architecture.md) | pattern | avançado | `microservices` | 🟨 |
+| 🟩 | [State](docs/03-design-patterns/state.md) | pattern | intermediário | `strategy` | 🟨 |
+| 🟩 | [Strategy](docs/03-design-patterns/strategy.md) | pattern | iniciante | `design-patterns` | 🟨 |
+| 🟩 | [Template Method](docs/03-design-patterns/template-method.md) | pattern | iniciante | `design-patterns` | 🟨 |
+| 🟩 | [Visitor](docs/03-design-patterns/visitor.md) | pattern | avançado | `composite` | 🟨 |
 | 🟩 | [Aggregate](docs/04-domain-driven-design/aggregate.md) | pattern | avançado | `entity`, `value-object` | 🟩 |
-| 🟩 | [Anti-Corruption Layer](docs/04-domain-driven-design/anti-corruption-layer.md) | pattern | intermediário | `context-mapping` | 🟩 |
-| 🟩 | [Application Service](docs/04-domain-driven-design/application-service.md) | pattern | intermediário | `domain-service` | 🟩 |
+| 🟩 | [Anti-Corruption Layer](docs/04-domain-driven-design/anti-corruption-layer.md) | pattern | intermediário | `context-mapping` | 🟨 |
+| 🟩 | [Application Service](docs/04-domain-driven-design/application-service.md) | pattern | intermediário | `domain-service` | 🟨 |
 | 🟩 | [Bounded Context](docs/04-domain-driven-design/bounded-context.md) | concept | intermediário | `subdomain`, `ubiquitous-language` | 🟩 |
 | 🟩 | [Context Mapping](docs/04-domain-driven-design/context-mapping.md) | concept | avançado | `bounded-context` | 🟩 |
 | 🟩 | [Core Domain](docs/04-domain-driven-design/core-domain.md) | foundation | intermediário | `subdomain` | 🟩 |
-| 🟩 | [Domain Event](docs/04-domain-driven-design/domain-event.md) | pattern | avançado | `aggregate` | 🟩 |
-| 🟩 | [Domain Service](docs/04-domain-driven-design/domain-service.md) | pattern | intermediário | `aggregate` | 🟩 |
+| 🟩 | [Domain Event](docs/04-domain-driven-design/domain-event.md) | pattern | avançado | `aggregate` | 🟨 |
+| 🟩 | [Domain Service](docs/04-domain-driven-design/domain-service.md) | pattern | intermediário | `aggregate` | 🟨 |
 | 🟩 | [Domínio](docs/04-domain-driven-design/domain.md) | foundation | iniciante | `domain-driven-design` | 🟩 |
-| 🟩 | [Entity](docs/04-domain-driven-design/entity.md) | pattern | intermediário | `ubiquitous-language` | 🟩 |
-| 🟩 | [Factory](docs/04-domain-driven-design/factory.md) | pattern | intermediário | `aggregate` | 🟩 |
+| 🟩 | [Entity](docs/04-domain-driven-design/entity.md) | pattern | intermediário | `ubiquitous-language` | 🟨 |
+| 🟩 | [Factory](docs/04-domain-driven-design/factory.md) | pattern | intermediário | `aggregate` | 🟨 |
 | 🟩 | [Generic Domain](docs/04-domain-driven-design/generic-domain.md) | foundation | iniciante | `subdomain` | 🟩 |
 | 🟩 | [Domain-Driven Design](docs/04-domain-driven-design/index.md) | index | intermediário | `software-design` | 🟩 |
-| 🟩 | [Repository](docs/04-domain-driven-design/repository.md) | pattern | intermediário | `aggregate` | 🟩 |
+| 🟩 | [Repository](docs/04-domain-driven-design/repository.md) | pattern | intermediário | `aggregate` | 🟨 |
 | 🟩 | [DDD Estratégico](docs/04-domain-driven-design/strategic-ddd.md) | foundation | avançado | `bounded-context`, `context-mapping` | 🟩 |
 | 🟩 | [Subdomínio](docs/04-domain-driven-design/subdomain.md) | foundation | iniciante | `domain` | 🟩 |
 | 🟩 | [Supporting Domain](docs/04-domain-driven-design/supporting-domain.md) | foundation | iniciante | `subdomain` | 🟩 |
@@ -205,7 +205,7 @@ mas já tem índice publicado explicando o que virá.
 | 🟩 | [Garantias de Entrega](docs/06-distributed-systems/delivery-guarantees.md) | concept | avançado | `messaging`, `idempotency` | 🟩 |
 | 🟩 | [CQRS Distribuído](docs/06-distributed-systems/distributed-cqrs.md) | pattern | avançado | `event-driven-systems`, `cqrs` | 🟩 |
 | 🟩 | [Event Sourcing Distribuído](docs/06-distributed-systems/distributed-event-sourcing.md) | pattern | avançado | `event-driven-systems` | 🟩 |
-| 🟩 | [Fundamentos de Sistemas Distribuídos](docs/06-distributed-systems/distributed-fundamentals.md) | foundation | avançado | `system-design` | 🟩 |
+| 🟩 | [Fundamentos de Sistemas Distribuídos](docs/06-distributed-systems/distributed-fundamentals.md) | foundation | avançado | `system-design` | 🟨 |
 | 🟩 | [Locks Distribuídos](docs/06-distributed-systems/distributed-locks.md) | concept | avançado | `consensus` | 🟩 |
 | 🟩 | [Transações Distribuídas](docs/06-distributed-systems/distributed-transactions.md) | pattern | avançado | `distributed-fundamentals`, `partial-failure` | 🟩 |
 | 🟩 | [Mensagens Duplicadas](docs/06-distributed-systems/duplicate-messages.md) | concept | intermediário | `delivery-guarantees`, `idempotency` | 🟩 |

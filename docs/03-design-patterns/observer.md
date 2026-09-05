@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [mediator, command, event-driven]
 canonical_for: [observer, observador, publicar-assinar]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,9 @@ Observer define uma dependência um-para-muitos: quando um objeto muda de estado
 todos os que dependem dele são notificados automaticamente.
 
 É a base conceitual de sistemas orientados a eventos, de interfaces reativas e de
-publicar-assinar. Também é o padrão que mais introduz problemas não óbvios.
+publicar-assinar. Os problemas que ele introduz — vazamento por registro não cancelado, dependência de ordem
+e cascata de notificações — são pouco discutidos no ensino do padrão, que costuma parar na
+inversão de dependência.
 
 ## Problema
 
@@ -130,7 +132,8 @@ fragmentação do fluxo custa mais que o desacoplamento rende.
 
 ## Modos de Falha
 
-**Vazamento por registro não cancelado.** O mais comum.
+**Vazamento por registro não cancelado.** O observador registrado mantém viva a referência a
+si mesmo, e com ela tudo que ele alcança — o objeto some da tela e não sai da memória.
 
 **Cascata infinita.** Observador que modifica o sujeito.
 
@@ -164,8 +167,10 @@ tratamento de erro, composição e backpressure adicionados — precisamente as
 lacunas do padrão cru.
 
 **Frameworks de interface declarativa.** O modelo de reatividade de bibliotecas
-modernas de interface é Observer sob o capô, com o ciclo de vida do registro
-gerenciado pelo framework — o que elimina o vazamento por construção.
+modernas de interface é Observer sob o capô, com o ciclo de vida do registro gerenciado
+pelo framework — o que elimina o vazamento **nas assinaturas que ele mesmo cria**. A
+assinatura manual a uma fonte externa, feita dentro de um componente, continua exigindo
+cancelamento no descarte, e é justamente ela o vazamento descrito acima.
 
 **Eventos de domínio dentro de um processo.** Um agregado publica; assinantes
 reagem. Ver [DDD](/04-domain-driven-design/index.md).

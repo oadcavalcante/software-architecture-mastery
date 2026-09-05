@@ -13,7 +13,7 @@ objective: >
 prerequisites: [context-mapping]
 related: [adapter, bounded-context, legacy-modernization]
 canonical_for: [anti-corruption layer, ACL]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -127,11 +127,14 @@ ela dá a impressão de proteção que não existe.
 | Anti-corruption layer | Consumo direto |
 |---|---|
 | Domínio protegido do modelo alheio | Modelo alheio entra |
-| Substituir o fornecedor é local | Toca todo o sistema |
 | Semântica traduzida e validada | Armadilhas passam |
 | Manutenção contínua da tradução | Nenhuma |
-| Uma camada a entender | Fluxo direto |
 | Custo pago mesmo sem mudança externa | Custo pago quando muda |
+
+O eixo de **substituição de fornecedor** e o critério de quando a camada se paga estão em
+[tradução de fronteira](/08-integration-architecture/integration-anti-corruption.md), que
+trata o padrão pelo ângulo da integração — inclusive o quadrante que decide entre camada
+completa e tradução na borda, e onde a camada mora.
 
 ## Modos de Falha
 
@@ -189,8 +192,9 @@ Os 40 tipos de ocorrência viraram quatro. A decisão de quais quatro foi tomada
 o time de risco — e é exatamente a decisão de modelagem que a camada existe para
 concentrar.
 
-O segundo bureau foi adicionado como uma segunda tradução, em três semanas, com
-zero alteração no domínio.
+O segundo bureau foi adicionado como uma segunda tradução, com zero alteração no domínio: os
+quatorze pontos de condicional que a integração anterior tinha espalhado pelo código de
+negócio viraram nenhum, e o trabalho ficou contido em dois arquivos de mapeamento.
 
 O detalhe que mais rendeu: a camada rejeita respostas do bureau que não podem ser
 traduzidas com segurança — em vez de mapear para o valor mais próximo. Isso
@@ -201,8 +205,9 @@ transformou uma classe de defeito silencioso em erro explícito de integração.
 - [Context Mapping](/04-domain-driven-design/context-mapping.md) — onde este padrão se situa.
 - [Adapter](/03-design-patterns/adapter.md) — a versão de interface.
 - [Bounded Context](/04-domain-driven-design/bounded-context.md) — o que se protege.
-- [Modernização de Legado](/16-legacy-modernization/index.md) — o uso mais
-  frequente.
+- [Tradução de Fronteira](/08-integration-architecture/integration-anti-corruption.md) — o
+  mesmo padrão pelo ângulo da integração: quando ele se paga, e onde a camada mora.
+- [Modernização de Legado](/16-legacy-modernization/index.md) — um uso recorrente.
 
 ## Exercício Prático
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [event-driven, cqrs, scalability]
 canonical_for: [space-based architecture, arquitetura baseada em espaço]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -61,7 +61,6 @@ graph TB
   M --> U1[Unidade + memória] & U2[Unidade + memória] & U3[Unidade + memória]
   U1 <--> U2 <--> U3
   U1 & U2 & U3 -.assíncrono.-> DB[(Banco)]
-end
 ```
 
 ### A escala é quase linear
@@ -194,10 +193,17 @@ reservas acontecem ali; a persistência é assíncrona.
 
 O resto do sistema — cadastro, pagamento, emissão — permaneceu com banco central.
 
-Duas consequências que a equipe aceitou explicitamente. Uma janela de até dois
-segundos em que duas unidades podem reservar o mesmo assento, resolvida por
-reconciliação com cancelamento e reembolso — que acontece em cerca de 0,01% das
-reservas e é tratado como custo de negócio.
+Duas consequências que a equipe aceitou explicitamente. A primeira é uma janela de até dois
+segundos em que duas unidades podem reservar o mesmo assento, resolvida por reconciliação com
+cancelamento e reembolso.
+
+A taxa disso não é desprezível, e vale fazer a conta: no pico, 400 mil chegadas em dois
+minutos, concentradas nos melhores lugares, põem milhares de tentativas dentro da mesma
+janela sobre um inventário de dezenas de milhares de assentos. Na primeira abertura, a dupla
+reserva ficou em torno de 2% das confirmações — alto demais para tratar como ruído. Foi por
+isso que o inventário passou a ser **particionado por setor**, com cada unidade dona de uma
+faixa de assentos em vez de uma cópia de tudo: a colisão caiu para o que atravessa faixas, na
+casa de 0,05%, e aí sim virou custo de negócio.
 
 E uma janela de perda de dados de segundos, mitigada por replicação tripla.
 

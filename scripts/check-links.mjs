@@ -220,6 +220,21 @@ function checkMermaid(doc, report) {
       }
     }
 
+    /*
+     * `end` fecha `subgraph` e nada mais. Um `end` sem par não é aviso: o
+     * Mermaid falha o parse e o leitor recebe uma caixa de erro onde deveria
+     * estar o diagrama — e o build passa, porque o erro é de renderização.
+     */
+    const subgraphs = (code.match(/^\s*subgraph\b/gm) ?? []).length;
+    const ends = (code.match(/^\s*end\s*$/gm) ?? []).length;
+    if (subgraphs !== ends) {
+      report.error(
+        doc.repoPath,
+        `${label}: "subgraph" e "end" desbalanceados (${subgraphs} vs ${ends}) — ` +
+          'o diagrama não compila e vira caixa de erro na página',
+      );
+    }
+
     const nodes = new Set([...code.matchAll(/^\s*([A-Za-z][\w-]*)\s*[[({]/gm)].map((x) => x[1]));
     if (/^(graph|flowchart)/.test(type) && nodes.size > 12) {
       report.warn(doc.repoPath, `${label}: ${nodes.size} nós — SPEC.md §9 sugere no máximo ~12, decomponha`);

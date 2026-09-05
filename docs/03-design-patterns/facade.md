@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [adapter, proxy, mediator]
 canonical_for: [facade, fachada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -176,7 +176,10 @@ Dois desses lugares esqueciam de fechar a sessão, o que esgotava o limite de
 conexões do ERP a cada poucos dias.
 
 A fachada expôs `consultarPedido(numero)` e concentrou a sequência. O vazamento de
-sessão deixou de ser possível.
+sessão deixou de acontecer no caminho comum — mas não se tornou impossível, e o
+próprio caso mostra por quê: o cliente de baixo nível continuou acessível, e seis meses
+depois alguém o usou direto. O que cobriu esse caminho foi um teste que esgota o pool de
+conexões e falha quando alguma não volta.
 
 O que o time fez de certo em seguida: **manteve o cliente de baixo nível
 acessível**. Seis meses depois, um relatório precisou de uma consulta em lote que
@@ -185,8 +188,10 @@ precisasse alterar a fachada nem esperar por isso.
 
 ## Como impedir que ela cresça
 
-Toda fachada tende a acumular métodos. Sem contenção deliberada, ela vira o objeto
-central do sistema em dois anos.
+Fachadas que servem clientes com necessidades divergentes tendem a acumular métodos: cada
+cliente novo traz uma composição que só ele usa. Sem contenção deliberada, ela vira o objeto
+central do sistema — e a velocidade disso é dada pelo número de clientes distintos, não pelo
+calendário.
 
 Três mecanismos que funcionam:
 

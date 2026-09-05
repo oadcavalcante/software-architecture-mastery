@@ -9,11 +9,11 @@ difficulty: avançado
 status: complete
 objective: >
   Ao terminar, o leitor reconhece o eixo de variação que Visitor privilegia e por
-  que ele é o padrão mais frequentemente mal aplicado.
+  que a cerimônia dele só se paga sob condições estreitas.
 prerequisites: [composite]
 related: [composite, iterator, strategy]
 canonical_for: [visitor, visitante, despacho duplo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -24,8 +24,10 @@ last_reviewed: 2026-08-26
 Visitor separa um algoritmo da estrutura de objetos sobre a qual ele opera,
 permitindo adicionar operações novas sem alterar as classes da estrutura.
 
-É o padrão mais complexo do catálogo e o mais frequentemente aplicado onde não
-serve. A razão está num único eixo, e entendê-lo resolve quase toda decisão sobre
+É o padrão de maior cerimônia do catálogo: exige o método `aceitar` em cada tipo da
+hierarquia, uma interface de visitante com uma operação por tipo, e o despacho duplo que
+quase ninguém lê sem parar para pensar. É essa cerimônia que faz dele o caso em que a
+pergunta "eu preciso mesmo disto?" mais se paga. A razão está num único eixo, e entendê-lo resolve quase toda decisão sobre
 ele.
 
 ## Problema
@@ -51,7 +53,10 @@ A formulação que decide tudo. Existem dois eixos de crescimento:
 **Tipos novos** — mais tipos de nó na estrutura.
 **Operações novas** — mais coisas a fazer com a estrutura.
 
-Nenhuma organização torna os dois baratos ao mesmo tempo.
+Nas organizações usuais de código orientado a objetos, nenhuma torna os dois baratos ao
+mesmo tempo — é o problema da expressão, enunciado por Wadler em 1998. Há codificações que
+compram as duas direções (*object algebras*, *tagless final*), ao custo de cerimônia ainda
+maior e de recursos que nem toda linguagem oferece.
 
 | | Método no nó | Visitor |
 |---|---|---|
@@ -131,8 +136,10 @@ leitura de cada operação, e em código lido com frequência isso pesa.
 
 ## Modos de Falha
 
-**Tipo novo esquecido num visitante.** Sem verificação exaustiva, o compilador não
-avisa e o comportamento fica errado silenciosamente.
+**Tipo novo esquecido num visitante.** Depende da forma do visitante: com **interface
+abstrata**, acrescentar um tipo quebra a compilação de todos eles — caro, e é o custo que a
+tabela acima cobra. Com **classe base de implementação padrão**, ou em linguagem dinâmica,
+nada quebra: o tipo novo cai no padrão e o comportamento fica errado em silêncio.
 
 **Visitante com estado compartilhado.** Reutilizar a instância entre percursos
 produz contaminação.

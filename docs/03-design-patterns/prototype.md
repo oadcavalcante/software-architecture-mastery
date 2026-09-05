@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, memento, flyweight]
 canonical_for: [prototype, clonagem]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -193,8 +193,10 @@ resolve, por outro caminho.
 
 Em linguagens com suporte a imutabilidade, o último caso migrou para operações de
 derivação: `config.com(timeout: 30)` devolve uma instância nova sem clonagem
-explícita. Isso é Prototype com outra sintaxe e sem o risco de cópia rasa — o que
-explica por que o padrão nomeado desapareceu enquanto a ideia permaneceu.
+explícita. Isso é Prototype com outra sintaxe, e o risco de cópia rasa não some pela sintaxe: uma
+operação de derivação **é** uma cópia rasa, e os campos não alterados passam por referência.
+O que remove o risco é as partes remanescentes serem imutáveis — com um mapa ou uma lista
+mutável dentro, `config.com(timeout: 30)` cai na mesma armadilha descrita acima.
 
 ## Conceitos Relacionados
 

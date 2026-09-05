@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decorator]
 related: [decorator, adapter, facade]
 canonical_for: [proxy, procurador]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -221,5 +221,6 @@ causado por proxy virtual.
 ## Para Aprofundar
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Deutsch, Peter; Gosling, James. *The Fallacies of Distributed Computing*,
-  1994–1997.
+- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006 — desenvolve a
+  lista atribuída a L. Peter Deutsch (as sete primeiras, por volta de 1994) e a James Gosling
+  (a oitava), que circulou sem publicação formal com esse título.

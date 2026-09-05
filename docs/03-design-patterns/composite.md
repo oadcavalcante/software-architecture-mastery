@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, iterator, visitor]
 canonical_for: [composite, hierarquia parte-todo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -69,9 +69,14 @@ sentido para ela, tipicamente lançando exceção.
 **Segura** — apenas o composto tem `adicionar` e `remover`. Não há operação sem
 sentido; o cliente precisa verificar o tipo para compor.
 
-Transparente ganha em uniformidade e perde em segurança de tipo. Segura, o
-inverso. Não há terceira opção, e escolher exige saber se o cliente compõe ou
-apenas percorre.
+Transparente ganha em uniformidade e perde em segurança de tipo; segura, o inverso. A
+escolha é binária quando a interface precisa ser fechada e a plataforma não oferece consulta
+segura — fora disso existe um meio-termo: um acessor de consulta, `asComposite()`, que
+devolve vazio na folha. Ele preserva o percurso uniforme e dá a quem compõe uma verificação
+total, sem `instanceof`; em linguagem com tipos selados e casamento de padrão, o custo dessa
+verificação é ainda menor.
+
+De qualquer forma, escolher exige saber se o cliente compõe ou apenas percorre.
 
 Quando o cliente só percorre, a variante segura não custa nada e é preferível.
 

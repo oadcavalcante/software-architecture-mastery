@@ -2,7 +2,7 @@
 id: strategy
 title: Strategy
 sidebar_position: 20
-description: Encapsular algoritmos intercambiáveis — o padrão mais útil do catálogo e o mais aplicado sem necessidade.
+description: Encapsular algoritmos intercambiáveis — e, na maior parte do código de aplicação, uma função basta.
 doc_type: pattern
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [state, template-method, bridge]
 canonical_for: [strategy, estratégia]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -24,8 +24,10 @@ last_reviewed: 2026-08-26
 Strategy define uma família de algoritmos, encapsula cada um, e os torna
 intercambiáveis.
 
-É provavelmente o padrão mais útil do catálogo — e o mais aplicado onde um `if`
-resolveria.
+É o padrão que aparece em mais lugares do código de aplicação, quase sempre na forma
+degenerada de uma função passada como argumento. E é onde a cerimônia da versão completa —
+interface, implementações, seleção — mais frequentemente cobra sem entregar: com duas
+variantes que ninguém vai estender, um `if` diz a mesma coisa em menos linhas.
 
 ## Problema
 
@@ -152,7 +154,8 @@ lugares que escolhem a estratégia.
 
 ## Erros Comuns
 
-**Aplicar com duas variantes.** O mais comum.
+**Aplicar com duas variantes.** Três arquivos para substituir um `if` de duas linhas, e a
+terceira variante que justificaria a estrutura nunca chega.
 
 **Criar interface onde uma função basta.**
 

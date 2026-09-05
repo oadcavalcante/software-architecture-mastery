@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [prototype, proxy, singleton]
 canonical_for: [flyweight, estado intrínseco, estado extrínseco]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,8 @@ last_reviewed: 2026-08-26
 Flyweight reduz o consumo de memória compartilhando o estado comum entre muitos
 objetos semelhantes.
 
-É explicitamente uma **otimização**, e a única do catálogo do GoF que é. Isso muda
+É explicitamente uma **otimização** — e o único padrão do catálogo cujo ganho declarado é
+só consumo de memória, o que o torna o único que não se justifica sem medir antes. Isso muda
 como ele deve ser tratado: aplicar sem medição antes é o erro por definição.
 
 ## Problema
@@ -90,8 +91,10 @@ objetos muito baratos de criar, a busca pode custar mais que a criação.
 **Sem medição.** O erro central. Aplicar por antecipação é
 [otimização prematura](/02-software-design/yagni.md) com custo estrutural.
 
-**Quando o número de objetos é moderado.** Alguns milhares de objetos não
-justificam a complexidade em nenhuma plataforma moderna.
+**Quando contagem × tamanho do intrínseco não chega a nada.** O eixo não é o número de
+objetos: é quanto de memória o compartilhamento devolve. Mil objetos carregando uma textura
+de megabytes justificam o padrão; um milhão carregando dois inteiros não. Meça o intrínseco
+primeiro, e só considere se a economia estiver na casa das centenas de megabytes.
 
 **Quando o estado compartilhável é pequeno.** Se o intrínseco é um campo e o
 extrínseco são dez, não há o que economizar.
@@ -199,8 +202,10 @@ registrando a razão. É o trade-off do padrão, e ele foi pago.
 Se seu sistema mantém muitos objetos semelhantes em memória, conte quantas
 combinações distintas de atributos existem de fato.
 
-A razão entre o número de objetos e o número de combinações é o ganho potencial.
-Abaixo de uma ordem de grandeza, provavelmente não vale.
+A razão entre o número de objetos e o número de combinações limita o compartilhamento da
+**parcela intrínseca**, não da memória total — é por isso que 400 mil pontos para 37
+combinações, uma razão de 10.800 para 1, renderam 6,7× no caso acima e não 10.800×. Meça
+antes que fração do objeto é intrínseca: é ela que o padrão devolve.
 
 ## Perguntas de Entrevista
 

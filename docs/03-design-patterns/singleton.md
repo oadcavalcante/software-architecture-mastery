@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, facade, dependency-inversion]
 canonical_for: [singleton]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -63,8 +63,10 @@ uma instância, injetada em quem precisa.
 **Se você precisa de acesso conveniente** — passe a dependência. Uma assinatura
 que declara `(Configuracao config)` é honesta sobre o que o método precisa.
 
-A combinação de instância única com injeção explícita entrega tudo o que o
-Singleton promete, sem nenhum dos custos.
+A combinação de instância única com injeção explícita entrega a unicidade e a
+testabilidade que o Singleton promete, ao custo do cabeamento explícito — que se paga em
+quase tudo, e vira ruído desproporcional nas dependências transversais que atravessam a base
+inteira.
 
 ### Singleton sem estado é menos ruim
 
@@ -124,8 +126,11 @@ dependência oculta por todo o sistema.
 | Risco de estado compartilhado | Escopo controlado |
 | Uma instância garantida | Uma instância configurada |
 
-A única coluna em que o Singleton ganha é a de conveniência. É pouco, e é o que
-explica sua popularidade.
+O Singleton ganha em duas colunas. Uma é conveniência. A outra é a força da garantia: a
+unicidade é estrutural, enquanto um registro de injeção mal configurado como transitório
+entrega duas instâncias sem avisar ninguém. A segunda vantagem é real e mesmo assim não
+compensa — configuração de registro é verificável num teste, e o acoplamento que o acesso
+global cria não é verificável em lugar nenhum.
 
 ## Modos de Falha
 

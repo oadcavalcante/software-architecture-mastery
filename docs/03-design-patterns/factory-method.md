@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [abstract-factory, builder, strategy]
 canonical_for: [factory method]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -96,8 +96,8 @@ mudar em execução, e não exige hierarquia.
 **Quando há uma única implementação.** Ver [YAGNI](/02-software-design/yagni.md).
 Uma hierarquia de criadores com um criador concreto é indireção pura.
 
-**Quando o eixo de variação é mais de um.** Herança amarra a um; dois eixos
-produzem explosão combinatória. Componha.
+**Quando o eixo de variação é mais de um.** Herança amarra a um; dois eixos produzem
+explosão combinatória, que é o tema de [bridge](/03-design-patterns/bridge.md). Componha.
 
 **Em linguagens com construtores flexíveis.** Onde é possível passar a função de
 criação, o padrão perde a razão de existir.
@@ -171,11 +171,15 @@ quem consome não sabe nem precisa saber.
 **Frameworks de teste.** O ciclo de vida define quando criar a instância de
 teste; a subclasse ou a anotação decide qual.
 
-**Conexões de banco.** `DriverManager.getConnection` seleciona a implementação
-concreta a partir da URL — variação de tipo decidida em outro lugar que não o
-chamador.
+**Ganchos de criação em frameworks.** O ciclo de vida chama um método que a subclasse
+sobrescreve para decidir qual instância nasce — a forma canônica, com despacho por subclasse.
 
-O que esses três compartilham: quem chama está dentro de uma biblioteca que não
+`DriverManager.getConnection` costuma entrar nesta lista e não deveria: é método estático que
+varre um registro de drivers, exatamente o que a seção "Não confunda com método estático que
+cria objeto" rejeita. O critério "decidido em outro lugar que não o chamador" cobriria
+qualquer localizador de serviço.
+
+O que os casos legítimos compartilham: quem chama está dentro de uma biblioteca que não
 pode conhecer as classes concretas de quem a usa. É a condição que justifica o
 padrão, e a ausência dela num sistema de aplicação é a razão pela qual ele
 raramente se justifica ali.

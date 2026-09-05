@@ -13,7 +13,7 @@ objective: >
 prerequisites: [composite]
 related: [proxy, composite, strategy]
 canonical_for: [decorator, decorador]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -40,7 +40,7 @@ Decorator torna a combinação aditiva: um decorador por comportamento, empilhad
 conforme a necessidade.
 
 ```text
-new Buffer(new Cifra(new Compressao(fluxoBase)))
+new Buffer(new Compressao(new Cifra(fluxoBase)))
 ```
 
 ## Conceitos Centrais
@@ -74,6 +74,12 @@ cache, validação, medição, controle de acesso.
 Empilhar comprimir-depois-cifrar produz resultado diferente de
 cifrar-depois-comprimir — e o segundo comprime mal, porque dados cifrados são
 incompressíveis.
+
+Vale reler a pilha acima com isso em mente: na escrita, a camada **mais externa**
+processa primeiro. `Buffer(Compressao(Cifra(...)))` comprime antes de cifrar, que é a
+ordem certa. Trocar `Compressao` e `Cifra` de lugar não dá erro de compilação, não
+quebra teste de unidade de nenhuma das duas, e produz um arquivo que ocupa o mesmo
+que o original.
 
 A ordem é uma decisão de projeto que o padrão não documenta. Quem monta a pilha
 precisa saber, e nada no código força a ordem correta.

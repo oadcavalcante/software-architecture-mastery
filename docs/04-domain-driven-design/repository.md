@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, factory, dependency-inversion]
 canonical_for: [repository, repositório]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -83,8 +83,10 @@ de uma projeção.
 Ver [CQRS](/03-design-patterns/cqrs.md) de nível 2: leitura vai direto ao banco,
 com uma consulta que devolve exatamente o que a tela precisa.
 
-Insistir em usar o repositório para leitura é a origem do agregado grande e do
-problema N+1.
+Insistir em usar o repositório para leitura **agrava** os dois defeitos clássicos: pressiona
+o agregado a crescer para servir telas — cuja causa está em
+[agregado](/04-domain-driven-design/aggregate.md) — e multiplica as idas ao banco por carga
+sob demanda, cujo mecanismo está em [proxy](/03-design-patterns/proxy.md).
 
 ### A coleção é uma ilusão útil
 
@@ -183,7 +185,8 @@ de objetos.
 para o relatório — uma decisão de negócio escondida numa cláusula SQL, que o time
 de compliance não conseguia auditar.
 
-E qualquer alteração no esquema tocava os 47 métodos.
+E alterações no esquema se espalhavam por dezenas de métodos sem que nada dissesse quais:
+a última migração de coluna tocou dezenove dos 47.
 
 A separação foi em três direções.
 

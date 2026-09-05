@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-service]
 related: [domain-service, aggregate, clean-architecture]
 canonical_for: [application service, serviço de aplicação, caso de uso]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -183,8 +183,9 @@ reembolso que a assinatura determinou.
 
 Dois ganhos concretos.
 
-Quando o prazo legal mudou de 7 para 14 dias, a alteração foi de uma linha na
-entidade, com o teste de unidade correspondente. Antes, exigiria encontrar a regra
+Quando a empresa passou a oferecer trinta dias de arrependimento como diferencial
+comercial — acima do mínimo legal —, a alteração foi de uma linha na entidade, com o teste de
+unidade correspondente. Antes, exigiria encontrar a regra
 entre 700 linhas de coordenação.
 
 E o mesmo cancelamento passou a valer para os três canais que o acionavam —

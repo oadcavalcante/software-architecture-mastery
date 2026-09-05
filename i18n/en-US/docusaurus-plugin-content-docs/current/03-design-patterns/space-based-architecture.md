@@ -61,7 +61,6 @@ graph TB
   M --> U1[Unit + memory] & U2[Unit + memory] & U3[Unit + memory]
   U1 <--> U2 <--> U3
   U1 & U2 & U3 -.asynchronous.-> DB[(Database)]
-end
 ```
 
 ### Scaling is nearly linear

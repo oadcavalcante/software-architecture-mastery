@@ -13,7 +13,7 @@ objective: >
 prerequisites: [factory-method]
 related: [factory-method, builder, facade]
 canonical_for: [abstract factory]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -126,7 +126,7 @@ já faz.
 | Trocar a família é uma linha | Trocar toca vários pontos |
 | Produto novo toca todas as fábricas | Produto novo é independente |
 | Hierarquia paralela a manter | Sem hierarquia |
-| Cliente totalmente desacoplado | Acoplamento à interface apenas |
+| Conhece a fábrica e as interfaces | Conhece só as interfaces |
 
 ## Modos de Falha
 
@@ -167,19 +167,26 @@ O eixo caro nunca foi exercido: nenhum produto novo foi adicionado à família e
 quatro anos. Foi exatamente a condição que justificava o padrão — conjunto de
 produtos estável, famílias variando — e ela se manteve.
 
-Se um quinto produto tivesse surgido, teria tocado onze classes.
+Se um quinto produto tivesse surgido, teria tocado doze arquivos existentes — a interface da
+fábrica e as onze implementações — mais as onze classes de produto novas, uma por família.
+É o custo que o eixo rígido cobra, e é por isso que a estabilidade do conjunto de produtos é
+pré-requisito e não detalhe.
 
 ## Onde ele aparece na prática
 
-**APIs de parsing XML em Java.** `DocumentBuilderFactory` produz um conjunto
-coerente de objetos de parsing. Misturar componentes de implementações
-diferentes quebraria, e a fábrica impede.
+**APIs de parsing XML em Java.** O caso costuma ser citado aqui, e não deveria:
+`DocumentBuilderFactory` declara uma operação de criação só — `newDocumentBuilder()` —, o que
+pelo critério da seção anterior é [factory method](/03-design-patterns/factory-method.md), não
+este padrão. A família coerente existe um nível abaixo, entre `Document`, `Element` e `Text`
+de uma mesma implementação, e quem a mantém junta é o documento, não a fábrica.
 
 **Bibliotecas de widgets multiplataforma.** O caso que originou o padrão, hoje
 resolvido por temas na maior parte dos frameworks.
 
-**Drivers de banco.** Um driver fornece conexão, comando e resultado
-compatíveis entre si. Não se combina a conexão de um com o comando de outro.
+**Drivers de banco.** A compatibilidade é real — não se combina a conexão de um driver com o
+comando de outro —, mas a forma é outra: em JDBC a cadeia é `Connection` cria `Statement` cria
+`ResultSet`, factory methods encadeados, e não uma interface de fábrica com quatro operações.
+Serve como ilustração da *restrição de compatibilidade*, não da estrutura do padrão.
 
 O denominador comum é a restrição de compatibilidade: os objetos da família
 foram projetados para trabalhar juntos e assumem coisas uns dos outros.

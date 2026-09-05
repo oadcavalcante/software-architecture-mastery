@@ -166,6 +166,29 @@ do Zanzibar atribuída a "Google." em vez dos autores. E `migration-strategies.m
 citava um relatório da Gartner cujo título não existe — a publicação real é Watson
 (2011), com cinco opções, não sete.
 
+## Duas lacunas achadas nos validadores, e uma que fica aberta
+
+**Plural — fechada.** `check-canonical-links` casava por forma exata, e vinte links
+escaparam por estarem no plural. O `normalize` passou a gerar formas singulares
+candidatas. Ver `test/canonical-links.test.mjs`.
+
+**Link sem `.md` — fechada, e custou caro.** `check-links` só verificava alvos
+terminados em `.md`; o que não terminava era ignorado em silêncio. Uma correção
+automática gravou vinte links sem a extensão, os seis validadores deram verde e o
+build de produção caiu — ele roda com `onBrokenLinks: 'throw'`. A regra nova recusa
+link sob diretório de seção numerado sem extensão, e é estreita de propósito para
+não pegar `/progress` e `/glossary`. **A lição operacional está no `AGENTS.md`:
+`validate` não substitui `build`.**
+
+**Termo canônico apontando para outro documento — aberta, e provavelmente deve
+ficar.** Uma varredura acha 141 links cujo texto é `canonical_for` de um documento
+diferente do alvo. A maioria é ambiguidade legítima: "contêiner" no C4 não é o
+contêiner de `09-cloud-architecture`, "Sistemas Distribuídos" é o nome da seção e
+não do conceito, e "Cache" apontando para `scaling-cache.md` é o recorte de escala,
+que é o que o leitor quer ali. Separar os poucos casos reais dos muitos legítimos
+exige julgamento por caso — virar validador produziria ruído que treina a equipe a
+ignorar o CI.
+
 ## Uma ponta que o validador novo não cobre
 
 `check-canonical-links` verifica se um link chega ao canônico. Não verifica se o

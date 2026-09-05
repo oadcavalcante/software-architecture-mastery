@@ -13,7 +13,7 @@ objective: >
 prerequisites: [strategy]
 related: [strategy, command, memento]
 canonical_for: [state, máquina de estados]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -79,8 +79,10 @@ existir num lugar identificável.
 Isso permite responder perguntas que antes exigiam leitura completa: quais
 transições existem? Que estados são terminais? Como se chega daqui até ali?
 
-E permite verificação: um teste pode percorrer a máquina e confirmar que não há
-estado inalcançável nem transição faltando.
+E permite verificação automática de parte disso: percorrer a máquina acha estado
+inalcançável, estado sem saída e transição duplicada. O que ela **não** acha é transição
+faltando — para isso é preciso confrontar a máquina com o negócio, porque o código não sabe
+o que deveria existir e não está lá. É o que o Exemplo Real descobre, por leitura humana.
 
 ### Quem faz a transição
 

@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [network-failure, partial-failure, latency]
 canonical_for: [sistemas distribuídos, falácias da computação distribuída]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -201,8 +201,9 @@ esperando um pico de latência.
 
 ## Para Aprofundar
 
-- Deutsch, Peter; Gosling, James. *The Fallacies of Distributed Computing*,
-  1994–1997.
+- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006 — desenvolve a
+  lista atribuída a L. Peter Deutsch (as sete primeiras, por volta de 1994) e a James Gosling
+  (a oitava), que circulou sem publicação formal com esse título.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
   capítulo 8, sobre os problemas de sistemas distribuídos.
 - Waldo, Jim et al. *A Note on Distributed Computing*, 1994 — o argumento clássico

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [strategy, factory-method, composition-vs-inheritance]
 canonical_for: [template method]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -24,8 +24,10 @@ last_reviewed: 2026-08-26
 Template Method define o esqueleto de um algoritmo numa classe base, deixando
 etapas específicas para as subclasses.
 
-É o padrão que mais depende de herança, e por isso o que mais frequentemente tem
-uma alternativa melhor em [Strategy](/03-design-patterns/strategy.md).
+O mecanismo do padrão é herança de implementação, e por isso ele carrega integralmente os
+custos dela: acoplamento à base, hierarquia difícil de recombinar, e a subclasse que precisa
+saber o que a base faz para sobrescrever direito. É o que torna
+[Strategy](/03-design-patterns/strategy.md) a comparação obrigatória.
 
 ## Problema
 
@@ -101,7 +103,9 @@ sem correlação, são duas estratégias, não uma subclasse.
 **Quando há muitos ganchos.** Uma base com dez ganchos é um contrato implícito
 que ninguém consegue reter.
 
-**Quando Strategy resolve.** Que é a maioria dos casos em código de aplicação.
+**Quando os dois lados da hierarquia são do mesmo time e nenhuma variante precisa ser
+fixada em compilação.** Aí a base herdada só acrescenta acoplamento: passar as etapas como
+argumentos dá o mesmo esqueleto sem prender a hierarquia.
 
 ## Alternativas
 
@@ -115,7 +119,7 @@ que ninguém consegue reter.
 
 | Template Method | Strategy |
 |---|---|
-| Sequência garantida na base | Sequência a cargo de quem compõe |
+| Esqueleto na base herdada | Esqueleto na função que compõe |
 | Menos código na subclasse | Mais cabeamento |
 | Um eixo de variação | Eixos combináveis |
 | Fixo em compilação | Trocável em execução |

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, repository, factory-method]
 canonical_for: [factory de domínio, fábrica de domínio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -196,7 +196,10 @@ Plano.porPortabilidade(origem)        → variante com regras próprias
 
 Duas operações nomeadas, no vocabulário do negócio, dentro do domínio.
 
-O construtor passou a ser privado. Não existe mais como criar um `Plano` inválido.
+O construtor passou a ser privado: não existe mais **caminho de aplicação** que crie um
+`Plano` inválido. O mapeador continua sendo a porta aberta — ver a ressalva sobre
+reconstituição, adiante —, e foi por isso que o teste de carga do repositório passou a
+validar o agregado depois de reconstituí-lo.
 
 Quando a carência mudou de novo, seis meses depois, a alteração foi de uma linha —
 e valeu para os três canais simultaneamente.
