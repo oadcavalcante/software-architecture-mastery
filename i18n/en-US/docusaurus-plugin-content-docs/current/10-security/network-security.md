@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [zero-trust, secure-boundaries, cloud-networking]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -136,7 +136,8 @@ and it frequently includes partners whose contract has already ended.
 
 ## When to Use
 
-- Always, as a containment layer.
+- Where more than one data domain is reachable from the same segment — which is the condition in which
+  containment has something to contain.
 - Priority in environments with many internal services.
 - Where there is concentrated sensitive data.
 - With third-party access to the network.
@@ -231,7 +232,10 @@ was a single one.
 The exfiltration — around 40 GB over nine days — went out with no restriction at all, because egress
 traffic was neither filtered nor monitored.
 
-The detection came from a data transfer cost alert, not from security.
+The detection did not come from security, and it could not have come from cost either: 40 GB over nine
+days costs a few dollars in egress and moves no invoice at all. It came from a **new destination** alert —
+an anomaly rule nobody had connected to security, created months earlier to catch integration
+misconfiguration.
 
 The changes:
 
@@ -240,8 +244,9 @@ segments, with an explicit policy between them. Deriving the policy took three m
 observation.
 
 **Egress filtering** in every segment, with allowed destinations by list. Warning mode, in the first six
-weeks, revealed 90 undocumented external destinations — 12 of which were legitimate services nobody had
-recorded, and 2 were unauthorized software installed by users.
+weeks, revealed 90 undocumented external destinations: 61 were vendor telemetry and update endpoints
+embedded in libraries, 12 were legitimate services nobody had recorded, 15 were tracking domains loaded by
+internal pages, and 2 were unauthorized software installed by users.
 
 **Administrative access** through a managed session service, with full logging. The exposed administrative
 ports were closed.

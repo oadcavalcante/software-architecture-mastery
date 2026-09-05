@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-governance]
 related: [governance-review, fitness-functions-governance, governance-pathologies]
 canonical_for: [mecanismo de governança, ponto de intervenção, custo de coordenação, governança preventiva]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -45,7 +45,8 @@ o desenho do fluxo em escala organizacional; aqui o foco é o mecanismo em si.
 
 ## Problema
 
-A degeneração é previsível e tem sempre a mesma forma. Alguém identifica um problema real —
+A degeneração é previsível, e esta é uma das formas mais comuns — o catálogo das outras
+está em [patologias de governança](/19-architecture-governance/governance-pathologies.md). Alguém identifica um problema real —
 seis formas de autenticação, quatro filas diferentes, uma decisão de segurança tomada sem
 contexto. A resposta institucional é criar um ponto de verificação.
 
@@ -100,10 +101,14 @@ no comitê        alguém percebe semanas depois
 na auditoria     alguém percebe meses depois
 ```
 
-As opções são ordenadas por custo crescente e eficácia decrescente. E a diferença não é
-marginal — as duas primeiras tornam o erro **impossível**, e não apenas detectável.
+As opções são ordenadas por custo crescente e eficácia decrescente, e a diferença entre as
+duas primeiras e o resto não é marginal — mas elas próprias não são equivalentes. O
+**ambiente** impede: o que não passa pelo controle não acontece, com as ressalvas do que
+escapa ao proxy. O **gabarito** não impede nada; ele torna o certo o caminho padrão, e o
+resíduo é medido — no Exemplo Real, os 6% de serviços novos que não passaram por ele.
 
-Escolher o ponto mais cedo viável é a decisão de maior alavancagem em governança.
+Escolher o ponto mais cedo viável é onde o custo por decisão cai mais rápido: cada passo
+para a direita nessa lista multiplica o número de vezes que alguém precisa gastar atenção.
 
 ### Prevenir, detectar, corrigir
 

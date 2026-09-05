@@ -13,7 +13,7 @@ objective: >
 prerequisites: [redundancy]
 related: [redundancy, chaos-engineering, disaster-recovery-planning]
 canonical_for: [failover, promoção de réplica, retorno ao primário, acionamento automático]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -128,8 +128,10 @@ O failover completo envolve: descoberta de serviço, cadeias de conexão, DNS co
 de vida curto, filas, agendadores, e sistemas externos que apontam para o endereço
 antigo.
 
-O item de DNS merece nota: um tempo de vida de uma hora significa que clientes
-continuarão indo ao endereço antigo por até uma hora depois da troca.
+O item de DNS merece nota: um tempo de vida de uma hora é o **piso otimista** do que os
+clientes levarão para mudar. Resolvedores intermediários e caches de biblioteca frequentemente
+excedem o valor declarado, e conexão já estabelecida não reconsulta DNS nenhum — ela segue no
+endereço antigo até cair.
 
 Inventariar tudo que aponta para o componente é parte do desenho, e é o que costuma
 faltar.
@@ -215,7 +217,7 @@ regularmente, e falha se for só documentado.
 
 ## Erros Comuns
 
-**Não exercitar.** É o mecanismo que só roda sob estresse. Um procedimento nunca executado falha na primeira tentativa, que é sempre durante o incidente.
+**Não exercitar.** É o mecanismo que só roda sob estresse. Um procedimento nunca executado costuma falhar na primeira tentativa — e a primeira tentativa, por definição, acontece durante o incidente.
 
 **Duas cópias em vez de três**, impedindo maioria. Com duas, nenhum lado consegue formar maioria durante uma partição, e a promoção automática vira aposta entre parar tudo ou arriscar cérebro dividido.
 
@@ -255,8 +257,10 @@ longo de três dias. Dezenove não puderam ser resolvidas com certeza.
 
 A reformulação:
 
-**Três nós, com maioria.** A promoção passou a exigir quórum, impedindo que o antigo
-primário se reconsidere principal.
+**Três nós, com maioria.** A promoção passou a exigir quórum, o que impede uma **segunda**
+promoção — o antigo primário não consegue ser eleito de novo. Não é isso que o cala: sozinho,
+o quórum o deixaria continuar se achando primário e aceitando escrita, que foi exatamente a
+falha. Quem fecha essa porta é o item seguinte.
 
 **Isolamento por revogação.** A credencial do primário antigo é revogada na promoção,
 antes de qualquer outra coisa.
@@ -271,9 +275,12 @@ nenhum.
 **Não retornar.** A cópia que assume permanece como primária. As três são equivalentes
 e a assimetria deixou de existir.
 
-O que a equipe registra: o mecanismo automático funcionou perfeitamente — promoveu em
-25 segundos, como projetado. Tudo o mais em volta dele falhou, e nada disso era sobre
-o banco.
+O que a equipe registra, com a distinção que custou 40 minutos para aprender: a **detecção
+e a promoção** funcionaram como projetadas, em 25 segundos. O que faltava não era periferia —
+era o resto do mecanismo de troca: quórum e isolamento, sem os quais promover uma réplica num
+desenho de duas cópias produz dois primários por construção. Em volta disso, três coisas que
+ninguém tinha inventariado: o tempo de vida do DNS, as conexões abertas e as aplicações sem
+reconexão. Nenhuma é defeito do produto de banco de dados; todas são do desenho de failover.
 
 ## Conceitos Relacionados
 

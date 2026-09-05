@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-standards, governance-review, governance-basics]
 canonical_for: [teste do inverso, conflito entre princípios, princípio como critério, hierarquia de princípios]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -132,8 +132,17 @@ princípio   é ponderado — ceder a ele em um caso não o viola
 padrão      é cumprido ou não — não cumprir exige exceção registrada
 ```
 
-Isso significa que "abrimos exceção ao princípio X" é uma frase mal formada. Princípio se
-pondera contra outro princípio, com justificativa. Padrão se descumpre, com registro.
+Isso significa que "abrimos exceção ao princípio X", lido ao pé da letra, descreve algo que
+não existe: não há dispensa de princípio, porque ele nunca foi regra. O que existe é a
+**ponderação** — este princípio cedeu àquele, neste caso, por esta razão.
+
+Na prática organizacional, porém, a ponderação usa o mesmo mecanismo da exceção a padrão:
+fica registrada, com justificativa, e é revista. É por isso que
+[princípios corporativos](/15-enterprise-architecture/enterprise-principles.md) fala em
+"exceção declarada" — e está certo quanto ao mecanismo. A distinção que vale guardar é o que
+se registra: no padrão, que a regra não foi cumprida; no princípio, qual outro princípio
+prevaleceu e por quê. Sem esse "contra o quê", o registro vira dispensa, e aí o princípio
+virou regra sem que ninguém decidisse isso.
 
 Ver [padrões](/19-architecture-governance/governance-standards.md) e [exceções](/19-architecture-governance/exceptions.md).
 

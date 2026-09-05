@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, compliance, governance-pathologies]
 canonical_for: [exceção com prazo, expiração de exceção, exceção permanente, exceção como diagnóstico]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -34,8 +34,8 @@ Um processo de exceção não é uma concessão à indisciplina. Ele é o mecani
 governança informada sobre a realidade** — e uma governança que não sabe onde está sendo
 descumprida não governa nada.
 
-E há um uso secundário, mais valioso que o primeiro: o conjunto de exceções é o melhor
-diagnóstico disponível sobre a qualidade dos padrões.
+E há um uso secundário, mais valioso que o primeiro: o conjunto de exceções é o único sinal que vem de quem **consome** o padrão, e por isso diz
+sobre o custo de cumpri-lo o que nenhuma métrica de conformidade diz.
 
 ## Problema
 
@@ -179,7 +179,8 @@ do mesmo jeito — só que invisível.
 
 - Sempre que houver padrão obrigatório.
 - Com registro sem aprovação para desvios de baixo risco.
-- Com expiração automática, sem exceção.
+- Com expiração automática, sempre que o número de exceções ultrapassar o que uma pessoa
+  acompanha de memória — na prática, a partir de uma dúzia.
 - Lendo o conjunto periodicamente como diagnóstico dos padrões.
 
 ## Quando Não Usar
@@ -269,7 +270,7 @@ com exceção registrada                        22
 sem exceção                                  125
 ```
 
-Cinco vezes mais desvios silenciosos que registrados. Nas entrevistas, o motivo apareceu de
+Quase seis vezes mais desvios silenciosos que registrados. Nas entrevistas, o motivo apareceu de
 forma consistente: 24 dias não cabiam em nenhum cronograma, e três negativas conhecidas
 tinham criado a percepção de que pedir era arriscado.
 

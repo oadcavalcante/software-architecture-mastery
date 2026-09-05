@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [graceful-degradation, failover, redundancy]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -80,7 +80,8 @@ most valuable findings appear in production.
 
 ### The experiments that pay off most
 
-In order of return observed in practice:
+In increasing order of cost to set up — which is the useful axis for choosing where to start, since the
+return depends on what **this** system has that is fragile:
 
 ```text
 kill an instance                 verifies statelessness and graceful shutdown
@@ -92,8 +93,8 @@ database failover                verifies the procedure
 expire a certificate             verifies monitoring
 ```
 
-**Adding latency is the most revealing**, and the least used. Dependencies rarely go down — they get slow
-—, and it is that scenario the protection mechanisms usually do not cover. See
+**Adding latency usually reveals more than taking things down**, and it is less used. Dependencies rarely
+go down — they get slow —, and it is that scenario the protection mechanisms usually do not cover. See
 [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ### A limited blast radius is not optional
@@ -155,8 +156,8 @@ It is the difference between "we verified it once" and "we verify it continuousl
 
 ## Mental Model
 
-**What is not exercised does not work.** Chaos engineering is the verification that the protection
-mechanisms actually exist.
+**What is not exercised probably does not work** — and the only way to know which side this case falls on
+is to exercise it. Chaos engineering is the verification that the protection mechanisms actually exist.
 
 ## When to Use
 
@@ -228,7 +229,8 @@ more than expected.
 ## Common Mistakes
 
 **Starting with production.** The practice requires maturity in observability and recovery. Without them,
-the experiment becomes an incident and the practice loses political support forever.
+the experiment becomes an incident — and the program loses the sponsorship that took months to obtain, in
+an environment where asking again requires explaining the incident first.
 
 **Not formulating a hypothesis.** Without declaring beforehand what you expect to happen, breaking things
 is just breaking things — there is no way to distinguish expected behavior from a discovery.
@@ -282,7 +284,8 @@ absorb it. See [redundancy](/12-reliability/redundancy.md).
 **Database failover, in a scheduled window.** It worked in 40 seconds — and revealed that the application
 did not reconnect automatically, requiring the instances to be restarted.
 
-Six experiments, five failures. All in mechanisms the team believed worked.
+Six experiments, five with a finding — three where the mechanism did not work, two where it worked and
+revealed a defect next to it. All in mechanisms the team believed worked.
 
 After the fixes, the experiments became an automated routine: kill an instance weekly, inject latency every
 two weeks, take a zone down monthly, database failover quarterly.

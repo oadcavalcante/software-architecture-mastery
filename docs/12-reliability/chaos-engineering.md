@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [graceful-degradation, failover, redundancy]
 canonical_for: [engenharia do caos, experimento de falha, hipótese de estado estável, raio de alcance]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -85,7 +85,8 @@ dependências reais. Os achados mais valiosos aparecem em produção.
 
 ### Os experimentos que rendem mais
 
-Em ordem de retorno observado na prática:
+Em ordem crescente de custo para montar — que é o eixo útil para escolher por onde começar,
+já que o retorno depende do que **este** sistema tem de frágil:
 
 ```text
 matar uma instância            verifica ausência de estado e desligamento gracioso
@@ -97,7 +98,7 @@ failover de banco              verifica o procedimento
 expirar certificado            verifica monitoramento
 ```
 
-**Adicionar latência é o mais revelador**, e o menos usado. Dependências raramente caem
+**Adicionar latência costuma revelar mais que derrubar**, e é menos usado. Dependências raramente caem
 — elas ficam lentas —, e é esse cenário que os mecanismos de proteção costumam não
 cobrir. Ver [circuit breakers](/12-reliability/circuit-breakers.md).
 
@@ -163,7 +164,8 @@ automática, com alerta se o resultado mudar.
 
 ## Modelo Mental
 
-**O que não é exercitado não funciona.** Engenharia do caos é a verificação de que os
+**O que não é exercitado provavelmente não funciona** — e a única forma de saber de que lado
+este caso está é exercitar. Engenharia do caos é a verificação de que os
 mecanismos de proteção existem de fato.
 
 ## Quando Usar
@@ -237,7 +239,8 @@ costuma encontrar mais do que o esperado.
 
 ## Erros Comuns
 
-**Começar por produção.** A prática exige maturidade de observabilidade e recuperação. Sem elas, o experimento vira incidente e a prática perde apoio político para sempre.
+**Começar por produção.** A prática exige maturidade de observabilidade e recuperação. Sem elas, o experimento vira incidente — e o programa perde o patrocínio que levou meses
+para conseguir, num ambiente onde pedir de novo exige explicar o incidente antes.
 
 **Não formular hipótese.** Sem declarar antes o que se espera que aconteça, quebrar coisas é só quebrar coisas — não há como distinguir comportamento esperado de descoberta.
 
@@ -290,7 +293,8 @@ não absorveram. Ver [redundância](/12-reliability/redundancy.md).
 **Failover de banco, em janela programada.** Funcionou em 40 segundos — e revelou que a
 aplicação não reconectava automaticamente, exigindo reinício das instâncias.
 
-Seis experimentos, cinco falhas. Todas em mecanismos que a equipe acreditava
+Seis experimentos, cinco com achado — três em que o mecanismo não funcionou, dois em que
+funcionou e revelou um defeito ao lado. Todos em mecanismos que a equipe acreditava
 funcionarem.
 
 Depois das correções, os experimentos viraram rotina automatizada: matar instância

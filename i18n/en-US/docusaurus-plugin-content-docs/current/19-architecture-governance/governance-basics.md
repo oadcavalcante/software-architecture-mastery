@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-governance]
 related: [governance-review, fitness-functions-governance, governance-pathologies]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -45,9 +45,11 @@ flow design at organizational scale; here the focus is the mechanism itself.
 
 ## Problem
 
-The degeneration is predictable and always takes the same form. Someone identifies a real
-problem — six ways of authenticating, four different queues, a security decision made
-without context. The institutional response is to create a checkpoint.
+The degeneration is predictable, and this is one of its most common forms — the catalog of
+the others is in
+[governance pathologies](/19-architecture-governance/governance-pathologies.md). Someone
+identifies a real problem — six ways of authenticating, four different queues, a security
+decision made without context. The institutional response is to create a checkpoint.
 
 ```text
 month 1    "designs go through the committee before implementation"
@@ -99,10 +101,15 @@ in the committee     someone notices weeks later
 in the audit         someone notices months later
 ```
 
-The options are ordered by increasing cost and decreasing effectiveness. And the difference
-is not marginal — the first two make the error **impossible**, not merely detectable.
+The options are ordered by increasing cost and decreasing effectiveness, and the difference
+between the first two and the rest is not marginal — but those two are not equivalent to
+each other. The **environment** prevents: what does not go through the control does not
+happen, with the caveats of whatever escapes the proxy. The **template** prevents nothing;
+it makes the right thing the default path, and the residue is measured — in the Real-World
+Example, the 6% of new services that did not go through it.
 
-Choosing the earliest viable point is the highest-leverage decision in governance.
+Choosing the earliest viable point is where the cost per decision falls fastest: every step
+to the right in that list multiplies the number of times somebody has to spend attention.
 
 ### Prevent, detect, correct
 

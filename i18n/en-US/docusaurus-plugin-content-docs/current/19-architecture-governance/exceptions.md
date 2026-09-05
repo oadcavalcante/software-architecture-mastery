@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, compliance, governance-pathologies]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -34,8 +34,9 @@ An exception process is not a concession to indiscipline. It is the mechanism th
 governance informed about reality** — and governance that doesn't know where it is being
 disregarded governs nothing.
 
-And there is a secondary use, more valuable than the first: the set of exceptions is the best
-available diagnosis of the quality of the standards.
+And there is a secondary use, more valuable than the first: the set of exceptions is the only
+signal that comes from whoever **consumes** the standard, and so it says about the cost of
+complying with it what no compliance metric says.
 
 ## Problem
 
@@ -180,7 +181,8 @@ deviation exists anyway — only invisible.
 
 - Whenever there is a mandatory standard.
 - With recording and no approval for low-risk deviations.
-- With automatic expiry, without exception.
+- With automatic expiry, whenever the number of exceptions exceeds what one person tracks
+  from memory — in practice, from a dozen on.
 - Reading the set periodically as a diagnosis of the standards.
 
 ## When Not to Use
@@ -272,7 +274,7 @@ with a recorded exception                     22
 with no exception                            125
 ```
 
-Five times more silent deviations than recorded ones. In the interviews, the reason came up
+Almost six times more silent deviations than recorded ones. In the interviews, the reason came up
 consistently: 24 days didn't fit any schedule, and three known denials had created the
 perception that asking was risky.
 

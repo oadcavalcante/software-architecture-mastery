@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [zero-trust, secure-boundaries, cloud-networking]
 canonical_for: [segmentação de rede, microssegmentação, movimento lateral, filtragem de saída]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -147,7 +147,8 @@ que a identidade falha.
 
 ## Quando Usar
 
-- Sempre, como camada de contenção.
+- Onde mais de um domínio de dados é alcançável a partir do mesmo segmento — que é a
+  condição em que a contenção tem o que conter.
 - Prioridade em ambientes com muitos serviços internos.
 - Onde há dados sensíveis concentrados.
 - Com acesso de terceiros à rede.
@@ -238,7 +239,10 @@ corporativa era única.
 A exfiltração — cerca de 40 GB ao longo de nove dias — saiu sem qualquer restrição,
 porque o tráfego de saída não era filtrado nem monitorado.
 
-A detecção veio de um alerta de custo de transferência de dados, não de segurança.
+A detecção não veio de segurança, e nem podia vir do custo: 40 GB em nove dias custam alguns
+dólares de saída e não movem fatura nenhuma. Veio de um alerta de **destino novo** — uma regra
+de anomalia que ninguém tinha ligado à segurança, criada meses antes para pegar erro de
+configuração de integração.
 
 As mudanças:
 
@@ -248,8 +252,9 @@ derivação da política levou três meses de observação de tráfego.
 
 **Filtragem de saída** em todos os segmentos, com destinos permitidos por lista. O
 modo de aviso, nas primeiras seis semanas, revelou 90 destinos externos não
-documentados — dos quais 12 eram serviços legítimos que ninguém tinha registrado, e
-2 eram software não autorizado instalado por usuários.
+documentados: 61 eram telemetria e atualização de fornecedores embutidos em bibliotecas, 12
+eram serviços legítimos que ninguém tinha registrado, 15 eram domínios de rastreamento
+carregados por páginas internas, e 2 eram software não autorizado instalado por usuários.
 
 **Acesso administrativo** por serviço de sessão gerenciado, com registro completo. As
 portas administrativas expostas foram fechadas.

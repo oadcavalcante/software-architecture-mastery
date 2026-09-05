@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-governance, architecture-levels]
 canonical_for: [princípio corporativo, princípio acionável, implicação de princípio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -100,10 +100,16 @@ E eles envelhecem: um princípio que fez sentido quando a organização tinha 30
 engenheiros pode ser errado com 300. A revisão periódica é o que evita que restrições
 antigas sobrevivam ao contexto que as justificava.
 
-### Precisam ter exceção declarada
+### Precisam ter caminho de exceção declarado
 
 Um princípio sem caminho de exceção produz dois comportamentos ruins: contorno
 silencioso, ou paralisia.
+
+Uma precisão de vocabulário, porque ela muda o que se escreve no registro: princípio não é
+dispensado, é **ponderado** contra outro princípio. O mecanismo é o mesmo da exceção a
+padrão — registro, justificativa, revisão —, mas o conteúdo do registro é diferente: não
+"deixamos de cumprir", e sim "este princípio cedeu àquele, por esta razão". Ver
+[princípios de governança](/19-architecture-governance/governance-principles.md).
 
 O que funciona:
 

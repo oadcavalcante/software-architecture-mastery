@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, supply-chain-trust, least-privilege]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -38,7 +38,8 @@ The places where secrets leak are known and they repeat:
 a code repository       including the history, after "removal"
 a container image       in earlier layers. See containers
 application logs        headers, request bodies, error messages
-environment variables   visible in process listings and in dumps
+environment variables   inherited by child processes, exposed in `docker inspect`
+                        and in the orchestrator object, and in a memory dump
 a configuration file    copied, versioned, shared
 a chat message          "send me the database password"
 a support ticket        pasted into a problem description
@@ -133,12 +134,15 @@ should not be a copy of production — see [data protection](/10-security/data-p
 
 ## Mental Model
 
-**The best secret is the one that does not exist.** For the ones that do: exercised rotation, audited
-access, and automatic detection.
+**A secret that does not exist does not leak, does not expire and does not need rotation.** For the ones
+that do: exercised rotation, audited access, and automatic detection.
 
 ## When to Use
 
-Explicit management applies whenever there is a credential. Priority when:
+Explicit management pays off when what the credential protects is worth more than the cost of operating
+the manager — which covers practically everything in production, and leaves out real cases: a single
+service, with a low-value secret, in an environment where platform identity already covers the accesses
+that matter. Priority when:
 
 - There are long-lived static credentials.
 - Several services share the same credential.
@@ -150,8 +154,10 @@ Explicit management applies whenever there is a credential. Priority when:
 
 **A static secret when platform identity is available.**
 
-**A secret in an environment variable** when the manager allows direct injection — variables leak in dumps
-and listings.
+**A secret in an environment variable** when the manager allows direct injection. The reason is not process
+listings: `ps` shows the command line, and the environment (`/proc/<pid>/environ`) is readable only by the
+process owner and by root. The real vectors are others — every child process inherits the environment,
+`docker inspect` and the orchestrator object display it, and a memory dump carries it along.
 
 **Sharing a credential between services.** It prevents knowing who used it and forces rotating everything
 together.
@@ -206,7 +212,7 @@ together.
 ## Common Mistakes
 
 **Not eliminating secrets when an alternative exists.** An identity attached to the workload does away with
-the static credential. The safest secret is the one that does not exist.
+the static credential — and what does not exist does not show up in a scan, in a dump or in a repository.
 
 **Removing it from the repository without rotating.** Git's history preserves the value, and so do
 existing clones. A committed secret is a compromised secret, and the only remedy is changing it.
@@ -253,8 +259,9 @@ coordinating eleven deployments, which was the reason it had never been done.
 
 The reformulation, over ten months:
 
-**Elimination.** Applications in the cloud came to use platform identity. The pipeline came to use
-federation. That removed around 60% of the secrets.
+**Elimination.** The consolidated inventory had 214 secrets in use. Applications in the cloud came to use
+platform identity and the pipeline came to use federation, which eliminated 129 of them — 60%, and most of
+what remained is a credential for an external system, which cannot be replaced by an identity.
 
 **A secrets manager** for the rest, with access audited per secret.
 
@@ -267,9 +274,12 @@ one stopped affecting the others.
 
 **Secret filtering in the logs.**
 
-In retrospect: the key exposed in the public repository was the trigger, and it was the smallest of the
-problems. What the audit revealed — 31 valid credentials in internal repositories, with no usage auditing
-at all — was far larger and had generated no alert in two years.
+In retrospect: the key exposed in the public repository was the trigger, and it remains the most **serious**
+finding — it is the only one with administrator permission and the only one with confirmed third-party use,
+over four months. What the audit revealed afterwards is larger in **scale**, and is a different category of
+risk: 31 valid credentials in internal repositories, with no usage auditing at all, none of them with
+recorded abuse. One is a consummated incident; the others are the surface that makes the next incident
+likely. Confusing the two leads to prioritizing wrong, and it had generated no alert in two years.
 
 ## Related Concepts
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-standards, governance-review, governance-basics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -131,9 +131,18 @@ principle   is weighed — yielding to it in one case does not violate it
 standard    is met or not — not meeting it requires a recorded exception
 ```
 
-That means "we are making an exception to principle X" is a malformed sentence. A principle
-is weighed against another principle, with justification. A standard is not met, with a
-record.
+That means "we are making an exception to principle X", read literally, describes something
+that does not exist: there is no waiving of a principle, because it was never a rule. What
+exists is the **weighing** — this principle yielded to that one, in this case, for this
+reason.
+
+In organizational practice, however, the weighing uses the same mechanism as an exception to
+a standard: it is recorded, with a justification, and it is reviewed. That is why
+[enterprise principles](/15-enterprise-architecture/enterprise-principles.md) speaks of a
+"declared exception path" — and it is right about the mechanism. The distinction worth
+keeping is what gets recorded: in a standard, that the rule was not met; in a principle,
+which other principle prevailed and why. Without that "against what", the record becomes a
+waiver, and then the principle has become a rule without anybody having decided so.
 
 See [standards](/19-architecture-governance/governance-standards.md) and
 [exceptions](/19-architecture-governance/exceptions.md).

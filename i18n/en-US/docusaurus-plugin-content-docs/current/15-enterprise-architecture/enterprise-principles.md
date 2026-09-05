@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-governance, architecture-levels]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -105,6 +105,13 @@ that justified them.
 
 A principle with no exception path produces two bad behaviors: silent circumvention, or
 paralysis.
+
+A precision of vocabulary, because it changes what gets written in the record: a principle
+is not waived, it is **weighed** against another principle. The mechanism is the same as an
+exception to a standard — a record, a justification, a review —, but the content of the
+record is different: not "we failed to comply", but "this principle yielded to that one,
+for this reason". See
+[governance principles](/19-architecture-governance/governance-principles.md).
 
 What works:
 

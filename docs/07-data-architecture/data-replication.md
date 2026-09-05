@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-partitioning, data-consistency, olap]
 canonical_for: [réplica de leitura, troca de primário, réplica atrasada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -59,8 +59,9 @@ Cópia de segurança tem histórico: ela permite voltar ao estado de antes do er
 ```text
 protege contra              replicação   cópia de segurança
 falha de hardware           sim          sim (com tempo de restauração)
-falha de datacenter         sim          depende de onde está
-erro humano                 não          sim
+falha de datacenter         depende de onde estão as réplicas   depende de onde está
+erro humano                 não, se em tempo real; sim, com réplica atrasada
+                            e dentro da janela dela      sim
 corrupção lógica            não          sim
 ataque com apagamento       não          sim, se isolada
 ```
@@ -135,8 +136,10 @@ o particionamento resolve sem conflito.
 
 ## Modelo Mental
 
-**Replicação protege contra falha de máquina, não contra erro humano.** As duas
-proteções são necessárias e não se substituem.
+**Replicação em tempo real protege contra falha de máquina, não contra erro humano** — ela
+propaga o comando destrutivo com a mesma fidelidade com que propaga o resto. A exceção é a
+réplica atrasada, que é replicação usada como janela de arrependimento. As duas proteções são
+necessárias e não se substituem.
 
 ## Quando Usar
 

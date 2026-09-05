@@ -13,7 +13,7 @@ objective: >
 prerequisites: [redundancy]
 related: [redundancy, chaos-engineering, disaster-recovery-planning]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -117,8 +117,9 @@ Promoting the database is not enough if the application keeps pointing at the ol
 A complete failover involves: service discovery, connection strings, DNS with a short time to live, queues,
 schedulers, and external systems pointing at the old address.
 
-The DNS item deserves a note: a one-hour time to live means clients will keep going to the old address for
-up to an hour after the switch.
+The DNS item deserves a note: a one-hour time to live is the **optimistic floor** of what clients will take
+to move. Intermediate resolvers and library caches frequently exceed the declared value, and an already
+established connection queries no DNS at all — it stays on the old address until it drops.
 
 Inventorying everything that points at the component is part of the design, and it is what usually is
 missing.
@@ -202,8 +203,8 @@ is only documented.
 
 ## Common Mistakes
 
-**Not exercising it.** It is the mechanism that only runs under stress. A procedure never executed fails on
-the first attempt, which is always during the incident.
+**Not exercising it.** It is the mechanism that only runs under stress. A procedure never executed usually
+fails on the first attempt — and the first attempt, by definition, happens during the incident.
 
 **Two copies instead of three**, preventing a majority. With two, neither side can form a majority during a
 partition, and automatic promotion becomes a bet between stopping everything and risking split brain.
@@ -246,8 +247,10 @@ be resolved with certainty.
 
 The reformulation:
 
-**Three nodes, with a majority.** Promotion came to require a quorum, preventing the old primary from
-reconsidering itself the main one.
+**Three nodes, with a majority.** Promotion came to require a quorum, which prevents a **second** promotion
+— the old primary cannot be elected again. That is not what silences it: on its own, the quorum would let
+it keep believing itself the primary and accepting writes, which was exactly the failure. What closes that
+door is the next item.
 
 **Fencing by revocation.** The old primary's credential is revoked at promotion, before anything else.
 
@@ -259,8 +262,12 @@ problems; the sixth took 40 seconds and found none.
 **Do not return.** The copy that takes over stays as the primary. The three are equivalent and the
 asymmetry stopped existing.
 
-What the team records: the automatic mechanism worked perfectly — it promoted in 25 seconds, as designed.
-Everything else around it failed, and none of that was about the database.
+What the team records, with the distinction that cost 40 minutes to learn: **detection and promotion**
+worked as designed, in 25 seconds. What was missing was not periphery — it was the rest of the switching
+mechanism: quorum and fencing, without which promoting a replica in a two-copy design produces two
+primaries by construction. Around that, three things nobody had inventoried: the DNS time to live, the open
+connections and the applications with no reconnection. None is a defect of the database product; all are of
+the failover design.
 
 ## Related Concepts
 

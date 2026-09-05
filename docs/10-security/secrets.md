@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, supply-chain-trust, least-privilege]
 canonical_for: [segredo, gerenciador de segredos, rotação de credencial, vazamento de segredo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -39,7 +39,8 @@ Os lugares onde segredos vazam são conhecidos e se repetem:
 repositório de código      inclusive no histórico, após "remoção"
 imagem de contêiner        em camadas anteriores. Ver contêineres
 registros de aplicação     cabeçalhos, corpo de requisição, mensagens de erro
-variáveis de ambiente      visíveis em listagem de processos e em despejos
+variáveis de ambiente      herdadas por processo filho, expostas em `docker inspect`
+                           e no objeto do orquestrador, e em despejo de memória
 arquivo de configuração    copiado, versionado, compartilhado
 mensagem de chat           "manda a senha do banco aí"
 ticket de suporte          colado numa descrição de problema
@@ -141,12 +142,16 @@ de desenvolvimento não deveriam ser cópia de produção — ver
 
 ## Modelo Mental
 
-**O melhor segredo é o que não existe.** Para os que existem: rotação exercitada,
+**Segredo que não existe não vaza, não expira e não precisa de rotação.** Para os que
+existem: rotação exercitada,
 acesso auditado, e detecção automática.
 
 ## Quando Usar
 
-Gestão explícita se aplica sempre que houver credencial. Prioridade quando:
+Gestão explícita se paga quando o que a credencial protege vale mais que o custo de operar
+o gerenciador — o que cobre praticamente tudo em produção, e deixa de fora casos reais: um
+serviço só, com segredo de baixo valor, num ambiente onde a identidade de plataforma já cobre
+os acessos que importam. Prioridade quando:
 
 - Existem credenciais estáticas de longa duração.
 - Vários serviços compartilham a mesma credencial.
@@ -158,8 +163,11 @@ Gestão explícita se aplica sempre que houver credencial. Prioridade quando:
 
 **Segredo estático quando há identidade de plataforma disponível.**
 
-**Segredo em variável de ambiente** quando o gerenciador permite injeção direta —
-variáveis vazam em despejos e listagens.
+**Segredo em variável de ambiente** quando o gerenciador permite injeção direta. Não é
+pela listagem de processos: `ps` mostra a linha de comando, e o ambiente
+(`/proc/<pid>/environ`) só é legível pelo dono do processo e pelo root. Os vetores reais são
+outros — todo processo filho herda o ambiente, `docker inspect` e o objeto do orquestrador o
+exibem, e um despejo de memória o carrega junto.
 
 **Compartilhar credencial entre serviços.** Impede saber quem usou e obriga a
 rotacionar tudo junto.
@@ -214,7 +222,7 @@ rotacionar tudo junto.
 
 ## Erros Comuns
 
-**Não eliminar segredos quando há alternativa.** Identidade atribuída à carga de trabalho dispensa a credencial estática. O segredo mais seguro é o que não existe.
+**Não eliminar segredos quando há alternativa.** Identidade atribuída à carga de trabalho dispensa a credencial estática — e o que não existe não aparece em varredura, em despejo nem em repositório.
 
 **Remover do repositório sem rotacionar.** O histórico do Git preserva o valor, e clones já feitos também. Segredo commitado é segredo comprometido, e o único remédio é trocá-lo.
 
@@ -259,8 +267,10 @@ sido feita.
 
 A reformulação, ao longo de dez meses:
 
-**Eliminação.** Aplicações na nuvem passaram a usar identidade de plataforma. A
-esteira passou a usar federação. Isso removeu cerca de 60% dos segredos.
+**Eliminação.** O inventário consolidado tinha 214 segredos em uso. Aplicações na nuvem
+passaram a usar identidade de plataforma e a esteira passou a usar federação, o que eliminou
+129 deles — 60%, e a maior parte do que sobrou é credencial de sistema externo, que não tem
+como ser substituída por identidade.
 
 **Gerenciador de segredos** para o resto, com acesso auditado por segredo.
 
@@ -273,9 +283,13 @@ distinto. Rotacionar uma deixou de afetar as demais.
 
 **Filtro de segredos nos registros.**
 
-Na retrospectiva: a chave exposta no repositório público foi o gatilho, e era
-o menor dos problemas. O que a auditoria revelou — 31 credenciais válidas em
-repositórios internos, sem nenhuma auditoria de uso — era muito maior e não tinha
+Na retrospectiva: a chave exposta no repositório público foi o gatilho, e continua sendo o
+achado mais **grave** — é a única com permissão de administrador e a única com uso confirmado
+por terceiros, durante quatro meses. O que a auditoria revelou depois é maior em **escala**, e
+é outra categoria de risco: 31 credenciais válidas em repositórios internos, sem nenhuma
+auditoria de uso, nenhuma delas com abuso registrado. Uma é incidente consumado; as outras são
+a superfície que torna o próximo incidente provável. Confundir as duas coisas leva a priorizar
+errado, e não tinha
 gerado nenhum alerta em dois anos.
 
 ## Conceitos Relacionados

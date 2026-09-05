@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-partitioning, data-consistency, olap]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -57,8 +57,9 @@ A backup has history: it allows going back to the state before the error.
 ```text
 protects against            replication   backup
 hardware failure            yes           yes (with restore time)
-data center failure         yes           depends on where it is
-human error                 no            yes
+data center failure         depends on where the replicas are   depends on where it is
+human error                 no, if real-time; yes, with a delayed replica
+                            and within its window        yes
 logical corruption          no            yes
 an attack with deletion     no            yes, if isolated
 ```
@@ -130,8 +131,10 @@ partitioning solves it with no conflicts.
 
 ## Mental Model
 
-**Replication protects against machine failure, not against human error.** Both protections are
-necessary and they do not replace each other.
+**Real-time replication protects against machine failure, not against human error** — it propagates the
+destructive command with the same fidelity with which it propagates everything else. The exception is the
+delayed replica, which is replication used as a window for regret. Both protections are necessary and they
+do not replace each other.
 
 ## When to Use
 
