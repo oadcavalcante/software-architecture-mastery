@@ -12,8 +12,8 @@ objective: >
   amostragem que preserva o que importa.
 prerequisites: [traces]
 related: [traces, correlation-ids, telemetry]
-canonical_for: [rastreamento distribuído, amostragem de trace, amostragem por cauda, contexto de propagação]
-content_version: 1
+canonical_for: [rastreamento distribuído, amostragem de trace, amostragem por cauda]
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 

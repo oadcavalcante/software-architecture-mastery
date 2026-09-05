@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [distributed-tracing, logs, debuggability]
 canonical_for: [identificador de correlação, propagação de contexto, identificador de requisição]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -28,9 +28,9 @@ Com ele, é possível reunir todos os registros, todas as mensagens e todos os e
 que pertencem à mesma operação — mesmo que tenham passado por doze serviços e três
 filas.
 
-É a técnica de menor custo e maior retorno desta seção. E é o pré-requisito de quase
-tudo: sem correlação, logs de sistemas distribuídos são coleções de fragmentos que
-ninguém consegue montar.
+O custo de implantar é baixo perto do de rastreamento distribuído completo, e é
+pré-requisito das demais técnicas desta seção: sem correlação, logs de sistemas
+distribuídos são coleções de fragmentos que ninguém consegue montar.
 
 ## Problema
 
@@ -53,7 +53,7 @@ Com correlação, é uma consulta.
 ```text
 1. o identificador é gerado na entrada — gateway, balanceador ou primeiro serviço
 2. viaja em todas as chamadas subsequentes
-3. aparece em todo registro, métrica de alta cardinalidade e evento emitido
+3. aparece em todo registro e evento emitido — **não** em rótulo de métrica
 4. volta ao cliente na resposta
 ```
 
@@ -117,6 +117,8 @@ Um identificador propagado e não registrado não serve. Ele precisa aparecer:
 ```text
 em todo registro de aplicação
 em erros retornados ao cliente
+nunca em rótulo de métrica: é um valor por requisição, e cada valor vira
+  uma série temporal
 em mensagens publicadas
 em registros de acesso do gateway e do balanceador
 em eventos de auditoria
@@ -126,8 +128,8 @@ Isso é mais fácil de garantir por infraestrutura que por disciplina: um contex
 acompanha a execução e uma biblioteca de registro que o inclui automaticamente
 eliminam o esquecimento.
 
-Times que dependem de cada desenvolvedor lembrar de incluir têm cobertura parcial — e
-a parte que falta é sempre a que faz falta.
+Times que dependem de cada desenvolvedor lembrar de incluir têm cobertura parcial, e a
+parte que falta costuma ser descoberta no meio do incidente.
 
 ### Não coloque dado sensível
 
@@ -155,17 +157,20 @@ história separada.
 
 ## Quando Não Usar
 
-**Como identificador de negócio.** Ele é operacional, não é chave de domínio.
+**Quando já há rastreamento distribuído ponta a ponta.** Correlação é o subconjunto
+mínimo dele — manter um esquema próprio ao lado duplica propagação, cabeçalho e
+instrumentação para responder à mesma pergunta com menos informação.
 
-**Contendo dado pessoal.**
+**Em processo único, sem salto de rede.** O contexto da própria biblioteca de registro já
+cobre a operação inteira, e o identificador não atravessa nada.
 
-**Gerado em cada serviço.** Isso produz identificadores que não correlacionam nada.
+**Quando a cadeia que importa passa por terceiro que não repassa o cabeçalho.** O
+identificador morre ali, e o que sobra é cobertura parcial — pior que nenhuma, porque dá
+confiança onde não há. Se o salto crítico é justamente esse, o esforço rende mais em
+reconciliação por chave de negócio.
 
-**Propagado só em chamadas síncronas.** A cadeia quebra na primeira fila.
-
-**Dependendo de disciplina** em vez de infraestrutura.
-
-**Sem validar** o formato de identificadores recebidos de fora.
+**Como identificador de negócio.** Ele é operacional, não é chave de domínio: some no
+expurgo de logs, não tem garantia de unicidade eterna e não pertence a nenhum agregado.
 
 ## Alternativas
 
@@ -187,7 +192,7 @@ história separada.
 
 | Um identificador | Vários |
 |---|---|
-| Simples | Distingue requisição de operação |
+| Um campo a propagar | Quatro campos a propagar e manter coerentes |
 | Não separa retentativas | Separa |
 
 ## Modos de Falha
@@ -287,5 +292,7 @@ correlação atual.
 
 - Sigelman, Benjamin et al. *Dapper, a Large-Scale Distributed Systems Tracing
   Infrastructure*. Google, 2010.
-- W3C Trace Context — especificação de propagação.
+- W3C. *Trace Context*, Recomendação, 2021 — padroniza `traceparent` e `tracestate`, que
+  carregam contexto de **trace**; não define cabeçalho genérico de correlação. O Level 2
+  segue como rascunho de recomendação candidata.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.
