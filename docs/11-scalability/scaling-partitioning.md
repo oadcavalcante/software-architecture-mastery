@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scaling-replication]
 related: [scaling-replication, hotspots, database-scaling]
 canonical_for: [partição para escala, rebalanceamento, consulta entre partições]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -250,7 +250,8 @@ unicidade global, impossível de impor com a partição por conversa. Resolvido 
 tabela de deduplicação separada, particionada por resumo do arquivo.
 
 **Rebalanceamento.** A implementação original mapeava conversa para nó por módulo do
-número de nós. Passar de 8 para 12 nós remapearia 75% dos dados. A migração para
+número de nós. Passar de 8 para 12 nós remapearia dois terços dos dados — só permanece a chave em que
+`k mod 8` e `k mod 12` coincidem, que é uma em cada três. A migração para
 partições fixas — 1.024 partições distribuídas entre os nós — levou quatro meses e foi
 feita com o sistema no ar.
 

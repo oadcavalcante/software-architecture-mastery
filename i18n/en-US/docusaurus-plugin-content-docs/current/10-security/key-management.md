@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encryption]
 related: [encryption, secrets, data-protection]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -231,9 +231,12 @@ Three problems appeared over four years:
 documents — estimated at three weeks of processing and a high read and write cost. The key was four years
 old.
 
-**No version.** An earlier partial rotation attempt left around 200,000 documents encrypted with an
-intermediate key, and there was no record of which ones. They were unreadable until somebody, months later,
-found the old key in a decommissioned configuration repository.
+**A lost key, and no version to tell which documents.** An earlier partial rotation attempt left around
+200,000 documents encrypted with an intermediate key. Two things went wrong, and it is worth separating
+them: the key had gone missing — that is what made the documents unreadable, until somebody found it
+months later in a decommissioned configuration repository. The missing version in the metadata cost
+something else: without it, even with every key in hand, classifying the archive required attempting
+decryption of each object with each known key.
 
 **The key accessible to whoever administered the storage.** The same team could read the objects and obtain
 the key. The encryption did not protect against the administrator, which was precisely the threat cited in

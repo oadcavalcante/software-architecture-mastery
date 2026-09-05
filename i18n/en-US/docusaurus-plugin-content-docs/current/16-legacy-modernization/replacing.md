@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, rebuilding, saas]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -84,8 +84,8 @@ The specific rules item is what most frequently makes it unviable: old systems a
 exceptions no generic product anticipates. See
 [legacy systems](/16-legacy-modernization/legacy-systems.md).
 
-And the assessment has to happen with real data, not with a demo — which is always done
-with the happy path.
+And the assessment has to happen with real data, not with a demo — which is run over the
+script and the dataset the vendor picked.
 
 ### The vendor's boundary enters the organization
 

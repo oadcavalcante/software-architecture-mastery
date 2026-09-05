@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-replication, scaling-partitioning, hotspots]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -219,7 +219,8 @@ instances multiply their number. The connection limit is usually reached well be
 business-hours transactions, and it is the most frequent cause of unexplained intermittent slowness.
 
 **Not archiving cold data.** Tables that grow forever degrade indexing, backup and restore. Moving the
-history nobody queries is the highest-return intervention and the least done.
+history nobody queries usually returns more per engineering week than any other rung, when the table grows
+with no retention policy and the indexes have stopped fitting in memory.
 
 **Choosing a partition key without analyzing the query pattern.** If the key does not appear in the
 frequent queries, each one has to ask every partition — and the partitioning has worsened the performance
@@ -238,9 +239,9 @@ The ladder was walked first:
 **Rung 1 — queries.** Three queries accounted for 60% of the read load. Two had unnecessary joins; one was
 missing a composite index. Fixed in four days. The read load fell 45%.
 
-**Rung 2 — connections.** 1,100 connections open against a 400 limit configured in the database, with a
-waiting queue. A connection pooler reduced it to 180 real connections. The peak timeouts disappeared that
-same day.
+**Rung 2 — connections.** The instances demanded 1,100 connections against a 400 limit in the database:
+the excess ones were refused, and the waiting queue sat in each application's pool. A connection pooler
+reduced it to 180 real connections. The peak timeouts disappeared that same day.
 
 **Rung 3 — caching.** Merchant data, read on every transaction and changed rarely, went to a cache with
 event-based invalidation. 30% fewer reads.

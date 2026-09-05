@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, slo, sre-concepts]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -241,10 +241,12 @@ unnoticed for hours.
 The review, done with twelve months of data:
 
 ```text
-fire and nobody acts             118 alerts → removed
-never fired in 12 months          47 alerts → 31 removed, 16 fixed
-fire weekly                       22 alerts → known problems, prioritized
-actionable and urgent             27 alerts → kept
+fire and nobody acts             118 → 84 removed, 34 downgraded to a ticket
+never fired in 12 months          47 → 31 removed, 16 fixed
+fire weekly                       22 → 11 automated, 11 became tasks
+actionable and urgent             27 → kept
+                                 ————
+                                  214
 ```
 
 The 22 in the third line were the most interesting finding: each one represented a recurring problem the
@@ -253,11 +255,14 @@ automated; the other eleven became fix tasks.
 
 The reformulation:
 
-**27 alerts kept**, all symptom-based.
+**43 active alerts** — the 27 actionable ones plus the 16 that had never fired because of a configuration
+defect and now do.
 
-**Error budget alerts** for the three critical journeys, replacing nine threshold alerts.
+**Error budget alerts** for the three critical journeys, replacing nine of those 43 that were
+threshold-based. The final configuration came to **37**.
 
-**Downgrading to a ticket** for 34 conditions that needed action with no urgency.
+**Downgrading to a ticket** for the 34 that needed action with no urgency — the ones that fired and nobody
+acted on, but that described a real condition.
 
 **Cascade grouping**: when a dependency fails, the alerts from the services depending on it are suppressed
 and grouped into the cause's notification.
@@ -270,7 +275,7 @@ hours' changes.
 Result: from 31 notifications a day to **1.4**. And the average response time fell, because each
 notification came to be taken seriously.
 
-The learning that stuck: the 118 removed alerts had been created by reasonable people, each in response to
+The learning that stuck: the 115 removed alerts had been created by reasonable people, each in response to
 a real incident. None was an individual mistake — the mistake was never reviewing.
 
 ## Related Concepts

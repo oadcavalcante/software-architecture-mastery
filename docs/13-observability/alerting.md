@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, slo, sre-concepts]
 canonical_for: [alerta acionável, fadiga de alerta, sintoma versus causa, alerta baseado em SLO]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -241,10 +241,12 @@ incidentes reais tinham passado despercebidos por horas.
 A revisão, feita com doze meses de dados:
 
 ```text
-disparam e ninguém age            118 alertas → removidos
-nunca dispararam em 12 meses       47 alertas → 31 removidos, 16 corrigidos
-disparam semanalmente              22 alertas → problemas conhecidos, priorizados
-acionáveis e urgentes              27 alertas → mantidos
+disparam e ninguém age            118 → 84 removidos, 34 rebaixados para ticket
+nunca dispararam em 12 meses       47 → 31 removidos, 16 corrigidos
+disparam semanalmente              22 → 11 automatizados, 11 viraram tarefa
+acionáveis e urgentes              27 → mantidos
+                                  ————
+                                   214
 ```
 
 Os 22 da terceira linha foram o achado mais interessante: cada um representava um
@@ -254,12 +256,14 @@ de correção.
 
 A reformulação:
 
-**27 alertas mantidos**, todos baseados em sintoma.
+**43 alertas ativos** — os 27 acionáveis mais os 16 que nunca tinham disparado por defeito
+de configuração e passaram a disparar.
 
-**Alertas por orçamento de erro** para as três jornadas críticas, substituindo nove
-alertas de limiar.
+**Alertas por orçamento de erro** para as três jornadas críticas, substituindo nove desses 43
+que eram de limiar. A configuração final ficou em **37**.
 
-**Rebaixamento para ticket** de 34 condições que precisavam de ação sem urgência.
+**Rebaixamento para ticket** dos 34 que precisavam de ação sem urgência — os que disparavam
+e ninguém agia, mas que descreviam condição real.
 
 **Agrupamento de cascata**: quando uma dependência falha, os alertas dos serviços que
 dependem dela são suprimidos e agrupados na notificação da causa.
@@ -272,7 +276,7 @@ mudanças das últimas duas horas.
 Resultado: de 31 notificações por dia para **1,4**. E o tempo médio de resposta caiu,
 porque cada notificação passou a ser levada a sério.
 
-O aprendizado que ficou: os 118 alertas removidos tinham sido criados por pessoas
+O aprendizado que ficou: os 115 alertas removidos tinham sido criados por pessoas
 razoáveis, cada um em resposta a um incidente real. Nenhum foi um erro individual — o
 erro foi nunca revisar.
 

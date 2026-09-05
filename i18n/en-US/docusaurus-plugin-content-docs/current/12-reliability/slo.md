@@ -13,7 +13,7 @@ objective: >
 prerequisites: [sli]
 related: [sli, sla, availability-metrics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -196,7 +196,8 @@ balance.** It exists to be spent, not to be preserved.
 
 **An unreachable target.** It loses its guiding value.
 
-**Too loose a target.** It is never missed, and real degradation does not show.
+**Too loose a target.** It is met with room to spare every month, including when the service gets worse — and
+then it stops telling anyone anything.
 
 **Defined without the business.** Nobody respects the freeze.
 
@@ -252,8 +253,9 @@ What happened in the first six months:
 Both causes were the same: an external geolocation dependency with no circuit breaker. Once fixed, the
 journey stabilized.
 
-**Shipment creation stayed at 99.98%** — well above the target. That revealed over-investment: there was
-redundancy and checking the target did not require. Part of the effort was reallocated.
+**Shipment creation stayed at 99.995%** — consuming a tenth of the 99.95% budget. By the budget's own
+yardstick, that is over-investment: there was redundancy and checking the target did not require, and the
+risk it freed up was not being spent on shipping. Part of the effort was reallocated.
 
 **The management report stayed at 98.2%**, below the target — and the analysis showed nobody cared. The
 target was renegotiated to 97%, and the team stopped treating failures there as urgent.

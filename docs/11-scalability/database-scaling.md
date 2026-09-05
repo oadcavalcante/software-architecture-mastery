@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-replication, scaling-partitioning, hotspots]
 canonical_for: [escala de banco de dados, pool de conexões, contenção de escrita, escada de escalada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -224,7 +224,9 @@ Cada degrau tem seu momento:
 
 **Não separar carga analítica.** Uma consulta que varre meses compete por memória e disco com as transações do horário comercial, e é a causa mais frequente de lentidão intermitente sem explicação.
 
-**Não arquivar dados frios.** Tabelas que crescem para sempre degradam índice, backup e restauração. Mover o histórico que ninguém consulta é a intervenção de melhor retorno e a menos feita.
+**Não arquivar dados frios.** Tabelas que crescem para sempre degradam índice, backup e restauração. Mover o histórico que ninguém consulta costuma render mais por semana de engenharia que
+qualquer outro degrau, quando a tabela cresce sem política de retenção e os índices deixaram
+de caber em memória.
 
 **Escolher chave de partição sem analisar o padrão de consulta.** Se a chave não aparece nas consultas frequentes, cada uma delas precisa perguntar a todas as partições — e o particionamento piorou o desempenho que deveria melhorar.
 
@@ -242,8 +244,8 @@ A escada foi percorrida antes:
 tinham junções desnecessárias; uma faltava índice composto. Correção em quatro dias.
 Carga de leitura caiu 45%.
 
-**Degrau 2 — conexões.** 1.100 conexões abertas contra um limite de 400 configurado no
-banco, com fila de espera. Um intermediário de conexões reduziu para 180 conexões
+**Degrau 2 — conexões.** As instâncias demandavam 1.100 conexões contra um limite de 400 no
+banco: as excedentes eram recusadas, e a fila de espera ficava no pool de cada aplicação. Um intermediário de conexões reduziu para 180 conexões
 reais. Os timeouts de pico desapareceram nesse mesmo dia.
 
 **Degrau 3 — cache.** Dados de comerciante, lidos em toda transação e alterados

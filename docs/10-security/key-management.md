@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encryption]
 related: [encryption, secrets, data-protection]
 canonical_for: [gestão de chaves, chave mestra, cifragem envelopada, rotação de chave]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -231,10 +231,13 @@ Três problemas apareceram ao longo de quatro anos:
 recifrar 14 milhões de documentos — estimado em três semanas de processamento e um
 custo alto de leitura e escrita. A chave tinha quatro anos.
 
-**Sem versão.** Uma tentativa anterior de rotação parcial deixou cerca de 200 mil
-documentos cifrados com uma chave intermediária, e não havia registro de quais. Eles
-ficaram ilegíveis até que alguém, meses depois, encontrasse a chave antiga num
-repositório de configuração desativado.
+**Chave perdida, e sem versão para saber quais.** Uma tentativa anterior de rotação parcial
+deixou cerca de 200 mil documentos cifrados com uma chave intermediária. Duas coisas deram
+errado, e vale separá-las: a chave tinha sumido — foi isso que tornou os documentos
+ilegíveis, até que alguém a encontrasse meses depois num repositório de configuração
+desativado. A falta de versão no metadado custou outra coisa: sem ela, mesmo com todas as
+chaves em mãos, classificar o acervo exigiu tentar decifrar cada objeto com cada chave
+conhecida.
 
 **Chave acessível a quem administrava o armazenamento.** A mesma equipe podia ler os
 objetos e obter a chave. A cifragem não protegia contra o administrador, que era

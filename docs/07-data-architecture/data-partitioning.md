@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-replication, indexing, data-lifecycle]
 canonical_for: [partição de tabela, descarte de partição, partição por intervalo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -208,8 +208,9 @@ causa mais provável.
 
 ## Exemplo Real
 
-Um sistema de monitoramento industrial guardava leituras de sensores: 8 bilhões de
-linhas, crescendo 40 milhões por dia, com retenção de 3 anos.
+Um sistema de monitoramento industrial guardava leituras de sensores: 44 bilhões de
+linhas, crescendo 40 milhões por dia, com retenção de 3 anos — o regime em que a taxa e a
+retenção já se equilibraram.
 
 Dois problemas dominavam a operação.
 

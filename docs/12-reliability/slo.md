@@ -13,7 +13,7 @@ objective: >
 prerequisites: [sli]
 related: [sli, sla, availability-metrics]
 canonical_for: [SLO, objetivo de nível de serviço, orçamento de erro, taxa de consumo]
-content_version: 1
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -202,7 +202,8 @@ decorativo.
 
 **Alvo inatingível.** Perde valor de orientação.
 
-**Alvo frouxo demais.** Nunca é atingido, e a degradação real não aparece.
+**Alvo frouxo demais.** É atingido com folga todo mês, inclusive quando o serviço piora — e
+aí ele deixa de informar qualquer coisa.
 
 **Definido sem o negócio.** Ninguém respeita o congelamento.
 
@@ -258,9 +259,10 @@ O que aconteceu nos primeiros seis meses:
 discussão, porque a regra estava acordada. As duas causas eram a mesma: uma dependência
 externa de geolocalização sem circuit breaker. Corrigida, a jornada estabilizou.
 
-**Criação de remessa ficou em 99,98%** — bem acima do alvo. Isso revelou
-sobre-investimento: havia redundância e verificações que o alvo não exigia. Parte do
-esforço foi realocado.
+**Criação de remessa ficou em 99,995%** — consumindo um décimo do orçamento de 99,95%. Pela
+régua do próprio orçamento, isso é sobre-investimento: havia redundância e verificações que o
+alvo não exigia, e o risco liberado não estava sendo usado para entregar. Parte do esforço foi
+realocada.
 
 **Relatório gerencial ficou em 98,2%**, abaixo do alvo — e a análise mostrou que ninguém
 se importava. O alvo foi renegociado para 97%, e o time parou de tratar as falhas dali

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scaling-replication]
 related: [scaling-replication, hotspots, database-scaling]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -240,7 +240,8 @@ deduplication by content hash. That is a global uniqueness constraint, impossibl
 partitioning by conversation. Resolved with a separate deduplication table, partitioned by the file's hash.
 
 **Rebalancing.** The original implementation mapped conversation to node by the modulus of the number of
-nodes. Going from 8 to 12 nodes would remap 75% of the data. The migration to fixed partitions — 1,024
+nodes. Going from 8 to 12 nodes would remap two thirds of the data — only the keys where `k mod 8` and
+`k mod 12` coincide stay put, which is one in every three. The migration to fixed partitions — 1,024
 partitions distributed across the nodes — took four months and was done with the system live.
 
 That last one was the most expensive, and it was the most avoidable: the mapping strategy had been chosen

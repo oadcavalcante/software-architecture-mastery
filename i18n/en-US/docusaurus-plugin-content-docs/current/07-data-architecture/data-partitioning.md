@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-replication, indexing, data-lifecycle]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -196,8 +196,8 @@ likely cause.
 
 ## Real-World Example
 
-An industrial monitoring system stored sensor readings: 8 billion rows, growing by 40 million per day,
-with 3 years of retention.
+An industrial monitoring system stored sensor readings: 44 billion rows, growing by 40 million per day,
+with 3 years of retention — the regime in which rate and retention have already balanced out.
 
 Two problems dominated operations.
 

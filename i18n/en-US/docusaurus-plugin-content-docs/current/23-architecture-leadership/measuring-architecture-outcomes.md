@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fitness-functions]
 related: [fitness-functions, evolutionary-architecture, cost-management]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -126,8 +126,9 @@ segmented by
 An average lead time of 8 days can hide three domains at 2 days and one at 30. The average triggers
 nothing; the segmentation points at where to act.
 
-See the [streaming case study](/21-case-studies/video-streaming.md), where the aggregate p95 looked
-fine and 8% of users had an experience three times worse.
+See the [streaming case study](/21-case-studies/video-streaming.md), where segmenting by connection
+quality revealed what the average was hiding: 22% of sessions occur below 5 Mbps, and in those the
+abandonment rate in the first thirty seconds is 19%, against 3% in the rest.
 
 ### Architecture metrics come from what already exists
 

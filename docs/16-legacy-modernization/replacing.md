@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, rebuilding, saas]
 canonical_for: [substituição por produto, lacuna funcional, customização excessiva]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -82,8 +82,8 @@ O item de regras específicas é o que mais frequentemente inviabiliza: sistemas
 acumulam exceções que nenhum produto genérico prevê. Ver
 [sistemas legados](/16-legacy-modernization/legacy-systems.md).
 
-E a avaliação precisa acontecer com dados reais, não com demonstração — que é sempre
-feita com o caso feliz.
+E a avaliação precisa acontecer com dados reais, não com demonstração — que é conduzida
+sobre o roteiro e o conjunto de dados que o fornecedor escolheu.
 
 ### A fronteira do fornecedor entra na organização
 

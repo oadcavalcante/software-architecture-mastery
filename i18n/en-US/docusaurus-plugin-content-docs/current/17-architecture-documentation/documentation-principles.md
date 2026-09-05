@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [living-documentation, architecture-views, diagram-quality]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -189,17 +189,23 @@ what only human writing captures.
 
 ## When Not to Use
 
-**Documenting with no defined reader.**
+**When nobody will own the maintenance of the detail you are about to write.** Every level
+of detail creates a recurring obligation, and detail with no owner is what goes stale first —
+and fastest, because it is what changes most.
 
-**At the same level of detail for everything.**
+**When the knowledge has not been discovered yet.** On-demand documentation has a limit: it
+only records what someone has already asked. For what is discovered late — the reason behind
+a constraint, what was tried and did not work — waiting for the question means losing the
+answer along with the person who had it.
 
-**Far from the code.**
+**When there is no answer to "who maintains this, and on what trigger".** Without both, the
+document is born with an expiry date and nobody knows what it is. See
+[documentation standards](/17-architecture-documentation/documentation-standards.md), which
+covers the trigger and the owner.
 
-**Preventively, what nobody asks about.**
-
-**Describing what the code already says**, instead of the why.
-
-**Keeping what isn't trustworthy** instead of removing it.
+**When what you were about to write is what the code already says.** There the text is not
+redundant: it is a second source that will diverge, and the divergence costs more than the
+absence.
 
 ## Alternatives
 
@@ -235,7 +241,9 @@ document.
 
 **Too much detail.** It ages before it is useful.
 
-**Far from the code.** It diverges inevitably.
+**Far from the code, with no trigger that forces the update.** Nothing obliges whoever
+changes the behaviour to touch the text, and the divergence only surfaces when someone
+relies on it.
 
 **Describes the what, not the why.** The code already said the what.
 
@@ -296,7 +304,7 @@ questions become answers.
 Eighteen months later:
 
 ```text
-documents maintained                          78
+documents maintained                          78 (40 survivors, 38 written in the overhaul)
 accessed more than 10 times in the year       61
 share considered trustworthy (survey)         84%, against 22% before
 ```
@@ -329,5 +337,6 @@ answer are candidates for removal.
 ## Further Reading
 
 - Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015.
-- Parnas, David; Clements, Paul. *A Rational Design Process*. IEEE TSE, 1986.
+- Parnas, David; Clements, Paul. *A Rational Design Process: How and Why to Fake It*.
+  IEEE TSE, vol. SE-12, no. 2, 1986.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

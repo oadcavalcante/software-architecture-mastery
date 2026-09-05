@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fitness-functions]
 related: [fitness-functions, evolutionary-architecture, cost-management]
 canonical_for: [medição de resultado arquitetural, indicador de arquitetura, evidência de melhoria, atividade contra efeito]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -126,8 +126,9 @@ segmentada por
 Um tempo médio de entrega de 8 dias pode esconder três domínios em 2 dias e um em 30. A média não
 aciona nada; a segmentação aponta onde atuar.
 
-Ver o [case de streaming](/21-case-studies/video-streaming.md), em que o p95 agregado parecia
-bom e 8% dos usuários tinham experiência três vezes pior.
+Ver o [case de streaming](/21-case-studies/video-streaming.md), em que a segmentação por
+qualidade de conexão revelou o que a média escondia: 22% das sessões acontecem abaixo de
+5 Mbps, e nelas o abandono nos primeiros trinta segundos é de 19% contra 3% nas demais.
 
 ### Métricas de arquitetura vêm do que já existe
 
