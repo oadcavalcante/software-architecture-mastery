@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [abstract-factory, builder, strategy]
 canonical_for: [factory method]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -43,6 +43,9 @@ pode conhecer o que está sendo criado**. Fora dessa condição, ele é indireç
 ## Conceitos Centrais
 
 ### A estrutura
+
+A seta `cria` é a única entre dois tipos concretos; as outras três terminam num tipo
+abstrato. É ali que o padrão concentra o acoplamento.
 
 ```mermaid
 graph TB

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [composite, visitor, flyweight]
 canonical_for: [iterator, iterador]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -45,6 +45,9 @@ estrutura por trás.
 ## Conceitos Centrais
 
 ### A estrutura
+
+O cliente usa, a coleção cria e o concreto implementa — três relações diferentes,
+amarradas às mesmas duas assinaturas.
 
 ```mermaid
 graph LR

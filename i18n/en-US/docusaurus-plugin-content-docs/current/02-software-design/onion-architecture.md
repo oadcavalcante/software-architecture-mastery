@@ -13,7 +13,7 @@ objective: >
 prerequisites: [hexagonal-architecture]
 related: [ports-and-adapters, clean-architecture, layering]
 canonical_for: [onion architecture]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -44,6 +44,9 @@ Onion answers by naming the inner rings.
 ## Core Concepts
 
 ### The rings
+
+The concentric circles are stretched into a vertical chain: the lower a box sits, the
+deeper the ring — domain services land below application services.
 
 ```mermaid
 graph TB

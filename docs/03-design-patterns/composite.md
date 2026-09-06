@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, iterator, visitor]
 canonical_for: [composite, hierarquia parte-todo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -46,6 +46,9 @@ contar, buscar. Adicionar um tipo de nó exige tocar todos eles.
 ## Conceitos Centrais
 
 ### A estrutura
+
+Repare para onde aponta a seta `contém`: para a interface, não para o composto.
+Qualquer um dos dois implementadores serve como filho.
 
 ```mermaid
 graph TB

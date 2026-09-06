@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, iterator, visitor]
 canonical_for: [composite, part-whole hierarchy]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -46,6 +46,9 @@ Adding a node type requires touching all of them.
 ## Core Concepts
 
 ### The structure
+
+Look at where the `contains` arrow points: at the interface, not at the composite.
+Either implementer can be a child.
 
 ```mermaid
 graph TB

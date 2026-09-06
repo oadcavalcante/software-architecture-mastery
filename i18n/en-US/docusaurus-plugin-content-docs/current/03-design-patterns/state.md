@@ -13,7 +13,7 @@ objective: >
 prerequisites: [strategy]
 related: [strategy, command, memento]
 canonical_for: [state, state machine]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -53,6 +53,9 @@ can answer "which transitions are valid?" without reading the whole system.
 ## Core Concepts
 
 ### The structure
+
+Cancel is available from only two states — the conditional in the Problem names two
+forbidden ones and is silent about the other four. Only the drawing makes the rule visible.
 
 ```mermaid
 stateDiagram-v2

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [non-functional-requirements]
 related: [constraints, architecture-characteristics]
 canonical_for: [quality attributes]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 

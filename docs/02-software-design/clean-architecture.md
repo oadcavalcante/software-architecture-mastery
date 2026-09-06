@@ -13,7 +13,7 @@ objective: >
 prerequisites: [onion-architecture]
 related: [ports-and-adapters, hexagonal-architecture, layering]
 canonical_for: [clean architecture, regra da dependência]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -43,6 +43,9 @@ ferramenta usada, não o negócio. Abrir o repositório mostra `controllers`,
 ## Conceitos Centrais
 
 ### Os círculos
+
+Olhe a seta de cima: é Frameworks e Drivers que depende dos adaptadores, invertendo a
+direção que essa relação tem na maioria dos sistemas.
 
 ```mermaid
 graph TB

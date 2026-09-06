@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [composite, visitor, flyweight]
 canonical_for: [iterator]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -46,6 +46,9 @@ behind them.
 ## Core Concepts
 
 ### The structure
+
+The client uses it, the collection creates it, the concrete class implements it — three
+different relationships, tied to the same two signatures.
 
 ```mermaid
 graph LR

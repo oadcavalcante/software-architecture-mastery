@@ -13,7 +13,7 @@ objective: >
 prerequisites: [factory-method]
 related: [factory-method, builder, facade]
 canonical_for: [abstract factory]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -43,6 +43,9 @@ objetos são compatíveis por construção.**
 ## Conceitos Centrais
 
 ### A estrutura
+
+De cada fábrica saem duas setas: uma para a interface que as duas compartilham, outra
+para a caixa que só ela cria.
 
 ```mermaid
 graph TB

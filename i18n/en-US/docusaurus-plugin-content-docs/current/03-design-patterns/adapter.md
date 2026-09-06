@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [facade, bridge, proxy]
 canonical_for: [adapter]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -45,6 +45,9 @@ makes it possible to swap the library by changing one file.
 ## Core Concepts
 
 ### The structure
+
+The external class only ever appears at the receiving end of an arrow: it is adapted
+without knowing it.
 
 ```mermaid
 graph LR

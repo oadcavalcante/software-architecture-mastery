@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [state, template-method, bridge]
 canonical_for: [strategy]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -56,6 +56,8 @@ And it prevents variation at runtime: the choice is in the code, not in the data
 ## Core Concepts
 
 ### The structure
+
+Only the context's arrow is solid — the other two mark implementation, not use.
 
 ```mermaid
 graph LR

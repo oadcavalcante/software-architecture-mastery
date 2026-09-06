@@ -14,7 +14,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [architecture-vs-implementation, coupling]
 canonical_for: [arquitetura vs design]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 

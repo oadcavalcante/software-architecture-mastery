@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observer]
 related: [observer, facade, command]
 canonical_for: [mediator, mediador]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -43,6 +43,9 @@ ficam num lugar.
 ## Conceitos Centrais
 
 ### A estrutura
+
+Cada colega se liga ao mediador duas vezes, ida e volta: seis setas ao todo — o mesmo
+que três colegas se conhecendo diretamente produziriam.
 
 ```mermaid
 graph TB

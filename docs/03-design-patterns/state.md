@@ -13,7 +13,7 @@ objective: >
 prerequisites: [strategy]
 related: [strategy, command, memento]
 canonical_for: [state, máquina de estados]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -55,6 +55,9 @@ ler o sistema inteiro.
 ## Conceitos Centrais
 
 ### A estrutura
+
+Cancelar sai de dois estados apenas — o condicional do Problema nomeia dois proibidos e
+cala sobre os outros quatro. A regra só fica visível quando desenhada.
 
 ```mermaid
 stateDiagram-v2

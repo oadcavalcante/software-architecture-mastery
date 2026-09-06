@@ -13,7 +13,7 @@ objective: >
 prerequisites: [composite]
 related: [proxy, composite, strategy]
 canonical_for: [decorator, decorador]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -46,6 +46,9 @@ new Buffer(new Compressao(new Cifra(fluxoBase)))
 ## Conceitos Centrais
 
 ### A estrutura
+
+Compare o componente concreto e o decorador: do primeiro sai uma seta, do segundo saem
+duas — e as duas chegam à mesma caixa.
 
 ```mermaid
 graph LR

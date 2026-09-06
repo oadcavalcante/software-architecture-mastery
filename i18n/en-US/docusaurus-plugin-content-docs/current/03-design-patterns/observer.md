@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [mediator, command, event-driven]
 canonical_for: [observer, publish-subscribe]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -43,6 +43,9 @@ merely announces.
 ## Core Concepts
 
 ### The structure
+
+In the subject's label, `register()` is what puts observers at the far end of the solid
+arrow — one arrow in the drawing, a list at runtime.
 
 ```mermaid
 graph LR

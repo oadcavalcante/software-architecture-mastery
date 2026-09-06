@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [event-driven, chain-of-responsibility, decorator]
 canonical_for: [pipes and filters, pipeline]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -43,6 +43,9 @@ saída, e nenhum conhecimento do contexto.**
 ## Conceitos Centrais
 
 ### A estrutura
+
+Quatro filtros nomeados por verbos e cinco setas entre Entrada e Saída: a figura
+contém o estilo inteiro.
 
 ```mermaid
 graph LR

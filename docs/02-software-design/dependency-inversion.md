@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [dependency-direction, hexagonal-architecture, solid]
 canonical_for: [inversão de dependência, dependency inversion]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -54,6 +54,9 @@ dependa na direção da estabilidade.
 ## Conceitos Centrais
 
 ### A mecânica
+
+Compare os dois subgrafos pelo destino das setas: em Antes a única seta termina no
+RepositorioSQL; em Depois, as duas terminam na interface.
 
 ```mermaid
 graph LR

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [dependency-inversion]
 related: [hexagonal-architecture, onion-architecture, clean-architecture]
 canonical_for: [ports and adapters, primary port, secondary port]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 

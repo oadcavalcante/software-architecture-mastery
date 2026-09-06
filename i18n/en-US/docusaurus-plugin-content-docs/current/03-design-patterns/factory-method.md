@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [abstract-factory, builder, strategy]
 canonical_for: [factory method]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -45,6 +45,9 @@ indirection.
 ## Core Concepts
 
 ### The structure
+
+The `creates` arrow is the only one between two concrete types; the other three end at
+an abstract one. That is where the pattern concentrates the coupling.
 
 ```mermaid
 graph TB

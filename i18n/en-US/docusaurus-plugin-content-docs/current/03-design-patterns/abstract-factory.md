@@ -13,7 +13,7 @@ objective: >
 prerequisites: [factory-method]
 related: [factory-method, builder, facade]
 canonical_for: [abstract factory]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -43,6 +43,9 @@ factory, the objects are compatible by construction.**
 ## Core Concepts
 
 ### The structure
+
+Two arrows leave each factory: one to the interface both of them share, the other to
+the box only that factory creates.
 
 ```mermaid
 graph TB

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [memento, strategy, cqrs]
 canonical_for: [command, comando]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -44,6 +44,9 @@ Todas essas exigem que a operação **exista como coisa**, não como evento pass
 ## Conceitos Centrais
 
 ### A estrutura
+
+Só uma caixa carrega o estereótipo «interface», a do Comando: o Receptor é uma classe
+comum, que não precisa saber que existe um comando.
 
 ```mermaid
 graph LR

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [mediator, command, event-driven]
 canonical_for: [observer, observador, publicar-assinar]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -42,6 +42,9 @@ Observer inverte: os interessados se registram, e o observado apenas anuncia.
 ## Conceitos Centrais
 
 ### A estrutura
+
+No rótulo do sujeito, `registrar()` é a operação que coloca observadores na outra ponta
+da seta cheia — uma seta no desenho, uma lista em execução.
 
 ```mermaid
 graph LR

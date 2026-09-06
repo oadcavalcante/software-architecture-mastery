@@ -13,7 +13,7 @@ objective: >
 prerequisites: [hexagonal-architecture]
 related: [ports-and-adapters, clean-architecture, layering]
 canonical_for: [arquitetura onion, onion architecture]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -43,6 +43,9 @@ Onion responde nomeando os anéis internos.
 ## Conceitos Centrais
 
 ### Os anéis
+
+Os círculos concêntricos estão esticados numa cadeia vertical: quanto mais abaixo a
+caixa, mais interno o anel — serviços de domínio caem abaixo dos de aplicação.
 
 ```mermaid
 graph TB

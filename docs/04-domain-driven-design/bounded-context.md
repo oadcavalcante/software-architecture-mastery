@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain, ubiquitous-language]
 related: [context-mapping, anti-corruption-layer, modular-design]
 canonical_for: [bounded context, contexto delimitado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 

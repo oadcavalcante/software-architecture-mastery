@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, abstract-factory, composite]
 canonical_for: [builder]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -43,6 +43,9 @@ Both problems are real. They are different.
 ## Core Concepts
 
 ### GoF Builder — one process, several representations
+
+The director's arrow ends at the interface: it never reaches a concrete builder. Both
+builders share that interface, while the products they return need not share a type.
 
 ```mermaid
 graph LR

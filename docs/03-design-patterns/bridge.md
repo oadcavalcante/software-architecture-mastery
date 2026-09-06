@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adapter]
 related: [adapter, strategy, abstract-factory]
 canonical_for: [bridge]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -59,6 +59,9 @@ separadamente e se combinam por composição.
 ## Conceitos Centrais
 
 ### A estrutura
+
+A única seta cheia liga o topo de uma hierarquia ao topo da outra: `Circulo` não
+conhece `RenderizadorVetorial`.
 
 ```mermaid
 graph LR

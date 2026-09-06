@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, command, mediator]
 canonical_for: [chain of responsibility, cadeia de responsabilidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -42,6 +42,9 @@ Com a cadeia, o emissor conhece apenas o primeiro elo.
 ## Conceitos Centrais
 
 ### A estrutura
+
+Do emissor ao Tratador C há um caminho só, e as setas são todas do mesmo tipo: nada no
+desenho distingue quem trata de quem repassa.
 
 ```mermaid
 graph LR

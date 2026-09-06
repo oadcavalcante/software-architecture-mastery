@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observer]
 related: [observer, facade, command]
 canonical_for: [mediator]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -42,6 +42,9 @@ one place.
 ## Core Concepts
 
 ### The structure
+
+Each colleague connects to the mediator twice, there and back: six arrows in all — the
+same number that three colleagues knowing each other directly would produce.
 
 ```mermaid
 graph TB

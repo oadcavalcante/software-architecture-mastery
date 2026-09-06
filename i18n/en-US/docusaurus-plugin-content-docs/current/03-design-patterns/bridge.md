@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adapter]
 related: [adapter, strategy, abstract-factory]
 canonical_for: [bridge]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -59,6 +59,9 @@ combine by composition.
 ## Core Concepts
 
 ### The structure
+
+The only solid arrow links the top of one hierarchy to the top of the other: `Circle`
+knows nothing of `VectorRenderer`.
 
 ```mermaid
 graph LR

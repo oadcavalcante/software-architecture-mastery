@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [facade, bridge, proxy]
 canonical_for: [adapter, adaptador]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -45,6 +45,8 @@ possível trocar a biblioteca alterando um arquivo.
 ## Conceitos Centrais
 
 ### A estrutura
+
+A classe externa só aparece como destino de seta: ela é adaptada sem saber disso.
 
 ```mermaid
 graph LR

@@ -401,7 +401,22 @@ html[data-theme='dark'] {
  */
 @media (max-width: 996px) {
   .docusaurus-mermaid-container > svg {
-    min-width: 34rem;
+    /*
+     * `width` e não `min-width`. O Mermaid escreve a largura natural do desenho
+     * num `max-width` em estilo embutido, e `min-width` passa por cima dele: o
+     * piso valia também para quem não precisava, e um diagrama de 315px era
+     * inflado para 578px — quase o dobro do tamanho de origem, com rolagem que
+     * ele não pedia, já que caberia inteiro na coluna.
+     *
+     * Como largura desejada, o teto embutido volta a valer: quem é menor que
+     * 34rem fica no seu tamanho, quem é maior desce só até aqui.
+     *
+     * `flex-shrink: 0` porque o contêiner é flex, e sem isso ele espreme o SVG
+     * de volta na largura da coluna — que é o encolhimento que este bloco
+     * existe para impedir.
+     */
+    width: 34rem;
+    flex-shrink: 0;
   }
 }
 

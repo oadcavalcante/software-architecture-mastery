@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [state, template-method, bridge]
 canonical_for: [strategy, estratégia]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -54,6 +54,8 @@ E ele impede variação em execução: a escolha está no código, não nos dado
 ## Conceitos Centrais
 
 ### A estrutura
+
+Só a seta do contexto é cheia — as outras duas marcam implementação, não uso.
 
 ```mermaid
 graph LR

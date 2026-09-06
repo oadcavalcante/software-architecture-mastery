@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [adapter, proxy, mediator]
 canonical_for: [facade, fachada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -42,6 +42,8 @@ Facade concentra a sequência num lugar e expõe a operação como uma chamada.
 ## Conceitos Centrais
 
 ### A estrutura
+
+Dois clientes entram por um nó só, e desse nó saem as três classes internas.
 
 ```mermaid
 graph LR

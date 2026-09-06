@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [coupling, cohesion, separation-of-concerns]
 canonical_for: [modularity, module]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 

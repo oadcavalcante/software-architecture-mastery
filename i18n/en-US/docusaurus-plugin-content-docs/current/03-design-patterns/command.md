@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [memento, strategy, cqrs]
 canonical_for: [command]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -43,6 +43,9 @@ All of those require the operation to **exist as a thing**, not as a past event.
 ## Core Concepts
 
 ### The structure
+
+Only one box carries the «interface» stereotype, and it is Command's — the Receiver is
+an ordinary class that need not know a command exists.
 
 ```mermaid
 graph LR

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, abstract-factory, composite]
 canonical_for: [builder]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -44,6 +44,10 @@ Os dois problemas são reais. São diferentes.
 ## Conceitos Centrais
 
 ### Builder do GoF — processo com representações
+
+A seta do diretor termina na interface: ele nunca alcança um construtor concreto. Os
+dois construtores compartilham essa interface, enquanto os produtos que eles devolvem
+não precisam ter um tipo em comum.
 
 ```mermaid
 graph LR

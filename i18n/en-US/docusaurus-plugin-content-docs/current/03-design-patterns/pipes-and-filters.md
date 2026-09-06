@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [event-driven, chain-of-responsibility, decorator]
 canonical_for: [pipes and filters, pipeline]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -42,6 +42,9 @@ and no knowledge of the context.**
 ## Core Concepts
 
 ### The structure
+
+Four filters named with verbs, five arrows between Input and Output: the figure holds
+the whole style.
 
 ```mermaid
 graph LR

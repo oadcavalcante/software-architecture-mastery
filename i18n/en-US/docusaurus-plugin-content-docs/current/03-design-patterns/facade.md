@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [adapter, proxy, mediator]
 canonical_for: [facade]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -41,6 +41,9 @@ call.
 ## Core Concepts
 
 ### The structure
+
+Two clients enter through a single node, and out of that node come the three internal
+classes.
 
 ```mermaid
 graph LR

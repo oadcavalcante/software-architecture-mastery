@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [dependency-direction, hexagonal-architecture, solid]
 canonical_for: [dependency inversion]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -54,6 +54,9 @@ depend in the direction of stability.
 ## Core Concepts
 
 ### The mechanics
+
+Compare the two subgraphs by where the arrows land: in Before the single arrow ends at
+SQLRepository; in After, both end at the interface.
 
 ```mermaid
 graph LR

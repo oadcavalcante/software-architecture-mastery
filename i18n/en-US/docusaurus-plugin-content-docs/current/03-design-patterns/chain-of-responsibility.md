@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, command, mediator]
 canonical_for: [chain of responsibility]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -42,6 +42,9 @@ With the chain, the sender knows only the first link.
 ## Core Concepts
 
 ### The structure
+
+There is a single path from the sender to Handler C, and every arrow is of the same
+kind: nothing in the drawing tells a handler apart from a forwarder.
 
 ```mermaid
 graph LR

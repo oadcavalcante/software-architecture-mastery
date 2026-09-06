@@ -13,7 +13,7 @@ objective: >
 prerequisites: [composite]
 related: [proxy, composite, strategy]
 canonical_for: [decorator]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -46,6 +46,9 @@ new Buffer(new Compression(new Cipher(baseStream)))
 ## Core Concepts
 
 ### The structure
+
+Compare the concrete component with the decorator: one arrow leaves the first, two
+leave the second — and both land on the same box.
 
 ```mermaid
 graph LR
