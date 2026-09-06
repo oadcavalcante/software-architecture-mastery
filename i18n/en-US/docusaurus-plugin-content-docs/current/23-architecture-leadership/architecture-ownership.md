@@ -329,4 +329,5 @@ The difference between the two answers is the measure of nominal ownership in yo
 
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
-- Larson, Will. *An Elegant Puzzle*. Stripe Press, 2019.
+- Larson, Will. *An Elegant Puzzle: Systems of Engineering Management*. Stripe
+  Press, 2019.

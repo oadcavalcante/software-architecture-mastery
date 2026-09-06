@@ -278,6 +278,7 @@ nobody is looking.
 
 ## Further Reading
 
-- Sigelman, Benjamin et al. *Dapper*. Google, 2010.
+- Sigelman, Benjamin et al. *Dapper, a Large-Scale Distributed Systems Tracing
+  Infrastructure*. Google, 2010.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.
 - OpenTelemetry — the traces specification.

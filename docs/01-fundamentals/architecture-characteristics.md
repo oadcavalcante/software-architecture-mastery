@@ -154,6 +154,8 @@ A lista curta não impediu uma decisão ruim por autoridade. Impediu por critér
 
 - [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — a taxonomia de onde as
   características são selecionadas.
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — a forma
+  verificável que cada característica selecionada precisa assumir para virar critério.
 - [Princípios de Arquitetura](/01-fundamentals/architecture-principles.md) — como as
   características viram orientação para decisões distribuídas.
 - [Trade-offs](/20-trade-offs/index.md) — o que acontece quando duas

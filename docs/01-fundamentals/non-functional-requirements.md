@@ -187,7 +187,11 @@ custo, sem perder nada que o negócio precisasse.
 
 - [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — a taxonomia por trás destes
   requisitos.
+- [Características Arquiteturais](/01-fundamentals/architecture-characteristics.md) — quais
+  destes requisitos são poucos o bastante para dirigir a estrutura.
 - [Restrições](/01-fundamentals/constraints.md) — o que não é negociável.
+- [Latência](/06-distributed-systems/latency.md) — por que a cauda existe, e por
+  que o percentil é o número honesto.
 - [Confiabilidade](/12-reliability/index.md) — onde SLI, SLO e SLA formalizam
   isto.
 

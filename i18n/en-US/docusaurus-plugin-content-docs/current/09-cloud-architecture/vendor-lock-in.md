@@ -227,22 +227,23 @@ in containers, everything with self-managed open source software, everything por
 
 Four years later, the balance:
 
-**Three full-time engineers** operating a self-managed database, queue, search, cache and Kubernetes — for
-a team of 26.
+**About 1.1 full-time engineers** — the result of the three-month measurement recorded in the sibling
+document — operating a self-managed database, queue, search, cache and Kubernetes, for a team of 26.
 
 **The portability was never exercised.** No migration was ever considered in four years.
 
-**The operational cost** exceeded what the equivalent managed services would have cost:
+**On the invoice, the policy paid for itself.** Self-hosting cost less than the equivalent managed
+services:
 
 ```text
-three engineers, loaded annual cost     ~R$ 1.7 million
-equivalent managed services, per year   ~R$ 780 thousand
-difference                              ~R$ 920 thousand/year, for four years
+total self-hosted cost                  ~$18,000/month
+equivalent managed services             ~$23,600/month
+difference in favor of self-hosting     ~$5,600/month, for four years
 ```
 
-The calculation excludes the cost of the company's own machines, which would net out on both sides, and the
-value of the postponed product features — which the team judged larger than the difference, and could not
-estimate.
+And that is precisely why the policy survived four years without review: the cost it imposed did not show
+up in the account the company was looking at. The calculation above excludes the value of the postponed
+product features — which the team judged larger than the difference, and could not estimate.
 
 **Delayed delivery.** Several product features were postponed for lack of people, allocated to operations.
 

@@ -33,7 +33,7 @@ disproportionately more than getting in.
 
 Persisting only the current state discards information.
 
-A balance of R$ 1,200 does not say how it got there. An order marked "cancelled" does not
+A balance of $240 does not say how it got there. An order marked "cancelled" does not
 say when, by whom, or what its state was before. A change overwrites the previous value,
 and that value stops existing.
 

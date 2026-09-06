@@ -100,7 +100,8 @@ explicitly made. See [data ownership](/07-data-architecture/data-ownership.md).
 
 ### One-way and two-way door decisions
 
-The distinction that calibrates the rigor:
+The distinction that calibrates the rigor, in the formulation of
+[deciding under uncertainty](/23-architecture-leadership/decision-making.md):
 
 ```text
 one-way door   hard or impossible to reverse
@@ -308,6 +309,6 @@ The proportion falling into "local and reversible" is your current process's was
 
 ## Further Reading
 
-- Bezos, Jeff. *Letter to shareholders*, 2015 — one-way and two-way door decisions.
+- Bezos, Jeff. *2015 letter to shareholders* — one-way and two-way door decisions.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.

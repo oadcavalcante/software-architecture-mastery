@@ -246,5 +246,6 @@ The analytical ones do not belong there, and moving them usually yields more tha
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 3.
-- Gray, Jim; Reuter, Andreas. *Transaction Processing*. Morgan Kaufmann, 1992.
+- Gray, Jim; Reuter, Andreas. *Transaction Processing: Concepts and Techniques*.
+  Morgan Kaufmann, 1992.
 - Winand, Markus. *SQL Performance Explained*, 2012.

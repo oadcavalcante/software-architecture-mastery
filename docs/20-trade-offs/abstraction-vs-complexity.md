@@ -366,4 +366,5 @@ achatamento.
 
 - Ousterhout, John. *A Philosophy of Software Design*. 2ª ed. Yaknyam Press, 2021.
 - Spolsky, Joel. *The Law of Leaky Abstractions*. 2002.
-- Parnas, David. *On the Criteria To Be Used in Decomposing Systems*. CACM, 1972.
+- Parnas, David. *On the Criteria To Be Used in Decomposing Systems into
+  Modules*. CACM, 1972.

@@ -289,5 +289,6 @@ que a documentação não menciona.
 ## Para Aprofundar
 
 - Wiggins, Adam. *The Twelve-Factor App*, 2011 — processos e estado.
-- Fielding, Roy. *Architectural Styles*, 2000 — a restrição de ausência de estado.
+- Fielding, Roy. *Architectural Styles and the Design of Network-based Software
+  Architectures*, 2000 — a restrição de ausência de estado.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

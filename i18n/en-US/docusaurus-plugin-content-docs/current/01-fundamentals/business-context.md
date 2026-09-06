@@ -188,6 +188,8 @@ stakeholder had imagined, not the problem they had.
   negotiated.
 - [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — the conversion
   of context into a number.
+- [Capacity Planning](/05-system-design/capacity-planning.md) — the context's growth
+  translated into sizing.
 
 ## Practical Exercise
 

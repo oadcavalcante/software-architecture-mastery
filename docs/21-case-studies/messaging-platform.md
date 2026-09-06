@@ -580,5 +580,6 @@ atribuída no servidor.
 ## Para Aprofundar
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Lamport, Leslie. *Time, Clocks, and the Ordering of Events*. CACM, 1978.
+- Lamport, Leslie. *Time, Clocks, and the Ordering of Events in a Distributed
+  System*. CACM, 1978.
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003.

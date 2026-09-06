@@ -153,6 +153,8 @@ criterion.
 
 - [Quality Attributes](/01-fundamentals/quality-attributes.md) — the taxonomy the characteristics
   are selected from.
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — the
+  verifiable form each selected characteristic has to take before it becomes a criterion.
 - [Architecture Principles](/01-fundamentals/architecture-principles.md) — how characteristics
   become guidance for distributed decisions.
 - [Trade-offs](/20-trade-offs/index.md) — what happens when two characteristics

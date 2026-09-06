@@ -296,4 +296,5 @@ Se você não conseguir, o problema provavelmente não é de documentação.
 
 - Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015.
 - Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017.
-- Parnas, David. *On the Criteria To Be Used in Decomposing Systems*. CACM, 1972.
+- Parnas, David. *On the Criteria To Be Used in Decomposing Systems into
+  Modules*. CACM, 1972.

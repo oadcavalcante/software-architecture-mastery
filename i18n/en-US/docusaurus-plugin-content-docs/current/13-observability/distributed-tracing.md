@@ -278,6 +278,7 @@ implementations, it stops there.
 
 ## Further Reading
 
-- Sigelman, Benjamin et al. *Dapper*. Google, 2010.
+- Sigelman, Benjamin et al. *Dapper, a Large-Scale Distributed Systems Tracing
+  Infrastructure*. Google, 2010.
 - W3C Trace Context — the propagation format.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.

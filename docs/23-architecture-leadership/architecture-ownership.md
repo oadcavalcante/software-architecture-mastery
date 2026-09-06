@@ -332,4 +332,5 @@ A diferença entre as duas respostas é a medida da propriedade nominal na sua o
 
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
-- Larson, Will. *An Elegant Puzzle*. Stripe Press, 2019.
+- Larson, Will. *An Elegant Puzzle: Systems of Engineering Management*. Stripe
+  Press, 2019.

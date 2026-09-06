@@ -228,6 +228,8 @@ A média nunca tinha sido o problema, e por isso o painel nunca mostrou nada.
 - [Falha de Rede](/06-distributed-systems/network-failure.md) — a origem da variabilidade.
 - [Análise de Gargalos](/05-system-design/bottleneck-analysis.md).
 - [Observabilidade](/13-observability/index.md) — como medir.
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — onde
+  a distribuição vira requisito com número.
 
 ## Exercício Prático
 

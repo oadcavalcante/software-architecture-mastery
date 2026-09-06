@@ -306,6 +306,6 @@ invisível.
 
 ## Para Aprofundar
 
-- Shostack, Adam. *Threat Modeling*. Wiley, 2014.
+- Shostack, Adam. *Threat Modeling: Designing for Security*. Wiley, 2014.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
 - Hoberman, Steve. *Data Modeling Made Simple*. 2ª ed. Technics, 2009.

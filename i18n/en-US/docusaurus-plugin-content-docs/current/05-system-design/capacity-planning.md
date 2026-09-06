@@ -274,6 +274,8 @@ not to size.
 - [Back-of-the-Envelope Calculations](/22-system-design-interviews/index.md) — the technique in an
   interview.
 - [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
+- [Business Context](/01-fundamentals/business-context.md) — where the growth number
+  being sized for comes from.
 
 ## Practical Exercise
 

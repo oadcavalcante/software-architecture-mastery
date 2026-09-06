@@ -160,7 +160,7 @@ Initial gathering for an invoicing system:
 Conversion through consequence questions:
 
 *What happens if it is down for an hour during business hours?* — The shops cannot
-invoice. Estimated loss of R$ 40,000 per hour.
+invoice. Estimated loss of $8,000 per hour.
 
 *And outside business hours?* — Nothing.
 
@@ -189,7 +189,11 @@ reduces cost, without losing anything the business needed.
 
 - [Quality Attributes](/01-fundamentals/quality-attributes.md) — the taxonomy behind these
   requirements.
+- [Architecture Characteristics](/01-fundamentals/architecture-characteristics.md) — which of
+  these requirements are few enough to drive the structure.
 - [Constraints](/01-fundamentals/constraints.md) — what is not negotiable.
+- [Latency](/06-distributed-systems/latency.md) — why the tail exists, and why
+  the percentile is the honest number.
 - [Reliability](/12-reliability/index.md) — where SLI, SLO and SLA formalize
   this.
 

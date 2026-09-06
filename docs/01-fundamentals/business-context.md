@@ -185,6 +185,8 @@ stakeholder tinha imaginado, não o problema que ele tinha.
 - [Restrições](/01-fundamentals/constraints.md) — o que o contexto impõe e não se negocia.
 - [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — a conversão do
   contexto em número.
+- [Planejamento de Capacidade](/05-system-design/capacity-planning.md) — o crescimento
+  do contexto traduzido em dimensionamento.
 
 ## Exercício Prático
 

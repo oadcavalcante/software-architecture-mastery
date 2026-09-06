@@ -279,6 +279,6 @@ is a boundary you thought you had.
 
 ## Further Reading
 
-- Shostack, Adam. *Threat Modeling*. Wiley, 2014.
+- Shostack, Adam. *Threat Modeling: Designing for Security*. Wiley, 2014.
 - Saltzer, Jerome; Schroeder, Michael. *The Protection of Information in Computer Systems*, 1975.
 - OWASP. *Application Security Verification Standard*.

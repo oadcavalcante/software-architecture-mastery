@@ -319,4 +319,5 @@ changes — and the priority changes.
 
 - Rumelt, Richard. *Good Strategy Bad Strategy*. Crown Business, 2011.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
-- Larson, Will. *An Elegant Puzzle*. Stripe Press, 2019.
+- Larson, Will. *An Elegant Puzzle: Systems of Engineering Management*. Stripe
+  Press, 2019.

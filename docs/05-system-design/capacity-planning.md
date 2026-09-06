@@ -272,6 +272,8 @@ para descartar, não para dimensionar.
 - [Cálculos de Guardanapo](/22-system-design-interviews/index.md) — a técnica em
   entrevista.
 - [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
+- [Contexto de Negócio](/01-fundamentals/business-context.md) — de onde vem o número
+  de crescimento que se dimensiona.
 
 ## Exercício Prático
 

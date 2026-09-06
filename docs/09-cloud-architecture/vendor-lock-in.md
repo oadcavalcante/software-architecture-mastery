@@ -239,23 +239,26 @@ Tudo em contêineres, tudo com software de código aberto autogerido, tudo port�
 
 Quatro anos depois, o balanço:
 
-**Três engenheiros em tempo integral** operando banco, fila, busca, cache e
-Kubernetes autogeridos — para uma equipe de 26.
+**Cerca de 1,1 engenheiro em tempo integral** — o resultado da medição de três meses
+registrada no documento irmão — operando banco, fila, busca, cache e Kubernetes
+autogeridos, para uma equipe de 26.
 
 **A portabilidade nunca foi exercida.** Nenhuma migração foi cogitada em quatro
 anos.
 
-**O custo de operação** superou o que os serviços gerenciados equivalentes teriam custado:
+**Na fatura, a política se pagou.** O autogerido custou menos que os serviços
+gerenciados equivalentes:
 
 ```text
-três engenheiros, custo anual carregado    ~R$ 1,7 milhão
-gerenciados equivalentes, custo anual      ~R$ 780 mil
-diferença                                  ~R$ 920 mil/ano, por quatro anos
+custo total autogerido                     ~R$ 90 mil/mês
+gerenciados equivalentes                   ~R$ 118 mil/mês
+diferença a favor do autogerido            ~R$ 28 mil/mês, por quatro anos
 ```
 
-A conta não inclui o custo das máquinas próprias, que seria abatido dos gerenciados nos dois
-lados, nem o valor dos recursos de produto adiados — que a equipe considerou maior que a
-diferença, e não conseguiu estimar.
+E é justamente por isso que a política sobreviveu quatro anos sem revisão: o custo
+que ela impôs não aparecia na conta que a empresa olhava. A conta acima não inclui o
+valor dos recursos de produto adiados — que a equipe considerou maior que a diferença,
+e não conseguiu estimar.
 
 **Atraso de entrega.** Vários recursos de produto foram adiados por indisponibilidade
 de gente, alocada em operação.

@@ -103,21 +103,22 @@ A primeira linha do nível corporativo — propriedade do dado — é a decisão
 alcance e a menos tomada explicitamente. Ver
 [propriedade do dado](/07-data-architecture/data-ownership.md).
 
-### Decisões de porta única e de porta dupla
+### Decisões de mão única e de mão dupla
 
-A distinção que calibra o rigor:
+A distinção que calibra o rigor, na formulação de
+[decisão sob incerteza](/23-architecture-leadership/decision-making.md):
 
 ```text
-porta única  difícil ou impossível de reverter
-             escolha de banco com anos de dados, contrato público, fronteira de serviço
-porta dupla  reversível com custo baixo
-             biblioteca, estrutura de código, ferramenta interna
+mão única  difícil ou impossível de reverter
+           escolha de banco com anos de dados, contrato público, fronteira de serviço
+mão dupla  reversível com custo baixo
+           biblioteca, estrutura de código, ferramenta interna
 ```
 
-Aplicar o mesmo processo às duas é o erro. Decisões de porta dupla devem ser tomadas
+Aplicar o mesmo processo às duas é o erro. Decisões de mão dupla devem ser tomadas
 rápido, por quem está mais próximo, e revistas se der errado.
 
-Decisões de porta única merecem tempo, alternativas escritas e mais de uma cabeça.
+Decisões de mão única merecem tempo, alternativas escritas e mais de uma cabeça.
 
 O sintoma de que o processo está calibrado errado: o tempo médio de decisão é o mesmo
 para escolher uma biblioteca e para escolher um modelo de dados corporativo.
@@ -179,7 +180,7 @@ tendência organizacional é puxá-las para cima.
 
 **Aplicando o mesmo rigor a todas as decisões.**
 
-**Centralizando decisões de porta dupla.**
+**Centralizando decisões de mão dupla.**
 
 **Sem nível de solução**, em iniciativas que atravessam sistemas.
 
@@ -228,7 +229,7 @@ tendência organizacional é puxá-las para cima.
 
 **Subir decisões reversíveis.**
 
-**Não distinguir porta única de porta dupla.**
+**Não distinguir mão única de mão dupla.**
 
 **Não ter responsável pela coerência de iniciativas grandes.**
 
@@ -270,7 +271,7 @@ carimbo com quatro semanas de espera.
 A reformulação:
 
 **Classificação na abertura.** Quem propõe declara alcance e reversibilidade. Decisões
-de porta dupla e alcance local não passam pelo comitê — são registradas e seguem.
+de mão dupla e alcance local não passam pelo comitê — são registradas e seguem.
 
 **Caminho pavimentado** substituindo a lista de tecnologias. A plataforma passou a
 oferecer as opções suportadas prontas; usar outra coisa é possível e o time assume a
@@ -313,11 +314,12 @@ A proporção que cai em "local e reversível" é o desperdício do seu processo
 ## Perguntas de Entrevista
 
 - Que critérios alocam uma decisão a um nível?
-- Qual a diferença entre decisão de porta única e de porta dupla?
+- Qual a diferença entre decisão de mão única e de mão dupla?
 - Por que caminho pavimentado é preferível a regra verificada?
 
 ## Para Aprofundar
 
-- Bezos, Jeff. *Carta aos acionistas*, 2015 — decisões de porta única e dupla.
+- Bezos, Jeff. *Carta aos acionistas de 2015* — decisões de mão única e de mão
+  dupla.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.

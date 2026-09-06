@@ -138,7 +138,7 @@ stable code is cost with no return.
 
 - **Tests as documentation** — a well-named test communicates intent better than
   many comments.
-- **Expressive types** — a `Cpf` type communicates more than a well-named `String`.
+- **Expressive types** — a `NationalId` type communicates more than a well-named `String`.
 - **[Design heuristics](/02-software-design/design-heuristics.md)** — more
   structural criteria, less open to interpretation.
 

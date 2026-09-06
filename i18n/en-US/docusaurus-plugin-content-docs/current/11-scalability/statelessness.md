@@ -277,5 +277,6 @@ documentation does not mention.
 ## Further Reading
 
 - Wiggins, Adam. *The Twelve-Factor App*, 2011 — processes and state.
-- Fielding, Roy. *Architectural Styles*, 2000 — the statelessness constraint.
+- Fielding, Roy. *Architectural Styles and the Design of Network-based Software
+  Architectures*, 2000 — the statelessness constraint.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

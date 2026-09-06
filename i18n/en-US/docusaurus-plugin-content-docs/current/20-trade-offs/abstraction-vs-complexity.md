@@ -366,4 +366,5 @@ If you cannot answer, or if the answer is "nothing", it is a candidate for flatt
 
 - Ousterhout, John. *A Philosophy of Software Design*. 2nd ed. Yaknyam Press, 2021.
 - Spolsky, Joel. *The Law of Leaky Abstractions*. 2002.
-- Parnas, David. *On the Criteria To Be Used in Decomposing Systems*. CACM, 1972.
+- Parnas, David. *On the Criteria To Be Used in Decomposing Systems into
+  Modules*. CACM, 1972.

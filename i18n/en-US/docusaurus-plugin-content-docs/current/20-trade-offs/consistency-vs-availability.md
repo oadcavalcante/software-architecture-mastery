@@ -355,6 +355,7 @@ mode if they all use the same one.
 
 ## Further Reading
 
-- Brewer, Eric. *CAP Twelve Years Later*. IEEE Computer, 2012.
+- Brewer, Eric. *CAP Twelve Years Later: How the "Rules" Have Changed*. IEEE
+  Computer, 2012.
 - Abadi, Daniel. *Consistency Tradeoffs in Modern Distributed Database System Design*. 2012.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

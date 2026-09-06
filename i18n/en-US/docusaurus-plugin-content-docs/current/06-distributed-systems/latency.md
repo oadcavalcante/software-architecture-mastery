@@ -223,6 +223,8 @@ The average had never been the problem, and that is why the dashboard never show
 - [Network Failure](/06-distributed-systems/network-failure.md) — the origin of the variability.
 - [Bottleneck Analysis](/05-system-design/bottleneck-analysis.md).
 - [Observability](/13-observability/index.md) — how to measure.
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — where
+  the distribution becomes a requirement with a number.
 
 ## Practical Exercise
 
