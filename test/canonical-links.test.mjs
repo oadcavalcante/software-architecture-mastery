@@ -154,6 +154,48 @@ describe('check-canonical-links', () => {
     );
   });
 
+  // Segunda regra: o termo aponta para um documento que não o trata.
+  //
+  // O caso real: `[cérebro dividido](/06-distributed-systems/network-failure.md)`
+  // — alvo existente, termo canônico de `leader-election.md`, e um destino onde a
+  // expressão não aparecia uma única vez. A primeira regra só olha links para
+  // índice de seção, então passou pelo CI.
+  test('pega termo canônico apontando para documento que não o menciona', () => {
+    fails(
+      check('check-canonical-links.mjs', {
+        ...secao,
+        'docs/12-reliability/timeouts.md': doc('# Timeouts\n\nSobre limites de espera.\n', {
+          id: 'timeouts-sem-mencao',
+          title: 'Timeouts',
+        }),
+        'docs/exemplo.md': doc(
+          '# X\n\nÉ onde o [circuit breaker](/12-reliability/timeouts.md) nasce.\n',
+          {id: 'exemplo-destino-mudo'},
+        ),
+      }),
+      /circuit breaker.*não menciona.*\/12-reliability\/circuit-breakers\.md/s,
+    );
+  });
+
+  // O acervo liga com frequência um termo ao documento que o aprofunda em vez do
+  // que o declara. Isso é escrita boa: o destino trata o assunto. Sem esta
+  // condição a regra acusaria 105 links reais, quase todos corretos.
+  test('aceita link ao documento que aprofunda o termo, se ele o menciona', () => {
+    ok(
+      check('check-canonical-links.mjs', {
+        ...secao,
+        'docs/12-reliability/bulkheads.md': doc(
+          '# Bulkheads\n\nUm circuit breaker por dependência isola o resto.\n',
+          {id: 'bulkheads-menciona', title: 'Bulkheads'},
+        ),
+        'docs/exemplo.md': doc(
+          '# X\n\nVer [circuit breaker](/12-reliability/bulkheads.md).\n',
+          {id: 'exemplo-destino-trata'},
+        ),
+      }),
+    );
+  });
+
   // A tradução não declara `canonical_for`; a verificação é sobre o canônico,
   // que é de onde a estrutura de link é herdada.
   test('não avalia documentos traduzidos', () => {

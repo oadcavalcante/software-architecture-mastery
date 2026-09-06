@@ -111,7 +111,7 @@ Promoting a replica to leader involves deciding **whom to promote**, ensuring th
 accepting writes, and dealing with writes it accepted and did not propagate.
 
 The third point is where data is lost, and the second is where
-[split brain](/06-distributed-systems/network-failure.md) is born.
+[split brain](/06-distributed-systems/leader-election.md) is born.
 
 ## Mental Model
 

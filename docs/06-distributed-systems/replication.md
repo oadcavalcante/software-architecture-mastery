@@ -113,7 +113,7 @@ líder antigo pare de aceitar escritas, e lidar com escritas que ele aceitou e n
 propagou.
 
 O terceiro ponto é onde os dados se perdem, e o segundo é onde o
-[cérebro dividido](/06-distributed-systems/network-failure.md) nasce.
+[cérebro dividido](/06-distributed-systems/leader-election.md) nasce.
 
 ## Modelo Mental
 

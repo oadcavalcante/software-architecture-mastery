@@ -12,7 +12,7 @@ objective: >
   quando invertê-la vale o custo da indireção.
 prerequisites: [coupling]
 related: [abstraction, architecture-vs-implementation, technical-debt]
-canonical_for: [gestão de dependências, direção de dependência, dependency management]
+canonical_for: [gestão de dependências, dependency management]
 content_version: 1
 last_reviewed: 2026-08-26
 ---

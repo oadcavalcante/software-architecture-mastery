@@ -74,6 +74,9 @@ function singularForms(term) {
 
 const LINK_TO_SECTION_INDEX = /\[([^\]]+)\]\((\/[0-9]{2}-[a-z0-9-]+)\/index\.md\)/g;
 
+/** Qualquer link interno, para a segunda regra. */
+const LINK_INTERNO = /\[([^\]\n]+)\]\((\/[^)\s]+\.md)\)/g;
+
 export function run() {
   const report = new Report('canonical-links');
   const docs = loadCanonical();
@@ -125,7 +128,60 @@ export function run() {
     }
   }
 
-  return {report, summary: `${checked} link(s) para índice de seção em ${docs.length} documento(s)`};
+  // Segunda regra: link cujo texto é termo canônico de um documento e aponta
+  // para outro que sequer menciona o termo.
+  //
+  // A regra acima só olha links para índice de seção, e por isso deixou passar
+  // `[cérebro dividido](/06-distributed-systems/network-failure.md)` — alvo
+  // existente, termo canônico de `leader-election.md`, e um documento de destino
+  // onde a expressão não aparece uma única vez. O leitor clica no conceito e
+  // chega a um texto que não o trata.
+  //
+  // A condição "não menciona" é o que separa o erro do uso legítimo: o acervo
+  // liga com frequência um termo ao documento que o aprofunda em vez do que o
+  // declara, e isso é escrita boa, não violação. Sem essa condição a regra
+  // acusaria 105 links, quase todos corretos; com ela, só os que quebram a
+  // promessa feita ao leitor.
+  const byPath = new Map(docs.map((doc) => [doc.docPath, doc]));
+
+  for (const doc of docs) {
+    const body = stripCode(doc.body);
+    for (const match of body.matchAll(LINK_INTERNO)) {
+      const text = normalize(match[1]);
+      const targetPath = match[2].slice(1);
+      if (targetPath.endsWith('/index.md')) continue; // já coberto acima
+
+      let dono;
+      for (const forma of singularForms(text)) {
+        if (owner.has(forma)) {
+          dono = owner.get(forma);
+          break;
+        }
+      }
+      if (!dono || dono === targetPath || dono === doc.docPath) continue;
+
+      const destino = byPath.get(targetPath);
+      if (!destino) continue;
+      const corpo = normalize(destino.body);
+      let mencionado = false;
+      for (const forma of singularForms(text)) {
+        if (corpo.includes(forma)) {
+          mencionado = true;
+          break;
+        }
+      }
+      if (mencionado) continue;
+
+      checked += 1;
+      report.error(
+        doc.repoPath,
+        `"${match[1].replace(/\s+/g, ' ')}" aponta para /${targetPath}, que não menciona ` +
+          `o termo; o documento canônico é /${dono}. Ver SPEC.md §7.4.`,
+      );
+    }
+  }
+
+  return {report, summary: `${checked} link(s) verificado(s) em ${docs.length} documento(s)`};
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

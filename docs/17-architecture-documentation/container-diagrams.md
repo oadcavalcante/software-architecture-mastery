@@ -157,7 +157,7 @@ acima de 15          o custo operacional já é a característica dominante
 
 A pergunta que o diagrama provoca — "por que tantas peças?" — costuma ser mais valiosa que
 qualquer resposta que ele dê. Ver
-[granularidade de serviços](/05-system-design/service-boundaries.md): decompor em
+[fronteiras de serviço](/05-system-design/service-boundaries.md): decompor em
 unidades implantáveis tem um custo que só fica visível quando ele é desenhado junto.
 
 E há uma assimetria que o desenho torna evidente: acrescentar um contêiner é uma decisão

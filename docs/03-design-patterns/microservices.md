@@ -193,7 +193,8 @@ exigência externa, e não por escolha técnica.
 
 O que a literatura de casos mostra de forma consistente: as adoções bem-sucedidas
 partiram de sistemas existentes cujas fronteiras já eram conhecidas, e não de
-projetos novos. Ver [MonolithFirst](/03-design-patterns/modular-monolith.md).
+projetos novos — a observação que Fowler registrou como *MonolithFirst*. Ver
+[monolito modular](/03-design-patterns/modular-monolith.md).
 
 ## Exemplo Real
 
@@ -246,4 +247,6 @@ Os que não têm resposta específica são candidatos a consolidação.
 - Newman, Sam. *Building Microservices*. 2ª ed., O'Reilly, 2021.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Fowler, Martin. *MicroservicePrerequisites*, 2014.
+- Fowler, Martin. *MonolithFirst*, 2015 — por que as adoções bem-sucedidas
+  começam por um monolito.
 - Richardson, Chris. *Microservices Patterns*. Manning, 2018.

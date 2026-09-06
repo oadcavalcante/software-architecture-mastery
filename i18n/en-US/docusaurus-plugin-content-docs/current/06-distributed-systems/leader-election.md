@@ -231,7 +231,7 @@ leader realizing anything.
 - [Distributed Locks](/06-distributed-systems/distributed-locks.md) — the same problem at a smaller
   scale.
 - [Failure Detection](/06-distributed-systems/failure-detection.md) — why it is a heuristic.
-- [Network Failure](/06-distributed-systems/network-failure.md) — split brain.
+- [Network Failure](/06-distributed-systems/network-failure.md) — the partition that causes it.
 
 ## Practical Exercise
 

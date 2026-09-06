@@ -12,7 +12,7 @@ objective: >
   cada dependência a partir de estabilidade e abstração.
 prerequisites: [dependency-inversion]
 related: [package-design, boundaries, component-design]
-canonical_for: [princípio das dependências acíclicas, dependências acíclicas]
+canonical_for: [direção de dependência, princípio das dependências acíclicas, dependências acíclicas]
 content_version: 1
 last_reviewed: 2026-08-26
 ---

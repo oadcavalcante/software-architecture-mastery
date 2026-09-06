@@ -189,8 +189,9 @@ operational cost — which are as instructive as the adoption ones.
 requirement, not by technical choice.
 
 What the case literature consistently shows: the successful adoptions started from
-existing systems whose boundaries were already known, not from new projects. See
-[MonolithFirst](/03-design-patterns/modular-monolith.md).
+existing systems whose boundaries were already known, not from new projects — the
+observation Fowler recorded as *MonolithFirst*. See
+[modular monolith](/03-design-patterns/modular-monolith.md).
 
 ## Real-World Example
 
@@ -241,4 +242,6 @@ The ones with no specific answer are candidates for consolidation.
 - Newman, Sam. *Building Microservices*. 2nd ed., O'Reilly, 2021.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Fowler, Martin. *MicroservicePrerequisites*, 2014.
+- Fowler, Martin. *MonolithFirst*, 2015 — why the successful adoptions start from
+  a monolith.
 - Richardson, Chris. *Microservices Patterns*. Manning, 2018.

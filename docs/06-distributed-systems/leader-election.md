@@ -240,7 +240,7 @@ ex-líder perceber nada.
 - [Consenso](/06-distributed-systems/consensus.md) — o mecanismo que sustenta a eleição.
 - [Locks Distribuídos](/06-distributed-systems/distributed-locks.md) — o mesmo problema em escala menor.
 - [Detecção de Falha](/06-distributed-systems/failure-detection.md) — por que é heurística.
-- [Falha de Rede](/06-distributed-systems/network-failure.md) — o cérebro dividido.
+- [Falha de Rede](/06-distributed-systems/network-failure.md) — a partição que o provoca.
 
 ## Exercício Prático
 
