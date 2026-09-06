@@ -343,6 +343,28 @@ html[data-theme='dark'] {
   margin: 1.5rem 0;
 }
 
+/*
+ * O Mermaid emite `width="100%"` com `viewBox`, então em tela estreita o SVG
+ * encolhe até caber — e como não transborda, o `overflow-x` acima nunca entra
+ * em ação. Medido em 360px: o diagrama de arquitetura hexagonal renderizava a
+ * 0,44 da escala natural, com os rótulos em 7,0px; o de atributos de qualidade,
+ * a 0,34, com 5,4px. Um diagrama que não se lê não ensina nada.
+ *
+ * O piso é de 34rem porque é onde o diagrama mediano do acervo (529px de
+ * largura natural, medidos nos 33 existentes) volta ao tamanho de origem. Os
+ * menores crescem, o que em telefone ajuda; os maiores continuam reduzidos, mas
+ * bem menos — o hexagonal passa a 0,78 e 12,4px —, e agora rolam, com a sombra
+ * de borda que o bloco de figura já pinta como aviso.
+ *
+ * `max-content` não serve aqui: um SVG com `viewBox` e sem largura em pixel não
+ * tem largura intrínseca, e o valor resolve para a do contêiner.
+ */
+@media (max-width: 996px) {
+  .docusaurus-mermaid-container > svg {
+    min-width: 34rem;
+  }
+}
+
 /* ═══════════════════════════════════════════ citações e admonições */
 
 /* Citação usada para as notas de pré-requisito (SPEC.md §7.4). */
@@ -691,9 +713,15 @@ html[data-theme='dark'] {
     table-layout: fixed;
   }
 
+  /*
+   * `break-word` e não `anywhere`: os dois quebram a palavra que não cabe, mas
+   * `anywhere` também faz o min-content da coluna valer um caractere. Numa
+   * tabela de largura fixa isso é inofensivo; na de largura automática, abaixo,
+   * era o que deixava a coluna colapsar.
+   */
   .markdown table td,
   .markdown table th {
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   /*
@@ -705,6 +733,20 @@ html[data-theme='dark'] {
     display: block;
     width: fit-content;
     table-layout: auto;
+  }
+
+  /*
+   * E precisam de piso de largura para de fato rolarem. Sem ele a regra acima
+   * não fazia nada: com o min-content valendo um caractere, a tabela cabia na
+   * tela encolhendo em vez de transbordar, e sem transbordo o `overflow-x:
+   * auto` não tem o que rolar. Medido em 360px na tabela de estratégias de
+   * cache: primeira coluna com 57px e "Cache-aside" quebrado em "Cac/he-/asi/de".
+   *
+   * O piso é o que restaura a intenção declarada acima — o transbordo volta, e
+   * com ele a rolagem.
+   */
+  .markdown table:has(> thead > tr > th:nth-child(3)) :is(td, th) {
+    min-width: 9rem;
   }
 
   .markdown > h2 {
@@ -726,6 +768,45 @@ html[data-theme='dark'] {
   .menu__link {
     display: flex;
     align-items: center;
+  }
+
+  /*
+   * Os controles de navegação estavam de fora da regra acima. Medidos em 360px
+   * com `pointer: coarse` ativo: o botão de menu com 30×30 — o pior da página, e
+   * o principal controle de navegação no telefone —, o de tema com 34×34, a
+   * busca com 49×34, o "Nesta página" e o "voltar" do menu com 38 de altura.
+   *
+   * Links dentro da prosa ficam de fora de propósito: aumentá-los abriria o
+   * espaçamento entre linhas do texto, que é o que se está tentando ler.
+   */
+  .navbar__toggle,
+  .navbar .clean-btn,
+  .navbar__search-input,
+  .navbar-sidebar__back,
+  .theme-doc-toc-mobile > button,
+  .breadcrumbs__link,
+  .footer__link-item,
+  .theme-edit-this-page {
+    min-height: 2.75rem;
+  }
+
+  .navbar__toggle,
+  .navbar .clean-btn,
+  .breadcrumbs__link {
+    min-width: 2.75rem;
+  }
+
+  .navbar__toggle,
+  .breadcrumbs__link,
+  .footer__link-item,
+  .theme-edit-this-page {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .navbar__toggle,
+  .breadcrumbs__link {
+    justify-content: center;
   }
 }
 
