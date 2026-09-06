@@ -627,15 +627,47 @@ html[data-theme='dark'] .docusaurus-mermaid-container .edgeLabel span {
     font-size: 0;
   }
 
+  /*
+   * A forma curta diz do que o acervo trata, e não a palavra da marca. Sozinha,
+   * "Maestria" é a que menos informa quem chega — podia ser o nome de qualquer
+   * coisa.
+   *
+   * São duas formas porque uma só não serve às duas pontas. Medido: o nome
+   * inteiro pede 179px, e a folga até a busca é de 30px em 320, 2px em 360 e
+   * 32px em 390. Abaixo de 380 ele invade o botão de busca, que é o mesmo
+   * defeito que este bloco existe para evitar.
+   */
   .navbar__title::after {
-    content: 'Maestria';
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
+}
+
+/*
+ * As duas faixas não se sobrepõem de propósito. Com `max-width: 576px` para a
+ * forma curta e `min-width: 380px` para a longa, as duas casam entre 380 e 576, e
+ * quem vence passa a ser a ordem no arquivo — que o empacotador reescreve ao
+ * juntar media queries iguais. Foi o que aconteceu: a curta acabou depois da
+ * longa e valia em toda a faixa.
+ */
+@media (max-width: 379.98px) {
+  .navbar__title::after {
+    content: 'Arquitetura';
+  }
 
   html[lang='en-US'] .navbar__title::after {
-    content: 'Mastery';
+    content: 'Architecture';
+  }
+}
+
+@media (min-width: 380px) and (max-width: 576px) {
+  .navbar__title::after {
+    content: 'Arquitetura de Software';
+  }
+
+  html[lang='en-US'] .navbar__title::after {
+    content: 'Software Architecture';
   }
 }
 
@@ -671,6 +703,129 @@ html[data-theme='dark'] .docusaurus-mermaid-container .edgeLabel span {
 .navbar__search-input:focus {
   border-color: var(--ifm-color-primary);
   outline: none;
+}
+
+/*
+ * No telefone o campo não cabe, e o que sobrava era o pior dos dois mundos: uma
+ * caixa com fio, de 49px, com a lupa dentro e o rótulo "Buscar" cortado. Parecia
+ * um campo vazio e quebrado, e digitar nele era digitar às cegas — o texto não
+ * cabia na largura.
+ *
+ * Aqui ele tem dois estados. Em repouso é só o ícone, sem moldura, do tamanho de
+ * um alvo de toque. Ao receber foco vira campo de verdade, largo o bastante para
+ * ler o que se digita, e o nome do acervo cede a vez — é ele que disputa a
+ * largura na barra.
+ *
+ * O `!important` é contra a folha do tema de busca, que fixa a largura do input
+ * com a mesma especificidade e vem depois na cascata.
+ */
+@media (max-width: 996px) {
+  .navbar__search {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar__search-input {
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background-color: transparent !important;
+    background-position: center !important;
+    background-size: 1.1rem 1.1rem !important;
+    color: transparent;
+    cursor: pointer;
+    transition: width 160ms ease, background-color 160ms ease, padding 160ms ease;
+  }
+
+  .navbar__search-input::placeholder {
+    color: transparent;
+  }
+
+  .navbar__search-input:focus {
+    width: min(15rem, calc(100vw - 9.5rem)) !important;
+    padding: 0 0.75rem 0 2.4rem !important;
+    border: 1px solid var(--ifm-color-primary) !important;
+    border-radius: var(--ifm-global-radius) !important;
+    background-color: var(--ifm-background-color) !important;
+    background-position: left 0.8rem center !important;
+    color: var(--ifm-font-color-base);
+    cursor: text;
+  }
+
+  .navbar__search-input:focus::placeholder {
+    color: var(--ifm-color-emphasis-500);
+  }
+
+  .navbar__inner:has(.navbar__search-input:focus) .navbar__title {
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+}
+
+/*
+ * Cabeçalho da gaveta: marca à esquerda, os dois controles juntos à direita.
+ *
+ * O alternador de tema ficava logo depois da marca, órfão no meio da faixa, com
+ * 84px de vão até o fechar. E os dois ícones tinham pesos diferentes — o sol é
+ * `fill` na cor da tinta, o X é `stroke` no cinza suave, com traço 1,2. Lado a
+ * lado, um parecia ativo e o outro apagado.
+ */
+.navbar-sidebar__brand > [class*='toggle_'] {
+  margin-left: auto;
+  margin-right: 0.25rem;
+}
+
+.navbar-sidebar__brand .navbar-sidebar__close {
+  margin-left: 0;
+}
+
+.navbar-sidebar__brand > [class*='toggle_'] > button,
+.navbar-sidebar__brand .navbar-sidebar__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+}
+
+.navbar-sidebar__brand > [class*='toggle_'] > button:hover,
+.navbar-sidebar__brand .navbar-sidebar__close:hover {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+.navbar-sidebar__brand svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.navbar-sidebar__close svg,
+.navbar-sidebar__close svg g {
+  stroke: var(--ifm-font-color-base);
+  stroke-width: 1.5;
+}
+
+.navbar-sidebar__brand .navbar__brand {
+  margin-right: 0.35rem;
+  min-width: 0;
+}
+
+/*
+ * Na gaveta sobram 144px para o nome, e a forma longa pede 179 — cortava em
+ * "Arquitetura de So". Aqui ela aparece abreviada, ao lado do logotipo, em vez
+ * de truncada.
+ */
+@media (max-width: 576px) {
+  .navbar-sidebar__brand .navbar__title::after {
+    content: 'Arquitetura';
+  }
+
+  html[lang='en-US'] .navbar-sidebar__brand .navbar__title::after {
+    content: 'Architecture';
+  }
 }
 
 /* Trilha: o item ativo vinha com pílula preenchida, que compete com o título. */
