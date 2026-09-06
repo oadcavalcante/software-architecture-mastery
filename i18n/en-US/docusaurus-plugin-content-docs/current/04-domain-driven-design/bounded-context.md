@@ -68,6 +68,7 @@ graph TB
   subgraph Support[Context: Support]
     C3[Customer<br/>contacts · tier<br/>ticket history]
   end
+  C1 ~~~ C2 ~~~ C3
 ```
 
 All three refer to the same real-world entity. They are three models, and they should

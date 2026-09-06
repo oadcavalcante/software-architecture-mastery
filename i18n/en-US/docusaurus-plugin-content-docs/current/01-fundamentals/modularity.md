@@ -75,13 +75,13 @@ changes together. The same alteration touches one place.
 
 ```mermaid
 graph TB
-  subgraph Technical division
-    A[controllers] --- B[services] --- C[repositories]
-    D[one change touches<br/>all three]
-  end
-  subgraph Division by capability
+  subgraph N[Division by capability]
+    direction TB
     E[billing] --- F[catalogue] --- G[delivery]
-    H[one change touches<br/>only one]
+  end
+  subgraph T[Technical division]
+    direction TB
+    A[controllers] --- B[services] --- C[repositories]
   end
 ```
 

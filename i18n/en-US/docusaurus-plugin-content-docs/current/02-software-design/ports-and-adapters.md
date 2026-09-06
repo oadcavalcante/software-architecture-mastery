@@ -69,12 +69,12 @@ other way around. That is what distinguishes this drawing from a layered archite
 
 ```mermaid
 graph LR
-  HTTP[HTTP adapter] --> PP["«primary port»<br/>CreateOrder"]
-  CLI[CLI adapter] --> PP
+  HTTP[HTTP<br/>adapter] --> PP["«primary port»<br/>CreateOrder"]
+  CLI[CLI<br/>adapter] --> PP
   PP --> N[Core]
-  N --> PS["«secondary port»<br/>OrderRepository"]
-  SQL[SQL adapter] -.implements.-> PS
-  MEM[In-memory adapter] -.implements.-> PS
+  N --> PS["«secondary port»<br/>Order<br/>Repository"]
+  SQL[SQL<br/>adapter] -.implements.-> PS
+  MEM[In-memory<br/>adapter] -.implements.-> PS
 ```
 
 Every dependency arrow points at the core. That is the only rule — and it is why the SQL

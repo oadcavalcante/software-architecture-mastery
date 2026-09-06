@@ -67,7 +67,7 @@ frequentemente decide.
 Alguns pares se opõem de forma estrutural, não circunstancial:
 
 ```mermaid
-graph LR
+graph TB
   C[Consistência] <-->|PACELC| L[Latência]
   D[Disponibilidade] <-->|CAP, sob partição| C
   P[Desempenho] <-->|cache, desnormalização| M[Manutenibilidade]

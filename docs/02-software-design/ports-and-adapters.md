@@ -70,12 +70,12 @@ o contrário. É o que distingue este desenho de uma arquitetura em camadas.
 
 ```mermaid
 graph LR
-  HTTP[Adaptador HTTP] --> PP["«porta primária»<br/>CriarPedido"]
-  CLI[Adaptador CLI] --> PP
+  HTTP[Adaptador<br/>HTTP] --> PP["«porta primária»<br/>CriarPedido"]
+  CLI[Adaptador<br/>CLI] --> PP
   PP --> N[Núcleo]
-  N --> PS["«porta secundária»<br/>RepositorioDePedidos"]
-  SQL[Adaptador SQL] -.implementa.-> PS
-  MEM[Adaptador em memória] -.implementa.-> PS
+  N --> PS["«porta secundária»<br/>Repositório<br/>de Pedidos"]
+  SQL[Adaptador<br/>SQL] -.implementa.-> PS
+  MEM[Adaptador<br/>em memória] -.implementa.-> PS
 ```
 
 Toda seta de dependência aponta para o núcleo. É a única regra — e é por isso que o

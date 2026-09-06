@@ -69,6 +69,7 @@ graph TB
   subgraph Suporte[Contexto: Suporte]
     C3[Cliente<br/>contatos · nível<br/>histórico de chamados]
   end
+  C1 ~~~ C2 ~~~ C3
 ```
 
 Os três se referem à mesma entidade do mundo real. São três modelos, e devem

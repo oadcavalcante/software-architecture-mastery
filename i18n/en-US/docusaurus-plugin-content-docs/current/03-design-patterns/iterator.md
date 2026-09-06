@@ -49,7 +49,7 @@ behind them.
 
 ```mermaid
 graph LR
-  C[Client] --> I["«interface»<br/>Iterator<br/>hasNext&#40;&#41; · next&#40;&#41;"]
+  C[Client] --> I["«interface»<br/>Iterator<br/>hasNext() · next()"]
   Col[Collection] -->|creates| I
   IC[ConcreteIterator] -.implements.-> I
 ```

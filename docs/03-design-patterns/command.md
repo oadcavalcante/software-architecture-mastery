@@ -47,7 +47,7 @@ Todas essas exigem que a operação **exista como coisa**, não como evento pass
 
 ```mermaid
 graph LR
-  I[Invocador] --> C["«interface»<br/>Comando<br/>executar&#40;&#41;"]
+  I[Invocador] --> C["«interface»<br/>Comando<br/>executar()"]
   CC[ComandoConcreto] -.implementa.-> C
   CC --> R[Receptor]
 ```

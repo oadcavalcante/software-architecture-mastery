@@ -117,7 +117,7 @@ começa perguntando qual é o problema de negócio, quais atributos de qualidade
 importam e quais restrições existem.
 
 ```mermaid
-graph LR
+graph TB
   A[Problema de negócio] --> B[Requisitos funcionais]
   B --> C[Atributos de qualidade]
   C --> D[Restrições]

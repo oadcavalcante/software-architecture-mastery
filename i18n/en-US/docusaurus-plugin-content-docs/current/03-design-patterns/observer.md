@@ -46,7 +46,7 @@ merely announces.
 
 ```mermaid
 graph LR
-  S[Subject<br/>register&#40;&#41; · notify&#40;&#41;] --> O["«interface»<br/>Observer<br/>update&#40;&#41;"]
+  S["Subject<br/>register() · notify()"] --> O["«interface»<br/>Observer<br/>update()"]
   O1[ObserverA] -.implements.-> O
   O2[ObserverB] -.implements.-> O
 ```

@@ -45,7 +45,7 @@ Observer inverte: os interessados se registram, e o observado apenas anuncia.
 
 ```mermaid
 graph LR
-  S[Sujeito<br/>registrar&#40;&#41; · notificar&#40;&#41;] --> O["«interface»<br/>Observador<br/>atualizar&#40;&#41;"]
+  S["Sujeito<br/>registrar() · notificar()"] --> O["«interface»<br/>Observador<br/>atualizar()"]
   O1[ObservadorA] -.implementa.-> O
   O2[ObservadorB] -.implementa.-> O
 ```

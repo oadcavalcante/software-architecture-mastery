@@ -58,7 +58,7 @@ unreviewed local decisions with global consequence.
 A decision is more architectural the more parts of the system it constrains.
 
 ```mermaid
-graph LR
+graph TB
   A[Decision inside<br/>a function] --> B[Decision inside<br/>a module]
   B --> C[Decision between<br/>modules]
   C --> D[Decision between<br/>services]
@@ -66,7 +66,7 @@ graph LR
 ```
 
 There is no objective cut-off point on that gradient. There is a direction: the
-further right, the earlier the decision must be made, the more people must agree,
+further down, the earlier the decision must be made, the more people must agree,
 and the more expensive it is to reverse.
 
 ### Bad design is local; bad architecture is systemic

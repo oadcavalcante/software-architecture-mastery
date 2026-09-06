@@ -46,8 +46,8 @@ pode conhecer o que está sendo criado**. Fora dessa condição, ele é indireç
 
 ```mermaid
 graph TB
-  C[Criador<br/>operacao&#40;&#41;<br/>criarProduto&#40;&#41; abstrato] --> P["«interface»<br/>Produto"]
-  CC[CriadorConcreto<br/>criarProduto&#40;&#41;] -.estende.-> C
+  C["Criador<br/>operacao()<br/>criarProduto() abstrato"] --> P["«interface»<br/>Produto"]
+  CC["CriadorConcreto<br/>criarProduto()"] -.estende.-> C
   PC[ProdutoConcreto] -.implementa.-> P
   CC -.cria.-> PC
 ```

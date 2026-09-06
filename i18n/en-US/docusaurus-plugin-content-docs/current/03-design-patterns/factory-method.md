@@ -48,8 +48,8 @@ indirection.
 
 ```mermaid
 graph TB
-  C[Creator<br/>operation&#40;&#41;<br/>createProduct&#40;&#41; abstract] --> P["«interface»<br/>Product"]
-  CC[ConcreteCreator<br/>createProduct&#40;&#41;] -.extends.-> C
+  C["Creator<br/>operation()<br/>createProduct() abstract"] --> P["«interface»<br/>Product"]
+  CC["ConcreteCreator<br/>createProduct()"] -.extends.-> C
   PC[ConcreteProduct] -.implements.-> P
   CC -.creates.-> PC
 ```

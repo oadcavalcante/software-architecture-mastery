@@ -49,9 +49,9 @@ Adding a node type requires touching all of them.
 
 ```mermaid
 graph TB
-  C["«interface»<br/>Component<br/>operation&#40;&#41;"]
-  F[Leaf<br/>operation&#40;&#41;] -.implements.-> C
-  Co[Composite<br/>operation&#40;&#41;<br/>children] -.implements.-> C
+  C["«interface»<br/>Component<br/>operation()"]
+  F["Leaf<br/>operation()"] -.implements.-> C
+  Co["Composite<br/>operation()<br/>children"] -.implements.-> C
   Co -->|contains| C
 ```
 

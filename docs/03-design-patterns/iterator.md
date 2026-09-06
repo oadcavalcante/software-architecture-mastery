@@ -48,7 +48,7 @@ estrutura por trás.
 
 ```mermaid
 graph LR
-  C[Cliente] --> I["«interface»<br/>Iterador<br/>temProximo&#40;&#41; · proximo&#40;&#41;"]
+  C[Cliente] --> I["«interface»<br/>Iterador<br/>temProximo() · proximo()"]
   Col[Coleção] -->|cria| I
   IC[IteradorConcreto] -.implementa.-> I
 ```

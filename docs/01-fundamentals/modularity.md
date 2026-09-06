@@ -75,13 +75,13 @@ que muda junto. A mesma alteração toca um lugar.
 
 ```mermaid
 graph TB
-  subgraph Divisão técnica
-    A[controllers] --- B[services] --- C[repositories]
-    D[uma mudança toca<br/>os três]
-  end
-  subgraph Divisão por capacidade
+  subgraph N[Divisão por capacidade]
+    direction TB
     E[cobrança] --- F[catálogo] --- G[entrega]
-    H[uma mudança toca<br/>um só]
+  end
+  subgraph T[Divisão técnica]
+    direction TB
+    A[controllers] --- B[services] --- C[repositories]
   end
 ```
 

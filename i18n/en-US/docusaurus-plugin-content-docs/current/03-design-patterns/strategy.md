@@ -59,7 +59,7 @@ And it prevents variation at runtime: the choice is in the code, not in the data
 
 ```mermaid
 graph LR
-  C[Context] --> S["«interface»<br/>Strategy<br/>execute&#40;&#41;"]
+  C[Context] --> S["«interface»<br/>Strategy<br/>execute()"]
   E1[StrategyA] -.implements.-> S
   E2[StrategyB] -.implements.-> S
 ```

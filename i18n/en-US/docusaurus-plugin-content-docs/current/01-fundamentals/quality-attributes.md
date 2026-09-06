@@ -66,7 +66,7 @@ most frequently decides.
 Some pairs are opposed structurally, not circumstantially:
 
 ```mermaid
-graph LR
+graph TB
   C[Consistency] <-->|PACELC| L[Latency]
   D[Availability] <-->|CAP, under partition| C
   P[Performance] <-->|cache, denormalization| M[Maintainability]

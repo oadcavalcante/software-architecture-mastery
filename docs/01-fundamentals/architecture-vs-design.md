@@ -58,15 +58,15 @@ decisões locais de consequência global.
 Uma decisão é mais arquitetural quanto mais partes do sistema ela restringe.
 
 ```mermaid
-graph LR
+graph TB
   A[Decisão dentro de<br/>uma função] --> B[Decisão dentro de<br/>um módulo]
   B --> C[Decisão entre<br/>módulos]
   C --> D[Decisão entre<br/>serviços]
   D --> E[Decisão entre<br/>sistemas e times]
 ```
 
-Não há um ponto de corte objetivo nesse gradiente. Há uma direção: quanto mais à
-direita, mais cedo a decisão precisa ser tomada, mais gente precisa concordar, e
+Não há um ponto de corte objetivo nesse gradiente. Há uma direção: quanto mais
+abaixo, mais cedo a decisão precisa ser tomada, mais gente precisa concordar, e
 mais cara ela é de reverter.
 
 ### Design errado é local; arquitetura errada é sistêmica

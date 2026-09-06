@@ -44,7 +44,7 @@ call.
 
 ```mermaid
 graph LR
-  C1[Client] & C2[Client] --> F[Facade<br/>commonOperation&#40;&#41;]
+  C1[Client] & C2[Client] --> F["Facade<br/>commonOperation()"]
   F --> A[Class A] & B[Class B] & D[Class C]
 ```
 

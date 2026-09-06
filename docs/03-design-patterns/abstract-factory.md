@@ -46,11 +46,19 @@ objetos são compatíveis por construção.**
 
 ```mermaid
 graph TB
-  AF["«interface»<br/>FabricaAbstrata<br/>criarA&#40;&#41; · criarB&#40;&#41;"]
+  AF["«interface»<br/>FabricaAbstrata<br/>criarA() · criarB()"]
   F1[FabricaFamilia1] -.implementa.-> AF
   F2[FabricaFamilia2] -.implementa.-> AF
-  F1 -.cria.-> A1[ProdutoA1] & B1[ProdutoB1]
-  F2 -.cria.-> A2[ProdutoA2] & B2[ProdutoB2]
+  F1 -.cria.-> P1
+  F2 -.cria.-> P2
+  subgraph P1[Família 1]
+    A1[ProdutoA1]
+    B1[ProdutoB1]
+  end
+  subgraph P2[Família 2]
+    A2[ProdutoA2]
+    B2[ProdutoB2]
+  end
 ```
 
 O cliente conhece apenas `FabricaAbstrata` e as interfaces dos produtos. Nunca as

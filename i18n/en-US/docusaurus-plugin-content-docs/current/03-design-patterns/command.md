@@ -46,7 +46,7 @@ All of those require the operation to **exist as a thing**, not as a past event.
 
 ```mermaid
 graph LR
-  I[Invoker] --> C["«interface»<br/>Command<br/>execute&#40;&#41;"]
+  I[Invoker] --> C["«interface»<br/>Command<br/>execute()"]
   CC[ConcreteCommand] -.implements.-> C
   CC --> R[Receiver]
 ```

@@ -45,7 +45,7 @@ Facade concentra a sequência num lugar e expõe a operação como uma chamada.
 
 ```mermaid
 graph LR
-  C1[Cliente] & C2[Cliente] --> F[Fachada<br/>operacaoComum&#40;&#41;]
+  C1[Cliente] & C2[Cliente] --> F["Fachada<br/>operacaoComum()"]
   F --> A[Classe A] & B[Classe B] & D[Classe C]
 ```
 

@@ -49,9 +49,9 @@ contar, buscar. Adicionar um tipo de nó exige tocar todos eles.
 
 ```mermaid
 graph TB
-  C["«interface»<br/>Componente<br/>operacao&#40;&#41;"]
-  F[Folha<br/>operacao&#40;&#41;] -.implementa.-> C
-  Co[Composto<br/>operacao&#40;&#41;<br/>filhos] -.implementa.-> C
+  C["«interface»<br/>Componente<br/>operacao()"]
+  F["Folha<br/>operacao()"] -.implementa.-> C
+  Co["Composto<br/>operacao()<br/>filhos"] -.implementa.-> C
   Co -->|contém| C
 ```
 

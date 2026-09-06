@@ -46,11 +46,19 @@ factory, the objects are compatible by construction.**
 
 ```mermaid
 graph TB
-  AF["«interface»<br/>AbstractFactory<br/>createA&#40;&#41; · createB&#40;&#41;"]
+  AF["«interface»<br/>AbstractFactory<br/>createA() · createB()"]
   F1[Family1Factory] -.implements.-> AF
   F2[Family2Factory] -.implements.-> AF
-  F1 -.creates.-> A1[ProductA1] & B1[ProductB1]
-  F2 -.creates.-> A2[ProductA2] & B2[ProductB2]
+  F1 -.creates.-> P1
+  F2 -.creates.-> P2
+  subgraph P1[Family 1]
+    A1[ProductA1]
+    B1[ProductB1]
+  end
+  subgraph P2[Family 2]
+    A2[ProductA2]
+    B2[ProductB2]
+  end
 ```
 
 The client knows only `AbstractFactory` and the product interfaces. Never the concrete

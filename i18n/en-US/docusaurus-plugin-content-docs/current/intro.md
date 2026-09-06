@@ -123,7 +123,7 @@ what the business problem is, which quality attributes matter, and what
 constraints exist.
 
 ```mermaid
-graph LR
+graph TB
   A[Business problem] --> B[Functional requirements]
   B --> C[Quality attributes]
   C --> D[Constraints]
