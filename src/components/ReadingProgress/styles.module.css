@@ -45,7 +45,8 @@
 
 .promptHint {
   font-size: 0.85rem;
-  color: var(--ifm-color-emphasis-600);
+  /* 600 dava 3,47:1 sobre a superfície do cartão. */
+  color: var(--ifm-color-emphasis-700);
 }
 
 .cardRead .promptHint {
@@ -61,7 +62,7 @@
   border: 0;
   border-radius: 999px;
   background: var(--ifm-color-primary);
-  color: #fff;
+  color: var(--sam-on-accent);
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.2;
@@ -196,7 +197,8 @@
 
 .panelHint {
   font-size: 0.82rem;
-  color: var(--ifm-color-emphasis-600);
+  /* 600 dava 3,47:1 sobre a superfície do painel. */
+  color: var(--ifm-color-emphasis-700);
 }
 
 .panelComplete .panelHint {

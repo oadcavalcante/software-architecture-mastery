@@ -50,6 +50,33 @@
   --ifm-heading-color: #14120f;
 
   /*
+   * Tinta sobre cor de acento — o texto de qualquer botão preenchido com
+   * `--ifm-color-primary` ou `--ifm-color-success`.
+   *
+   * Existe porque a cor de acento troca de claridade entre os temas: no claro é
+   * um marrom escuro, e branco sobre ele dá 6,73:1; no escuro é um âmbar claro,
+   * e o mesmo branco cai para 2,61:1. O botão "Marcar como lido" ficava assim.
+   * Aqui a tinta acompanha o tema em vez de ser fixa.
+   */
+  --sam-on-accent: #ffffff;
+
+  /*
+   * Verde do estado "lido". O padrão do Infima é #00a400, que reprova duas
+   * vezes: branco sobre ele dá 3,33:1 — nos dois temas, porque o Infima não
+   * troca esta cor —, e o verde puro é o único ponto frio de uma paleta que no
+   * resto é de papel e terra.
+   */
+  --ifm-color-success: #3d6b2f;
+  --ifm-color-success-dark: #355c29;
+  --ifm-color-success-darker: #2f5224;
+  --ifm-color-success-darkest: #24401b;
+  --ifm-color-success-light: #477a37;
+  --ifm-color-success-lighter: #4e853c;
+  --ifm-color-success-lightest: #5c9848;
+  --ifm-color-success-contrast-background: #eaf1e5;
+  --ifm-color-success-contrast-foreground: #24401b;
+
+  /*
    * Escala de cinzas **quentes**. A escala padrão do Infima é neutra e, sobre
    * creme, cinza neutro puxa para o azul — o que quebra a impressão de papel.
    */
@@ -136,6 +163,19 @@ html[data-theme='dark'] {
   --ifm-background-surface-color: #1c1c21;
   --ifm-font-color-base: #e8e4dd;
   --ifm-heading-color: #f2efe9;
+
+  /* Aqui o acento é claro, então a tinta sobre ele é o próprio fundo. */
+  --sam-on-accent: #16161a;
+
+  --ifm-color-success: #8cbf72;
+  --ifm-color-success-dark: #7cae63;
+  --ifm-color-success-darker: #74a45c;
+  --ifm-color-success-darkest: #618b4b;
+  --ifm-color-success-light: #9bc984;
+  --ifm-color-success-lighter: #a3ce8e;
+  --ifm-color-success-lightest: #b8daa8;
+  --ifm-color-success-contrast-background: #22301c;
+  --ifm-color-success-contrast-foreground: #d7e8cc;
 
   --ifm-color-emphasis-0: #16161a;
   --ifm-color-emphasis-100: #1e1e23;
@@ -365,6 +405,25 @@ html[data-theme='dark'] {
   }
 }
 
+/*
+ * Rótulo de aresta no tema escuro. O tema `dark` do Mermaid pinta o rótulo com
+ * #cccccc sobre um cinza #585858 próprio — 4,43:1, logo abaixo do mínimo de
+ * 4,5:1, e um cinza que não pertence a esta paleta. Aqui o rótulo passa a usar
+ * o mesmo papel e a mesma tinta do resto da página: 14,24:1, e some a ilha
+ * cinza no meio do diagrama.
+ */
+html[data-theme='dark'] .docusaurus-mermaid-container .edgeLabel,
+html[data-theme='dark'] .docusaurus-mermaid-container .edgeLabel p,
+html[data-theme='dark'] .docusaurus-mermaid-container .edgeLabel span {
+  /*
+   * `!important` porque o Mermaid injeta um `<style>` dentro do próprio SVG,
+   * com seletor prefixado pelo id do diagrama — um seletor de id, que ganha de
+   * qualquer cadeia de classes escrita aqui fora.
+   */
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-font-color-base) !important;
+}
+
 /* ═══════════════════════════════════════════ citações e admonições */
 
 /* Citação usada para as notas de pré-requisito (SPEC.md §7.4). */
@@ -416,7 +475,11 @@ html[data-theme='dark'] {
 }
 
 .footer__copyright {
-  color: var(--ifm-color-emphasis-600);
+  /*
+   * 700 e não 600: sobre a superfície creme, 600 dá 3,47:1 e 700 dá 5,29:1. O
+   * 600 continua servindo a ícone de interface, onde o mínimo é 3:1.
+   */
+  color: var(--ifm-color-emphasis-700);
   font-size: 0.85rem;
 }
 

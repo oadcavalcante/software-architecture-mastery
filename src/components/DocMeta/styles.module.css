@@ -14,7 +14,8 @@
   font-weight: 600;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--ifm-color-emphasis-600);
+  /* 600 dava 3,66:1 nesta linha de 12,8px — abaixo do mínimo de 4,5:1. */
+  color: var(--ifm-color-emphasis-700);
 }
 
 .separator {
