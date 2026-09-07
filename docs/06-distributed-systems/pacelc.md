@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [cap, consistency, latency]
 canonical_for: [PACELC]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -164,7 +164,8 @@ de segundos. O negócio confirmou que uma disponibilidade ligeiramente desatuali
 
 **Perfil e histórico do usuário** viraram EL sem ressalva.
 
-Resultado: p50 de 95 ms.
+Resultado: p50 de 158 ms — os 140 ms de aplicação, que não tinham o que otimizar,
+mais os 18 ms de coordenação regional. Abaixo do requisito de 300 ms.
 
 O ponto que a equipe sublinha: a consistência forte não foi abandonada. O que mudou foi
 **o escopo da coordenação** — de global para regional — mais a separação das

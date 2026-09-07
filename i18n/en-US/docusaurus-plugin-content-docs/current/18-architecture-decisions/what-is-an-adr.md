@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [why-adrs-matter, adr-structure, adr-status]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -34,7 +34,8 @@ it preserves: the reason, which is the part the code does not keep.
 
 ## The Problem
 
-Code records the outcome of a decision, never the reasoning.
+Code rarely preserves the reasoning — and never systematically, for decisions that
+span more than one file.
 
 ```text
 the code shows      that a queue exists between two services
@@ -104,7 +105,7 @@ it is exactly the kind of decision usually made with no record.
 ```text
 not a specification         it doesn't describe how to implement
 not system documentation    it doesn't describe what exists today
-not a proposal              the proposal becomes an ADR when it is accepted
+not an informal proposal    the discussion becomes an ADR once written, status proposed
 not meeting minutes         it records the decision, not the discussion
 not a policy                it doesn't bind other systems
 ```

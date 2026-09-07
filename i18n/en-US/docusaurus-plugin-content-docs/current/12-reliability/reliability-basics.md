@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [availability-metrics, fault-tolerance, resilience]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -169,8 +169,8 @@ with a success code, and the data was wrong.
 That lasted fourteen months. It was discovered when a customer contested a denial and the audit compared
 the data.
 
-No availability indicator changed during the whole period — because there was no error, there was an
-incorrect response.
+No availability indicator changed during the whole period — because no request returned an error
+code. There was an error and there was a failure; no availability indicator could see them.
 
 The fixes:
 

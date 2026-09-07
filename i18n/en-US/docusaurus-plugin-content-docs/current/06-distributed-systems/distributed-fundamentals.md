@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [network-failure, partial-failure, latency]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -111,7 +111,9 @@ of truth — and what underlies the limits of
 **Do not distribute without need.** Every network boundary adds partial failure, latency,
 ordering and duplication to your system.
 
-A well-modularized monolith has none of those problems. See
+A well-modularized monolith has none of that **between its own modules**. But one
+external integration or one remote database brings partial failure and the third
+outcome back — see [partial failure](/06-distributed-systems/partial-failure.md) and
 [modular monolith](/03-design-patterns/modular-monolith.md).
 
 ## Why This Matters

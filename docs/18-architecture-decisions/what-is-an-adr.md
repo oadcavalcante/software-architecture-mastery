@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [why-adrs-matter, adr-structure, adr-status]
 canonical_for: [ADR, registro de decisão de arquitetura, decisão significativa]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -34,7 +34,8 @@ ele preserva: a razão, que é a parte que o código não guarda.
 
 ## O Problema
 
-Código registra o resultado de uma decisão, nunca o raciocínio.
+Código raramente preserva o raciocínio — e nunca de forma sistemática, para decisões
+que atravessam mais de um arquivo.
 
 ```text
 o código mostra   que existe uma fila entre dois serviços
@@ -103,7 +104,7 @@ um banco é — e é exatamente o tipo de decisão que costuma ser tomada sem re
 ```text
 não é especificação      não descreve como implementar
 não é documentação do sistema  não descreve o que existe hoje
-não é proposta           a proposta vira ADR quando é aceita
+não é proposta informal  a discussão vira ADR ao ser escrita, com status proposto
 não é ata de reunião     registra a decisão, não a discussão
 não é política           não obriga outros sistemas
 ```

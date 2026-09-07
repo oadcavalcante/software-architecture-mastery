@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [rto, disaster-recovery-planning, failover]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -167,7 +167,7 @@ The reformulation:
 ```text
 instance or zone failure   zero
 human error or corruption  15 minutes
-regional disaster          5 minutes
+regional disaster          15 minutes
 ```
 
 **A 15-minute delayed replica**, covering the human error scenario — the cheapest of the three controls and

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [what-is-an-adr, adr-alternatives, superseding-decisions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -133,7 +133,8 @@ system, and these were the choices" — the second produces someone able to cont
 judgment, not only execution.
 
 And there is a calibration effect: reading ten well-written ADRs teaches the
-organization's pattern of architectural reasoning faster than any training.
+organization's own reasoning — with its real constraints — which no generic material
+carries.
 
 ### What ADRs don't solve
 

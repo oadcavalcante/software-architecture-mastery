@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [cap, consistency, latency]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -160,7 +160,8 @@ booking checks again.
 
 **User profile and history** became EL with no reservations.
 
-Result: a 95 ms p50.
+Result: a 158 ms p50 — the 140 ms of application work, which had nothing to
+optimize, plus the 18 ms of regional coordination. Under the 300 ms requirement.
 
 The point the team underlines: strong consistency was not abandoned. What changed was **the scope
 of the coordination** — from global to regional — plus separating the operations that did not need

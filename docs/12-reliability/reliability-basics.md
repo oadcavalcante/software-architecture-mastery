@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [availability-metrics, fault-tolerance, resilience]
 canonical_for: [confiabilidade, falha e defeito, taxa de falha, confiabilidade do sistema]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -178,8 +178,9 @@ pessoa. O sistema respondia rápido, com código de sucesso, e o dado estava err
 Isso durou catorze meses. Foi descoberto quando um cliente contestou uma negativa e a
 auditoria comparou os dados.
 
-Nenhum indicador de disponibilidade mudou durante todo o período — porque não havia
-erro, havia resposta incorreta.
+Nenhum indicador de disponibilidade mudou durante todo o período — porque nenhuma
+requisição retornou código de erro. Havia erro e havia falha; nenhum indicador de
+disponibilidade os enxergava.
 
 As correções:
 

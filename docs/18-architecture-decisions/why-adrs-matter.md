@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [what-is-an-adr, adr-alternatives, superseding-decisions]
 canonical_for: [erosão de contexto, custo de redecidir, decisão contestável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -129,8 +129,8 @@ A diferença prática é entre "este é o sistema, aceite" e "este é o sistema,
 as escolhas" — a segunda produz alguém capaz de contribuir com julgamento, não só com
 execução.
 
-E há um efeito de calibração: ler dez ADRs bem escritos ensina o padrão de raciocínio
-arquitetural da organização mais rápido que qualquer treinamento.
+E há um efeito de calibração: dez ADRs bem escritos expõem o raciocínio daquela
+organização — com as restrições reais dela — que nenhum material genérico carrega.
 
 ### O que ADRs não resolvem
 

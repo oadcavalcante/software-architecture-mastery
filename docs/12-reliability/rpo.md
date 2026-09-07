@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [rto, disaster-recovery-planning, failover]
 canonical_for: [RPO, objetivo de ponto de recuperação, perda aceitável de dados]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -175,7 +175,7 @@ de ordens — a latência adicional de 3 ms foi aceita depois de medida.
 ```text
 falha de instância ou zona   zero
 erro humano ou corrupção     15 minutos
-desastre regional            5 minutos
+desastre regional            15 minutos
 ```
 
 **Réplica atrasada de 15 minutos**, cobrindo o cenário de erro humano — o mais barato

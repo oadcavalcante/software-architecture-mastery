@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [network-failure, partial-failure, latency]
 canonical_for: [sistemas distribuídos, falácias da computação distribuída]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -113,8 +113,10 @@ verdade — e o que fundamenta os limites de
 **Não distribua sem necessidade.** Cada fronteira de rede adiciona falha parcial,
 latência, ordenação e duplicação ao seu sistema.
 
-Um monolito bem modularizado não tem nenhum desses problemas. Ver
-[monolito modular](/03-design-patterns/modular-monolith.md).
+Um monolito bem modularizado não tem nada disso **entre os próprios módulos**. Mas
+basta uma integração externa ou um banco remoto para a falha parcial e o terceiro
+resultado voltarem — ver [falha parcial](/06-distributed-systems/partial-failure.md)
+e [monolito modular](/03-design-patterns/modular-monolith.md).
 
 ## Por Que Isso Importa
 
