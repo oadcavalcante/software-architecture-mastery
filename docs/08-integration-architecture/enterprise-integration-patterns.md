@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, event-driven-integration, integration-anti-corruption]
 canonical_for: [enterprise integration patterns, roteador de mensagens, tradutor de mensagens, agregador, separador]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -174,7 +174,8 @@ configuração própria e um ponto central que acumula regra de negócio.
 
 **Sem os fundamentos.** Estes padrões pressupõem
 [idempotência](/06-distributed-systems/idempotency.md), tratamento de
-duplicatas e monitoramento de consumidor. Sem isso, nenhum deles funciona.
+duplicatas e monitoramento de consumidor. Sem isso, eles entregam a forma sem a garantia
+— e a duplicata que o padrão pressupõe tratada chega ao domínio.
 
 ## Erros Comuns
 

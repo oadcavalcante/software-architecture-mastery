@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -57,7 +57,7 @@ trying wastes the exercise, because the value lies in discovering which
 constraint you had not considered — and that only surfaces after you have
 considered some.
 
-Exercises 02 through 06 share one system and evolve it. Do them in sequence: the
+Exercises 03 through 07 share one system and evolve it. Do them in sequence: the
 central lesson is feeling the cost of decisions taken early.
 
 ## The case studies

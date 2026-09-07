@@ -2,18 +2,18 @@
 id: 07-multi-region
 title: "Exercise 07 — Multi-Region Availability"
 sidebar_position: 1
-description: The strong consistency chosen in exercise 03 now costs latency on every write — and the bill is daily.
+description: The strong consistency of exercise 03 stays local — and the lesson is recognizing when coordination between regions is avoidable.
 doc_type: exercise
 level: 5
 difficulty: advanced
 status: complete
 objective: >
-  By the end, the reader decides the replication model per operation and recognizes the daily cost of
-  coordination between regions.
+  By the end, the reader decides the replication model per operation and recognizes when
+  coordination between regions is avoidable — and what it would cost if it were not.
 prerequisites: [06-partial-failure]
 related: [disaster-recovery-planning, graceful-degradation, availability, pacelc]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-alternatives, adr-consequences]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -122,8 +122,8 @@ viável — um módulo com esquema próprio e interface declarada é candidato n
 **Negativas (imediatas).** Implantação acoplada: qualquer mudança sobe o sistema inteiro.
 Um erro num módulo pode derrubar todos.
 
-**Negativas (longo prazo).** Escala por componente é impossível — se o catálogo precisar de
-mais capacidade, escalamos tudo. Acima de certo tamanho de equipe, a implantação única vira
+**Negativas (longo prazo).** Escala por componente sai cara: para dar mais capacidade ao
+catálogo, subimos instâncias do sistema inteiro, com todo o resto ocioso. Acima de certo tamanho de equipe, a implantação única vira
 gargalo de coordenação.
 
 **Neutras.** Precisamos de disciplina e verificação automática para manter as fronteiras. A

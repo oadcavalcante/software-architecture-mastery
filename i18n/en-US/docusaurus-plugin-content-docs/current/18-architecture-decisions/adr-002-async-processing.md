@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-alternatives, superseding-decisions, adr-status]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -139,7 +139,8 @@ database was the appropriate choice. It sustained the system for 26 months.
 
 ## What to notice in this example
 
-The "adopt Kafka" alternative was discarded with **three numeric reversal conditions**. Two
+The "adopt Kafka" alternative was discarded with **two numeric conditions and one
+qualitative**, and the Warning Sign carries three measurements. Two
 years later, those were what triggered the review — the decision needed no new judgment,
 only measurement.
 

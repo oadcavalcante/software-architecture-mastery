@@ -1221,7 +1221,7 @@ Exercício 08  Modernizar uma arquitetura legada existente            (Nível 06
 Exercício 09  Apresentar e defender a arquitetura para stakeholders  (Nível 07)
 ```
 
-Os exercícios 02 a 06 compartilham o mesmo sistema, evoluindo-o — o leitor sente
+Os exercícios 03 a 07 compartilham o mesmo sistema, evoluindo-o — o leitor sente
 o custo de decisões tomadas cedo, que é a lição central.
 
 ---

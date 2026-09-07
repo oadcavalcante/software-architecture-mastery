@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-alternatives, adr-consequences]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -122,7 +122,7 @@ become a service.
 **Negative (immediate).** Coupled deployment: any change ships the whole system. An error
 in one module can bring all of them down.
 
-**Negative (long-term).** Scaling per component is impossible — if the catalog needs more
+**Negative (long-term).** Scaling per component is expensive: to give the catalog more
 capacity, we scale everything. Above a certain team size, the single deployment becomes a
 coordination bottleneck.
 

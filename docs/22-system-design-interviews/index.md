@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [case-studies, trade-offs]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -59,19 +59,19 @@ a competência mais valorizada e a menos treinada.
 **Erros comuns.** Os padrões que fazem entrevistas darem errado, com o que fazer
 em vez disso.
 
-## O formato dos exercícios
+## A ordem que a seção treina
 
 ```text
 Problema → Requisitos → Perguntas a Fazer → Estimativas de Capacidade
 → Arquiteturas Possíveis → Trade-offs → Abordagem Recomendada
-→ Perguntas de Acompanhamento
 ```
 
 Note que **Perguntas a Fazer** vem antes de qualquer arquitetura. É a ordem da
-entrevista real, e é o hábito que os exercícios treinam.
+entrevista real, e é o hábito que esta seção treina.
 
-Cada exercício apresenta mais de uma arquitetura possível, porque numa entrevista
-boa você propõe uma alternativa e explica por que não a escolheu.
+Cada documento traz um **Exemplo de Entrevista** — o diálogo com o avaliador, com as
+perguntas de acompanhamento que ele faria. Os exercícios longos do percurso ficam nas
+outras seções; aqui o treino é a ordem, não o enunciado.
 
 ## Uma nota sobre preparação
 

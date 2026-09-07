@@ -2,18 +2,18 @@
 id: 07-multi-region
 title: "Exercício 07 — Disponibilidade Multi-região"
 sidebar_position: 1
-description: A consistência forte escolhida no exercício 03 agora custa latência em toda escrita — e a conta é diária.
+description: A consistência forte do exercício 03 permanece local — e a lição é reconhecer quando a coordenação entre regiões é evitável.
 doc_type: exercise
 level: 5
 difficulty: avançado
 status: complete
 objective: >
-  Ao terminar, o leitor decide o modelo de replicação por operação e reconhece o custo diário
-  da coordenação entre regiões.
+  Ao terminar, o leitor decide o modelo de replicação por operação e reconhece quando a
+  coordenação entre regiões é evitável — e o que ela custaria se não fosse.
 prerequisites: [06-partial-failure]
 related: [disaster-recovery-planning, graceful-degradation, availability, pacelc]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 

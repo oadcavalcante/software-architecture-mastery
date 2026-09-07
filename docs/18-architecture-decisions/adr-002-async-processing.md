@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-alternatives, superseding-decisions, adr-status]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -139,8 +139,9 @@ banco foi a escolha adequada. Ela sustentou o sistema por 26 meses.
 
 ## O que observar neste exemplo
 
-A alternativa "adotar Kafka" foi descartada com **três condições de reversão numéricas**.
-Duas anos depois, foram elas que dispararam a revisão — a decisão não precisou de
+A alternativa "adotar Kafka" foi descartada com **duas condições numéricas e uma
+qualitativa**, e o Sinal de Alerta traz três medições. Dois anos depois, foram elas que
+dispararam a revisão — a decisão não precisou de
 julgamento novo, apenas de medição.
 
 O ADR registra explicitamente que a fila em banco **não foi testada acima de 200

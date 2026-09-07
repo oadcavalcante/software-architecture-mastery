@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, event-driven-integration, integration-anti-corruption]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -161,7 +161,8 @@ along with it, a configuration language of their own and a central point that ac
 
 **Without the fundamentals.** These patterns presuppose
 [idempotency](/06-distributed-systems/idempotency.md), duplicate handling and consumer monitoring. Without
-that, none of them works.
+that, they deliver the shape without the guarantee — and the duplicate the pattern assumes
+is handled reaches the domain.
 
 ## Common Mistakes
 

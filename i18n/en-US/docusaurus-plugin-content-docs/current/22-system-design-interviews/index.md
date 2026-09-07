@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [case-studies, trade-offs]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -57,19 +57,19 @@ competency and the least trained.
 
 **Common mistakes.** The patterns that make interviews go wrong, with what to do instead.
 
-## The format of the exercises
+## The order this section trains
 
 ```text
 Problem → Requirements → Questions to Ask → Capacity Estimates
 → Possible Architectures → Trade-offs → Recommended Approach
-→ Follow-up Questions
 ```
 
 Note that **Questions to Ask** comes before any architecture. It is the order of the real
-interview, and it is the habit the exercises train.
+interview, and it is the habit this section trains.
 
-Each exercise presents more than one possible architecture, because in a good interview you
-propose an alternative and explain why you did not choose it.
+Each document carries an **Interview Example** — the exchange with the interviewer, with
+the follow-up questions they would ask. The long exercises of the path live in the other
+sections; here the training is the order, not the prompt.
 
 ## A note on preparation
 

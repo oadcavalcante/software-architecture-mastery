@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -57,7 +57,7 @@ de raciocínio possível, com as premissas declaradas. Abrir antes de tentar
 desperdiça o exercício, porque o valor está em descobrir qual restrição você não
 tinha considerado — e isso só aparece depois de você ter considerado algumas.
 
-Os exercícios 02 a 06 compartilham o mesmo sistema e o evoluem. Faça-os em
+Os exercícios 03 a 07 compartilham o mesmo sistema e o evoluem. Faça-os em
 sequência: a lição central é sentir o custo de decisões tomadas cedo.
 
 ## Os case studies
