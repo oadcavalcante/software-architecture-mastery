@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [refactoring, technical-debt, dry]
 canonical_for: [code smell]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -217,9 +217,9 @@ ignore comments.
 **Primitive obsession in a domain concept.** When an identifier, a tax document or a
 monetary value shows up as plain text or a number, the cost spreads: validation comes
 to exist everywhere the value is received, and nothing prevents two different
-identifiers from being swapped for each other in a call. It is the smell with the
-best ratio of fixing effort to return, because the fix is creating a type and the
-benefit applies to all future code.
+identifiers from being swapped for each other in a call. The fix pays off quickly
+when the value is a domain identifier crossing many signatures: create a type, and
+the compiler starts preventing the swap that only attention prevented before.
 
 **Feature envy that crosses a module boundary.** Inside a module, it is a question of
 organization. Across modules, it is a sign that the boundary is in the wrong place —

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [code-smells, refactoring, design-heuristics]
 canonical_for: [clean code, código limpo, legibilidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -110,8 +110,8 @@ frequentemente é você.
 
 ## Quando Usar
 
-- Sempre, em código de vida longa.
-- Especialmente em código que outras pessoas vão manter.
+- Onde a leitura é frequente e a alteração é cara — regra de negócio, teste, código
+  que outras pessoas vão manter.
 - Com mais rigor onde a lógica de negócio mora — é onde a leitura é mais
   frequente e o erro mais caro.
 

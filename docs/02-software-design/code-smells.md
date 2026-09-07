@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [refactoring, technical-debt, dry]
 canonical_for: [code smell, cheiro de código]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -215,8 +215,9 @@ ignorar comentários.
 documento fiscal ou um valor monetário aparece como texto ou número simples, o
 custo se espalha: a validação passa a existir em todo lugar que recebe o valor, e
 nada impede que dois identificadores diferentes sejam trocados um pelo outro numa
-chamada. É o smell de melhor relação entre esforço de correção e retorno, porque
-a correção é criar um tipo e o benefício vale para todo o código futuro.
+chamada. A correção se paga rápido quando o valor é um identificador de domínio que
+atravessa muitas assinaturas: cria-se um tipo, e o compilador passa a impedir a
+troca que antes só a atenção impedia.
 
 **Feature envy que atravessa fronteira de módulo.** Dentro de um módulo, é
 questão de organização. Atravessando módulos, é sinal de que a fronteira está no

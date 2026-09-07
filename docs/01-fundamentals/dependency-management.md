@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [abstraction, architecture-vs-implementation, technical-debt]
 canonical_for: [gestão de dependências, dependency management]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -91,7 +91,8 @@ Ciclos raramente são criados de propósito. Aparecem por acúmulo, e ficam
 invisíveis porque nenhuma ferramenta reclama por padrão.
 
 Detectá-los é barato — análise estática resolve — e o valor é alto, porque um
-ciclo é sempre um sinal de que uma fronteira está no lugar errado.
+ciclo é o sinal mais comum de fronteira no lugar errado. Ver
+[direção de dependência](/02-software-design/dependency-direction.md).
 
 ### Dependências externas
 

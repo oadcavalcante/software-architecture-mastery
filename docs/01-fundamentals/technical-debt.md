@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [architecture-evolution, dependency-management]
 canonical_for: [dívida técnica, technical debt]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -42,8 +42,9 @@ respeitável. Chamar de dívida o que foi feito por desconhecimento transforma u
 problema de capacidade em uma escolha estratégica que ninguém fez.
 
 A pergunta que separa os casos: **alguém decidiu isso sabendo do custo?** Se sim,
-é dívida. Se não, é outra coisa — e a outra coisa não se paga refatorando, se
-resolve aprendendo.
+é dívida. Se não, é outra coisa — e o que fazer com ela depende de por que ninguém
+decidiu. Faltou competência, resolve-se aprendendo; faltou conhecimento que só o
+trabalho dava, refatora-se com o que se aprendeu.
 
 ## Conceitos Centrais
 

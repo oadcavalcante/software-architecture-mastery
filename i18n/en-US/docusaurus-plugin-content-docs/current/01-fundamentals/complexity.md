@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [technical-debt, modularity]
 canonical_for: [complexity, essential complexity, accidental complexity]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -76,8 +76,9 @@ produces the pattern of decisions that appear to simplify and complicate.
 
 Complexity in an isolated place is tolerable. Scattered complexity is what kills.
 
-Ousterhout puts it well: the worst symptom is **distributed cognitive load** —
-when understanding one part requires knowing many others. A dense, self-contained
+Ousterhout names three symptoms, and the one he calls worst is **unknown
+unknowns** — not knowing what needs to change. What matters here is one of the
+other two, **cognitive load**: understanding one part requires knowing many others. A dense, self-contained
 module is preferable to ten simple modules whose interaction is unpredictable.
 
 That means reducing complexity is not always dividing. Sometimes it is
@@ -120,8 +121,9 @@ and adds an equivalent amount elsewhere, the balance is the cost of the
 transition.
 
 **When the team cannot operate the result.** A correct architecture that demands
-competence the team does not have is accidental complexity by definition — it
-exists by choice, not because of the problem.
+competence the team does not have charges a cost the drawing does not show: learning
+to operate it while it is already in production. The classification does not change
+— it stays essential — but the cost of adopting it does.
 
 **When the simple alternative has not yet failed.** The correct order is to use
 the simple option until it demonstrates insufficiency. Anticipating the failure of
@@ -215,7 +217,8 @@ afternoon.
 ## Related Concepts
 
 - [Abstraction](/01-fundamentals/abstraction.md) — the tool that reduces or adds complexity.
-- [Technical Debt](/01-fundamentals/technical-debt.md) — accumulated accidental complexity.
+- [Technical Debt](/01-fundamentals/technical-debt.md) — what happens when accidental
+  complexity is taken on knowing the cost.
 - [Trade-offs](/20-trade-offs/index.md) — the accounting of both sides.
 
 ## Practical Exercise

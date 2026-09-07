@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [abstraction, architecture-vs-implementation, technical-debt]
 canonical_for: [dependency management, dependency direction]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -91,7 +91,8 @@ Cycles are rarely created on purpose. They appear by accumulation, and stay
 invisible because no tool complains by default.
 
 Detecting them is cheap — static analysis handles it — and the value is high,
-because a cycle is always a sign that a boundary is in the wrong place.
+because a cycle is the most common sign of a boundary in the wrong place. See
+[dependency direction](/02-software-design/dependency-direction.md).
 
 ### External dependencies
 

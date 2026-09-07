@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [coupling, cohesion, separation-of-concerns]
 canonical_for: [modularity, module]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -205,8 +205,8 @@ An e-commerce system organized into `controllers`, `services`, `repositories` an
 `models`. Four directories, forty files each.
 
 An analysis of commits over six months showed that 80% of them touched three of
-the four directories. The modularity was nominal: no change fitted inside one
-module, because the modules corresponded to no axis of change.
+the four directories. The modularity was nominal: four out of five changes crossed
+the division, because the modules corresponded to no axis of change.
 
 The reorganization by capability — `catalogue`, `cart`, `order`, `payment`,
 `delivery`, each with its own internal structure — brought 70% of commits down to
@@ -243,6 +243,7 @@ module.
 ## Further Exploration
 
 - Parnas, David. *On the Criteria To Be Used in Decomposing Systems into
-  Modules*. CACM, 1972 — the founding paper, still the best text on the subject.
+  Modules*. CACM, 1972 — the paper that establishes decomposition by information
+  hiding, against decomposition by processing steps.
 - Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — component cohesion
   principles.

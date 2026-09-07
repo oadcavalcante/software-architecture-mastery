@@ -816,8 +816,8 @@ distintas dos achados: são pedidos de conferência, não defeitos declarados.
 
 Doze laudos: 7 reprovados, 5 com ressalvas. **53 achados** — 10 altos, 27 médios, 16 baixos.
 
-**Nenhum corrigido.** A revisão de `concept` parou aqui por decisão de escopo; estes
-laudos ficam registrados para quem retomar.
+**Os 10 altos estão corrigidos** — cada um conferido contra o arquivo antes da
+correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 #### `01-fundamentals/abstraction.md` — ressalvas
 

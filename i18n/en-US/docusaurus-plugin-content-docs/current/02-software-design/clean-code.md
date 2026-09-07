@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [code-smells, refactoring, design-heuristics]
 canonical_for: [clean code, readability]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -111,8 +111,8 @@ frequently you.
 
 ## When to Use
 
-- Always, in long-lived code.
-- Especially in code other people will maintain.
+- Where reading is frequent and change is expensive — business rules, tests, code
+  other people will maintain.
 - With more rigour where the business logic lives — that is where reading is most
   frequent and error most expensive.
 

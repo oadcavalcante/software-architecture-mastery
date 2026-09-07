@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [layering, modular-design, dependency-direction]
 canonical_for: [boundary, architectural boundary]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -215,8 +215,9 @@ type translation at every call — to separate two things that were one.
 `Notification` was different: 4% joint changes, and its unavailability degraded the
 system without taking it down.
 
-The fix was to merge `Booking` and `Payment` into one service, keeping the boundary
-between them as modules with an architecture test. `Notification` stayed separate
+The fix was to merge `Booking` and `Payment` into one service. The boundary between
+them survived as a module, with an architecture test: it was at too high a level, not
+on the wrong axis — what was on the wrong axis was putting it between processes. `Notification` stayed separate
 and, a year later, became asynchronous — which was only possible because the
 boundary there was real.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [layering, modular-design, dependency-direction]
 canonical_for: [fronteira, fronteira arquitetural, boundary]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -215,8 +215,9 @@ tradução de tipos em cada chamada — para separar duas coisas que eram uma.
 `Notificacao` era diferente: 4% de alterações conjuntas, e sua indisponibilidade
 degradava o sistema sem derrubá-lo.
 
-A correção foi juntar `Reserva` e `Pagamento` num serviço, mantendo a fronteira
-entre eles como módulos com teste de arquitetura. `Notificacao` continuou
+A correção foi juntar `Reserva` e `Pagamento` num serviço. A fronteira entre eles
+sobreviveu como módulo, com teste de arquitetura: estava no nível alto demais, não
+no eixo errado — o que estava no eixo errado era tê-la posto entre processos. `Notificacao` continuou
 separada e, um ano depois, virou assíncrona — o que só foi possível porque a
 fronteira ali era real.
 

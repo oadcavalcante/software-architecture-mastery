@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [architecture-evolution, dependency-management]
 canonical_for: [technical debt]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -43,8 +43,10 @@ decision. Calling what was done out of ignorance "debt" turns a capability probl
 into a strategic choice nobody made.
 
 The question that separates the cases: **did someone decide this knowing the
-cost?** If yes, it is debt. If not, it is something else — and that something else
-is not paid off by refactoring, it is resolved by learning.
+cost?** If yes, it is debt. If not, it is something else — and what to do with it
+depends on why nobody decided. If competence was missing, learning resolves it; if
+what was missing was knowledge only the work could give, refactor with what you
+learned.
 
 ## Core Concepts
 

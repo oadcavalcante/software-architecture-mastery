@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [coupling, cohesion, separation-of-concerns]
 canonical_for: [modularidade, modularity, módulo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -201,8 +201,8 @@ Um sistema de e-commerce organizado em `controllers`, `services`, `repositories`
 e `models`. Quatro diretórios, cada um com quarenta arquivos.
 
 Uma análise de commits ao longo de seis meses mostrou que 80% deles tocavam
-três dos quatro diretórios. A modularidade era nominal: não havia mudança que
-coubesse dentro de um módulo, porque os módulos não correspondiam a nenhum eixo
+três dos quatro diretórios. A modularidade era nominal: quatro em cada cinco
+mudanças atravessavam a divisão, porque os módulos não correspondiam a nenhum eixo
 de mudança.
 
 A reorganização por capacidade — `catalogo`, `carrinho`, `pedido`, `pagamento`,
@@ -240,6 +240,7 @@ diretórios que aparecem juntos com frequência são candidatos a ser um só mó
 ## Para Aprofundar
 
 - Parnas, David. *On the Criteria To Be Used in Decomposing Systems into
-  Modules*. CACM, 1972 — o artigo fundador, ainda o melhor texto sobre o assunto.
+  Modules*. CACM, 1972 — o artigo que estabelece a decomposição por ocultação de
+  informação, contra a decomposição por etapas do processamento.
 - Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — princípios de
   coesão de componentes.

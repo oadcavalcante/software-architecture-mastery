@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [technical-debt, modularity]
 canonical_for: [complexidade, complexidade essencial, complexidade acidental]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -76,8 +76,9 @@ o padrão de decisões que parecem simplificar e complicam.
 
 Complexidade num lugar isolado é tolerável. Complexidade espalhada é o que mata.
 
-Ousterhout formula isso bem: o pior sintoma é a **carga cognitiva distribuída** —
-quando entender uma parte exige conhecer muitas outras. Um módulo denso e
+Ousterhout nomeia três sintomas, e o que ele chama de pior são os **unknown
+unknowns** — não saber o que precisa ser mudado. O que interessa aqui é um dos
+outros dois, a **carga cognitiva**: entender uma parte exige conhecer muitas outras. Um módulo denso e
 autocontido é preferível a dez módulos simples cuja interação é imprevisível.
 
 Isso significa que reduzir complexidade nem sempre é dividir. Às vezes é
@@ -119,8 +120,9 @@ requisito.
 adiciona equivalente em outro, o saldo é o custo da transição.
 
 **Quando o time não consegue operar o resultado.** Uma arquitetura correta que
-exige competência que a equipe não tem é complexidade acidental por definição —
-ela existe por escolha, não pelo problema.
+exige competência que a equipe não tem cobra um custo que o desenho não mostra: o
+de aprender a operá-la enquanto ela já está em produção. A classificação não muda
+— continua essencial —, mas a conta de adotá-la, sim.
 
 **Quando a alternativa simples ainda não falhou.** A ordem correta é usar a
 opção simples até que ela demonstre insuficiência. Antecipar a falha da opção
@@ -212,7 +214,8 @@ um lado da conta, e medir custou uma tarde.
 ## Conceitos Relacionados
 
 - [Abstração](/01-fundamentals/abstraction.md) — a ferramenta que reduz ou adiciona complexidade.
-- [Dívida Técnica](/01-fundamentals/technical-debt.md) — complexidade acidental acumulada.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md) — o que acontece quando a
+  complexidade acidental é assumida sabendo do custo.
 - [Trade-offs](/20-trade-offs/index.md) — a contabilidade dos dois lados.
 
 ## Exercício Prático
