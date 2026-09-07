@@ -25,7 +25,9 @@ alterna entre "acoplamento" e "coupling" obriga o leitor a decidir, a cada
 ocorrência, se os dois termos significam a mesma coisa.
 
 Esta página é **gerada** a partir de `scripts/terminology.json`, que é também a
-fonte que o linter usa. O que está aqui é exatamente o que o CI cobra.
+fonte que o linter usa. O CI cobra as Categorias A e B; a C e os nomes próprios
+são orientação — entram no linter apenas como máscara, para não gerar falso
+positivo, e não reprovam ninguém.
 
 :::info Gerado automaticamente
 

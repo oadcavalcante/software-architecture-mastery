@@ -25,7 +25,9 @@ that alternates between "acoplamento" and "coupling" forces the reader to
 decide, at each occurrence, whether the two terms mean the same thing.
 
 This page is **generated** from `scripts/terminology.json`, which is also the
-source the linter uses. What is here is exactly what CI enforces.
+source the linter uses. CI enforces Categories A and B; C and the proper nouns are
+guidance — they enter the linter only as a mask, to avoid false positives, and fail
+no one.
 
 :::info Generated automatically
 

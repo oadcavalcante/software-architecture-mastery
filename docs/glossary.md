@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: [i18n-terminology]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -79,8 +79,9 @@ que precisa ser tratada na aplicação.
 recente. Custa latência mesmo sem partição de rede — ver PACELC.
 
 **CQRS** — Separação entre o modelo usado para escrever e o usado para ler.
-Resolve o caso em que os dois têm requisitos incompatíveis, ao custo de
-sincronização entre eles.
+Resolve o caso em que os dois têm requisitos incompatíveis. O custo de
+sincronização aparece quando escrita e leitura vão para armazenamentos separados —
+não antes disso.
 
 ## D
 
@@ -88,8 +89,9 @@ sincronização entre eles.
 domínio de negócio e da linguagem de quem o entende.
 
 **Disponibilidade** (availability) — Fração do tempo em que o sistema responde
-corretamente. Expressa como porcentagem sobre uma janela declarada; sem a janela,
-o número não significa nada.
+dentro do critério declarado. Expressa como porcentagem sobre uma janela; sem a
+janela e sem o critério, o número não significa nada — e é por isso que um sistema
+pode contar como disponível devolvendo resultado errado.
 
 **Dívida técnica** — Custo futuro assumido por uma decisão que privilegia
 velocidade agora. Só é dívida quando a escolha foi consciente e há intenção de
@@ -120,8 +122,9 @@ distribuído.
 
 ## L
 
-**Latência** — Tempo entre requisição e resposta. Sempre relatada em percentis,
-nunca em média: a média esconde exatamente a cauda que os usuários percebem.
+**Latência** — Tempo entre requisição e resposta. Requisito de experiência se
+declara em percentil, porque a média esconde a cauda que os usuários percebem; a
+média serve para dimensionar — é dela que a lei de Little precisa.
 
 ## M
 

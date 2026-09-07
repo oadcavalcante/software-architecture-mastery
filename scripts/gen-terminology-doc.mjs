@@ -68,7 +68,9 @@ alterna entre "acoplamento" e "coupling" obriga o leitor a decidir, a cada
 ocorrência, se os dois termos significam a mesma coisa.
 
 Esta página é **gerada** a partir de \`scripts/terminology.json\`, que é também a
-fonte que o linter usa. O que está aqui é exatamente o que o CI cobra.
+fonte que o linter usa. O CI cobra as Categorias A e B; a C e os nomes próprios
+são orientação — entram no linter apenas como máscara, para não gerar falso
+positivo, e não reprovam ninguém.
 
 :::info Gerado automaticamente
 
@@ -162,7 +164,9 @@ that alternates between "acoplamento" and "coupling" forces the reader to
 decide, at each occurrence, whether the two terms mean the same thing.
 
 This page is **generated** from \`scripts/terminology.json\`, which is also the
-source the linter uses. What is here is exactly what CI enforces.
+source the linter uses. CI enforces Categories A and B; C and the proper nouns are
+guidance — they enter the linter only as a mask, to avoid false positives, and fail
+no one.
 
 :::info Generated automatically
 

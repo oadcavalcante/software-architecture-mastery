@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: [i18n-terminology]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -36,8 +36,10 @@ consistency, reached only through its root.
 **Anti-corruption layer** — A translation layer that keeps an external system's
 model from leaking into yours.
 
-**Availability** — The fraction of time a system responds correctly. Expressed as
-a percentage over a stated window; without the window, the number means nothing.
+**Availability** — The fraction of time a system responds within the stated
+criterion. Expressed as a percentage over a window; without the window and without
+the criterion, the number means nothing — which is why a system can count as
+available while returning a wrong result.
 
 ## B
 
@@ -74,8 +76,9 @@ another. Not a defect to eliminate: a quantity to allocate deliberately. Modules
 that change together should be coupled.
 
 **CQRS** — Separation between the model used for writing and the one used for
-reading. It solves the case where the two have incompatible requirements, at the
-cost of synchronization between them.
+reading. It solves the case where the two have incompatible requirements. The cost
+of synchronization appears when writes and reads go to separate stores — not
+before that.
 
 ## D
 
@@ -109,9 +112,9 @@ systems.
 
 ## L
 
-**Latency** — The time between request and response. Always reported in
-percentiles, never as an average: the average hides precisely the tail users
-experience.
+**Latency** — The time between request and response. An experience requirement is
+stated in percentiles, because the average hides the tail users feel; the average
+is for sizing — it is what Little's law needs.
 
 ## M
 
