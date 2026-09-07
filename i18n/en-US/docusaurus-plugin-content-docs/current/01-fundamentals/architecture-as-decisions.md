@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-principles]
 related: [architecture-evolution, solution-space]
 canonical_for: [architecture as decisions, architectural decision]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -152,7 +152,7 @@ The record existed, and it contained the context:
 > *The supplier service is operated by another business unit, with a 99.5% SLA
 > and p99 latency above 2 s. The catalogue has a p99 requirement of 300 ms and
 > 99.9% availability. Querying synchronously subordinates the catalogue to the
-> supplier's SLA, which is an order of magnitude worse.*
+> supplier's SLA: five times the downtime budget, 43.8 h/year against 8.76 h/year.*
 >
 > *Alternative discarded: synchronous query with cache. It would start to win if
 > the supplier service's SLA rose to 99.9% and its p99 fell below 500 ms.*

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-principles]
 related: [architecture-evolution, solution-space]
 canonical_for: [arquitetura como decisões, decisão arquitetural]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -147,7 +147,8 @@ O registro existia, e continha o contexto:
 > *O serviço de fornecedores é operado por outra unidade de negócio, com SLA de
 > 99,5% e latência de p99 acima de 2 s. O catálogo tem requisito de p99 de 300 ms
 > e disponibilidade de 99,9%. Consultar de forma síncrona subordina o catálogo ao
-> SLA do fornecedor, que é uma ordem de grandeza pior.*
+> SLA do fornecedor: cinco vezes o orçamento de indisponibilidade, 43,8 h/ano
+> contra 8,76 h/ano.*
 >
 > *Alternativa descartada: consulta síncrona com cache. Passaria a vencer se o
 > SLA do serviço de fornecedores subisse para 99,9% e o p99 caísse abaixo de

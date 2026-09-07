@@ -13,7 +13,7 @@ objective: >
 prerequisites: [non-functional-requirements]
 related: [constraints, architecture-characteristics]
 canonical_for: [atributos de qualidade, quality attributes]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -98,10 +98,14 @@ clareza arquitetural do que dez páginas de prosa sobre qualidade.
 
 ### Nem todo atributo importa em todo sistema
 
-Um sistema de relatórios internos não precisa de baixa latência. Um sistema de
-apoio à decisão médica não pode trocar consistência por disponibilidade. Um
-protótipo descartável não precisa de manutenibilidade — e investir nela é
-desperdício.
+Um sistema de relatórios internos não precisa de baixa latência. Um protótipo
+descartável não precisa de manutenibilidade — e investir nela é desperdício.
+
+Nem sempre o eixo se resolve pelo domínio. Em saúde, a intuição diz que
+consistência vence: dado clínico desatualizado é risco. Mas ausência de dado
+também é, e o [caso de prontuário eletrônico](/21-case-studies/healthcare.md)
+escolhe o registro local durante a partição justamente por isso. O que decide não
+é o setor — é qual das duas falhas o médico enfrenta primeiro.
 
 A pergunta não é qual atributo é mais importante em abstrato. É qual, se
 falhar neste sistema, causa o dano maior.

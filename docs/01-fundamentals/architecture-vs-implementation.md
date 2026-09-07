@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [dependency-management, technical-debt]
 canonical_for: [arquitetura pretendida, arquitetura real, deriva arquitetural]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -75,7 +75,7 @@ Ordenados por força — quanto mais alto, menos depende de vigilância humana:
 
 | Mecanismo | Força | Custo |
 |---|---|---|
-| Separação de processo ou repositório | Muito alta — a violação é impossível | Alto: operação, versionamento, latência |
+| Separação de processo ou repositório | Muito alta — o import some; resta a dependência declarada | Alto: operação, versionamento, latência |
 | Módulo de linguagem com visibilidade real | Alta — não compila | Depende do que a linguagem oferece |
 | Teste de arquitetura no CI | Alta — não faz merge | Baixo: manutenção da regra |
 | Análise estática de dependências | Média a alta | Baixo |

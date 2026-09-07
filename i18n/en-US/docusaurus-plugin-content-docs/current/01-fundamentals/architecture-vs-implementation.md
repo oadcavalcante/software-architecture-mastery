@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [dependency-management, technical-debt]
 canonical_for: [intended architecture, actual architecture, architectural drift]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -79,7 +79,7 @@ Ordered by strength — the higher, the less it depends on human vigilance:
 
 | Mechanism | Strength | Cost |
 |---|---|---|
-| Separate process or repository | Very high — violation is impossible | High: operations, versioning, latency |
+| Separate process or repository | Very high — the import goes; the declared dependency stays | High: operations, versioning, latency |
 | Language module with real visibility | High — it does not compile | Depends on what the language offers |
 | Architecture test in CI | High — it does not merge | Low: maintaining the rule |
 | Static dependency analysis | Medium to high | Low |

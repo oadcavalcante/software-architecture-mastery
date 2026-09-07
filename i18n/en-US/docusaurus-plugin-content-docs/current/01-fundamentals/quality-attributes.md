@@ -13,7 +13,7 @@ objective: >
 prerequisites: [non-functional-requirements]
 related: [constraints, architecture-characteristics]
 canonical_for: [quality attributes]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -97,9 +97,14 @@ more architectural clarity than ten pages of prose about quality.
 
 ### Not every attribute matters in every system
 
-An internal reporting system does not need low latency. A clinical
-decision-support system cannot trade consistency for availability. A throwaway
-prototype does not need maintainability — and investing in it is waste.
+An internal reporting system does not need low latency. A throwaway prototype
+does not need maintainability — and investing in it is waste.
+
+The axis is not always settled by the domain. In healthcare, intuition says
+consistency wins: stale clinical data is a risk. But absent data is one too, and
+the [electronic health record case](/21-case-studies/healthcare.md) chooses the
+local record during a partition for exactly that reason. What decides is not the
+sector — it is which of the two failures the clinician meets first.
 
 The question is not which attribute is more important in the abstract. It is
 which, if it fails in this system, does the most damage.
