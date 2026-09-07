@@ -14,7 +14,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [architecture-vs-implementation, coupling]
 canonical_for: [arquitetura vs design]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -133,7 +133,10 @@ explícito, porque o contexto que a justificou não está visível em lugar nenh
 do código. É a base dos [ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 **Determina onde a revisão vale a pena.** Revisar todo design exaustivamente não
-escala. Revisar arquitetura sempre vale, porque o erro se espalha.
+escala. A revisão paga quando o custo de desfazer cresce com o tempo — quando já
+há consumidores fora do time, ou quando reverter exige coordenar mais de uma
+agenda. Não paga no sistema de trinta usuários, onde a decisão de alcance
+nominalmente amplo se desfaz numa semana.
 
 ## Erros Comuns
 

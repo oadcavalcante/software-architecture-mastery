@@ -14,7 +14,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [architecture-vs-implementation, coupling]
 canonical_for: [architecture vs design]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -134,7 +134,10 @@ explicit record, because the context that justified it is visible nowhere in the
 code. That is the basis of [ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 **It determines where review is worth it.** Reviewing all design exhaustively
-does not scale. Reviewing architecture always pays, because the mistake spreads.
+does not scale. Review pays when the cost of undoing grows with time — when there
+are already consumers outside the team, or when reverting means coordinating more
+than one schedule. It does not pay in the thirty-user system, where a decision of
+nominally broad reach is undone in a week.
 
 ## Common Mistakes
 

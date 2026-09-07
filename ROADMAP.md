@@ -595,14 +595,26 @@ risco segundo triagem mecânica.
 
 ### Aberto, e por quê
 
-Sete classes de defeito ficaram sem varredura sobre o acervo inteiro: contas que
-não fecham, absolutos §8.1, contradições entre documentos, fatos técnicos,
-exemplos incoerentes, bugs no site e divergência entre canônico e tradução. O
-script existe e está pronto — `workflows/scripts/varredura-final-*.js` —, e a
-execução parou por limite de sessão, não por decisão editorial.
+Sete classes de defeito ficaram sem varredura sobre o acervo inteiro. Três foram
+fechadas depois, e as outras seguem abertas:
 
-Retomar isso é um comando, e não bloqueia nada: o site está publicável, os
-validadores passam, e nenhum defeito conhecido está aberto.
+| Classe | Estado |
+|---|---|
+| Contas que não fecham | 🟩 acervo inteiro — nenhum erro real |
+| Bugs no site | 🟩 acervo inteiro, nos dois idiomas e dois temas |
+| Divergência entre canônico e tradução | 🟨 resíduo de idioma varrido; comparação numérica não |
+| Contradições entre documentos | 🟨 sobreposição textual varrida; achou e corrigiu a grave |
+| Absolutos §8.1 | ⬜ |
+| Fatos técnicos | ⬜ |
+| Exemplos incoerentes | ⬜ |
+
+A comparação numérica entre canônico e tradução foi **abandonada por ruído**, não
+por falta de tempo: a conversão de moeda que o acervo aplica na tradução gera
+divergência legítima em quase todo par, e o sinal não se separa do ruído sem um
+filtro que ainda não existe.
+
+Retomar o que falta não bloqueia nada: o site está publicável, os validadores
+passam, e nenhum defeito conhecido está aberto.
 
 ## O que a revisão encontrou
 
