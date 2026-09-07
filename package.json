@@ -13,6 +13,7 @@
     "@docusaurus/theme-mermaid": "^3.10.2",
     "@easyops-cn/docusaurus-search-local": "^0.55.3",
     "@mdx-js/react": "^3.0.0",
+    "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "prism-react-renderer": "^2.4.0",
     "react": "^19.0.0",
