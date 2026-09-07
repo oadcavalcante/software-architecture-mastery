@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [reliability, scalability, devops-and-platform]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -33,9 +33,9 @@ lentas às 14h de ontem?
 A distinção não é semântica. Ela decide se, durante um incidente, você consegue
 investigar — ou apenas confirmar que algo está errado.
 
-E ela importa porque os incidentes que causam dano são justamente os não antecipados.
-Ver [resiliência](/12-reliability/resilience.md). Se todos os cenários fossem
-previstos, eles teriam sido tratados por mecanismo.
+E ela importa porque os incidentes que causam dano quase sempre vêm de cenários que
+ninguém antecipou. Ver [resiliência](/12-reliability/resilience.md). Cenário previsto
+é o que se trata por mecanismo; o que sobra exige investigação.
 
 O segundo problema é econômico. Telemetria custa — coleta, transporte, armazenamento,
 consulta — e o custo cresce mais rápido que o sistema. Boa parte do que é coletado

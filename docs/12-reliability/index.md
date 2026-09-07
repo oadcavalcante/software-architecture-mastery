@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [scalability, cloud-architecture, observability]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -71,7 +71,9 @@ sem critério de parada.
 Depois **degradação graciosa**, barata onde a redundância é cara, e a menos aplicada.
 
 **Circuit breaker**, **bulkhead** e **tempestades de retentativa** formam um bloco e
-devem ser lidos juntos — os dois primeiros existem por causa do terceiro.
+devem ser lidos juntos, por motivos diferentes: o circuit breaker quebra o ciclo de
+retentativa, e o bulkhead contém esgotamento de recurso compartilhado — que acontece
+com zero retentativas.
 
 Deixe **engenharia do caos** para o fim, e leia-a como verificação do que os anteriores
 prometeram, não como prática independente.

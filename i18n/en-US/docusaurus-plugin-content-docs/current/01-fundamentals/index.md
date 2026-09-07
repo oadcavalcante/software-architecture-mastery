@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [software-design]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -64,8 +64,9 @@ characteristics and evolution — because no decision is made only once.
 
 ## Reading order
 
-Read in sidebar order. This is the only section of the path where the sequence
-genuinely matters, because each concept is used to define the next.
+Read in sidebar order. Other sections have blocks with a required order; this is the
+one ordered from first to last document, because each concept is used to define the
+next.
 
 If you have worked with systems for a few years, the temptation is to skip.
 Resist it on three topics specifically: **quality attributes**, **constraints**

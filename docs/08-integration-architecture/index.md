@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [data-architecture, cloud-architecture, system-design]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -86,7 +86,8 @@ quando uma muda.
 
 Consegue projetar um contrato que permite evoluir sem coordenar implantações, e
 reconhece quando uma integração está acoplando modelo de domínio — o acoplamento
-mais caro e o menos visível.
+menos visível, e o mais caro quando o modelo do fornecedor é estranho ao seu e a
+troca é plausível.
 
 E consegue defender integração em lote quando ela é a resposta certa, que é mais
 frequente do que a literatura sugere.

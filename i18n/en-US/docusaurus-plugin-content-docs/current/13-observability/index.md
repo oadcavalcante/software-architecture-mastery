@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [reliability, scalability, devops-and-platform]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -31,9 +31,9 @@ requests, from customers on a specific plan, get slow at 2 p.m. yesterday?
 The distinction is not semantic. It decides whether, during an incident, you can investigate — or only
 confirm that something is wrong.
 
-And it matters because the incidents that cause damage are precisely the unanticipated ones. See
-[resilience](/12-reliability/resilience.md). If every scenario had been anticipated, it would have been
-handled by a mechanism.
+And it matters because the incidents that cause damage almost always come from scenarios nobody
+anticipated. See [resilience](/12-reliability/resilience.md). An anticipated scenario is the one handled
+by a mechanism; what is left over demands investigation.
 
 The second problem is economic. Telemetry costs — collection, transport, storage, querying — and the cost
 grows faster than the system. Much of what is collected is never queried, and naive reduction removes

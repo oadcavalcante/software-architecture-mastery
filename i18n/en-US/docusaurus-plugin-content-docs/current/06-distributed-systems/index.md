@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [data-architecture, reliability, integration-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -70,7 +70,8 @@ transactions.
 ## Reading order
 
 This section has a mandatory order for the first topics. Read **partial failure**, then
-**timeouts and retries**, then **idempotency**. Nothing else makes sense before those three.
+**timeouts**, then **idempotency**, and only then **retries** — which depends on both
+and, without idempotency, produces duplicates. Nothing else makes sense before those four.
 
 After that there are two paths, and you can choose: the data one (replication, partitioning,
 consistency) or the messaging one (delivery, ordering, queues). Both converge on sagas and

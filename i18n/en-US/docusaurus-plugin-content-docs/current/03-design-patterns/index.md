@@ -13,7 +13,7 @@ objective: >
 prerequisites: [software-design]
 related: [fundamentals, domain-driven-design]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -41,8 +41,10 @@ counterweight.
 
 ## What you will find here
 
-**Design patterns (GoF).** All twenty-three, organized into creational, structural
-and behavioural. Each treated from the problem that originated it, not from its class
+**Design patterns (GoF).** Twenty-two of the twenty-three, organized into creational,
+structural and behavioural. Interpreter is left out: solving a grammar with one class
+per rule is rare outside a compiler, and where it shows up the usual answer is a real
+parser. Each treated from the problem that originated it, not from its class
 structure.
 
 **Architectural patterns.** Layered, Modular Monolith, Microservices, Event-Driven,

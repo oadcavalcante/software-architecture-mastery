@@ -578,7 +578,8 @@ esses links não resolvem na visualização de arquivo do GitHub; o site é o pr
 ### 7.5 Padrões — regra específica
 
 **Nenhum padrão é apresentado sem a discussão de quando NÃO usá-lo.** Isso vale para os
-23 GoF e para todos os padrões arquiteturais. Um documento de padrão sem "Quando Não Usar"
+22 GoF cobertos — Interpreter fica de fora, e o Apêndice A já o omite — e para todos os
+padrões arquiteturais. Um documento de padrão sem "Quando Não Usar"
 substantivo (mais de um parágrafo, com condições concretas) falha a revisão.
 
 ### 7.6 Template — Case study
@@ -841,8 +842,11 @@ o build de produção gera todas. Isso é comportamento do framework, não limit
 
 ## 11. Decisões registradas do próprio repositório
 
-O repositório pratica o que ensina: suas decisões estruturais são ADRs, em
-`docs/18-architecture-decisions/repo-adrs/`.
+As decisões estruturais do próprio repositório estão registradas **aqui, nesta
+tabela** — não como documentos publicados. O diretório
+`docs/18-architecture-decisions/repo-adrs/` foi planejado e nunca escrito, e o
+índice da seção chegou a prometê-lo ao leitor; a promessa saiu. Publicá-los é
+trabalho em aberto, não dívida esquecida.
 
 | ADR | Decisão | Consequência principal |
 |---|---|---|

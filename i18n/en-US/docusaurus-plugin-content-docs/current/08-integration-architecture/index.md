@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [data-architecture, cloud-architecture, system-design]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -77,7 +77,8 @@ You stop choosing an integration by protocol and start choosing by coupling: wha
 about the other, and what happens when one changes.
 
 You can design a contract that allows evolving without coordinating deployments, and you recognize when
-an integration is coupling domain models — the most expensive coupling and the least visible.
+an integration is coupling domain models — the least visible coupling, and the most
+expensive when the vendor model is foreign to yours and replacing it is plausible.
 
 And you can defend batch integration when it is the right answer, which is more often than the
 literature suggests.

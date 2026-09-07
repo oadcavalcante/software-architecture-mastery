@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [architecture-decisions, architecture-leadership, security]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -73,9 +73,9 @@ necessárias, e confundi-las produz o pior dos dois.
 
 ## Ordem de leitura
 
-Comece por **princípios versus padrões**, que é a distinção operacional central:
-princípios orientam julgamento, padrões prescrevem. Confundir os dois produz
-tanto rigidez quanto vagueza.
+Comece por **Fundamentos de Governança**, que fixa o mecanismo e o ponto de
+intervenção — e é pré-requisito da maior parte do resto. Depois **Princípios em
+Operação** e **Padrões em Operação**, nessa ordem.
 
 Depois **fitness functions**, que é o mecanismo com melhor relação entre efeito e
 atrito.

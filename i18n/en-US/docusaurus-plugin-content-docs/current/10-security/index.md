@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [cloud-architecture, integration-architecture, reliability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -30,7 +30,10 @@ That works for one class of problem — a wrong configuration, an outdated libra
 the one that matters. Serious flaws are almost always **structural**: a trust boundary in the wrong place,
 a too-broad permission granted at the start, a piece of data that should not be there.
 
-No scan finds that, because it is not a code defect. It is an architectural decision.
+Code and dependency scanning does not decide where the trust boundary sits. Posture
+and permission-usage tooling does surface the other two — a permission never
+exercised, data where it should not be — but it surfaces the symptom; the decision
+remains architectural.
 
 The second problem is framing. "Security" is discussed as if it were a binary property — the system is
 secure or it is not. It is, in practice, a set of decisions about **against whom**, **protecting what**, and

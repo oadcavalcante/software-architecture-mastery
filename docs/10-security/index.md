@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [cloud-architecture, integration-architecture, reliability]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -31,8 +31,10 @@ desatualizada — e não funciona para a que importa. As falhas graves são quas
 **estruturais**: uma fronteira de confiança no lugar errado, uma permissão ampla
 demais concedida no início, um dado que não deveria estar ali.
 
-Nenhuma varredura encontra isso, porque não é defeito de código. É decisão de
-arquitetura.
+Varredura de código e de dependência não decide onde fica a fronteira de confiança.
+Ferramenta de postura e de uso de permissão chega a expor os outros dois — permissão
+nunca exercida, dado onde não deveria estar —, mas expõe o sintoma; a decisão
+continua sendo de arquitetura.
 
 O segundo problema é de enquadramento. "Segurança" é discutida como se fosse uma
 propriedade binária — o sistema é seguro ou não é. Ela é, na prática, um conjunto de

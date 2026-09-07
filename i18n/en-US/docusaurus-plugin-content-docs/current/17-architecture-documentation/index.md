@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [architecture-decisions, enterprise-architecture, observability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -47,7 +47,8 @@ the machine doesn't know: **why** things are the way they are.
 **Principles.** What decides whether documentation gets read: reader, purpose, level of
 detail, and where it lives.
 
-**The C4 model.** The most practical approach to diagramming software, with the four
+**The C4 model.** Four levels of zoom, and the discipline of one level of abstraction
+per diagram — which is its contribution, more than the notation. With the four
 levels of zoom — and the guidance that the first two suffice in most cases.
 
 **The diagrams.** Context, container, component, deployment, sequence and data flow —

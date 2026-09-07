@@ -13,7 +13,7 @@ objective: >
 prerequisites: [software-design]
 related: [fundamentals, domain-driven-design]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -40,8 +40,10 @@ Padrão aplicado sem o problema correspondente é complexidade sem contrapeso.
 
 ## O que você vai encontrar aqui
 
-**Padrões de projeto (GoF).** Os vinte e três, organizados em criacionais,
-estruturais e comportamentais. Cada um tratado a partir do problema que o
+**Padrões de projeto (GoF).** Vinte e dois dos vinte e três, organizados em
+criacionais, estruturais e comportamentais. Interpreter fica de fora: resolver
+gramática com uma classe por regra é raro fora de compilador, e onde aparece a
+resposta usual é um analisador de verdade. Cada um tratado a partir do problema que o
 originou, não a partir da sua estrutura de classes.
 
 **Padrões arquiteturais.** Layered, Monolito Modular, Microsserviços,

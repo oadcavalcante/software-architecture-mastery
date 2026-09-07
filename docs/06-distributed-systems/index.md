@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [data-architecture, reliability, integration-architecture]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -71,8 +71,9 @@ sagas e transações distribuídas.
 ## Ordem de leitura
 
 Esta seção tem ordem obrigatória nos primeiros tópicos. Leia **falha parcial**,
-depois **timeouts e retries**, depois **idempotência**. Nada mais faz sentido
-antes desses três.
+depois **timeouts**, depois **idempotência**, e só então **retries** — que depende
+dos dois anteriores, e sem idempotência produz duplicata. Nada mais faz sentido
+antes desses quatro.
 
 Depois disso há dois caminhos, e você pode escolher: o de dados (replicação,
 particionamento, consistência) ou o de mensagens (entrega, ordenação, filas).

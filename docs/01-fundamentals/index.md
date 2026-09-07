@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [software-design]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -64,8 +64,9 @@ e evolução — porque nenhuma decisão é tomada uma vez só.
 
 ## Ordem de leitura
 
-Leia na ordem do sidebar. Esta é a única seção do percurso em que a sequência
-importa de verdade, porque cada conceito é usado para definir o próximo.
+Leia na ordem do sidebar. Outras seções têm blocos com ordem obrigatória; esta é a
+que tem ordem do primeiro ao último documento, porque cada conceito é usado para
+definir o próximo.
 
 Se você já trabalha com sistemas há alguns anos, a tentação é pular. Resista a
 ela em três tópicos especificamente: **atributos de qualidade**, **restrições** e

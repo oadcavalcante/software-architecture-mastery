@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [architecture-decisions, enterprise-architecture, observability]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -45,8 +45,9 @@ o que a máquina não sabe: **por que** as coisas são assim.
 **Princípios.** O que decide se a documentação vai ser lida: leitor, propósito, nível de
 detalhe, e onde ela vive.
 
-**O modelo C4.** A abordagem mais prática para diagramar software, com os quatro níveis
-de zoom — e a orientação de que os dois primeiros bastam na maioria dos casos.
+**O modelo C4.** Quatro níveis de zoom, e a disciplina de um nível de abstração por
+diagrama — que é a contribuição dele, mais que a notação. Com a orientação de que os
+dois primeiros bastam na maioria dos casos.
 
 **Os diagramas.** Contexto, contêiner, componente, implantação, sequência e fluxo de
 dados — cada um com o que ele responde e quando não vale a pena.

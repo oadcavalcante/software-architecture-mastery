@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [architecture-decisions, architecture-leadership, security]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -71,7 +71,9 @@ produces the worst of both.
 
 ## Reading order
 
-Start with **principles versus standards**, which is the central operational distinction:
+Start with **Governance Basics**, which fixes the mechanism and the point of
+intervention — and is a prerequisite for most of the rest. Then **Principles in
+Operation** and **Standards in Operation**, in that order. The distinction between them:
 principles guide judgment, standards prescribe. Confusing the two produces both rigidity
 and vagueness.
 

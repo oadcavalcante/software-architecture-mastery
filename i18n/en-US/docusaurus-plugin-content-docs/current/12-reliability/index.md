@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [scalability, cloud-architecture, observability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -69,8 +69,9 @@ stopping criterion.
 
 Then **graceful degradation**, cheap where redundancy is expensive, and the least applied.
 
-**Circuit breakers**, **bulkheads** and **retry storms** form a block and should be read together — the
-first two exist because of the third.
+**Circuit breakers**, **bulkheads** and **retry storms** form a block and should be read together, for
+different reasons: the circuit breaker breaks the retry cycle, and the bulkhead contains exhaustion of a
+shared resource — which happens with zero retries.
 
 Leave **chaos engineering** for the end, and read it as verification of what the previous ones promised,
 not as an independent practice.

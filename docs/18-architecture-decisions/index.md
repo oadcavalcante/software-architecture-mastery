@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [trade-offs, architecture-governance, legacy-modernization]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -63,8 +63,9 @@ ADR-005  Adotar Arquitetura Hexagonal
 Pelo menos um deles aparece com status `superseded`, para mostrar a mecânica de
 superação — que é o que a maior parte dos exemplos de ADR omite.
 
-**Os ADRs deste repositório.** As decisões estruturais do próprio projeto,
-registradas no mesmo formato. O repositório pratica o que ensina.
+**Um conjunto de ADRs didáticos.** Cinco decisões de um sistema fictício, escritas no
+formato que a seção ensina — incluindo uma superada por outra, para mostrar a mecânica
+de superação.
 
 ## Ordem de leitura
 
