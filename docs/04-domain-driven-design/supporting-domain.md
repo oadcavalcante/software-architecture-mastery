@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, generic-domain, tactical-ddd]
 canonical_for: [supporting domain, subdomínio de apoio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -74,8 +74,10 @@ mercado maduras.
 
 ### Onde alocar pessoas
 
-Supporting domains são bons lugares para pessoas em início de carreira: o
-problema é real, a consequência de errar é contida, e o aprendizado é legítimo.
+Supporting domains costumam ser bons lugares para pessoas em início de carreira: o
+problema é real e o aprendizado é legítimo. A condição é o raio do erro — onde
+houver conformidade, dinheiro ou dado irreversível, a consequência não é contida,
+e a classificação não muda isso.
 
 Alocar os engenheiros mais experientes ali é o sintoma do desalinhamento que a
 classificação existe para corrigir.
@@ -113,7 +115,7 @@ validação de vencimento, retenção conforme regra regulatória.
 
 Necessário — sem isso não há conformidade. Específico — as regras de retenção
 vêm da regulação do setor e nenhum produto de prateleira as implementava.
-Diferenciador — nenhum cliente escolheu a fintech por causa da gestão de
+Diferencia? Não — nenhum cliente escolheu a fintech por causa da gestão de
 documentos.
 
 Supporting, portanto.

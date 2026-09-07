@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [architecture-vs-design, architecture-as-decisions]
 canonical_for: [arquitetura de software, software architecture]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -122,8 +122,9 @@ log — que é o inverso do padrão comum, e é o correto.
 
 **Muda quem decide.** Se arquitetura é definida por custo de reversão e não por
 cargo, então quem escreve a migração está tomando uma decisão arquitetural, e
-precisa saber disso. A alternativa — concentrar decisões num arquiteto que não
-está presente em cada escolha — não escala e não funciona.
+precisa saber disso. A alternativa — concentrar decisões num arquiteto que não está presente em cada
+escolha — não escala: acima de um punhado de decisões por semana, a fila vira
+gargalo, e o que não cabe nela é decidido por omissão.
 
 **Muda o que se documenta.** Registra-se o porquê das decisões caras de reverter,
 porque são as que alguém vai querer reavaliar quando o contexto mudar, e as que
@@ -198,11 +199,12 @@ seis meses — qualquer decisão, de escolha de biblioteca a nome de campo.
 
 Para cada uma, estime em dias de trabalho quanto custaria revertê-la hoje.
 
-Duas perguntas sobre o resultado: quantas das cinco mais caras receberam
-discussão explícita quando foram tomadas? E quantas foram tomadas por alguém que
-sabia que estava decidindo algo de alto custo?
+Uma pergunta sobre o resultado: quantas das cinco foram tomadas por alguém que
+sabia estar decidindo algo caro de reverter?
 
-A distância entre essas duas respostas é a lacuna arquitetural do time.
+O que falta para cinco é a lacuna arquitetural do time. A pergunta paralela —
+quantas receberam discussão explícita — mede outra coisa: quanto se debateu sem
+saber o que estava em jogo.
 
 ## Perguntas de Entrevista
 

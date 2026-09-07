@@ -13,7 +13,7 @@ objective: >
 prerequisites: [problem-space]
 related: [constraints, architecture-as-decisions]
 canonical_for: [espaço da solução, solution space]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -145,7 +145,7 @@ Espaço enumerado antes de qualquer avaliação:
 
 | Opção | Vence quando |
 |---|---|
-| Réplica de leitura | O volume de relatórios cabe numa réplica e atraso de segundos é aceitável |
+| Réplica de leitura | A carga de relatórios cresce além do que a otimização de consultas absorve, e atraso de segundos é aceitável |
 | Data warehouse separado | Há análise de múltiplas fontes ou histórico longo |
 | Materializar agregados no transacional | Os relatórios são poucos, conhecidos e estáveis |
 | Restringir horário de execução | Os relatórios não são urgentes e a operação aceita janela |

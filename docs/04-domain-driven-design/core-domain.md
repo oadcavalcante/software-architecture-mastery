@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [supporting-domain, generic-domain, tactical-ddd]
 canonical_for: [core domain, domínio central]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -75,11 +75,13 @@ mais difícil, e é o que a análise recomenda.
 **Modelagem cuidadosa com o especialista.** Conversas frequentes, refinamento
 contínuo, [ubiquitous language](/04-domain-driven-design/ubiquitous-language.md) rigorosa.
 
-**DDD tático.** Agregados, objetos de valor, eventos de domínio — os padrões que
-não se pagam em outros lugares se pagam aqui.
+**DDD tático completo.** Agregado, repositório e fábrica — os que raramente se
+pagam fora daqui. Objeto de valor e entidade rica se pagam também fora; ver
+[DDD tático](/04-domain-driven-design/tactical-ddd.md).
 
-**Nunca terceirizar nem comprar.** Comprar o core é comprar a própria
-diferenciação de um fornecedor que a vende a todos.
+**Comprar custa a diferenciação, quando o fornecedor vende o mesmo aos
+concorrentes.** O que sobra de espaço é diferenciar na configuração, nos dados ou
+no processo em volta — e isso raramente basta no core.
 
 ### O core muda
 

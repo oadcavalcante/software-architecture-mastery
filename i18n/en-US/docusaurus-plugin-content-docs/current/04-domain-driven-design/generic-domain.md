@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, supporting-domain, anti-corruption-layer]
 canonical_for: [generic domain]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -62,7 +62,7 @@ The honest comparison includes what does not appear in the initial estimate:
 | Regulatory compliance | Yours | Frequently the vendor's |
 | Operations and on-call | Yours | The vendor's |
 | Engineering capacity occupied | Permanently | Once |
-| Cost of exit | None | Migration |
+| Cost of exit | Data migration and losing what was built to measure | Migration |
 
 The security row is decisive in several generic domains. A homegrown authentication
 implementation is an attack surface the company then has to defend indefinitely.
@@ -103,7 +103,7 @@ Revisiting that periodically frees capacity.
 
 ## Why This Matters
 
-**Because building a generic domain is the most common waste of engineering capacity.** And
+**Because building a generic domain is a recurring waste of engineering capacity** — and
 the easiest to avoid, once classified.
 
 **Because the decision has to invert the burden.** The default should be to buy, and

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate, repository]
 related: [strategic-ddd, core-domain, clean-architecture]
 canonical_for: [tactical DDD, tactical design]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -146,7 +146,7 @@ validation, there is no model to build.
 
 ## Real-World Example
 
-A logistics platform adopted tactical DDD across the whole codebase: eleven modules, all
+A logistics platform adopted tactical DDD across the whole codebase: eight modules, all
 with aggregates, repositories, factories and value objects.
 
 The review done two years later measured the ratio between ceremony code and rules code in

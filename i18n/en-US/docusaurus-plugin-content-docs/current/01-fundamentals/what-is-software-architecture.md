@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [architecture-vs-design, architecture-as-decisions]
 canonical_for: [software architecture]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -125,7 +125,9 @@ which is the inverse of the common pattern, and the correct one.
 **It changes who decides.** If architecture is defined by cost of reversal rather
 than by job title, then whoever writes the migration is making an architectural
 decision, and needs to know that. The alternative — concentrating decisions in an
-architect who is not present at every choice — does not scale and does not work.
+architect who is not present at every choice — does not scale: past a handful of
+decisions a week the queue becomes the bottleneck, and what does not fit it gets
+decided by omission.
 
 **It changes what gets documented.** You record the reasoning behind decisions
 that are expensive to reverse, because those are the ones someone will want to
@@ -207,7 +209,9 @@ Two questions about the result: how many of the five most expensive received
 explicit discussion when they were made? And how many were made by someone who
 knew they were deciding something high-cost?
 
-The distance between those two answers is the team's architectural gap.
+What is missing from five is the team's architectural gap. The parallel question —
+how many were explicitly discussed — measures something else: how much was debated
+without knowing what was at stake.
 
 ## Interview Questions
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-driven-design]
 related: [subdomain, ubiquitous-language, bounded-context]
 canonical_for: [domain, domain model]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -72,7 +72,7 @@ That means frequent, direct conversations between whoever writes the code and wh
 understands the business — not mediated requirements. It is uncomfortable in organizations
 structured around layers of communication, and it is the prerequisite for everything else.
 
-### Essential versus technical complexity
+### Domain versus technical complexity
 
 DDD is a response to **domain** complexity, not technical complexity.
 
@@ -102,8 +102,8 @@ serves that.
 domain, DDD is not the tool. Recognizing that avoids applying an expensive method to the
 wrong problem.
 
-**Because it changes who talks to whom.** The practice that most determines DDD's success is
-not technical: it is the frequency and quality of the conversations between developers and
+**Because it changes who talks to whom.** The practice that sustains the rest is not
+technical: it is the frequency and quality of the conversations between developers and
 experts. Without that, the tactical patterns become naming conventions.
 
 ## Common Mistakes

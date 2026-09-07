@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [supporting-domain, generic-domain, tactical-ddd]
 canonical_for: [core domain]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -77,7 +77,9 @@ rigorous [ubiquitous language](/04-domain-driven-design/ubiquitous-language.md).
 **Tactical DDD.** Aggregates, value objects, domain events — the patterns that do not pay
 off elsewhere do pay off here.
 
-**Never outsource or buy.** Buying the core is buying your own differentiation from a
+**Buying costs the differentiation, when the vendor sells the same to competitors.**
+What room is left is differentiating in configuration, in data or in the surrounding
+process — and that rarely suffices in the core. Buying the core means taking it from a
 vendor who sells it to everyone.
 
 ### The core changes

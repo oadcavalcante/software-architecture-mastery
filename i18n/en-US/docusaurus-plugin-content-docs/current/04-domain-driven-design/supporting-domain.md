@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, generic-domain, tactical-ddd]
 canonical_for: [supporting domain]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -72,8 +72,10 @@ all were supporting in many companies and today have mature market solutions.
 
 ### Where to allocate people
 
-Supporting domains are good places for people early in their careers: the problem is real,
-the consequence of getting it wrong is contained, and the learning is genuine.
+Supporting domains are usually good places for people early in their careers: the problem
+is real and the learning is genuine. The condition is the blast radius — where compliance,
+money or irreversible data is involved, the consequence is not contained, and the
+classification does not change that.
 
 Allocating the most experienced engineers there is the symptom of the misalignment the
 classification exists to correct.
@@ -109,7 +111,7 @@ A fintech had a document management subdomain: upload, categorization, expiry va
 retention according to regulatory rules.
 
 Necessary — without it there is no compliance. Specific — the retention rules come from
-sector regulation and no off-the-shelf product implemented them. Differentiating — no
+sector regulation and no off-the-shelf product implemented them. Differentiating? No — no
 customer chose the fintech because of its document management.
 
 Supporting, therefore.

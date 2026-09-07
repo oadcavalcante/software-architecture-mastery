@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [core-domain, supporting-domain, generic-domain, bounded-context]
 canonical_for: [subdomain]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,8 @@ independently of the software, and the software should reflect it.
 Without that analysis, the whole domain gets the same treatment: the same modelling
 quality, the same engineering effort, the same team priority.
 
-That is always wrong, in one of two directions.
+In any domain with more than one area of cohesion, that goes wrong in one of two
+directions.
 
 Areas that differentiate the company get less attention than they deserve, because they
 compete with the rest for resources.
@@ -103,7 +104,8 @@ engineering capacity.
 where to allocate it — and that is a business decision, not a technical one.
 
 **Because it guides where to apply tactical DDD.** The tactical patterns are expensive and
-only pay off in the core. See [tactical DDD](/04-domain-driven-design/tactical-ddd.md).
+rarely pay off outside the core; value objects and rich entities pay off in any
+subdomain. See [tactical DDD](/04-domain-driven-design/tactical-ddd.md).
 
 **Because it exposes misalignment.** When the business's core subdomain is the one
 receiving the least investment, that is a strategic problem the analysis makes visible.

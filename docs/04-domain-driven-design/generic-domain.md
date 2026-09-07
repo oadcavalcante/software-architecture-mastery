@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, supporting-domain, anti-corruption-layer]
 canonical_for: [generic domain, subdomínio genérico]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -63,7 +63,7 @@ A comparação honesta inclui o que não aparece na estimativa inicial:
 | Conformidade regulatória | Sua | Frequentemente do fornecedor |
 | Operação e plantão | Seu | Do fornecedor |
 | Capacidade de engenharia ocupada | Permanentemente | Uma vez |
-| Custo de saída | Nenhum | Migração |
+| Custo de saída | Migração de dados e perda do que foi feito sob medida | Migração |
 
 A linha de segurança é decisiva em vários generic domains. Uma implementação
 própria de autenticação é uma superfície de ataque que a empresa passa a ter que
@@ -106,8 +106,8 @@ Revisar isso periodicamente libera capacidade.
 
 ## Por Que Isso Importa
 
-**Porque construir generic domain é o desperdício mais comum de capacidade de
-engenharia.** E o mais fácil de evitar, uma vez classificado.
+**Porque construir generic domain é um desperdício recorrente de capacidade de
+engenharia** — e dos mais fáceis de evitar, uma vez classificado.
 
 **Porque a decisão precisa inverter o ônus.** O default deve ser comprar, e
 construir deve exigir justificativa — não o contrário.

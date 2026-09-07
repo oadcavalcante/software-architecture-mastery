@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate, repository]
 related: [strategic-ddd, core-domain, clean-architecture]
 canonical_for: [DDD tático, tactical design]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -148,7 +148,7 @@ de formato, não há modelo a construir.
 
 ## Exemplo Real
 
-Uma plataforma de logística adotou DDD tático em toda a base: onze módulos, todos
+Uma plataforma de logística adotou DDD tático em toda a base: oito módulos, todos
 com agregados, repositórios, fábricas e objetos de valor.
 
 A revisão feita dois anos depois mediu a relação entre código de cerimônia e

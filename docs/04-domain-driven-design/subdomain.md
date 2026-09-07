@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [core-domain, supporting-domain, generic-domain, bounded-context]
 canonical_for: [subdomínio, subdomain]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -32,7 +32,8 @@ existe independentemente do software, e o software deveria refletí-la.
 Sem essa análise, todo o domínio recebe o mesmo tratamento: mesma qualidade de
 modelagem, mesmo esforço de engenharia, mesma prioridade de time.
 
-Isso é sempre errado, em uma de duas direções.
+Em qualquer domínio com mais de uma área de coesão, isso erra em uma de duas
+direções.
 
 Áreas que diferenciam a empresa recebem menos atenção do que merecem, porque
 competem com o resto por recursos.
@@ -104,8 +105,9 @@ engenharia significativa.
 **Porque a capacidade de engenharia é finita.** A decisão que a classificação
 informa é onde alocá-la — e essa é uma decisão de negócio, não técnica.
 
-**Porque orienta onde aplicar DDD tático.** Os padrões táticos são caros e só se
-pagam no core. Ver [DDD tático](/04-domain-driven-design/tactical-ddd.md).
+**Porque orienta onde aplicar DDD tático.** Agregado, repositório e fábrica são
+caros e raramente se pagam fora do core; objeto de valor e entidade rica se pagam
+em qualquer subdomínio. Ver [DDD tático](/04-domain-driven-design/tactical-ddd.md).
 
 **Porque expõe desalinhamento.** Quando o subdomínio core do negócio é o que
 recebe menos investimento, isso é um problema estratégico que a análise torna

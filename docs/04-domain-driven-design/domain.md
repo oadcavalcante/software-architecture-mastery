@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-driven-design]
 related: [subdomain, ubiquitous-language, bounded-context]
 canonical_for: [domínio, domain, modelo de domínio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -78,7 +78,7 @@ entende o negócio — não requisitos intermediados. É desconfortável em
 organizações estruturadas por camadas de comunicação, e é o pré-requisito de
 tudo o mais.
 
-### Complexidade essencial versus técnica
+### Complexidade de domínio versus técnica
 
 DDD é uma resposta à complexidade **do domínio**, não à técnica.
 
@@ -109,9 +109,8 @@ blocos táticos — serve a isso.
 domínio, DDD não é a ferramenta. Reconhecer isso evita aplicar um método caro ao
 problema errado.
 
-**Porque muda quem conversa com quem.** A prática que mais determina o sucesso de
-DDD não é técnica: é a frequência e a qualidade das conversas entre desenvolvedores
-e especialistas. Sem isso, os padrões táticos viram convenção de nomenclatura.
+**Porque muda quem conversa com quem.** A prática que sustenta o resto não é técnica:
+é a frequência e a qualidade das conversas entre desenvolvedores e especialistas. Sem isso, os padrões táticos viram convenção de nomenclatura.
 
 ## Erros Comuns
 

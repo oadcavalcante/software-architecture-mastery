@@ -13,7 +13,7 @@ objective: >
 prerequisites: [problem-space]
 related: [constraints, architecture-as-decisions]
 canonical_for: [solution space]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -146,7 +146,7 @@ The space enumerated before any evaluation:
 
 | Option | Wins when |
 |---|---|
-| Read replica | The report volume fits one replica and a few seconds of lag is acceptable |
+| Read replica | Report load grows beyond what query optimization absorbs, and a few seconds of lag is acceptable |
 | Separate data warehouse | There is multi-source analysis or long history |
 | Materialize aggregates in the transactional store | The reports are few, known and stable |
 | Restrict execution to off-hours | The reports are not urgent and operations accepts a window |
