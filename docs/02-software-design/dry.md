@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [kiss, yagni, code-smells]
 canonical_for: [DRY, duplicação de conhecimento]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -63,9 +63,15 @@ Duas respostas "sim" indicam duplicação de conhecimento — unifique. Qualquer
 | Situação | Veredito |
 |---|---|
 | Alíquota de imposto em dois cálculos | Duplicação de conhecimento — unifique |
-| Duas validações de formato de e-mail | Duplicação — unifique |
+| Duas validações contra o mesmo formato aceito de e-mail | Duplicação — unifique |
 | Duas estruturas com os mesmos cinco campos, em contextos diferentes | Coincidência — deixe |
 | Duas rotinas de retry com a mesma forma, para serviços diferentes | Provavelmente coincidência |
+
+O segundo caso vale para o formato: qual texto é um e-mail aceitável é uma
+decisão só. A política de validação não — o cadastro pode passar a exigir
+verificação por link e a importação em lote não, e aí os dois mudam por razões
+diferentes. Ver
+[acoplamento vs. duplicação](/20-trade-offs/coupling-vs-duplication.md).
 
 O terceiro caso é o que mais engana. `PedidoDTO` e `PedidoEntidade` com campos
 idênticos parecem duplicação. Não são: uma representa o contrato externo, a outra
@@ -73,11 +79,12 @@ o modelo interno, e elas vão divergir na primeira mudança de API.
 
 ### A regra dos três
 
-Espere a terceira ocorrência antes de abstrair.
-
-Duas ocorrências não distinguem coincidência de conhecimento — a semelhança pode
-ser acidental. A terceira revela a forma real, e o que varia entre as três é
-exatamente o que a abstração precisa parametrizar.
+Espere a terceira ocorrência antes de abstrair. A regra e sua justificativa estão
+em [acoplamento vs. duplicação](/20-trade-offs/coupling-vs-duplication.md); o que
+ela dá a DRY é o critério que falta às duas primeiras ocorrências: com duas,
+"conhecimento ou coincidência?" não tem resposta observável. A terceira mostra o
+que varia entre os casos — e o que varia é exatamente o que a abstração teria de
+parametrizar.
 
 ### DRY atravessa fronteiras com custo
 
@@ -86,8 +93,9 @@ acoplamento; entre serviços, cria uma biblioteca compartilhada, que acopla os
 ciclos de release de times diferentes.
 
 É por isso que um dos trade-offs recorrentes é
-[acoplamento versus duplicação](/20-trade-offs/index.md), e por que times
-maduros frequentemente **escolhem duplicar** entre bounded contexts.
+[acoplamento versus duplicação](/20-trade-offs/coupling-vs-duplication.md), e
+por que times maduros frequentemente **escolhem duplicar** entre bounded
+contexts.
 
 ## Onde a duplicação de conhecimento se esconde
 
@@ -149,11 +157,15 @@ contabilizado.
 ## Alternativas
 
 - **Duplicação deliberada e anotada** — duplicar, com comentário dizendo por quê e
-  qual condição levaria a unificar.
+  qual condição levaria a unificar. Vence enquanto não se sabe se a semelhança é
+  conhecimento: custa uma linha e impede que a próxima leitura decida por engano.
 - **Extrair só o que é estável** — unificar o núcleo invariante e deixar as
-  bordas duplicadas.
+  bordas duplicadas. Vence quando o núcleo é grande o bastante para pagar a
+  extração e as divergências conhecidas estão todas nas bordas.
 - **Contrato compartilhado sem código compartilhado** — publicar um esquema em
-  vez de uma biblioteca.
+  vez de uma biblioteca. Vence entre times cujos ciclos de release já são
+  independentes, onde acoplá-los custa mais que reimplementar a leitura do
+  contrato.
 
 ## Trade-offs
 
@@ -184,15 +196,20 @@ significados diferentes.
 
 ## Erros Comuns
 
-**Ler DRY como "não repita código".** A raiz de tudo.
+**Ler DRY como "não repita código".** A raiz de tudo: o critério passa a ser a
+semelhança do texto, e o que se unifica são decisões sem relação entre si.
 
-**Extrair na segunda ocorrência.** Cedo demais para distinguir.
+**Extrair na segunda ocorrência.** Cedo demais para distinguir coincidência de
+conhecimento — a abstração sai com a forma do primeiro caso, e o segundo passa a
+entrar nela por parâmetro.
 
 **Tratar `PedidoDTO` e `PedidoEntidade` como duplicação.** São camadas diferentes
-com razões de mudança diferentes.
+com razões de mudança diferentes; unificadas, nenhuma mudança de contrato externo
+pode ser feita sem tocar no modelo interno.
 
 **Aplicar DRY entre bounded contexts.** É onde o custo é maior e o benefício,
-menor.
+menor: o modelo comum ganha um campo opcional por contexto e deixa de descrever
+bem qualquer um deles.
 
 **Não anotar a duplicação deliberada.** Sem registro, o próximo desenvolvedor a
 "corrige".
@@ -222,7 +239,8 @@ Os dois casos eram textualmente parecidos. Só um era conhecimento duplicado.
 
 - [Coesão](/01-fundamentals/cohesion.md) — a mesma pergunta sobre razão de mudança.
 - [Abstração](/01-fundamentals/abstraction.md) — o custo de abstrair cedo.
-- [Acoplamento vs. Duplicação](/20-trade-offs/index.md) — o trade-off em detalhe.
+- [Acoplamento vs. Duplicação](/20-trade-offs/coupling-vs-duplication.md) — o
+  trade-off em detalhe.
 - [Code Smells](/02-software-design/code-smells.md) — como reconhecer os sintomas.
 
 ## Exercício Prático

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-design]
 related: [dependency-direction, component-design]
 canonical_for: [design de pacotes, coesão de componentes, princípio da equivalência release-reúso]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -69,16 +69,19 @@ não usa. É o **I** do [SOLID](/02-software-design/solid.md) em escala de pacot
 CCP quer agrupar — menos pacotes a publicar. CRP quer separar — menos dependência
 desnecessária.
 
+No triângulo, cada aresta nomeia o custo de abandonar o vértice oposto a ela.
+
 ```mermaid
 graph LR
-  REP["REP<br/>reúso"] --- CCP["CCP<br/>manutenção<br/>(agrupa)"]
-  CCP --- CRP["CRP<br/>consumidor<br/>(separa)"]
-  CRP --- REP
+  REP["REP<br/>reúso"] ---|sem CRP — consumidor carrega o que não usa| CCP["CCP<br/>manutenção<br/>(agrupa)"]
+  CCP ---|sem REP — reúso sem versão nem notas| CRP["CRP<br/>consumidor<br/>(separa)"]
+  CRP ---|sem CCP — muitas publicações por mudança| REP
 ```
 
 Martin descreve isso como um triângulo em que se escolhe dois lados. Sacrificar
-CRP produz consumidores com dependências demais. Sacrificar CCP produz muitas
-publicações por mudança.
+CRP produz consumidores com dependências demais; sacrificar CCP, muitas
+publicações por mudança; sacrificar REP, código sem versão a que se fixar — o
+consumidor copia em vez de depender.
 
 A posição correta muda com a maturidade: **projetos jovens tendem para CCP**
 (agrupar, para publicar menos), **projetos maduros tendem para CRP** (separar,
@@ -90,14 +93,15 @@ Em várias linguagens, pacote e diretório coincidem. Onde não coincidem — ou
 o diretório não impõe nada — o que define o pacote é a unidade de publicação:
 o artefato, o módulo declarado, a biblioteca.
 
-Se tudo é publicado junto, há um pacote só, independentemente de quantos
-diretórios existam.
+Se tudo é publicado e construído junto, há um pacote só, independentemente de
+quantos diretórios existam.
 
 ## Modelo Mental
 
-**Pacote é o que você versiona.** Se dois grupos de classes precisam de números
-de versão independentes, são dois pacotes. Se sempre são publicados juntos, são
-um.
+**Pacote é a menor coisa que se publica ou se constrói sozinha.** Se dois grupos
+de classes precisam de números de versão independentes, são dois pacotes. Onde a
+versão é única — num monorepo —, a unidade desloca-se para o alvo de build: o que
+se recompila e se testa separadamente.
 
 ## Quando Usar
 
@@ -108,9 +112,10 @@ um.
 
 ## Quando Não Usar
 
-**Quando tudo é publicado junto.** Num monolito com um artefato, os princípios de
-release não se aplicam. Ali a divisão relevante é de
-[módulo](/02-software-design/modular-design.md), não de pacote.
+**Quando há uma unidade de build só.** Num monolito com um artefato e um alvo de
+compilação, os princípios de release não se aplicam. Ali a divisão relevante é de
+[módulo](/02-software-design/modular-design.md), não de pacote. Publicar junto
+não basta para dispensá-los — o monorepo, mais abaixo, é o contraexemplo.
 
 **Como meta de pureza.** Perseguir CRP num sistema com dois consumidores internos
 produz fragmentação e coordenação sem benefício.
@@ -124,9 +129,12 @@ consumidores. Sem eles, é especulação — ver [YAGNI](/02-software-design/yag
 
 ## Alternativas
 
-- **Artefato único com módulos internos** — resolve a maioria dos casos sem custo
-  de versionamento.
-- **Monorepo com build por alvo** — separação lógica com publicação conjunta.
+- **Artefato único com módulos internos** — vence enquanto todo o consumo é
+  interno ao time que publica: sem fronteira organizacional a atravessar, o
+  versionamento só cobra custo.
+- **Monorepo com build por alvo** — vence quando os consumidores estão todos no
+  repositório e o gargalo é tempo de build: a divisão passa a servir a compilação
+  incremental, sem coordenação de versões.
 - **Separação só onde há consumidor externo** — publicar o que atravessa a
   fronteira organizacional e manter o resto interno.
 
@@ -154,13 +162,16 @@ contradizem.
 
 ## Erros Comuns
 
-**Aplicar os princípios sem consumidores.** Eles existem para servir quem
-consome.
+**Dividir por consumidores imaginados.** Sem imports reais para medir, a divisão
+sai do organograma ou do palpite: cada palpite errado vira um pacote que só sobe
+junto com outro, cobrando coordenação sem aliviar consumidor nenhum.
 
 **Ignorar a tensão entre CCP e CRP.** Tratar os três como compatíveis leva a
 oscilar entre agrupar e separar sem critério.
 
-**Confundir pacote com diretório.** O que importa é a unidade de publicação.
+**Confundir pacote com diretório.** Reorganizar diretórios achando que dividiu
+unidades de release: o grafo de dependências fica idêntico, todo consumidor
+continua recebendo tudo, e a próxima mudança ainda versiona o artefato inteiro.
 
 **Criar pacote por camada técnica.** Reproduz o problema de
 [camadas](/02-software-design/layering.md) no nível de release.
@@ -178,7 +189,9 @@ não receber correções.
 
 A divisão por CRP — quem usa o quê, medido pelos imports reais — produziu quatro
 pacotes: `tipos-dominio` (usado por sete), `http` (usado por quatro), `datas`
-(dois) e `teste` (cinco, mas só em escopo de teste).
+(dois) e `teste` (cinco, mas só em escopo de teste). A configuração de log não
+virou pacote: eram poucas linhas de inicialização por serviço, e duplicá-las saiu
+mais barato que manter o acoplamento.
 
 Depois: `tipos-dominio` teve 4 publicações no ano seguinte; `datas`, 11 — que
 agora afetam dois times em vez de sete.

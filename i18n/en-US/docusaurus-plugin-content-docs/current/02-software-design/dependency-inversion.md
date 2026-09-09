@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [dependency-direction, hexagonal-architecture, solid]
 canonical_for: [dependency inversion]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -75,7 +75,7 @@ name.
 
 ### Where the interface lives
 
-The point most often got wrong.
+This is where inversion usually gets lost.
 
 ```text
 ❌  domain/UseCase.java
@@ -151,7 +151,9 @@ system where nobody can find the code that runs.
   running through the system. Frequently sufficient and cheaper.
 - **An own type in the domain** — define `Quote` instead of depending on the
   provider's type. Solves the leak without creating a hierarchy.
-- **Accept and concentrate** — keep the dependency direct, at a single point.
+- **Accept and concentrate** — keep the dependency direct, at a single point. When
+  the contact is already single and swapping the detail is not on the horizon,
+  concentrating costs less than maintaining a contract.
 - **Structural typing or a function** — in languages that offer it, no declared
   interface is needed.
 
@@ -168,8 +170,8 @@ system where nobody can find the code that runs.
 
 ## Failure Modes
 
-**Nominal inversion.** Interface in the wrong package. It is the dominant failure
-mode.
+**Nominal inversion.** Interface in the wrong package. It is what the package
+check most often finds in systems that claim to apply the technique.
 
 **Mirror interface.** Extracted from the implementation, with the technology's
 vocabulary.
@@ -243,7 +245,7 @@ persistence has not changed in three years. There, the "policy" is the unstable
 side.
 
 The test stays the same: **which of the two changes more?** The answer is usually
-the policy, and that is why the rule works in most cases. When it is not, inverting
+the detail, and that is why the rule works in most cases. When it is not, inverting
 creates an abstraction that absorbs changes that do not come, and does not absorb
 the ones that do.
 

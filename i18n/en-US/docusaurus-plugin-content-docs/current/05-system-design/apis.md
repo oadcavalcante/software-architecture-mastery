@@ -2,7 +2,7 @@
 id: apis
 title: APIs
 sidebar_position: 4
-description: The contract between parts — the most expensive decision to reverse in a system.
+description: The contract between parts — expensive to change because the code on the other side is not yours.
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [services]
 related: [request-response, pagination, integration-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-31
 
 An API is the contract between whoever offers a capability and whoever consumes it.
 
-It is the part of the system that is most expensive to change, because there is code on
-the other side that you do not control — and frequently do not even know about.
+What makes it expensive to change is the other side: there is code you do not control —
+and frequently do not even know about.
 
 ## Problem
 
@@ -67,7 +67,7 @@ Every API changes. What you design is **how** it changes.
 | Rename a field | No |
 | Widen an enum | No, if consumers validate strictly |
 | Narrow validation | No |
-| Make a field optional | Yes |
+| Make a required request field optional | Yes |
 
 The first and fifth lines depend on the consumer's behavior — which means
 **compatibility is a property of the pair**, not of the API alone.
@@ -166,13 +166,16 @@ with no benefit.
 
 ## Common Mistakes
 
-**Generating the API from the data model.**
+**Generating the API from the data model.** The contract ends up expressing the storage
+structure, and the first requirement that is not a table does not fit in it.
 
 **Not documenting the compatibility policy.** It is part of the contract.
 
-**Treating errors as a detail.**
+**Treating errors as a detail.** The failure contract stays implicit, and each consumer
+invents its own retry policy.
 
-**Versioning by reflex.**
+**Versioning by reflex.** Every compatible change becomes a new version, and consumer
+migration never happens.
 
 **Not knowing who consumes it.** Without that, no change can be evaluated.
 
@@ -193,9 +196,9 @@ implement caching. That field ceased to exist in a migration, and the consumer's
 stopped invalidating.
 
 The redesign created a type belonging to the API, with the fields consumers actually used
-— identified by traffic analysis, not by supposition.
+— identified field by field, with a removal notice and a deadline, not by supposition.
 
-There were 11 fields. The other 31 had never been read by anyone.
+There were 11 fields. For the other 31, nobody complained within the deadline.
 
 The documentation started declaring the policy: unknown fields must be ignored,
 unforeseen enum values must be tolerated, and deprecating any field carries a 90-day
@@ -223,10 +226,13 @@ misidentifies when there is a proxy in the path.
 **Asking.** It works in small organizations and fails silently in the rest — whoever does
 not know they consume it does not answer.
 
-The second balances cost and reliability best, and it enables a specific practice:
-**measuring usage per field**. Instrumenting which response fields are actually read
-reveals that most of a large API is usually ignored — and every unread field is coupling
-that can be removed.
+The second balances cost and reliability best — and it answers who calls, not what is
+read. The producer does not see which response fields the consumer consumes: to know
+that, either the request declares the fields it wants, and then the usage shows up in the
+logs, or you announce the removal of a field with a deadline and see who complains. The
+list of consumers is what makes the second path viable: it gives you someone to notify.
+Either one reveals that most of a large API is usually ignored — and every unread field is
+coupling that can be removed.
 
 Without that information, every contract change is a bet, and the only safe policy becomes
 never changing anything.
@@ -236,15 +242,17 @@ never changing anything.
 - [Services](/05-system-design/services.md) — who exposes it.
 - [Request/Response](/05-system-design/request-response.md) — the mechanics.
 - [Pagination](/05-system-design/pagination.md) — the case every listing API faces.
-- [Integration](/08-integration-architecture/index.md) — styles and schema evolution.
+- [Schema Evolution](/08-integration-architecture/schema-evolution.md) — which changes
+  are compatible, and in which direction.
 
 ## Practical Exercise
 
 Pick an API in your system and answer: who are the consumers? How would you know if one
 broke?
 
-Then check which response fields are actually read — by traffic analysis, if possible.
-The difference between what the API returns and what anyone uses is unnecessary coupling.
+Then find out which response fields are actually read — by announcing the removal of one
+with a deadline, if there is no way for the consumer to declare what it uses. The
+difference between what the API returns and what anyone uses is unnecessary coupling.
 
 ## Interview Questions
 
@@ -256,4 +264,4 @@ The difference between what the API returns and what anyone uses is unnecessary 
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.
 - Newman, Sam. *Building Microservices*. 2nd ed., 2021 — contract evolution.
-- Documentation on *Semantic Versioning* and API compatibility practices.
+- Preston-Werner, Tom. *Semantic Versioning 2.0.0*, 2013.

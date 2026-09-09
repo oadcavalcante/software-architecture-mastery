@@ -13,7 +13,7 @@ objective: >
 prerequisites: [problem-space]
 related: [constraints, architecture-as-decisions]
 canonical_for: [solution space]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -77,11 +77,13 @@ analysis from retroactive justification.
 ### The cost of abandoning breaks the ties
 
 Two options rarely tie on every criterion. When they tie on the ones that matter,
-the most useful tiebreaker is asymmetric: **which is cheaper to abandon?**
+the tiebreaker does not come from the comparison: it comes from the
+[cost of reversal](/01-fundamentals/what-is-software-architecture.md) — between
+two options of equal merit, you pick the one that is cheaper to abandon.
 
-You are going to get some of these decisions wrong. What distinguishes a
-recoverable system from a stuck one is not getting it right more often — it is
-that the mistakes cost less.
+Here that has a specific consequence: what makes going back cheap is the recorded
+winning condition of each discarded option. Without it, abandoning the chosen one
+costs the whole enumeration all over again.
 
 ### Enumerate before evaluating
 

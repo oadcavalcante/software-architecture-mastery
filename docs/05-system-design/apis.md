@@ -2,7 +2,7 @@
 id: apis
 title: APIs
 sidebar_position: 4
-description: O contrato entre partes — a decisão mais cara de reverter num sistema.
+description: O contrato entre partes — caro de mudar porque o código do outro lado não é seu.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [services]
 related: [request-response, pagination, integration-architecture]
 canonical_for: [API, contrato de API]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-26
 
 Uma API é o contrato entre quem oferece uma capacidade e quem a consome.
 
-É a parte do sistema mais cara de mudar, porque existe código do outro lado que
-você não controla — e frequentemente nem conhece.
+O que a torna cara de mudar é o outro lado: existe código que você não
+controla — e frequentemente nem conhece.
 
 ## Problema
 
@@ -67,7 +67,7 @@ Toda API muda. O que se projeta é **como** ela muda.
 | Renomear campo | Não |
 | Alargar um enum | Não, se consumidores validam estritamente |
 | Estreitar validação | Não |
-| Tornar um campo opcional | Sim |
+| Tornar opcional um campo obrigatório da requisição | Sim |
 
 A primeira e a quinta linhas dependem do comportamento do consumidor — o que
 significa que **compatibilidade é uma propriedade da dupla**, não da API sozinha.
@@ -172,13 +172,17 @@ cerimônia sem benefício.
 
 ## Erros Comuns
 
-**Gerar a API a partir do modelo de dados.**
+**Gerar a API a partir do modelo de dados.** O contrato passa a expressar a
+estrutura de armazenamento, e o primeiro requisito que não é uma tabela não cabe
+nele.
 
 **Não documentar a política de compatibilidade.** Ela é parte do contrato.
 
-**Tratar erro como detalhe.**
+**Tratar erro como detalhe.** O contrato de falha fica implícito, e cada
+consumidor inventa a própria política de retentativa.
 
-**Versionar por reflexo.**
+**Versionar por reflexo.** Cada mudança compatível vira versão nova, e a
+migração dos consumidores nunca acontece.
 
 **Não saber quem consome.** Sem isso, nenhuma mudança pode ser avaliada.
 
@@ -199,9 +203,10 @@ para implementar cache. Esse campo deixou de existir numa migração, e o cache 
 consumidor parou de invalidar.
 
 A reformulação criou um tipo próprio da API, com os campos que os consumidores de
-fato usavam — identificados por análise de tráfego, não por suposição.
+fato usavam — identificados campo a campo, com aviso de remoção e prazo, não por
+suposição.
 
-Foram 11 campos. Os outros 31 nunca haviam sido lidos por ninguém.
+Foram 11 campos. Pelos outros 31, ninguém reclamou dentro do prazo.
 
 A documentação passou a declarar a política: campos desconhecidos devem ser
 ignorados, valores de enum não previstos devem ser tolerados, e a descontinuação de
@@ -229,10 +234,13 @@ identifica mal quando há proxy no caminho.
 **Perguntar.** Funciona em organizações pequenas e falha em silêncio nas demais —
 quem não sabe que consome não responde.
 
-A segunda equilibra melhor custo e confiabilidade, e habilita uma prática
-específica: **medir o uso por campo**. Instrumentar quais campos da resposta são
-efetivamente lidos revela que a maior parte de uma API grande costuma ser
-ignorada — e cada campo não lido é acoplamento que pode ser removido.
+A segunda equilibra melhor custo e confiabilidade — e responde quem chama, não o
+que é lido. O produtor não enxerga quais campos da resposta o consumidor consome:
+para saber, ou a requisição declara os campos que quer, e aí o uso aparece no log,
+ou se anuncia a remoção de um campo com prazo e vê-se quem reclama. A lista de
+consumidores é o que torna o segundo caminho viável: dá a quem avisar. Qualquer
+dos dois revela que a maior parte de uma API grande costuma ser ignorada — e cada
+campo não lido é acoplamento que pode ser removido.
 
 Sem essa informação, toda mudança de contrato é aposta, e a única política segura
 vira nunca mudar nada.
@@ -242,17 +250,17 @@ vira nunca mudar nada.
 - [Serviços](/05-system-design/services.md) — quem expõe.
 - [Request/Response](/05-system-design/request-response.md) — a mecânica.
 - [Paginação](/05-system-design/pagination.md) — o caso que toda API de listagem enfrenta.
-- [Integração](/08-integration-architecture/index.md) — estilos e evolução de
-  schema.
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md) — quais
+  mudanças são compatíveis, e em que direção.
 
 ## Exercício Prático
 
 Escolha uma API do seu sistema e responda: quem são os consumidores? Como você
 saberia se algum quebrasse?
 
-Depois verifique quais campos da resposta são de fato lidos — por análise de
-tráfego, se possível. A diferença entre o que a API devolve e o que alguém usa é o
-acoplamento desnecessário.
+Depois descubra quais campos da resposta são de fato lidos — anunciando a remoção
+de um com prazo, se não houver como o consumidor declarar o que usa. A diferença
+entre o que a API devolve e o que alguém usa é o acoplamento desnecessário.
 
 ## Perguntas de Entrevista
 
@@ -264,4 +272,4 @@ acoplamento desnecessário.
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.
 - Newman, Sam. *Building Microservices*. 2ª ed., 2021 — evolução de contrato.
-- Documentação de *Semantic Versioning* e de práticas de compatibilidade de API.
+- Preston-Werner, Tom. *Semantic Versioning 2.0.0*, 2013.

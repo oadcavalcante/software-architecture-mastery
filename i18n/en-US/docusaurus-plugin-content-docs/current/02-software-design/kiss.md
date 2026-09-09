@@ -14,7 +14,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [yagni, dry, design-heuristics]
 canonical_for: [KISS, simplicity]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -60,8 +60,10 @@ Three questions that replace impressions:
 3. **How many things change** if I change one?
 
 The third is the most revealing, and it is the same as
-[coupling](/01-fundamentals/coupling.md). Complexity and coupling are not distinct
-concepts up close — they are the same phenomenon measured from different angles.
+[coupling](/01-fundamentals/coupling.md). In that question — and only there —
+complexity and coupling measure the same thing: how far the structure is
+interleaved. The other two fall outside that axis, and so does essential
+complexity: it comes from the problem, not from the arrangement of the parts.
 
 ### Simple is not less code
 
@@ -113,16 +115,19 @@ the argument is execution-risk reduction, not simplicity.
 
 ## Alternatives
 
-- **The four rules of simple design** (Beck), which give a verifiable criterion.
-- **YAGNI** — the same spirit applied to features rather than structure.
-- **Explicit complexity accounting** — listing what the decision adds and removes.
+- **The four rules of simple design** (Beck) — they win when the discussion is
+  about code and a test suite exists: they decide by mechanical criterion, without
+  depending on prior agreement about what counts as simple.
+- **Explicit complexity accounting** — wins when the decision is about topology
+  rather than code: what it adds and what it removes land on different sides of
+  the system, and KISS alone does not say whose bill it is.
 
 ## Trade-offs
 
 | Simpler | More mechanism |
 |---|---|
-| Less to understand | Covers more cases |
-| Fewer failure modes | Absorbs anticipated variation |
+| Covers today's cases | Also covers anticipated variation |
+| Fewer parts to hold in mind | More parts, including ones never exercised |
 | Change requires altering code | Change is configuration |
 | May not meet a real requirement | Cost paid even without need |
 

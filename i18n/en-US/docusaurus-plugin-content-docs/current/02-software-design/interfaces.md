@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encapsulation]
 related: [dependency-inversion, boundaries, solid]
 canonical_for: [interface, interface contract]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -81,7 +81,7 @@ and a thin implementation, and for that reason does not pay for the cost of
 existing.
 
 The practical measure: how much does the consumer get to not know by using this? If
-the answer is "almost nothing", the interface is shallow.
+the answer is "almost nothing", the module is shallow.
 
 ### The contract includes behaviour
 
@@ -135,7 +135,7 @@ still needs to know everything about the other side, the interface is decorative
 
 | Narrow interface | Wide interface |
 |---|---|
-| Easy to implement and substitute | One place for everything |
+| Implementing requires few methods | Implementing requires all of them, used or not |
 | Consumer depends only on what it uses | Consumer depends on everything |
 | More types to maintain | Fewer types |
 | May require several per implementation | One serves everyone |
@@ -161,7 +161,9 @@ signature, tying the consumer to it.
 
 ## Common Mistakes
 
-**Extracting instead of designing.** The structural mistake.
+**Extracting instead of designing.** The structural mistake: the interface is born
+carrying the implementation's decisions, and the substitution it was meant to make
+cheap stays expensive.
 
 **Putting the interface next to the implementer.** It nullifies dependency
 inversion.
@@ -179,10 +181,11 @@ A service defined `NotificationProvider` with `send(Message)`, extracted from th
 email client that already existed. `Message` had `subject`, `body` and `recipient`.
 
 When push was added, `Message` gained `title`, `payload` and `action` — all null for
-email. Then SMS: `body` limited to 160 characters, `subject` ignored.
+email. Then SMS: `body` limited to 160 characters, `subject` ignored, and one more
+field, `sender`, the short code only that channel requires.
 
-In the end, a class with seven fields, of which each implementation used three, and
-no validation possible because the valid fields depended on the provider.
+In the end, a class with seven fields, of which no implementation used more than
+four, and no validation possible because the valid fields depended on the provider.
 
 The reformulation started from the consumer. What does the business code need? To
 notify a user about an event. It does not need to know the channel.
@@ -206,9 +209,10 @@ cannot.
 
 Three techniques, in order of cost:
 
-**Adding is safe; removing and changing are not.** Adding a method or an optional
-field breaks neither existing implementers nor consumers. Changing a signature or
-removing a method breaks both.
+**Adding is safe for consumers, not for implementers.** Adding a method to a
+published interface breaks every existing implementer unless it ships with a
+default implementation; an optional field on a data type breaks no one. Changing a
+signature or removing a method breaks both sides.
 
 **Methods with a default implementation.** In languages that offer them, they allow
 extending an interface without breaking implementers. Useful and frequently

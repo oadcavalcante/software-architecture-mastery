@@ -13,7 +13,7 @@ objective: >
 prerequisites: [code-smells]
 related: [technical-debt, clean-code, legacy-modernization]
 canonical_for: [refatoração, refactoring]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -41,7 +41,7 @@ juntos, e um teste falha, ninguém sabe qual das duas causou.
 O segundo problema é ausência de critério de parada. "Vamos refatorar isso"
 raramente define quando está pronto, e refatoração sem fim declarado consome
 tempo até que alguém interrompa por pressão de prazo — frequentemente no meio,
-que é o pior estado possível.
+deixando o código pior que no início.
 
 ## Conceitos Centrais
 
@@ -63,9 +63,10 @@ O valor não é psicológico. Com passos pequenos, o passo que quebrou é sempre
 Refatorar código sem testes não é refatoração — é mudança estrutural na
 esperança de que nada quebre.
 
-Quando os testes não existem, a ordem é: escrever testes de caracterização que
-capturam o comportamento **atual**, inclusive o que parece errado, e só então
-refatorar. Comportamento incorreto é corrigido depois, em commit separado.
+Quando os testes não existem, a ordem é: escrever
+[testes de caracterização](/16-legacy-modernization/legacy-refactoring.md)
+primeiro, e só então refatorar. Comportamento incorreto é corrigido depois, em
+commit separado.
 
 ### O critério de parada
 
@@ -82,11 +83,12 @@ Respostas inúteis: "o código está melhor", "está mais limpo".
 
 ### Refatoração preparatória
 
-A forma de maior retorno, e a menos praticada: refatorar **antes** de implementar,
-para tornar a implementação simples.
+A forma que se paga mais rápido — o retorno aparece na funcionalidade seguinte, e
+não numa economia futura difusa: refatorar **antes** de implementar, para tornar
+a implementação simples.
 
-Kent Beck: *"para cada mudança difícil, primeiro faça a mudança fácil que torna a
-mudança difícil fácil"*.
+Kent Beck (2012): *"para cada mudança desejada, torne a mudança fácil (atenção:
+isso pode ser difícil), depois faça a mudança fácil"*.
 
 Isso tem uma vantagem prática decisiva: a refatoração ganha justificativa
 concreta e escopo natural. Ela termina quando a funcionalidade fica fácil de
@@ -137,8 +139,8 @@ com extração de método. Ver
 
 - **Reescrever o módulo** — quando a estrutura atual não admite passos
   incrementais. É mais arriscado e às vezes é a resposta.
-- **Strangler fig** — substituição incremental por fora, quando o interior não
-  permite mudança segura.
+- **[Strangler fig](/16-legacy-modernization/strangler-fig.md)** — substituição
+  incremental por fora, quando o interior não permite mudança segura.
 - **Aceitar e isolar** — encapsular o código problemático atrás de uma interface
   boa, sem mexer no interior.
 - **Não fazer nada** — quando os juros são baixos.
@@ -170,7 +172,8 @@ aparece semanas depois e ninguém liga à mudança estrutural.
 
 ## Erros Comuns
 
-**Misturar com mudança de funcionalidade.** O erro mais frequente e o mais caro.
+**Misturar com mudança de funcionalidade.** Um commit que faz as duas coisas não
+se reverte sem desfazer a outra.
 
 **Refatorar sem rede.** Testes primeiro.
 
@@ -188,8 +191,8 @@ Um time precisava adicionar um novo tipo de desconto. A implementação estimada
 era de dois dias, mas o cálculo estava numa classe de 600 linhas com sete tipos
 de desconto entrelaçados por condicionais aninhadas.
 
-Duas propostas: implementar mais um ramo — meio dia, e a classe vai a 700 linhas —
-ou refatorar antes.
+Duas propostas: implementar mais um ramo — os dois dias estimados, e a classe vai
+a 700 linhas — ou refatorar antes.
 
 A refatoração preparatória foi definida com critério explícito de parada:
 *adicionar um tipo de desconto deve exigir uma classe nova e nenhuma alteração
@@ -201,18 +204,18 @@ por fim adicionar o novo tipo.
 
 O novo desconto levou duas horas.
 
-O que torna o caso instrutivo não é a economia — quatro dias para economizar
-meio não fecha. É o que veio depois: nos quatorze meses seguintes foram
-adicionados mais cinco tipos, cada um em cerca de duas horas. A refatoração se
-pagou no terceiro.
+O que torna o caso instrutivo não é a economia — quatro dias para economizar dois
+não fecha. É o que veio depois: nos quatorze meses seguintes foram adicionados
+mais cinco tipos, cada um em cerca de duas horas. Contra os dois dias por tipo
+que a classe antiga cobrava, a refatoração se pagou no terceiro.
 
 O critério de parada é o que permitiu declarar que estava pronto no quarto dia,
 em vez de continuar melhorando.
 
 ## Refatoração num time
 
-Refatoração ampla em paralelo com outras frentes produz conflitos de merge que
-frequentemente custam mais que a refatoração economiza.
+Num time, o custo que domina é o conflito de merge, e ele cresce com duas
+coisas: a largura da refatoração e o número de frentes tocando a mesma área.
 
 Quatro práticas que reduzem isso:
 

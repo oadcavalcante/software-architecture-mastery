@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [yagni, dry, design-heuristics]
 canonical_for: [KISS, simplicidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -59,9 +59,10 @@ Três perguntas que substituem a impressão:
 3. **Quantas coisas mudam** se eu mudar uma?
 
 A terceira é a mais reveladora, e é a mesma de
-[acoplamento](/01-fundamentals/coupling.md). Complexidade e acoplamento não são
-conceitos distintos vistos de perto — são o mesmo fenômeno medido de ângulos
-diferentes.
+[acoplamento](/01-fundamentals/coupling.md). Nela — e só nela — complexidade e
+acoplamento medem a mesma coisa: o quanto a estrutura está entrelaçada. As outras
+duas perguntas ficam fora desse eixo, e a complexidade essencial também: ela vem
+do problema, não do arranjo das partes.
 
 ### Simples não é pouco código
 
@@ -113,17 +114,19 @@ o argumento é redução de risco de execução, não simplicidade.
 
 ## Alternativas
 
-- **As quatro regras de design simples** (Beck), que dão critério verificável.
-- **YAGNI** — o mesmo espírito aplicado a funcionalidade em vez de estrutura.
-- **Contabilidade explícita de complexidade** — listar o que a decisão adiciona e
-  remove.
+- **As quatro regras de design simples** (Beck) — vencem quando a discussão é de
+  código e existe suíte de testes: elas decidem por critério mecânico, sem
+  depender de acordo prévio sobre o que é simples.
+- **Contabilidade explícita de complexidade** — vence quando a decisão é de
+  topologia e não de código: o que ela adiciona e o que remove caem em lados
+  diferentes do sistema, e KISS sozinho não diz de quem é a conta.
 
 ## Trade-offs
 
 | Mais simples | Mais mecanismo |
 |---|---|
-| Menos a entender | Cobre mais casos |
-| Menos modos de falha | Absorve variação prevista |
+| Cobre os casos de hoje | Cobre também a variação prevista |
+| Menos partes a manter na cabeça | Mais partes, inclusive as nunca exercidas |
 | Mudança exige alterar código | Mudança é configuração |
 | Pode não atender a requisito real | Custo pago mesmo sem necessidade |
 

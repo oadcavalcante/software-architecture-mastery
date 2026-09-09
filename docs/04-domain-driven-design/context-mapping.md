@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bounded-context]
 related: [anti-corruption-layer, strategic-ddd, integration-architecture]
 canonical_for: [context mapping, mapa de contextos]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -129,31 +129,39 @@ nada.
 **Para prescrever um padrão que a organização não sustenta.**
 
 **Como substituto de conversa com os times envolvidos.** O mapa é resultado das
-conversas, não alternativa a elas.
+conversas, não alternativa a elas. Publicado antes delas, rotular um time de
+conformista é dizer por escrito que ele não tem poder: as posições endurecem e a
+assimetria que se queria negociar vira posição a defender.
 
 ## Alternativas
 
-- **Diagrama de integração técnica** — mostra as conexões e não a relação de
-  poder. Complementar, não substituto.
-- **Team Topologies** — a análise organizacional correspondente. Ver
-  [Nível 07](/23-architecture-leadership/index.md).
-- **Cenário de integração corporativo** — o mapa em escala de empresa. Ver
+- **Diagrama de integração técnica** — vence quando a relação de poder já está
+  acordada e o que falta é inventário de dependências: levantamento de impacto,
+  migração de infraestrutura. Mostra as conexões e não quem tem obrigação com quem.
+- **Team Topologies** — vence quando o problema é o desenho dos times, não o
+  contrato entre contextos: o mapa nomeia a fricção, Team Topologies muda quem
+  responde por quê. Ver [Nível 07](/23-architecture-leadership/index.md).
+- **Cenário de integração corporativo** — vence quando as fronteiras que decidem
+  são entre unidades ou empresas, e o par de contextos é detalhe fino demais. Ver
   [Nível 06](/15-enterprise-architecture/index.md).
 
 ## Trade-offs
 
 Os trade-offs são por padrão escolhido:
 
-| | Acoplamento | Custo | Independência |
+| | Acoplamento | Custo contínuo de fronteira | Independência |
 |---|---|---|---|
-| Conformista | Máximo | Mínimo | Nenhuma |
+| Conformista | Máximo | Nenhum | Nenhuma |
 | Núcleo compartilhado | Alto | Coordenação | Parcial |
 | Cliente-fornecedor | Médio | Negociação | Boa |
 | Anti-corruption layer | Baixo | Tradução contínua | Alta |
 | Caminhos separados | Nenhum | Duplicação | Total |
 
-Descer na tabela custa mais e compra mais independência. A escolha depende de
-quanto a independência vale para aquele par.
+Entre conformista e anti-corruption layer, mais independência custa mais trabalho
+contínuo de fronteira. Caminhos separados fica fora dessa escala: troca o trabalho
+de fronteira por duplicação, e vence quando manter o código duplicado custa menos
+que manter a integração viva. A escolha depende de quanto a independência vale para
+aquele par.
 
 ## Modos de Falha
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [dependency-direction, hexagonal-architecture, solid]
 canonical_for: [inversão de dependência, dependency inversion]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -75,7 +75,7 @@ técnica.
 
 ### Onde a interface mora
 
-O ponto que mais se erra.
+É onde a inversão costuma se perder.
 
 ```text
 ❌  dominio/CasoDeUso.java
@@ -149,7 +149,9 @@ sistema em que ninguém encontra o código que executa.
   sistema. Frequentemente suficiente e mais barato.
 - **Tipo próprio no domínio** — definir `Cotacao` em vez de depender do tipo do
   provedor. Resolve o vazamento sem criar hierarquia.
-- **Aceitar e concentrar** — manter a dependência direta, num ponto único.
+- **Aceitar e concentrar** — manter a dependência direta, num ponto único. Quando
+  o contato já é único e a troca do detalhe não está no horizonte, concentrar
+  custa menos que manter um contrato.
 - **Tipagem estrutural ou função** — em linguagens que oferecem, dispensa a
   interface declarada.
 
@@ -166,7 +168,8 @@ sistema em que ninguém encontra o código que executa.
 
 ## Modos de Falha
 
-**Inversão nominal.** Interface no pacote errado. É o modo de falha dominante.
+**Inversão nominal.** Interface no pacote errado. É o que a verificação de
+pacotes mais encontra em sistemas que dizem aplicar a técnica.
 
 **Interface espelho.** Extraída da implementação, com vocabulário da tecnologia.
 
@@ -237,8 +240,8 @@ as regras que os usam.
 semana, enquanto a persistência não muda há três anos. Ali, a "política" é o lado
 instável.
 
-O teste continua o mesmo: **qual dos dois muda mais?** A resposta costuma ser a
-política, e por isso a regra funciona na maioria dos casos. Quando não for,
+O teste continua o mesmo: **qual dos dois muda mais?** A resposta costuma ser o
+detalhe, e por isso a regra funciona na maioria dos casos. Quando não for,
 inverter cria uma abstração que absorve mudanças que não vêm, e não absorve as
 que vêm.
 

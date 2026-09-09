@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [kiss, dry, solid]
 canonical_for: [YAGNI, speculative generality]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -45,12 +45,15 @@ the last three are the ones that hurt:
 
 **Cost of carry** — the speculative code has to be understood, maintained,
 migrated and tested for as long as it exists, by everyone who passes through. It
-shows up in searches, in reviews and in version migrations.
+shows up in searches, in reviews and in version migrations — and, for whoever
+operates it, in the parameter that needs a value in every environment, the path
+that has to be monitored, the mechanism that resurfaces at every upgrade.
 
 **Cost of repair** — when the real requirement arrives different from the
 anticipated one, the generalization has to be undone before the right thing can be
-done. And undoing is more expensive than having started from zero, because other
-things already depend on it.
+done, and undoing costs more than having started from zero to the extent that
+other things already depend on it. When nobody undoes it, what remains is the
+permanent workaround on top of the dead abstraction.
 
 The fourth is what flips the calculation. The wrong generalization is not neutral;
 it is negative.
@@ -128,15 +131,15 @@ and logging are not future requirements.
 - **Defer with a recorded option** — do not build, but record the condition that
   would lead to building. It preserves the analysis without paying for the code.
 - **Build the specific version well** — so that generalizing later is cheap.
-- **A feature flag** — build and do not expose, when the requirement is known but
-  the timing is not.
+- **[A feature flag](/14-devops-and-platform/feature-flags.md)** — build and do
+  not expose, when the requirement is known but the timing is not.
 
 ## Trade-offs
 
 | Apply YAGNI | Anticipate |
 |---|---|
-| Less code to maintain | The future requirement is already met |
-| Fewer parts to understand | No rework if the prediction is right |
+| Only the code in use to maintain | Also the code for what might come |
+| The anticipated requirement waits to be built | Already in place when it arrives |
 | Future change costs something | Cost paid now, even unused |
 | Risk of real asymmetry | Risk of predicting wrong, and paying repair |
 
@@ -155,10 +158,13 @@ simplicity.
 
 ## Common Mistakes
 
-**Applying it to a known requirement with a deadline.** See the table above.
+**Applying it to a known requirement with a deadline.** The team cuts what is
+already contracted and rebuilds it under pressure near the date, with whatever
+design fits the time that is left.
 
 **Applying it to decisions with a high cost of reversal.** Where the asymmetry is
-real, anticipating is prudence.
+real — a schema, a public contract, an identifier — deferring trades a week of
+work today for a data migration later.
 
 **Ignoring the cost of carry.** Whoever argues for anticipation usually only
 compares the cost of building now with the cost of building later, and ignores the
@@ -175,7 +181,7 @@ SMS, push, webhook, with dynamic channel registration and configurable routing.
 
 The real requirement at the time: send email.
 
-Three years later, the system sent email and push. Two channels, not five. And the
+Three years later, the system sent email and push. Two channels, not four. And the
 abstraction did not serve push: it modelled a message as text with a subject, and
 push needed a structured payload with an action. The push channel was added by
 **working around** the abstraction.

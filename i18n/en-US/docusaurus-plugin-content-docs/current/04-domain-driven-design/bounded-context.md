@@ -2,7 +2,7 @@
 id: bounded-context
 title: Bounded Context
 sidebar_position: 6
-description: The boundary within which a model has a single meaning — DDD's most consequential concept.
+description: The boundary within which a model has a single meaning — and DDD's decision with the greatest architectural consequence.
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain, ubiquitous-language]
 related: [context-mapping, anti-corruption-layer, modular-design]
 canonical_for: [bounded context]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,9 +24,9 @@ last_reviewed: 2026-08-31
 A bounded context is the boundary within which a model and its language have a single,
 consistent meaning.
 
-It is DDD's most consequential concept, because it is the only one that decides
-architecture directly: context boundaries are the best candidates for module boundaries
-and, later, service boundaries.
+Drawing those boundaries is DDD's decision with the greatest architectural consequence:
+context boundaries are the best candidates for module boundaries and, later, service
+boundaries.
 
 ## Problem
 
@@ -68,7 +68,8 @@ graph TB
   subgraph Support[Context: Support]
     C3[Customer<br/>contacts · tier<br/>ticket history]
   end
-  C1 ~~~ C2 ~~~ C3
+  C1 -.-|same customer_id| C2
+  C2 -.-|same customer_id| C3
 ```
 
 All three refer to the same real-world entity. They are three models, and they should
@@ -99,8 +100,10 @@ boundary that only exists in the diagram delimits nothing, and the model leaks. 
 
 ### Contexts communicate through translation
 
-No context exposes its internal model. Communication happens through contracts belonging
-to the boundary, with translation on both sides.
+By default, a context does not expose its internal model: communication happens through
+contracts belonging to the boundary, with translation on both sides. Giving up the
+translation — conformist, shared kernel — is a deliberate choice, decided among the forms
+of relationship below.
 
 The forms of relationship between contexts — partnership, customer-supplier, conformist,
 and others — are the subject of
@@ -140,9 +143,9 @@ cent overlap and constant translation were probably one.
 
 ## Alternatives
 
-- **A shared model (*shared kernel*)** — two contexts deliberately share a small part of
-  the model. It reduces translation and couples the two teams; it requires an explicit
-  agreement about changes.
+- **[Shared kernel](/04-domain-driven-design/context-mapping.md)** — it wins when the
+  overlap between the two contexts is high and both teams accept coordinating every
+  change.
 - **A single context** — legitimate in small systems.
 - **A context per external system** — each integration gets its own, with translation at
   the boundary.

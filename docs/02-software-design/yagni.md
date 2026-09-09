@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [kiss, dry, solid]
 canonical_for: [YAGNI, generalização especulativa]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -45,11 +45,14 @@ os três últimos são os que doem:
 
 **Custo de carregar** — o código especulativo precisa ser entendido, mantido,
 migrado e testado por todo o tempo em que existir, por todo mundo que passar por
-ali. Ele aparece nas buscas, nas revisões e nas migrações de versão.
+ali. Ele aparece nas buscas, nas revisões e nas migrações de versão — e, para
+quem opera, no parâmetro que precisa de valor em cada ambiente, no caminho que
+entra na monitoração, no mecanismo que reaparece a cada upgrade.
 
 **Custo de reparo** — quando o requisito real chega diferente do previsto, é
-preciso desfazer a generalização antes de fazer o certo. E desfazer é mais caro
-que ter partido do zero, porque outras coisas já dependem dela.
+preciso desfazer a generalização antes de fazer o certo, e desfazer custa mais
+que ter partido do zero na medida em que outras coisas já dependem dela. Quando
+ninguém desfaz, o que fica é o contorno permanente somado à abstração morta.
 
 O quarto é o que inverte a conta. A generalização errada não é neutra; ela é
 negativa.
@@ -129,15 +132,15 @@ registrar log não são requisitos futuros.
   levaria a construir. Preserva a análise sem pagar o código.
 - **Construir a versão específica bem** — de forma que generalizar depois seja
   barato.
-- **Feature flag** — construir e não expor, quando o requisito é conhecido mas o
-  momento não.
+- **[Feature flag](/14-devops-and-platform/feature-flags.md)** — construir e não
+  expor, quando o requisito é conhecido mas o momento não.
 
 ## Trade-offs
 
 | Aplicar YAGNI | Antecipar |
 |---|---|
-| Menos código para manter | Requisito futuro já atendido |
-| Menos partes a entender | Sem retrabalho se a previsão acertar |
+| Só o código em uso para manter | Também o código do que talvez venha |
+| O requisito previsto espera a construção | Já está pronto quando chega |
 | Mudança futura custa algo | Custo pago agora, mesmo sem uso |
 | Risco de assimetria real | Risco de prever errado, e pagar reparo |
 
@@ -156,10 +159,13 @@ simplicidade.
 
 ## Erros Comuns
 
-**Aplicar a requisito conhecido com prazo.** Ver a tabela acima.
+**Aplicar a requisito conhecido com prazo.** O time corta o que já está
+contratado e o reconstrói sob pressão perto da data, com o desenho que couber no
+prazo que sobrou.
 
-**Aplicar a decisões de alto custo de reversão.** Onde a assimetria é real,
-antecipar é prudência.
+**Aplicar a decisões de alto custo de reversão.** Onde a assimetria é real —
+esquema, contrato público, identificador —, adiar troca uma semana de trabalho
+hoje por uma migração de dados depois.
 
 **Ignorar o custo de carregar.** Quem defende antecipação normalmente só compara
 custo de construir agora com custo de construir depois, e ignora os anos de
@@ -176,7 +182,7 @@ configurável.
 
 Requisito real na época: enviar e-mail.
 
-Três anos depois, o sistema enviava e-mail e push. Dois canais, não cinco. E a
+Três anos depois, o sistema enviava e-mail e push. Dois canais, não quatro. E a
 abstração não serviu para o push: ela modelava mensagem como texto com assunto, e
 push precisava de payload estruturado com ação. O canal de push foi adicionado
 **contornando** a abstração.

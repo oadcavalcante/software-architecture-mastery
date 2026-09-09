@@ -2,7 +2,7 @@
 id: bounded-context
 title: Bounded Context
 sidebar_position: 6
-description: A fronteira dentro da qual um modelo tem significado único — o conceito mais consequente do DDD.
+description: A fronteira dentro da qual um modelo tem significado único — e a decisão de maior consequência arquitetural do DDD.
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain, ubiquitous-language]
 related: [context-mapping, anti-corruption-layer, modular-design]
 canonical_for: [bounded context, contexto delimitado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,9 +24,9 @@ last_reviewed: 2026-08-26
 Um bounded context é a fronteira dentro da qual um modelo e sua linguagem têm
 significado único e consistente.
 
-É o conceito mais consequente do DDD, porque é o único que decide arquitetura
-diretamente: as fronteiras de contexto são as melhores candidatas a fronteiras de
-módulo e, mais tarde, de serviço.
+Definir essas fronteiras é a decisão de maior consequência arquitetural do DDD:
+as fronteiras de contexto são as melhores candidatas a fronteiras de módulo e,
+mais tarde, de serviço.
 
 ## Problema
 
@@ -69,7 +69,8 @@ graph TB
   subgraph Suporte[Contexto: Suporte]
     C3[Cliente<br/>contatos · nível<br/>histórico de chamados]
   end
-  C1 ~~~ C2 ~~~ C3
+  C1 -.-|mesmo cliente_id| C2
+  C2 -.-|mesmo cliente_id| C3
 ```
 
 Os três se referem à mesma entidade do mundo real. São três modelos, e devem
@@ -100,8 +101,10 @@ nada, e o modelo vaza. Ver
 
 ### Contextos se comunicam por tradução
 
-Nenhum contexto expõe seu modelo interno. A comunicação acontece por contratos
-próprios da fronteira, com tradução dos dois lados.
+Por padrão, um contexto não expõe seu modelo interno: a comunicação acontece por
+contratos próprios da fronteira, com tradução dos dois lados. Abrir mão da
+tradução — conformista, núcleo compartilhado — é escolha deliberada, decidida
+entre as formas de relacionamento abaixo.
 
 As formas de relacionamento entre contextos — parceria, cliente-fornecedor,
 conformista, e outras — são o assunto de
@@ -141,9 +144,9 @@ com noventa por cento de sobreposição e tradução constante provavelmente era
 
 ## Alternativas
 
-- **Modelo compartilhado (*shared kernel*)** — dois contextos compartilham
-  deliberadamente uma parte pequena do modelo. Reduz tradução e acopla os dois
-  times; exige acordo explícito sobre mudanças.
+- **[Núcleo compartilhado](/04-domain-driven-design/context-mapping.md)
+  (*shared kernel*)** — vence quando a sobreposição entre os dois contextos é
+  alta e os dois times aceitam coordenar cada mudança.
 - **Um contexto só** — legítimo em sistemas pequenos.
 - **Contexto por sistema externo** — cada integração ganha o seu, com tradução na
   fronteira.

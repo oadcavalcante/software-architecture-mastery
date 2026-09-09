@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encapsulation]
 related: [dependency-inversion, boundaries, solid]
 canonical_for: [interface, contrato de interface]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -79,7 +79,7 @@ estreita, implementação substancial. Um módulo raso tem interface larga e
 implementação fina, e por isso não paga o custo de existir.
 
 A métrica prática: quanto o consumidor deixa de saber por usar isto? Se a resposta
-for "quase nada", a interface é raso.
+for "quase nada", o módulo é raso.
 
 ### O contrato inclui o comportamento
 
@@ -132,7 +132,7 @@ continua precisando saber tudo sobre o outro lado, a interface é decorativa.
 
 | Interface estreita | Interface larga |
 |---|---|
-| Fácil de implementar e substituir | Um lugar para tudo |
+| Implementar exige poucos métodos | Implementar exige todos, usados ou não |
 | Consumidor depende só do que usa | Consumidor depende de tudo |
 | Mais tipos a manter | Menos tipos |
 | Pode exigir várias por implementação | Uma serve a todos |
@@ -159,7 +159,9 @@ assinatura, amarrando o consumidor a ela.
 
 ## Erros Comuns
 
-**Extrair em vez de projetar.** O erro estruturante.
+**Extrair em vez de projetar.** O erro estruturante: a interface nasce
+carregando as decisões da implementação, e a substituição que ela deveria
+baratear continua cara.
 
 **Colocar a interface junto do implementador.** Anula a inversão de dependência.
 
@@ -178,10 +180,11 @@ cliente de e-mail que já existia. `Message` tinha `assunto`, `corpo` e
 
 Quando push foi adicionado, `Message` ganhou `titulo`, `payload` e `acao` — todos
 nulos para e-mail. Depois SMS: `corpo` limitado a 160 caracteres, `assunto`
-ignorado.
+ignorado, e mais um campo, `remetente`, o short code que só esse canal exige.
 
-Ao final, uma classe com sete campos, dos quais cada implementação usava três, e
-nenhuma validação possível porque os campos válidos dependiam do provedor.
+Ao final, uma classe com sete campos, dos quais nenhuma implementação usava mais
+que quatro, e nenhuma validação possível porque os campos válidos dependiam do
+provedor.
 
 A reformulação partiu do consumidor. O que o código de negócio precisa? Notificar
 um usuário sobre um evento. Ele não precisa saber o canal.
@@ -207,9 +210,10 @@ não pode.
 
 Três técnicas, em ordem de custo:
 
-**Adicionar é seguro; remover e alterar não são.** Acrescentar um método ou um
-campo opcional não quebra implementadores nem consumidores existentes. Alterar
-uma assinatura ou remover um método quebra.
+**Adicionar é seguro para consumidores, não para implementadores.** Acrescentar
+um método a uma interface publicada quebra todo implementador existente, a menos
+que venha com implementação padrão; um campo opcional num tipo de dado não quebra
+ninguém. Alterar uma assinatura ou remover um método quebra os dois lados.
 
 **Métodos com implementação padrão.** Em linguagens que os oferecem, permitem
 estender uma interface sem quebrar implementadores. Útil e frequentemente

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [code-smells]
 related: [technical-debt, clean-code, legacy-modernization]
 canonical_for: [refactoring]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -39,8 +39,8 @@ a test fails, nobody knows which of the two caused it.
 
 The second problem is the absence of a stopping criterion. "Let's refactor this"
 rarely defines when it is done, and refactoring with no declared end consumes time
-until someone interrupts it under deadline pressure — frequently midway, which is
-the worst possible state.
+until someone interrupts it under deadline pressure — frequently midway, leaving
+the code worse than at the start.
 
 ## Core Concepts
 
@@ -62,9 +62,9 @@ the last one, and undoing costs minutes.
 Refactoring code without tests is not refactoring — it is structural change in the
 hope that nothing breaks.
 
-When the tests do not exist, the order is: write characterization tests that capture
-the **current** behaviour, including what looks wrong, and only then refactor.
-Incorrect behaviour is fixed afterwards, in a separate commit.
+When the tests do not exist, the order is: write
+[characterization tests](/16-legacy-modernization/legacy-refactoring.md) first, and
+only then refactor. Incorrect behaviour is fixed afterwards, in a separate commit.
 
 ### The stopping criterion
 
@@ -81,11 +81,12 @@ Useless answers: "the code is better", "it's cleaner".
 
 ### Preparatory refactoring
 
-The highest-return form, and the least practised: refactoring **before**
-implementing, to make the implementation simple.
+The form that pays back fastest — the return shows up in the very next feature, not
+in diffuse future savings: refactoring **before** implementing, to make the
+implementation simple.
 
-Kent Beck: *"for each desired change, make the change easy, then make the easy
-change"*.
+Kent Beck (2012): *"for each desired change, make the change easy (warning: this may
+be hard), then make the easy change"*.
 
 That has a decisive practical advantage: the refactoring gains a concrete
 justification and a natural scope. It ends when the feature becomes easy to add.
@@ -133,8 +134,8 @@ extracting a method. See
 
 - **Rewrite the module** — when the current structure does not admit incremental
   steps. It is riskier and is sometimes the answer.
-- **Strangler fig** — incremental replacement from the outside, when the interior
-  does not allow safe change.
+- **[Strangler fig](/16-legacy-modernization/strangler-fig.md)** — incremental
+  replacement from the outside, when the interior does not allow safe change.
 - **Accept and isolate** — encapsulate the problematic code behind a good interface,
   without touching the interior.
 - **Do nothing** — when the interest is low.
@@ -166,8 +167,8 @@ weeks later and nobody connects it to the structural change.
 
 ## Common Mistakes
 
-**Mixing it with a functionality change.** The most frequent mistake and the most
-expensive.
+**Mixing it with a functionality change.** A commit that does both cannot be
+reverted without undoing the other.
 
 **Refactoring without a net.** Tests first.
 
@@ -185,8 +186,8 @@ A team needed to add a new discount type. The estimated implementation was two d
 but the calculation lived in a 600-line class with seven discount types interwoven
 by nested conditionals.
 
-Two proposals: implement one more branch — half a day, and the class goes to 700
-lines — or refactor first.
+Two proposals: implement one more branch — the two estimated days, and the class
+goes to 700 lines — or refactor first.
 
 The preparatory refactoring was defined with an explicit stopping criterion: *adding
 a discount type must require one new class and no changes to the existing ones.*
@@ -197,18 +198,18 @@ and finally add the new type.
 
 The new discount took two hours.
 
-What makes the case instructive is not the saving — four days to save half a day does
-not add up. It is what came afterwards: over the next fourteen months five more
-types were added, each in about two hours. The refactoring paid for itself on the
-third.
+What makes the case instructive is not the saving — four days to save two does not
+add up. It is what came afterwards: over the next fourteen months five more types
+were added, each in about two hours. Against the two days per type the old class
+charged, the refactoring paid for itself on the third.
 
 The stopping criterion is what allowed declaring it done on the fourth day, instead
 of going on improving.
 
 ## Refactoring in a team
 
-Broad refactoring in parallel with other work streams produces merge conflicts that
-frequently cost more than the refactoring saves.
+In a team, the cost that dominates is the merge conflict, and it grows with two
+things: how wide the refactoring is and how many fronts touch the same area.
 
 Four practices that reduce that:
 

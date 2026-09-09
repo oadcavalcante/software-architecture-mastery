@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-design]
 related: [dependency-direction, component-design]
 canonical_for: [package design, component cohesion, release-reuse equivalence principle]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -72,16 +72,19 @@ depend on what they do not use. It is the **I** of
 CCP wants to group — fewer packages to publish. CRP wants to separate — less
 unnecessary dependency.
 
+In the triangle, each edge names the cost of abandoning the vertex opposite it.
+
 ```mermaid
 graph LR
-  REP["REP<br/>reuse"] --- CCP["CCP<br/>maintenance<br/>(groups)"]
-  CCP --- CRP["CRP<br/>consumer<br/>(separates)"]
-  CRP --- REP
+  REP["REP<br/>reuse"] ---|no CRP — consumer carries what it does not use| CCP["CCP<br/>maintenance<br/>(groups)"]
+  CCP ---|no REP — reuse with no version or notes| CRP["CRP<br/>consumer<br/>(separates)"]
+  CRP ---|no CCP — many publications per change| REP
 ```
 
 Martin describes this as a triangle where you pick two sides. Sacrificing CRP
-produces consumers with too many dependencies. Sacrificing CCP produces many
-publications per change.
+produces consumers with too many dependencies; sacrificing CCP, many publications
+per change; sacrificing REP, code with no version to pin to — the consumer copies
+instead of depending.
 
 The right position shifts with maturity: **young projects lean towards CCP**
 (group, to publish less), **mature projects lean towards CRP** (separate, because
@@ -93,14 +96,15 @@ In several languages, package and directory coincide. Where they do not — or w
 the directory enforces nothing — what defines the package is the unit of
 publication: the artifact, the declared module, the library.
 
-If everything is published together, there is one package, no matter how many
-directories exist.
+If everything is published and built together, there is one package, no matter
+how many directories exist.
 
 ## Mental Model
 
-**A package is what you version.** If two groups of classes need independent
-version numbers, they are two packages. If they are always published together, they
-are one.
+**A package is the smallest thing published or built on its own.** If two groups
+of classes need independent version numbers, they are two packages. Where the
+version is single — in a monorepo — the unit shifts to the build target: what gets
+recompiled and retested separately.
 
 ## When to Use
 
@@ -111,9 +115,11 @@ are one.
 
 ## When Not to Use
 
-**When everything is published together.** In a monolith with a single artifact,
-the release principles do not apply. There the relevant division is
-[module](/02-software-design/modular-design.md), not package.
+**When there is only one build unit.** In a monolith with a single artifact and a
+single compilation target, the release principles do not apply. There the relevant
+division is [module](/02-software-design/modular-design.md), not package.
+Publishing together is not enough to waive them — the monorepo, further down, is
+the counterexample.
 
 **As a purity goal.** Chasing CRP in a system with two internal consumers produces
 fragmentation and coordination with no benefit.
@@ -127,9 +133,12 @@ Without them, it is speculation — see [YAGNI](/02-software-design/yagni.md).
 
 ## Alternatives
 
-- **A single artifact with internal modules** — solves most cases with no
-  versioning cost.
-- **Monorepo with per-target builds** — logical separation with joint publication.
+- **A single artifact with internal modules** — wins as long as all consumption is
+  internal to the team that publishes: with no organizational boundary to cross,
+  versioning only charges cost.
+- **Monorepo with per-target builds** — wins when the consumers are all in the
+  repository and the bottleneck is build time: the division starts serving
+  incremental compilation, with no version coordination.
 - **Separation only where there is an external consumer** — publish what crosses
   the organizational boundary and keep the rest internal.
 
@@ -158,13 +167,16 @@ everything. See
 
 ## Common Mistakes
 
-**Applying the principles with no consumers.** They exist to serve whoever
-consumes.
+**Splitting by imagined consumers.** With no real imports to measure, the division
+comes from the org chart or from a guess: each wrong guess becomes a package that
+only ships alongside another, charging coordination without relieving any consumer.
 
 **Ignoring the tension between CCP and CRP.** Treating the three as compatible
 leads to oscillating between grouping and separating with no criterion.
 
-**Confusing package with directory.** What matters is the unit of publication.
+**Confusing package with directory.** Reorganizing directories believing you have
+split release units: the dependency graph stays identical, every consumer still
+receives everything, and the next change still versions the whole artifact.
 
 **Creating a package per technical layer.** Reproduces the
 [layering](/02-software-design/layering.md) problem at release level.
@@ -182,7 +194,9 @@ fixes.
 
 The CRP-driven division — who uses what, measured by the real imports — produced
 four packages: `domain-types` (used by seven), `http` (four), `dates` (two) and
-`test` (five, but only in test scope).
+`test` (five, but only in test scope). Logging configuration did not become a
+package: it was a few lines of initialization per service, and duplicating them
+came out cheaper than keeping the coupling.
 
 After: `domain-types` had 4 publications the following year; `dates`, 11 — which
 now affect two teams instead of seven.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bounded-context]
 related: [anti-corruption-layer, strategic-ddd, integration-architecture]
 canonical_for: [context mapping, context map]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -126,31 +126,38 @@ the pattern, and it is organizational.
 **To prescribe a pattern the organization does not sustain.**
 
 **As a substitute for conversation with the teams involved.** The map is the result of the
-conversations, not an alternative to them.
+conversations, not an alternative to them. Published before them, labeling a team conformist
+says in writing that it has no power: positions harden, and the asymmetry you meant to
+negotiate becomes a position to defend.
 
 ## Alternatives
 
-- **A technical integration diagram** — it shows the connections and not the power relation.
-  Complementary, not a substitute.
-- **Team Topologies** — the corresponding organizational analysis. See
-  [Level 07](/23-architecture-leadership/index.md).
-- **A corporate integration landscape** — the map at company scale. See
+- **A technical integration diagram** — it wins when the power relation is already agreed
+  and what is missing is a dependency inventory: an impact survey, an infrastructure
+  migration. It shows the connections and not who owes what to whom.
+- **Team Topologies** — it wins when the problem is the design of the teams, not the contract
+  between contexts: the map names the friction, Team Topologies changes who answers for what.
+  See [Level 07](/23-architecture-leadership/index.md).
+- **A corporate integration landscape** — it wins when the boundaries that decide are between
+  units or companies, and the pair of contexts is too fine a detail. See
   [Level 06](/15-enterprise-architecture/index.md).
 
 ## Trade-offs
 
 The trade-offs are per chosen pattern:
 
-| | Coupling | Cost | Independence |
+| | Coupling | Continuous boundary cost | Independence |
 |---|---|---|---|
-| Conformist | Maximum | Minimum | None |
+| Conformist | Maximum | None | None |
 | Shared kernel | High | Coordination | Partial |
 | Customer-supplier | Medium | Negotiation | Good |
 | Anti-corruption layer | Low | Continuous translation | High |
 | Separate ways | None | Duplication | Total |
 
-Moving down the table costs more and buys more independence. The choice depends on how much
-independence is worth for that pair.
+Between conformist and anti-corruption layer, more independence costs more continuous
+boundary work. Separate ways sits outside that scale: it trades boundary work for
+duplication, and it wins when maintaining the duplicated code costs less than keeping the
+integration alive. The choice depends on how much independence is worth for that pair.
 
 ## Failure Modes
 

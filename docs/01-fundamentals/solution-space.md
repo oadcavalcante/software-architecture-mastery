@@ -13,7 +13,7 @@ objective: >
 prerequisites: [problem-space]
 related: [constraints, architecture-as-decisions]
 canonical_for: [espaço da solução, solution space]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -77,11 +77,13 @@ que separa análise de justificativa retroativa.
 ### O custo de abandonar decide os empates
 
 Duas opções raramente empatam em todos os critérios. Quando empatam nos que
-importam, o critério de desempate mais útil é assimétrico: **qual é mais barata
-de abandonar?**
+importam, o desempate não sai da comparação: vem do
+[custo de reversão](/01-fundamentals/what-is-software-architecture.md) — entre
+duas opções de mérito igual, escolhe-se a mais barata de abandonar.
 
-Você vai errar algumas dessas decisões. O que distingue um sistema recuperável
-de um travado não é acertar mais — é que os erros custem menos.
+Aqui isso tem uma consequência específica: o que torna a volta barata é a
+condição de vitória registrada de cada opção descartada. Sem ela, abandonar a
+escolhida custa a enumeração inteira de novo.
 
 ### Enumerar antes de avaliar
 

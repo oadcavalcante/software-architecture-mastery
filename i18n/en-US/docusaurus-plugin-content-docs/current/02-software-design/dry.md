@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [kiss, yagni, code-smells]
 canonical_for: [DRY, knowledge duplication]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -62,9 +62,15 @@ coincidence — leave them apart.
 | Situation | Verdict |
 |---|---|
 | A tax rate in two calculations | Knowledge duplication — unify |
-| Two email format validations | Duplication — unify |
+| Two validations against the same accepted email format | Duplication — unify |
 | Two structures with the same five fields, in different contexts | Coincidence — leave |
 | Two retry routines with the same shape, for different services | Probably coincidence |
+
+The second case holds for the format: which text counts as an acceptable email is
+a single decision. The validation policy is not — signup may start requiring link
+verification while bulk import does not, and then the two change for different
+reasons. See
+[coupling vs. duplication](/20-trade-offs/coupling-vs-duplication.md).
 
 The third case is the most deceptive. `OrderDTO` and `OrderEntity` with identical
 fields look like duplication. They are not: one represents the external contract,
@@ -72,11 +78,13 @@ the other the internal model, and they will diverge at the first API change.
 
 ### The rule of three
 
-Wait for the third occurrence before abstracting.
-
-Two occurrences do not distinguish coincidence from knowledge — the similarity may
-be accidental. The third reveals the real shape, and what varies between the three
-is exactly what the abstraction needs to parameterize.
+Wait for the third occurrence before abstracting. The rule and its justification
+live in
+[coupling vs. duplication](/20-trade-offs/coupling-vs-duplication.md); what it
+gives DRY is the criterion the first two occurrences lack: with two, "knowledge or
+coincidence?" has no observable answer. The third shows what varies between the
+cases — and what varies is exactly what the abstraction would have to
+parameterize.
 
 ### DRY crosses boundaries at a cost
 
@@ -85,8 +93,8 @@ coupling; across services, it creates a shared library, which couples the releas
 cycles of different teams.
 
 That is why one of the recurring trade-offs is
-[coupling versus duplication](/20-trade-offs/index.md), and why mature teams
-frequently **choose to duplicate** across bounded contexts.
+[coupling versus duplication](/20-trade-offs/coupling-vs-duplication.md), and
+why mature teams frequently **choose to duplicate** across bounded contexts.
 
 ## Where knowledge duplication hides
 
@@ -147,11 +155,15 @@ accounted for.
 ## Alternatives
 
 - **Deliberate, annotated duplication** — duplicate, with a comment saying why and
-  which condition would lead to unifying.
+  which condition would lead to unifying. It wins while it is still unknown whether
+  the similarity is knowledge: it costs one line and keeps the next reading from
+  deciding by mistake.
 - **Extract only what is stable** — unify the invariant core and leave the edges
-  duplicated.
+  duplicated. It wins when the core is large enough to pay for the extraction and
+  the known divergences all sit at the edges.
 - **A shared contract without shared code** — publish a schema instead of a
-  library.
+  library. It wins between teams whose release cycles are already independent,
+  where coupling them costs more than reimplementing the reading of the contract.
 
 ## Trade-offs
 
@@ -182,15 +194,21 @@ different meanings.
 
 ## Common Mistakes
 
-**Reading DRY as "don't repeat code".** The root of everything.
+**Reading DRY as "don't repeat code".** The root of everything: textual similarity
+becomes the criterion, and what gets unified are decisions with no relation to each
+other.
 
-**Extracting at the second occurrence.** Too early to distinguish.
+**Extracting at the second occurrence.** Too early to distinguish coincidence from
+knowledge — the abstraction comes out shaped like the first case, and the second
+starts entering it through a parameter.
 
 **Treating `OrderDTO` and `OrderEntity` as duplication.** They are different layers
-with different reasons for change.
+with different reasons for change; unified, no change to the external contract can
+be made without touching the internal model.
 
 **Applying DRY across bounded contexts.** It is where the cost is highest and the
-benefit lowest.
+benefit lowest: the common model gains one optional field per context and stops
+describing any of them well.
 
 **Not annotating deliberate duplication.** Without a record, the next developer
 "fixes" it.
@@ -223,7 +241,8 @@ The two cases looked textually alike. Only one was duplicated knowledge.
 - [Cohesion](/01-fundamentals/cohesion.md) — the same question about reason for
   change.
 - [Abstraction](/01-fundamentals/abstraction.md) — the cost of abstracting early.
-- [Coupling vs. Duplication](/20-trade-offs/index.md) — the trade-off in detail.
+- [Coupling vs. Duplication](/20-trade-offs/coupling-vs-duplication.md) — the
+  trade-off in detail.
 - [Code Smells](/02-software-design/code-smells.md) — how to recognize the
   symptoms.
 
