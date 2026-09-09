@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-26
 ---
 
@@ -59,7 +59,7 @@ architecture works against it.
 
 ## What is here
 
-Twenty-three sections, organized into seven levels plus three cross-cutting
+Twenty-three sections, organized into seven levels plus two cross-cutting
 blocks.
 
 **Levels 01 to 04 — the technical base.** Foundation, software design, design
@@ -67,18 +67,18 @@ patterns, DDD, system design and distributed systems. This is where the concepts
 are built one on top of the other.
 
 **Levels 05 and 06 — architecture and organizational scale.** Data, integration,
-cloud, security, scalability, reliability, observability, platform, enterprise
-architecture, legacy modernization, documentation, decisions and governance.
+cloud, security, scalability, reliability, observability, platform, documentation,
+decisions, trade-offs, enterprise architecture, legacy modernization and
+governance. The **trade-offs** section gathers fifteen recurring pairs, each with
+the real axis of comparison and the conditions under which each side wins.
 
 **Level 07 — leadership.** Decision-making, influence, communication,
 organization, risk, cost and measuring architectural outcomes.
 
-**Cross-cutting.** A whole section on **trade-offs** — fifteen recurring pairs,
-each with the real axis of comparison and the conditions under which each side
-wins. Fourteen complete **case studies**, from business context to evolution
-strategy, each with discarded options and the condition that would make them win.
-And the method for **system design interviews**, which is the same reasoning under
-time pressure.
+**Cross-cutting.** Fourteen complete **case studies**, from business context to
+evolution strategy, each with discarded options and the condition that would make
+them win. And the method for **system design interviews**, which is the same
+reasoning under time pressure.
 
 ## One content rule
 
@@ -108,9 +108,9 @@ If you are preparing for interviews,
 [System Design Interviews](/22-system-design-interviews/index.md) is the method,
 and the case studies are the same reasoning without time pressure.
 
-And [How to use](/how-to-use.md) explains the fixed structure every document
-follows — the same in all of them — which is what makes reading by lookup
-possible without losing context.
+And [How to use](/how-to-use.md) gives the honest entry point for readers who do
+not start from zero, the pace that separates recognizing from being able to apply,
+and what to expect from the exercises and the case studies.
 
 Pages not yet translated are served in Portuguese; the sidebar shows the full
 track either way.

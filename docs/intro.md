@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-30
 ---
 
@@ -59,7 +59,7 @@ contraria.
 
 ## O que há aqui
 
-Vinte e três seções, organizadas em sete níveis e três blocos transversais.
+Vinte e três seções, organizadas em sete níveis e dois blocos transversais.
 
 **Níveis 01 a 04 — a base técnica.** Fundamentos, design de software, padrões de
 projeto, DDD, design de sistemas e sistemas distribuídos. É onde os conceitos são
@@ -67,15 +67,14 @@ construídos um sobre o outro.
 
 **Níveis 05 e 06 — arquitetura e escala organizacional.** Dados, integração,
 nuvem, segurança, escalabilidade, confiabilidade, observabilidade, plataforma,
-arquitetura corporativa, modernização de legado, documentação, decisões e
-governança.
+documentação, decisões, trade-offs, arquitetura corporativa, modernização de
+legado e governança. A seção de **trade-offs** reúne quinze pares recorrentes,
+cada um com o eixo real de comparação e as condições sob as quais cada lado vence.
 
 **Nível 07 — liderança.** Decisão, influência, comunicação, organização, risco,
 custo e medição de resultado arquitetural.
 
-**Transversais.** Uma seção inteira sobre **trade-offs** — quinze pares
-recorrentes, cada um com o eixo real de comparação e as condições sob as quais
-cada lado vence. Catorze **case studies** completos, do contexto de negócio à
+**Transversais.** Catorze **case studies** completos, do contexto de negócio à
 estratégia de evolução, cada um com opções descartadas e a condição que as faria
 vencer. E o método de **entrevistas de system design**, que é o mesmo raciocínio
 sob pressão de tempo.
@@ -106,8 +105,9 @@ Se você está se preparando para entrevistas,
 [System Design Interviews](/22-system-design-interviews/index.md) é o método, e
 os case studies são a versão sem pressão de tempo.
 
-E [Como usar](/how-to-use.md) explica a estrutura fixa de cada documento, que é a
-mesma em todos eles — o que permite ler por consulta sem perder o contexto.
+E [Como usar](/how-to-use.md) dá o ponto de entrada honesto para quem não chega
+no zero, o ritmo que separa reconhecer de conseguir aplicar, e o que esperar dos
+exercícios e dos case studies.
 
 ## Teste de aceitação
 
