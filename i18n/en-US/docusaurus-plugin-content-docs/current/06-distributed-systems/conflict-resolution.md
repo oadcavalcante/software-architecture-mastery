@@ -13,7 +13,7 @@ objective: >
 prerequisites: [eventual-consistency]
 related: [replication, clock-and-time, eventual-consistency]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -49,7 +49,8 @@ Two problems, and both are serious.
 
 **Clocks diverge.** The "most recent" according to the machine's clock may not be the most recent in
 fact. See [clocks and time](/06-distributed-systems/clock-and-time.md). A machine whose clock is 2
-seconds ahead always wins.
+seconds ahead wins any write made in the following 2 seconds — the skew sets the window in which it
+dominates.
 
 **Silent loss.** The discarded write disappears with no record. There is no error, no alert, no way
 to recover.
@@ -76,15 +77,17 @@ Elegant and limited to what can be expressed as a commutative operation.
 **Avoid the conflict.** Ensure each piece of data has a single write point — through
 [partitioning](/06-distributed-systems/partitioning.md) or through a single leader.
 
-The last is what most systems should choose, and the least discussed.
+The last is what most systems should choose, and the least discussed. The price is concentrating
+writes at a single point: under a partition, the side that cannot reach it stops writing instead of
+diverging.
 
 ### Detecting a conflict requires versioning
 
 Comparing timestamps does not detect a conflict — it detects order, badly.
 
-To know that two writes were **concurrent** — neither knew about the other — you need a version
-vector: each replica maintains a counter, and comparing the vectors reveals whether one write
-descended from the other or whether they were parallel.
+To know that two writes were **concurrent** — neither knew about the other — you need a [version
+vector](/06-distributed-systems/clock-and-time.md), which tells descent from parallelism where a
+timestamp only orders.
 
 Without that, the system does not distinguish "B replaced A" from "A and B were made at the same
 time".
@@ -101,6 +104,11 @@ operation:  balance -= 50     ← two operations compose
 
 Commutative operations — adding, adding to a set — do not conflict. It is the basis of CRDTs and a
 technique applicable without them.
+
+The trade has a price: the write conflict goes away, the redelivery one appears. `balance -= 50`
+applied twice debits twice, and the retry is a certainty on an unstable network or in offline
+synchronization. Each operation needs its own identifier and deduplication on arrival — see
+[idempotency](/06-distributed-systems/idempotency.md).
 
 ### A conflict may have no automatic resolution
 
@@ -180,7 +188,8 @@ concurrency.
 
 **Assuming conflicts are rare without measuring.**
 
-**Not considering avoiding the conflict.** It is the most robust solution.
+**Not considering avoiding the conflict.** It is the most robust against data loss, and the least
+tolerant of a partition.
 
 ## Real-World Example
 
@@ -191,8 +200,9 @@ The server used last writer wins, comparing the device's timestamp.
 
 Two problems.
 
-**Device clocks.** Some devices had the wrong time — one was 3 hours ahead. Every synchronization
-from it overwrote changes made by other salespeople afterwards, because the timestamp "won".
+**Device clocks.** Some devices had the wrong time — one was 3 hours ahead. Each synchronization from
+it overwrote whatever other salespeople had changed in the following 3 hours, because the timestamp
+"won".
 
 **Lost items.** Two salespeople on the same account added items to the same order offline. On
 synchronizing, the second synchronization replaced the whole order — the first one's items
@@ -203,7 +213,9 @@ Neither generated an error. The salespeople found out through the customer's com
 The redesign changed the model, not just the strategy.
 
 **Operations instead of state.** The device came to send "added item X", "removed item Y" — instead of
-the complete order. Additions from different salespeople compose naturally.
+the complete order, each with its own identifier, discarded on arrival if already applied. Additions
+from different salespeople compose naturally; without the deduplication, a resynchronization would
+duplicate the items.
 
 **Version vectors** to detect real concurrency, instead of comparing timestamps.
 
@@ -214,8 +226,9 @@ generates an explicit conflict, presented to the supervisor to decide.
 about 0.3% of synchronizations — and that the previous loss came mostly from the clock problem, not
 from genuine concurrency.
 
-That last number is what the team recorded as the most revealing: they had been losing data far more
-often than real concurrency justified, and the cause was the strategy, not the scenario.
+That last number is what the team recorded as the most revealing: what they were losing did not come
+from concurrency but from overwriting by a clock that was ahead — the cause was the strategy, not the
+scenario.
 
 ## Related Concepts
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [stateless-vs-stateful, caching, data-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -93,11 +93,12 @@ Three options, with distinct trade-offs:
 **On the server, in shared storage.** It scales and adds a network call per request, plus
 one more component to operate.
 
-**On the client, in a signed token.** No state on the server, scales perfectly. And the
-token cannot be revoked before it expires, and grows with what it carries.
+**On the client, in a signed token.** It scales with no server-side state, at the cost of
+bandwidth — the token travels on every request. And it cannot be revoked before it expires,
+and grows with what it carries.
 
-The third is the most used in modern systems, and revocation is the problem it does not
-solve — mitigated by a short expiry plus a revocation list for exceptional cases.
+Revocation is the problem the third does not solve — mitigated by a short expiry plus a
+revocation list for exceptional cases.
 
 ## Mental Model
 
@@ -165,7 +166,8 @@ the disk.
 
 **Not classifying the state.** Without the types, all state gets the same treatment.
 
-**Keeping business state outside the database.**
+**Keeping business state outside the database.** The loss is silent: it does not show up
+in the incident, it shows up in reconciliation, when memory and database diverge.
 
 **Using session affinity as a solution.** It is a workaround, not a decision.
 
@@ -193,8 +195,9 @@ The reclassification separated three things that had been mixed together.
 **Identity and authentication** became a signed token with a 15-minute validity — no
 server-side state.
 
-**The cart** moved to the distributed cache with a 7-day expiry, because it is state the
-business accepts eventually losing, but not on every deployment.
+**The cart** moved to shared storage — the same distributed cache component, with
+memory-pressure eviction turned off and a 7-day expiry. It stays session state, not cache:
+the business accepts losing it at the deadline, but not on every deployment.
 
 **Display preferences** — filter, sort order — moved to the client. They did not need the
 server.
@@ -223,8 +226,8 @@ The revocation line usually decides. Systems with an immediate-blocking requirem
 financial, healthcare, any context with a regulatory consequence — cannot depend on expiry
 alone.
 
-The combination most mature systems adopt solves that: a short token for access, with
-revocable state on the server for renewal. The frequent path is stateless; the rare one
+The combination that solves that: a short token for access, with revocable state on the
+server for renewal. The frequent path is stateless; the rare one
 queries.
 
 One trap with tokens: they travel on **every** request, including asset requests if the

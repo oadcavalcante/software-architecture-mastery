@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [rate-limiting, queues, retries]
 canonical_for: [backpressure, descarte de carga]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -58,8 +58,10 @@ Sob desequilíbrio sustentado, ela cresce até esgotar a memória. E quando o pr
 morre, perde-se tudo — inclusive o trabalho que já tinha sido aceito e confirmado
 ao produtor.
 
-Um buffer limitado que rejeita quando enche é sempre preferível: a falha é
-imediata, visível, e proporcional ao excedente.
+Frente ao ilimitado, um buffer limitado que rejeita quando enche troca a perda
+total por uma perda proporcional ao excedente, imediata e visível. Qual resposta
+dar quando ele enche — rejeitar, bloquear, descartar por idade ou por prioridade —
+é a decisão da seção seguinte; ter limite é o que a torna possível.
 
 ### As respostas quando a capacidade acaba
 
@@ -115,6 +117,16 @@ preferível a um que aceita tudo, degrada para todos, e eventualmente cai.
 Isso precisa ser explícito: qual carga é descartável, e o que o cliente recebe
 quando é.
 
+### O que o mecanismo cobra de quem opera
+
+Backpressure não é uma configuração única: cada fila passa a ter um limite para
+calibrar, e o número certo depende da vazão do consumidor e do que o negócio aceita
+perder. No painel aparecem duas séries novas — profundidade e contador de descarte —
+e uma sem a outra engana: profundidade estável com descarte subindo é saturação, não
+folga. E a rejeição vira contrato: o cliente precisa saber o que recebe quando é
+recusado, e o que não pode ser descartado precisa de um caminho durável próprio. Esse
+custo é permanente, e é ele que decide os casos em que o mecanismo não se paga.
+
 ## Modelo Mental
 
 **A pergunta não é "como absorver mais". É "o que fazer quando não couber".** Todo
@@ -129,15 +141,18 @@ sistema tem um limite; a diferença é se ele foi projetado.
 
 ## Quando Não Usar
 
-**Buffer ilimitado como estratégia.** Nunca é.
+**Produção total limitada por construção.** Um lote de tamanho conhecido, uma lista
+de trabalho fechada: se tudo o que pode entrar cabe na memória do processo, o limite
+já existe — ele só não está na fila. O que muda essa conclusão é a entrada passar a
+ser contínua.
 
-**Bloquear quando há usuário esperando.** Ele vai desistir e possivelmente
-repetir, aumentando a carga.
+**Cadeia de um salto com o produtor já limitado na origem.** Um cron que roda uma
+instância por vez, um pool fixo de conexões síncronas — a origem não consegue produzir
+mais do que o consumidor aceita, e sinalizar pressão é sinalizar para ninguém.
 
-**Descartar sem decidir o quê.** O descarte aleatório perde o crítico junto com o
-descartável.
-
-**Sinalizar pressão sem propagar.** O problema apenas muda de lugar.
+**Excedente mais barato que o mecanismo.** Limite a calibrar por fila, contador a
+acompanhar e contrato de rejeição com o cliente são custo permanente; onde o excedente
+é raro e um retry do cliente o absorve, o mecanismo cobra mais do que evita.
 
 **Backpressure como substituto de capacidade.** Se o sistema está permanentemente
 saturado, o problema é dimensionamento.
@@ -147,8 +162,9 @@ saturado, o problema é dimensionamento.
 - **[Rate limiting](/05-system-design/rate-limiting.md)** — limitar na entrada em
   vez de reagir na saída. Preventivo, e exige conhecer a capacidade.
 - **Escalar o consumidor** — quando o desequilíbrio é de capacidade, não de pico.
-- **Degradar** — processar de forma mais barata sob pressão.
-- **Priorizar** — descartar o menos importante.
+- **Degradar** — processar de forma mais barata sob pressão. Vence quando existe uma
+  resposta mais barata que ainda serve — um resultado aproximado, sem enriquecimento;
+  quando toda resposta parcial é inútil, descartar é mais honesto.
 
 ## Trade-offs
 
@@ -186,13 +202,19 @@ problema visível enquanto ainda é pequeno.
 
 ## Erros Comuns
 
-**Fila em memória sem limite.**
+**Fila em memória sem limite.** A estrutura padrão da linguagem não pede limite, e
+aceitar o default é decidir que o excedente vai para a heap — o trabalho já confirmado
+ao produtor passa a depender de o processo continuar vivo.
 
 **Não monitorar a profundidade.** É a métrica que antecipa o problema.
 
-**Bloquear numa cadeia com usuário na ponta.**
+**Bloquear numa cadeia com usuário na ponta.** Escolher bloquear porque "nada se perde"
+empurra a espera para quem não pode esperar: o usuário desiste, repete, e a carga que
+se queria conter aumenta.
 
-**Não classificar o que pode ser descartado.**
+**Não classificar o que pode ser descartado.** Sem perguntar ao negócio qual dado é
+descartável, o descarte acaba decidido pela ordem de chegada — e o evento raro e crítico
+sai junto com a telemetria repetida.
 
 **Aumentar o buffer como correção.** Adia e agrava.
 
@@ -204,16 +226,19 @@ cada 30 segundos.
 O serviço de ingestão colocava as posições numa fila em memória, e um processador
 as gravava no banco. A fila não tinha limite.
 
-Numa manutenção do banco que durou 12 minutos, o processador parou de gravar.
+Numa manutenção do banco que durou 30 minutos, o processador parou de gravar.
 
 A fila cresceu. Em 9 minutos, a memória do processo esgotou e ele morreu — levando
 junto **todas** as posições em memória, inclusive as que tinham sido aceitas antes
 da manutenção.
 
 Ao reiniciar, o serviço voltou a aceitar posições, a fila voltou a crescer — o
-banco ainda estava em manutenção — e o processo morreu de novo. Três vezes.
+banco ainda estava em manutenção — e o processo morreu de novo, a cada nove minutos.
+Três vezes.
 
-Perderam-se cerca de 2 milhões de posições.
+Perderam-se cerca de 4,3 milhões de posições: três buffers de nove minutos, a 160 mil
+posições por minuto. Os três minutos finais de fila sobreviveram e foram gravados
+quando o banco voltou.
 
 As correções mudaram a estratégia, não o tamanho do buffer.
 
@@ -225,7 +250,10 @@ recente de um veículo é a que importa; uma de 8 minutos atrás tem pouco valor
 **Fila durável** para o que não pode ser descartado — os eventos de alarme, que são
 raros e críticos. Eles passaram a ir para um canal separado, com persistência.
 
-**Alerta de profundidade** acima de 60% do limite.
+**Alerta de profundidade** acima de 60% do limite — que, com o processador parado e a
+160 mil posições por minuto, dá menos de oito segundos até o descarte começar. Não é
+aviso prévio: serve para datar o início do descarte, e é a série de profundidade ao
+longo dos dias, junto ao contador, que antecipa o desequilíbrio.
 
 Na manutenção seguinte, de 15 minutos, o comportamento foi: posições antigas
 descartadas com contador registrado, alarmes preservados na fila durável, nenhum

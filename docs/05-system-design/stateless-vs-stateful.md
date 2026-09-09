@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [load-balancing, scalability-basics, statelessness]
 canonical_for: [sem estado, com estado, stateless, stateful]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -30,8 +30,8 @@ A distinção decide quase tudo sobre escala, implantação e recuperação de f
 
 ## Problema
 
-"Torne o serviço sem estado" é o conselho mais repetido em design de sistemas, e
-frequentemente é entendido como se o estado pudesse ser eliminado.
+"Torne o serviço sem estado" é um dos conselhos mais repetidos em design de
+sistemas, e frequentemente é entendido como se o estado pudesse ser eliminado.
 
 Ele não pode. **O estado não desaparece — ele se move.**
 
@@ -56,7 +56,8 @@ quanto do sistema pode ficar sem ele?"**.
 | Recuperação | Subir outra | Restaurar ou reeleger |
 
 A primeira linha é o motivo de todo o resto: um componente sem estado escala
-adicionando cópias, e essa é a operação mais barata que existe em sistemas.
+adicionando cópias, e adicionar cópia não exige coordenação nem migração de
+estado — é isso que torna a operação barata.
 
 ### Sem estado não é sem memória
 
@@ -134,8 +135,9 @@ sistema pode ficar sem estado, não se tudo pode.
 
 - **Estado externo compartilhado** — cache distribuído ou banco.
 - **Estado no cliente** — token, para sessão.
-- **Particionamento por chave** — manter estado local, roteando cada chave sempre
-  para a mesma instância. É o modelo de sistemas com estado que escalam.
+- **[Particionamento por chave](/06-distributed-systems/partitioning.md)** — manter
+  estado local, roteando cada chave sempre para a mesma instância. É o modelo de
+  sistemas com estado que escalam.
 - **Recalcular** — quando derivar é mais barato que guardar.
 
 ## Trade-offs
@@ -209,9 +211,13 @@ continua.
 
 ## Sistemas com estado que escalam
 
+> Pré-requisito: [Particionamento](/06-distributed-systems/partitioning.md).
+> Aqui o foco é o particionamento como alternativa à ausência de estado, não a
+> mecânica de estratégias, rebalanceamento e hash consistente.
+
 Ausência de estado não é a única forma de escalar. Sistemas com estado escalam por
-**particionamento**, e vale entender o mecanismo — bancos, caches distribuídos e
-plataformas de streaming todos o usam.
+**particionamento** — bancos, caches distribuídos e plataformas de streaming todos
+o usam.
 
 A ideia: cada instância é dona de um subconjunto das chaves. Uma função de
 roteamento decide qual instância atende cada chave, e o estado daquela chave vive
@@ -223,17 +229,13 @@ hash(chave) → instância
   usuário 1204 → instância 5
 ```
 
-Isso preserva a localidade — o estado está onde é usado — e permite adicionar
-capacidade adicionando instâncias.
+Isso inverte o modelo sem estado: em vez de qualquer instância servir qualquer
+requisição, cada estado tem dono fixo. O ganho é localidade — o estado está onde é
+usado — e capacidade que cresce adicionando instâncias.
 
-O custo aparece em três lugares. **Operações que atravessam partições** ficam
-caras: combinar dados de duas chaves em instâncias diferentes exige coordenação.
-**Rebalanceamento** ao adicionar ou remover instância move estado, e é o momento
-mais delicado da operação. E **desequilíbrio** acontece se uma chave for muito mais
-ativa que as outras — o [hotspot](/11-scalability/index.md).
-
-Hash consistente reduz o custo do rebalanceamento: adicionar uma instância move
-apenas uma fração das chaves, não todas.
+O preço é manter esse dono, e ele aparece em operações que atravessam partições,
+na movimentação de estado ao mudar o número de instâncias e em chaves mais ativas
+que as outras.
 
 A conclusão prática: **ausência de estado é mais barata, particionamento é mais
 poderoso.** Use o primeiro onde couber e o segundo onde o estado for essencial.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [services]
 related: [system-decomposition, microservices, bounded-context]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -65,8 +65,15 @@ The most reliable check is empirical: **what fraction of commits crosses the pro
 boundary?**
 
 ```bash
-# files that change together, last 6 months
-git log --since=6.months --name-only --pretty=format:%H   | awk 'NF' | sort | uniq -c | sort -rn
+# commits from the last 6 months that touch both sides of the proposed boundary
+git log --since=6.months --no-merges --name-only --pretty=format:%H |
+  awk -v a='^src/courses/' -v b='^src/enrollments/' '
+    length($0) == 40 && $0 ~ /^[0-9a-f]+$/ {
+      total++; cross += (ta && tb); ta = tb = 0; next
+    }
+    $0 ~ a { ta = 1 }
+    $0 ~ b { tb = 1 }
+    END { cross += (ta && tb); printf "%d of %d commits cross\n", cross, total }'
 ```
 
 If two groups of files appear together in 80% of commits, separating them into services
@@ -93,8 +100,10 @@ always worth it; the physical one, only with one of the four reasons.
 The criterion that most separates a real boundary from a nominal one: **each service is
 the exclusive owner of its data.**
 
-If two services read the same table, the boundary does not exist — there is schema
-coupling with no contract, which is worse than code coupling.
+If two services read the same table, the boundary does not exist: the processes are
+separated and their evolution is not, because the schema remains the point of
+agreement between the two sides. Why that coupling is the most expensive one, in
+[data ownership](/07-data-architecture/data-ownership.md).
 
 That implies that deciding the boundary is deciding the partitioning of the data. And
 it is the hardest part: separating code is refactoring; separating data involves
@@ -128,9 +137,11 @@ deciding.
 **Before the domain stabilizes.** A wrong boundary between services is the most
 expensive correction there is.
 
-**When consistency between the sides has to be strong.** Separating requires eventual
-consistency or a saga; both change the business semantics and have to be accepted by
-the business.
+**When consistency between the sides has to be strong.** Separating leaves three ways
+out: eventual consistency and sagas, which change the business semantics and have to be
+accepted by the business, or a
+[distributed transaction](/06-distributed-systems/distributed-transactions.md), which
+preserves the semantics and charges for it in availability.
 
 **When crossing is high.** History has already said the boundary is wrong.
 
@@ -153,7 +164,7 @@ rotation.
 | Isolated scale and failure | Shared |
 | Boundary enforced by the network | Needs a mechanism |
 | Moving the boundary is a migration | It is refactoring |
-| Transaction across the sides impossible | Possible |
+| Transaction across the sides only distributed | Local, in the same commit |
 | Versioned public contract | Refactorable |
 | One more item in operations | None |
 
@@ -176,11 +187,15 @@ services.
 
 ## Common Mistakes
 
-**Deciding by intuition without measuring the history.**
+**Deciding by intuition without measuring the history.** The crossing rate shows up
+either way — after the extraction, when correcting it already costs a migration.
 
-**Extracting several services at once.**
+**Extracting several services at once.** Without one extraction at a time there is no
+baseline between them, and whatever latency or availability regression shows up at the
+end has nothing to attribute it to.
 
-**Not separating the data along with it.**
+**Not separating the data along with it.** The deferred migration is the work that
+remains, and it grows with every month of coexistence.
 
 **Copying another system's boundary.** The context is what decides.
 
@@ -198,6 +213,8 @@ Before starting, they measured the crossing in 12 months of history.
 |---|---|
 | Courses ↔ Enrollments | 71% |
 | Enrollments ↔ Payments | 34% |
+| Enrollments ↔ Certificates | 6% |
+| Courses ↔ Payments | 4% |
 | Payments ↔ Certificates | 3% |
 | Courses ↔ Certificates | 2% |
 
@@ -212,13 +229,16 @@ twice.
 
 `Payments` was not extracted right away. The 34% crossing was ambiguous, and there was
 no quality reason — the requirement came a year later, when a second provider came on
-board and the payments team gained autonomy.
+board and the payments team gained autonomy. The extraction happened then, with the
+reason recorded.
 
-Result after two years: two services instead of four, and no reversals.
+Result after two years: three deployable processes instead of the four proposed — the
+`Courses`+`Enrollments` core, `Certificates` and `Payments` — and no reversals.
 
 The point the team underlines: the measurement took an afternoon and changed half the
-decisions. The original proposal would have created two wrong boundaries, and undoing
-them would have cost a data migration in both cases.
+decisions. Of the original proposal, one boundary was wrong — `Courses`↔`Enrollments`,
+and undoing it would have cost a data migration. The other was premature: `Payments`
+came out a year later, for the right reason and with nothing to undo.
 
 ## Related Concepts
 
@@ -230,6 +250,8 @@ them would have cost a data migration in both cases.
 - [Microservices](/03-design-patterns/microservices.md) — the style.
 - [Modular Monolith](/03-design-patterns/modular-monolith.md) — the default
   alternative.
+- [Data Ownership](/07-data-architecture/data-ownership.md) — why partitioning the data
+  decides whether the boundary is real.
 
 ## Practical Exercise
 

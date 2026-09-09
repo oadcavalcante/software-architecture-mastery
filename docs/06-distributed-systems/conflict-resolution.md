@@ -13,7 +13,7 @@ objective: >
 prerequisites: [eventual-consistency]
 related: [replication, clock-and-time, eventual-consistency]
 canonical_for: [resolução de conflitos, último a escrever vence, CRDT]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -50,7 +50,8 @@ Dois problemas, e ambos são graves.
 
 **Relógios divergem.** A "mais recente" segundo o relógio da máquina pode não ser a
 mais recente de fato. Ver [relógio e tempo](/06-distributed-systems/clock-and-time.md). Uma máquina com o
-relógio 2 segundos adiantado sempre vence.
+relógio 2 segundos adiantado vence qualquer escrita feita nos 2 segundos seguintes —
+a divergência define a janela em que ela domina.
 
 **Perda silenciosa.** A escrita descartada some sem registro. Não há erro, não há
 alerta, não há como recuperar.
@@ -80,15 +81,17 @@ Elegante e limitado ao que pode ser expresso como operação comutativa.
 **Evitar o conflito.** Garantir que cada dado tenha um único ponto de escrita —
 por [particionamento](/06-distributed-systems/partitioning.md) ou por líder único.
 
-A última é a que a maioria dos sistemas deveria escolher, e a menos discutida.
+A última é a que a maioria dos sistemas deveria escolher, e a menos discutida. O preço
+é concentrar a escrita num ponto: sob partição, o lado que não o alcança para de
+escrever em vez de divergir.
 
 ### Detectar conflito exige versionamento
 
 Comparar marcas de tempo não detecta conflito — detecta ordem, mal.
 
 Para saber que duas escritas foram **concorrentes** — nenhuma soube da outra — é
-preciso um vetor de versões: cada réplica mantém um contador, e a comparação dos
-vetores revela se uma escrita descendeu da outra ou se foram paralelas.
+preciso um [vetor de versões](/06-distributed-systems/clock-and-time.md), que distingue
+descendência de paralelismo onde a marca de tempo apenas ordena.
 
 Sem isso, o sistema não distingue "B substituiu A" de "A e B foram feitas ao mesmo
 tempo".
@@ -105,6 +108,11 @@ operação: saldo -= 50        ← duas operações compõem
 
 Operações comutativas — somar, adicionar a um conjunto — não conflitam. É a base
 dos CRDTs e uma técnica aplicável sem eles.
+
+A troca tem preço: some o conflito de escrita, aparece o de reentrega. `saldo -= 50`
+aplicado duas vezes debita duas vezes, e a retentativa é certa em rede instável ou
+sincronização offline. Cada operação precisa de identificador próprio e de
+deduplicação na chegada — ver [idempotência](/06-distributed-systems/idempotency.md).
 
 ### O conflito pode não ter resolução automática
 
@@ -188,7 +196,8 @@ frequência.
 
 **Assumir que conflitos são raros sem medir.**
 
-**Não considerar evitar o conflito.** É a solução mais robusta.
+**Não considerar evitar o conflito.** É a mais robusta contra perda de dados, e a que
+menos tolera partição.
 
 ## Exemplo Real
 
@@ -201,8 +210,8 @@ dispositivo.
 Dois problemas.
 
 **Relógios de dispositivo.** Alguns aparelhos tinham o relógio errado — um estava
-3 horas adiantado. Toda sincronização dele sobrescrevia alterações feitas por
-outros vendedores depois, porque a marca de tempo "vencia".
+3 horas adiantado. Cada sincronização dele sobrescrevia o que outros vendedores
+tivessem alterado nas 3 horas seguintes, porque a marca de tempo "vencia".
 
 **Perda de itens.** Dois vendedores da mesma conta adicionavam itens ao mesmo
 pedido offline. Ao sincronizar, a segunda sincronização substituía o pedido
@@ -213,8 +222,9 @@ Nenhum dos dois gerava erro. Os vendedores descobriam pela reclamação do clien
 A reformulação mudou o modelo, não só a estratégia.
 
 **Operações em vez de estado.** O dispositivo passou a enviar "adicionou item X",
-"removeu item Y" — em vez do pedido completo. Adições de vendedores diferentes
-compõem naturalmente.
+"removeu item Y" — em vez do pedido completo, cada uma com identificador próprio,
+descartada na chegada se já aplicada. Adições de vendedores diferentes compõem
+naturalmente; sem a deduplicação, uma resincronização duplicaria os itens.
 
 **Vetor de versões** para detectar concorrência real, em vez de comparar marcas de
 tempo.
@@ -227,9 +237,9 @@ para decidir.
 eram raros — cerca de 0,3% das sincronizações — e que a perda anterior vinha
 majoritariamente do problema de relógio, não de concorrência genuína.
 
-Esse último número é o que a equipe registrou como mais revelador: elas estavam
-perdendo dados com frequência muito maior do que a concorrência real justificava,
-e a causa era a estratégia, não o cenário.
+Esse último número é o que a equipe registrou como mais revelador: o que elas
+perdiam não vinha de concorrência, e sim de sobrescrita por relógio adiantado — a
+causa era a estratégia, não o cenário.
 
 ## Conceitos Relacionados
 

@@ -2,7 +2,7 @@
 id: consensus
 title: Consensus
 sidebar_position: 17
-description: Making several nodes agree — the hardest problem in the field, and the one you should consume instead of implement.
+description: Making several nodes agree despite failures — what consensus guarantees, what it costs, and why to consume it instead of implementing it.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [leader-election]
 related: [leader-election, distributed-locks, cap]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,10 @@ last_reviewed: 2026-08-31
 Consensus is making a group of nodes agree on a value, in such a way that the decision is unique,
 final and survives failures.
 
-It is the most studied problem in distributed systems, and the easiest to implement wrongly. This
-document's practical recommendation is direct: **consume consensus, do not implement it.**
+The theory has been settled since the 1980s; what usually fails is the implementation, and the
+defects concentrate in two places — safety under a partition and cluster membership change, which
+happy-path testing does not exercise. This document's practical recommendation is direct: **consume
+consensus, do not implement it.**
 
 ## Problem
 
@@ -38,22 +40,24 @@ What makes it hard is not agreeing when everything works — it is agreeing **de
 down, messages that are lost and slow nodes that look dead.
 
 And there is an uncomfortable theoretical result: the FLP theorem shows that, in an asynchronous
-system where a node can fail, **no algorithm guarantees consensus in finite time**. Not because the
-algorithms are bad — it is impossible.
+system where a node can fail, **no deterministic algorithm guarantees consensus in finite time**.
+Not because the algorithms are bad — it is impossible.
 
 ## Core Concepts
 
 ### What the FLP result means in practice
 
-It does not say consensus is unviable. It says no algorithm can simultaneously guarantee correctness
-and termination in a perfectly asynchronous system.
+It does not say consensus is unviable. It says no deterministic algorithm can simultaneously
+guarantee correctness and termination in a perfectly asynchronous system; randomized algorithms
+terminate with probability 1, which is not the same guarantee.
 
 Practical algorithms work around it using **time**: timeouts to suspect failure. That sacrifices the
 theoretical guarantee of termination — under pathological conditions, the election may not conclude
 — in exchange for working in practice.
 
 What they never sacrifice is **safety**: even if they do not decide, they never decide wrongly. Two
-conflicting decisions are impossible.
+conflicting decisions are impossible — under the crash-and-omission failure model, which is what
+Raft, Paxos and Zab assume; a Byzantine failure and silent disk corruption are outside it.
 
 That is the correct hierarchy: safety always, progress when the network cooperates.
 
@@ -63,7 +67,7 @@ All practical algorithms rest on the same idea: **a decision requires the majori
 
 Since there are no two disjoint majorities, there cannot be two conflicting decisions.
 
-The operational consequence: with N nodes, the system tolerates `(N-1)/2` failures.
+The operational consequence: with N nodes, the system tolerates `⌊(N-1)/2⌋` failures.
 
 ```text
 3 nodes → tolerates 1 failure
@@ -86,6 +90,13 @@ scale horizontally: adding nodes **worsens** the latency, because the majority g
 
 **Unavailability under a partition.** The minority side decides nothing. See
 [CAP](/06-distributed-systems/cap.md).
+
+**Operational routine.** A cluster of three to five nodes does not run itself: replacing a member is
+a configuration change that goes through consensus itself and proceeds one node at a time, so as not
+to lose quorum; the log grows until it is compacted into a snapshot, and it is from the snapshot
+that a returning node restores itself; upgrading a version is a rolling restart with quorum
+preserved throughout. And since every decision is written to disk before it is confirmed, a slow
+disk becomes low throughput for the whole cluster.
 
 That is why consensus is used for the **control plane** — who the leader is, what the configuration
 is — and rarely for the data plane, where the volume is high.
@@ -152,7 +163,7 @@ single-execution guarantee.
 | With consensus | Without |
 |---|---|
 | A unique decision guaranteed | Divergence possible |
-| Safety under any failure | Depends on luck |
+| Safety under crash failures | Depends on luck |
 | Coordination latency per decision | Local latency |
 | Unavailable with no majority | Available |
 | Limited throughput | Scales |
@@ -193,7 +204,10 @@ initial proposal was to build their own consensus cluster, with three nodes, imp
 The estimate was two months. The review changed the path with two questions.
 
 **"Is the routine idempotent?"** It was not, and it could be. It posted adjustment entries; adding a
-key per reconciliation period and checking before posting made multiple execution harmless.
+key per reconciliation period, with a uniqueness constraint and written in the same transaction as
+the entry, made multiple execution harmless. Without the uniqueness it would not work — two
+simultaneous executions both read "does not exist" and both post. See
+[idempotency](/06-distributed-systems/idempotency.md).
 
 **"If it executes twice, what actually happens?"** With idempotency, nothing. Without it, duplicated
 entries.

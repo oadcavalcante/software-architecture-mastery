@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [stateless-vs-stateful, caching, data-architecture]
 canonical_for: [gestão de estado, state management]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -93,12 +93,12 @@ Três opções, com trade-offs distintos:
 **No servidor, em armazenamento compartilhado.** Escala e adiciona uma chamada de
 rede por requisição, mais um componente a operar.
 
-**No cliente, em token assinado.** Sem estado no servidor, escala perfeitamente. E
-o token não pode ser revogado antes de expirar, e cresce com o que carrega.
+**No cliente, em token assinado.** Escala sem estado no servidor, ao custo de
+banda — o token viaja em toda requisição. E ele não pode ser revogado antes de
+expirar, e cresce com o que carrega.
 
-A terceira é a mais usada em sistemas modernos, e a revogação é o problema que ela
-não resolve — mitigado por expiração curta mais uma lista de revogação para casos
-excepcionais.
+A revogação é o problema que a terceira não resolve — mitigado por expiração curta
+mais uma lista de revogação para casos excepcionais.
 
 ## Modelo Mental
 
@@ -167,7 +167,8 @@ outras ociosas.
 
 **Não classificar o estado.** Sem os tipos, todo estado recebe o mesmo tratamento.
 
-**Guardar estado de negócio fora do banco.**
+**Guardar estado de negócio fora do banco.** A perda é silenciosa: não aparece no
+incidente, aparece na conciliação, quando memória e banco divergem.
 
 **Usar afinidade de sessão como solução.** É contorno, não decisão.
 
@@ -196,8 +197,10 @@ A reclassificação separou três coisas que estavam misturadas.
 **Identidade e autenticação** viraram token assinado com 15 minutos de validade —
 sem estado no servidor.
 
-**Carrinho** foi para cache distribuído com expiração de 7 dias, porque é estado
-que o negócio aceita perder eventualmente, mas não a cada implantação.
+**Carrinho** foi para armazenamento compartilhado — o mesmo componente de cache
+distribuído, com o despejo por pressão de memória desligado e expiração de 7 dias.
+Continua sendo estado de sessão, não cache: o negócio aceita perdê-lo no prazo, mas
+não a cada implantação.
 
 **Preferências de exibição** — filtro, ordenação — foram para o cliente. Não
 precisavam do servidor.
@@ -227,9 +230,8 @@ A linha de revogação costuma decidir. Sistemas com requisito de bloqueio
 imediato — financeiro, saúde, qualquer contexto com consequência regulatória — não
 podem depender só de expiração.
 
-A combinação que a maioria dos sistemas maduros adota resolve isso: token curto
-para o acesso, com um estado revogável no servidor para a renovação. O caminho
-frequente é sem estado; o raro consulta.
+A combinação que resolve isso: token curto para o acesso, com um estado revogável
+no servidor para a renovação. O caminho frequente é sem estado; o raro consulta.
 
 Uma armadilha do token: ele viaja em **toda** requisição, incluindo as de asset se
 o cliente não separar. Um token de 4 KB numa página com 60 requisições são 240 KB

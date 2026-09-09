@@ -13,7 +13,7 @@ objective: >
 prerequisites: [retries]
 related: [retries, rate-limiting, retry-storms]
 canonical_for: [backoff, backoff exponencial, jitter]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -69,7 +69,7 @@ intervalo.
 ### O teto importa
 
 Sem limite, a espera cresce indefinidamente: a décima tentativa esperaria mais de
-17 minutos com base de 1 segundo.
+oito minutos com base de 1 segundo.
 
 Um teto — tipicamente dezenas de segundos — mantém a retentativa útil. O
 crescimento existe para aliviar o destino, não para desistir por exaustão
@@ -80,13 +80,18 @@ aritmética.
 São mecanismos diferentes. Backoff controla **quando** tentar; o limite controla
 **quantas vezes**.
 
-Backoff com tentativas infinitas ocupa recurso indefinidamente e nunca falha
-visivelmente — o que impede o alerta.
+Backoff com tentativas infinitas continua sendo retentativa infinita, com as
+consequências que [retentativas](/06-distributed-systems/retries.md) descreve.
 
 ### `Retry-After` tem precedência
 
 Quando o destino informa quanto esperar, essa instrução vence o cálculo local. Ele
 sabe do próprio estado mais do que o cliente consegue inferir.
+
+O valor informado é o piso da espera, não a espera inteira: mil clientes que voltam
+exatamente no instante indicado voltam sincronizados. A variação aleatória se aplica
+por cima dele, nunca abaixo — e o prazo do chamador continua valendo: um
+`Retry-After` maior que o orçamento é motivo para desistir, não para esperar.
 
 Ignorar `Retry-After` e usar backoff próprio é desperdiçar informação que o
 servidor forneceu de propósito.
@@ -135,7 +140,7 @@ clientes.** As duas coisas são necessárias, e a segunda é a esquecida.
 
 ## Quando Usar
 
-- Sempre que houver retentativa automática.
+- Em retentativa automática, quando o prazo do chamador comporta a espera.
 - Ao reconectar a um serviço que caiu.
 - Ao consumir API com limite de taxa.
 - Em qualquer situação em que muitos clientes possam falhar simultaneamente.
@@ -152,15 +157,17 @@ clientes.** As duas coisas são necessárias, e a segunda é a esquecida.
 que chega a 8 já ultrapassou o orçamento — a tentativa acontece depois de o
 chamador ter desistido.
 
-**Backoff sem variação.** É pior que não ter, porque dá a impressão de proteção
-enquanto mantém a sincronização.
+**Backoff sem variação.** Espaça os pulsos sem dessincronizar os clientes — e nisso
+é pior que não ter backoff nenhum: dá a impressão de proteção, e o problema deixa de
+ser investigado.
 
 ## Alternativas
 
 - **[Circuit breaker](/12-reliability/circuit-breakers.md)** — parar de tentar em vez de
   espaçar. Mais eficaz quando a falha é persistente.
 - **Fila com atraso** — deixar o mecanismo de mensageria cuidar.
-- **Orçamento de retentativa** — limitar a proporção em vez do intervalo.
+- **Orçamento de retentativa** — limitar a proporção em vez do intervalo. Ver
+  [tempestades de retentativa](/12-reliability/retry-storms.md).
 - **Falhar rápido** — quando o prazo do chamador não comporta espera.
 
 ## Trade-offs
@@ -222,8 +229,9 @@ do tempo estavam esperando em sincronia.
 A correção foi uma linha: sortear a espera no intervalo `[0, calculado]` em vez de
 usar o valor calculado.
 
-O resultado: a utilização da API estabilizou em torno de 85%, sem pulsos, e o
-tempo total de processamento caiu de horas para minutos.
+O resultado: a utilização da API estabilizou em torno de 85%, sem pulsos, e o tempo
+total de processamento caiu na proporção entre as duas utilizações — cerca de 2,4
+vezes mais rápido.
 
 Nenhuma capacidade foi adicionada. O que mudou foi os clientes deixarem de
 tentar todos no mesmo instante.

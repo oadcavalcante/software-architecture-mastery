@@ -13,7 +13,7 @@ objective: >
 prerequisites: [pagination]
 related: [caching, pagination, cqrs]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -28,8 +28,8 @@ comparing values; searching is ordering by relevance**.
 
 ## Problem
 
-The first implementation is always `WHERE name LIKE '%term%'`. It works with few records and
-fails in four predictable ways.
+In the relational database the system already has, the first implementation is
+`WHERE name LIKE '%term%'`. It works with few records and fails in four predictable ways.
 
 **It does not use an index.** The leading wildcard prevents using a B-tree index. The query scans
 the whole table, and the cost grows linearly.
@@ -61,7 +61,8 @@ The second line is the most underestimated. PostgreSQL, MySQL and others have fu
 with tokenization, stemming, relevance ordering and multi-field search. For most systems, it is
 enough — and it adds no component, no synchronization and no eventual consistency.
 
-Jumping straight to a dedicated index is the most common error in this area.
+Jumping straight to a dedicated index charges a component, synchronization and reindexing on a
+corpus the database's full-text search would already serve.
 
 ### The inverted index
 
@@ -73,8 +74,9 @@ documents**.
 "software"     → [12, 45, 77]
 ```
 
-Searching "software architecture" becomes an intersection of lists — a fast operation regardless
-of the corpus size.
+Searching "software architecture" becomes an intersection of lists: it walks only the lists of
+the searched terms, not the whole table — the cost grows with the number of documents that
+contain the terms, not with the corpus total.
 
 What the index does before indexing decides the quality: splitting into tokens, normalizing
 accents and case, reducing to the stem — "running", "ran" and "run" become the same term — and
@@ -123,9 +125,9 @@ a filter.** A filter is solved in the database.
 
 ## When Not to Use
 
-**A dedicated index when the database solves it.** It is the dominant error: one more component,
-synchronization, eventual consistency and reindexing, for a corpus of 50 thousand records the
-database's full-text search serves in milliseconds.
+**A dedicated index when the database solves it.** The cost is disproportionate to the gain: one
+more component, synchronization, eventual consistency and reindexing, for a corpus of 50
+thousand records the database's full-text search serves in milliseconds.
 
 **Search when the case is a filter.** If the user picks a category and a price range, that is a
 `WHERE` with an index, not search.
@@ -212,7 +214,8 @@ requirement demanded it — not when someone decided search deserved its own inf
 
 ## Related Concepts
 
-- [Pagination](/05-system-design/pagination.md) — search results are paginated by cursor.
+- [Pagination](/05-system-design/pagination.md) — cursor when scrolling is continuous and the
+  ordering has a stable tiebreaker; offset when the user jumps between pages.
 - [Caching](/05-system-design/caching.md) — frequent searches benefit.
 - [CQRS](/03-design-patterns/cqrs.md) — the index is a read projection.
 - [Data Architecture](/07-data-architecture/index.md).

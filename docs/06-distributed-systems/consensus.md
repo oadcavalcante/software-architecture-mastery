@@ -2,7 +2,7 @@
 id: consensus
 title: Consenso
 sidebar_position: 17
-description: Fazer vários nós concordarem — o problema mais difícil da área, e o que você deve consumir em vez de implementar.
+description: Fazer vários nós concordarem apesar de falhas — o que consenso garante, o que custa, e por que consumir em vez de implementar.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [leader-election]
 related: [leader-election, distributed-locks, cap]
 canonical_for: [consenso, quórum, Raft, Paxos]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -24,9 +24,11 @@ last_reviewed: 2026-08-27
 Consenso é fazer um grupo de nós concordar sobre um valor, de forma que a decisão
 seja única, definitiva e sobreviva a falhas.
 
-É o problema mais estudado de sistemas distribuídos, e o mais fácil de implementar
-errado. A recomendação prática deste documento é direta: **consuma consenso,
-não o implemente.**
+A teoria está estabelecida desde os anos 1980; o que costuma falhar é a
+implementação, e os defeitos se concentram em dois pontos — segurança sob partição
+e mudança de membros do cluster, que o teste de caminho feliz não exercita. A
+recomendação prática deste documento é direta: **consuma consenso, não o
+implemente.**
 
 ## Problema
 
@@ -41,22 +43,26 @@ O que torna difícil não é concordar quando tudo funciona — é concordar **a
 de** nós que caem, mensagens que se perdem e nós lentos que parecem mortos.
 
 E há um resultado teórico incômodo: o teorema FLP mostra que, num sistema
-assíncrono em que um nó pode falhar, **nenhum algoritmo garante consenso em tempo
-finito**. Não porque os algoritmos sejam ruins — é impossível.
+assíncrono em que um nó pode falhar, **nenhum algoritmo determinístico garante
+consenso em tempo finito**. Não porque os algoritmos sejam ruins — é impossível.
 
 ## Conceitos Centrais
 
 ### O que o resultado FLP significa na prática
 
-Ele não diz que consenso é inviável. Diz que nenhum algoritmo pode garantir
-simultaneamente correção e terminação num sistema perfeitamente assíncrono.
+Ele não diz que consenso é inviável. Diz que nenhum algoritmo determinístico pode
+garantir simultaneamente correção e terminação num sistema perfeitamente
+assíncrono; algoritmos randomizados terminam com probabilidade 1, o que não é a
+mesma garantia.
 
 Os algoritmos práticos contornam usando **tempo**: timeouts para suspeitar de
 falha. Isso sacrifica a garantia teórica de terminação — sob condições
 patológicas, a eleição pode não concluir — em troca de funcionar na prática.
 
 O que eles nunca sacrificam é a **segurança**: mesmo que não decidam, nunca
-decidem errado. Duas decisões conflitantes são impossíveis.
+decidem errado. Duas decisões conflitantes são impossíveis — sob o modelo de
+falhas por parada e omissão, que é o que Raft, Paxos e Zab assumem; falha bizantina
+e corrupção silenciosa de disco estão fora dele.
 
 Essa é a hierarquia correta: segurança sempre, progresso quando a rede colabora.
 
@@ -68,7 +74,7 @@ acordo da maioria.**
 Como não existem duas maiorias disjuntas, não podem existir duas decisões
 conflitantes.
 
-A consequência operacional: com N nós, o sistema tolera `(N-1)/2` falhas.
+A consequência operacional: com N nós, o sistema tolera `⌊(N-1)/2⌋` falhas.
 
 ```text
 3 nós → tolera 1 falha
@@ -92,6 +98,13 @@ maior.
 
 **Indisponibilidade sob partição.** O lado minoritário não decide nada. Ver
 [CAP](/06-distributed-systems/cap.md).
+
+**Rotina operacional.** Um cluster de três a cinco nós não se opera sozinho: trocar
+um membro é mudança de configuração que passa pelo próprio consenso e vai um nó por
+vez, para não perder quórum; o log cresce até ser compactado em snapshot, e é do
+snapshot que um nó que voltou se restaura; atualizar versão é reinício em sequência
+com quórum preservado o tempo todo. E como cada decisão é gravada em disco antes de
+ser confirmada, disco lento vira vazão baixa do cluster inteiro.
 
 Por isso consenso é usado para o **plano de controle** — quem é o líder, qual a
 configuração — e raramente para o plano de dados, onde o volume é alto.
@@ -164,7 +177,7 @@ construção.
 | Com consenso | Sem |
 |---|---|
 | Decisão única garantida | Divergência possível |
-| Segurança sob qualquer falha | Depende de sorte |
+| Segurança sob falhas por parada | Depende de sorte |
 | Latência de coordenação por decisão | Latência local |
 | Indisponível sem maioria | Disponível |
 | Vazão limitada | Escala |
@@ -208,8 +221,10 @@ próprio, com três nós, implementando Raft.
 A estimativa era de dois meses. A revisão mudou o caminho com duas perguntas.
 
 **"A rotina é idempotente?"** Não era, e podia ser. Ela lançava registros de
-ajuste; adicionar uma chave por período de reconciliação e verificar antes de
-lançar tornava a execução múltipla inofensiva.
+ajuste; uma chave por período de reconciliação, com restrição de unicidade e
+gravada na mesma transação do lançamento, tornava a execução múltipla inofensiva.
+Sem a unicidade não funcionaria — duas execuções simultâneas leem "não existe" e as
+duas lançam. Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 **"Se ela executar duas vezes, o que acontece de fato?"** Com idempotência, nada.
 Sem ela, lançamentos duplicados.

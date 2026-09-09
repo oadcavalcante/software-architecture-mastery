@@ -12,8 +12,8 @@ objective: >
   de qualidade, e reconhece as decomposições que criam mais problemas que resolvem.
 prerequisites: [system-design]
 related: [components, service-boundaries, modular-design]
-canonical_for: [decomposição de sistemas, system decomposition]
-content_version: 1
+canonical_for: [decomposição de sistemas, system decomposition, teste da mudança, change test]
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -80,19 +80,17 @@ processo, e promova a componente separado o que tiver razão.
 
 ### A decomposição precisa passar no teste da mudança
 
-Uma decomposição é boa quando as mudanças típicas cabem numa parte.
-
-Isso é verificável antes de construir: liste as cinco alterações mais prováveis
-nos próximos seis meses e verifique quantas partes cada uma toca. Se a maioria
-toca três ou mais, a decomposição está errada.
-
-Em sistema existente, o histórico responde melhor que a previsão.
+Uma decomposição é boa quando as mudanças típicas cabem numa parte. O critério é
+verificável antes de construir, contando quantas partes cada mudança provável
+toca; o procedimento está na seção de
+[validação](#como-validar-uma-decomposição-antes-de-construir).
 
 ### Nem tudo precisa ser decomposto
 
-Um sistema pequeno com um time não ganha nada em ser dividido. A decomposição tem
-custo — contratos, tradução, navegação — e ele só se paga acima de certa escala de
-código e de pessoas.
+Um sistema pequeno com um time ganha pouco em ser dividido, salvo quando uma
+parte tem requisito de qualidade que o resto não tem — aí a razão é escala, não
+tamanho. A decomposição tem custo — contratos, tradução, navegação — e ele só se
+paga acima de certa escala de código e de pessoas.
 
 ## Modelo Mental
 
@@ -118,7 +116,9 @@ Ver [bounded context](/04-domain-driven-design/bounded-context.md).
 Conway](/23-architecture-leadership/conways-law.md) descreve o que acontece, não o
 que deveria acontecer.
 
-**Decompondo fisicamente por default.** Módulos primeiro.
+**Decompondo fisicamente por default.** Módulos primeiro: enquanto a fronteira
+não sobreviveu a um ciclo de mudanças reais, promovê-la a processo troca uma
+refatoração de horas por uma migração de dados e de contrato.
 
 ## Alternativas
 
@@ -190,13 +190,21 @@ Dois anos depois, `Acesso` foi extraído — porque a validação de entrada em 
 grandes tem pico de carga de ordens de grandeza e precisa escalar sozinha. Uma
 razão, registrada, e só ela.
 
+A extração cobrou o que a fronteira lógica não cobrava: a requisição de entrada
+passou a atravessar dois processos, diagnosticar uma recusa exigiu correlacionar
+o log dos dois, a implantação ganhou ordem entre contrato e consumidor, e o
+plantão precisou de um dono nomeado. Enquanto tudo era um artefato só, a
+fronteira era verificada no build e não aparecia na operação.
+
 ## Como validar uma decomposição antes de construir
 
 Três verificações que custam horas e evitam meses.
 
 **O teste da mudança.** Liste as cinco alterações mais prováveis e conte quantas
 partes cada uma toca. Se a maioria toca três ou mais, a decomposição está no eixo
-errado. Em sistema existente, o histórico responde melhor que a previsão.
+errado. Em sistema existente, o histórico responde melhor que a previsão. No
+nível do portfólio o mesmo teste vale para sistemas em vez de partes — ver
+[arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md).
 
 **O teste da propriedade.** Para cada parte, liste os dados de que ela é dona. Se
 duas partes escrevem no mesmo lugar, elas são uma parte dividida em duas — e a
@@ -212,7 +220,8 @@ de sistemas parecidos, ou do próprio produto, informa muito melhor que a intui�
 de quem está desenhando naquele momento.
 
 Uma decomposição que passa nos três não é garantidamente certa. Uma que falha em
-qualquer um deles é comprovadamente errada, e isso já paga o exercício.
+qualquer um deles põe a fronteira sob suspeita no eixo que aquele teste mede, e
+reexaminá-la custa horas — o que já paga o exercício.
 
 ## Conceitos Relacionados
 

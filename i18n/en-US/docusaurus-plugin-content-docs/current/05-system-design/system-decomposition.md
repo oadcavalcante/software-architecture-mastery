@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [components, service-boundaries, modular-design]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -81,19 +81,17 @@ promote to a separate component whatever has a reason.
 
 ### The decomposition has to pass the change test
 
-A decomposition is good when the typical changes fit in one part.
-
-That is verifiable before building: list the five most likely changes over the next
-six months and check how many parts each one touches. If most touch three or more,
-the decomposition is wrong.
-
-In an existing system, history answers better than prediction.
+A decomposition is good when the typical changes fit in one part. The criterion is
+verifiable before building, by counting how many parts each likely change touches;
+the procedure is in the
+[validation section](#how-to-validate-a-decomposition-before-building).
 
 ### Not everything needs to be decomposed
 
-A small system with one team gains nothing from being divided. Decomposition has a
-cost — contracts, translation, navigation — and it only pays off above a certain
-scale of code and of people.
+A small system with one team gains little from being divided, except when one part
+has a quality requirement the rest does not — there the reason is scale, not size.
+Decomposition has a cost — contracts, translation, navigation — and it only pays
+off above a certain scale of code and of people.
 
 ## Mental Model
 
@@ -119,7 +117,9 @@ See [bounded context](/04-domain-driven-design/bounded-context.md).
 law](/23-architecture-leadership/conways-law.md) describes what happens, not what should
 happen.
 
-**Decomposing physically by default.** Modules first.
+**Decomposing physically by default.** Modules first: while a boundary has not
+survived a cycle of real changes, promoting it to a process trades a refactoring of
+hours for a migration of data and contract.
 
 ## Alternatives
 
@@ -191,13 +191,21 @@ Two years later, `Access` was extracted — because entry validation at large ev
 has load peaks of orders of magnitude and needs to scale on its own. One reason,
 recorded, and only that one.
 
+The extraction charged what the logical boundary did not: an entry request now
+crossed two processes, diagnosing a rejection required correlating the logs of both,
+deployment gained an order between contract and consumer, and the on-call rotation
+needed a named owner. While everything was one artifact, the boundary was checked at
+build time and never showed up in operations.
+
 ## How to validate a decomposition before building
 
 Three checks that cost hours and save months.
 
 **The change test.** List the five most likely changes and count how many parts each
 one touches. If most touch three or more, the decomposition is on the wrong axis. In
-an existing system, history answers better than prediction.
+an existing system, history answers better than prediction. At the portfolio level
+the same test holds for systems instead of parts — see
+[application architecture](/15-enterprise-architecture/application-architecture.md).
 
 **The ownership test.** For each part, list the data it owns. If two parts write to
 the same place, they are one part split in two — and the boundary is fiction.
@@ -212,7 +220,8 @@ but the history of similar systems, or of the product itself, informs far better
 the intuition of whoever is drawing at that moment.
 
 A decomposition that passes all three is not guaranteed to be right. One that fails
-any of them is demonstrably wrong, and that alone pays for the exercise.
+any of them puts the boundary under suspicion on the axis that test measures, and
+re-examining it costs hours — which alone pays for the exercise.
 
 ## Related Concepts
 

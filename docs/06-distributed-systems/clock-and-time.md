@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [ordering, conflict-resolution, consensus]
 canonical_for: [relógio, relógio lógico, deriva de relógio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -56,12 +56,18 @@ retrocesso. Adequado para **registrar quando algo aconteceu**, para exibir, para
 expiração de credencial de longa duração.
 
 **Relógio monotônico.** Um contador que só cresce, sem relação com o calendário.
-Não sofre correção. Adequado para **medir duração**, timeout e intervalo.
+Não retrocede nem salta — mas o NTP ajusta sua frequência, e, conforme o relógio que
+o sistema operacional oferece, o tempo de máquina suspensa pode não ser contado. O
+valor só tem sentido dentro da mesma máquina e do mesmo boot: a origem é arbitrária e
+zera quando a máquina reinicia. Adequado para **medir duração**, timeout e intervalo.
 
 O erro clássico: medir a duração de uma operação subtraindo dois valores do relógio
 de parede. Se o NTP corrigir no meio, o resultado pode ser negativo ou absurdo.
 
-Toda medição de tempo decorrido deveria usar o monotônico.
+Dentro do mesmo processo, toda medição de tempo decorrido deveria usar o monotônico.
+Duração que atravessa máquinas ou reinícios — a idade da mensagem mais antiga de uma
+fila, por exemplo — não tem essa opção: subtrai marcas de parede, e o número carrega a
+divergência entre os relógios envolvidos, que precisa ser declarada junto com ele.
 
 ### Marca de tempo não ordena eventos
 
@@ -124,7 +130,7 @@ no lugar do outro é a origem de quase todo defeito desta área.
 auditoria; expiração de longo prazo; agendamento em horário de calendário.
 
 **Relógio monotônico** para: medir duração; timeout; intervalo entre tentativas;
-qualquer comparação de tempo decorrido.
+qualquer comparação de tempo decorrido dentro do mesmo processo.
 
 **Relógio lógico** para: ordenar eventos causalmente; detectar concorrência.
 
@@ -146,11 +152,15 @@ divergindo 100 ms é frágil.
 ## Alternativas
 
 - **Contador de sequência** — atribuído por um único ponto, ordena sem depender de
-  relógio.
-- **Versão da entidade** — resolve ordenação e detecção de obsoleto.
-- **Vetor de versões** — para causalidade e concorrência.
-- **Relógio híbrido** — combina componente físico e lógico, capturando causalidade
-  e mantendo relação com o horário real.
+  relógio. Vence quando a ordem é contratual e a vazão cabe num só ponto de passagem;
+  cobra esse ponto como teto de vazão e de disponibilidade de toda a escrita.
+- **Versão da entidade** — resolve ordenação e detecção de obsoleto. Vence quando a
+  ordem só precisa valer dentro de cada entidade, e não entre entidades diferentes.
+- **Vetor de versões** — vence quando escritas concorrentes precisam ser distinguidas
+  das causalmente ordenadas; cobra estado que cresce com o número de nós.
+- **Relógio híbrido** — combina componente físico e lógico. Vence quando se quer
+  causalidade sem perder a relação com o calendário; cobra o acoplamento das duas
+  partes em todo evento.
 
 ## Trade-offs
 
@@ -159,7 +169,7 @@ divergindo 100 ms é frágil.
 | Legível e comparável com o calendário | Sem significado externo |
 | Não confiável entre máquinas | Confiável para causalidade |
 | Sem estado adicional | Contador ou vetor a propagar |
-| Trivial | Exige propagação nas mensagens |
+| Estado de tamanho fixo | Vetor cresce com o número de nós |
 
 ## Modos de Falha
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [rate-limiting, queues, retries]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -56,8 +56,10 @@ Under a sustained imbalance, it grows until it exhausts memory. And when the pro
 everything is lost — including the work that had already been accepted and acknowledged to the
 producer.
 
-A bounded buffer that rejects when full is always preferable: the failure is immediate, visible, and
-proportional to the excess.
+Against the unbounded one, a bounded buffer that rejects when full trades total loss for a loss
+proportional to the excess, immediate and visible. Which answer to give when it fills — reject,
+block, discard by age or by priority — is the decision of the next section; having a limit is what
+makes that decision possible.
 
 ### The answers when capacity runs out
 
@@ -108,6 +110,16 @@ that accepts everything, degrades for everyone, and eventually goes down.
 
 That has to be explicit: which load is disposable, and what the client receives when it is.
 
+### What the mechanism charges whoever operates it
+
+Backpressure is not a one-off setting: every queue acquires a limit to calibrate, and the right
+number depends on the consumer's throughput and on what the business accepts losing. Two new series
+show up on the dashboard — depth and the discard counter — and one without the other misleads: a
+steady depth with a climbing discard count is saturation, not slack. And rejection becomes a
+contract: the client has to know what it gets when it is refused, and whatever cannot be discarded
+needs a durable path of its own. That cost is permanent, and it is what decides the cases where the
+mechanism does not pay for itself.
+
 ## Mental Model
 
 **The question is not "how do we absorb more". It is "what do we do when it does not fit".** Every
@@ -122,15 +134,17 @@ system has a limit; the difference is whether it was designed.
 
 ## When Not to Use
 
-**An unbounded buffer as a strategy.** It never is.
+**Total production bounded by construction.** A batch of known size, a closed work list: if
+everything that can come in fits in the process's memory, the limit already exists — it just is not
+in the queue. What changes that conclusion is the input becoming continuous.
 
-**Blocking when there is a user waiting.** They will give up and possibly retry, increasing the
-load.
+**A one-hop chain whose producer is already bounded at the origin.** A cron that runs one instance at
+a time, a fixed pool of synchronous connections — the origin cannot produce more than the consumer
+accepts, and signaling pressure is signaling to nobody.
 
-**Discarding without deciding what.** Random discarding loses the critical along with the
-disposable.
-
-**Signaling pressure without propagating.** The problem merely changes place.
+**Excess cheaper than the mechanism.** A limit to calibrate per queue, a counter to follow and a
+rejection contract with the client are permanent cost; where the excess is rare and a client retry
+absorbs it, the mechanism charges more than it prevents.
 
 **Backpressure as a substitute for capacity.** If the system is permanently saturated, the problem is
 sizing.
@@ -140,8 +154,9 @@ sizing.
 - **[Rate limiting](/05-system-design/rate-limiting.md)** — limit at the entrance instead of
   reacting at the exit. Preventive, and it requires knowing the capacity.
 - **Scale the consumer** — when the imbalance is one of capacity, not of peaks.
-- **Degrade** — process more cheaply under pressure.
-- **Prioritize** — discard the least important.
+- **Degrade** — process more cheaply under pressure. It wins when there is a cheaper answer that
+  still serves — an approximate result, without enrichment; when every partial answer is useless,
+  discarding is more honest.
 
 ## Trade-offs
 
@@ -179,13 +194,19 @@ late to have value.
 
 ## Common Mistakes
 
-**An in-memory queue with no limit.**
+**An in-memory queue with no limit.** The language's default structure asks for no limit, and
+accepting that default is deciding that the excess goes to the heap — work already acknowledged to
+the producer now depends on the process staying alive.
 
 **Not monitoring the depth.** It is the metric that anticipates the problem.
 
-**Blocking in a chain with a user at the end.**
+**Blocking in a chain with a user at the end.** Choosing to block because "nothing is lost" pushes
+the wait onto whoever cannot wait: the user gives up, retries, and the load one meant to contain
+grows.
 
-**Not classifying what can be discarded.**
+**Not classifying what can be discarded.** Without asking the business which data is disposable, the
+discarding ends up decided by arrival order — and the rare, critical event goes out along with the
+repeated telemetry.
 
 **Increasing the buffer as a fix.** It postpones and aggravates.
 
@@ -196,15 +217,16 @@ A vehicle tracking platform received positions from 80 thousand vehicles, every 
 The ingestion service put the positions in an in-memory queue, and a processor wrote them to the
 database. The queue had no limit.
 
-During a database maintenance that lasted 12 minutes, the processor stopped writing.
+During a database maintenance that lasted 30 minutes, the processor stopped writing.
 
 The queue grew. In 9 minutes, the process's memory was exhausted and it died — taking with it
 **all** the positions in memory, including the ones that had been accepted before the maintenance.
 
 On restart, the service started accepting positions again, the queue started growing again — the
-database was still under maintenance — and the process died again. Three times.
+database was still under maintenance — and the process died again, every nine minutes. Three times.
 
-About 2 million positions were lost.
+About 4.3 million positions were lost: three nine-minute buffers, at 160 thousand positions per
+minute. The final three minutes of queue survived and were written when the database came back.
 
 The fixes changed the strategy, not the buffer size.
 
@@ -216,7 +238,10 @@ is the one that matters; one from 8 minutes ago has little value.
 **A durable queue** for what cannot be discarded — the alarm events, which are rare and critical.
 They moved to a separate channel, with persistence.
 
-**A depth alert** above 60% of the limit.
+**A depth alert** above 60% of the limit — which, with the processor stopped and at 160 thousand
+positions per minute, gives less than eight seconds before discarding begins. It is not an advance
+warning: it serves to timestamp the start of the discarding, and it is the depth series over the
+days, alongside the counter, that anticipates the imbalance.
 
 During the next maintenance, of 15 minutes, the behavior was: old positions discarded with a
 recorded counter, alarms preserved in the durable queue, no process killed, and automatic recovery

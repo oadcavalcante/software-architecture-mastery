@@ -11,9 +11,9 @@ objective: >
   By the end, the reader recognizes what a service adds over a module and decides
   granularity from reasons, not from size.
 prerequisites: [components]
-related: [apis, service-boundaries, microservices]
+related: [apis, service-boundaries, microservices, data-ownership]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -94,16 +94,25 @@ and adds up the latencies.
 And each one adds its latency to the total. The chain is as slow as the sum, and as
 available as the product.
 
-That is the strongest argument against excessive granularity, and what makes
-asynchronous communication attractive when the response is not needed immediately.
+That is the argument against excessive granularity that is measured in
+availability, and what makes asynchronous communication attractive when the response
+is not needed immediately.
 
 ### A service owns its data
 
-The rule that admits no exception: no service accesses another's database.
+The rule, as an end state: no service accesses another's database. Two things
+qualify it — during a decomposition, a shared database is a legitimate transition
+step, with a deadline and an owner declared; and, for genuinely cross-cutting data, a
+shared database with explicit governance and a change process is a documented
+option, not an accident.
 
-Sharing a database produces all the coupling of a monolith, with all the cost of
-distribution, and with no contract. It is the worst possible combination, and it is
-common.
+What gives the physical separation its meaning is that ownership. A database held in
+common hands back the coupling of a monolith and keeps the network bill — the worst
+of the combinations when it happens by omission, which is how it nearly always
+happens.
+
+The full treatment — the options for cross-cutting data and what each one costs — is
+in [data ownership](/07-data-architecture/data-ownership.md).
 
 ## Mental Model
 
@@ -172,13 +181,17 @@ not know about.
 
 **Calling a class a service.** The distinction is physical.
 
-**Deciding granularity by size.**
+**Deciding granularity by size.** The cut lands in the middle of a transaction, and
+what was one write becomes two with compensation.
 
-**Sharing a database.**
+**Sharing a database.** One team's schema migration blocks the other team's release,
+and there is no contract in which to complain.
 
 **Chaining synchronous calls.** Each link multiplies the risk.
 
-**Not measuring whether the separation is exercised.**
+**Not measuring whether the separation is exercised.** The two services keep going
+to production together, and the cost of operating two shows up on the bill without
+the benefit showing up anywhere.
 
 ## Real-World Example
 
@@ -198,13 +211,19 @@ The fix had two parts.
 `Registry` and `Risk` were consolidated — they were always called together, always
 deployed together, and history showed 90% joint changes.
 
-And the price table lookup became a local copy in `Quote`, updated by event. The table
+And the price table lookup became a local copy in the consolidated service — which
+was the one calling it — updated by event. The table
 changed twice a month; querying it on every quote was a network round trip for
 practically static data.
 
-Result: chain from five to three, latency to 620 ms, availability to 99.7% — and the
-rest came from retries with a [circuit
-breaker](/12-reliability/circuit-breakers.md).
+Result: chain from five to three, average latency from 1.8 s to 1.2 s, availability
+from 99.5% to 99.7% — and the rest of the availability came from retries with a
+[circuit breaker](/12-reliability/circuit-breakers.md).
+
+The 800 ms requirement was not met. Of the 1.2 s that remained, about 800 ms is
+processing across the three services — the consolidated one does the work of two —
+and the rest is network, over two hops. The chain gave back what the chain charged;
+what is left does not come out of the call's design.
 
 No service became faster. It was the architecture of the call that changed.
 
@@ -229,7 +248,10 @@ exists.
 
 What decides between them is how much the instances change. In an environment with a
 fixed number of machines, configuration is enough and is the most predictable option.
-With autoscaling, the address changes several times a day and only the last two work.
+With autoscaling, the criterion becomes how long the client may hold an answer that
+is no longer true: configuration holds it forever, DNS until the TTL expires, the
+registry until the next query, and the platform holds nothing — the name is stable
+and the churn happens behind it.
 
 It is worth noting that discovery answers **where**, not **whether it is healthy**.
 The two questions are distinct, and answering the first without the second sends
@@ -241,6 +263,8 @@ traffic to instances that started and are not ready yet.
 - [APIs](/05-system-design/apis.md) — the contract between services.
 - [Service Boundaries](/05-system-design/service-boundaries.md) — where to separate.
 - [Microservices](/03-design-patterns/microservices.md) — the style.
+- [Data Ownership](/07-data-architecture/data-ownership.md) — whose the data is that
+  the service keeps.
 
 ## Practical Exercise
 

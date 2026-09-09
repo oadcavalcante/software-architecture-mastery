@@ -13,7 +13,7 @@ objective: >
 prerequisites: [pagination]
 related: [caching, pagination, cqrs]
 canonical_for: [busca, índice invertido, busca textual]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -29,8 +29,9 @@ comparar valores; buscar é ordenar por relevância**.
 
 ## Problema
 
-A primeira implementação é sempre `WHERE nome LIKE '%termo%'`. Ela funciona com
-poucos registros e falha de quatro formas previsíveis.
+No banco relacional que o sistema já tem, a primeira implementação é `WHERE nome
+LIKE '%termo%'`. Ela funciona com poucos registros e falha de quatro formas
+previsíveis.
 
 **Não usa índice.** O curinga à esquerda impede o uso de índice B-tree. A consulta
 percorre a tabela inteira, e o custo cresce linearmente.
@@ -63,7 +64,8 @@ com tokenização, radicalização, ordenação por relevância e busca em múlt
 campos. Para a maioria dos sistemas, ela basta — e não adiciona componente,
 sincronização nem consistência eventual.
 
-Pular direto para índice dedicado é o erro mais comum desta área.
+Pular direto para índice dedicado cobra componente, sincronização e reindexação
+num acervo que a busca textual do banco já atenderia.
 
 ### O índice invertido
 
@@ -75,8 +77,9 @@ palavras, mapeia **palavra → documentos**.
 "software"    → [12, 45, 77]
 ```
 
-Buscar "arquitetura software" vira interseção de listas — operação rápida
-independentemente do tamanho do acervo.
+Buscar "arquitetura software" vira interseção de listas: percorre só as listas dos
+termos buscados, não a tabela inteira — o custo cresce com o número de documentos
+que contêm os termos, não com o total do acervo.
 
 O que o índice faz antes de indexar decide a qualidade: separar em tokens,
 normalizar acentos e caixa, reduzir à raiz — "correndo", "correu" e "correr" viram
@@ -127,9 +130,9 @@ correspondência, é filtro.** Filtro se resolve no banco.
 
 ## Quando Não Usar
 
-**Índice dedicado quando o banco resolve.** É o erro dominante: um componente a
-mais, sincronização, consistência eventual e reindexação, para um acervo de 50 mil
-registros que a busca textual do banco atende em milissegundos.
+**Índice dedicado quando o banco resolve.** O custo é desproporcional ao ganho: um
+componente a mais, sincronização, consistência eventual e reindexação, para um
+acervo de 50 mil registros que a busca textual do banco atende em milissegundos.
 
 **Busca quando o caso é filtro.** Se o usuário escolhe categoria e faixa de preço,
 isso é `WHERE` com índice, não busca.
@@ -227,7 +230,8 @@ própria.
 
 ## Conceitos Relacionados
 
-- [Paginação](/05-system-design/pagination.md) — resultados de busca são paginados por cursor.
+- [Paginação](/05-system-design/pagination.md) — cursor quando a rolagem é contínua
+  e a ordenação tem desempate estável; deslocamento quando o usuário pula páginas.
 - [Cache](/05-system-design/caching.md) — buscas frequentes se beneficiam.
 - [CQRS](/03-design-patterns/cqrs.md) — o índice é uma projeção de leitura.
 - [Arquitetura de Dados](/07-data-architecture/index.md).

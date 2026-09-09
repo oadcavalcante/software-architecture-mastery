@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [ordering, conflict-resolution, consensus]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -52,13 +52,19 @@ subtracting two instants can get a negative value.
 **Wall clock.** Calendar time. Subject to correction, jumps and going backwards. Suitable for
 **recording when something happened**, for display, for long-lived credential expiry.
 
-**Monotonic clock.** A counter that only grows, unrelated to the calendar. Not subject to
-correction. Suitable for **measuring duration**, timeouts and intervals.
+**Monotonic clock.** A counter that only grows, unrelated to the calendar. It neither goes
+backwards nor jumps — but NTP does adjust its frequency, and, depending on which clock the
+operating system offers, time spent suspended may not be counted. The value only means something
+within the same machine and the same boot: its origin is arbitrary and restarts on every reboot.
+Suitable for **measuring duration**, timeouts and intervals.
 
 The classic error: measuring an operation's duration by subtracting two wall clock values. If NTP
 corrects in the middle, the result can be negative or absurd.
 
-Every measurement of elapsed time should use the monotonic clock.
+Within a single process, every measurement of elapsed time should use the monotonic clock.
+Duration that crosses machines or reboots — the age of the oldest message in a queue, for example —
+does not have that option: it subtracts wall clock marks, and the number carries the divergence
+between the clocks involved, which has to be stated alongside it.
 
 ### A timestamp does not order events
 
@@ -119,7 +125,7 @@ is the origin of nearly every defect in this area.
 at calendar times.
 
 **Monotonic clock** for: measuring duration; timeouts; the interval between attempts; any comparison
-of elapsed time.
+of elapsed time within the same process.
 
 **Logical clock** for: ordering events causally; detecting concurrency.
 
@@ -138,11 +144,16 @@ of elapsed time.
 
 ## Alternatives
 
-- **Sequence counter** — assigned by a single point, it orders without depending on a clock.
-- **Entity version** — solves ordering and staleness detection.
-- **Version vector** — for causality and concurrency.
-- **Hybrid clock** — combines a physical and a logical component, capturing causality and keeping a
-  relationship with real time.
+- **Sequence counter** — assigned by a single point, it orders without depending on a clock. It wins
+  when the order is contractual and the throughput fits through one chokepoint; it charges that point
+  as a ceiling on the throughput and the availability of every write.
+- **Entity version** — solves ordering and staleness detection. It wins when the order only has to
+  hold within each entity, not across different entities.
+- **Version vector** — wins when concurrent writes have to be told apart from causally ordered ones;
+  it charges state that grows with the number of nodes.
+- **Hybrid clock** — combines a physical and a logical component. It wins when you want causality
+  without losing the relationship with the calendar; it charges the coupling of both parts on every
+  event.
 
 ## Trade-offs
 
@@ -151,7 +162,7 @@ of elapsed time.
 | Readable and comparable to the calendar | No external meaning |
 | Unreliable across machines | Reliable for causality |
 | No additional state | A counter or vector to propagate |
-| Trivial | Requires propagation in messages |
+| Fixed-size state | The vector grows with the number of nodes |
 
 ## Failure Modes
 

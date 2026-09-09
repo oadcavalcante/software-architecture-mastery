@@ -13,7 +13,7 @@ objective: >
 prerequisites: [retries]
 related: [retries, rate-limiting, retry-storms]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -66,8 +66,8 @@ draw from only part of the interval.
 
 ### The cap matters
 
-With no limit, the wait grows indefinitely: the tenth attempt would wait more than 17 minutes with
-a 1-second base.
+With no limit, the wait grows indefinitely: the tenth attempt would wait more than eight minutes
+with a 1-second base.
 
 A cap — typically tens of seconds — keeps the retry useful. The growth exists to relieve the
 destination, not to give up through arithmetic exhaustion.
@@ -77,13 +77,18 @@ destination, not to give up through arithmetic exhaustion.
 They are different mechanisms. Backoff controls **when** to try; the limit controls **how many
 times**.
 
-Backoff with infinite attempts occupies resources indefinitely and never fails visibly — which
-prevents the alert.
+Backoff with infinite attempts is still an infinite retry, with the consequences
+[retries](/06-distributed-systems/retries.md) describes.
 
 ### `Retry-After` takes precedence
 
 When the destination states how long to wait, that instruction beats the local calculation. It
 knows more about its own state than the client can infer.
+
+The stated value is the floor of the wait, not the whole wait: a thousand clients that come back
+exactly at the instant indicated come back synchronized. The jitter applies on top of it, never
+below — and the caller's deadline still holds: a `Retry-After` larger than the budget is a reason
+to give up, not to wait.
 
 Ignoring `Retry-After` and using your own backoff is wasting information the server provided on
 purpose.
@@ -131,7 +136,7 @@ necessary, and the second is the forgotten one.
 
 ## When to Use
 
-- Whenever there are automatic retries.
+- In automatic retries, when the caller's deadline accommodates the wait.
 - When reconnecting to a service that went down.
 - When consuming a rate-limited API.
 - In any situation where many clients can fail simultaneously.
@@ -147,15 +152,17 @@ necessary, and the second is the forgotten one.
 **When the operation has a short deadline.** If the user waits 3 seconds, a backoff that reaches 8
 has already exceeded the budget — the attempt happens after the caller has given up.
 
-**Backoff with no jitter.** It is worse than not having it, because it gives the impression of
-protection while preserving the synchronization.
+**Backoff with no jitter.** It spaces the pulses out without desynchronizing the clients — and in
+that it is worse than having no backoff at all: it gives the impression of protection, and the
+problem stops being investigated.
 
 ## Alternatives
 
 - **[Circuit breaker](/12-reliability/circuit-breakers.md)** — stop trying instead of spacing out. More
   effective when the failure is persistent.
 - **Queue with delay** — let the messaging mechanism handle it.
-- **Retry budget** — limit the proportion instead of the interval.
+- **Retry budget** — limit the proportion instead of the interval. See
+  [retry storms](/12-reliability/retry-storms.md).
 - **Fail fast** — when the caller's deadline does not accommodate waiting.
 
 ## Trade-offs
@@ -214,7 +221,7 @@ The fix was one line: draw the wait from the interval `[0, computed]` instead of
 value.
 
 The result: the API's utilization stabilized around 85%, with no pulses, and the total processing
-time dropped from hours to minutes.
+time dropped in proportion to the two utilizations — about 2.4x faster.
 
 No capacity was added. What changed was the clients no longer all trying at the same instant.
 

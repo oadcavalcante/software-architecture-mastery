@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor reconhece o que um serviço adiciona em relação a um módulo
   e decide a granularidade a partir de razões, não de tamanho.
 prerequisites: [components]
-related: [apis, service-boundaries, microservices]
+related: [apis, service-boundaries, microservices, data-ownership]
 canonical_for: [serviço, granularidade de serviço]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -94,15 +94,24 @@ falha e soma as latências.
 E cada um adiciona sua latência ao total. A cadeia é tão lenta quanto a soma, e
 tão disponível quanto o produto.
 
-Isso é o argumento mais forte contra granularidade excessiva, e o que torna
-comunicação assíncrona atraente quando a resposta não é necessária de imediato.
+Esse é o argumento contra granularidade excessiva que se mede em disponibilidade,
+e o que torna comunicação assíncrona atraente quando a resposta não é necessária de
+imediato.
 
 ### Serviço é dono dos seus dados
 
-A regra que não admite exceção: nenhum serviço acessa o banco de outro.
+A regra, como estado final: nenhum serviço acessa o banco de outro. Duas coisas a
+qualificam — numa decomposição, banco compartilhado é passo de transição legítimo,
+com prazo e dono declarados; e, para dado genuinamente transversal, banco
+compartilhado com governança explícita e processo de mudança é uma opção
+documentada, não um acidente.
 
-Compartilhar banco produz todo o acoplamento de um monolito, com todo o custo de
-distribuição, e sem contrato. É a pior combinação possível, e é comum.
+O que dá sentido à separação física é essa propriedade. Um banco em comum devolve o
+acoplamento do monolito e mantém a conta da rede — a pior das combinações quando
+acontece por omissão, que é como quase sempre acontece.
+
+O desenvolvimento do tema — as opções para dado transversal e o custo de cada uma —
+está em [propriedade do dado](/07-data-architecture/data-ownership.md).
 
 ## Modelo Mental
 
@@ -171,13 +180,17 @@ desconhecia.
 
 **Chamar de serviço uma classe.** A distinção é física.
 
-**Decidir granularidade por tamanho.**
+**Decidir granularidade por tamanho.** O corte cai no meio de uma transação, e o
+que era uma escrita passa a ser duas com compensação.
 
-**Compartilhar banco.**
+**Compartilhar banco.** A migração de esquema de um time trava o release do outro,
+e não há contrato onde reclamar.
 
 **Encadear chamadas síncronas.** Cada elo multiplica o risco.
 
-**Não medir se a separação é exercida.**
+**Não medir se a separação é exercida.** Os dois serviços seguem indo para
+produção juntos, e o custo de operar dois aparece na fatura sem o benefício
+aparecer em lugar nenhum.
 
 ## Exemplo Real
 
@@ -197,13 +210,18 @@ A correção teve duas partes.
 `Cadastro` e `Risco` foram consolidados — eles sempre eram chamados juntos, sempre
 implantados juntos, e o histórico mostrava 90% de alterações conjuntas.
 
-E a consulta à tabela de preços virou cópia local em `Cotacao`, atualizada por
-evento. A tabela mudava duas vezes por mês; consultá-la a cada cotação era ida à
-rede para dado praticamente estático.
+E a consulta à tabela de preços virou cópia local no serviço consolidado — que era
+quem a chamava — atualizada por evento. A tabela mudava duas vezes por mês;
+consultá-la a cada cotação era ida à rede para dado praticamente estático.
 
-Resultado: cadeia de cinco para três, latência para 620 ms, disponibilidade para
-99,7% — e o restante veio de retentativa com [circuit
-breaker](/12-reliability/circuit-breakers.md).
+Resultado: cadeia de cinco para três, latência média de 1,8 s para 1,2 s,
+disponibilidade de 99,5% para 99,7% — e o restante da disponibilidade veio de
+retentativa com [circuit breaker](/12-reliability/circuit-breakers.md).
+
+Os 800 ms do requisito não foram atingidos. Dos 1,2 s que sobraram, cerca de 800 ms
+são processamento dos três serviços — o consolidado faz o trabalho de dois — e o
+resto é rede, em dois saltos. A cadeia devolveu o que a cadeia cobrava; o que falta
+não sai do desenho da chamada.
 
 Nenhum serviço ficou mais rápido. A arquitetura da chamada é que mudou.
 
@@ -228,7 +246,10 @@ plataforma já existe.
 
 O que decide entre eles é quanto as instâncias mudam. Num ambiente com número fixo
 de máquinas, configuração basta e é a opção mais previsível. Com escala
-automática, o endereço muda várias vezes por dia e só as duas últimas funcionam.
+automática, o critério passa a ser por quanto tempo o cliente pode segurar uma
+resposta que já não é verdadeira: a configuração segura para sempre, o DNS até o TTL
+expirar, o registro até a consulta seguinte, e a plataforma não segura nada — o nome
+é estável e a rotatividade acontece atrás dele.
 
 Vale notar que descoberta resolve **onde**, não **se está saudável**. As duas
 perguntas são distintas, e responder à primeira sem a segunda envia tráfego para
@@ -240,6 +261,8 @@ instâncias que subiram e ainda não estão prontas.
 - [APIs](/05-system-design/apis.md) — o contrato entre serviços.
 - [Fronteiras de Serviço](/05-system-design/service-boundaries.md) — onde separar.
 - [Microsserviços](/03-design-patterns/microservices.md) — o estilo.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — de quem é o dado
+  que o serviço guarda.
 
 ## Exercício Prático
 

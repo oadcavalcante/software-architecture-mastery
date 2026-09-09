@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [load-balancing, scalability-basics, statelessness]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -31,8 +31,8 @@ recovery.
 
 ## Problem
 
-"Make the service stateless" is the most repeated advice in system design, and it is
-frequently understood as if state could be eliminated.
+"Make the service stateless" is one of the most repeated pieces of advice in system
+design, and it is frequently understood as if state could be eliminated.
 
 It cannot. **State does not disappear — it moves.**
 
@@ -57,7 +57,8 @@ the state, and how much of the system can go without it?"**.
 | Recovery | Start another | Restore or re-elect |
 
 The first line is the reason for all the rest: a stateless component scales by adding
-copies, and that is the cheapest operation there is in systems.
+copies, and adding a copy requires neither coordination nor state migration — that is
+what makes the operation cheap.
 
 ### Stateless does not mean memoryless
 
@@ -133,8 +134,9 @@ the system can be stateless, not whether all of it can.
 
 - **Shared external state** — a distributed cache or a database.
 - **State in the client** — a token, for the session.
-- **Partitioning by key** — keep the state local, routing each key always to the same
-  instance. It is the model of stateful systems that scale.
+- **[Partitioning by key](/06-distributed-systems/partitioning.md)** — keep the state
+  local, routing each key always to the same instance. It is the model of stateful
+  systems that scale.
 - **Recompute** — when deriving is cheaper than keeping.
 
 ## Trade-offs
@@ -207,9 +209,12 @@ kill one instance mid-processing and confirm that another continues.
 
 ## Stateful systems that scale
 
+> Prerequisite: [Partitioning](/06-distributed-systems/partitioning.md).
+> The focus here is partitioning as the alternative to statelessness, not the mechanics
+> of strategies, rebalancing and consistent hashing.
+
 Statelessness is not the only way to scale. Stateful systems scale by
-**partitioning**, and the mechanism is worth understanding — databases, distributed
-caches and streaming platforms all use it.
+**partitioning** — databases, distributed caches and streaming platforms all use it.
 
 The idea: each instance owns a subset of the keys. A routing function decides which
 instance serves each key, and the state for that key always lives in the same place.
@@ -220,17 +225,13 @@ hash(key) → instance
   user 1204 → instance 5
 ```
 
-That preserves locality — the state is where it is used — and allows adding capacity by
-adding instances.
+That inverts the stateless model: instead of any instance serving any request, every
+piece of state has a fixed owner. The gain is locality — the state is where it is used —
+and capacity that grows by adding instances.
 
-The cost shows up in three places. **Operations that cross partitions** become expensive:
-combining data from two keys on different instances requires coordination.
-**Rebalancing** when adding or removing an instance moves state, and it is the most
-delicate moment in operations. And **imbalance** happens if one key is far more active
-than the others — the [hotspot](/11-scalability/index.md).
-
-Consistent hashing reduces the cost of rebalancing: adding an instance moves only a
-fraction of the keys, not all of them.
+The price is keeping that owner, and it shows up in operations that cross partitions, in
+moving state when the number of instances changes, and in keys that are far more active
+than the others.
 
 The practical conclusion: **statelessness is cheaper, partitioning is more powerful.**
 Use the first wherever it fits and the second where state is essential.
