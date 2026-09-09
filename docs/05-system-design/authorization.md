@@ -13,7 +13,7 @@ objective: >
 prerequisites: [authentication]
 related: [authentication, service-boundaries, authz-models]
 canonical_for: [autorização, controle de acesso, permissão]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -25,7 +25,7 @@ Autorização responde **o que esta identidade pode fazer**. Ela pressupõe
 [autenticação](/05-system-design/authentication.md) resolvida.
 
 A decisão de sistema é onde a regra de permissão mora e onde ela é verificada — e
-a resposta errada mais comum é "na interface".
+a resposta errada recorrente é "na interface".
 
 ## Problema
 
@@ -45,6 +45,10 @@ quê não existe em lugar nenhum — está espalhada, e ninguém consegue respon
 
 ### Os modelos, em ordem de expressividade
 
+O recorte abaixo basta para decidir onde a regra mora. Custo de cada modelo e
+critério de escolha estão em
+[modelos de autorização](/10-security/authz-models.md), o canônico dos três.
+
 **Por papel.** O usuário tem papéis; papéis têm permissões. Simples e explode
 quando as regras dependem de contexto — surge `gerente_regiao_sul`,
 `gerente_regiao_sul_leitura`, e a combinatória cresce.
@@ -57,8 +61,12 @@ comercial*. Expressivo e mais difícil de auditar.
 o documento porque pertence à pasta que pertence à equipe da qual é membro*.
 Adequado a hierarquias e a compartilhamento.
 
-A maior parte dos sistemas começa por papel e precisa de atributo antes do que
-imagina. O sinal é o aparecimento de papéis com sufixo de contexto.
+A maior parte dos sistemas começa por papel, e o critério para sair dele é de que
+a permissão depende: só de quem é o usuário, e papel basta; de um atributo do
+recurso ou do contexto, e é atributo; de um vínculo entre pessoa e recurso, e é
+relação. Daí os dois sinais de que o papel está sendo forçado — o sufixo de
+contexto, `gerente_regiao_sul`, e o papel limpo que ainda assim autoriza demais,
+porque a regra real era um vínculo.
 
 ### Onde a decisão é tomada
 
@@ -81,9 +89,9 @@ Esconder um botão não é autorização — é conveniência de interface.
 Toda verificação precisa acontecer no servidor, em cada operação. A interface
 oculta o que o usuário não pode fazer para não frustrá-lo; o servidor impede.
 
-Isso parece óbvio e é a falha de autorização mais comum em auditorias: um endpoint
-que só era chamado por uma tela restrita, e que ninguém protegeu porque "só o
-administrador vê o botão".
+Isso parece óbvio, e ainda assim controle de acesso quebrado é a categoria que
+lidera o OWASP Top 10 de 2021: um endpoint que só era chamado por uma tela
+restrita, e que ninguém protegeu porque "só o administrador vê o botão".
 
 ### Autorização em listagem é diferente
 
@@ -154,7 +162,7 @@ papel, não propriedade.
 
 | Por papel | Por atributo |
 |---|---|
-| Simples de entender e auditar | Expressivo |
+| Expressa quem é o usuário | Expressa quem, sobre o quê e sob que condição |
 | Explode com contexto | Absorve contexto |
 | Fácil de responder "quem pode X" | Exige avaliar a política |
 
@@ -166,6 +174,10 @@ papel, não propriedade.
 alheio — o servidor verificou o papel e não a propriedade.
 
 **Filtro após a busca.** Paginação inconsistente e trabalho desperdiçado.
+
+**Vazamento em listagem nova.** Registros de outro usuário aparecem numa consulta
+recém-adicionada — o filtro na consulta depende de disciplina em cada lugar onde se
+consulta. Ver [fronteiras seguras](/10-security/secure-boundaries.md).
 
 **Explosão de papéis.** Dezenas de papéis com sufixo de contexto.
 
@@ -227,8 +239,9 @@ responde "sobre qual recurso".
 
 - [Autenticação](/05-system-design/authentication.md) — o pré-requisito.
 - [Fronteiras de Serviço](/05-system-design/service-boundaries.md) — onde impor.
-- [Segurança](/10-security/index.md) — modelos, menor privilégio e
-  auditabilidade.
+- [Modelos de Autorização](/10-security/authz-models.md) — papel, atributo e
+  relação a fundo, com o critério de escolha.
+- [Segurança](/10-security/index.md) — menor privilégio e auditabilidade.
 - [Aggregate](/04-domain-driven-design/aggregate.md) — onde a regra de negócio
   mora.
 
@@ -238,7 +251,8 @@ Escolha um endpoint que recebe o identificador de um recurso. Autentique-se como
 um usuário e tente acessar o recurso de outro trocando o identificador.
 
 Se funcionar, você encontrou uma referência direta insegura — a falha de
-autorização mais comum e a mais fácil de explorar.
+autorização mais barata de explorar: basta trocar um número na URL, sem ferramenta
+nenhuma.
 
 ## Perguntas de Entrevista
 
@@ -248,6 +262,7 @@ autorização mais comum e a mais fácil de explorar.
 
 ## Para Aprofundar
 
-- OWASP — *Authorization Cheat Sheet* e a categoria de controle de acesso
-  quebrado.
-- NIST SP 800-162 — controle de acesso baseado em atributos.
+- OWASP. *Authorization Cheat Sheet*.
+- OWASP. *Top 10 — A01:2021 Broken Access Control*, 2021.
+- Hu, Vincent C. et al. *Guide to Attribute Based Access Control (ABAC) Definition
+  and Considerations*. NIST SP 800-162, 2014.

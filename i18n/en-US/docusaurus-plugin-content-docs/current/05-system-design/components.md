@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-decomposition]
 related: [services, apis, service-boundaries]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -74,8 +74,8 @@ interacting with it:
 | Managed service | Network | The above, plus vendor dependency |
 | Storage | Its own protocol | Latency, consistency |
 
-A diagram that does not distinguish those types hides the most important
-information about the system.
+A diagram that does not distinguish those types hides the cost of each connection —
+which is what decides latency and failure mode.
 
 ### A stateless component is simpler in every way
 
@@ -85,6 +85,26 @@ subsequent decision: scaling, deployment, failure recovery, load balancing.
 See [stateless versus stateful](/05-system-design/stateless-vs-stateful.md). The
 recommendation up front: concentrate state in a few components and keep the rest
 stateless.
+
+### The component is the unit of replacement
+
+The four questions have an operational test that sums them up: **can you replace
+this component's implementation without touching any other?**
+
+If the answer is yes, the boundary is real. If it is no, the drawing has more boxes
+than components — and the cost shows up on the first replacement, when a swap
+announced as local turns into a change in four places.
+
+The test is useful because it fails cheaply. Replacing a component for real is
+rare, but imagining the replacement costs five minutes and exposes the coupling the
+diagram hides: the data format that leaked to consumers, the call order that became
+an assumption, the field that exists only because the current implementation
+produced it.
+
+It also explains why data ownership is the criterion that comes before all others.
+A component that does not own its data cannot be replaced on its own: whoever
+writes to the same table has to change with it, and the boundary the drawing
+promises does not exist in production.
 
 ### Infrastructure components are components
 
@@ -179,36 +199,26 @@ unavailability of the email service prevented bookings.
 And the database did not appear in the drawing, although it was shared by three of
 the five boxes — which made their independence fiction.
 
-The redone drawing had four components, with each one's type declared, the database
-explicit with its ownership boundaries, and notification moved outside the
-transactional flow.
+The redone drawing had five components — four application ones and the database, which
+now appeared with its ownership boundaries — with each one's type declared and
+notification moved outside the transactional flow.
 
-No code changed at that stage. What changed is that two structural problems became
+No code changed at that stage. What changed is that three structural problems became
 visible before they cost an incident.
 
 ## How to document components so they do not age
 
-Component diagrams age because they descend to detail that changes every week. Three
-practices that extend their useful life.
+Component diagrams age because they descend to detail that changes every week. The
+half-life of each level of detail is in
+[documentation principles](/17-architecture-documentation/documentation-principles.md);
+arrow labels and declared scope, in
+[diagram quality](/17-architecture-documentation/diagram-quality.md).
 
-**Document at the level where change is rare.** A diagram showing four services and
-the database stays correct for years. One showing classes is wrong the following
-month. The container and component levels of the
-[C4 model](/17-architecture-documentation/c4-model.md) exist for exactly that
-separation.
-
-**Declare each box's type.** Module, process, managed service, storage. A diagram
-where a function call and a cross-region request look the same hides the most
-important information.
-
-**Note what crosses each arrow.** Protocol, synchronous or asynchronous, and what
-happens if it fails. An arrow without that communicates that a connection exists and
-nothing about its cost.
-
-What most extends a diagram's life, though, is deciding **which question it
-answers**. One that tries to show structure, flow and deployment at the same time
-becomes out of date on all three and is illegible on all of them. Three diagrams with
-distinct purposes age more slowly than one that does everything.
+What is specific to components is the stopping criterion: descend while each box still
+answers the four questions, and stop there. A box that owns no data and has no failure
+mode of its own is already implementation detail — and it is the one that forces a
+redraw every month. The container and component levels of the
+[C4 model](/17-architecture-documentation/c4-model.md) mark that boundary.
 
 ## Related Concepts
 
@@ -234,6 +244,6 @@ next surprise will appear.
 
 ## Further Reading
 
-- Brown, Simon. *Software Architecture for Developers* — the C4 model.
+- Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015 — the C4 model.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
   4th ed., 2021.

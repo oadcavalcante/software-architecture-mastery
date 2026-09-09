@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [cdn, stateless-vs-stateful, cloud-storage]
 canonical_for: [armazenamento de arquivos, upload, armazenamento de objetos]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -97,8 +97,10 @@ Arquivos acumulam. Três decisões:
 frequentemente ninguém perguntou.
 
 **Classe de armazenamento.** Acesso frequente custa mais por mês; acesso raro custa
-menos e cobra na recuperação. Mover automaticamente por idade reduz custo
-significativamente em acervos grandes.
+menos e cobra na recuperação. A transição precisa se basear em dados de acesso
+real, não em idade presumida: mover para classe fria e voltar a acessar com
+frequência sai mais caro que não ter movido. Ver
+[armazenamento em nuvem](/09-cloud-architecture/cloud-storage.md).
 
 **Órfãos.** Um upload iniciado e não confirmado deixa bytes sem metadado. Sem
 limpeza, eles acumulam e ninguém sabe que existem.
@@ -214,7 +216,9 @@ E cada download consumia uma conexão de banco por vários segundos, porque a
 aplicação lia o blob e repassava.
 
 A migração moveu os bytes para armazenamento de objetos, mantendo no banco apenas
-os metadados. O banco caiu para 28 GB; o backup, para 20 minutos.
+os metadados. O banco caiu para 28 GB; o backup, para 20 minutos; e o restore,
+para 40 — dentro do objetivo de 2 horas, que passou a ser testado a cada
+trimestre.
 
 Duas decisões que a equipe registrou como mais importantes que a migração em si.
 
@@ -231,8 +235,9 @@ duas divergências: metadado sem objeto — que vira alerta, porque é perda —
 objeto sem metadado por mais de 24 horas — que é órfão de upload abandonado e é
 removido.
 
-Na primeira execução, encontrou 12 mil órfãos acumulados em três anos, de uploads
-que falharam no meio. Ninguém sabia que existiam.
+Na primeira execução, encontrou 12 mil órfãos acumulados nos quatro meses entre o
+início do upload direto e a criação da rotina, de uploads que falharam no meio.
+Ninguém sabia que existiam.
 
 ## Conceitos Relacionados
 

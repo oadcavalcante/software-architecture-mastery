@@ -13,7 +13,7 @@ objective: >
 prerequisites: [stateless-vs-stateful]
 related: [caching, rate-limiting, scalability-basics]
 canonical_for: [balanceamento de carga, load balancer, verificação de saúde]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -55,7 +55,7 @@ uniformemente quebra o comportamento.
 | Menos conexões | Para quem tem menos ativas | Requisições de duração variável |
 | Menor latência | Para quem responde mais rápido | Instâncias heterogêneas |
 | Hash consistente | Mesma chave, mesma instância | Há estado ou cache local por chave |
-| Aleatório com duas escolhas | Sorteia duas, usa a menos ocupada | Bom equilíbrio com pouco custo |
+| Aleatório com duas escolhas | Sorteia duas, usa a menos ocupada | Vários balanceadores em paralelo, onde "sempre a menos carregada" faz manada |
 
 Para requisições homogêneas, round-robin e menos conexões produzem resultados
 praticamente idênticos. A escolha só passa a importar quando a duração das
@@ -96,6 +96,10 @@ Uma instância saindo precisa terminar o que começou. Desligamento gracioso —
 de aceitar novas, terminar as em curso, e só então encerrar — é o que evita erro
 em toda implantação.
 
+Os dois mecanismos são detalhados em
+[balanceamento para escala](/11-scalability/scaling-load-balancing.md), que responde
+por entrada gradual e drenagem de instância.
+
 ### O balanceador é um componente
 
 Ele tem capacidade, modo de falha e precisa ser redundante. Um balanceador único
@@ -117,8 +121,10 @@ agora.** A primeira é verificação de saúde e importa mais.
 
 **Com uma instância.** O balanceador adiciona um salto e não distribui nada.
 
-**Como solução para lentidão.** Distribuir carga não torna nada mais rápido; se
-todas as instâncias estão lentas pela mesma razão, adicionar mais não resolve.
+**Como solução para lentidão que não vem de saturação.** Distribuir reduz latência
+quando a espera é de fila em instâncias no limite. Não resolve quando todas estão
+lentas pela mesma razão — consulta cara, dependência lenta, pausa de coleta de lixo:
+aí cada instância nova replica o mesmo tempo de resposta.
 
 **Com afinidade de sessão como padrão.** Ela é contorno para estado local. Ver
 [sem estado vs. com estado](/05-system-design/stateless-vs-stateful.md).
@@ -198,8 +204,8 @@ balanceador mantém todas em serviço. Degradar servindo é melhor que não serv
 
 E o retorno passou a ser escalonado, com aumento gradual, para não gerar onda.
 
-O que causou o incidente não foi o banco — foram 30 segundos de degradação. Foi a
-verificação de saúde transformando degradação parcial em indisponibilidade total.
+O banco degradou por 30 segundos. A indisponibilidade de 40 minutos foi da
+verificação de saúde, que transformou degradação parcial em indisponibilidade total.
 
 ## Camada 4 e camada 7
 
@@ -229,8 +235,12 @@ Isso só é seguro para requisições idempotentes. Repetir um `POST` que já fo
 processado duplica o efeito, e a maioria dos balanceadores repete apenas métodos
 considerados seguros por padrão — o que precisa ser conferido, não presumido.
 
-Na prática, sistemas HTTP usam camada 7 na borda e frequentemente camada 4 mais
-para dentro, onde o custo por requisição importa mais que a inteligência.
+Na prática, sistemas HTTP/1.1 usam camada 7 na borda e frequentemente camada 4 mais
+para dentro, onde o custo por requisição importa mais que a inteligência. A condição
+que quebra esse arranjo é a conexão longa e multiplexada — HTTP/2, gRPC: camada 4
+distribui conexões, não requisições, e uma instância nova não recebe nada enquanto
+nenhuma conexão nova for aberta. Ver
+[balanceamento para escala](/11-scalability/scaling-load-balancing.md).
 
 ## Conceitos Relacionados
 
@@ -238,7 +248,8 @@ para dentro, onde o custo por requisição importa mais que a inteligência.
   distribuir livremente.
 - [Rate Limiting](/05-system-design/rate-limiting.md) — outra função frequentemente no mesmo ponto.
 - [Confiabilidade](/12-reliability/index.md) — verificação de saúde e degradação.
-- [Escalabilidade](/11-scalability/index.md).
+- [Balanceamento para Escala](/11-scalability/scaling-load-balancing.md) — entrada
+  gradual, drenagem e o efeito de conexões persistentes.
 
 ## Exercício Prático
 

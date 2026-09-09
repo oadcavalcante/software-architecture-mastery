@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bottleneck-analysis]
 related: [caching, load-balancing, queues, scalability]
 canonical_for: [estratégias de escalabilidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -132,8 +132,8 @@ significam mais conexões.
 **Pulando degraus.** Particionar sem ter tentado índice, cache e escala vertical é
 assumir custo permanente por um problema possivelmente temporário.
 
-**Quando o problema é latência de uma operação.** Escala não torna nada mais
-rápido.
+**Quando o problema é lentidão intrínseca da operação.** Escala não reduz o
+tempo de serviço — só a espera em fila, e só quando o recurso está saturado.
 
 **Sem medir depois.** Sem verificação, ninguém sabe se o degrau resolveu.
 
@@ -150,7 +150,7 @@ rápido.
 
 | Degrau | Ganho | Custo |
 |---|---|---|
-| Remover trabalho | Variável, às vezes grande | Nenhum |
+| Remover trabalho | Variável, às vezes grande | Investigação, risco de regressão |
 | Corrigir consulta | Frequentemente ordens de grandeza | Horas |
 | Escalar vertical | Linear até o limite | Dinheiro |
 | Cache | Alto em leitura | Invalidação, frescor |
@@ -211,8 +211,9 @@ O custo total: seis semanas de trabalho, majoritariamente medição, e um aument
 instância. O plano original — particionamento e multi-região — estava estimado em
 dois trimestres e teria adicionado custo operacional permanente.
 
-O que a equipe registrou no ADR: os degraus 1 e 2 sozinhos entregaram 250% do
-ganho, e ambos eram correções de coisas erradas, não escala. Se a proposta
+O que a equipe registrou no ADR: os degraus 1 e 2 sozinhos levaram a capacidade
+de 40 a 140 req/s — 100 dos 160 req/s que faltavam para o requisito, a custo de
+horas — e ambos eram correções de coisas erradas, não escala. Se a proposta
 original tivesse sido executada, os dois problemas continuariam lá — distribuídos.
 
 ## Conceitos Relacionados

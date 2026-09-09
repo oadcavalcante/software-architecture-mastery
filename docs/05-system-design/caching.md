@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [cdn, load-balancing, scaling-cache]
 canonical_for: [cache, invalidação de cache, TTL]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -24,8 +24,10 @@ last_reviewed: 2026-08-26
 Cache guarda o resultado de uma operação cara para reusá-lo, trocando **memória e
 frescor** por **latência e carga**.
 
-É a otimização de maior retorno em sistemas de leitura intensa. E a decisão que
-importa não é onde colocar o cache — é **quando o dado guardado deixa de valer**.
+Quando a razão entre leitura e escrita é alta e a origem é o gargalo comprovado, o
+cache rende mais que ampliar a origem: remove o trabalho em vez de dar capacidade
+para executá-lo. E a decisão que importa não é onde colocar o cache — é **quando o
+dado guardado deixa de valer**.
 
 ## Problema
 
@@ -47,11 +49,11 @@ ninguém sabe listar o que está em cache e por quanto tempo.
 
 ### As estratégias de leitura
 
-| Estratégia | Como funciona | Custo |
+| Estratégia | Como funciona | Consequências |
 |---|---|---|
 | **Cache-aside** | A aplicação consulta o cache; se não achar, busca na origem e grava | A aplicação controla; primeira leitura é lenta |
 | **Read-through** | O cache busca na origem sozinho | Menos código; menos controle |
-| **Refresh-ahead** | O cache renova antes de expirar | Sem penalidade de primeira leitura; renova o que ninguém vai ler |
+| **Refresh-ahead** | O cache renova antes de expirar | Sem penalidade na expiração de chave quente; renova o que ninguém vai ler |
 
 Cache-aside é o mais usado e o mais previsível. O código fica explícito sobre o
 que está em cache.
@@ -101,8 +103,11 @@ Se perder o cache quebra o sistema, ele não era cache — era um banco de dados
 durabilidade. Ver
 [gestão de estado](/05-system-design/state-management.md).
 
-O teste: limpe o cache em produção. Se o sistema sobrevive mais lento, é cache. Se
-quebra, era estado.
+O teste é de reconstrução, não de sobrevivência: o que está guardado pode ser
+recalculado a partir da origem? Se pode, é cache — ainda que limpá-lo sature a
+origem, que é falta de capacidade, não perda de dado. Se não pode, era estado.
+Confirmar isso em produção é um exercício de perda de cache, feito em janela
+controlada — ver [cache para escala](/11-scalability/scaling-cache.md).
 
 ## Modelo Mental
 
@@ -140,9 +145,9 @@ era gargalo.
   suficiente e sem componente novo.
 - **Projeção de leitura** — um modelo mantido para consulta. Ver
   [CQRS](/03-design-patterns/cqrs.md) de nível 2.
-- **[CDN](/05-system-design/cdn.md)** — cache na borda, para conteúdo público.
-- **Cache no cliente** — cabeçalhos HTTP fazem o navegador guardar; é o cache mais
-  barato que existe e o menos usado deliberadamente.
+- **O cache mais barato antes do distribuído** — navegador,
+  [CDN](/05-system-design/cdn.md) e gateway absorvem parte do tráfego sem
+  componente novo na aplicação. Ver [onde o cache pode ficar](#onde-o-cache-pode-ficar).
 
 ## Trade-offs
 
@@ -229,7 +234,9 @@ qual atraso era aceitável — pergunta que a decisão original tinha pulado.
 ## Onde o cache pode ficar
 
 Cache não é um lugar só. Cada camada tem custo e alcance diferentes, e a mais
-barata é a que menos se usa deliberadamente.
+barata é a que menos se usa deliberadamente. Como elas se compõem sob carga alta, e
+onde a invalidação entre camadas falha, está em
+[cache para escala](/11-scalability/scaling-cache.md).
 
 **No navegador.** Cabeçalhos HTTP fazem o cliente guardar. Custo zero de
 infraestrutura, e a requisição sequer sai da máquina. É o primeiro a configurar e
@@ -246,8 +253,8 @@ divergência garantida com múltiplas instâncias.
 **Distribuído.** Compartilhado entre instâncias, com uma chamada de rede. É onde a
 maioria dos caches de aplicação vive.
 
-**No banco.** O cache de páginas do próprio banco, que já existe e é bem
-dimensionado. Frequentemente o problema atribuído à falta de cache é o banco não
+**No banco.** O cache de páginas do próprio banco, que já existe e pode estar
+subdimensionado. Frequentemente o problema atribuído à falta de cache é o banco não
 ter memória suficiente para manter o índice quente.
 
 A ordem de avaliação deveria ser de cima para baixo — a resposta mais barata
@@ -259,6 +266,7 @@ visível.
 - [Gestão de Estado](/05-system-design/state-management.md) — cache como estado descartável.
 - [CDN](/05-system-design/cdn.md) — cache na borda.
 - [Escalabilidade](/11-scalability/index.md) — cache como estratégia de escala.
+- [Cache para Escala](/11-scalability/scaling-cache.md) — camadas, estampida e os modos de falha sob carga.
 - [CQRS](/03-design-patterns/cqrs.md) — projeção como alternativa.
 
 ## Exercício Prático

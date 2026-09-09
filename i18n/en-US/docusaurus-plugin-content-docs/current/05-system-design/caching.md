@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [cdn, load-balancing, scaling-cache]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,10 @@ last_reviewed: 2026-08-31
 A cache keeps the result of an expensive operation to reuse it, trading **memory and
 freshness** for **latency and load**.
 
-It is the highest-return optimization in read-intensive systems. And the decision that
-matters is not where to put the cache — it is **when the stored data stops being valid**.
+When the read-to-write ratio is high and the origin is the proven bottleneck, a cache
+returns more than scaling the origin up: it removes the work instead of adding capacity to
+do it. And the decision that matters is not where to put the cache — it is **when the
+stored data stops being valid**.
 
 ## Problem
 
@@ -46,11 +48,11 @@ list what is cached and for how long.
 
 ### The read strategies
 
-| Strategy | How it works | Cost |
+| Strategy | How it works | Consequences |
 |---|---|---|
 | **Cache-aside** | The application queries the cache; on a miss, it fetches from the origin and writes | The application controls it; the first read is slow |
 | **Read-through** | The cache fetches from the origin itself | Less code; less control |
-| **Refresh-ahead** | The cache refreshes before expiry | No first-read penalty; refreshes what nobody will read |
+| **Refresh-ahead** | The cache refreshes before expiry | No penalty on a hot key's expiry; refreshes what nobody will read |
 
 Cache-aside is the most used and the most predictable. The code is explicit about what is
 cached.
@@ -99,8 +101,11 @@ If losing the cache breaks the system, it was not a cache — it was a database 
 durability. See
 [state management](/05-system-design/state-management.md).
 
-The test: clear the cache in production. If the system survives, slower, it is a cache. If
-it breaks, it was state.
+The test is reconstruction, not survival: can what is stored be recomputed from the origin?
+If it can, it is a cache — even if clearing it saturates the origin, which is a lack of
+capacity, not a loss of data. If it cannot, it was state. Confirming this in production is a
+cache-loss exercise, run in a controlled window — see
+[caching for scale](/11-scalability/scaling-cache.md).
 
 ## Mental Model
 
@@ -136,9 +141,9 @@ the bottleneck.
   component.
 - **Read projection** — a model maintained for querying. See
   [CQRS](/03-design-patterns/cqrs.md) at level 2.
-- **[CDN](/05-system-design/cdn.md)** — cache at the edge, for public content.
-- **Client-side cache** — HTTP headers make the browser store it; it is the cheapest cache
-  there is and the least used deliberately.
+- **The cheaper cache before the distributed one** — the browser, the
+  [CDN](/05-system-design/cdn.md) and the gateway absorb part of the traffic with no new
+  component in the application. See [where the cache can live](#where-the-cache-can-live).
 
 ## Trade-offs
 
@@ -223,7 +228,8 @@ acceptable — a question the original decision had skipped.
 ## Where the cache can live
 
 A cache is not one place. Each layer has a different cost and reach, and the cheapest is the
-one least used deliberately.
+one least used deliberately. How they compose under high load, and where invalidation across
+layers fails, is in [caching for scale](/11-scalability/scaling-cache.md).
 
 **In the browser.** HTTP headers make the client store it. Zero infrastructure cost, and the
 request does not even leave the machine. It is the first to configure and the most forgotten.
@@ -239,7 +245,8 @@ guaranteed divergence with multiple instances.
 **Distributed.** Shared between instances, with a network call. It is where most application
 caches live.
 
-**In the database.** The database's own page cache, which already exists and is well sized.
+**In the database.** The database's own page cache, which already exists and may be
+undersized.
 Frequently the problem attributed to a lack of caching is the database not having enough
 memory to keep the index hot.
 
@@ -251,6 +258,7 @@ usually to start with the distributed cache, which is the most visible.
 - [State Management](/05-system-design/state-management.md) — cache as disposable state.
 - [CDN](/05-system-design/cdn.md) — cache at the edge.
 - [Scalability](/11-scalability/index.md) — caching as a scaling strategy.
+- [Caching for Scale](/11-scalability/scaling-cache.md) — layers, stampede and the failure modes under load.
 - [CQRS](/03-design-patterns/cqrs.md) — projection as an alternative.
 
 ## Practical Exercise

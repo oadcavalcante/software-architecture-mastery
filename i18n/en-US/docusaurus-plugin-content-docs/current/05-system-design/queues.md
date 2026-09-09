@@ -13,7 +13,7 @@ objective: >
 prerequisites: [request-response]
 related: [background-processing, rate-limiting, event-driven]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -50,8 +50,9 @@ never process.
 **A difference in pace.** The producer can publish faster than the consumer processes, for a
 while.
 
-**A peak.** The queue grows instead of the system going down. It is the cheapest containment
-mechanism there is.
+**A peak.** The queue grows instead of the system going down. It is the containment that
+preserves the work: rate limiting and load shedding cost less to operate — no new component
+— but they refuse requests.
 
 None of the three is infinite — the queue has a limit, and what happens when it is reached
 has to be decided. See
@@ -59,15 +60,19 @@ has to be decided. See
 
 ### The three guarantees you inherit
 
-**Duplication.** Practically every queue system delivers at least once. That means the same
-message can arrive twice — through a retry, through a failed acknowledgment, through
-consumer rebalancing.
+**Duplication.** Practically every queue system delivers
+[at least once](/06-distributed-systems/delivery-guarantees.md). That means the same
+[message can arrive twice](/06-distributed-systems/duplicate-messages.md) — through a retry,
+through a failed acknowledgment, through consumer rebalancing.
 
-The consequence is hard and non-negotiable: **the consumer has to be idempotent.**
-Processing twice has to have the same effect as processing once. Without that, one charge
-becomes two.
+The consequence: **the consumer has to be idempotent whenever the effect is observable
+outside the system or irreversible** — a charge, an email, an issued invoice. Processing
+twice has to have the same effect as processing once. Without that, one charge becomes two.
+Where the duplicated effect is harmless and cheap, the criterion is in
+[idempotency](/06-distributed-systems/idempotency.md).
 
-**Ordering.** Partitioned queues guarantee ordering within a partition, not across them. If
+**Ordering.** Partitioned queues guarantee
+[ordering within a partition](/06-distributed-systems/ordering.md), not across them. If
 `OrderCreated` and `OrderCancelled` land in different partitions, they can arrive out of
 order.
 
@@ -75,17 +80,23 @@ The usual mitigation is to partition by the entity's key — all of an order's e
 same partition — which preserves the ordering that matters at the cost of imbalance if one
 key is very active.
 
-**Poison message.** A message that always fails goes back to the queue, indefinitely,
-blocking processing. It is what requires a
+**[Poison message](/06-distributed-systems/poison-messages.md).** A message that always
+fails goes back to the queue, indefinitely. With no ordering guarantee, it occupies one
+consumer in a loop and the cost is capacity; with ordering per partition, the whole
+partition stops. It is what requires a
 [dead-letter queue](/06-distributed-systems/dead-letter-queues.md): after N attempts, the message goes to
 a separate queue, with an alert.
 
-A queue with no dead-letter configured stalls on the first malformed record.
+With no dead-letter configured, the first malformed record only leaves the queue through
+manual intervention.
 
 ### Acknowledge after processing
 
-The consumer acknowledges the message **after** processing it successfully, never before. If
-it acknowledges first and fails, the message is lost.
+The consumer acknowledges the message **after** processing it successfully. Acknowledging
+before processing turns at-least-once into at-most-once: if processing fails, the message is
+lost. That is a deliberate choice where losing samples is acceptable — telemetry, aggregated
+metrics — and an accident everywhere else. See
+[delivery guarantees](/06-distributed-systems/delivery-guarantees.md).
 
 The visibility timeout — how long the queue waits before redelivering — has to be longer than
 the processing time. If it is shorter, the message is redelivered while it is still being
@@ -166,14 +177,17 @@ does not have the guarantees.
 
 ## Common Mistakes
 
-**Adopting it without idempotency.** It is the error that produces the most expensive
-incidents.
+**Adopting it without idempotency.** The duplicated effect is external and no deploy undoes
+it: in the example below, it meant cancelling invoices with the tax authority, one by one.
 
-**Not configuring a dead-letter.**
+**Not configuring a dead-letter.** The message that always fails occupies a consumer in a
+loop, and getting it out of the queue becomes manual intervention under pressure.
 
-**Not monitoring depth and age.**
+**Not monitoring depth and age.** The backlog is discovered through the missed deadline, not
+on the dashboard.
 
-**Assuming global ordering.**
+**Assuming global ordering.** The cancellation is processed before the creation, and the
+order stays active after being cancelled.
 
 **Publishing inside the transaction with no outbox.** The transaction fails and the message
 was already published, or vice versa. See
@@ -209,8 +223,9 @@ minutes, and the rest continue.
 
 An alert for depth above a thousand and for the oldest message's age above 15 minutes.
 
-The queue was right as a decision. What was missing was handling the three guarantees before
-going live — and all three were in the queue service's documentation.
+The queue was right as a decision. What was missing was handling two of the guarantees it
+inherits — duplication and poison messages — and instrumenting depth before going live; all
+three were in the queue service's documentation.
 
 ## Related Concepts
 

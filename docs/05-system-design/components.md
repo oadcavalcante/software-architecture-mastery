@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-decomposition]
 related: [services, apis, service-boundaries]
 canonical_for: [componente de sistema]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -75,8 +75,8 @@ ele:
 | Serviço gerenciado | Rede | O anterior, mais dependência de fornecedor |
 | Armazenamento | Protocolo próprio | Latência, consistência |
 
-Um diagrama que não distingue esses tipos esconde a informação mais importante
-sobre o sistema.
+Um diagrama que não distingue esses tipos esconde o custo de cada ligação — que é
+o que decide latência e modo de falha.
 
 ### Componente sem estado é mais simples em tudo
 
@@ -86,6 +86,25 @@ seguintes: escala, implantação, recuperação de falha, balanceamento.
 Ver [sem estado versus com estado](/05-system-design/stateless-vs-stateful.md). A recomendação
 antecipada: concentre o estado em poucos componentes e mantenha o resto sem
 estado.
+
+### O componente é a unidade de substituição
+
+As quatro perguntas têm um teste operacional que as resume: **é possível trocar a
+implementação deste componente sem tocar em nenhum outro?**
+
+Se a resposta é sim, a fronteira é real. Se é não, o desenho tem mais caixas que
+componentes — e o custo aparece na primeira troca, quando uma substituição
+anunciada como local vira uma mudança em quatro lugares.
+
+O teste é útil porque falha barato. Trocar um componente de verdade é raro, mas
+imaginar a troca custa cinco minutos e revela o acoplamento que o diagrama esconde:
+o formato de dado que vazou para quem consome, a ordem de chamada que virou
+pressuposto, o campo que só existe porque a implementação atual o produzia.
+
+Ele também explica por que propriedade de dados é o critério anterior a todos. Um
+componente que não é dono dos seus dados não pode ser substituído sozinho: quem
+escreve na mesma tabela precisa mudar junto, e a fronteira que o desenho promete
+não existe em produção.
 
 ### Componentes de infraestrutura são componentes
 
@@ -180,36 +199,26 @@ reserva — a indisponibilidade do serviço de e-mail impedia reservas.
 E o banco não aparecia no desenho, embora fosse compartilhado por três das cinco
 caixas — o que tornava a independência delas ficção.
 
-O desenho refeito tinha quatro componentes, com o tipo de cada um declarado, o
-banco explícito com suas fronteiras de propriedade, e a notificação movida para
-fora do fluxo transacional.
+O desenho refeito tinha cinco componentes — quatro de aplicação e o banco, que
+passou a aparecer com suas fronteiras de propriedade —, com o tipo de cada um
+declarado e a notificação movida para fora do fluxo transacional.
 
-Nada de código mudou nessa etapa. O que mudou foi que dois problemas estruturais
+Nada de código mudou nessa etapa. O que mudou foi que três problemas estruturais
 ficaram visíveis antes de custarem um incidente.
 
 ## Como documentar componentes sem que envelheça
 
-Diagramas de componente envelhecem porque descem a detalhe que muda toda semana.
-Três práticas que aumentam a vida útil.
+Diagramas de componente envelhecem porque descem a detalhe que muda toda semana. A
+meia-vida de cada nível de detalhe está em
+[princípios de documentação](/17-architecture-documentation/documentation-principles.md);
+rótulo de seta e escopo declarado, em
+[qualidade de diagrama](/17-architecture-documentation/diagram-quality.md).
 
-**Documente no nível em que a mudança é rara.** Um diagrama que mostra quatro
-serviços e o banco continua correto por anos. Um que mostra classes está errado no
-mês seguinte. Os níveis de contêiner e componente do
-[modelo C4](/17-architecture-documentation/c4-model.md) existem exatamente para
-essa separação.
-
-**Declare o tipo de cada caixa.** Módulo, processo, serviço gerenciado,
-armazenamento. Um diagrama em que uma chamada de função e uma requisição entre
-regiões têm a mesma aparência esconde a informação mais importante.
-
-**Anote o que atravessa cada seta.** Protocolo, síncrono ou assíncrono, e o que
-acontece se falhar. Uma seta sem isso comunica que existe uma ligação e nada sobre
-o custo dela.
-
-O que mais estende a vida de um diagrama, porém, é decidir **qual pergunta ele
-responde**. Um que tenta mostrar estrutura, fluxo e implantação ao mesmo tempo
-fica desatualizado nos três aspectos e é ilegível em todos. Três diagramas com
-propósitos distintos envelhecem mais devagar que um que faz tudo.
+O específico de componentes é o critério de parada: desça enquanto cada caixa ainda
+responder às quatro perguntas, e pare aí. Uma caixa que não é dona de dados nem tem
+modo de falha próprio já é detalhe de implementação — e é ela que obriga a redesenhar
+todo mês. Os níveis de contêiner e componente do
+[modelo C4](/17-architecture-documentation/c4-model.md) marcam essa fronteira.
 
 ## Conceitos Relacionados
 
@@ -235,6 +244,6 @@ onde a próxima surpresa vai aparecer.
 
 ## Para Aprofundar
 
-- Brown, Simon. *Software Architecture for Developers* — o modelo C4.
+- Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015 — o modelo C4.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
   4ª ed., 2021.

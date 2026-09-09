@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bottleneck-analysis]
 related: [caching, load-balancing, queues, scalability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -127,7 +127,8 @@ instances mean more connections.
 **Skipping steps.** Partitioning without having tried indexes, caching and vertical scaling is
 taking on a permanent cost for a possibly temporary problem.
 
-**When the problem is the latency of one operation.** Scale makes nothing faster.
+**When the problem is intrinsic slowness of the operation.** Scale does not reduce service
+time — only queueing wait, and only when the resource is saturated.
 
 **Without measuring afterwards.** With no verification, nobody knows whether the step solved it.
 
@@ -144,7 +145,7 @@ taking on a permanent cost for a possibly temporary problem.
 
 | Step | Gain | Cost |
 |---|---|---|
-| Remove work | Variable, sometimes large | None |
+| Remove work | Variable, sometimes large | Investigation, regression risk |
 | Fix a query | Frequently orders of magnitude | Hours |
 | Scale vertically | Linear up to the limit | Money |
 | Cache | High on reads | Invalidation, freshness |
@@ -214,8 +215,9 @@ The total cost: six weeks of work, mostly measuring, and one instance upgrade. T
 partitioning and multi-region — was estimated at two quarters and would have added permanent
 operational cost.
 
-What the team recorded in the ADR: steps 1 and 2 alone delivered 250% of the gain, and both were
-fixes of things that were wrong, not scaling. If the original proposal had been executed, both
+What the team recorded in the ADR: steps 1 and 2 alone took capacity from 40 to 140 req/s — 100
+of the 160 req/s missing to reach the requirement, at a cost of hours — and both were fixes of
+things that were wrong, not scaling. If the original proposal had been executed, both
 problems would still be there — distributed.
 
 ## Related Concepts

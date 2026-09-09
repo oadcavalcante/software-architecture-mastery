@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [cdn, stateless-vs-stateful, cloud-storage]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -94,7 +94,9 @@ Files accumulate. Three decisions:
 nobody asked.
 
 **Storage class.** Frequent access costs more per month; rare access costs less and charges on
-retrieval. Moving automatically by age reduces cost significantly in large corpora.
+retrieval. The transition has to be based on real access data, not on presumed age: moving to a
+cold class and then going back to frequent access costs more than not having moved. See
+[cloud storage](/09-cloud-architecture/cloud-storage.md).
 
 **Orphans.** An upload started and not confirmed leaves bytes with no metadata. With no cleanup,
 they accumulate and nobody knows they exist.
@@ -205,7 +207,8 @@ And every download consumed a database connection for several seconds, because t
 read the blob and forwarded it.
 
 The migration moved the bytes to object storage, keeping only the metadata in the database. The
-database dropped to 28 GB; the backup, to 20 minutes.
+database dropped to 28 GB; the backup, to 20 minutes; and the restore, to 40 — within the 2-hour
+objective, which is now tested every quarter.
 
 Two decisions the team recorded as more important than the migration itself.
 
@@ -221,8 +224,9 @@ divergences: metadata with no object — which becomes an alert, because it is l
 with no metadata for more than 24 hours — which is an orphan from an abandoned upload and is
 removed.
 
-On its first run, it found 12 thousand orphans accumulated over three years, from uploads that
-failed midway. Nobody knew they existed.
+On its first run, it found 12 thousand orphans accumulated over the four months between the start
+of direct upload and the creation of the routine, from uploads that failed
+midway. Nobody knew they existed.
 
 ## Related Concepts
 

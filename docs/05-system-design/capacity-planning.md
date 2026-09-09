@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [bottleneck-analysis, scalability-basics, back-of-envelope]
 canonical_for: [planejamento de capacidade, estimativa de capacidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -96,9 +96,10 @@ Esse cálculo leva cinco minutos e já responde três decisões de arquitetura.
 
 O valor está em **descartar**, não em prever.
 
-12 requisições por segundo elimina qualquer discussão sobre particionamento,
-sistema distribuído ou arquitetura baseada em espaço. Um banco de dados numa
-instância atende com folga de ordens de grandeza.
+12 requisições por segundo elimina o particionamento como resposta de vazão, e com
+ele o sistema distribuído e a arquitetura baseada em espaço. Um banco de dados numa
+instância atende com folga de ordens de grandeza — o particionamento por volume
+armazenado continua em aberto.
 
 12 mil por segundo elimina a instância única e obriga a pensar em partição,
 réplica e cache desde o início.
@@ -111,12 +112,13 @@ real for 15 ou 9.
 Estimativa diz o que o sistema precisa suportar dado um cenário. Previsão diz o
 que vai acontecer.
 
-A primeira é útil e verificável. A segunda erra, sempre, e o erro típico é para
+A primeira é útil e verificável. A segunda erra, e o erro típico é para
 mais — todo produto espera crescer cem vezes.
 
 A pergunta que evita superdimensionar: **qual o crescimento nos próximos doze
 meses, e quanto custa adiar a decisão de escala até lá?** Frequentemente adiar é
-barato, e a arquitetura para cem vezes nunca é exercida.
+barato, e a arquitetura para cem vezes raramente é exercida dentro do horizonte que
+a justificou.
 
 ### Reestimar quando o real chegar
 
@@ -176,7 +178,8 @@ de três anos não.
 **Ignorar a banda.** Resposta de 500 KB a 200 requisições por segundo são 100 MB/s
 de saída — frequentemente o custo dominante.
 
-**Superdimensionar por previsão otimista.**
+**Superdimensionar por previsão otimista.** A capacidade fica ociosa na maior parte
+do dia, e o custo por requisição sai acima do de sistemas comparáveis.
 
 **Estimar e nunca comparar com o real.** Sem essa comparação, ninguém melhora a
 estimativa seguinte.
@@ -187,7 +190,7 @@ estimativa seguinte.
 
 **Buscar precisão em vez de ordem de grandeza.** A pergunta que a estimativa responde é se cabe numa máquina ou exige cem. Refinar de 8.200 para 8.350 requisições por segundo não muda decisão nenhuma.
 
-**Não estimar o pico.** A média não dimensiona nada: o sistema precisa aguentar a Black Friday, não a terça-feira. A razão entre pico e média costuma ser de uma ordem de grandeza e é o número que decide.
+**Não estimar o pico.** A média não dimensiona nada: o sistema precisa aguentar a Black Friday, não a terça-feira. A razão entre pico e média é o número que decide, e em evento concentrado ela chega a uma ordem de grandeza.
 
 **Não estimar crescimento acumulado.** Vazão se resolve adicionando máquina; volume armazenado, não. É o eixo que decide particionamento e retenção, e o que mais frequentemente fica de fora da conta.
 
@@ -232,14 +235,16 @@ E o que ela acertou não foi o número — a frota cresceu mais que o previsto. 
 ## Números de referência
 
 Estimativa fica rápida quando algumas ordens de grandeza estão na memória. Estes
-não precisam ser exatos — precisam ser a ordem certa.
+não precisam ser exatos — precisam ser a ordem certa. Valem para servidor de
+prateleira atual e seguem a tabela canônica de
+[Cálculo de Guardanapo](/22-system-design-interviews/back-of-envelope.md).
 
 **Latência**
 
 | Operação | Ordem |
 |---|---|
 | Leitura de memória | ~100 ns |
-| Leitura sequencial de 1 MB em memória | ~10 µs |
+| Leitura sequencial de 1 MB em memória | ~50 µs |
 | Ida e volta na mesma zona | ~0,5 ms |
 | Leitura aleatória em disco de estado sólido | ~100 µs |
 | Ida e volta entre regiões do mesmo continente | ~30 ms |
@@ -291,6 +296,7 @@ sistema — e o exercício melhora a próxima estimativa.
 
 ## Para Aprofundar
 
-- Dean, Jeff. *Numbers Everyone Should Know* — a tabela de latências de referência.
+- Dean, Jeff. *Numbers Everyone Should Know*, 2009 — a tabela de latências de
+  referência original; os valores acima refletem hardware mais recente.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo
   sobre planejamento de capacidade.

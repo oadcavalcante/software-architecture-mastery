@@ -13,7 +13,7 @@ objective: >
 prerequisites: [stateless-vs-stateful]
 related: [caching, rate-limiting, scalability-basics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -53,7 +53,7 @@ the behavior.
 | Least connections | To whoever has fewest active | Requests of variable duration |
 | Lowest latency | To whoever responds fastest | Heterogeneous instances |
 | Consistent hashing | Same key, same instance | There is state or a local cache per key |
-| Random with two choices | Draw two, use the less busy | Good balance at little cost |
+| Random with two choices | Draw two, use the less busy | Several balancers in parallel, where "always the least loaded" stampedes |
 
 For homogeneous requests, round-robin and least connections produce practically identical
 results. The choice only starts to matter when request duration varies a lot — then least
@@ -90,6 +90,10 @@ An instance leaving needs to finish what it started. Graceful shutdown — stop 
 requests, finish the in-flight ones, and only then terminate — is what avoids errors on every
 deployment.
 
+Both mechanisms are detailed in
+[balancing for scale](/11-scalability/scaling-load-balancing.md), which owns ramp-up and
+instance draining.
+
 ### The balancer is a component
 
 It has capacity, a failure mode and needs to be redundant. A single balancer has merely moved
@@ -111,8 +115,10 @@ the health check and it matters more.
 
 **With one instance.** The balancer adds a hop and distributes nothing.
 
-**As a solution for slowness.** Distributing load makes nothing faster; if all instances are
-slow for the same reason, adding more does not solve it.
+**As a solution for slowness that does not come from saturation.** Distributing lowers
+latency when the wait is queueing on instances at their limit. It does not solve anything when
+all of them are slow for the same reason — an expensive query, a slow dependency, a
+garbage-collection pause: there, each new instance replicates the same response time.
 
 **With session affinity as the default.** It is a workaround for local state. See
 [stateless vs. stateful](/05-system-design/stateless-vs-stateful.md).
@@ -202,8 +208,8 @@ service. Degrading while serving is better than not serving.
 
 And the return became staggered, with ramp-up, so as not to generate a wave.
 
-What caused the incident was not the database — it was 30 seconds of degradation. It was the
-health check turning partial degradation into total unavailability.
+The database degraded for 30 seconds. The 40-minute outage was the health check's, which
+turned partial degradation into total unavailability.
 
 ## Layer 4 and layer 7
 
@@ -231,8 +237,11 @@ That is only safe for idempotent requests. Retrying a `POST` that was already pr
 duplicates the effect, and most balancers retry only methods considered safe by default —
 which needs to be checked, not assumed.
 
-In practice, HTTP systems use layer 7 at the edge and frequently layer 4 further in, where
-the cost per request matters more than the intelligence.
+In practice, HTTP/1.1 systems use layer 7 at the edge and frequently layer 4 further in,
+where the cost per request matters more than the intelligence. The condition that breaks that
+arrangement is the long, multiplexed connection — HTTP/2, gRPC: layer 4 distributes
+connections, not requests, and a new instance receives nothing until a new connection is
+opened. See [balancing for scale](/11-scalability/scaling-load-balancing.md).
 
 ## Related Concepts
 
@@ -241,7 +250,8 @@ the cost per request matters more than the intelligence.
 - [Rate Limiting](/05-system-design/rate-limiting.md) — another function frequently at the
   same point.
 - [Reliability](/12-reliability/index.md) — health checks and degradation.
-- [Scalability](/11-scalability/index.md).
+- [Balancing for Scale](/11-scalability/scaling-load-balancing.md) — ramp-up, draining and
+  the effect of persistent connections.
 
 ## Practical Exercise
 

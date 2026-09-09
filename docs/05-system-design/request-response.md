@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [queues, background-processing, timeouts]
 canonical_for: [request/response, acoplamento temporal, síncrono]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -120,7 +120,8 @@ consome conexão, esgota pool e frequentemente estoura em algum proxy no caminho
 Ver [processamento em background](/05-system-design/background-processing.md).
 
 **Quando o destino é instável.** Chamar sincronamente um serviço menos disponível
-que você rebaixa a sua disponibilidade ao nível dele.
+que você rebaixa a sua disponibilidade ao produto das duas — abaixo do nível dele,
+não igual a ele.
 
 **Quando a cadeia fica longa.** Cada salto multiplica risco e soma latência.
 
@@ -211,38 +212,21 @@ Além disso, todas as chamadas ganharam timeout explícito, e a de pagamento gan
 [circuit breaker](/12-reliability/circuit-breakers.md).
 
 O que mudou não foi tecnologia. Foi perguntar, para cada chamada, se o resultado
-era necessário para responder — e três das quatro não eram.
+era necessário para responder — e duas das quatro não eram.
 
 ## Orçamento de timeout numa cadeia
 
-Timeouts numa cadeia precisam ser coerentes entre si, e raramente são.
+O acoplamento temporal impõe um orçamento fixo: o prazo que o usuário aceita é o
+prazo de toda a cadeia abaixo dele, dividido entre os saltos. Cada chamada síncrona
+acrescentada gasta parte desse total — nenhuma ganha um total próprio.
 
-O princípio: **cada nível tem menos tempo que quem o chamou.** Se o usuário espera
-no máximo 3 segundos e a requisição atravessa três serviços, cada um precisa caber
-no que sobra.
+Por isso o timeout de uma chamada não se decide no ponto da chamada: o limite
+correto depende do que sobrou acima dela, e o que sobrou depende de quantos saltos
+a requisição já atravessou. É uma conta global, tratada quase sempre como ajuste
+local.
 
-```text
-usuário          3 000 ms
-  gateway        2 800 ms   ← reserva margem para a resposta
-    serviço A    2 500 ms
-      serviço B  1 500 ms
-        banco      800 ms
-```
-
-O erro comum é o inverso: um serviço interno com timeout de 30 segundos chamado
-por um gateway com 5. O chamador desiste aos 5 e o serviço continua trabalhando por
-mais 25 — consumindo conexão, CPU e banco para produzir uma resposta que ninguém
-vai receber.
-
-Em volume, é um sistema gastando capacidade em trabalho descartado, e isso é
-invisível nas métricas de erro do chamador.
-
-A prática que resolve é **propagar o prazo restante** na chamada: quem chama
-informa quanto tempo ainda tem, e quem recebe ajusta o próprio limite. Alguns
-protocolos suportam nativamente; nos demais, um cabeçalho resolve.
-
-Sem propagação, resta calibrar à mão — o que funciona até alguém mudar um timeout
-sem olhar a cadeia inteira.
+A mecânica — como distribuir esse orçamento e como propagar o prazo restante — está
+em [timeouts](/06-distributed-systems/timeouts.md).
 
 ## Conceitos Relacionados
 

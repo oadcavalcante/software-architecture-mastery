@@ -13,7 +13,7 @@ objective: >
 prerequisites: [capacity-planning]
 related: [capacity-planning, scalability-basics, hotspots]
 canonical_for: [análise de gargalos, gargalo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -60,8 +60,9 @@ alta ou variável.
 **Bloqueio.** Um recurso serializado por onde tudo passa — um contador, uma linha
 quente, um lock.
 
-Memória raramente é gargalo de vazão; ela é gargalo de estabilidade — o sistema
-não fica lento, ele cai.
+Memória raramente limita a vazão diretamente. Ela aparece antes como latência —
+coleta de lixo que cresce, paginação, disputa por page cache — e o intervalo entre
+essa degradação e a queda costuma ser curto.
 
 ### Medir antes de agir
 
@@ -75,14 +76,19 @@ o que responde a pergunta mais rápido.
 **Métricas de recurso.** Utilização de CPU, conexões em uso, profundidade de fila,
 tempo de espera por bloqueio.
 
+Os três têm custo próprio, e ele é contínuo: amostragem e retenção de traços,
+sobrecarga do perfil sob carga de produção, manutenção do instrumento a cada mudança
+de código.
+
 A pergunta que orienta: **de onde vem o tempo, e qual recurso está mais próximo do
 seu limite?**
 
 ### Utilização e enfileiramento
 
 Um recurso não degrada linearmente. Ele funciona bem até cerca de 70% de
-utilização e piora rápido depois — porque o tempo de espera na fila cresce de
-forma não linear conforme a utilização se aproxima de 100%.
+utilização e piora rápido depois; o mecanismo — a espera em fila crescendo de forma
+não linear conforme a utilização se aproxima de 100% — está em
+[Latência](/06-distributed-systems/latency.md).
 
 A consequência prática: **um recurso a 85% de utilização já está em degradação**,
 mesmo que ainda não tenha caído. Esperar chegar a 100% para agir é esperar o
@@ -99,6 +105,10 @@ estar confortavelmente acima do requisito é o critério de parada.
 Sem esse critério, a otimização não termina.
 
 ### Lei de Amdahl aplicada
+
+> Pré-requisito: [Desempenho versus Escalabilidade](/11-scalability/performance-vs-scalability.md).
+> Aqui o foco é a ordem de prioridade que a lei impõe ao esforço, não o teto de
+> paralelismo que ela define.
 
 Se uma etapa representa 20% do tempo total, eliminá-la completamente melhora 20% —
 nunca mais.
@@ -122,10 +132,9 @@ mexer nele não muda a capacidade.
 
 **Como substituto de medição.** Análise sem instrumento é palpite.
 
-**Quando o sistema atende ao requisito.** Otimizar o que já basta é custo sem
-retorno.
-
-**Otimizando o que não é o gargalo.** Rende zero em capacidade.
+**Quando o sistema atende ao requisito com folga medida** — latência dentro do
+requisito e nenhum recurso acima dos 70% de utilização. Otimizar o que já basta é
+custo sem retorno; sem o segundo número, a folga é suposta.
 
 **Sem critério de parada.** Sem saber qual requisito precisa ser atendido, a
 otimização não termina.
@@ -187,7 +196,7 @@ requisição típica:
 
 ```text
 banco (3 consultas)        180 ms
-serviço de precificação  2 400 ms   ← 80% do tempo
+serviço de precificação  2 660 ms   ← 89% do tempo
 serialização                40 ms
 resto                      120 ms
 ```
@@ -199,10 +208,10 @@ O serviço de precificação era o gargalo. Investigando: ele fazia uma chamada
 síncrona a um serviço de câmbio a cada requisição, e a cotação mudava duas vezes
 por dia.
 
-A correção foi cache com TTL de 5 minutos na cotação. A latência caiu para 210 ms.
+A correção foi cache com TTL de 5 minutos na cotação. A latência caiu para 360 ms.
 
-Depois disso o gargalo se moveu para o banco — as 3 consultas passaram a ser 85%
-do tempo restante. Mas 210 ms está confortavelmente abaixo do requisito de 800 ms,
+Depois disso o gargalo se moveu para o banco — as 3 consultas passaram a ser metade
+do tempo restante. Mas 360 ms está confortavelmente abaixo do requisito de 800 ms,
 e a equipe parou.
 
 Duas lições registradas. A hipótese inicial estava errada, e teria consumido

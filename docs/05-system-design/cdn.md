@@ -13,7 +13,7 @@ objective: >
 prerequisites: [caching]
 related: [caching, load-balancing, cloud-architecture]
 canonical_for: [CDN, cache de borda]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -64,18 +64,22 @@ costuma ser um cabeçalho de cache mal configurado.
 
 A CDN obedece ao que a origem manda. Os que decidem:
 
-**`Cache-Control: max-age`** — por quanto tempo o cliente pode guardar.
+**`Cache-Control: max-age`** — por quanto tempo qualquer cache pode guardar, o
+navegador e a CDN inclusive.
 
-**`s-maxage`** — por quanto tempo a CDN pode guardar. Permite a CDN guardar por
-muito tempo e o navegador por pouco.
+**`s-maxage`** — sobrepõe o `max-age` nas caches compartilhadas. Permite a CDN
+guardar por muito tempo e o navegador por pouco.
 
 **`private`** — proíbe a CDN de guardar. É o que protege resposta autenticada.
 
 **`stale-while-revalidate`** — a CDN pode servir a versão velha enquanto busca a
-nova. Elimina a penalidade de expiração para o usuário.
+nova. Tira do leitor a penalidade de expiração, enquanto a requisição chegar
+dentro da janela.
 
-O último é o mecanismo mais útil e o menos usado: ele dá frescor razoável sem que
-ninguém pague a latência da revalidação.
+É o mecanismo que compra frescor de prazo curto sem cobrar a revalidação de quem
+lê: a ida à origem sai do caminho da resposta enquanto as requisições chegarem
+dentro da janela. Fora dela, ou num PoP que ainda não tem o objeto, alguém volta
+a esperar pela origem.
 
 ### Invalidação: versionar em vez de purgar
 
@@ -124,8 +128,9 @@ usuários numa cidade não ganha em distância — pode ganhar em banda.
 
 **Para APIs de escrita.** Não há o que cachear, e a CDN adiciona um salto.
 
-**Quando a invalidação seria por purga constante.** Se o conteúdo muda a cada
-minuto e não pode ser versionado, a CDN atrapalha.
+**Quando nem segundos de defasagem são aceitáveis.** Se o conteúdo muda a cada
+minuto, não pode ser versionado e o negócio não tolera servir a versão anterior
+nem por segundos, sobra a purga — e ela não acompanha essa taxa de mudança.
 
 ## Alternativas
 
@@ -162,16 +167,25 @@ proteção.
 
 ## Erros Comuns
 
-**Não usar `private` em resposta autenticada.**
+**Não usar `private` em resposta autenticada.** A CDN guarda o que foi montado
+para um leitor logado e entrega ao próximo que pedir a URL. O vazamento costuma
+chegar pelo relato de quem viu o nome de outra pessoa, e a essa altura já exige
+comunicação aos usuários.
 
-**Depender de purga em vez de versionar URL.**
+**Depender de purga em vez de versionar URL.** A atualização passa a depender de
+alguém lembrar de purgar a cada publicação, e a purga esquecida deixa a versão
+velha no ar até ela expirar sozinha.
 
-**Não configurar `stale-while-revalidate`.**
+**Não configurar `stale-while-revalidate`.** A cada expiração, quem chega
+primeiro paga a ida à origem — o pico de latência reaparece na cadência do
+`s-maxage`, e é o leitor que o absorve.
 
 **Cachear erro.** Configure para não cachear respostas de erro, ou com prazo
 mínimo.
 
-**Esquecer de bloquear acesso direto à origem.**
+**Esquecer de bloquear acesso direto à origem.** A borda vira opcional: quem
+descobre o endereço da origem passa por fora dela, e nada nas métricas da CDN
+denuncia o desvio.
 
 ## Exemplo Real
 
@@ -198,8 +212,13 @@ A configuração final separou três perfis.
 Assets com URL versionada: `max-age` de um ano, imutável.
 
 Conteúdo público: `s-maxage` de 60 segundos com `stale-while-revalidate` de 300 —
-a CDN serve a versão anterior enquanto busca a nova, então o usuário nunca espera,
-e a atualização chega em cerca de um minuto sem purga.
+a CDN serve a versão anterior enquanto busca a nova, então o leitor não espera
+enquanto as requisições chegarem dentro da janela, e a atualização propaga em
+cerca de um minuto. Isso vale para o que está em circulação. Numa matéria fria o
+teto é a soma dos dois: até 360 segundos servindo a versão velha, e a primeira
+requisição depois disso espera pela origem — acima dos 5 minutos que a equipe já
+tinha julgado inaceitáveis, e por isso a purga continuou reservada à correção
+factual de matéria sem tráfego.
 
 Área autenticada: `Cache-Control: private, no-store`, e uma regra na CDN que
 recusa cachear qualquer resposta com cabeçalho de autenticação — defesa em

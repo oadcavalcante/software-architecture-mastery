@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [queues, background-processing, timeouts]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -116,7 +116,7 @@ connection, exhausts the pool and frequently times out at some proxy along the w
 [background processing](/05-system-design/background-processing.md).
 
 **When the destination is unstable.** Synchronously calling a service less available than you
-lowers your availability to its level.
+lowers your availability to the product of the two — below its level, not equal to it.
 
 **When the chain gets long.** Each hop multiplies risk and adds latency.
 
@@ -206,36 +206,20 @@ Besides that, all calls got an explicit timeout, and the payment one got a
 [circuit breaker](/12-reliability/circuit-breakers.md).
 
 What changed was not technology. It was asking, for each call, whether the result was needed to
-respond — and three of the four were not.
+respond — and two of the four were not.
 
 ## The timeout budget in a chain
 
-Timeouts in a chain have to be coherent with each other, and they rarely are.
+Temporal coupling imposes a fixed budget: the deadline the user accepts is the deadline of the
+whole chain below them, divided among the hops. Every synchronous call added spends part of
+that total — none of them gets a total of its own.
 
-The principle: **each level has less time than whoever called it.** If the user waits at most 3
-seconds and the request crosses three services, each one has to fit within what is left.
+That is why the timeout of a call is not decided at the point of the call: the correct limit
+depends on what is left above it, and what is left depends on how many hops the request has
+already crossed. It is a global calculation, treated almost always as a local adjustment.
 
-```text
-user             3,000 ms
-  gateway        2,800 ms   ← keeps margin for the response
-    service A    2,500 ms
-      service B  1,500 ms
-        database   800 ms
-```
-
-The common error is the inverse: an internal service with a 30-second timeout called by a
-gateway with 5. The caller gives up at 5 and the service keeps working for another 25 —
-consuming a connection, CPU and database to produce a response nobody will receive.
-
-At volume, it is a system spending capacity on discarded work, and that is invisible in the
-caller's error metrics.
-
-The practice that solves it is **propagating the remaining deadline** in the call: the caller
-states how much time is left, and the receiver adjusts its own limit. Some protocols support
-that natively; in the rest, a header solves it.
-
-Without propagation, all that is left is calibrating by hand — which works until someone
-changes one timeout without looking at the whole chain.
+The mechanics — how to distribute that budget and how to propagate the remaining deadline — are
+in [timeouts](/06-distributed-systems/timeouts.md).
 
 ## Related Concepts
 

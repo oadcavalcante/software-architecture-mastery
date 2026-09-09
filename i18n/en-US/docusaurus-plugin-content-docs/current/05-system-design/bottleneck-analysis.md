@@ -13,7 +13,7 @@ objective: >
 prerequisites: [capacity-planning]
 related: [capacity-planning, scalability-basics, hotspots]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -58,8 +58,9 @@ latency.
 
 **A lock.** A serialized resource everything passes through — a counter, a hot row, a lock.
 
-Memory is rarely a throughput bottleneck; it is a stability bottleneck — the system does not get
-slow, it goes down.
+Memory rarely limits throughput directly. It shows up as latency first — garbage collection
+growing, paging, page cache contention — and the interval between that degradation and the crash
+is usually short.
 
 ### Measure before acting
 
@@ -72,13 +73,17 @@ question fastest.
 
 **Resource metrics.** CPU utilization, connections in use, queue depth, lock wait time.
 
+The three have a cost of their own, and it is continuous: trace sampling and retention, profiling
+overhead under production load, maintenance of the instrument at every change to the code.
+
 The guiding question: **where does the time come from, and which resource is closest to its
 limit?**
 
 ### Utilization and queueing
 
 A resource does not degrade linearly. It works well up to about 70% utilization and gets worse
-fast after that — because queue wait time grows non-linearly as utilization approaches 100%.
+fast after that; the mechanism — queue wait time growing non-linearly as utilization approaches
+100% — is in [Latency](/06-distributed-systems/latency.md).
 
 The practical consequence: **a resource at 85% utilization is already degrading**, even if it has
 not gone down yet. Waiting for 100% to act is waiting for the collapse.
@@ -94,6 +99,10 @@ comfortably above the requirement is the stopping criterion.
 Without that criterion, optimization never ends.
 
 ### Amdahl's law applied
+
+> Prerequisite: [Performance versus Scalability](/11-scalability/performance-vs-scalability.md).
+> The focus here is the priority order the law imposes on effort, not the parallelism ceiling it
+> defines.
 
 If a step accounts for 20% of the total time, eliminating it completely improves things by 20% —
 never more.
@@ -117,10 +126,9 @@ touching it does not change the capacity.
 
 **As a substitute for measurement.** Analysis with no instrument is a guess.
 
-**When the system meets the requirement.** Optimizing what is already enough is cost with no
-return.
-
-**Optimizing what is not the bottleneck.** It yields zero in capacity.
+**When the system meets the requirement with measured headroom** — latency within the requirement
+and no resource above 70% utilization. Optimizing what is already enough is cost with no return;
+without that second number, the headroom is assumed.
 
 **With no stopping criterion.** Without knowing which requirement has to be met, optimization
 never ends.
@@ -181,7 +189,7 @@ Distributed tracing showed something else. The time distribution of a typical re
 
 ```text
 database (3 queries)       180 ms
-pricing service          2,400 ms   ← 80% of the time
+pricing service          2,660 ms   ← 89% of the time
 serialization               40 ms
 the rest                   120 ms
 ```
@@ -192,10 +200,10 @@ The database accounted for 6%. A read replica would have improved things, in the
 The pricing service was the bottleneck. Investigating: it made a synchronous call to a currency
 exchange service on every request, and the rate changed twice a day.
 
-The fix was a cache with a 5-minute TTL on the rate. Latency dropped to 210 ms.
+The fix was a cache with a 5-minute TTL on the rate. Latency dropped to 360 ms.
 
-After that the bottleneck moved to the database — the 3 queries became 85% of the remaining time.
-But 210 ms is comfortably below the 800 ms requirement, and the team stopped.
+After that the bottleneck moved to the database — the 3 queries became half of the remaining
+time. But 360 ms is comfortably below the 800 ms requirement, and the team stopped.
 
 Two lessons recorded. The initial hypothesis was wrong, and it would have consumed weeks building
 a replica to gain 6%. And the stop was deliberate: the new bottleneck exists, is measured, and

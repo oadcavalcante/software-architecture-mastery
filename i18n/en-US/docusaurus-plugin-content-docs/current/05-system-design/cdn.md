@@ -13,7 +13,7 @@ objective: >
 prerequisites: [caching]
 related: [caching, load-balancing, cloud-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -64,19 +64,21 @@ cache header.
 
 The CDN obeys what the origin sends. The ones that decide:
 
-**`Cache-Control: max-age`** — how long the client can keep it.
+**`Cache-Control: max-age`** — how long any cache may keep it, the browser and the CDN alike.
 
-**`s-maxage`** — how long the CDN can keep it. It lets the CDN keep it for a long time and the
-browser for a short one.
+**`s-maxage`** — overrides `max-age` in shared caches. It lets the CDN keep it for a long time
+and the browser for a short one.
 
 **`private`** — forbids the CDN from keeping it. It is what protects an authenticated
 response.
 
 **`stale-while-revalidate`** — the CDN can serve the stale version while fetching the new one.
-It eliminates the expiry penalty for the user.
+It takes the expiry penalty off the reader, as long as the request arrives inside the window.
 
-The last is the most useful mechanism and the least used: it gives reasonable freshness without
-anyone paying the revalidation latency.
+It is the mechanism that buys short-lived freshness without charging the reader for the
+revalidation: the trip to the origin leaves the response path while requests keep arriving
+inside the window. Outside it, or at a PoP that does not have the object yet, somebody waits
+for the origin again.
 
 ### Invalidation: version instead of purging
 
@@ -123,8 +125,9 @@ nothing in distance — it may gain in bandwidth.
 
 **For write APIs.** There is nothing to cache, and the CDN adds a hop.
 
-**When invalidation would be constant purging.** If the content changes every minute and cannot
-be versioned, the CDN gets in the way.
+**When not even seconds of staleness are acceptable.** If the content changes every minute,
+cannot be versioned and the business will not serve the previous version even for seconds,
+purging is all that is left — and it does not keep up with that rate of change.
 
 ## Alternatives
 
@@ -159,15 +162,22 @@ protection.
 
 ## Common Mistakes
 
-**Not using `private` on an authenticated response.**
+**Not using `private` on an authenticated response.** The CDN keeps what was assembled for one
+logged-in reader and hands it to the next one who asks for the URL. The leak usually arrives as
+a report from whoever saw someone else's name, and by then it already requires notifying users.
 
-**Depending on purging instead of versioning URLs.**
+**Depending on purging instead of versioning URLs.** Updating comes to depend on somebody
+remembering to purge on every publish, and the forgotten purge leaves the stale version up
+until it expires on its own.
 
-**Not configuring `stale-while-revalidate`.**
+**Not configuring `stale-while-revalidate`.** On every expiry, whoever arrives first pays the
+trip to the origin — the latency spike returns at the cadence of `s-maxage`, and it is the
+reader who absorbs it.
 
 **Caching errors.** Configure it not to cache error responses, or with a minimal deadline.
 
-**Forgetting to block direct access to the origin.**
+**Forgetting to block direct access to the origin.** The edge becomes optional: whoever finds
+the origin's address goes around it, and nothing in the CDN's metrics reveals the detour.
 
 ## Real-World Example
 
@@ -193,8 +203,12 @@ The final configuration separated three profiles.
 Assets with versioned URLs: a one-year `max-age`, immutable.
 
 Public content: a 60-second `s-maxage` with a 300-second `stale-while-revalidate` — the CDN
-serves the previous version while fetching the new one, so the user never waits, and the update
-arrives in about a minute with no purging.
+serves the previous version while fetching the new one, so the reader does not wait as long as
+requests keep arriving inside the window, and the update propagates in about a minute. That
+holds for whatever is in circulation. On a cold article the ceiling is the sum of the two: up to
+360 seconds serving the stale version, and the first request after that waits for the origin —
+above the 5 minutes the team had already judged unacceptable, which is why purging stayed
+reserved for factual corrections on articles with no traffic.
 
 The authenticated area: `Cache-Control: private, no-store`, and a rule in the CDN that refuses
 to cache any response with an authentication header — defense in depth, in case somebody

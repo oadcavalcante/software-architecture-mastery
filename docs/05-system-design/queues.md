@@ -13,7 +13,7 @@ objective: >
 prerequisites: [request-response]
 related: [background-processing, rate-limiting, event-driven]
 canonical_for: [fila, message queue]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -50,8 +50,9 @@ rede**, e que rede traz duplicação, desordem e mensagens que nunca processam.
 **Diferença de ritmo.** O produtor pode publicar mais rápido do que o consumidor
 processa, por um tempo.
 
-**Pico.** A fila cresce em vez de o sistema cair. É o mecanismo de contenção mais
-barato que existe.
+**Pico.** A fila cresce em vez de o sistema cair. É a contenção que preserva o
+trabalho: rate limiting e descarte de carga custam menos para operar — nenhum
+componente novo —, mas recusam requisições.
 
 Nenhum dos três é infinito — a fila tem limite, e o que acontece ao atingi-lo
 precisa ser decidido. Ver
@@ -59,15 +60,20 @@ precisa ser decidido. Ver
 
 ### As três garantias que você herda
 
-**Duplicação.** Praticamente todo sistema de fila entrega ao menos uma vez. Isso
-significa que a mesma mensagem pode chegar duas vezes — por retentativa, por
-falha na confirmação, por rebalanceamento de consumidores.
+**Duplicação.** Praticamente todo sistema de fila entrega
+[ao menos uma vez](/06-distributed-systems/delivery-guarantees.md). Isso significa
+que a mesma
+[mensagem pode chegar duas vezes](/06-distributed-systems/duplicate-messages.md) —
+por retentativa, por falha na confirmação, por rebalanceamento de consumidores.
 
-A consequência é dura e inegociável: **o consumidor precisa ser idempotente.**
+A consequência: **o consumidor precisa ser idempotente sempre que o efeito for
+observável fora do sistema ou irreversível** — cobrança, e-mail, emissão de nota.
 Processar duas vezes tem que ter o mesmo efeito de processar uma. Sem isso, uma
-cobrança vira duas.
+cobrança vira duas. Onde o efeito duplicado é inofensivo e barato, o critério está
+em [idempotência](/06-distributed-systems/idempotency.md).
 
-**Ordem.** Filas particionadas garantem ordem dentro de uma partição, não entre
+**Ordem.** Filas particionadas garantem
+[ordem dentro de uma partição](/06-distributed-systems/ordering.md), não entre
 elas. Se `PedidoCriado` e `PedidoCancelado` caem em partições diferentes, podem
 chegar fora de ordem.
 
@@ -75,17 +81,23 @@ A mitigação usual é particionar pela chave da entidade — todos os eventos d
 pedido na mesma partição — o que preserva a ordem que importa ao custo de
 desequilíbrio se uma chave for muito ativa.
 
-**Mensagem envenenada.** Uma mensagem que sempre falha volta para a fila,
-indefinidamente, bloqueando o processamento. É o que exige
+**[Mensagem envenenada](/06-distributed-systems/poison-messages.md).** Uma mensagem
+que sempre falha volta para a fila, indefinidamente. Sem ordem garantida, ela ocupa
+um consumidor em laço e o custo é de capacidade; com ordem por partição, a partição
+inteira para. É o que exige
 [dead-letter queue](/06-distributed-systems/dead-letter-queues.md): após N tentativas, a
 mensagem sai para uma fila separada, com alerta.
 
-Uma fila sem dead-letter configurada trava no primeiro dado malformado.
+Sem dead-letter configurada, o primeiro dado malformado só sai da fila por
+intervenção manual.
 
 ### Confirmação depois de processar
 
-O consumidor confirma a mensagem **após** processá-la com sucesso, nunca antes. Se
-confirmar antes e falhar, a mensagem se perde.
+O consumidor confirma a mensagem **após** processá-la com sucesso. Confirmar antes
+de processar converte ao menos uma vez em no máximo uma vez: se o processamento
+falhar, a mensagem se perde. É escolha deliberada onde perder amostras é aceitável
+— telemetria, métricas agregadas — e acidente em todo o resto. Ver
+[garantias de entrega](/06-distributed-systems/delivery-guarantees.md).
 
 O tempo de visibilidade — quanto a fila espera antes de reentregar — precisa ser
 maior que o tempo de processamento. Se for menor, a mensagem é reentregue enquanto
@@ -168,13 +180,17 @@ o propósito e não tem as garantias.
 
 ## Erros Comuns
 
-**Adotar sem idempotência.** É o erro que produz os incidentes mais caros.
+**Adotar sem idempotência.** O efeito duplicado é externo e não se desfaz com um
+deploy: no exemplo abaixo, exigiu cancelar nota junto à prefeitura, uma a uma.
 
-**Não configurar dead-letter.**
+**Não configurar dead-letter.** A mensagem que sempre falha ocupa consumidor em
+laço, e tirá-la da fila vira intervenção manual sob pressão.
 
-**Não monitorar profundidade e idade.**
+**Não monitorar profundidade e idade.** O acúmulo é descoberto pelo prazo perdido,
+não pelo painel.
 
-**Assumir ordem global.**
+**Assumir ordem global.** O cancelamento é processado antes da criação, e o pedido
+fica ativo depois de cancelado.
 
 **Publicar dentro da transação sem outbox.** A transação falha e a mensagem já foi
 publicada, ou vice-versa. Ver
@@ -213,8 +229,9 @@ em minutos, e as demais seguem.
 Alerta de profundidade acima de mil e de idade da mensagem mais antiga acima de 15
 minutos.
 
-A fila estava certa como decisão. O que faltou foi tratar as três garantias antes
-de subir — e todas as três estavam na documentação do serviço de fila.
+A fila estava certa como decisão. O que faltou foi tratar duas das garantias que
+ela herda — duplicação e mensagem envenenada — e instrumentar a profundidade antes
+de subir; as três coisas estavam na documentação do serviço de fila.
 
 ## Conceitos Relacionados
 

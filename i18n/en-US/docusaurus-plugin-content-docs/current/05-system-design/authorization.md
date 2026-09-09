@@ -13,7 +13,7 @@ objective: >
 prerequisites: [authentication]
 related: [authentication, service-boundaries, authz-models]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-31
 Authorization answers **what this identity can do**. It presupposes
 [authentication](/05-system-design/authentication.md) is settled.
 
-The system decision is where the permission rule lives and where it is enforced — and the most
-common wrong answer is "in the interface".
+The system decision is where the permission rule lives and where it is enforced — and the
+recurring wrong answer is "in the interface".
 
 ## Problem
 
@@ -44,6 +44,10 @@ system.
 
 ### The models, in order of expressiveness
 
+The sketch below is enough to decide where the rule lives. The cost of each model and the
+criterion for choosing are in [authorization models](/10-security/authz-models.md), the canonical
+document for the three.
+
 **By role.** The user has roles; roles have permissions. Simple, and it explodes when the rules
 depend on context — you get `south_region_manager`, `south_region_manager_readonly`, and the
 combinatorics grow.
@@ -56,8 +60,12 @@ hours*. Expressive and harder to audit.
 document because it belongs to the folder that belongs to the team they are a member of*.
 Suitable for hierarchies and for sharing.
 
-Most systems start with roles and need attributes sooner than they expect. The sign is the
-appearance of roles with a context suffix.
+Most systems start with roles, and the criterion for leaving them is what the permission depends
+on: only on who the user is, and a role suffices; on an attribute of the resource or of the
+context, and it is attributes; on a relationship between person and resource, and it is
+relations. Hence the two signs that roles are being forced — the context suffix,
+`south_region_manager`, and the clean role that still authorizes too much, because the real rule
+was a relationship.
 
 ### Where the decision is made
 
@@ -79,8 +87,8 @@ Hiding a button is not authorization — it is interface convenience.
 Every check has to happen on the server, on each operation. The interface hides what the user
 cannot do so as not to frustrate them; the server prevents it.
 
-That seems obvious and it is the most common authorization failure in audits: an endpoint that
-was only called by a restricted screen, and that nobody protected because "only the
+That seems obvious, and broken access control still leads the OWASP Top 10 of 2021: an endpoint
+that was only called by a restricted screen, and that nobody protected because "only the
 administrator sees the button".
 
 ### Authorization in listings is different
@@ -148,7 +156,7 @@ ownership.
 
 | By role | By attribute |
 |---|---|
-| Simple to understand and audit | Expressive |
+| Expresses who the user is | Expresses who, on what and under which condition |
 | Explodes with context | Absorbs context |
 | Easy to answer "who can do X" | Requires evaluating the policy |
 
@@ -160,6 +168,10 @@ ownership.
 resource — the server checked the role and not ownership.
 
 **Filtering after fetching.** Inconsistent pagination and wasted work.
+
+**A leak in a new listing.** Another user's records show up in a recently added query — the
+filter in the query depends on discipline in every place that queries. See
+[secure boundaries](/10-security/secure-boundaries.md).
 
 **Role explosion.** Dozens of roles with context suffixes.
 
@@ -217,7 +229,9 @@ resource".
 
 - [Authentication](/05-system-design/authentication.md) — the prerequisite.
 - [Service Boundaries](/05-system-design/service-boundaries.md) — where to enforce.
-- [Security](/10-security/index.md) — models, least privilege and auditability.
+- [Authorization Models](/10-security/authz-models.md) — role, attribute and relation in depth,
+  with the criterion for choosing.
+- [Security](/10-security/index.md) — least privilege and auditability.
 - [Aggregate](/04-domain-driven-design/aggregate.md) — where the business rule lives.
 
 ## Practical Exercise
@@ -225,8 +239,8 @@ resource".
 Pick an endpoint that receives a resource identifier. Authenticate as one user and try to access
 another's resource by changing the identifier.
 
-If it works, you found an insecure direct reference — the most common authorization failure and
-the easiest to exploit.
+If it works, you found an insecure direct reference — the cheapest authorization failure to
+exploit: changing one number in the URL, with no tooling at all.
 
 ## Interview Questions
 
@@ -236,5 +250,7 @@ the easiest to exploit.
 
 ## Further Reading
 
-- OWASP — *Authorization Cheat Sheet* and the broken access control category.
-- NIST SP 800-162 — attribute-based access control.
+- OWASP. *Authorization Cheat Sheet*.
+- OWASP. *Top 10 — A01:2021 Broken Access Control*, 2021.
+- Hu, Vincent C. et al. *Guide to Attribute Based Access Control (ABAC) Definition and
+  Considerations*. NIST SP 800-162, 2014.

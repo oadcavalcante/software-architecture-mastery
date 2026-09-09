@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [bottleneck-analysis, scalability-basics, back-of-envelope]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -94,9 +94,9 @@ That calculation takes five minutes and already answers three architectural deci
 
 The value is in **ruling out**, not in predicting.
 
-12 requests per second eliminates any discussion about partitioning, distributed systems or
-space-based architecture. A database on one instance handles it with orders of magnitude of
-headroom.
+12 requests per second eliminates partitioning as a throughput answer, and with it distributed
+systems and space-based architecture. A database on one instance handles it with orders of
+magnitude of headroom — partitioning for stored volume is still an open question.
 
 12 thousand per second eliminates the single instance and forces you to think about
 partitioning, replicas and caching from the start.
@@ -109,12 +109,12 @@ number is 15 or 9.
 An estimate says what the system needs to handle given a scenario. A forecast says what is going
 to happen.
 
-The first is useful and verifiable. The second is always wrong, and the typical error is on the
+The first is useful and verifiable. The second gets it wrong, and the typical error is on the
 high side — every product expects to grow a hundredfold.
 
 The question that avoids oversizing: **what is the growth over the next twelve months, and how
 much does it cost to defer the scaling decision until then?** Frequently deferring is cheap, and
-the architecture for a hundredfold is never exercised.
+the architecture for a hundredfold is rarely exercised within the horizon that justified it.
 
 ### Re-estimate when the real numbers arrive
 
@@ -171,7 +171,8 @@ time.
 **Ignoring bandwidth.** A 500 KB response at 200 requests per second is 100 MB/s of egress —
 frequently the dominant cost.
 
-**Oversizing by optimistic forecast.**
+**Oversizing by optimistic forecast.** Capacity sits idle for most of the day, and the cost per
+request runs above that of comparable systems.
 
 **Estimating and never comparing with the real numbers.** Without that comparison, nobody
 improves the next estimate.
@@ -186,8 +187,8 @@ whether it fits on one machine or requires a hundred. Refining from 8,200 to 8,3
 second changes no decision.
 
 **Not estimating the peak.** The average sizes nothing: the system has to handle Black Friday,
-not Tuesday. The peak-to-average ratio is usually an order of magnitude and is the number that
-decides.
+not Tuesday. The peak-to-average ratio is the number that decides, and in a concentrated
+event it reaches an order of magnitude.
 
 **Not estimating accumulated growth.** Throughput is solved by adding machines; stored volume is
 not. It is the axis that decides partitioning and retention, and the one most frequently left out
@@ -234,14 +235,16 @@ And what it got right was not the number — the fleet grew more than expected. 
 ## Reference numbers
 
 Estimating gets fast when a few orders of magnitude are memorized. These do not have to be exact
-— they have to be the right order.
+— they have to be the right order. They hold for current commodity server hardware and follow the
+canonical table in
+[Back-of-the-Envelope Calculations](/22-system-design-interviews/back-of-envelope.md).
 
 **Latency**
 
 | Operation | Order |
 |---|---|
 | Memory read | ~100 ns |
-| Sequential read of 1 MB from memory | ~10 µs |
+| Sequential read of 1 MB from memory | ~50 µs |
 | Round trip within the same zone | ~0.5 ms |
 | Random read on a solid-state disk | ~100 µs |
 | Round trip between regions on the same continent | ~30 ms |
@@ -293,6 +296,7 @@ system — and the exercise improves the next estimate.
 
 ## Further Reading
 
-- Dean, Jeff. *Numbers Everyone Should Know* — the reference latency table.
+- Dean, Jeff. *Numbers Everyone Should Know*, 2009 — the original reference latency table; the
+  values above reflect more recent hardware.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — the chapter on capacity
   planning.
