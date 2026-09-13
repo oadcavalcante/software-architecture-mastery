@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [design-patterns, domain-driven-design]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -43,8 +43,9 @@ executável. É também onde a maior parte do custo de manutenção é decidida.
 como ferramentas com faixa de aplicação, não como mandamentos — inclusive os
 casos em que aplicá-los produz código pior.
 
-**Estrutura.** Encapsulamento, interfaces, fronteiras, camadas, design modular e
-design de pacotes. Como decidir o que fica junto e o que fica separado.
+**Estrutura.** Encapsulamento, interfaces, fronteiras, camadas, design modular,
+design de pacotes e design de componentes. Como decidir o que fica junto e o que
+fica separado.
 
 **Dependências.** Inversão de dependência, direção de dependência e composição
 versus herança. Este é o núcleo da seção: a direção em que as dependências
@@ -55,14 +56,15 @@ Adapters. Quatro nomes para uma mesma ideia central, com diferenças que
 importam menos do que a literatura sugere — e um custo que a literatura
 menciona pouco.
 
-**Manutenção.** Refatoração e code smells. Como reconhecer estrutura que está
-degradando antes que o custo se torne visível no roadmap.
+**Manutenção.** Clean code, code smells e refatoração. Como reconhecer estrutura
+que está degradando antes que o custo se torne visível no roadmap.
 
 ## Ordem de leitura
 
 Comece por **fronteiras** e **direção de dependência**. São os dois conceitos de
 que todo o resto depende, e são os que mais mudam a forma de olhar um
-repositório.
+repositório. Cada um tem uma entrada curta antes: encapsulamento e interfaces
+levam a fronteiras; inversão de dependência leva a direção de dependência.
 
 As quatro arquiteturas de código — Clean, Hexagonal, Onion, Ports and Adapters —
 podem ser lidas em bloco. Elas compartilham a mesma tese; ler as quatro em

@@ -14,7 +14,7 @@ objective: >
 prerequisites: [encapsulation]
 related: [solid, interfaces, code-smells]
 canonical_for: [composition, inheritance, composition over inheritance]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -184,7 +184,7 @@ not accommodate it: sending was tied to the report type. The solution adopted wa
 Six months later, formats: PDF, CSV, XLSX. A second `switch`.
 
 In the end, `ReportBase` had 300 lines, two `switch` statements, and the eleven
-subclasses overrode between one and five methods each, in ways nobody could predict
+subclasses overrode between one and three methods each, in ways nobody could predict
 without reading all of them.
 
 The reformulation by composition:
@@ -216,8 +216,9 @@ Facing a concrete choice, four questions in order:
 | Is the hierarchy shallow and closed? | **inherit** | **compose** |
 
 The first question eliminates most cases. The third is the one that saves most:
-inheriting from an interface or a pure abstract class is safe; inheriting code is
-not.
+inheriting from an interface or a pure abstract class is safe in any hierarchy;
+inheriting code only holds up under the fourth question's condition — a shallow,
+closed hierarchy.
 
 One edge case worth naming: **frameworks that require inheritance.** Extending a
 framework base class to get its behaviour is implementation inheritance with all

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [interfaces, boundaries, solid]
 canonical_for: [encapsulamento, encapsulation, ocultação de informação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -164,8 +164,8 @@ Uma classe `Assinatura` com `getStatus()`, `setStatus()`, `getDataFim()` e
 `setDataFim()`.
 
 A regra "assinatura cancelada não pode ter a data de fim alterada" existia — em
-quatro serviços diferentes, cada um verificando antes de chamar o setter. Um
-deles não verificava.
+quatro serviços diferentes, três deles verificando antes de chamar o setter. O
+quarto não verificava.
 
 O bug: um processo de correção em lote alterava a data de fim de assinaturas
 canceladas, e o faturamento voltava a cobrá-las.
@@ -227,9 +227,10 @@ deve. O custo não aparece como defeito; aparece como regra de negócio duplicad
 em vários serviços, e como bugs em que um dos lugares esqueceu de verificar algo.
 
 A terceira é organizacional. Quando o serviço é escrito por uma pessoa e a
-entidade por outra, colocar a regra no serviço evita uma conversa. A estrutura do
-código passa a refletir a estrutura da comunicação do time, que é a lei de Conway
-operando em escala pequena.
+entidade por outra, colocar a regra no serviço evita uma conversa. É a
+[lei de Conway](/23-architecture-leadership/conways-law.md) operando em escala de
+classe: a fronteira entre as duas pessoas vira fronteira entre dado e
+comportamento.
 
 A correção não começa movendo métodos. Começa listando as regras que deveriam
 valer sempre sobre a entidade, e verificando em quantos lugares cada uma é

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-design]
 related: [coupling, cohesion, dependency-direction, boundaries]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -125,22 +125,26 @@ Isso é contraintuitivo, porque "emprestado" parece estado do exemplar. Modelá-
 o acervo à circulação e produz o ciclo. O exemplar tem estado físico — disponível, em trânsito,
 danificado, baixado; **emprestado é um fato da circulação**, não do acervo.
 
-Quem modela "emprestado" como estado do exemplar descobre o problema na transferência: um
-exemplar em trânsito e emprestado ao mesmo tempo é impossível, e o modelo permite.
+Quem modela "emprestado" como estado do exemplar descobre o problema na transferência: ou
+"emprestado" entra no mesmo conjunto exclusivo, e marcar o exemplar em trânsito apaga o fato de
+que ele está emprestado, ou vira uma marca à parte do estado físico, e nada impede em trânsito e
+emprestado ao mesmo tempo.
 
 **A regra de prazo e suspensão** merece módulo próprio, ou pelo menos um ponto único. Ela é a
 única parte do sistema com data de validade conhecida — o enunciado diz que muda por decreto.
 Um sistema em que essa regra está em três lugares paga a mudança três vezes, a cada decreto.
 
 O detalhe que separa uma resposta boa de uma ótima: a regra precisa ser **datada**. Um
-empréstimo feito sob o decreto anterior é renovado sob qual prazo? A resposta correta é a regra
-vigente na data do empréstimo, o que significa que a regra é versionada por vigência — e isso é
-uma decisão de modelo, não de configuração.
+empréstimo feito sob o decreto anterior é renovado sob qual prazo? A resposta depende da cláusula
+de transição do decreto, que o enunciado não traz — a renovação é discutivelmente um ato novo,
+sujeito à regra nova. Qualquer das duas saídas exige que a regra seja versionada por vigência — e
+isso é uma decisão de modelo, não de configuração.
 
-**O que quase todo mundo erra:** fazer a fila de reserva por exemplar. O usuário reserva um
-título; qual exemplar satisfaz a reserva é decisão do sistema no momento da devolução. Reservar
-por exemplar cria filas por objeto físico e produz a situação absurda de alguém esperando o
-exemplar 3 enquanto o 7 está na prateleira.
+**O que quase todo mundo erra:** o enunciado fixa a fila por título, e o modelo sai mesmo assim
+com a reserva apontando para um exemplar. O usuário reserva um título; qual exemplar satisfaz a
+reserva é decisão do sistema no momento da devolução. Uma reserva presa a um objeto físico
+reconstrói a fila por exemplar que a restrição proibiu, e produz a situação absurda de alguém
+esperando o exemplar 3 enquanto o 7 está na prateleira.
 
 Ver [desenho modular](/02-software-design/modular-design.md), [fronteiras](/02-software-design/boundaries.md) e
 [direção de dependência](/02-software-design/dependency-direction.md).

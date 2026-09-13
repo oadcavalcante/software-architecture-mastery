@@ -13,7 +13,7 @@ objective: >
 prerequisites: [package-design]
 related: [modular-design, boundaries, dependency-direction]
 canonical_for: [component design, deployable component]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -68,6 +68,11 @@ rest.
 If none applies, an internal module delivers the same logical isolation for a
 fraction of the cost.
 
+When the component is a process with a network contract, the same reasons are cut
+differently — failure isolation becomes a reason of its own, in place of the
+organizational boundary. See
+[service boundaries](/05-system-design/service-boundaries.md).
+
 ### Component and module are not the same scale
 
 | | Module | Component |
@@ -87,8 +92,9 @@ themselves in the history, and only then promote to a component the module that
 has one of the four reasons.
 
 The reverse order — deciding components before knowing the axes of change —
-produces high-cost boundaries in the wrong place. And a wrong component boundary
-is the most expensive of all to fix.
+produces high-cost boundaries in the wrong place. And fixing a component boundary
+costs a migration — of data, of consumers and of the pipeline — where moving a
+module boundary costs a refactoring.
 
 ### A component's contract is public
 
@@ -150,10 +156,12 @@ morning.
 
 ## Failure Modes
 
-**Components coupled at release.** Always deployed together, in order, with matched
-versions.
+**Distributed monolith.** Components always deployed together, in order and with
+matched versions, whose mutual unavailability takes everything down: the cost of
+the separation with none of its benefits. See
+[microservices](/03-design-patterns/microservices.md).
 
-**Distributed monolith.** Separate components calling each other synchronously in a
+**Synchronous cascade.** Separate components calling each other synchronously in a
 chain; one failing takes down all of them.
 
 **Ownerless component.** Nobody is accountable for its lifecycle.
@@ -167,8 +175,8 @@ shows up in on-call and in diagnosis time.
 
 **Justifying it by code cleanliness.** Not a sufficient reason.
 
-**Ignoring the operational cost.** It is the largest part of the cost and the least
-accounted for.
+**Ignoring the operational cost.** It is recurring, per year of the component's
+life; the implementation cost is paid once.
 
 **Treating the contract as refactorable.** It is public.
 
@@ -184,8 +192,9 @@ The four reasons were checked.
 
 *Lifecycle?* No — reports went up together with everything else and nobody
 complained.
-*Distinct quality requirement?* Yes — a heavy query consumed memory and had already
-taken the application down twice.
+*Distinct quality requirement?* Yes — the month-end closing query loaded about
+3 GB in a process with a 4 GB heap, ran a few dozen times a day and had already
+taken the application down twice that quarter.
 *Organizational boundary?* No — same team.
 *External consumer?* No.
 

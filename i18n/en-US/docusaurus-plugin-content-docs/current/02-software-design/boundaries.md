@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [layering, modular-design, dependency-direction]
 canonical_for: [boundary, architectural boundary]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -33,9 +33,10 @@ where failure stops propagating.
 Every system has boundaries. The question is whether they were decided or whether
 they emerged.
 
-Emergent boundaries are the worst possible ones, because they follow historical
-accident: where the first developer put the file, which module happened to be open
-when the feature was requested, who had time that week.
+Emergent boundaries follow historical accident: where the first developer put the
+file, which module happened to be open when the feature was requested, who had time
+that week. None of those criteria bears any relation to the axis of change, and
+that is why crossing them comes out expensive.
 
 But conscious decisions go wrong too, in two symmetric ways.
 
@@ -84,9 +85,10 @@ orders of magnitude:
 | Process / service | Network | Latency, partial failure, serialization, operations |
 | System / organization | Formal contract | Negotiation between teams |
 
-Moving up a level without need is the most common source of accidental complexity
-in distributed systems. A badly drawn module boundary costs a refactoring; the
-same badly drawn boundary between services costs months.
+Moving up a level without need pays the right-hand column's cost for isolation the
+level below already delivered — and the mistake gets dearer with height: a badly
+drawn module boundary costs a refactoring; the same badly drawn boundary between
+services costs months.
 
 **Choose the lowest level that solves the problem.** It is almost always lower
 than the initial proposal suggests.
@@ -128,20 +130,20 @@ it is not a promise — it is an intention.
 **When both sides always change together.** The boundary becomes a tax on every
 change, with no benefit at all.
 
-**When the domain is not yet understood.** A wrong boundary is more expensive than
-a missing one, and a new domain does not reveal its axes of change in a few months.
-Start with weak separations and harden what proves stable.
+**When the domain is not yet understood.** The cost of freezing early is covered in
+[modularity](/01-fundamentals/modularity.md); for boundaries, the consequence is one
+of mechanism: pick first the one that comes undone without a migration.
 
-**At a higher level than necessary.** Splitting into services what could be modules
-trades a function call for the network, serialization, partial failure and one more
-deployment pipeline — to obtain, in most cases, the same logical isolation.
+**At a higher level than necessary.** The table of levels already gives the price:
+each step up charges in latency, partial failure and operations what the step below
+charged in compilation and discipline — for the same logical isolation.
 
 **When the translation cost exceeds the benefit.** If maintaining the boundary
 requires converting types at every crossing and crossings are frequent, either the
 boundary is on the wrong axis or it should not exist.
 
-**For aesthetic symmetry.** Boundaries created so that "each layer has its own" add
-cost without capturing any real separation.
+**For aesthetic symmetry.** "Each layer has its own" produces boundaries that the
+crossing test fails: the commits cross all of them.
 
 ## Alternatives
 
@@ -177,8 +179,10 @@ the pull request that always touches both sides.
 
 **Nominal boundary.** It exists in the diagram and nothing enforces it.
 
-**Boundary at too high a level.** Two services always deployed together, where one
-being unavailable makes the other useless. They are one service at the cost of two.
+**Boundary at too high a level.** The two deployments always ship on the same day,
+and either side going down leaves the other with nothing to do. The criterion for
+separating processes is in
+[service boundaries](/05-system-design/service-boundaries.md).
 
 **A boundary nobody can explain.** Inherited, crossed by accumulated exceptions,
 kept out of fear.
@@ -194,7 +198,9 @@ organization.
 **Choosing the level by what sounds modern.** A separate service is an operations
 decision, not a code-organization one.
 
-**Letting the ORM's or the framework's type through.** The most common leak.
+**Letting the ORM's or the framework's type through.** Returning the mapped entity
+instead of translating it saves a class today and promotes the database schema to
+contract: from then on, every mapping change crosses the boundary.
 
 **Not measuring crossings.** The commit history says whether the boundary is in the
 right place, and almost nobody consults it.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [refactoring, technical-debt, dry]
 canonical_for: [code smell]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -166,7 +166,7 @@ zero them out.
 
 By the end, 310 were fixed. Feature delivery time did not change.
 
-The later analysis crossed the violations with the history: 280 of them were in files
+The later analysis crossed the 310 fixed ones with the history: 280 of them were in files
 changed fewer than twice in the year. The interest was close to zero.
 
 The remaining 30 were in four files that appeared in 60% of the commits. None of them
@@ -174,7 +174,7 @@ was the worst-scoring one in the tool — the problems there were shotgun surger
 inappropriate intimacy, which the analyzer does not detect.
 
 The following quarter dealt with those four files only. Average delivery time dropped
-measurably.
+by close to 20% — the same measure the previous quarter had not moved.
 
 The difference between the two quarters was not effort. It was looking at the history
 before choosing.
@@ -191,9 +191,9 @@ Local smells frequently point at boundary problems. The translation:
 | Inappropriate intimacy | Nominal boundary, not enforced |
 | Primitive obsession | Domain concept with no type of its own |
 | Long parameter list | A missing value object |
-| Data clumps | The same parameters always together are a concept |
+| Data clumps | Data with no owner; the rule binding it has no home |
 | Middle man | Anemic layer that only forwards |
-| Speculative generality | Abstraction created before the third case |
+| Speculative generality | A future requirement treated as certain |
 
 The right column is what is worth fixing. Fixing the left one without the right
 produces the same problem in a different shape — the 80-line method becomes eight of
@@ -225,9 +225,11 @@ the compiler starts preventing the swap that only attention prevented before.
 organization. Across modules, it is a sign that the boundary is in the wrong place —
 and a wrong boundary costs on every change, not just in that method.
 
-**A name that lies.** A method called `validate` that also persists is the most
-expensive defect on this list, because it destroys trust in every other name in the
-system. Readers come to need to check each call, and reading stops paying off.
+**A name that lies.** A method called `validate` that also persists — the case
+[Clean Code](/02-software-design/clean-code.md) treats as the worst, because the
+distrust spreads to every other name. Of the three, it is the one that pays off most
+in review: the author still has the context to choose between fixing the name and
+splitting the effect, and once merged nobody knows which of the two was intended.
 
 The other smells are better handled as material for planned refactoring, prioritized
 by frequency of change, rather than as one-off review comments. Pointing them out one

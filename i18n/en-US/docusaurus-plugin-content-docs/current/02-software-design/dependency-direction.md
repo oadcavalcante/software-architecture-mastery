@@ -13,7 +13,7 @@ objective: >
 prerequisites: [dependency-inversion]
 related: [package-design, boundaries, component-design]
 canonical_for: [acyclic dependencies principle, acyclic dependencies]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -96,7 +96,8 @@ Two of Martin's metrics, useful as diagnostics:
 that depends on few has I close to 0 — it is stable, and changing it is expensive.
 The inverse has I close to 1 — it is volatile, and changing it is cheap.
 
-**Abstractness** `A = abstract classes / total classes`, between 0 and 1.
+**Abstractness** `A = (abstract classes + interfaces) / total classes`, between
+0 and 1. A package of interfaces only has A = 1.
 
 The rule linking the two: **a stable package should be abstract.** If a lot depends
 on it, it has to be hard to make obsolete — and abstractions are more stable than
@@ -117,8 +118,9 @@ abstraction for its own sake.
 
 ## Mental Model
 
-**Draw the graph and look for arrows pointing upward.** If a high-level package
-points at a low-level one, or if two arrows form a cycle, there is work to do.
+**Draw the graph with the stable packages at the bottom and the volatile ones on
+top, and look for arrows pointing upward.** If a stable package points at a
+volatile one, or if two arrows form a cycle, there is work to do.
 
 ## When to Use
 
@@ -178,8 +180,6 @@ on. Every change to it affects the system.
 **Breaking a cycle with an interface without thinking.** Sometimes merging is the
 answer.
 
-**Treating the metrics as targets.** Diagnosis, not prescription.
-
 **Ignoring transitive dependencies.** The propagation path is not visible in the
 direct edges.
 
@@ -205,9 +205,9 @@ With `customer-identity` extracted, and all three depending on it, the cycle
 disappeared — and `customer` was left with what actually belonged to it, the credit
 logic.
 
-The cycle was a symptom of a missing concept, not of a wrong arrow. That is the
-most common case, and the one the inversion technique alone would not have solved
-well.
+The cycle was a symptom of a missing concept, not of a wrong arrow. When a cycle
+has that origin, inverting one of the edges settles the edge and leaves the
+unnamed concept scattered across the three packages.
 
 ## How to introduce this into an existing system
 

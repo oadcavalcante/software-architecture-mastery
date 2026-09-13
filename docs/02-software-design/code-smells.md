@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [refactoring, technical-debt, dry]
 canonical_for: [code smell, cheiro de código]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -163,7 +163,7 @@ trimestre foi zerá-las.
 
 Ao final, 310 corrigidas. O tempo de entrega de funcionalidades não mudou.
 
-A análise posterior cruzou as violações com o histórico: 280 delas estavam em
+A análise posterior cruzou as 310 corrigidas com o histórico: 280 delas estavam em
 arquivos alterados menos de duas vezes no ano. Os juros eram próximos de zero.
 
 As 30 restantes estavam em quatro arquivos que apareciam em 60% dos commits.
@@ -171,7 +171,7 @@ Nenhum deles era o de pior pontuação na ferramenta — os problemas ali eram
 shotgun surgery e inappropriate intimacy, que o analisador não detecta.
 
 O trimestre seguinte tratou apenas esses quatro arquivos. O tempo médio de
-entrega caiu de forma mensurável.
+entrega caiu perto de 20% — a mesma medida que o trimestre anterior não moveu.
 
 A diferença entre os dois trimestres não foi o esforço. Foi olhar para o
 histórico antes de escolher.
@@ -188,9 +188,9 @@ Smells locais frequentemente apontam para problemas de fronteira. A tradução:
 | Inappropriate intimacy | Fronteira nominal, não imposta |
 | Primitive obsession | Conceito de domínio sem tipo próprio |
 | Long parameter list | Objeto de valor faltando |
-| Data clumps | Os mesmos parâmetros sempre juntos são um conceito |
+| Data clumps | Dados sem dono; a regra que os liga não tem casa |
 | Middle man | Camada anêmica que só repassa |
-| Speculative generality | Abstração criada antes do terceiro caso |
+| Speculative generality | Requisito futuro tratado como certo |
 
 A coluna da direita é o que vale corrigir. Corrigir a da esquerda sem a da
 direita produz o mesmo problema com forma diferente — o método de 80 linhas vira
@@ -223,10 +223,12 @@ troca que antes só a atenção impedia.
 questão de organização. Atravessando módulos, é sinal de que a fronteira está no
 lugar errado — e fronteira errada custa em toda mudança, não só naquele método.
 
-**Nome que mente.** Um método chamado `validar` que também persiste é o defeito
-mais caro desta lista, porque destrói a confiança em todos os outros nomes do
-sistema. Quem lê passa a precisar verificar cada chamada, e a leitura deixa de
-render.
+**Nome que mente.** Um método chamado `validar` que também persiste — o caso que
+[Clean Code](/02-software-design/clean-code.md) trata como o pior, porque a
+desconfiança se estende a todos os outros nomes. Dos três, é o que mais rende em
+revisão: o autor ainda tem o contexto para escolher entre corrigir o nome e
+separar o efeito, e depois de mesclado ninguém mais sabe qual das duas era a
+intenção.
 
 Os demais smells são melhor tratados como material de refatoração planejada,
 priorizada por frequência de mudança, e não como comentário pontual em revisão.

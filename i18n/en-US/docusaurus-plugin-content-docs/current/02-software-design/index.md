@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [design-patterns, domain-driven-design]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -43,8 +43,9 @@ is also where most of the maintenance cost is decided.
 tools with a range of application, not as commandments — including the cases where
 applying them produces worse code.
 
-**Structure.** Encapsulation, interfaces, boundaries, layering, modular design and
-package design. How to decide what stays together and what stays apart.
+**Structure.** Encapsulation, interfaces, boundaries, layering, modular design,
+package design and component design. How to decide what stays together and what
+stays apart.
 
 **Dependencies.** Dependency inversion, dependency direction and composition
 versus inheritance. This is the core of the section: the direction dependencies
@@ -54,14 +55,15 @@ point in determines what you can change without breaking things.
 Adapters. Four names for the same central idea, with differences that matter less
 than the literature suggests — and a cost the literature mentions little.
 
-**Maintenance.** Refactoring and code smells. How to recognize structure that is
-degrading before the cost becomes visible in the roadmap.
+**Maintenance.** Clean code, code smells and refactoring. How to recognize
+structure that is degrading before the cost becomes visible in the roadmap.
 
 ## Reading order
 
 Start with **boundaries** and **dependency direction**. They are the two concepts
 everything else depends on, and the ones that most change how you look at a
-repository.
+repository. Each has a short entry ahead of it: encapsulation and interfaces lead
+to boundaries; dependency inversion leads to dependency direction.
 
 The four code architectures — Clean, Hexagonal, Onion, Ports and Adapters — can be
 read as a block. They share the same thesis; reading all four in sequence makes

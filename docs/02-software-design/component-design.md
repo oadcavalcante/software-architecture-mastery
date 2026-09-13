@@ -13,7 +13,7 @@ objective: >
 prerequisites: [package-design]
 related: [modular-design, boundaries, dependency-direction]
 canonical_for: [design de componentes, componente implantável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -68,6 +68,11 @@ resto.
 Se nenhuma se aplica, um módulo interno entrega o mesmo isolamento lógico por uma
 fração do custo.
 
+Quando o componente é um processo com contrato de rede, as mesmas razões são
+recortadas de outro modo — isolamento de falha entra como razão própria, no lugar
+da fronteira organizacional. Ver
+[fronteiras de serviço](/05-system-design/service-boundaries.md).
+
 ### Componente e módulo não são a mesma escala
 
 | | Módulo | Componente |
@@ -87,8 +92,9 @@ provarem no histórico, e só então promover a componente o módulo que tem uma
 quatro razões.
 
 A ordem inversa — decidir componentes antes de conhecer os eixos de mudança —
-produz fronteiras de alto custo no lugar errado. E fronteira de componente errada
-é a mais cara de corrigir de todas.
+produz fronteiras de alto custo no lugar errado. E corrigir uma fronteira de
+componente custa migração — de dados, de consumidores e de pipeline — onde mover
+uma fronteira de módulo custa uma refatoração.
 
 ### O contrato de componente é público
 
@@ -151,11 +157,13 @@ diagnosticar às três da manhã.
 
 ## Modos de Falha
 
-**Componentes acoplados no release.** Sempre implantados juntos, em ordem, com
-versões casadas.
+**Monolito distribuído.** Componentes sempre implantados juntos, em ordem e com
+versões casadas, cuja indisponibilidade mútua derruba tudo: o custo da separação
+sem nenhum de seus benefícios. Ver
+[microsserviços](/03-design-patterns/microservices.md).
 
-**Monolito distribuído.** Componentes separados que se chamam sincronamente em
-cadeia; a falha de um derruba todos.
+**Cascata síncrona.** Componentes separados que se chamam sincronamente em cadeia;
+a falha de um derruba todos.
 
 **Componente sem dono.** Ninguém responde pelo seu ciclo de vida.
 
@@ -168,8 +176,8 @@ custo aparece em plantão e em tempo de diagnóstico.
 
 **Justificar por limpeza de código.** Não é razão suficiente.
 
-**Ignorar o custo operacional.** É o maior componente do custo e o menos
-contabilizado.
+**Ignorar o custo operacional.** Ele é recorrente, por ano de vida do componente;
+o de implementação é pago uma vez.
 
 **Tratar o contrato como refatorável.** Ele é público.
 
@@ -184,8 +192,9 @@ acoplado e cresceu demais".
 As quatro razões foram verificadas.
 
 *Ciclo de vida?* Não — relatórios subiam junto com o resto e ninguém reclamava.
-*Requisito de qualidade distinto?* Sim — uma consulta pesada consumia memória e já
-tinha derrubado a aplicação duas vezes.
+*Requisito de qualidade distinto?* Sim — a consulta de fechamento mensal carregava
+cerca de 3 GB num processo com 4 GB de heap, rodava algumas dezenas de vezes por
+dia e já tinha derrubado a aplicação duas vezes no trimestre.
 *Fronteira organizacional?* Não — mesmo time.
 *Consumidor externo?* Não.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [code-smells, refactoring, design-heuristics]
 canonical_for: [clean code, código limpo, legibilidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -48,7 +48,8 @@ mais do que qualquer debate sobre estilo.
 
 ### Nomes
 
-O item de maior retorno, com folga.
+Entre os itens desta seção, é o de maior retorno por esforço: renomear é uma
+alteração mecânica, e o efeito vale para toda leitura futura do trecho.
 
 Um nome bom torna o comentário desnecessário. Um nome ruim exige que o leitor
 mantenha uma tradução na cabeça durante toda a leitura.
@@ -136,10 +137,13 @@ código estável é custo sem retorno.
 ## Alternativas
 
 - **Testes como documentação** — um teste bem nomeado comunica intenção melhor que
-  muitos comentários.
+  muitos comentários. Vence quando o que confunde é o comportamento esperado, não a
+  estrutura do código.
 - **Tipos expressivos** — um tipo `Cpf` comunica mais que um `String` bem nomeado.
+  Vence onde criar um tipo é barato e o valor circula por muitas assinaturas.
 - **[Heurísticas de design](/02-software-design/design-heuristics.md)** — critérios mais estruturais
-  e menos sujeitos a interpretação.
+  e menos sujeitos a interpretação. Vencem quando o desacordo é sobre onde uma
+  responsabilidade mora, e nenhum nome resolve isso.
 
 ## Trade-offs
 
@@ -155,7 +159,8 @@ código estável é custo sem retorno.
 **Fragmentação excessiva.** Funções minúsculas que sempre são chamadas em
 sequência, e cujo entendimento exige abrir todas.
 
-**Nome que mente.** Descreve algo diferente do que o código faz. É o pior caso.
+**Nome que mente.** Descreve algo diferente do que o código faz, e por isso atravessa
+a revisão sem que ninguém abra a função.
 
 **Comentário desatualizado.** Descreve o código de dois anos atrás e é acreditado.
 
@@ -164,15 +169,20 @@ uma variável bem nomeada resolveria.
 
 ## Erros Comuns
 
-**Tratar as regras como literais.** Especialmente a de tamanho de função.
+**Tratar as regras como literais.** Especialmente a de tamanho: a revisão passa a
+cobrar contagem de linhas, e quem escreve extrai para passar na revisão, não para o
+leitor.
 
-**Eliminar todos os comentários.** Os de "por quê" são insubstituíveis.
+**Eliminar todos os comentários.** A razão que justificou um valor empírico sai do
+código com eles, e a próxima pessoa ajusta o valor sem saber o que ele segurava.
 
-**Discutir estilo em vez de esforço de leitura.** A pergunta é o que fica mais
-difícil de entender, não o que agrada mais.
+**Discutir estilo em vez de esforço de leitura.** Sem critério observável, a
+discussão termina por antiguidade ou cansaço, e o mesmo desacordo volta na revisão
+seguinte.
 
-**Aplicar com o mesmo rigor em todo lugar.** Código de domínio merece mais que
-código de configuração.
+**Aplicar com o mesmo rigor em todo lugar.** A atenção disponível se gasta em
+configuração e cabeamento, e a regra de negócio recebe a mesma revisão superficial
+que eles.
 
 ## Exemplo Real
 
@@ -180,11 +190,12 @@ Uma revisão de código pediu a extração de uma função de 40 linhas em oito 
 menores. O autor discordou; a discussão empacou em preferência.
 
 O critério que a resolveu: pediram a uma pessoa que não conhecia o código que
-lesse cada versão e explicasse o que ela fazia.
+lesse cada versão e explicasse o que ela fazia — a de 40 linhas primeiro.
 
-Na versão de 40 linhas, ela levou três minutos e acertou. Na versão extraída,
-levou sete e errou a ordem de duas etapas, porque os nomes das funções não
-indicavam sequência.
+Nessa, ela levou três minutos e acertou. Na versão extraída, já sabendo o que o
+código fazia, levou sete e errou a ordem de duas etapas, porque os nomes das
+funções não indicavam sequência. A ordem da leitura jogava a favor da versão
+extraída, e ainda assim ela saiu atrás.
 
 A versão final ficou com três funções, não oito nem uma — separando os três
 níveis de abstração que de fato existiam: obter os dados, aplicar a regra,

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [layering, modular-design, dependency-direction]
 canonical_for: [fronteira, fronteira arquitetural, boundary]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -32,10 +32,10 @@ falha para de se propagar.
 
 Todo sistema tem fronteiras. A questão é se foram decididas ou se emergiram.
 
-Fronteiras emergentes são as piores possíveis, porque acompanham o acidente
-histórico: onde o primeiro desenvolvedor colocou o arquivo, qual módulo estava
-aberto quando a funcionalidade foi pedida, qual pessoa tinha tempo naquela
-semana.
+Fronteiras emergentes acompanham o acidente histórico: onde o primeiro
+desenvolvedor colocou o arquivo, qual módulo estava aberto quando a funcionalidade
+foi pedida, qual pessoa tinha tempo naquela semana. Nenhum desses critérios tem
+relação com o eixo de mudança, e é por isso que a travessia sai cara.
 
 Mas a decisão consciente também erra, e de duas formas simétricas.
 
@@ -84,9 +84,10 @@ por ordens de grandeza:
 | Processo / serviço | Rede | Latência, falha parcial, serialização, operação |
 | Sistema / organização | Contrato formal | Negociação entre times |
 
-Subir de nível sem necessidade é a origem mais comum de complexidade acidental em
-sistemas distribuídos. Uma fronteira de módulo mal desenhada custa refatoração;
-a mesma fronteira mal desenhada entre serviços custa meses.
+Subir de nível sem necessidade paga o custo da coluna da direita por um isolamento
+que o nível abaixo já entregava — e o erro encarece com a altura: uma fronteira de
+módulo mal desenhada custa refatoração; a mesma fronteira mal desenhada entre
+serviços custa meses.
 
 **Escolha o nível mais baixo que resolve o problema.** É quase sempre mais baixo
 do que a proposta inicial sugere.
@@ -128,21 +129,20 @@ verificada, não é promessa — é intenção.
 **Quando os dois lados sempre mudam juntos.** A fronteira vira imposto sobre
 toda alteração, sem nenhum benefício.
 
-**Quando o domínio ainda não está entendido.** Fronteira errada é mais cara que
-fronteira ausente, e um domínio novo não revela seus eixos de mudança em poucos
-meses. Comece com separações fracas e endureça o que se provar estável.
+**Quando o domínio ainda não está entendido.** O custo de congelar cedo está em
+[modularidade](/01-fundamentals/modularity.md); para fronteiras, a consequência é
+de mecanismo: escolha primeiro o que se desfaz sem migração.
 
-**Num nível mais alto do que o necessário.** Separar em serviços o que poderia ser
-módulos troca uma chamada de função por rede, serialização, falha parcial e mais
-um pipeline de implantação — para obter, na maior parte dos casos, o mesmo
-isolamento lógico.
+**Num nível mais alto do que o necessário.** A tabela de níveis já dá o preço: cada
+degrau acima cobra em latência, falha parcial e operação o que o degrau abaixo
+cobrava em compilação e disciplina — pelo mesmo isolamento lógico.
 
 **Quando o custo de tradução excede o benefício.** Se manter a fronteira exige
 converter tipos em cada travessia e as travessias são frequentes, ou a fronteira
 está no eixo errado ou não deveria existir.
 
-**Por simetria estética.** Fronteiras criadas para que "cada camada tenha a sua"
-adicionam custo sem capturar nenhuma separação real.
+**Por simetria estética.** "Cada camada tem a sua" produz fronteiras que o teste de
+travessia reprova: os commits atravessam todas elas.
 
 ## Alternativas
 
@@ -177,9 +177,10 @@ pull request que sempre toca os dois lados.
 
 **Fronteira nominal.** Existe no diagrama e nada a impõe.
 
-**Fronteira no nível alto demais.** Dois serviços que sempre são implantados
-juntos e cuja indisponibilidade de um torna o outro inútil. São um serviço com
-custo de dois.
+**Fronteira no nível alto demais.** As duas implantações saem sempre no mesmo dia,
+e a queda de um dos lados deixa o outro sem o que fazer. O critério para separar
+processos está em
+[fronteiras de serviço](/05-system-design/service-boundaries.md).
 
 **Fronteira que ninguém consegue explicar.** Herdada, atravessada por exceções
 acumuladas, mantida por medo.
@@ -194,7 +195,9 @@ do outro. Corta perpendicular ao eixo de mudança.
 **Escolher o nível pelo que soa moderno.** Serviço separado é uma decisão de
 operação, não de organização de código.
 
-**Deixar passar o tipo do ORM ou do framework.** O vazamento mais comum.
+**Deixar passar o tipo do ORM ou do framework.** Devolver a entidade mapeada em
+vez de traduzi-la poupa uma classe hoje e promove o esquema do banco a contrato:
+daí em diante, toda mudança de mapeamento atravessa a fronteira.
 
 **Não medir travessias.** O histórico de commits diz se a fronteira está no lugar
 certo, e quase ninguém consulta.

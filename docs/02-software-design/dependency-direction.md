@@ -13,7 +13,7 @@ objective: >
 prerequisites: [dependency-inversion]
 related: [package-design, boundaries, component-design]
 canonical_for: [direção de dependência, princípio das dependências acíclicas, dependências acíclicas]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -94,7 +94,8 @@ Duas métricas de Martin, úteis como diagnóstico:
 dependem e que depende de poucos tem I próximo de 0 — é estável, e mudá-lo é caro.
 O inverso tem I próximo de 1 — é volátil, e mudá-lo é barato.
 
-**Abstração** `A = classes abstratas / classes totais`, entre 0 e 1.
+**Abstração** `A = (classes abstratas + interfaces) / classes totais`, entre 0
+e 1. Um pacote só de interfaces tem A = 1.
 
 A regra que liga as duas: **um pacote estável deve ser abstrato.** Se muita coisa
 depende dele, ele precisa ser difícil de tornar obsoleto — e abstrações são mais
@@ -115,9 +116,9 @@ produz abstração pela abstração.
 
 ## Modelo Mental
 
-**Desenhe o grafo e procure setas apontando para cima.** Se um pacote de alto
-nível aponta para um de baixo nível, ou se duas setas formam um ciclo, há
-trabalho a fazer.
+**Desenhe o grafo com os pacotes estáveis embaixo e os voláteis em cima, e
+procure setas apontando para cima.** Se um pacote estável aponta para um volátil,
+ou se duas setas formam um ciclo, há trabalho a fazer.
 
 ## Quando Usar
 
@@ -176,8 +177,6 @@ Toda mudança nele afeta o sistema.
 
 **Quebrar ciclo com interface sem pensar.** Às vezes fundir é a resposta.
 
-**Tratar as métricas como meta.** Diagnóstico, não prescrição.
-
 **Ignorar dependências transitivas.** O caminho de propagação não é visível nas
 arestas diretas.
 
@@ -203,8 +202,9 @@ Extraído `cliente-identidade`, do qual os três passaram a depender, o ciclo
 desapareceu — e `cliente` ficou com o que de fato lhe pertencia, a lógica de
 crédito.
 
-O ciclo era sintoma de um conceito faltando, não de uma seta errada. É o caso mais
-comum, e o que a técnica de inversão sozinha não resolveria bem.
+O ciclo era sintoma de um conceito faltando, não de uma seta errada. Quando o
+ciclo tem essa origem, inverter uma das arestas resolve a aresta e deixa o
+conceito sem nome espalhado pelos três pacotes.
 
 ## Como introduzir isso num sistema existente
 

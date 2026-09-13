@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [architecture-vs-design, architecture-as-decisions]
 canonical_for: [arquitetura de software, software architecture]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -100,10 +100,11 @@ Um sistema pode ter diagrama impecável e arquitetura ruim.
 
 Pense em arquitetura como o conjunto de portas que você fecha.
 
-Cada decisão abre um caminho e fecha outros. Escolher consistência forte fecha a
-porta de operar durante partição de rede. Escolher um banco de documentos fecha
-a porta de consultas relacionais baratas. Escolher microsserviços fecha a porta
-de transações locais entre eles.
+Cada decisão abre um caminho e fecha outros. Escolher consistência forte fecha
+a porta de atender todos os clientes durante uma
+[partição de rede](/06-distributed-systems/cap.md). Escolher um banco de
+documentos fecha a porta de consultas relacionais baratas. Escolher
+microsserviços fecha a porta de transações locais entre eles.
 
 Decisões arquiteturais são aquelas cujas portas fechadas são caras de reabrir.
 
@@ -136,19 +137,21 @@ como arquitetura, que é uma conversa sem saída porque não tem critério.
 ## Erros Comuns
 
 **Confundir arquitetura com tecnologia.** "Nossa arquitetura é Kubernetes com
-Kafka" descreve escolhas de infraestrutura, não arquitetura. As decisões
-arquiteturais estão em como as fronteiras foram desenhadas e que garantias
-existem entre elas — coisas que sobrevivem à troca de Kafka por outra coisa.
+Kafka" lista componentes, não arquitetura. A escolha de Kafka pode muito bem ser
+arquitetural pelo critério daqui — num sistema com dezenas de produtores e
+consumidores acoplados ao broker, ela é caríssima de reverter. O que o nome do
+componente não diz é o que mais custa: como as fronteiras foram desenhadas e que
+garantias existem entre elas.
 
 **Tratar arquitetura como fase.** Arquitetura não acontece antes do
 desenvolvimento e termina. Decisões de alto custo de reversão continuam sendo
 tomadas no ano três, e frequentemente por quem não se considera arquiteto.
 
 **Presumir que decisão difícil de tomar é decisão difícil de reverter.** São
-independentes. Escolher entre dois provedores de nuvem é uma decisão penosa de
-tomar e cara de reverter. Escolher o nome de um campo público de API é uma
-decisão trivial de tomar e cara de reverter. A segunda recebe menos atenção do
-que merece precisamente por ser fácil.
+independentes, e quem mostra isso são os casos cruzados. Padronizar o estilo de
+código do time rende semanas de debate e se reverte com um comando. Escolher o
+nome de um campo público de API é uma decisão trivial de tomar e cara de
+reverter — e recebe menos atenção do que merece precisamente por ser fácil.
 
 **Achar que decisão arquitetural precisa ser grande.** Muitas são pequenas em
 esforço e enormes em consequência: o formato de um identificador, a semântica de

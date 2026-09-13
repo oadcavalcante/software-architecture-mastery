@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [solid, kiss, design-patterns]
 canonical_for: [heurísticas de design, design heuristics]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -43,11 +43,18 @@ Heurística resolve os dois. Ela vem com a força do argumento explícita, o que
 permite pesá-la contra outras considerações — e o exercício de pesar é o que
 desenvolve julgamento.
 
+O que ela introduz é o custo do formato: heurística não é verificável. Uma regra
+passa por linter e por revisão sem discussão; uma heurística exige julgamento a
+cada aplicação e dá cobertura a quem prefere não exercê-lo ("é heurística, não se
+aplica aqui"). Para quem ainda não tem julgamento formado, a regra rende mais no
+curto prazo — o que ela não rende é o julgamento.
+
 ## Conceitos Centrais
 
 ### As quatro regras de design simples
 
-Formuladas por Kent Beck, em ordem de prioridade:
+Formuladas por Kent Beck em *Extreme Programming Explained* (1999), em ordem de
+prioridade:
 
 1. **Passa em todos os testes.**
 2. **Revela a intenção.**
@@ -57,6 +64,11 @@ Formuladas por Kent Beck, em ordem de prioridade:
 A ordem é a parte que importa. Quando 3 e 4 conflitam com 2, a intenção vence —
 o que legitima duplicação que torna o código mais claro. É a versão mais enxuta
 de tudo o que [SOLID](/02-software-design/solid.md) e [Clean Code](/02-software-design/clean-code.md) tentam capturar.
+
+A ordem entre 2 e 3 não é consensual: a 2ª edição (2004) reapresenta os mesmos
+critérios como apropriado, comunicativo, fatorado e mínimo, e parte da literatura
+inverte intenção e duplicação. O argumento acima depende só de 2 estar acima de
+3 e 4.
 
 ### Um conjunto operacional
 
@@ -73,8 +85,8 @@ Heurísticas que aparecem repetidamente neste material, reunidas:
 **Prefira a opção mais barata de abandonar.** Quando duas alternativas empatam, a
 reversibilidade decide.
 
-**Espere a terceira ocorrência.** Antes de abstrair. Duas não distinguem
-coincidência de conceito.
+**Espere a terceira ocorrência.** Antes de abstrair. Ver
+[acoplamento vs. duplicação](/20-trade-offs/coupling-vs-duplication.md).
 
 **Duplicação é mais barata que a abstração errada.** O corolário do anterior.
 
@@ -88,7 +100,9 @@ de coesão.
 
 **Nomeie pelo domínio, não pela implementação.**
 
-**Se você não consegue escrever o teste que verifica, não é requisito.**
+**Se você não consegue dizer como verificaria, ainda é intenção, não requisito.**
+Teste automatizado é uma forma de verificação; inspeção, evidência de auditoria e
+medição em produção são outras.
 
 ### Heurísticas conflitam
 
@@ -118,8 +132,9 @@ primeira aplicação.
 
 **Coletar heurísticas sem entender os argumentos.** Vira lista de slogans.
 
-**Achar que o conflito entre elas é um problema a resolver.** É onde o trabalho
-está.
+**Achar que o conflito entre elas é um problema a resolver.** Leva a podar o
+conjunto até sobrar uma heurística por situação — que é a regra de volta, com
+outro nome.
 
 **Aplicar sem verificar o contexto.** Toda heurística tem uma faixa. "Espere a
 terceira ocorrência" não se aplica quando a terceira é uma obrigação regulatória
@@ -177,8 +192,8 @@ provavelmente estão mal formuladas.
 
 ## Para Aprofundar
 
-- Beck, Kent. *Extreme Programming Explained*. 2ª ed., Addison-Wesley, 2004 — as
-  quatro regras de design simples.
+- Beck, Kent. *Extreme Programming Explained*. Addison-Wesley, 1999 (2ª ed., 2004)
+  — as quatro regras de design simples.
 - Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
 - Riel, Arthur. *Object-Oriented Design Heuristics*. Addison-Wesley, 1996 — o
   catálogo clássico.

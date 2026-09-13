@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-design]
 related: [coupling, cohesion, dependency-direction, boundaries]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -121,22 +121,26 @@ That is counterintuitive, because "on loan" looks like a state of the copy. Mode
 the collection to circulation and produces the cycle. A copy has a physical state — available, in
 transit, damaged, withdrawn; **on loan is a fact of circulation**, not of the collection.
 
-Whoever models "on loan" as a state of the copy discovers the problem at transfer time: a copy in
-transit and on loan at the same time is impossible, and the model allows it.
+Whoever models "on loan" as a state of the copy discovers the problem at transfer time: either "on
+loan" joins the same exclusive set, and marking the copy in transit erases the fact that it is on
+loan, or it becomes a flag beside the physical state, and nothing stops a copy from being in transit
+and on loan at the same time.
 
 **The loan period and suspension rule** deserves its own module, or at least a single point. It is the
 one part of the system with a known expiry date — the brief says it changes by ordinance. A system in
 which that rule lives in three places pays for the change three times, with every ordinance.
 
 The detail that separates a good answer from a great one: the rule has to be **dated**. A loan made
-under the previous ordinance is renewed under which period? The correct answer is the rule in force on
-the loan date, which means the rule is versioned by effective period — and that is a modeling decision,
-not a configuration one.
+under the previous ordinance is renewed under which period? The answer depends on the ordinance's
+transition clause, which the brief does not give — the renewal is arguably a new act, subject to the
+new rule. Either way out requires the rule to be versioned by effective period — and that is a
+modeling decision, not a configuration one.
 
-**What almost everybody gets wrong:** making the reservation queue per copy. The user reserves a title;
-which copy fulfills the reservation is the system's decision at return time. Reserving per copy creates
-queues per physical object and produces the absurd situation of someone waiting for copy 3 while copy 7
-is on the shelf.
+**What almost everybody gets wrong:** the brief fixes the queue per title, and the model still comes
+out with the reservation pointing at a copy. The user reserves a title; which copy fulfills the
+reservation is the system's decision at return time. A reservation tied to a physical object rebuilds
+the per-copy queue the constraint forbade, and produces the absurd situation of someone waiting for
+copy 3 while copy 7 is on the shelf.
 
 See [modular design](/02-software-design/modular-design.md), [boundaries](/02-software-design/boundaries.md) and
 [dependency direction](/02-software-design/dependency-direction.md).

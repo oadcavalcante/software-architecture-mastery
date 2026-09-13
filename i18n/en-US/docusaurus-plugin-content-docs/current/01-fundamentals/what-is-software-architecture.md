@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [architecture-vs-design, architecture-as-decisions]
 canonical_for: [software architecture]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -103,7 +103,8 @@ A system can have an impeccable diagram and a poor architecture.
 Think of architecture as the set of doors you close.
 
 Every decision opens one path and closes others. Choosing strong consistency
-closes the door of operating during a network partition. Choosing a document
+closes the door of serving every client during a
+[network partition](/06-distributed-systems/cap.md). Choosing a document
 database closes the door of cheap relational queries. Choosing microservices
 closes the door of local transactions between them.
 
@@ -141,19 +142,21 @@ criterion.
 ## Common Mistakes
 
 **Confusing architecture with technology.** "Our architecture is Kubernetes with
-Kafka" describes infrastructure choices, not architecture. The architectural
-decisions live in how the boundaries were drawn and what guarantees exist between
-them — things that survive replacing Kafka with something else.
+Kafka" lists components, not architecture. Choosing Kafka may well be
+architectural by the criterion used here — in a system with dozens of producers
+and consumers coupled to the broker, it is enormously expensive to reverse. What
+the component's name does not tell you is what costs the most: how the boundaries
+were drawn and what guarantees exist between them.
 
 **Treating architecture as a phase.** Architecture does not happen before
 development and then end. High-cost-of-reversal decisions keep being made in year
 three, frequently by people who do not consider themselves architects.
 
 **Assuming a decision that is hard to make is hard to reverse.** They are
-independent. Choosing between two cloud providers is painful to make and
-expensive to reverse. Choosing the name of a public API field is trivial to make
-and expensive to reverse. The second gets less attention than it deserves
-precisely because it is easy.
+independent, and the cross cases are what show it. Standardizing the team's code
+style takes weeks of debate and is reversed with a single command. Choosing the
+name of a public API field is trivial to make and expensive to reverse — and it
+gets less attention than it deserves precisely because it is easy.
 
 **Believing an architectural decision has to be big.** Many are small in effort
 and enormous in consequence: the format of an identifier, the semantics of a

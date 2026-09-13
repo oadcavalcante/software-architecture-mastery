@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [code-smells, refactoring, design-heuristics]
 canonical_for: [clean code, readability]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -48,7 +48,8 @@ understand reveals more than any debate about style.
 
 ### Names
 
-The highest-return item, by a wide margin.
+Among the items in this section, the highest return per unit of effort: renaming
+is a mechanical change, and the effect holds for every future reading of the code.
 
 A good name makes the comment unnecessary. A bad name forces the reader to keep a
 translation in mind throughout the reading.
@@ -137,10 +138,13 @@ stable code is cost with no return.
 ## Alternatives
 
 - **Tests as documentation** — a well-named test communicates intent better than
-  many comments.
+  many comments. Wins when what confuses is the expected behaviour, not the
+  structure of the code.
 - **Expressive types** — a `NationalId` type communicates more than a well-named `String`.
+  Wins where creating a type is cheap and the value travels through many signatures.
 - **[Design heuristics](/02-software-design/design-heuristics.md)** — more
-  structural criteria, less open to interpretation.
+  structural criteria, less open to interpretation. Win when the disagreement is
+  about where a responsibility lives, and no name settles that.
 
 ## Trade-offs
 
@@ -156,8 +160,8 @@ stable code is cost with no return.
 **Excessive fragmentation.** Tiny functions always called in sequence, understanding
 which requires opening all of them.
 
-**A name that lies.** Describes something other than what the code does. The worst
-case.
+**A name that lies.** Describes something other than what the code does, and so gets
+through review without anyone opening the function.
 
 **Outdated comment.** Describes the code from two years ago and is believed.
 
@@ -166,15 +170,20 @@ when a well-named variable would do.
 
 ## Common Mistakes
 
-**Treating the rules as literal.** Especially the one about function size.
+**Treating the rules as literal.** Especially the one about size: review starts
+policing line counts, and whoever writes the code extracts to pass review, not for
+the reader.
 
-**Eliminating all comments.** The "why" ones are irreplaceable.
+**Eliminating all comments.** The reason that justified an empirical value leaves the
+code with them, and the next person adjusts the value without knowing what it was
+holding back.
 
-**Discussing style instead of reading effort.** The question is what becomes harder
-to understand, not what is more pleasing.
+**Discussing style instead of reading effort.** With no observable criterion, the
+discussion ends by seniority or fatigue, and the same disagreement returns in the
+next review.
 
-**Applying the same rigour everywhere.** Domain code deserves more than
-configuration code.
+**Applying the same rigour everywhere.** The available attention is spent on
+configuration and wiring, and business rules get the same shallow review they do.
 
 ## Real-World Example
 
@@ -182,11 +191,12 @@ A code review asked for a 40-line function to be extracted into eight smaller on
 The author disagreed; the discussion stalled on preference.
 
 The criterion that resolved it: they asked someone who did not know the code to
-read each version and explain what it did.
+read each version and explain what it did — the 40-line one first.
 
-On the 40-line version, they took three minutes and got it right. On the extracted
-version, they took seven and got the order of two steps wrong, because the function
-names did not indicate sequence.
+On that one, they took three minutes and got it right. On the extracted version,
+already knowing what the code did, they took seven and got the order of two steps
+wrong, because the function names did not indicate sequence. The reading order
+favoured the extracted version, and it still came out behind.
 
 The final version ended up with three functions, not eight and not one — separating
 the three levels of abstraction that genuinely existed: fetch the data, apply the

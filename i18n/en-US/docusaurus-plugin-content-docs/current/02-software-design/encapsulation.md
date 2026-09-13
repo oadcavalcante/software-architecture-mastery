@@ -14,7 +14,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [interfaces, boundaries, solid]
 canonical_for: [encapsulation, information hiding]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -166,8 +166,8 @@ A `Subscription` class with `getStatus()`, `setStatus()`, `getEndDate()` and
 `setEndDate()`.
 
 The rule "a cancelled subscription cannot have its end date changed" existed — in
-four different services, each checking before calling the setter. One of them did
-not check.
+four different services, three of them checking before calling the setter. The
+fourth did not check.
 
 The bug: a batch correction process changed the end date of cancelled
 subscriptions, and billing went back to charging them.
@@ -232,9 +232,10 @@ duplicated across several services, and as bugs where one of the places forgot t
 check something.
 
 The third is organizational. When the service is written by one person and the
-entity by another, putting the rule in the service avoids a conversation. The
-structure of the code comes to reflect the structure of the team's communication,
-which is Conway's law operating at small scale.
+entity by another, putting the rule in the service avoids a conversation. This is
+[Conway's law](/23-architecture-leadership/conways-law.md) operating at class
+scale: the boundary between the two people becomes the boundary between data and
+behavior.
 
 The fix does not start by moving methods. It starts by listing the rules that
 should always hold about the entity, and checking in how many places each one is

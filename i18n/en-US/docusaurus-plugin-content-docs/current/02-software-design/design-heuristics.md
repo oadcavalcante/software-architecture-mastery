@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [solid, kiss, design-patterns]
 canonical_for: [design heuristics]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -44,11 +44,19 @@ A heuristic solves both. It comes with the force of its argument made explicit,
 which allows weighing it against other considerations — and the exercise of
 weighing is what develops judgement.
 
+What it introduces is the cost of the format: a heuristic is not checkable. A rule
+passes a linter and a review without discussion; a heuristic demands judgement at
+every application, and it gives cover to whoever would rather not exercise it ("it
+is a heuristic, it does not apply here"). For whoever has no judgement formed yet,
+the rule pays off more in the short term — what it does not pay off is the
+judgement.
+
 ## Core Concepts
 
 ### The four rules of simple design
 
-Formulated by Kent Beck, in priority order:
+Formulated by Kent Beck in *Extreme Programming Explained* (1999), in priority
+order:
 
 1. **Passes all the tests.**
 2. **Reveals intent.**
@@ -59,6 +67,11 @@ The order is the part that matters. When 3 and 4 conflict with 2, intent wins �
 which legitimizes duplication that makes the code clearer. It is the leanest version
 of everything [SOLID](/02-software-design/solid.md) and
 [Clean Code](/02-software-design/clean-code.md) try to capture.
+
+The order between 2 and 3 is not settled: the 2nd edition (2004) restates the same
+criteria as appropriate, communicative, factored and minimal, and part of the
+literature swaps intent and duplication. The argument above depends only on 2
+ranking above 3 and 4.
 
 ### An operational set
 
@@ -76,8 +89,8 @@ It guides [modularity](/01-fundamentals/modularity.md),
 **Prefer the option that is cheapest to abandon.** When two alternatives tie,
 reversibility decides.
 
-**Wait for the third occurrence.** Before abstracting. Two do not distinguish
-coincidence from concept.
+**Wait for the third occurrence.** Before abstracting. See
+[coupling vs. duplication](/20-trade-offs/coupling-vs-duplication.md).
 
 **Duplication is cheaper than the wrong abstraction.** The corollary of the
 previous one.
@@ -92,7 +105,9 @@ cohesion test.
 
 **Name by the domain, not by the implementation.**
 
-**If you cannot write the test that verifies it, it is not a requirement.**
+**If you cannot say how you would verify it, it is still an intention, not a
+requirement.** An automated test is one form of verification; inspection, audit
+evidence and production measurement are others.
 
 ### Heuristics conflict
 
@@ -124,8 +139,9 @@ at the first application.
 **Collecting heuristics without understanding the arguments.** It becomes a list of
 slogans.
 
-**Thinking the conflict between them is a problem to solve.** It is where the work
-is.
+**Thinking the conflict between them is a problem to solve.** It leads to pruning
+the set until one heuristic is left per situation — which is the rule back again,
+under another name.
 
 **Applying without checking the context.** Every heuristic has a range. "Wait for
 the third occurrence" does not apply when the third is a regulatory obligation with
@@ -183,8 +199,8 @@ probably badly formulated.
 
 ## Further Exploration
 
-- Beck, Kent. *Extreme Programming Explained*. 2nd ed., Addison-Wesley, 2004 — the
-  four rules of simple design.
+- Beck, Kent. *Extreme Programming Explained*. Addison-Wesley, 1999 (2nd ed., 2004)
+  — the four rules of simple design.
 - Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
 - Riel, Arthur. *Object-Oriented Design Heuristics*. Addison-Wesley, 1996 — the
   classic catalogue.

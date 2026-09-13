@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encapsulation]
 related: [solid, interfaces, code-smells]
 canonical_for: [composição, herança, composição sobre herança]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -182,7 +182,7 @@ adotada foi um parâmetro `tipoDeEnvio` em `enviar()`, com um `switch`.
 Seis meses depois, formatos: PDF, CSV, XLSX. Segundo `switch`.
 
 Ao final, `RelatorioBase` tinha 300 linhas, dois `switch`, e as onze subclasses
-sobrescreviam entre um e cinco métodos cada, de formas que ninguém conseguia
+sobrescreviam entre um e três métodos cada, de formas que ninguém conseguia
 prever sem ler todas.
 
 A reformulação por composição:
@@ -214,7 +214,9 @@ Diante de uma escolha concreta, quatro perguntas em ordem:
 | A hierarquia é rasa e fechada? | **herde** | **componha** |
 
 A primeira pergunta elimina a maior parte dos casos. A terceira é a que mais
-salva: herdar de interface ou classe abstrata pura é seguro; herdar código não é.
+salva: herdar de interface ou classe abstrata pura é seguro em qualquer
+hierarquia; herdar código só se sustenta sob a condição da quarta pergunta —
+hierarquia rasa e fechada.
 
 Um caso limite que vale nomear: **frameworks que exigem herança**. Estender uma
 classe base de framework para obter o comportamento dele é herança de
