@@ -13,7 +13,7 @@ objective: >
 prerequisites: [04-scaling-ecommerce]
 related: [messaging, delivery-guarantees, idempotency, eventual-consistency]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -56,7 +56,8 @@ acquirer          a synchronous API, with no guaranteed idempotency;
                   responds between 400 ms and 3 s, with a timeout
                   in ~0.2% of calls
 inventory
-  reservation     expires in 30 minutes, from exercise 03
+  reservation     expires in 30 minutes; the timed reservation comes
+                  from exercise 03, the value is from this scenario
 mobile app        versions up to 14 months old in the field; the current
                   confirmation screen shows "order confirmed"
                   immediately
@@ -148,10 +149,12 @@ old app versions     14-month-old versions show "confirmed";
                      the update
 ```
 
-The last line is the most uncomfortable and the most common in mobile products: part of your base will
-see a message that has stopped being true, and you cannot fix it. The ways out are to degrade the
-behavior for old versions — keeping them in the synchronous flow, for instance — or to force an update,
-which has a cost of its own.
+The last line is the most uncomfortable, and the only one no work of yours resolves: in a product with
+an installed app, the update is the customer's decision, and part of your base will see a message that
+has stopped being true without your being able to fix it. The ways out are to degrade the behavior for
+old versions — keeping them in the synchronous flow, for instance, which hands that slice back the
+unavailability the change was meant to take out of checkout — or to force an update, which has a cost
+of its own.
 
 **The 30-minute reservation** against an authorization that rarely exceeds 3 seconds looks comfortable,
 and it isn't: when the acquirer degrades, the queue backs up, and authorization can take hours. In that

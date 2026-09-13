@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [sagas, distributed-event-sourcing, ordering]
 canonical_for: [orientado a eventos, notificação de evento, evento com estado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -82,12 +82,13 @@ Isso é consequência direta do desacoplamento, não um defeito de implementaç�
 tem custo operacional real:
 
 - Entender o efeito de uma mudança exige saber quem consome.
-- Depurar exige rastreamento distribuído.
-- Um consumidor que parou de funcionar não gera erro em lugar nenhum — só a
-  ausência de efeito.
+- Depurar exige [rastreamento distribuído](/13-observability/distributed-tracing.md).
+- Um consumidor que parou não devolve erro a quem publicou — o que se observa é a
+  ausência de efeito, e o erro, quando existe, fica no log do próprio consumidor.
 
-A terceira é a mais perigosa. Ver [monitoramento de atraso de
-consumidor](/06-distributed-systems/backpressure.md).
+A terceira é a mais perigosa, e a métrica que a acusa é a idade da mensagem mais
+antiga, não a profundidade da fila. Ver
+[mensageria](/06-distributed-systems/messaging.md).
 
 ### Ordem e entrega não são dadas
 
@@ -95,8 +96,9 @@ Ver [ordenação](/06-distributed-systems/ordering.md) e [garantias de
 entrega](/06-distributed-systems/delivery-guarantees.md).
 
 Eventos podem chegar fora de ordem, duplicados, ou muito depois. Todo consumidor
-precisa ser [idempotente](/06-distributed-systems/idempotency.md), e a maioria precisa tolerar eventos
-fora de ordem.
+cujo efeito seja observável fora do sistema ou irreversível precisa ser
+[idempotente](/06-distributed-systems/idempotency.md), e a maioria precisa tolerar
+eventos fora de ordem.
 
 Consumidores escritos assumindo ordem e entrega única funcionam nos testes e falham
 em produção sob repetição ou rebalanceamento.
@@ -107,7 +109,7 @@ Quando o produtor não sabe quem consome, ele também não sabe quem quebra ao m
 o formato.
 
 Isso exige disciplina: versionamento, mudanças aditivas, período de convivência
-entre versões, e registro de esquema.
+entre versões, e [registro de esquema](/08-integration-architecture/schema-evolution.md).
 
 Times que tratam eventos como estrutura interna descobrem o problema quando um
 campo removido quebra três consumidores.
@@ -168,7 +170,7 @@ O que se ganha em independência se paga em rastreabilidade.
 | Adicionar consumidor não toca o produtor | Toca |
 | Fluxo distribuído | Explícito no código |
 | Rastreamento obrigatório | Pilha de chamadas |
-| Idempotência obrigatória | Frequentemente dispensável |
+| Idempotência em todo consumidor | Idempotência no alvo de toda chamada com retentativa |
 | Absorve picos | Propaga carga |
 
 | Notificação | Evento com estado |
@@ -198,15 +200,21 @@ consumidores.
 
 ## Erros Comuns
 
-**Nomear evento como comando.**
+**Nomear evento como comando.** O produtor volta a decidir a reação, e o próximo
+consumidor só entra mudando o produtor — o desacoplamento que justificava o evento
+não existe mais.
 
-**Tratar o evento como estrutura interna.**
+**Tratar o evento como estrutura interna.** Uma renomeação de campo em refatoração
+de rotina quebra consumidores que ninguém listou.
 
-**Não implementar idempotência.**
+**Não implementar idempotência.** A primeira reentrega — rebalanceamento, reinício
+de consumidor — duplica o efeito em produção, onde os testes não reproduzem.
 
-**Adotar globalmente.**
+**Adotar globalmente.** Integrações que precisavam da resposta ganham indireção sem
+benefício, e a reversão custa mais que a migração.
 
-**Não monitorar atraso de consumidor.**
+**Não monitorar atraso de consumidor.** A falha só aparece quando alguém de fora
+reclama do efeito que não veio, dias depois.
 
 **Não ter rastreamento distribuído desde o início.** Adicionar depois é muito mais
 caro.
@@ -242,8 +250,9 @@ foi a última a ser feita.
 **Registro de esquema** com compatibilidade obrigatória. Renomear campo passou a
 ser rejeitado na publicação.
 
-**Catálogo de eventos** — quem publica, quem consome. Tornou visíveis os
-consumidores desconhecidos e permitiu detectar o ciclo.
+**[Catálogo de eventos](/08-integration-architecture/event-driven-integration.md)** —
+quem publica, quem consome. Tornou visíveis os consumidores desconhecidos e
+permitiu detectar o ciclo.
 
 **Rastreamento distribuído** obrigatório em todo evento.
 

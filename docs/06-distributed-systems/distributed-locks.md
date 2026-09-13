@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consensus]
 related: [leader-election, consensus, idempotency]
 canonical_for: [lock distribuído, exclusão mútua distribuída]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -43,13 +43,13 @@ continuar operando**, sem saber que perdeu.
 ```mermaid
 sequenceDiagram
   participant A as Processo A
+  participant B as Processo B
   participant L as Serviço de lock
   participant R as Recurso
   A->>L: adquire (prazo 10 s)
   L-->>A: ok
   Note over A: pausa de coleta de lixo, 15 s
   Note over L: prazo expira
-  participant B as Processo B
   B->>L: adquire
   L-->>B: ok
   B->>R: escreve
@@ -73,6 +73,9 @@ lentidão de disco e partição de rede produzem atrasos que qualquer prazo razo
 não cobre.
 
 ### Fencing é o que de fato protege
+
+> Pré-requisito: [Eleição de Líder](/06-distributed-systems/leader-election.md) define
+> fencing. Aqui o foco é o recurso que verifica o token, não a liderança que o emite.
 
 A solução correta não está no lock: está no **recurso**.
 
@@ -153,6 +156,9 @@ condicional é mais simples e mais confiável.
 
 **Quando a operação pode ser particionada.**
 
+**Sob alta contenção.** O lock serializa o acesso: a vazão máxima passa a ser a de um
+detentor por vez, e acrescentar processos só aumenta a fila de espera.
+
 **Com prazo longo.** Se o detentor morrer, o recurso fica preso pelo prazo inteiro.
 
 **Como substituto de transação.** Se as operações cabem num banco, a transação dá
@@ -176,6 +182,7 @@ garantias melhores.
 | Coordenação explícita | Nenhuma |
 | Ponto de falha adicional | Sem dependência |
 | Latência de aquisição | Nenhuma |
+| Acesso serializado: vazão limitada a um detentor | Vazão cresce com os processos |
 | Falsa sensação de exclusão sem fencing | Sem ilusão |
 
 ## Modos de Falha

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [03-ecommerce-backend]
 related: [latency, availability, partitioning, hotspots]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -142,7 +142,8 @@ call turns a slow dependency into a total outage. See
 
 ```text
 1. take the external call out of the transaction
-   → resolves the connection exhaustion; costs days
+   → resolves the connection exhaustion; the cost is not
+     days, it is product work — see below
 2. an aggressive timeout and a circuit breaker on the acquirer
    → resolves the propagation of partial unavailability
 3. caching on the catalog and the storefront
@@ -162,7 +163,10 @@ partition the writes           when it passes ~3,000 orders/s
 split into services            when different teams need to
                                deploy independently, and the deploy
                                queue is measured
-multi-region                   exercise 07
+multi-region                   when the agreed target passes
+                               99.95% or more than 10% of revenue
+                               comes from outside the region;
+                               back in exercise 07
 ```
 
 **The exercise 03 decision was not an error.** It was correct for 1,200 orders a day, and that exercise's
@@ -170,7 +174,8 @@ brief said a seven-month deadline and six people with no platform. An asynchrono
 would have cost the deadline and probably the commercial date.
 
 What was missing was not the decision — it was **recording the trigger**. If the exercise 03 ADR had
-said "reassess when the peak passes 20 orders/s or when propagated unavailability passes 4 h/year", the
+said "reassess when the peak passes 20 orders/s or when connections stuck waiting on the
+acquirer pass half the pool", the
 fix would have started before the three campaign episodes.
 
 That is the difference between a decision with a shelf life and a decision that expired without anybody

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [05-async-processing]
 related: [partial-failure, idempotency, retries, duplicate-messages]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -69,7 +69,9 @@ retry               the acquirer does not guarantee idempotency;
                     resending the same request may charge again
 daily file          the acquirer sends a reconciliation file
                     at 4am, with all of the previous day's transactions
-inventory reservation  30 minutes, from exercise 03
+inventory reservation  30 minutes; the reservation with a deadline
+                       comes from exercise 03, the deadline is from
+                       this brief
 regulatory          an improper charge has a refund deadline and
                     mandatory reporting
 ```
@@ -103,8 +105,9 @@ The fifth is the architectural question. The others derive from it.
 
 Your answer is good if:
 
-- **There is an explicit state for "we don't know".** Neither confirmed nor declined. Assuming either
-  one is how the 340 monthly duplicates appear.
+- **There is an explicit state for "we don't know".** Neither confirmed nor declined. Assuming
+  "declined" is how the 340 monthly duplicates appear; assuming "confirmed" ships an order nobody
+  paid for.
 - **The resolution is by query, not by retry.** The acquirer supports a query by identifier; asking is
   safe, resending is not.
 - **Idempotency has two layers.** The customer's key prevents their repeat from becoming a second
@@ -120,7 +123,8 @@ trades one duplicate for another.
 
 :::details Open after trying
 
-**The state is called ambiguous**, and it is the whole answer to the exercise.
+**The state is called ambiguous** in the model — the `under verification` of exercise 05 is the name it
+gets on the customer's screen —, and it is the whole answer to the exercise.
 
 Marking it as declined is a claim the system has no basis to make. Marking it as confirmed is worse.
 The only true statement is "we sent it and we don't know", and it has to exist in the model — because
@@ -135,7 +139,8 @@ everything that comes afterwards depends on the platform admitting that it doesn
    identifier, with exponential backoff
 3. response "authorized"   → order confirmed
    response "doesn't exist" → order declined, reservation released
-   no response in 30 min    → human escalation
+   no response in 5 min     → human escalation, with the 25
+                               minutes left in the deadline
 4. the 4am file reconciles what is left over and detects
    divergence between what we recorded and what the acquirer
    recorded

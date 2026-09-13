@@ -13,7 +13,7 @@ objective: >
 prerequisites: [network-failure]
 related: [leader-election, timeouts, consensus]
 canonical_for: [detecção de falha, batimento, suspeita de falha]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -77,12 +77,17 @@ Duas melhorias que valem:
 
 **Detecção adaptativa.** Em vez de prazo fixo, ajustar com base no histórico de
 chegada dos batimentos. Um nó cuja rede é consistentemente mais lenta ganha mais
-tolerância.
+tolerância. O ônus é que a tolerância cresce também para o nó que degrada
+devagar — o caso difícil descrito adiante — e que o prazo deixa de ser
+reproduzível: dois episódios iguais recebem prazos diferentes conforme o
+histórico que o detector tinha na hora.
 
 **Suspeita graduada.** Em vez de vivo ou morto, um nível de suspeita que cresce
 com o tempo sem resposta. Quem consome a informação decide o limiar conforme a
 criticidade da ação — remover de balanceamento pode usar limiar baixo; disparar
-eleição, alto.
+eleição, alto. O ônus é operacional: cada consumidor passa a ter um limiar
+próprio para manter coerente, e "o nó estava fora?" passa a ter resposta
+diferente conforme quem pergunta.
 
 A segunda é a abordagem dos detectores acruais, e é mais robusta que o binário.
 
@@ -94,7 +99,9 @@ Detecção indireta pede a um terceiro que verifique: "eu não alcanço C — vo
 alcança?"
 
 Isso distingue partição parcial de falha real, e reduz falsos positivos causados
-por problemas de rede localizados. É o mecanismo central de protocolos de
+por problemas de rede localizados. O custo é um salto a mais antes de decidir —
+a detecção atrasa o tempo de consultar os terceiros — e tráfego de suspeita que
+cresce com o número de nós consultados. É o mecanismo central de protocolos de
 disseminação como SWIM.
 
 ### Detecção não impede o dano
@@ -112,11 +119,10 @@ razão pela qual [fencing](/06-distributed-systems/leader-election.md) é necess
 Um nó que responde ao batimento e processa devagar passa em qualquer detector
 baseado em vivacidade.
 
-Detectar degradação exige medir **latência e taxa de erro**, não apenas presença.
-Ver [falha de rede](/06-distributed-systems/network-failure.md).
-
-Isso é o que torna verificação de saúde binária insuficiente, e por que
-balanceadores modernos consideram latência ao distribuir.
+O que medir no lugar da presença está em
+[falha de rede](/06-distributed-systems/network-failure.md) — e é por isso que
+balanceadores modernos consideram latência ao distribuir, em vez de tratar cada
+instância como um binário.
 
 ## Modelo Mental
 
@@ -149,15 +155,19 @@ latência maior por natureza.
 
 ## Alternativas
 
-- **Detecção adaptativa** — prazo baseado no histórico observado.
-- **Suspeita graduada** — nível em vez de binário.
-- **Detecção indireta** — perguntar a terceiros.
+Detecção adaptativa, suspeita graduada e detecção indireta são variações do
+mesmo mecanismo, já explicadas em Conceitos Centrais. A alternativa que muda a
+pergunta é outra:
+
 - **Circuit breaker** — em vez de decidir se o nó está vivo, decidir se vale
   continuar chamando. Ver
   [confiabilidade](/12-reliability/index.md).
 
-A última muda a pergunta de forma útil: em vez de "ele está vivo?", "as chamadas
-estão funcionando?" — que é o que de fato importa e é diretamente observável.
+Ele vence onde o que importa é o resultado das chamadas, não a identidade do nó:
+em vez de "ele está vivo?", "as chamadas estão funcionando?" — pergunta que quem
+chama responde com o que já observa, sem sondagem própria. Perde onde a decisão
+depende de saber quem está no grupo — eleger líder, redistribuir partição —,
+porque aí a identidade do nó é exatamente o que se precisa.
 
 ## Trade-offs
 
@@ -239,8 +249,10 @@ barato de reverter. Redistribuir trabalho passou a usar 15 segundos — caro, ex
 mais certeza.
 
 **Detecção indireta.** Antes de declarar suspeito, o nó pergunta a três outros se
-eles alcançam. Isso eliminou os falsos positivos causados por congestionamento
-localizado.
+eles alcançam. Isso não ataca a pausa de coleta de lixo — o nó pausado não
+responde a ninguém, e os três apenas confirmam a suspeita. O que a correção
+cobre é a outra classe de falso positivo, a do caminho de rede, que de outro
+modo o limiar de 15 segundos teria de absorver sozinho.
 
 **Ajuste da coleta de lixo** para reduzir as pausas longas — tratando a causa, não
 só o sintoma.

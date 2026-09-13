@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [sagas, distributed-event-sourcing, ordering]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -78,18 +78,20 @@ That is a direct consequence of the decoupling, not an implementation defect. An
 operational cost:
 
 - Understanding a change's effect requires knowing who consumes.
-- Debugging requires distributed tracing.
-- A consumer that stopped working generates no error anywhere — only the absence of an effect.
+- Debugging requires [distributed tracing](/13-observability/distributed-tracing.md).
+- A consumer that stopped returns no error to whoever published — what you observe is the absence of
+  an effect, and the error, when there is one, sits in the consumer's own log.
 
-The third is the most dangerous. See [consumer lag
-monitoring](/06-distributed-systems/backpressure.md).
+The third is the most dangerous, and the metric that exposes it is the age of the oldest message, not
+the queue depth. See [messaging](/06-distributed-systems/messaging.md).
 
 ### Ordering and delivery are not given
 
 See [ordering](/06-distributed-systems/ordering.md) and [delivery
 guarantees](/06-distributed-systems/delivery-guarantees.md).
 
-Events can arrive out of order, duplicated, or much later. Every consumer has to be
+Events can arrive out of order, duplicated, or much later. Every consumer whose effect is observable
+outside the system or irreversible has to be
 [idempotent](/06-distributed-systems/idempotency.md), and most have to tolerate out-of-order events.
 
 Consumers written assuming ordering and single delivery work in tests and fail in production under
@@ -101,7 +103,7 @@ When the producer does not know who consumes, it also does not know who breaks w
 format.
 
 That requires discipline: versioning, additive changes, a coexistence period between versions, and a
-schema registry.
+[schema registry](/08-integration-architecture/schema-evolution.md).
 
 Teams that treat events as internal structures discover the problem when a removed field breaks
 three consumers.
@@ -162,7 +164,7 @@ gain in independence you pay for in traceability.
 | Adding a consumer does not touch the producer | It touches |
 | Distributed flow | Explicit in the code |
 | Tracing mandatory | Call stack |
-| Idempotency mandatory | Frequently dispensable |
+| Idempotency in every consumer | Idempotency in the target of every retried call |
 | Absorbs peaks | Propagates load |
 
 | Notification | Event with state |
@@ -191,15 +193,20 @@ Cycles are possible.
 
 ## Common Mistakes
 
-**Naming an event as a command.**
+**Naming an event as a command.** The producer goes back to deciding the reaction, and the next
+consumer only comes in by changing the producer — the decoupling that justified the event is gone.
 
-**Treating the event as an internal structure.**
+**Treating the event as an internal structure.** A field rename in a routine refactor breaks
+consumers nobody listed.
 
-**Not implementing idempotency.**
+**Not implementing idempotency.** The first redelivery — a rebalance, a consumer restart — duplicates
+the effect in production, where the tests do not reproduce it.
 
-**Adopting it globally.**
+**Adopting it globally.** Integrations that needed the response gain indirection with no benefit, and
+the reversal costs more than the migration.
 
-**Not monitoring consumer lag.**
+**Not monitoring consumer lag.** The failure only shows up when someone outside complains about the
+effect that never came, days later.
 
 **Not having distributed tracing from the start.** Adding it later is far more expensive.
 
@@ -231,8 +238,8 @@ The fixes, in the order the team believes they should have come:
 **A schema registry** with mandatory compatibility. Renaming a field came to be rejected at
 publication.
 
-**An event catalog** — who publishes, who consumes. It made the unknown consumers visible and allowed
-detecting the cycle.
+**An [event catalog](/08-integration-architecture/event-driven-integration.md)** — who publishes,
+who consumes. It made the unknown consumers visible and allowed detecting the cycle.
 
 **Distributed tracing** mandatory on every event.
 

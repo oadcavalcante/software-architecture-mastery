@@ -13,7 +13,7 @@ objective: >
 prerequisites: [poison-messages]
 related: [poison-messages, retries, observability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -121,7 +121,7 @@ Without those three paths defined and owned, the dead-letter becomes a dump.
 
 ## When to Use
 
-- Every message consumer.
+- Every consumer where losing the message costs more than operating one more queue.
 - Especially where the message represents a business operation.
 - Where the queue is ordered — the blockage is more serious.
 
@@ -187,9 +187,9 @@ and frequently cannot.
 **Not defining an owner.** A dead-letter queue with no named owner is emptied by nobody; it becomes a
 graveyard everybody sees on the dashboard and nobody opens.
 
-**Reprocessing with no idempotency.** The message ended up there because it failed after a partial
-effect. Resending it with no protection repeats the effect that succeeded and duplicates a charge,
-stock or a notification.
+**Reprocessing with no idempotency.** Some of the messages end up there after a partial effect.
+Resending them with no protection repeats the effect that succeeded and duplicates a charge, stock
+or a notification.
 
 **Not measuring how long the messages have been there.** The count does not distinguish five
 messages from today from five stuck for two months, and those are completely different situations.
@@ -213,8 +213,9 @@ customers called — which finally led someone to investigate.
 The discovery came from looking at the dead-letter and finding 4,100 messages, the oldest three
 weeks old.
 
-The reprocessing had its own problem: some renewals **had been partially processed** — the charge was
-made and the subscription update failed. Reprocessing charged 180 customers again.
+The reprocessing had its own problem: it failed halfway through. On 180 renewals the charge went
+through and the subscription update did not; the batch's second pass **charged those 180 customers
+again**.
 
 The fixes, in order of importance:
 

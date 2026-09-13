@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [network-failure, partial-failure, latency]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -71,7 +71,9 @@ frequently assumed.
 
 ### The third outcome
 
-The timeout's ambiguity is the most consequential concept at this level.
+The timeout's ambiguity is the most consequential concept at this level. The diagram walks
+through only one of the two possible branches: the request arrived, the charge went through, and
+it was the response that was lost on the way back.
 
 ```mermaid
 sequenceDiagram
@@ -132,13 +134,19 @@ worth it.
 ## Common Mistakes
 
 **Treating a remote call as a slower local one.** See
-[Proxy](/03-design-patterns/proxy.md): the transparency invites the error.
+[Proxy](/03-design-patterns/proxy.md): the transparency invites the error — the failure handling
+a local call does without never gets written, and partial failure shows up in production as an
+uncaught exception.
 
-**Assuming a timeout means it did not happen.**
+**Assuming a timeout means it did not happen.** The compensation fires against an operation that
+did complete, and the two sides end up with different states for the same order.
 
-**Comparing timestamps from different machines.**
+**Comparing timestamps from different machines.** In conflict resolution, the more recent write
+loses to an earlier one whose clock was ahead, and the correct data is discarded without a single
+error in the log.
 
-**Retrying with no idempotency.**
+**Retrying with no idempotency.** Every retry after a timeout adds one more effect — it is
+exactly the incident in the example below.
 
 **Distributing by reputation.** The cost is permanent.
 
@@ -165,15 +173,16 @@ The fix had three parts, and the order matters.
 Automatic retries were disabled for non-idempotent operations — an immediate measure, applied
 the same day.
 
-The endpoint got an idempotency key: the client sends a unique identifier per charge attempt,
-and the provider returns the original result if the key has already been seen.
+The endpoint got an idempotency key: the client sends a unique identifier per logical attempt —
+the same one across every retry of that charge — and the provider returns the original result if
+the key has already been seen.
 
 And the timeout was recalibrated from the measured 99th percentile, not from the round number
 somebody chose.
 
-The detail the team highlights: none of that was new knowledge. All three fixes are in the
-provider's documentation. What was missing was treating the integration as distributed, and
-not as a function call that sometimes takes a while.
+The detail the team highlights: none of the three wrong premises entered the code that Tuesday.
+They had been there since the integration's first version, treated as a function call that
+sometimes takes a while; the latency spike only made visible what had been false for two years.
 
 ## Related Concepts
 

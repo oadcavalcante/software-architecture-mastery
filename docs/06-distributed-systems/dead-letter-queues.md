@@ -13,7 +13,7 @@ objective: >
 prerequisites: [poison-messages]
 related: [poison-messages, retries, observability]
 canonical_for: [dead-letter queue, DLQ]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -134,7 +134,8 @@ o processo não existe.
 
 ## Quando Usar
 
-- Todo consumidor de mensagem.
+- Todo consumidor em que perder a mensagem custa mais do que operar uma fila a
+  mais.
 - Especialmente onde a mensagem representa operação de negócio.
 - Onde a fila tem ordem — o bloqueio é mais grave.
 
@@ -199,7 +200,7 @@ limite, é um laço mais lento.
 
 **Não definir dono.** Uma fila de mensagens mortas sem responsável nomeado não é esvaziada por ninguém; ela vira um cemitério que todos veem no painel e ninguém abre.
 
-**Reprocessar sem idempotência.** A mensagem chegou ali porque falhou depois de ter efeito parcial. Reenviá-la sem proteção repete o efeito que deu certo e duplica cobrança, estoque ou notificação.
+**Reprocessar sem idempotência.** Parte das mensagens chega ali depois de ter tido efeito parcial. Reenviá-las sem proteção repete o efeito que deu certo e duplica cobrança, estoque ou notificação.
 
 **Não medir há quanto tempo as mensagens estão lá.** A contagem não distingue cinco mensagens de hoje de cinco paradas há dois meses, e são situações completamente diferentes. A idade da mais antiga é a métrica útil.
 
@@ -222,9 +223,9 @@ suspensos, e clientes ligaram — o que finalmente levou alguém a investigar.
 A descoberta veio de olhar a dead-letter e encontrar 4 100 mensagens, a mais antiga
 de três semanas.
 
-O reprocessamento teve o próprio problema: algumas renovações **tinham sido
-parcialmente processadas** — a cobrança foi feita e a atualização da assinatura
-falhou. Reprocessar cobrou de novo 180 clientes.
+O reprocessamento teve o próprio problema: ele mesmo falhou no meio. Em 180
+renovações a cobrança passou e a atualização da assinatura não; a segunda passada
+do lote **cobrou de novo** esses 180 clientes.
 
 As correções, em ordem de importância:
 

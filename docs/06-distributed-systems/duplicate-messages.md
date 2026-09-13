@@ -13,7 +13,7 @@ objective: >
 prerequisites: [delivery-guarantees, idempotency]
 related: [idempotency, delivery-guarantees, poison-messages]
 canonical_for: [mensagens duplicadas, deduplicação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -100,17 +100,9 @@ Se o consumidor verifica a chave, processa, e depois registra — existe uma jan
 em que dois consumidores verificam ao mesmo tempo e ambos processam.
 
 A forma correta é a inserção da chave **fazer parte da mesma transação** do efeito,
-com restrição de unicidade fazendo o trabalho:
-
-```text
-BEGIN
-  INSERT INTO processados (chave) VALUES (:chave)   -- falha se já existe
-  ... aplica o efeito ...
-COMMIT
-```
-
-A violação de unicidade indica duplicata, e a transação inteira é descartada. Sem
-janela de corrida.
+com restrição de unicidade: a violação indica duplicata e descarta a transação
+inteira, sem janela de corrida. Por que a transação sozinha não basta e o que a
+unicidade resolve está em [idempotência](/06-distributed-systems/idempotency.md).
 
 ### Deduplicação não resolve tudo
 
@@ -147,7 +139,7 @@ janela não serve.
 
 ## Quando Usar
 
-- Todo consumidor de mensagem, sem exceção.
+- Todo consumidor de mensagem cujo efeito não seja naturalmente idempotente.
 - Toda operação com efeito colateral externo.
 - Especialmente onde o efeito é irreversível — cobrança, envio, emissão de
   documento.
@@ -183,11 +175,9 @@ reconhecer explicitamente, não presumir.
 | Armazenamento de chaves a manter | Nada |
 | Latência ligeiramente maior | Menor |
 
-| Persistida | Janela |
-|---|---|
-| Garantia completa | Dentro da janela |
-| Custo por mensagem | Custo de memória |
-| Detecta reprocessamento antigo | Não |
+A segunda escolha — chave persistida contra janela em cache — está comparada em
+[Persistida ou por janela](#persistida-ou-por-janela). O critério que decide não é o
+custo por mensagem: é se o sistema tem procedimento de reprocessamento.
 
 ## Modos de Falha
 
@@ -225,8 +215,8 @@ Dois incidentes.
 
 **O primeiro** foi um defeito no cálculo de comissão para um tipo de produto.
 Corrigido o código, a equipe reposicionou a leitura para reprocessar as vendas do
-mês. As mensagens tinham identificadores novos — eram entregas novas — e a janela
-de uma hora era irrelevante para eventos de semanas atrás.
+mês. A janela de uma hora era irrelevante para eventos de semanas atrás: o cache
+não guardava nada daquele período, e todas as mensagens passaram na verificação.
 
 Todas as comissões do mês foram lançadas de novo. Os vendedores receberam o dobro,
 e o estorno gerou conversa com o jurídico trabalhista.
@@ -248,8 +238,9 @@ deixou de ser possível.
 E as chaves ganharam expiração de 90 dias — prazo maior que qualquer
 reprocessamento plausível, e curto o bastante para não acumular indefinidamente.
 
-O reprocessamento seguinte, seis meses depois, correu sem incidente: as vendas já
-comissionadas foram descartadas silenciosamente, e apenas as novas foram lançadas.
+O reprocessamento seguinte, seis meses depois, cobriu as duas semanas anteriores e
+correu sem incidente: as vendas já comissionadas ainda estavam dentro dos 90 dias,
+foram descartadas silenciosamente, e apenas as novas foram lançadas.
 
 ## Conceitos Relacionados
 

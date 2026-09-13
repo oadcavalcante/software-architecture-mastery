@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [strong-consistency, conflict-resolution, replication]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -21,11 +21,12 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Eventual consistency guarantees that, **in the absence of new writes**, all replicas eventually
-converge on the same value.
+Eventual consistency guarantees that, **in the absence of new writes to an item**, all replicas
+eventually converge on the same value for that item (Vogels, 2008).
 
 The two parts the statement does not cover are the ones that matter in practice: it does not say
-**when**, and the "absence of new writes" condition never occurs in real systems.
+**when**, and quiescence is per item — in a system with continuous traffic the whole set is never
+quiet at once, so convergence arrives item by item, and for none of them is a deadline promised.
 
 That does not invalidate the guarantee. It means the application has to be designed to observe
 stale data — and that is the part usually forgotten.
@@ -68,15 +69,15 @@ Three responsibilities that pass to the application:
 
 ### Session guarantees solve most of the perception
 
-The most valuable practical point in this document: **the user notices their own inconsistency, and
-tolerates other people's.**
+The three session guarantees — and why they solve the perception at a low cost — are in
+[consistency](/06-distributed-systems/consistency.md). What gets decided here is operational: how
+long the reads of whoever wrote go to the primary.
 
-See [consistency](/06-distributed-systems/consistency.md). Guaranteeing "read your own writes" —
-routing the author's reads to the primary for a short period — eliminates the dominant complaint at
-a very low cost, without giving up read scaling for everything else.
-
-Teams that adopt eventual consistency and do not implement that guarantee spend far more time
-answering tickets than they would have spent implementing it.
+That number comes from the measured convergence lag, at the high percentile and not the median.
+With 2 seconds typical and minutes in the tail, a 30-second window covers the common case and
+leaves the tail uncovered — it is an explicit decision, not a default to inherit. It is the
+highest-return fix in eventual consistency: it costs a routing rule and gives up no read scaling
+for the rest.
 
 ### Design the interface for the delay
 
@@ -90,8 +91,8 @@ current.
 
 **Update stamp.** "Data from 3 minutes ago" communicates honestly.
 
-The third is the cheapest and the least used. A user who knows the data is lagging does not report
-a defect.
+The third is the cheapest of the three and the one that appears least in product. A user who knows
+the data is lagging complains less: the uncertainty stops being indistinguishable from a defect.
 
 ### Convergence needs a mechanism
 
@@ -139,13 +140,10 @@ measure, not a guarantee you receive.
 
 **Where an irreversible decision depends on the value.** Authorizing, approving, releasing.
 
-**Without confirming with the business.** It is a product decision, not an engineering one.
-
-**Without monitoring the lag.** Operating blind.
-
-**With no convergence mechanism.** Permanent divergence.
-
-**Without handling conflicts.** The default resolution — last writer wins — discards data silently.
+**Where the lag has no owner.** A recorded business decision, monitoring, a convergence mechanism
+and conflict handling are prerequisites — each one detailed in Common Mistakes. Where none of them
+has someone who measures the lag and answers for it, the inconsistency window is an unverified
+assumption, not a policy.
 
 ## Alternatives
 
@@ -205,7 +203,7 @@ data as if it were definitive transfers to the user an uncertainty they have no 
 A corporate internal social network moved its feed to read from replicas, with a typical 2-second
 lag.
 
-Three complaints appeared, and only one was actually eventual consistency.
+Three complaints appeared, and only one was not actually eventual consistency.
 
 **"I posted and it doesn't show."** Classic eventual consistency. Resolved with "read your own
 writes": after posting, that user's reads go to the primary for 30 seconds. The complaint
@@ -243,7 +241,8 @@ Then check whether "read your own writes" exists. It is the highest-return fix i
 ## Interview Questions
 
 - What does the eventual consistency guarantee not say?
-- Why do session guarantees solve most of the complaints?
+- How long should the reads of whoever just wrote go to the primary, and where does that number
+  come from?
 - What is necessary for convergence to actually happen?
 
 ## Further Reading

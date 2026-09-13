@@ -13,7 +13,7 @@ objective: >
 prerequisites: [05-async-processing]
 related: [partial-failure, idempotency, retries, duplicate-messages]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -68,7 +68,8 @@ retentativa         o adquirente não garante idempotência;
                     reenviar a mesma requisição pode cobrar de novo
 arquivo diário      o adquirente envia um arquivo de conciliação
                     às 4h, com todas as transações do dia anterior
-reserva de estoque  30 minutos, do exercício 03
+reserva de estoque  30 minutos; a reserva com prazo vem do
+                    exercício 03, o prazo é deste enunciado
 regulatório         cobrança indevida tem prazo de estorno e
                     reporte obrigatório
 ```
@@ -103,7 +104,8 @@ A quinta é a pergunta de arquitetura. As outras derivam dela.
 Sua resposta está boa se:
 
 - **Existe um estado explícito para "não sabemos".** Nem confirmado, nem recusado. Assumir
-  qualquer um dos dois é como as 340 duplicidades mensais aparecem.
+  "recusado" é como as 340 duplicidades mensais aparecem; assumir "confirmado" entrega pedido que
+  ninguém pagou.
 - **A resolução é por consulta, não por retentativa.** O adquirente suporta consulta por
   identificador; perguntar é seguro, reenviar não é.
 - **A idempotência tem duas camadas.** A chave do cliente impede que a repetição dele vire
@@ -120,7 +122,8 @@ isso troca uma duplicidade por outra.
 
 :::details Abra depois de tentar
 
-**O estado se chama ambíguo**, e ele é a resposta inteira do exercício.
+**O estado se chama ambíguo** no modelo — o `em verificação` do exercício 05 é o nome que ele
+recebe na tela do cliente —, e ele é a resposta inteira do exercício.
 
 Marcar como recusado é uma afirmação que o sistema não tem base para fazer. Marcar como
 confirmado é pior. O único enunciado verdadeiro é "enviamos e não sabemos", e ele precisa
@@ -135,7 +138,8 @@ existir no modelo — porque tudo o que vem depois depende de a plataforma admit
    identificador, com recuo exponencial
 3. resposta "autorizado"  → pedido confirmado
    resposta "não existe"  → pedido recusado, reserva liberada
-   sem resposta em 30 min → escalonamento humano
+   sem resposta em 5 min  → escalonamento humano, com os 25
+                            minutos restantes do prazo
 4. o arquivo das 4h reconcilia o que sobrou e detecta
    divergência entre o que registramos e o que o adquirente
    registrou

@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [network-failure, partial-failure, latency]
 canonical_for: [sistemas distribuídos, falácias da computação distribuída]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -73,7 +73,9 @@ frequentemente uma dessas premissas foi assumida.
 
 ### O terceiro resultado
 
-A ambiguidade do timeout é o conceito mais consequente deste nível.
+A ambiguidade do timeout é o conceito mais consequente deste nível. O diagrama
+percorre um único dos dois ramos possíveis: a requisição chegou, a cobrança
+aconteceu, e foi a resposta que se perdeu no caminho de volta.
 
 ```mermaid
 sequenceDiagram
@@ -134,13 +136,20 @@ retrofitar — exige mudar o modelo de dados.
 ## Erros Comuns
 
 **Tratar chamada remota como local mais lenta.** Ver
-[Proxy](/03-design-patterns/proxy.md): a transparência convida ao erro.
+[Proxy](/03-design-patterns/proxy.md): a transparência convida ao erro — o
+tratamento de falha que a chamada local dispensa não chega a ser escrito, e a
+falha parcial aparece em produção como exceção não capturada.
 
-**Assumir que o timeout significa que não aconteceu.**
+**Assumir que o timeout significa que não aconteceu.** A compensação dispara
+sobre uma operação que foi concluída, e os dois lados ficam com estados
+diferentes do mesmo pedido.
 
-**Comparar marcas de tempo de máquinas diferentes.**
+**Comparar marcas de tempo de máquinas diferentes.** Na resolução de conflito, a
+escrita mais recente perde para uma anterior cujo relógio estava adiantado, e o
+dado correto é descartado sem erro nenhum no log.
 
-**Repetir sem idempotência.**
+**Repetir sem idempotência.** Cada repetição depois de um timeout acrescenta um
+efeito — é exatamente o incidente do exemplo abaixo.
 
 **Distribuir por reputação.** O custo é permanente.
 
@@ -169,15 +178,16 @@ A repetição automática foi desabilitada para operações não idempotentes �
 imediata, aplicada no mesmo dia.
 
 O endpoint ganhou chave de idempotência: o cliente envia um identificador único
-por tentativa de cobrança, e o provedor devolve o resultado original se a chave já
-foi vista.
+por tentativa lógica — o mesmo em todas as repetições daquela cobrança — e o
+provedor devolve o resultado original se a chave já foi vista.
 
 E o timeout foi recalibrado a partir do percentil 99 medido, não do valor redondo
 que alguém escolheu.
 
-O detalhe que a equipe destaca: nada disso era conhecimento novo. As três correções estão
-na documentação do provedor. O que faltou foi tratar a integração como
-distribuída, e não como uma chamada de função que às vezes demora.
+O detalhe que a equipe destaca: nenhuma das três premissas erradas entrou no
+código naquela terça. Elas estavam lá desde a primeira versão da integração,
+tratada como uma chamada de função que às vezes demora; o pico de latência só
+tornou visível o que já era falso havia dois anos.
 
 ## Conceitos Relacionados
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [network-failure]
 related: [leader-election, timeouts, consensus]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -75,12 +75,16 @@ suspicion.
 Two improvements that are worth it:
 
 **Adaptive detection.** Instead of a fixed deadline, adjusting based on the history of heartbeat
-arrivals. A node whose network is consistently slower gets more tolerance.
+arrivals. A node whose network is consistently slower gets more tolerance. The burden is that the
+tolerance also grows for the node that degrades slowly — the hard case described below — and that the
+deadline stops being reproducible: two identical episodes get different deadlines depending on the
+history the detector happened to hold at the time.
 
 **Graduated suspicion.** Instead of alive or dead, a suspicion level that grows with the time
 without a response. Whoever consumes the information decides the threshold according to the action's
 criticality — removing from load balancing can use a low threshold; triggering an election, a high
-one.
+one. The burden is operational: each consumer now has a threshold of its own to keep coherent, and
+"was the node out?" gets a different answer depending on who asks.
 
 The second is the approach of accrual detectors, and it is more robust than the binary one.
 
@@ -91,7 +95,9 @@ A node may fail to reach another because of a problem on the path, not at the de
 Indirect detection asks a third party to check: "I cannot reach C — can you?"
 
 That distinguishes a partial partition from a real failure, and it reduces false positives caused by
-localized network problems. It is the central mechanism of gossip protocols like SWIM.
+localized network problems. The cost is one more hop before deciding — detection is delayed by the
+time it takes to poll the third parties — and suspicion traffic that grows with the number of nodes
+polled. It is the central mechanism of gossip protocols like SWIM.
 
 ### Detection does not prevent the damage
 
@@ -107,11 +113,9 @@ why [fencing](/06-distributed-systems/leader-election.md) is necessary and detec
 
 A node that responds to the heartbeat and processes slowly passes any liveness-based detector.
 
-Detecting degradation requires measuring **latency and error rate**, not just presence. See
-[network failure](/06-distributed-systems/network-failure.md).
-
-That is what makes a binary health check insufficient, and why modern load balancers consider latency
-when distributing.
+What to measure instead of presence is in
+[network failure](/06-distributed-systems/network-failure.md) — and it is why modern load balancers
+consider latency when distributing, instead of treating each instance as a binary.
 
 ## Mental Model
 
@@ -144,15 +148,17 @@ by nature.
 
 ## Alternatives
 
-- **Adaptive detection** — a deadline based on observed history.
-- **Graduated suspicion** — a level instead of a binary.
-- **Indirect detection** — asking third parties.
+Adaptive detection, graduated suspicion and indirect detection are variations of the same mechanism,
+already explained in Core Concepts. The alternative that changes the question is another one:
+
 - **Circuit breaker** — instead of deciding whether the node is alive, deciding whether it is worth
   continuing to call it. See
   [reliability](/12-reliability/index.md).
 
-The last usefully changes the question: instead of "is it alive?", "are the calls working?" — which
-is what actually matters and is directly observable.
+It wins where what matters is the outcome of the calls, not the node's identity: instead of "is it
+alive?", "are the calls working?" — a question the caller answers with what it already observes, with
+no probing of its own. It loses where the decision depends on knowing who is in the group — electing
+a leader, redistributing a partition — because there the node's identity is exactly what is needed.
 
 ## Trade-offs
 
@@ -227,7 +233,9 @@ Three fixes.
 Redistributing work came to use 15 seconds — expensive, it requires more certainty.
 
 **Indirect detection.** Before declaring a suspect, the node asks three others whether they can reach
-it. That eliminated the false positives caused by localized congestion.
+it. That does not address the garbage collection pause — the paused node answers nobody, and the
+three merely confirm the suspicion. What the fix covers is the other class of false positive, the
+network-path one, which the 15-second threshold would otherwise have to absorb on its own.
 
 **Garbage collection tuning** to reduce the long pauses — treating the cause, not just the symptom.
 

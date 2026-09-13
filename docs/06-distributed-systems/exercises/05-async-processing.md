@@ -13,7 +13,7 @@ objective: >
 prerequisites: [04-scaling-ecommerce]
 related: [messaging, delivery-guarantees, idempotency, eventual-consistency]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -55,7 +55,8 @@ adquirente        API síncrona, sem idempotência garantida;
                   responde entre 400 ms e 3 s, com tempo esgotado
                   em ~0,2% das chamadas
 reserva de
-  estoque         expira em 30 minutos, do exercício 03
+  estoque         expira em 30 minutos; a reserva com prazo vem
+                  do exercício 03, o valor é deste cenário
 aplicativo        versões de até 14 meses em campo; a tela de
                   confirmação atual mostra "pedido confirmado"
                   imediatamente
@@ -148,10 +149,12 @@ aplicativo antigo   versões de 14 meses mostram "confirmado";
                     a atualização
 ```
 
-A última linha é a mais desconfortável e a mais comum em produtos móveis: parte da sua base vai
-ver uma mensagem que deixou de ser verdadeira, e você não pode corrigi-la. As saídas são
-degradar o comportamento para versões antigas — mantê-las no fluxo síncrono, por exemplo — ou
-forçar atualização, que tem custo próprio.
+A última linha é a mais desconfortável, e a única que não se resolve com trabalho seu: em produto
+com aplicativo instalado, a atualização é decisão do cliente, e parte da sua base vai ver uma
+mensagem que deixou de ser verdadeira sem que você possa corrigi-la. As saídas são degradar o
+comportamento para versões antigas — mantê-las no fluxo síncrono, por exemplo, o que devolve a
+essa fatia a indisponibilidade que a mudança veio tirar do checkout — ou forçar atualização, que
+tem custo próprio.
 
 **A reserva de 30 minutos** contra uma autorização que raramente passa de 3 segundos parece
 folgada, e não é: quando o adquirente degrada, a fila acumula, e a autorização pode levar horas.

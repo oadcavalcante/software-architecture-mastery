@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging, idempotency]
 related: [idempotency, duplicate-messages, ordering]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -112,8 +112,8 @@ Loss almost never comes from the broker. It comes from the seams, and they are f
 If the broker did not persist it, the message does not exist and nobody knows.
 
 **Acknowledging the read before processing.** The consumer marks the message as processed on
-receipt, and then fails to process it. That is the default in several libraries, and it is the most
-common cause of silent loss.
+receipt, and then fails to process it. It is the default behavior in several libraries, and the loss
+produces no error anywhere — not in the producer, not in the broker, not in the consumer.
 
 **In-memory buffering.** The producer accumulates messages to send in a batch and the process
 terminates. The batch vanishes.
@@ -121,7 +121,14 @@ terminates. The batch vanishes.
 **Persistence with no replication.** The broker acknowledged, wrote to a single node, and that node
 failed.
 
-Auditing those four seams in your system finds more loss than any change of nominal guarantee.
+**A dual write in the producer.** Writing to the database and publishing to the broker are two
+operations with no shared transaction: the commit goes through and the publish fails, and the fact
+exists without the message. That is what the *outbox* pattern resolves, writing the message to a
+table inside the same transaction as the data — see
+[messaging](/06-distributed-systems/messaging.md).
+
+None of those five seams is fixed by changing the nominal guarantee of the channel: all of them sit
+outside the leg the broker covers. Auditing them is the work that remains.
 
 ## Mental Model
 
@@ -153,7 +160,9 @@ an external service has left the transactional scope.
 
 There is no alternative to the three guarantees — what exists is where to place the responsibility:
 
-- **Idempotency in the consumer** — the default answer and the one that always works.
+- **Idempotency in the consumer** — the default answer, and the only one that does not depend on a
+  promise from the channel; it stops serving where the repetition is itself the data, as in
+  per-call metering or an audit trail of attempts.
 - **Deduplication by key** — check whether it has already been processed before applying.
 - **Commutative operations** — if order and repetition do not matter, the problem disappears.
 - **Reconciliation** — accept divergence and correct it through a separate process.

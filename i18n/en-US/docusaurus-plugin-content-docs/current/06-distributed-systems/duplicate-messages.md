@@ -13,7 +13,7 @@ objective: >
 prerequisites: [delivery-guarantees, idempotency]
 related: [idempotency, delivery-guarantees, poison-messages]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -93,17 +93,9 @@ If the consumer checks the key, processes, and then records — there is a windo
 consumers check at the same time and both process.
 
 The correct form is for the key's insertion to be **part of the same transaction** as the effect,
-with a uniqueness constraint doing the work:
-
-```text
-BEGIN
-  INSERT INTO processed (key) VALUES (:key)   -- fails if it already exists
-  ... apply the effect ...
-COMMIT
-```
-
-The uniqueness violation indicates a duplicate, and the whole transaction is discarded. No race
-window.
+with a uniqueness constraint: the violation indicates a duplicate and discards the whole
+transaction, with no race window. Why the transaction alone is not enough, and what the uniqueness
+resolves, is in [idempotency](/06-distributed-systems/idempotency.md).
 
 ### Deduplication does not solve everything
 
@@ -138,7 +130,7 @@ The rule of thumb: if the system has any reprocessing procedure, the window does
 
 ## When to Use
 
-- Every message consumer, without exception.
+- Every message consumer whose effect is not naturally idempotent.
 - Every operation with an external side effect.
 - Especially where the effect is irreversible — a charge, a shipment, issuing a document.
 
@@ -171,11 +163,9 @@ explicitly, not assuming.
 | Key storage to maintain | Nothing |
 | Slightly higher latency | Lower |
 
-| Persisted | Window |
-|---|---|
-| Complete guarantee | Within the window |
-| Cost per message | Memory cost |
-| Detects old reprocessing | Does not |
+The second choice — persisted key against cached window — is compared in
+[Persisted or windowed](#persisted-or-windowed). The deciding criterion is not the cost per
+message: it is whether the system has a reprocessing procedure.
 
 ## Failure Modes
 
@@ -218,8 +208,9 @@ The deduplication used the message identifier, kept in a cache with a one-hour w
 Two incidents.
 
 **The first** was a defect in the commission calculation for one product type. With the code fixed,
-the team repositioned the read to reprocess the month's sales. The messages had new identifiers —
-they were new deliveries — and the one-hour window was irrelevant for events from weeks earlier.
+the team repositioned the read to reprocess the month's sales. The one-hour window was irrelevant
+for events from weeks earlier: the cache held nothing from that period, and every message passed the
+check.
 
 All the month's commissions were posted again. The salespeople received double, and the reversal
 generated a conversation with employment counsel.
@@ -238,8 +229,9 @@ insertion and the posting happen together or neither happens. The race stopped b
 And the keys got a 90-day expiry — a period longer than any plausible reprocessing, and short enough
 not to accumulate indefinitely.
 
-The next reprocessing, six months later, ran with no incident: the already-commissioned sales were
-discarded silently, and only the new ones were posted.
+The next reprocessing, six months later, covered the previous two weeks and ran with no incident:
+the already-commissioned sales were still within the 90 days, were discarded silently, and only the
+new ones were posted.
 
 ## Related Concepts
 

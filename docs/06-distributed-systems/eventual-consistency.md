@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [strong-consistency, conflict-resolution, replication]
 canonical_for: [consistência eventual]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -21,12 +21,14 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Consistência eventual garante que, **na ausência de novas escritas**, todas as
-réplicas acabam convergindo para o mesmo valor.
+Consistência eventual garante que, **na ausência de novas escritas sobre um
+item**, todas as réplicas acabam convergindo para o mesmo valor daquele item
+(Vogels, 2008).
 
 As duas partes que o enunciado não cobre são as que importam na prática: ele não
-diz **quando**, e a condição "ausência de novas escritas" nunca ocorre em sistemas
-reais.
+diz **quando**, e a quiescência é por item — num sistema com tráfego contínuo o
+conjunto nunca fica todo quieto, então a convergência chega item a item, e para
+nenhum deles há prazo prometido.
 
 Isso não invalida a garantia. Significa que a aplicação precisa ser projetada para
 observar dado velho — e essa é a parte que costuma ser esquecida.
@@ -72,16 +74,16 @@ conflitantes. Ver
 
 ### As garantias de sessão resolvem a maior parte da percepção
 
-O ponto prático mais valioso deste documento: **o usuário nota a própria
-inconsistência, e tolera a dos outros.**
+As três garantias de sessão — e por que resolvem a percepção a custo baixo —
+estão em [consistência](/06-distributed-systems/consistency.md). O que se decide
+aqui é operacional: por quanto tempo as leituras de quem escreveu vão para a
+primária.
 
-Ver [consistência](/06-distributed-systems/consistency.md). Garantir "leia seus próprios escritos" —
-direcionar leituras do autor para a primária por um curto período — elimina a
-queixa dominante a custo baixíssimo, sem abrir mão da escala de leitura para todo
-o resto.
-
-Times que adotam consistência eventual e não implementam essa garantia gastam
-muito mais tempo respondendo chamados do que teriam gasto implementando.
+Esse número sai do atraso de convergência medido, no percentil alto e não na
+mediana. Com 2 segundos típicos e minutos na cauda, uma janela de 30 segundos
+cobre o caso comum e deixa a cauda descoberta — é uma decisão explícita, não um
+padrão a herdar. É a correção de melhor retorno em consistência eventual: custa
+uma regra de roteamento e não abre mão da escala de leitura para o resto.
 
 ### Projetar a interface para o atraso
 
@@ -96,8 +98,9 @@ antigo como se fosse atual.
 
 **Marca de atualização.** "Dados de 3 minutos atrás" comunica honestamente.
 
-A terceira é a mais barata e a menos usada. Um usuário que sabe que o dado tem
-atraso não reporta defeito.
+A terceira é a mais barata das três e a que menos aparece em produto. Um usuário
+que sabe que o dado tem atraso reclama menos: a incerteza deixa de ser
+indistinguível de defeito.
 
 ### Convergência precisa de mecanismo
 
@@ -146,14 +149,11 @@ operacional que você mede, não uma garantia que você recebe.
 
 **Onde uma decisão irreversível depende do valor.** Autorizar, aprovar, liberar.
 
-**Sem confirmar com o negócio.** É decisão de produto, não de engenharia.
-
-**Sem monitorar o atraso.** Operar às cegas.
-
-**Sem mecanismo de convergência.** Divergência permanente.
-
-**Sem tratar conflito.** A resolução padrão — último a escrever vence — descarta
-dados silenciosamente.
+**Onde o atraso não tem dono.** Decisão de negócio registrada, monitoramento,
+mecanismo de convergência e tratamento de conflito são pré-requisitos — cada um
+detalhado em Erros Comuns. Onde nenhum deles tem responsável que meça o atraso e
+responda por ele, a janela de inconsistência é suposição não verificada, não
+política.
 
 ## Alternativas
 
@@ -204,7 +204,8 @@ escrita perdida era a importante.
 Uma rede social interna corporativa migrou o feed para leitura de réplicas, com
 atraso típico de 2 segundos.
 
-Três reclamações apareceram, e apenas uma era de fato consistência eventual.
+Três reclamações apareceram, e apenas uma não era de fato consistência
+eventual.
 
 **"Publiquei e não aparece."** Consistência eventual clássica. Resolvida com "leia
 seus próprios escritos": após publicar, as leituras daquele usuário vão para a
@@ -245,7 +246,8 @@ retorno desta seção.
 ## Perguntas de Entrevista
 
 - O que a garantia de consistência eventual não diz?
-- Por que garantias de sessão resolvem a maior parte das queixas?
+- Quanto tempo as leituras de quem acabou de escrever devem ir para a primária,
+  e de onde sai esse número?
 - O que é necessário para que a convergência de fato aconteça?
 
 ## Para Aprofundar

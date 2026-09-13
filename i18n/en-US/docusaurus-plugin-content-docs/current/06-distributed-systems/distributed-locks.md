@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consensus]
 related: [leader-election, consensus, idempotency]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -41,13 +41,13 @@ without knowing it lost.
 ```mermaid
 sequenceDiagram
   participant A as Process A
+  participant B as Process B
   participant L as Lock service
   participant R as Resource
   A->>L: acquire (10 s lease)
   L-->>A: ok
   Note over A: garbage collection pause, 15 s
   Note over L: the lease expires
-  participant B as Process B
   B->>L: acquire
   L-->>B: ok
   B->>R: writes
@@ -69,6 +69,10 @@ less likely. Garbage collection pauses, virtual machine suspension, disk slownes
 partitions produce delays no reasonable deadline covers.
 
 ### Fencing is what actually protects
+
+> Prerequisite: [Leader Election](/06-distributed-systems/leader-election.md) defines
+> fencing. Here the focus is the resource that checks the token, not the leadership that
+> issues it.
 
 The correct solution is not in the lock: it is in the **resource**.
 
@@ -146,6 +150,9 @@ more reliable.
 
 **When the operation can be partitioned.**
 
+**Under high contention.** The lock serializes access: maximum throughput becomes that of one holder
+at a time, and adding processes only lengthens the queue.
+
 **With a long deadline.** If the holder dies, the resource stays locked for the whole period.
 
 **As a substitute for a transaction.** If the operations fit in one database, the transaction gives
@@ -168,6 +175,7 @@ better guarantees.
 | Explicit coordination | None |
 | An additional point of failure | No dependency |
 | Acquisition latency | None |
+| Serialized access: throughput capped at one holder | Throughput grows with the processes |
 | A false sense of exclusion with no fencing | No illusion |
 
 ## Failure Modes

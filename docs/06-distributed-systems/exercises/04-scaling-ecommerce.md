@@ -13,7 +13,7 @@ objective: >
 prerequisites: [03-ecommerce-backend]
 related: [latency, availability, partitioning, hotspots]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -141,7 +141,8 @@ transforma uma dependência lenta em uma queda total. Ver
 
 ```text
 1. tirar a chamada externa de dentro da transação
-   → resolve o esgotamento de conexões; custa dias
+   → resolve o esgotamento de conexões; o custo não é de
+     dias, é de produto — ver abaixo
 2. prazo agressivo e disjuntor no adquirente
    → resolve a propagação de indisponibilidade parcial
 3. cache no catálogo e na vitrine
@@ -161,7 +162,10 @@ particionar a escrita         quando passar de ~3 000 pedidos/s
 dividir em serviços           quando times diferentes precisarem
                               implantar independentemente, e a fila
                               de implantação for medida
-multirregião                  exercício 07
+multirregião                  quando a meta acordada passar de
+                              99,95% ou mais de 10% da receita
+                              vier de fora da região; volta no
+                              exercício 07
 ```
 
 **A decisão do exercício 03 não foi erro.** Ela foi correta para 1.200 pedidos por dia, e o
@@ -169,8 +173,8 @@ enunciado daquele exercício dizia sete meses de prazo e seis pessoas sem plataf
 arquitetura assíncrona ali teria custado o prazo e provavelmente a data comercial.
 
 O que faltou não foi a decisão — foi **registrar o gatilho**. Se o ADR do exercício 03 tivesse
-dito "reavaliar quando o pico passar de 20 pedidos/s ou quando a indisponibilidade propagada
-passar de 4 h/ano", a correção teria começado antes dos três episódios de campanha.
+dito "reavaliar quando o pico passar de 20 pedidos/s ou quando as conexões presas
+esperando o adquirente passarem de metade do conjunto", a correção teria começado antes dos três episódios de campanha.
 
 Essa é a diferença entre uma decisão com prazo de validade e uma decisão que venceu sem que
 ninguém percebesse. Ver

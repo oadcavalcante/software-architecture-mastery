@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging, idempotency]
 related: [idempotency, duplicate-messages, ordering]
 canonical_for: [garantias de entrega, ao menos uma vez, exatamente uma vez]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -117,8 +117,9 @@ reconhecimento. Se o intermediário não persistiu, a mensagem não existe e nin
 sabe.
 
 **Confirmação de leitura antes do processamento.** O consumidor marca a mensagem
-como processada ao recebê-la, e depois falha ao processar. Esse é o padrão de
-várias bibliotecas, e é a causa mais comum de perda silenciosa.
+como processada ao recebê-la, e depois falha ao processar. É o comportamento
+padrão de várias bibliotecas, e a perda não produz erro em lugar nenhum — nem no
+produtor, nem no broker, nem no consumidor.
 
 **Buffer em memória.** O produtor acumula mensagens para enviar em lote e o
 processo termina. O lote some.
@@ -126,8 +127,15 @@ processo termina. O lote some.
 **Persistência sem replicação.** O intermediário confirmou, gravou em um nó só, e
 esse nó falhou.
 
-Auditar essas quatro costuras no seu sistema encontra mais perda do que qualquer
-mudança de garantia nominal.
+**Escrita dupla no produtor.** Gravar no banco e publicar no broker são duas
+operações sem transação comum: o commit passa e a publicação falha, e o fato
+existe sem a mensagem. É o que o padrão *outbox* resolve, gravando a mensagem numa
+tabela dentro da mesma transação do dado — ver
+[mensageria](/06-distributed-systems/messaging.md).
+
+Nenhuma dessas cinco costuras é corrigida trocando a garantia nominal do canal:
+todas estão fora do trecho que o intermediário cobre. Auditá-las é o trabalho que
+sobra.
 
 ## Modelo Mental
 
@@ -162,7 +170,9 @@ chama serviço externo saiu do escopo transacional.
 Não há alternativa às três garantias — o que existe é onde colocar a
 responsabilidade:
 
-- **Idempotência no consumidor** — a resposta padrão e a que sempre funciona.
+- **Idempotência no consumidor** — a resposta padrão, e a única que não depende de
+  promessa do canal; ela deixa de servir onde a repetição é o próprio dado, como
+  em medição por chamada ou trilha de auditoria de tentativas.
 - **Deduplicação por chave** — verificar se já processou antes de aplicar.
 - **Operações comutativas** — se a ordem e a repetição não importam, o problema
   desaparece.
