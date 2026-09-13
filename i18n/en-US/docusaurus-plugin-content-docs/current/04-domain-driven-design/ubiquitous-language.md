@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [bounded-context, domain, entity]
 canonical_for: [ubiquitous language]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -52,8 +52,8 @@ in the code**: names of classes, methods, variables, events and tables.
 If the expert reads a method name and recognizes the concept, the language is working. If
 they need a translation, it is not.
 
-The test is literal and worth doing: show a domain class to an expert and ask them to
-explain what it does.
+The test is literal, not a figure of speech — the exercise at the end of this document
+applies it.
 
 ### The language is per context
 
@@ -94,7 +94,8 @@ working.**
 - Always, inside a bounded context with domain complexity.
 - Especially in the [core domain](/04-domain-driven-design/core-domain.md), where precision
   matters most.
-- When more than one person is involved, which is always.
+- When more than one person has to talk about the same concept — among developers, or
+  with the business.
 
 ## When Not to Use
 
@@ -149,13 +150,17 @@ another with the business.
 **Treating it as a naming convention.** It is more than names: it is the shared model the
 names express.
 
-**Not renaming when understanding changes.**
+**Deferring the rename to when "there is time".** The code keeps the old term, the
+conversation uses the new one, and the correspondence between the two comes to exist only
+in the head of whoever was in the modelling session.
 
 **Imposing precision the business does not have.** If the experts use a term ambiguously,
 that is information about the domain — and frequently points at a distinction worth
 exploring, not correcting unilaterally.
 
-**Seeking a corporate language.**
+**Negotiating a single term between contexts that disagree.** The agreement produces a
+generic name neither side uses, and each context goes back to translating — now with
+nobody recording the translation.
 
 **Keeping the vocabulary in one language in conversation and in another in the code.** It
 is a translation, with all its costs. The choice of the code's language has to be
@@ -182,8 +187,8 @@ rules, both represented as `Loan` with a `type` field.
 **Margin reservation** — the temporary blocking of the limit during assessment, which
 expires. It did not exist; it was inferred from the status.
 
-Remodelling with those four terms took three months and changed the system's structure, not
-just the names.
+Remodelling with those four distinctions took three months and changed the system's
+structure, not just the names.
 
 The finding that justified the effort: `MarginReservation` did not exist, and the expiry
 logic was implemented as a query filtering by creation date on three different screens —

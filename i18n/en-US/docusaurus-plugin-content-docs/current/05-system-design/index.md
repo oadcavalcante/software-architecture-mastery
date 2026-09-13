@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns, domain-driven-design]
 related: [distributed-systems, scalability, case-studies]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -50,8 +50,10 @@ data
 deployment
 ```
 
-The path is always this one. What changes between one system and another is what
-the constraints allow at each step.
+The order is one of dependency: no step is decided without the decisions of the
+previous one. What changes between one system and another is what the constraints
+allow at each step — and it is the capacity estimate, which cuts across the whole
+path instead of occupying a position in it, that tells you what they allow.
 
 ## What you will find here
 
@@ -79,7 +81,9 @@ strategies. How to estimate before building.
 ## Reading order
 
 Read **decomposition**, **state** and **service boundaries** first, in that order.
-They are the three structural decisions; everything else is a consequence.
+They are the three structural decisions; everything else is a consequence. State
+presupposes **components** and boundaries presuppose **services**: the full
+sequence is decomposition, components, state, services, service boundaries.
 
 The mechanisms — cache, queues, load balancing — can be read by lookup. But read
 **capacity planning** and **bottleneck analysis** before them, not after. Without

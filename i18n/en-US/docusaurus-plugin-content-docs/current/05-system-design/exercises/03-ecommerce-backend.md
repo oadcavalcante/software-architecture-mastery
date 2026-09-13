@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-decomposition]
 related: [service-boundaries, apis, state-management, queues]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -142,7 +142,8 @@ one transaction:
 That is simple, correct, and has two properties that will show up later: your checkout's availability is
 tied to the acquirer's 99.5%, and your throughput is tied to their response time.
 
-**It is not an error.** With 4,000 orders a day at peak — about one every 20 seconds — those two
+**It is not an error.** The 4,000 at peak are a daily total, not a rate: even concentrated into the
+four hours of a campaign, they come to less than one order per second. In that range the two
 properties are irrelevant. The decision is correct now and has a shelf life.
 
 Record that: you are trading future availability and throughput for present simplicity, and the trade is
@@ -153,8 +154,11 @@ justify. It is mandatory before shipping, and shipping happens hours later. Putt
 an external dependency to the critical path, with no gain at all.
 
 **What almost everybody gets wrong:** modeling the inventory reservation as a direct decrement of the
-quantity. That works until the first payment that fails, and then the inventory has been consumed by an
-order that doesn't exist. A reservation has to be an entity with a lifetime, not a subtraction.
+quantity. Inside the single transaction above, the decrement rolls back with everything else when the
+payment is declined; it breaks in the case the brief itself asks about — the acquirer that does not
+respond, and the order left pending while someone decides. With no lifetime and no owner, the quantity
+stays consumed by an order that may never exist. A reservation has to be an entity with a lifetime, not
+a subtraction.
 
 **The three decisions hard to reverse**, for this design:
 

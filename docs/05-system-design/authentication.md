@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [authorization, stateless-vs-stateful, identity]
 canonical_for: [autenticação, sessão, token de acesso]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -61,18 +61,12 @@ alterado, não que é secreto. Colocar dado sensível ali é vazamento.
 Um token autocontido vale até expirar. Se um usuário é bloqueado, ou faz logout, ou
 tem a credencial roubada, o token continua funcionando.
 
-Três mitigações, com custos diferentes:
-
-**Expiração curta.** Cinco a quinze minutos. A janela de exposição fica pequena, e
-o custo é renovação frequente.
-
-**Lista de revogação.** Verificar cada token contra uma lista de revogados —
-o que reintroduz a consulta que o token existia para evitar. Vale se a lista for
-pequena e consultada em cache.
-
-**Token de renovação separado.** Um token de acesso curto mais um de renovação
-longo, sendo o segundo revogável no servidor. É o arranjo mais comum, e concentra
-o estado num único ponto consultado raramente.
+As mitigações — expiração curta, lista de revogação, versão de credencial — e o
+que cada uma custa estão em [JWT](/10-security/jwt.md). Para a decisão de sistema
+importa uma delas: o **token de renovação separado**, um token de acesso curto mais
+um de renovação longo, sendo o segundo revogável no servidor. É o arranjo que
+concentra o estado num único ponto consultado raramente, e o que permite escolher
+token sem abrir mão de revogar em minutos.
 
 ### Onde verificar
 
@@ -89,7 +83,7 @@ repetição e de todos precisarem da chave de verificação.
 recomendação para sistemas com fronteiras de confiança reais.
 
 A escolha entre os dois primeiros é a mesma pergunta de
-[Zero Trust](/10-security/index.md): a rede interna é confiável?
+[confiança zero](/10-security/zero-trust.md): a rede interna é confiável?
 
 ### Autenticação de serviço não é a mesma coisa
 
@@ -145,13 +139,13 @@ erro é grande e o benefício de construir, nulo.
 
 ## Trade-offs
 
-| Sessão | Token |
-|---|---|
-| Revogação imediata | Só na expiração |
-| Consulta por requisição | Verificação local |
-| Estado a operar e escalar | Sem estado |
-| Identificador pequeno | Cresce com o conteúdo |
-| Difícil entre domínios | Trivial |
+A comparação mecânica está na tabela de [sessão versus token](#sessão-versus-token).
+Os dois eixos que ela não mostra, e que costumam decidir:
+
+| Eixo | Sessão | Token |
+|---|---|---|
+| Uso entre domínios e tipos de cliente | Preso ao cookie e ao domínio que o emitiu | Um cabeçalho, em qualquer cliente |
+| Custo operacional contínuo | Operar e escalar o armazenamento compartilhado | Rotacionar e distribuir a chave de assinatura |
 
 ## Modos de Falha
 

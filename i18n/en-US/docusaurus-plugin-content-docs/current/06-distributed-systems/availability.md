@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [cap, consistency, reliability-basics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -59,7 +59,8 @@ Each additional nine costs disproportionately more. The difference between 99.9%
 zero-downtime deployment and an operational response in minutes.
 
 Presenting that table before asking "how many nines do you need?" changes the answer. Without it,
-the answer is always the larger number.
+whoever answers has no reason to ask for less than the largest number — the cost is not on the
+table.
 
 ### Availability composes multiplicatively
 
@@ -87,13 +88,12 @@ hold.
 
 ### Correlation is what breaks redundancy
 
-Redundancy only delivers the gain if the failures are independent.
+Redundancy only delivers the gain if the failures are independent, and the list of what brings the
+copies down together is in [redundancy](/12-reliability/redundancy.md), the canonical document on
+failure correlation.
 
-Common correlated failures: the same availability zone, the same database, the same code version
-with the same defect, the same wrong configuration, the same external dependency, the same
-certificate expiring.
-
-Three instances with an identical code defect have the availability of one.
+The effect on the number is direct: three instances with an identical code defect have the
+availability of one, and the parallel calculation from the previous section does not apply.
 
 ### Availability is not reliability
 
@@ -124,7 +124,7 @@ The number that matters to the business is the client's. Obtaining it requires i
 the browser or the app, or external probing from the regions where the users are.
 
 When the two numbers persistently diverge, the difference is the map of what is broken outside your
-perimeter — and it is precisely the part nobody is watching.
+perimeter — and it is the part no server-side metric covers.
 
 ## Mental Model
 
@@ -150,7 +150,8 @@ requires.
 **As a binary metric.** Partial degradation is the common case.
 
 **Promising availability higher than the dependencies'.** A system cannot be more available than the
-product of its synchronous dependencies.
+least available of its synchronous dependencies; if they fail independently, the ceiling is their
+product.
 
 ## Alternatives
 
@@ -159,7 +160,9 @@ To improve perceived availability without adding infrastructure nines:
 - **Graceful degradation** — respond partially instead of failing.
 - **Asynchronous** — accept and process later, instead of depending on the destination's
   availability.
-- **Cache** — serve stale data when the origin is down.
+- **Cache** — serve stale data when the origin is down; it holds where the stale value still
+  serves the purpose of the read, and where the decision depends on the current value it is
+  unavailability dressed as a `200`.
 - **Reduce synchronous dependencies** — the one that pays off most, and the least considered.
 
 ## Trade-offs
@@ -188,9 +191,11 @@ and consistency do not coexist.
 
 ## Common Mistakes
 
-**Citing nines with no window.**
+**Citing nines with no window.** The contract ends up with two meanings, and the customer picks
+theirs when the bill is disputed.
 
-**Not presenting the cost before asking for the requirement.**
+**Not presenting the cost before asking for the requirement.** The number that comes back is the
+largest one, and the bill shows up later, in infrastructure nobody budgeted for.
 
 **Presuming independence.**
 
@@ -231,8 +236,8 @@ simultaneous.
 And the call to the authentication provider got a validated-token cache and degradation: with the
 provider down, already-established sessions keep working, and only new logins fail.
 
-That last change alone altered the arithmetic: the system stopped depending synchronously on a
-provider less available than itself.
+That last change alone altered the arithmetic: the provider left the synchronous path of every
+request and now weighs only on login, no longer imposing its 99.9% ceiling on the whole system.
 
 ## Related Concepts
 

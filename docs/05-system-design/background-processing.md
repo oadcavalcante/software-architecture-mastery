@@ -13,7 +13,7 @@ objective: >
 prerequisites: [queues]
 related: [queues, request-response, observability]
 canonical_for: [processamento em background, trabalho assíncrono, agendamento]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -93,7 +93,9 @@ de um serviço com quatro instâncias executa quatro vezes.
 ### Idempotência e retomada
 
 Todo trabalho em background pode ser executado duas vezes — por retentativa, por
-duplicação na fila, por reinício no meio.
+duplicação na fila, por reinício no meio. O requisito que daí decorre é
+[idempotência](/06-distributed-systems/idempotency.md), definida lá com a chave
+explícita que a torna confiável.
 
 Para trabalho longo, retomada importa: processar 100 mil registros e falhar no
 80 mil não deveria recomeçar do zero. Marcar progresso permite retomar — e exige
@@ -109,7 +111,9 @@ duração, métrica de sucesso e falha, e alerta para trabalho que não roda no 
 esperado.
 
 O último é o mais esquecido: um trabalho agendado que **para de rodar** não gera
-erro nenhum. O silêncio é o sintoma, e só um alerta de ausência o detecta.
+erro nenhum. O silêncio é o sintoma, e o alerta de ausência é o único caminho que
+o detecta antes do efeito — sem ele, a descoberta chega quando alguém sente falta
+do resultado.
 
 ## Modelo Mental
 

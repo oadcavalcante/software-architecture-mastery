@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns, domain-driven-design]
 related: [distributed-systems, scalability, case-studies]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -50,8 +50,10 @@ dados
 implantação
 ```
 
-O caminho é sempre esse. O que muda entre um sistema e outro é o que as
-restrições permitem em cada etapa.
+A ordem é de dependência: nenhuma etapa se decide sem as decisões da anterior.
+O que muda entre um sistema e outro é o que as restrições permitem em cada etapa
+— e é a estimativa de capacidade, que atravessa o caminho inteiro em vez de
+ocupar uma posição nele, que diz o que elas permitem.
 
 ## O que você vai encontrar aqui
 
@@ -78,7 +80,9 @@ estratégias básicas de escalabilidade. Como estimar antes de construir.
 ## Ordem de leitura
 
 Leia **decomposição**, **estado** e **fronteiras de serviço** primeiro, nessa
-ordem. São as três decisões estruturais; tudo o mais é consequência.
+ordem. São as três decisões estruturais; tudo o mais é consequência. Estado
+pressupõe **componentes** e fronteiras pressupõem **serviços**: a sequência
+completa é decomposição, componentes, estado, serviços, fronteiras de serviço.
 
 Os mecanismos — cache, filas, balanceamento de carga — podem ser lidos por
 consulta. Mas leia **planejamento de capacidade** e **análise de gargalos** antes

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency, availability]
 related: [pacelc, network-failure, consistency]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -70,6 +70,9 @@ some clients, and the state remains correct.
 which requires
 [conflict resolution](/06-distributed-systems/conflict-resolution.md) afterwards.
 
+In the diagram, look at the `No` branch: that is where the system spends most of its operating
+time, and it is precisely about that branch that CAP says nothing.
+
 ```mermaid
 graph TB
   P{Partition<br/>occurred?}
@@ -79,33 +82,28 @@ graph TB
   E -->|AP| A["Accepts operations<br/>states diverge"]
 ```
 
-Note that the left branch is where the system spends 99.99% of its time — and CAP says nothing
-about it.
-
 ### The choice is per operation
 
-A commerce system can reasonably decide:
-
-| Operation | Under a partition |
-|---|---|
-| View the catalog | AP — serve possibly stale data |
-| Add to cart | AP — reconcile later |
-| Check out with unique stock | CP — refuse |
-| Look up a previous order | AP |
-
+A commerce system can be CP at checkout for uniquely stocked items and AP for the catalog, the
+cart and looking up a previous order — the same database, different configurations per call.
 Treating that as a system decision forces the most critical operation to define the behavior of
 all of them.
 
-### Partitions are rare; so is the dilemma
+The operation-by-operation table, with the cost of each error that backs each choice, is in
+[consistency vs. availability](/20-trade-offs/consistency-vs-availability.md).
 
-Partitions happen — and they are rare relative to operating time. A system can go months without
-one.
+### How rare a partition is depends on the topology
 
-That means **CAP is not the dominant day-to-day trade-off**. The dominant one is latency versus
-consistency, which holds always. See [PACELC](/06-distributed-systems/pacelc.md).
+Partition frequency is a property of the network, not of the theorem. Between nodes in the same
+datacenter, or between zones of a cloud region with redundant links, a system can go months
+without one. Over a single last-mile link — the store connected to headquarters by one
+connection, as in the Real-World Example below — a partition is a weekly event.
 
-Teams that decide the whole architecture based on CAP are optimizing for the rare case and
-ignoring the permanent one.
+Where it is rare, **CAP is not the dominant day-to-day trade-off**: the dominant one is latency
+versus consistency, which holds always — see [PACELC](/06-distributed-systems/pacelc.md) — and
+deciding the whole architecture based on CAP optimizes for the rare case while ignoring the
+permanent one. Where it is frequent, the behavior under a partition is a hot path, and has to be
+designed and tested as one.
 
 ## Why This Matters
 
@@ -121,15 +119,21 @@ give up consistency always" trades a permanent guarantee for a rare event.
 
 ## Common Mistakes
 
-**"Pick two of three".** A partition is not optional in a distributed system.
+**Closing the partition discussion with "CAP says you can't."** Nobody writes down what should
+happen to the request that arrives during the partition, and the behavior becomes whatever the
+driver's timeout does.
 
-**Treating it as a property of the system.** It is per operation.
+**Declaring "we are AP" in the architecture document and configuring the database once.** Checkout
+inherits the mode chosen for the catalog, and the sale accepted against diverging stock becomes a
+cancellation the following week.
 
-**Using CAP to justify eventual consistency outside a partition.** There the correct argument is
-latency.
+**Citing CAP to approve reads from a lagging replica during normal operation.** What was traded
+there was latency for consistency, and the trade stops being revisited because it arrived labeled
+as a theorem.
 
-**Confusing CAP's C with ACID's C.** They are different things: one is linearizability, the other
-is invariant preservation.
+**Treating a committed ACID transaction as a guaranteed read on any node.** ACID's C preserves
+invariants within the transaction; CAP's C is linearizability across nodes — and the report read
+from the replica shows the order without the payment.
 
 **Thinking single-node systems have a CAP dilemma.** With no distribution, there is no partition.
 

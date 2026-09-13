@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [bounded-context, domain, entity]
 canonical_for: [ubiquitous language, linguagem ubíqua]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -52,8 +52,8 @@ tabelas.
 Se o especialista lê o nome de um método e reconhece o conceito, a linguagem está
 funcionando. Se precisa de tradução, não está.
 
-O teste é literal e vale fazer: mostre uma classe do domínio a um especialista e
-peça que ele explique o que ela faz.
+O teste é literal, não uma figura de linguagem — o exercício ao final deste
+documento o aplica.
 
 ### A linguagem é por contexto
 
@@ -94,7 +94,8 @@ não está funcionando.**
 
 - Sempre, dentro de um bounded context com complexidade de domínio.
 - Especialmente no [core domain](/04-domain-driven-design/core-domain.md), onde a precisão importa mais.
-- Quando há mais de uma pessoa envolvida, o que é sempre.
+- Quando mais de uma pessoa precisa falar do mesmo conceito — entre desenvolvedores,
+  ou com o negócio.
 
 ## Quando Não Usar
 
@@ -150,13 +151,17 @@ linguagem de domínio.
 **Tratar como convenção de nomenclatura.** É mais que nomes: é o modelo
 compartilhado que os nomes expressam.
 
-**Não renomear quando o entendimento muda.**
+**Adiar a renomeação para quando "houver tempo".** O código guarda o termo antigo, a
+conversa usa o novo, e a correspondência entre os dois passa a existir só na cabeça
+de quem estava na sessão de modelagem.
 
 **Impor precisão que o negócio não tem.** Se os especialistas usam um termo de
 forma ambígua, isso é informação sobre o domínio — e frequentemente aponta uma
 distinção que vale explorar, não corrigir unilateralmente.
 
-**Buscar uma linguagem corporativa.**
+**Negociar um termo único entre contextos que discordam.** O acordo produz um nome
+genérico que nenhum dos dois lados usa, e cada contexto volta a traduzir — agora sem
+que ninguém registre a tradução.
 
 **Manter o vocabulário só em português na conversa e em inglês no código.** É uma
 tradução, com todos os seus custos. A escolha do idioma do código precisa ser
@@ -184,7 +189,7 @@ completamente diferentes, ambos representados como `Emprestimo` com um campo
 **Reserva de margem** — o bloqueio temporário do limite durante a análise, que
 expira. Não existia; era inferido pelo status.
 
-A remodelagem com esses quatro termos levou três meses e mudou a estrutura do
+A remodelagem com essas quatro distinções levou três meses e mudou a estrutura do
 sistema, não só os nomes.
 
 O achado que justificou o esforço: `ReservaDeMargem` não existia, e a lógica de

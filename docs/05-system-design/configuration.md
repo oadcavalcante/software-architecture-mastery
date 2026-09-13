@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [secrets, environment-management, feature-flags]
 canonical_for: [configuração, variável de ambiente]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -100,9 +100,6 @@ com ferramentas próprias.
 Um sistema que tenta absorver toda variação futura por configuração vira um motor
 genérico mal documentado. É a degeneração de
 [supporting domain](/04-domain-driven-design/supporting-domain.md).
-
-O teste: quantos valores distintos este parâmetro já teve? Se sempre foi um, ele
-não estava capturando variação.
 
 ## Modelo Mental
 
@@ -194,9 +191,9 @@ segurou conexões até esgotar o pool. O incidente durou 25 minutos.
 **Três eram segredos em arquivo versionado.** Rotação obrigatória, e o histórico
 do repositório precisou ser tratado.
 
-A limpeza deixou 23 parâmetros. Os 61 viraram constantes, os 7 foram removidos, os
-4 padrões perigosos viraram obrigatórios com validação na inicialização, e os
-segredos foram para o cofre.
+A limpeza deixou 23 parâmetros: saíram da contagem os 61 que viraram constantes, os
+7 removidos e os 3 segredos, que passaram ao cofre. Os 4 padrões perigosos
+continuaram na contagem, agora obrigatórios e validados na inicialização.
 
 A mudança mais valiosa foi a validação: o processo agora falha ao subir se
 qualquer configuração obrigatória estiver ausente ou fora da faixa. O erro que
@@ -208,10 +205,10 @@ tentativa de implantação.
 Contêineres mudam duas premissas sobre configuração, e ignorar isso produz
 problemas específicos.
 
-**O mesmo artefato roda em todo ambiente.** A imagem é construída uma vez e
-promovida. Isso significa que **nenhuma configuração de ambiente pode estar na
-imagem** — nem arquivo, nem valor embutido no build. Se a imagem de homologação é
-diferente da de produção, o que se testou não é o que se implantou.
+**O mesmo artefato roda em todo ambiente** — construção única e promoção, conforme
+[contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md). A
+consequência para configuração: **nenhuma configuração de ambiente pode estar na
+imagem** — nem arquivo, nem valor embutido no build.
 
 **O sistema de arquivos é efêmero.** Configuração escrita em disco no primeiro uso
 some no próximo contêiner.

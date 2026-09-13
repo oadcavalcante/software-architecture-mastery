@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-decomposition]
 related: [service-boundaries, apis, state-management, queues]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -143,8 +143,9 @@ uma transação:
 Isso é simples, correto, e tem duas propriedades que vão aparecer depois: a disponibilidade do
 seu checkout fica presa aos 99,5% do adquirente, e a vazão fica presa ao tempo de resposta dele.
 
-**Não é erro.** Com 4.000 pedidos por dia no pico — cerca de um a cada 20 segundos — essas duas
-propriedades são irrelevantes. A decisão é correta agora e tem prazo de validade.
+**Não é erro.** Os 4.000 do pico são total do dia, não taxa: mesmo concentrados nas quatro horas
+de uma campanha, dão menos de um pedido por segundo. Nessa faixa as duas propriedades são
+irrelevantes. A decisão é correta agora e tem prazo de validade.
 
 Registre isso: você está trocando disponibilidade e vazão futuras por simplicidade presente, e a
 troca vale.
@@ -154,8 +155,11 @@ justificam. Ela é obrigatória antes do despacho, e o despacho acontece horas d
 finalização adiciona uma dependência externa ao caminho crítico, sem nenhum ganho.
 
 **O que quase todo mundo erra:** modelar a reserva de estoque como decremento direto da
-quantidade. Isso funciona até o primeiro pagamento que falha, e aí o estoque foi consumido por um
-pedido que não existe. Reserva precisa ser uma entidade com prazo, não uma subtração.
+quantidade. Dentro da transação única acima o decremento volta atrás junto com o resto quando o
+pagamento é recusado; ele quebra no caso que o próprio enunciado pergunta — o adquirente que não
+responde, e o pedido que fica pendente enquanto alguém decide. Sem prazo e sem dono, a quantidade
+segue consumida por um pedido que pode nunca existir. Reserva precisa ser uma entidade com prazo,
+não uma subtração.
 
 **As três decisões difíceis de reverter**, para este desenho:
 

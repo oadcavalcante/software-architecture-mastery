@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [eventual-consistency, strong-consistency, cap]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,8 @@ is a **spectrum of guarantees**, and each operation in a system can require a di
 
 ## Problem
 
-With one copy of the data, the question does not exist: the read sees the last write.
+With one copy of the data, the question about replicas does not exist: the read sees the last
+write committed. What remains is ordering concurrent transactions — isolation, not replication.
 
 With replicas — and replicas exist for availability and for scale — the write reaches them at
 different moments. A read can land on a replica that has not received it yet.
@@ -45,17 +46,18 @@ the table.
 
 ### The spectrum, from strongest to weakest
 
-**Linearizability.** The system behaves as if there were a single copy and every operation
-happened instantaneously, in an order that respects real time. It is the strongest guarantee and
-the most expensive — it requires coordination on every operation.
+**[Linearizability](/06-distributed-systems/strong-consistency.md).** The strong end of the
+spectrum, defined in its canonical document. What places it here is the price: coordination on
+every operation, and therefore latency on all of them.
 
 **Serializability.** Concurrent transactions produce the same result as some sequential execution.
 It is about transactions; linearizability is about individual operations. The two together give
 *strict serializability*.
 
 **Causal consistency.** Operations related by cause and effect are seen in the correct order by
-everyone; independent operations can be seen in different orders. It is the most useful middle
-ground and the least known.
+everyone; independent operations can be seen in different orders. It preserves the order the user
+perceives without requiring global coordination — more ordering coverage than the session
+guarantees, at a lower cost than linearizability.
 
 **[Eventual consistency](/06-distributed-systems/eventual-consistency.md).** In the absence of new
 writes, all replicas converge. It does not say **when**, and it is that omission that has to be
@@ -66,8 +68,9 @@ handled in the application.
 Between strong and eventual there are guarantees that solve most of the problems users perceive,
 at a much lower cost:
 
-**Read your own writes.** Whoever wrote sees what they wrote. It solves the case of the name that
-does not update — which is the most common complaint about eventual consistency.
+**[Read your own writes](/20-trade-offs/strong-vs-eventual-consistency.md).** Whoever wrote sees
+what they wrote. It solves the case of the name that does not update — which is the most common
+complaint about eventual consistency.
 
 **Monotonic reads.** Once you have seen a value, you will not see an earlier one. It prevents the
 "the data appeared and vanished" effect when switching between replicas.
@@ -172,16 +175,22 @@ database is configured to read from a replica.
 
 ## Common Mistakes
 
-**Treating it as binary.**
+**Treating it as binary.** Picking one guarantee for the whole system at the start of the
+project: either you pay for coordination on the reads that do not need it, or you read stale data
+where the decision is irreversible.
 
-**Not asking the business for the acceptable delay.**
+**Not asking the business for the acceptable delay.** Engineering settles the number on its own
+and errs on the expensive side — strong consistency where minutes of delay would have been
+accepted.
 
 **Not knowing which guarantees the database actually offers.** The configured isolation level is
 rarely what its name suggests.
 
-**Ignoring session guarantees.**
+**Ignoring session guarantees.** Escalating straight to strong consistency when the complaint was
+the user not seeing their own write — paying for global coordination to solve a session problem.
 
-**Not measuring replication lag.**
+**Not measuring replication lag.** The window in which a read can be stale never becomes known,
+and the first thing to measure it is the incident.
 
 ## Real-World Example
 

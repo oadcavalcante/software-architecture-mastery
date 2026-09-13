@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [apis, search, database-scaling]
 canonical_for: [paginação, cursor, offset]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -76,8 +76,8 @@ Cursor exige que a ordenação seja **determinística**. Ordenar só por `criado
 falha se dois registros têm o mesmo instante — a posição fica ambígua e itens são
 pulados ou repetidos.
 
-A correção é sempre incluir um desempate único: `ORDER BY criado_em, id`. O `id`
-garante ordem total.
+A correção é incluir um desempate único sempre que a coluna de ordenação admitir
+empates: `ORDER BY criado_em, id`. O `id` garante ordem total.
 
 Isso vale para deslocamento também, e é uma causa comum de "item aparece duas
 vezes" que ninguém consegue reproduzir.
@@ -142,13 +142,14 @@ salto arbitrário; forçar isso produz gambiarra.
 
 ## Trade-offs
 
-| Deslocamento | Cursor |
-|---|---|
-| Salto para qualquer página | Só sequencial |
-| Total de páginas disponível | Normalmente não |
-| Degrada com a profundidade | Custo constante |
-| Instável sob concorrência | Estável |
-| Trivial de implementar | Exige ordenação total |
+A tabela de [Deslocamento versus cursor](#deslocamento-versus-cursor) já põe os dois
+lado a lado. O que ela não decide é o eixo: a escolha se faz pelo padrão de acesso,
+não pelo tamanho do conjunto.
+
+Acesso aleatório — pular para a página N, mostrar quantas páginas existem — só o
+deslocamento entrega, e o preço é degradar com a profundidade e repetir itens sob
+escrita concorrente. Acesso sequencial o cursor entrega com custo constante e
+estável, e o preço é abrir mão do salto arbitrário e da ordenação trivial.
 
 ## Modos de Falha
 
@@ -168,8 +169,8 @@ não.
 
 ## Erros Comuns
 
-**Não incluir desempate único na ordenação.** É a causa mais comum de itens
-repetidos.
+**Não incluir desempate único na ordenação.** Produz itens repetidos entre páginas
+sempre que a coluna de ordenação admite empates.
 
 **Usar deslocamento para exportação.**
 
@@ -185,10 +186,10 @@ Uma API de pedidos usava `page` e `size`, com `COUNT` total em cada resposta.
 
 Dois clientes causaram problemas diferentes.
 
-**Um integrador** sincronizava todos os pedidos diariamente, paginando até o fim.
-Com 2 milhões de pedidos, as últimas páginas levavam 40 segundos cada, e a
-sincronização inteira ocupava o banco por horas. O `OFFSET` alto era o custo
-dominante.
+**Um integrador** sincronizava todos os pedidos diariamente, paginando até o fim
+em páginas de mil. Com 2 milhões de pedidos são 2 mil páginas: as últimas levavam
+40 segundos cada, e a sincronização inteira ocupava o banco por cerca de onze
+horas. O `OFFSET` alto era o custo dominante.
 
 **A tela de listagem** mostrava pedidos repetidos ocasionalmente. Ninguém
 conseguia reproduzir. A causa: a ordenação era só por `data_pedido`, e pedidos
@@ -201,7 +202,7 @@ desempate por `id` na ordenação, o que eliminou a repetição. E o `COUNT` vir
 estimativa, com o número exato só quando o filtro reduz muito o conjunto.
 
 A sincronização ganhou um endpoint próprio, com cursor. A sincronização diária
-caiu de horas para 4 minutos, com custo constante por página.
+caiu de onze horas para 4 minutos, com custo constante por página.
 
 A leitura que a equipe faz: os dois casos de uso pareciam a mesma coisa — "listar
 pedidos" — e tinham requisitos incompatíveis. Tentar servir aos dois com um
@@ -212,8 +213,9 @@ endpoint foi o erro original.
 Cursor parece simples e tem três detalhes que decidem se funciona.
 
 **A ordenação precisa bater com o índice.** `ORDER BY criado_em, id` só é eficiente
-se existir índice composto nessa ordem exata. Sem ele, o banco ordena o conjunto
-inteiro a cada página — que é o problema que o cursor deveria evitar.
+se existir [índice composto](/07-data-architecture/indexing.md) nessa ordem
+exata. Sem ele, o banco ordena o conjunto inteiro a cada página — que é o
+problema que o cursor deveria evitar.
 
 **A comparação precisa ser de tupla.** Comparar campo a campo com `OR` produz
 resultado correto e plano de execução ruim:

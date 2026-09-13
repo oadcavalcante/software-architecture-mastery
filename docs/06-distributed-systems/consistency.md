@@ -12,8 +12,8 @@ objective: >
   em vez de tratar o assunto como binário.
 prerequisites: [partial-failure]
 related: [eventual-consistency, strong-consistency, cap]
-canonical_for: [consistência, modelo de consistência, leia-seus-próprios-escritos]
-content_version: 1
+canonical_for: [consistência, modelo de consistência]
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -30,7 +30,9 @@ pode exigir uma diferente.
 
 ## Problema
 
-Com uma cópia dos dados, a questão não existe: a leitura vê a última escrita.
+Com uma cópia dos dados, a pergunta sobre réplicas não existe: a leitura vê a
+última escrita gravada. O que sobra é ordenar transações concorrentes — isolamento,
+não replicação.
 
 Com réplicas — e réplicas existem para disponibilidade e para escala — a escrita
 chega a elas em momentos diferentes. Uma leitura pode cair numa réplica que ainda
@@ -47,9 +49,9 @@ disponibilidade tenha sido colocado na mesa.
 
 ### O espectro, do mais forte ao mais fraco
 
-**Linearizabilidade.** O sistema se comporta como se houvesse uma cópia única e
-todas as operações acontecessem instantaneamente, numa ordem que respeita o tempo
-real. É a garantia mais forte e a mais cara — exige coordenação a cada operação.
+**[Linearizabilidade](/06-distributed-systems/strong-consistency.md).** O extremo
+forte do espectro, definido no documento canônico. O que a posiciona aqui é o preço:
+coordenação a cada operação, e portanto latência em todas.
 
 **Serializabilidade.** Transações concorrentes produzem o mesmo resultado de alguma
 execução sequencial. É sobre transações; linearizabilidade é sobre operações
@@ -57,7 +59,9 @@ individuais. As duas juntas dão *strict serializability*.
 
 **Consistência causal.** Operações relacionadas por causa e efeito são vistas na
 ordem correta por todos; operações independentes podem ser vistas em ordens
-diferentes. É o meio-termo mais útil e o menos conhecido.
+diferentes. Preserva a ordem que o usuário percebe sem exigir coordenação global —
+mais cobertura de ordenação que as garantias de sessão, a um custo menor que o da
+linearizabilidade.
 
 **[Consistência eventual](/06-distributed-systems/eventual-consistency.md).** Na ausência de novas
 escritas, todas as réplicas convergem. Não diz **quando**, e é essa omissão que
@@ -68,8 +72,9 @@ precisa ser tratada na aplicação.
 Entre o forte e o eventual há garantias que resolvem a maior parte dos problemas
 percebidos pelo usuário, a custo muito menor:
 
-**Leia seus próprios escritos.** Quem escreveu vê o que escreveu. Resolve o caso
-do nome que não atualiza — que é a queixa mais comum de consistência eventual.
+**[Leia seus próprios escritos](/20-trade-offs/strong-vs-eventual-consistency.md).**
+Quem escreveu vê o que escreveu. Resolve o caso do nome que não atualiza — que é a
+queixa mais comum de consistência eventual.
 
 **Leituras monotônicas.** Uma vez que você viu um valor, não verá um anterior.
 Impede o efeito de "o dado apareceu e sumiu" ao alternar entre réplicas.
@@ -181,16 +186,23 @@ estar.
 
 ## Erros Comuns
 
-**Tratar como binário.**
+**Tratar como binário.** Escolher uma garantia para o sistema inteiro no início do
+projeto: ou se paga coordenação nas leituras que não precisam, ou se lê dado velho
+onde a decisão é irreversível.
 
-**Não perguntar ao negócio o atraso aceitável.**
+**Não perguntar ao negócio o atraso aceitável.** A engenharia arbitra o número
+sozinha e erra para o lado caro — consistência forte onde minutos de atraso teriam
+sido aceitos.
 
 **Não conhecer as garantias que o banco de fato oferece.** O nível de isolamento
 configurado raramente é o que o nome sugere.
 
-**Ignorar garantias de sessão.**
+**Ignorar garantias de sessão.** Escalar direto para consistência forte quando a
+queixa era o usuário não ver a própria escrita — paga-se coordenação global para
+resolver um problema de sessão.
 
-**Não medir o atraso de replicação.**
+**Não medir o atraso de replicação.** A janela em que a leitura pode estar velha
+nunca fica conhecida, e quem a mede pela primeira vez é o incidente.
 
 ## Exemplo Real
 

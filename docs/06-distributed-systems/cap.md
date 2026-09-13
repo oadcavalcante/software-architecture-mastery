@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency, availability]
 related: [pacelc, network-failure, consistency]
 canonical_for: [CAP, teorema CAP]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -72,6 +72,9 @@ indisponível para parte dos clientes, e o estado permanece correto.
 estados divergem — o que exige
 [resolução de conflito](/06-distributed-systems/conflict-resolution.md) depois.
 
+No diagrama, repare no ramo `Não`: é ali que o sistema passa a maior parte do
+tempo de operação, e é justamente sobre esse ramo que CAP não diz nada.
+
 ```mermaid
 graph TB
   P{Partição<br/>ocorreu?}
@@ -81,33 +84,31 @@ graph TB
   E -->|AP| A["Aceita operações<br/>estados divergem"]
 ```
 
-Note que o ramo esquerdo é onde o sistema passa 99,99% do tempo — e CAP não diz
-nada sobre ele.
-
 ### A escolha é por operação
 
-Um sistema de comércio pode razoavelmente decidir:
+Um sistema de comércio pode ser CP na finalização de compra com estoque único e
+AP no catálogo, no carrinho e na consulta de pedido anterior — o mesmo banco,
+configurações diferentes por chamada. Tratar isso como decisão de sistema força a
+operação mais crítica a definir o comportamento de todas.
 
-| Operação | Sob partição |
-|---|---|
-| Ver catálogo | AP — servir dado possivelmente velho |
-| Adicionar ao carrinho | AP — reconciliar depois |
-| Finalizar compra com estoque único | CP — recusar |
-| Consultar pedido anterior | AP |
+A tabela operação a operação, com o custo de cada erro que sustenta cada escolha,
+está em
+[consistência vs. disponibilidade](/20-trade-offs/consistency-vs-availability.md).
 
-Tratar isso como decisão de sistema força a operação mais crítica a definir o
-comportamento de todas.
+### Quão rara é a partição depende da topologia
 
-### Partição é rara; o dilema também
+A frequência da partição é propriedade da rede, não do teorema. Entre nós de um
+mesmo datacenter, ou entre zonas de uma região de nuvem com enlaces redundantes,
+um sistema passa meses sem uma. Sobre um enlace de última milha único — a loja
+ligada à matriz por uma única conexão, como no Exemplo Real abaixo — a partição é
+evento semanal.
 
-Partições acontecem — e são raras em relação ao tempo de operação. Um sistema pode
-passar meses sem uma.
-
-Isso significa que **CAP não é o trade-off dominante do dia a dia**. O dominante é
-latência versus consistência, que vale sempre. Ver [PACELC](/06-distributed-systems/pacelc.md).
-
-Times que decidem a arquitetura inteira com base em CAP estão otimizando para o
-caso raro e ignorando o permanente.
+Onde ela é rara, **CAP não é o trade-off dominante do dia a dia**: o dominante é
+latência versus consistência, que vale sempre — ver
+[PACELC](/06-distributed-systems/pacelc.md) —, e decidir a arquitetura inteira com
+base em CAP é otimizar para o caso raro ignorando o permanente. Onde ela é
+frequente, o comportamento sob partição é caminho quente, e precisa ser desenhado
+e testado como tal.
 
 ## Por Que Isso Importa
 
@@ -125,15 +126,21 @@ raro.
 
 ## Erros Comuns
 
-**"Escolha dois entre três".** Partição não é opcional num sistema distribuído.
+**Fechar a discussão de partição com "CAP diz que não dá".** Ninguém escreve o
+que deve acontecer com a requisição que chega durante a partição, e o
+comportamento passa a ser o timeout do driver.
 
-**Tratar como propriedade do sistema.** É por operação.
+**Declarar "somos AP" no documento de arquitetura e configurar o banco uma vez
+só.** A finalização de compra herda o modo escolhido para o catálogo, e a venda
+aceita sobre estoque divergente vira cancelamento na semana seguinte.
 
-**Usar CAP para justificar consistência eventual fora de partição.** Ali o
-argumento correto é latência.
+**Citar CAP para aprovar leitura de réplica atrasada em operação normal.** O que
+se trocou ali foi latência por consistência, e a troca deixa de ser revisada
+porque veio rotulada como teorema.
 
-**Confundir o C de CAP com o C de ACID.** São coisas diferentes: um é
-linearizabilidade, o outro é preservação de invariantes.
+**Tratar uma transação ACID commitada como leitura garantida em qualquer nó.** O
+C de ACID preserva invariantes dentro da transação; o de CAP é linearizabilidade
+entre nós — e o relatório lido da réplica mostra o pedido sem o pagamento.
 
 **Achar que sistemas de nó único têm dilema CAP.** Sem distribuição, não há
 partição.

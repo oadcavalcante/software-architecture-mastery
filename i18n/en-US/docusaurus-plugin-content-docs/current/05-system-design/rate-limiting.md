@@ -13,7 +13,7 @@ objective: >
 prerequisites: [load-balancing]
 related: [queues, load-balancing, security]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -128,10 +128,6 @@ circuit breaker solve it better.
 **As a substitute for capacity.** If the limit has to be so low that it makes legitimate use
 unviable, the problem is sizing.
 
-**Without communicating.** An opaque rejection makes the client retry.
-
-**Uniformly, when the cost varies a lot.** It protects badly.
-
 **As the only defense against abuse.** An attacker distributes the origin.
 
 ## Alternatives
@@ -158,7 +154,8 @@ unviable, the problem is sizing.
 **Shared limit badly implemented.** Counting in local memory with several instances produces
 an effective limit equal to N times the configured one.
 
-**Rejection with no `Retry-After`.** The client retries immediately.
+**The load does not drop when the limit goes in.** Rejections climb on the dashboard and
+total traffic stays where it was: whoever was rejected comes back the next instant.
 
 **Limit too low.** Legitimate use blocked; support becomes the bottleneck.
 
@@ -172,14 +169,19 @@ the service does.
 **Counting in local memory.** See
 [stateless vs. stateful](/05-system-design/stateless-vs-stateful.md).
 
-**Not returning `Retry-After`.**
+**Not returning `Retry-After`.** With no header, the one choosing the wait interval is the
+client, and the interval it chooses is zero.
 
-**A uniform limit for endpoints of very different cost.**
+**A uniform limit for endpoints of very different cost.** Calibrated for the cheap endpoint, it
+lets too much load through on the expensive one; calibrated for the expensive one, it makes the
+cheap one unviable.
 
 **Not monitoring how many rejections are happening.** Without that, nobody knows whether the
 limit is protecting or getting in the way.
 
-**Applying it before authentication and then forgetting to apply it per client.**
+**Applying it before authentication and then forgetting to apply it per client.** The limit
+ends up holding per IP only: whoever comes from several origins goes right over it, and the
+whole office behind one NAT shares the same quota.
 
 ## Real-World Example
 
@@ -204,6 +206,11 @@ The fixes.
 The counting moved to the distributed cache, and the algorithm changed to a token bucket —
 which allows a burst up to the bucket size and then enforces the average rate, without the
 fixed window's defect.
+
+The price was one more synchronous dependency on every request's path. The limiter now depends
+on the cache, and what to do when the cache does not answer became a decision to take up front:
+there they chose to [fail open](/10-security/security-failure-modes.md) — let traffic through
+uncounted while the cache comes back, instead of rejecting everyone to protect the bureau.
 
 The limit started counting **cost units**, not requests: a simple lookup costs 1, a full
 lookup costs 40. The client has a budget per minute and spends it according to what it asks

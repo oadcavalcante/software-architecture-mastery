@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [cap, consistency, reliability-basics]
 canonical_for: [disponibilidade, noves de disponibilidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -62,7 +62,8 @@ janela de manutenção, implantação sem interrupção e resposta operacional e
 minutos.
 
 Apresentar essa tabela antes de perguntar "quantos noves você precisa?" muda a
-resposta. Sem ela, a resposta é sempre o número maior.
+resposta. Sem ela, quem responde não tem motivo para pedir menos que o número
+maior — o custo não está na mesa.
 
 ### Disponibilidade compõe de forma multiplicativa
 
@@ -90,13 +91,12 @@ multiplicação não vale.
 
 ### Correlação é o que quebra a redundância
 
-Redundância só entrega o ganho se as falhas forem independentes.
+Redundância só entrega o ganho se as falhas forem independentes, e a lista do que
+faz as cópias caírem juntas está em [redundância](/12-reliability/redundancy.md), o
+documento canônico de correlação de falhas.
 
-Falhas correlacionadas comuns: mesma zona de disponibilidade, mesmo banco, mesma
-versão de código com o mesmo defeito, mesma configuração errada, mesma dependência
-externa, mesmo certificado expirando.
-
-Três instâncias com um defeito de código idêntico têm a disponibilidade de uma.
+O efeito sobre o número é direto: três instâncias com um defeito de código idêntico
+têm a disponibilidade de uma, e a conta em paralelo da seção anterior não se aplica.
 
 ### Disponibilidade não é confiabilidade
 
@@ -130,8 +130,8 @@ no navegador ou no aplicativo, ou sondagem externa a partir das regiões onde os
 usuários estão.
 
 Quando os dois números divergem de forma persistente, a diferença é o mapa do que
-está quebrado fora do seu perímetro — e é justamente a parte que ninguém está
-observando.
+está quebrado fora do seu perímetro — e é a parte que nenhuma métrica de servidor
+cobre.
 
 ## Modelo Mental
 
@@ -157,7 +157,8 @@ exige.
 **Como métrica binária.** Degradação parcial é o caso comum.
 
 **Prometer disponibilidade maior que a das dependências.** Um sistema não pode ser
-mais disponível que o produto das suas dependências síncronas.
+mais disponível que a menor das suas dependências síncronas; se elas falham de forma
+independente, o teto é o produto delas.
 
 ## Alternativas
 
@@ -166,7 +167,9 @@ Para melhorar disponibilidade percebida sem adicionar noves de infraestrutura:
 - **Degradação graciosa** — responder parcialmente em vez de falhar.
 - **Assíncrono** — aceitar e processar depois, em vez de depender da
   disponibilidade do destino.
-- **Cache** — servir dado velho quando a origem está fora.
+- **Cache** — servir dado velho quando a origem está fora; vale onde o dado
+  desatualizado ainda cumpre o propósito da leitura, e onde a decisão depende do
+  valor corrente é indisponibilidade vestida de `200`.
 - **Reduzir dependências síncronas** — a que mais rende, e a menos considerada.
 
 ## Trade-offs
@@ -197,9 +200,11 @@ que ele usa.
 
 ## Erros Comuns
 
-**Citar noves sem janela.**
+**Citar noves sem janela.** O contrato fica com dois significados, e o cliente
+escolhe o dele na hora da cobrança.
 
-**Não apresentar o custo antes de perguntar o requisito.**
+**Não apresentar o custo antes de perguntar o requisito.** O número que volta é o
+maior, e a conta aparece depois, na infraestrutura que ninguém orçou.
 
 **Presumir independência.**
 
@@ -242,8 +247,9 @@ E a chamada ao provedor de autenticação ganhou cache de token validado e
 degradação: com o provedor fora, sessões já estabelecidas continuam funcionando, e
 apenas novos logins falham.
 
-Essa última mudança sozinha alterou o cálculo: o sistema deixou de depender
-sincronamente de um provedor menos disponível que ele.
+Essa última mudança sozinha alterou o cálculo: o provedor saiu do caminho síncrono
+de toda requisição e passou a pesar apenas no login, deixando de impor seu teto de
+99,9% ao sistema inteiro.
 
 ## Conceitos Relacionados
 

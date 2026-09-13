@@ -13,7 +13,7 @@ objective: >
 prerequisites: [queues]
 related: [queues, request-response, observability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -94,7 +94,9 @@ instances executes four times.
 ### Idempotency and resumption
 
 All background work can be executed twice — through a retry, through duplication in the
-queue, through a restart midway.
+queue, through a restart midway. The requirement that follows is
+[idempotency](/06-distributed-systems/idempotency.md), defined there with the explicit key
+that makes it reliable.
 
 For long work, resumption matters: processing 100 thousand records and failing at 80 thousand
 should not start over from zero. Marking progress allows resumption — and requires the work to
@@ -108,7 +110,8 @@ The minimum: start and end logs with a correlated identifier, a duration metric,
 failure metrics, and an alert for work that does not run within the expected window.
 
 The last is the most forgotten: scheduled work that **stops running** generates no error at
-all. Silence is the symptom, and only an absence alert detects it.
+all. Silence is the symptom, and the absence alert is the only path that detects it before
+the effect does — without it, the discovery arrives when someone misses the result.
 
 ## Mental Model
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [secrets, environment-management, feature-flags]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -98,9 +98,6 @@ tooling.
 A system that tries to absorb every future variation through configuration becomes a badly
 documented generic engine. It is the degeneration of a
 [supporting subdomain](/04-domain-driven-design/supporting-domain.md).
-
-The test: how many distinct values has this parameter ever had? If it was always one, it was not
-capturing variation.
 
 ## Mental Model
 
@@ -199,8 +196,9 @@ The incident lasted 25 minutes.
 **Three were secrets in a versioned file.** Mandatory rotation, and the repository's history had to
 be dealt with.
 
-The cleanup left 23 parameters. The 61 became constants, the 7 were removed, the 4 dangerous
-defaults became mandatory with validation at startup, and the secrets moved to the vault.
+The cleanup left 23 parameters: the 61 that became constants, the 7 that were removed and the 3
+secrets, which moved to the vault, all left the count. The 4 dangerous defaults stayed in it, now
+mandatory and validated at startup.
 
 The most valuable change was the validation: the process now fails to start if any mandatory
 configuration is missing or out of range. The error that cost 25 minutes would become a container
@@ -210,9 +208,10 @@ that does not start — visible on the first deployment attempt.
 
 Containers change two premises about configuration, and ignoring that produces specific problems.
 
-**The same artifact runs in every environment.** The image is built once and promoted. That means
-**no environment configuration can be in the image** — no file, no value baked into the build. If
-the staging image is different from production's, what was tested is not what was deployed.
+**The same artifact runs in every environment** — built once and promoted, as set out in
+[containers in delivery](/14-devops-and-platform/containers-in-delivery.md). The consequence for
+configuration: **no environment configuration can be in the image** — no file, no value baked into
+the build.
 
 **The file system is ephemeral.** Configuration written to disk on first use vanishes in the next
 container.

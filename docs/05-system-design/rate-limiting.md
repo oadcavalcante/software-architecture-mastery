@@ -13,7 +13,7 @@ objective: >
 prerequisites: [load-balancing]
 related: [queues, load-balancing, security]
 canonical_for: [rate limiting, limitação de taxa, throttling]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -131,10 +131,6 @@ e circuit breaker resolvem melhor.
 **Como substituto de capacidade.** Se o limite precisa ser tão baixo que
 inviabiliza o uso legítimo, o problema é dimensionamento.
 
-**Sem comunicar.** Rejeição opaca faz o cliente repetir.
-
-**Uniformemente, quando o custo varia muito.** Protege mal.
-
 **Como única defesa contra abuso.** Um atacante distribui a origem.
 
 ## Alternativas
@@ -161,7 +157,8 @@ inviabiliza o uso legítimo, o problema é dimensionamento.
 **Limite compartilhado mal implementado.** Contagem em memória local com várias
 instâncias produz limite efetivo igual a N vezes o configurado.
 
-**Rejeição sem `Retry-After`.** Cliente repete imediatamente.
+**A carga não cai quando o limite entra.** As rejeições sobem no painel e o
+tráfego total fica no mesmo lugar: quem foi rejeitado volta no instante seguinte.
 
 **Limite baixo demais.** Uso legítimo bloqueado; o suporte vira o gargalo.
 
@@ -176,14 +173,18 @@ serviço.
 **Contar em memória local.** Ver
 [sem estado vs. com estado](/05-system-design/stateless-vs-stateful.md).
 
-**Não retornar `Retry-After`.**
+**Não retornar `Retry-After`.** Sem o cabeçalho quem escolhe o intervalo de espera
+é o cliente, e o intervalo que ele escolhe é zero.
 
-**Limite uniforme para endpoints de custo muito diferente.**
+**Limite uniforme para endpoints de custo muito diferente.** Calibrado pelo endpoint
+barato, deixa passar carga demais no caro; calibrado pelo caro, inviabiliza o barato.
 
 **Não monitorar quantas rejeições estão acontecendo.** Sem isso, ninguém sabe se o
 limite está protegendo ou atrapalhando.
 
-**Aplicar antes da autenticação e depois esquecer de aplicar por cliente.**
+**Aplicar antes da autenticação e depois esquecer de aplicar por cliente.** O limite
+acaba valendo só por IP: quem sai de várias origens passa por cima dele, e o escritório
+inteiro atrás de um NAT divide a mesma cota.
 
 ## Exemplo Real
 
@@ -209,6 +210,12 @@ As correções.
 A contagem foi para o cache distribuído, e o algoritmo mudou para token bucket —
 que permite rajada até o tamanho do balde e depois impõe a taxa média, sem o
 defeito da janela fixa.
+
+O preço foi uma dependência síncrona a mais no caminho de toda requisição. O limitador
+passou a depender do cache, e o que fazer quando o cache não responde virou decisão a
+tomar antes: ali escolheu-se
+[falhar aberto](/10-security/security-failure-modes.md) — deixar passar sem contar
+enquanto o cache volta, em vez de rejeitar todo mundo para proteger o bureau.
 
 O limite passou a contar **unidades de custo**, não requisições: consulta simples
 custa 1, consulta completa custa 40. O cliente tem um orçamento por minuto e gasta

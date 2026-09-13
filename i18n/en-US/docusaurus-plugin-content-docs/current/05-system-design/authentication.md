@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [authorization, stateless-vs-stateful, identity]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -61,17 +61,11 @@ sensitive data there is a leak.
 A self-contained token is valid until it expires. If a user is blocked, or logs out, or has the
 credential stolen, the token keeps working.
 
-Three mitigations, with different costs:
-
-**Short expiry.** Five to fifteen minutes. The exposure window becomes small, and the cost is
-frequent renewal.
-
-**Revocation list.** Checking each token against a list of revoked ones — which reintroduces the
-lookup the token existed to avoid. It is worth it if the list is small and queried from a cache.
-
-**A separate refresh token.** A short access token plus a long refresh token, the second being
-revocable on the server. It is the most common arrangement, and it concentrates the state in a
-single point queried rarely.
+The mitigations — short expiry, a revocation list, a credential version — and what each one
+costs are in [JWT](/10-security/jwt.md). One of them matters for the system decision: the
+**separate refresh token**, a short access token plus a long refresh token, the second being
+revocable on the server. It is the arrangement that concentrates the state in a single point
+queried rarely, and the one that lets you choose tokens without giving up revocation in minutes.
 
 ### Where to verify
 
@@ -88,7 +82,7 @@ everyone needing the verification key.
 recommendation for systems with real trust boundaries.
 
 The choice between the first two is the same question as
-[Zero Trust](/10-security/index.md): is the internal network trustworthy?
+[zero trust](/10-security/zero-trust.md): is the internal network trustworthy?
 
 ### Service authentication is not the same thing
 
@@ -142,13 +136,13 @@ the benefit of building is nil.
 
 ## Trade-offs
 
-| Session | Token |
-|---|---|
-| Immediate revocation | Only at expiry |
-| A lookup per request | Local verification |
-| State to operate and scale | Stateless |
-| A small identifier | Grows with the content |
-| Hard across domains | Trivial |
+The mechanical comparison is in the [session versus token](#session-versus-token) table. The two
+axes it does not show, and that usually decide:
+
+| Axis | Session | Token |
+|---|---|---|
+| Use across domains and client types | Tied to the cookie and the domain that issued it | A header, on any client |
+| Ongoing operational cost | Operating and scaling the shared store | Rotating and distributing the signing key |
 
 ## Failure Modes
 

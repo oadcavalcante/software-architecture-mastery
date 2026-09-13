@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [apis, search, database-scaling]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -76,8 +76,8 @@ A cursor requires the ordering to be **deterministic**. Ordering only by `create
 two records have the same instant — the position becomes ambiguous and items are skipped or
 repeated.
 
-The fix is always to include a unique tiebreaker: `ORDER BY created_at, id`. The `id`
-guarantees a total order.
+The fix is to include a unique tiebreaker whenever the ordering column admits ties:
+`ORDER BY created_at, id`. The `id` guarantees a total order.
 
 That applies to offset too, and it is a common cause of "an item appears twice" that nobody
 can reproduce.
@@ -142,13 +142,14 @@ jumps; forcing it produces a hack.
 
 ## Trade-offs
 
-| Offset | Cursor |
-|---|---|
-| Jump to any page | Sequential only |
-| Total pages available | Usually not |
-| Degrades with depth | Constant cost |
-| Unstable under concurrency | Stable |
-| Trivial to implement | Requires total ordering |
+The [Offset versus cursor](#offset-versus-cursor) table already puts the two side by side.
+What it does not decide is the axis: the choice is made by the access pattern, not by the size
+of the set.
+
+Random access — jumping to page N, showing how many pages exist — only offset delivers, and
+the price is degrading with depth and repeating items under concurrent writes. Sequential
+access a cursor delivers at a constant, stable cost, and the price is giving up the arbitrary
+jump and the trivial ordering.
 
 ## Failure Modes
 
@@ -164,8 +165,8 @@ jumps; forcing it produces a hack.
 
 ## Common Mistakes
 
-**Not including a unique tiebreaker in the ordering.** It is the most common cause of repeated
-items.
+**Not including a unique tiebreaker in the ordering.** It produces items repeated across pages
+whenever the ordering column admits ties.
 
 **Using offset for export.**
 
@@ -181,9 +182,10 @@ An orders API used `page` and `size`, with a total `COUNT` in every response.
 
 Two clients caused different problems.
 
-**An integrator** synchronized all orders daily, paginating to the end. With 2 million orders,
-the last pages took 40 seconds each, and the whole synchronization occupied the database for
-hours. The high `OFFSET` was the dominant cost.
+**An integrator** synchronized all orders daily, paginating to the end in pages of a thousand.
+With 2 million orders that is 2 thousand pages: the last ones took 40 seconds each, and the
+whole synchronization occupied the database for about eleven hours. The high `OFFSET` was the
+dominant cost.
 
 **The listing screen** occasionally showed repeated orders. Nobody could reproduce it. The
 cause: the ordering was only by `order_date`, and orders created in the same second had an
@@ -195,8 +197,8 @@ The screen kept offset — there are few pages and the user wants to jump. It go
 tiebreaker in the ordering, which eliminated the repetition. And the `COUNT` became an
 estimate, with the exact number only when the filter narrows the set a lot.
 
-Synchronization got its own endpoint, with a cursor. The daily synchronization went from hours
-to 4 minutes, with a constant cost per page.
+Synchronization got its own endpoint, with a cursor. The daily synchronization went from
+eleven hours to 4 minutes, with a constant cost per page.
 
 The reading the team takes from it: the two use cases looked like the same thing — "list
 orders" — and had incompatible requirements. Trying to serve both with one endpoint was the
@@ -207,8 +209,9 @@ original error.
 A cursor looks simple and has three details that decide whether it works.
 
 **The ordering has to match the index.** `ORDER BY created_at, id` is only efficient if a
-composite index exists in that exact order. Without it, the database sorts the whole set on
-every page — which is the problem the cursor was supposed to avoid.
+[composite index](/07-data-architecture/indexing.md) exists in that exact
+order. Without it, the database sorts the whole set on every page — which is the
+problem the cursor was supposed to avoid.
 
 **The comparison has to be on a tuple.** Comparing field by field with `OR` produces a correct
 result and a bad execution plan:
