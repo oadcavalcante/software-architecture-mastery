@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partitioning]
 related: [partitioning, replication, database-scaling]
 canonical_for: [sharding, shard]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -67,8 +67,10 @@ custa manter — porque a decisão de roteamento aparece em dezenas de lugares.
 
 O mapeamento chave-para-shard pode ser:
 
-**Algorítmico.** `hash(chave) mod N`, ou hash consistente. Sem estado, e
-rebalancear exige recalcular.
+**Algorítmico.** `hash(chave) mod N`, ou
+[hash consistente](/06-distributed-systems/partitioning.md). Sem estado, e rebalancear
+recalcula posições — com `mod N`, quase toda chave muda de destino quando N muda; com
+hash consistente, cerca de `1/N` delas.
 
 **Por diretório.** Uma tabela que diz onde cada faixa vive. Flexível — permite
 mover uma chave específica, dar shard dedicado a um inquilino grande — e adiciona
@@ -190,24 +192,29 @@ Dois problemas em dezoito meses.
 coincidência de hash. Esse shard tinha 60% dos dados e saturava enquanto os outros
 sete operavam a 15% de utilização.
 
-Com hash simples, a única saída seria mudar o número de shards — o que
-redistribuiria todas as chaves.
+Com hash simples, a única saída seria mudar o número de shards — e para qualquer
+alvo que não fosse múltiplo de 8 isso redistribuiria quase todas as chaves.
 
-**Rebalanceamento inviável.** Ao tentar passar de 8 para 16 shards, o cálculo
-mostrou que praticamente todos os dados precisariam ser movidos — semanas de
-migração com escrita dupla.
+**Rebalanceamento inviável.** Dobrar de 8 para 16 é o caso mais barato do `mod N`:
+a chave com `h mod 8 = r` cai em `r` ou `r+8` sob mod 16, então metade fica parada.
+Ainda assim eram metade dos dados movidos com escrita dupla — semanas de migração —
+e sem garantia de resolver o problema: os três clientes grandes tinham uma chance em
+quatro de continuar juntos no mesmo shard.
 
 A reformulação adotou as duas técnicas que faltavam.
 
 **1024 shards lógicos** mapeados para 8 instâncias por um diretório. Adicionar
-instâncias passou a mover shards lógicos inteiros, sem recalcular chave nenhuma.
+instâncias passou a mover shards lógicos inteiros — cada um copiado como réplica e
+promovido — em vez de coordenar escrita dupla chave a chave.
 
 **Diretório em vez de hash puro.** Isso permitiu mover os três clientes grandes
 para instâncias dedicadas, individualmente — algo impossível com mapeamento
 algorítmico.
 
-A migração para o novo esquema levou seis semanas. Depois dela, a passagem de 8
-para 12 instâncias levou quatro horas.
+A migração para o novo esquema levou seis semanas, chave a chave com escrita dupla.
+Depois dela, a passagem de 8 para 12 instâncias moveu um terço do conjunto em quatro
+horas. A diferença não está no volume — é da mesma ordem —, está em copiar shards
+inteiros em vez de coordenar cada chave.
 
 O detalhe que a equipe destaca: shards lógicos e diretório são decisões que custam pouco
 no início e são caras de retrofitar. Ambas estavam na documentação de referência
@@ -223,8 +230,10 @@ que ninguém leu antes de implementar.
 ## Exercício Prático
 
 Se seu sistema é shardado, meça a distribuição: tamanho e taxa de operações por
-shard. Uma diferença maior que 3× entre o maior e o menor indica desequilíbrio que
-vai piorar.
+shard. Uma razão maior que 3× entre o maior e o menor é regra de bolso para
+investigar, e a tendência importa mais que o valor de hoje: num sistema
+multi-inquilino o inquilino já maior costuma crescer mais rápido que a média, e
+a razão entre os extremos se abre com o tempo.
 
 Se não é, verifique: existe uma chave natural? O que aconteceria com uma consulta
 que não a inclui?

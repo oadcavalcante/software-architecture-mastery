@@ -13,7 +13,7 @@ objective: >
 prerequisites: [network-failure]
 related: [idempotency, sagas, circuit-breakers]
 canonical_for: [falha parcial]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -51,17 +51,21 @@ estados.**
 
 ## Conceitos Centrais
 
-### O número de estados explode
+### O número de estados cresce com a topologia
 
-Com N passos que podem falhar independentemente, os estados intermediários crescem
-exponencialmente.
+Com N passos que podem falhar independentemente, quantos estados intermediários
+existem depende de como os passos são despachados.
 
-Três passos produzem oito combinações de sucesso e falha. Cinco produzem 32. Cada
-uma precisa de uma resposta — ainda que a resposta seja "aceitamos e corrigimos
-manualmente".
+Em fluxo sequencial que aborta na primeira falha, os desfechos alcançáveis são N+1:
+sucesso completo, ou parada em cada um dos N passos. Quando os passos correm em
+paralelo, ou quando o fluxo segue adiante depois de um deles falhar, são as 2^N
+combinações de sucesso e falha — 32 para cinco passos — e 3^N quando o timeout
+deixa o desfecho de cada passo desconhecido. Cada desfecho precisa de uma resposta —
+ainda que a resposta seja "aceitamos e corrigimos manualmente".
 
-Esse é o argumento mais forte contra granularidade excessiva: **cada fronteira
-adicional multiplica os estados a considerar.**
+Esse é o custo que granularidade excessiva impõe a operações multi-passo: **cada
+fronteira adicional acrescenta estados a considerar, e o paralelismo os
+multiplica.**
 
 ### As três respostas possíveis
 
@@ -110,10 +114,11 @@ conexões.
 **Correto mas desatualizado.** Uma réplica que parou de replicar continua servindo
 leituras — de dados antigos, sem sinal de que algo está errado.
 
-Nenhum desses aparece em contagem de erros. Detectá-los exige verificar
-comportamento, não disponibilidade: a verificação de saúde precisa exercitar o
-caminho real, e o monitoramento precisa observar latência e defasagem, não apenas
-sucesso e falha.
+Nenhum desses aparece em contagem de erros. O que medir no lugar de
+disponibilidade está em [falha de rede](/06-distributed-systems/network-failure.md).
+O que importa aqui é que os três produzem estado inconsistente sem que nenhum passo
+tenha falhado — e por isso nenhuma das três respostas (compensar, retomar,
+reconciliar) chega a ser acionada.
 
 ## Modelo Mental
 
@@ -143,14 +148,16 @@ próprias falhas.
 **Reconciliar sem alerta.** Um processo silencioso esconde a frequência do
 problema.
 
-**Multiplicar fronteiras sem necessidade.**
+**Multiplicar fronteiras sem necessidade.** A fronteira se paga quando os dois
+lados mudam em ritmos diferentes ou escalam em ordens de grandeza distintas; abaixo
+disso, o que ela acrescenta é mais um estado intermediário para tratar.
 
 ## Alternativas
 
 - **Transação local** — quando os passos cabem no mesmo banco, a falha parcial
-  desaparece. É a razão mais forte para manter coisas juntas.
-- **Reduzir o número de passos** — juntar dois serviços elimina uma fronteira e
-  metade dos estados.
+  desaparece. É a razão para manter no mesmo banco os passos de uma mesma operação.
+- **Reduzir o número de passos** — juntar dois serviços elimina uma fronteira: um
+  desfecho a menos em fluxo sequencial, metade das combinações em fluxo paralelo.
 - **Tornar passos opcionais** — se o e-mail pode falhar sem consequência, sai do
   fluxo crítico e vira evento.
 
@@ -160,7 +167,7 @@ problema.
 |---|---|---|
 | Volta ao estado inicial | Chega ao estado final | Corrige depois |
 | Exige inverso por passo | Exige idempotência e estado durável | Exige processo separado |
-| Rápido | Pode demorar | Assíncrono |
+| Segundos | Minutos a horas | Só no próximo ciclo |
 | O inverso pode falhar | A retomada pode falhar | Pode acumular pendências |
 | Visível ao usuário | Transparente | Invisível até o alerta |
 
@@ -193,12 +200,13 @@ ninguém lê é o mesmo que não ter.
 ## Exemplo Real
 
 Um sistema de matrícula em cursos executava quatro passos: reservar vaga, cobrar,
-liberar acesso à plataforma, enviar boas-vindas.
+liberar acesso à plataforma, enviar boas-vindas. Cerca de 300 matrículas por dia.
 
 Não havia persistência de progresso — era uma função chamando quatro serviços em
 sequência.
 
-Ao longo de um ano, três estados órfãos apareceram com frequência.
+Ao longo de um ano, três estados órfãos apareceram — os dois primeiros de forma
+recorrente, o terceiro em três casos.
 
 **Cobrado sem acesso.** O serviço de plataforma falhava após a cobrança. O aluno
 pagava e não conseguia entrar. Descoberto pelo suporte, corrigido à mão.
@@ -207,9 +215,10 @@ pagava e não conseguia entrar. Descoberto pelo suporte, corrigido à mão.
 apareciam esgotados com vagas fantasma.
 
 **Acesso sem cobrança.** A retentativa manual do operador reexecutava a partir do
-início. O passo de liberar acesso — já concluído — rodava de novo, inofensivo. Em
-três casos, porém, o operador retomou após falha na cobrança e o acesso foi
-liberado sem pagamento.
+início: o passo de liberar acesso — já concluído — rodava de novo, inofensivo, mas a
+cobrança era lançada uma segunda vez. Em três casos o operador pulou a cobrança e
+retomou do terceiro passo, supondo-a concluída, e o acesso foi liberado sem
+pagamento.
 
 A reformulação transformou a operação numa máquina de estados persistida.
 
@@ -221,7 +230,7 @@ O envio de boas-vindas saiu do fluxo crítico e virou evento: pode falhar sem
 deixar a matrícula inconsistente.
 
 E foi adicionada reconciliação diária comparando matrículas, cobranças e acessos,
-com alerta acima de cinco divergências.
+com alerta acima de cinco divergências no dia — pouco mais de 1% do volume diário.
 
 Na primeira execução, ela encontrou 47 divergências acumuladas em meses. Ninguém
 sabia que existiam, porque só as que geravam reclamação eram descobertas.

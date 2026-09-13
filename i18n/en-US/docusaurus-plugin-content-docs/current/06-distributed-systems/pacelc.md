@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [cap, consistency, latency]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -121,7 +121,8 @@ placement — the parameters exist and someone has to choose.
 
 ## Common Mistakes
 
-**Knowing only CAP.** It leaves the system's normal behavior unexplained.
+**Knowing only CAP.** It sends you hunting for a partition every time latency rises, when the
+cost is permanent and there is no failure behind it.
 
 **Treating the classification as a property of the database.** Most modern databases allow choosing
 per operation.
@@ -132,7 +133,8 @@ on a majority is measurable and rarely measured.
 **Choosing EC globally as a precaution.** It pays latency on every operation to protect the few
 that need it.
 
-**Ignoring geography.** EC's cost depends on the distance between replicas.
+**Ignoring geography.** Sizing EC with replicas in one region and then spreading them across
+continents multiplies the latency of every write by five, and no code optimization gives it back.
 
 ## Real-World Example
 
@@ -152,7 +154,9 @@ The per-operation analysis changed the architecture.
 
 **Room booking** stayed EC, and was **partitioned by the hotel's region**. A hotel in São Paulo has
 its booking coordinated only among South American replicas. The coordination continues, and the
-distance dropped from intercontinental to regional: from 340 ms to 18 ms.
+distance dropped from intercontinental to regional: from 340 ms to 18 ms. Partitioning shortened
+the coordination, not the client's path — someone booking a São Paulo hotel from Europe still pays
+the trip to the region that owns the data.
 
 **Availability lookup** became EL — it reads from the local replica, with an accepted delay of
 seconds. The business confirmed that slightly stale availability is acceptable, because the actual
@@ -160,7 +164,7 @@ booking checks again.
 
 **User profile and history** became EL with no reservations.
 
-Result: a 158 ms p50 — the 140 ms of application work, which had nothing to
+Result: a 158 ms p50 on bookings for hotels in the user's own region — the 140 ms of application work, which had nothing to
 optimize, plus the 18 ms of regional coordination. Under the 300 ms requirement.
 
 The point the team underlines: strong consistency was not abandoned. What changed was **the scope

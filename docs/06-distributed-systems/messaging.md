@@ -13,11 +13,14 @@ objective: >
 prerequisites: [partial-failure]
 related: [delivery-guarantees, ordering, event-driven-systems]
 canonical_for: [mensageria, broker, log de eventos]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
 # Mensageria
+
+> Pré-requisito: [Filas](/05-system-design/queues.md). Aqui o foco é a escolha
+> entre fila e log de eventos e as garantias do canal, não a mecânica da fila.
 
 ## Visão Geral
 
@@ -71,7 +74,8 @@ precisa tratar:
 
 **[Entrega ao menos uma vez](/06-distributed-systems/delivery-guarantees.md)** — duplicação vai acontecer.
 
-**[Ordem apenas por partição](/06-distributed-systems/ordering.md)** — não há ordem global.
+**[Ordem apenas por partição](/06-distributed-systems/ordering.md)** — ordem global
+exige uma partição só, e o preço é a vazão do tópico limitada a um consumidor.
 
 **Mensagens que sempre falham** — precisam de
 [dead-letter queue](/06-distributed-systems/dead-letter-queues.md).
@@ -84,25 +88,30 @@ mecanismo.
 O consumidor confirma **após** processar com sucesso. Confirmar antes perde a
 mensagem se o processamento falhar.
 
-Entre a entrega e a confirmação, a mensagem fica invisível para outros
-consumidores por um tempo. Se esse tempo for menor que o processamento, a
+No modelo de fila, entre a entrega e a confirmação a mensagem fica invisível para
+outros consumidores por um tempo. Se esse tempo for menor que o processamento, a
 mensagem é reentregue enquanto ainda está sendo processada — duplicação
 sistemática.
 
 Esse valor precisa ser calibrado a partir do percentil alto do tempo de
 processamento, não estimado.
 
+No log não existe esse relógio. O análogo é o intervalo de poll: o consumidor que
+demora mais que ele sai do grupo, a partição é reatribuída, e quem a recebe relê a
+partir da última posição confirmada.
+
 ### O produtor também tem um problema
 
 Publicar uma mensagem e gravar no banco não são atômicos. Pode gravar e não
 publicar, ou publicar e falhar ao gravar.
 
-A solução é o padrão **outbox**: a mensagem é gravada numa tabela na mesma
-transação do dado, e um processo separado a publica. Ver
-[evento de domínio](/04-domain-driven-design/domain-event.md).
+A solução é o padrão **outbox** — ver
+[garantias de entrega](/06-distributed-systems/delivery-guarantees.md), canônico do
+tema: a publicação deixa de ser uma segunda escrita e passa a depender só da
+transação do dado.
 
-Ignorar isso produz perda silenciosa de mensagem — o modo de falha mais difícil de
-diagnosticar, porque não há erro em lugar nenhum.
+Ignorar isso produz perda silenciosa de mensagem — não há erro em log nenhum, e o
+sintoma aparece no consumidor que nunca recebeu.
 
 ### Push e pull
 
@@ -113,9 +122,9 @@ sobrecarregado se não houver controle de fluxo. Ver
 **Pull** — o consumidor busca quando pode. Controle natural de ritmo, ao custo de
 latência de intervalo.
 
-A maioria dos sistemas modernos usa pull com espera longa: o consumidor pede, e a
-conexão fica aberta até haver mensagem ou expirar. Combina o controle do pull com
-a latência do push.
+O pull com espera longa combina os dois: o consumidor pede, e a conexão fica aberta
+até haver mensagem ou expirar — controle de ritmo do pull com latência próxima à do
+push. É a forma usual onde o broker a oferece.
 
 ## Modelo Mental
 
@@ -221,8 +230,10 @@ própria posição. O quinto interessado foi adicionado sem tocar o produtor.
 
 A publicação única com outbox eliminou a parcialidade.
 
-E o reprocessamento virou reposicionar a leitura — a análise recalculou seis meses
-em duas horas, lendo o histórico retido.
+E o reprocessamento virou reposicionar a leitura. Os eventos anteriores à migração
+continuaram perdidos: o log só acumula o histórico dali em diante, e a retenção de
+seis meses foi decisão deliberada, paga em armazenamento. Passada essa janela, a
+análise recalculou seis meses em duas horas relendo esse histórico.
 
 O que a equipe aprendeu: a fila não estava errada como tecnologia. Estava errada
 como **modelo** — o caso era distribuição de fatos, não de trabalho, e o sintoma

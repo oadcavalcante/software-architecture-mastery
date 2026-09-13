@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [consensus, distributed-locks, failure-detection]
 canonical_for: [eleição de líder, cérebro dividido, fencing]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -53,7 +53,9 @@ Isso é **cérebro dividido**, e é o modo de falha que a eleição precisa impe
 O mecanismo fundamental: **um nó só se torna líder com o voto da maioria.**
 
 Como não pode haver duas maiorias disjuntas num mesmo grupo, não pode haver dois
-líderes eleitos simultaneamente.
+líderes eleitos no mesmo mandato. O que a maioria não impede é que um líder de
+mandato anterior continue se julgando líder — e é esse caso que a seção seguinte
+trata.
 
 ```text
 5 nós, partição em 3 e 2
@@ -89,20 +91,19 @@ líder 1 volta e tenta escrever com época 5
 ```
 
 Fencing é a defesa que funciona mesmo quando a detecção falha, porque ela não
-depende de o líder antigo perceber nada. É o mecanismo mais confiável, e o mais
-frequentemente omitido.
+depende de o líder antigo perceber nada. É também o mecanismo que Kleppmann (2016)
+aponta como o mais ausente das implementações de coordenação em uso.
 
 ### Detecção e estabilidade
 
-O tempo de detecção define um compromisso:
+O tempo de detecção define um compromisso entre failover rápido e estabilidade, e a
+calibração desse compromisso é assunto de
+[detecção de falha](/06-distributed-systems/failure-detection.md).
 
-**Curto.** Failover rápido, e risco de eleição desnecessária por lentidão
-momentânea — o que causa instabilidade, com liderança trocando repetidamente.
-
-**Longo.** Estável, e mais tempo de indisponibilidade quando o líder de fato cai.
-
-Sistemas maduros costumam usar detecção da ordem de segundos, com concessão de
-prazo semelhante.
+O que é específico da liderança é o prazo da concessão, que herda essa calibração:
+ele é o teto da janela em que dois nós podem se julgar líderes. Prazo curto encurta
+a janela e aumenta o risco de o líder se demitir por lentidão momentânea, com a
+liderança trocando repetidamente; prazo longo faz o inverso.
 
 ### Nem tudo precisa de líder
 
@@ -169,7 +170,7 @@ uma arquitetura sem líder, com as complicações correspondentes.
 | Ordenação natural | Ordenação a estabelecer |
 | Raciocínio simples | Complexo |
 | Gargalo de escrita | Distribuído |
-| Indisponível durante eleição | Sempre disponível |
+| Indisponível durante eleição | Disponível, dentro do quórum configurado |
 | Ponto de falha, mitigado por failover | Sem ponto único |
 
 ## Modos de Falha
@@ -232,8 +233,8 @@ O que torna esse caso instrutivo é que o problema não foi a eleição — ela
 funcionou, e B foi corretamente eleito. O problema foi **A não saber que perdeu**,
 e nenhum mecanismo impedir que ele escrevesse.
 
-Fencing é a única defesa que funciona nesse cenário, porque ela não depende do
-ex-líder perceber nada.
+Fencing é a defesa que não depende do ex-líder perceber nada — e, diferente da
+verificação de liderança antes da escrita, não tem janela entre checar e gravar.
 
 ## Conceitos Relacionados
 

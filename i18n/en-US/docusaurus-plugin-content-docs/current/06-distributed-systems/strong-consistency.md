@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [eventual-consistency, consensus, pacelc]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -37,8 +37,9 @@ single-process program works.
 That makes the guarantee attractive by default: adopting it eliminates a whole class of reasoning
 about stale data, conflicts and convergence.
 
-The cost is that it does not scale the same way. Every operation that needs a strong guarantee has
-to coordinate with a majority of replicas — and coordination is a network round trip.
+The cost is that it does not scale the same way. In a replicated system, every operation that needs
+a strong guarantee coordinates with a majority of replicas — and coordination is a network round
+trip.
 
 In a single-region configuration, that is acceptable. In a multi-region one, it is frequently
 unviable — and the arithmetic is geometric, not a matter of optimization.
@@ -74,6 +75,10 @@ single region, across zones         → +2 to 5 ms
 two regions, same continent         → +30 ms
 intercontinental regions            → +150 ms
 ```
+
+The numbers are floors. A coordinated operation only finishes when the slowest replica in the quorum
+answers, so the observed latency follows that replica's tail, not the network's median — which is
+where coordination usually gets underestimated.
 
 The last line is what makes global strong consistency impractical for high-frequency operations.
 See [PACELC](/06-distributed-systems/pacelc.md).
@@ -180,6 +185,10 @@ the configuration reads from a replica.
 
 **Contention.** Many concurrent operations on the same key serialize, and throughput collapses.
 
+**Maintenance that eats the quorum's slack.** With three replicas, pulling one out to upgrade it
+leaves the system with no margin: the next loss refuses writes. The number of replicas and the
+maintenance window become an architecture decision, not an operations one.
+
 ## Common Mistakes
 
 **Adopting it uniformly.** Few flows in a system need strong consistency — balance, stock,
@@ -215,7 +224,9 @@ thousand simultaneous people, the system could not keep up — the coordination 
 The redesign kept strong consistency and changed the scope.
 
 **Partitioning by event.** Each event has its replicas, in the region where it takes place. The
-coordination to reserve a seat became one among regional replicas: from 180 ms to 8 ms.
+coordination to reserve a seat became one among regional replicas: from 180 ms to 8 ms. A
+reservation costs more than one coordinated round trip — which is why the number sits above the
+per-operation band across zones.
 
 **Reservation with expiry.** Instead of coordinating throughout the whole purchase flow, the
 reservation locks the seat for 10 minutes — one coordinated, short operation. The rest of the flow
@@ -223,7 +234,9 @@ reservation locks the seat for 10 minutes — one coordinated, short operation. 
 
 **Eventual reads for the seat map.** The availability view reads from a local replica, with a
 seconds-long delay. The business accepted it: if a seat appears available and has already been
-reserved, the reservation attempt fails with a clear message — which is rare and acceptable.
+reserved, the attempt fails with a clear message, the map is reloaded and the system suggests a
+nearby seat. The collisions concentrate in the first minutes of the opening, when the map ages
+faster than it refreshes; through the rest of the sale they are rare.
 
 Result: the guarantee against selling twice remained absolute, and capacity rose by more than an
 order of magnitude.
@@ -239,6 +252,8 @@ local to an event.
 - [PACELC](/06-distributed-systems/pacelc.md) — the permanent cost.
 - [Consensus](/06-distributed-systems/consensus.md) — the mechanism behind it.
 - [Partitioning](/06-distributed-systems/partitioning.md) — how to reduce the scope.
+- [Strong vs. Eventual Consistency](/20-trade-offs/strong-vs-eventual-consistency.md) — the
+  inconsistency window with a number.
 
 ## Practical Exercise
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [retries, timeouts, duplicate-messages]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -41,7 +41,9 @@ Faced with that there are two options, and both are bad without idempotency:
 
 **Do not retry.** If it did not happen, the effect is lost. A paid order goes unprocessed.
 
-Idempotency dissolves the dilemma: if retrying is safe, always retry.
+Idempotency dissolves the dilemma on the axis of the effect: retrying stops duplicating.
+Whether it is worth retrying — whether the failure is retryable, with what limit and what
+spacing — is a [retry](/06-distributed-systems/retries.md) decision.
 
 Note the asymmetry. Without idempotency, you have to **guess** what happened on the other side.
 With it, you do not need to know.
@@ -170,8 +172,10 @@ actually harmless.
   and with a weaker guarantee.
 - **Duplicate detection in the consumer** — checking whether the effect already exists before
   applying it. It works when there is a natural identifier.
-- **Making the operation absolute** — reformulating "add 50" to "set to 150". Not always possible
-  and the cleanest solution when it is.
+- **Making the operation absolute** — reformulating "add 50" to "set to 150". It does away with
+  key storage, and wins on that when there is a single writer or guaranteed ordering. Under
+  concurrent writes it loses: a delayed retry of "set to 150" arriving after a legitimate "set to
+  200" reverts the state, unless the write is conditional on the version.
 - **Distributed transaction** — expensive, and it avoids the problem instead of handling it. See
   [distributed transactions](/06-distributed-systems/distributed-transactions.md).
 
@@ -189,7 +193,8 @@ actually harmless.
 
 **The key recorded outside the effect's transaction.** A window in which it duplicates.
 
-**A key generated per retry.** Each attempt with a new key; no idempotency at all.
+**A key per HTTP request instead of per intent.** If the client generates a new key on each
+network attempt, there is no deduplication.
 
 **A key with no expiry.** A leak in storage.
 
@@ -197,18 +202,20 @@ actually harmless.
 
 **Natural idempotency that broke.** A side effect was added and nobody re-evaluated.
 
-**A key per HTTP request instead of per intent.** If the client generates a new key on each
-network attempt, there is no deduplication.
-
 ## Common Mistakes
 
-**Assuming natural idempotency.**
+**Assuming natural idempotency.** It holds until somebody adds a side effect, and the break does
+not show up in tests — it shows up on the first retry in production.
 
-**The server generating the key.**
+**The server generating the key.** Every retry arrives with a new key, and the mechanism becomes
+ornament: it exists in the code and deduplicates nothing.
 
-**Recording the key and the effect separately.**
+**Recording the key and the effect separately.** It looks equivalent because the two writes sit
+next to each other in the code; a failure between them leaves the effect applied with no record
+of the key.
 
-**Not handling a repeated key with a different body.**
+**Not handling a repeated key with a different body.** Returning the old result hides the
+improper reuse of the key, and the divergence only surfaces during reconciliation.
 
 **Not testing the duplication path.** It is the path that only happens under failure, and
 therefore the least exercised.

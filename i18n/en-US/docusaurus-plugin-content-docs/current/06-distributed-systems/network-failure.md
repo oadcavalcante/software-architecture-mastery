@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [partial-failure, timeouts, failure-detection]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -120,7 +120,10 @@ This document does not describe a technique to apply. The decisions it informs:
 **Assuming the network is reliable inside the data center.** It is more reliable; it is not
 reliable. Partitions within a zone happen.
 
-**Treating a partition as an unlikely scenario.** Long-lived systems encounter them.
+**Treating a partition as an unlikely scenario.** Unlikely per request is not unlikely per
+year: the probability that decides the design is the one of happening at least once in the
+system's lifetime, and it grows with the operating time and with the number of links and zones
+crossed.
 
 **Trusting a binary health check.** It does not detect slowness.
 
@@ -145,9 +148,9 @@ resolve — and refusing — with unavailability.
 | Accept writes | Refuse |
 |---|---|
 | The system stays available | Unavailable during the partition |
-| The states diverge | The state is always consistent |
+| The states diverge | No divergence during the partition |
 | A conflict to resolve | No conflict |
-| Suitable for domains that tolerate it | Suitable for domains that do not |
+| Suitable where divergence is reconcilable — a cart, a counter | Suitable where divergence is unacceptable — a balance, single-unit stock |
 
 See [CAP](/06-distributed-systems/cap.md) for the full treatment.
 
@@ -155,7 +158,8 @@ See [CAP](/06-distributed-systems/cap.md) for the full treatment.
 
 **Cascade from slowness.** A slow node consumes the connections of whoever calls it.
 
-**Split brain.** Both sides of a partition consider themselves authoritative.
+**[Split brain](/06-distributed-systems/leader-election.md).** Writes accepted on both sides at
+the same time; what you observe is the conflict later, during reconciliation.
 
 **Duplication from retransmission.** With no idempotency, a duplicated effect.
 
@@ -185,27 +189,32 @@ zones.
 
 A network maintenance isolated the leader's zone from the other two for 90 seconds.
 
-The two replicas stopped receiving a signal from the leader. After the detection timeout, they
-elected a new leader among themselves and started accepting writes.
+The two replicas stopped receiving a signal from the leader. After 20 seconds with no signal —
+the configured detection timeout — they elected a new leader among themselves and started
+accepting writes.
 
 The original leader remained healthy, reachable by the application running in the same zone, and
 kept accepting writes — not knowing it had lost the leadership.
 
-For 90 seconds there were **two leaders**, both accepting writes, each convinced it was the only
-one.
+For roughly 70 of the 90 seconds of partition there were **two leaders**, both accepting writes,
+each convinced it was the only one.
 
 At the end of the partition, 1,200 writes had to be reconciled manually. 40 were conflicting —
 the same record changed on both sides.
 
 What the team discovered in the analysis: the cluster had protection against that — a majority
-requirement to accept writes — and it was disabled, because enabling it made the system
-unavailable when one zone went down.
+requirement to accept writes — and it was disabled, because enabling it leaves the minority side
+of a partition unable to write. It is not the cluster that stops: with three nodes in three
+zones, the two that remain form a majority and keep accepting writes — see
+[availability zones](/09-cloud-architecture/availability-zones.md). What is left without writes
+is the isolated leader, and with it the application running in the same zone.
 
 Someone had traded availability for consistency without recording the decision, and without the
 business knowing. For a balance system, it was the wrong trade.
 
-The fix was to re-enable the majority requirement and accept 90 seconds of unavailability instead
-of balance divergence — this time with the decision recorded in an
+The fix was to re-enable the majority requirement and accept that the application in the isolated
+zone cannot write for as long as the partition lasts, instead of balance divergence — this time
+with the decision recorded in an
 [ADR](/18-architecture-decisions/what-is-an-adr.md), and with the business in the conversation.
 
 ## Related Concepts
@@ -215,6 +224,8 @@ of balance divergence — this time with the decision recorded in an
 - [Failure Detection](/06-distributed-systems/failure-detection.md) — why declaring something
   dead is a heuristic.
 - [Timeouts](/06-distributed-systems/timeouts.md) — the only available tool.
+- [Leader Election](/06-distributed-systems/leader-election.md) — split brain and the fencing that
+  prevents it.
 
 ## Practical Exercise
 

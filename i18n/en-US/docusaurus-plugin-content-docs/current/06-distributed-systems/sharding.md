@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partitioning]
 related: [partitioning, replication, database-scaling]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -66,8 +66,10 @@ maintain — because the routing decision appears in dozens of places.
 
 The key-to-shard mapping can be:
 
-**Algorithmic.** `hash(key) mod N`, or consistent hashing. Stateless, and rebalancing requires
-recomputing.
+**Algorithmic.** `hash(key) mod N`, or
+[consistent hashing](/06-distributed-systems/partitioning.md). Stateless, and rebalancing recomputes
+positions — with `mod N`, almost every key changes destination when N changes; with consistent
+hashing, about `1/N` of them.
 
 **By directory.** A table that says where each range lives. Flexible — it allows moving a specific
 key, giving a dedicated shard to a large tenant — and it adds a lookup before every access, plus a
@@ -191,22 +193,26 @@ Two problems in eighteen months.
 **Imbalance.** Three large corporate customers landed on the same shard by hash coincidence. That
 shard had 60% of the data and saturated while the other seven operated at 15% utilization.
 
-With a simple hash, the only way out would be changing the number of shards — which would
-redistribute every key.
+With a simple hash, the only way out would be changing the number of shards — and for any target
+that was not a multiple of 8 that would redistribute almost every key.
 
-**Unviable rebalancing.** When trying to go from 8 to 16 shards, the calculation showed that
-practically all the data would have to be moved — weeks of migration with dual writes.
+**Unviable rebalancing.** Doubling from 8 to 16 is the cheapest case of `mod N`: the key with
+`h mod 8 = r` lands on `r` or `r+8` under mod 16, so half of them stay put. Even so it meant moving
+half the data with dual writes — weeks of migration — with no guarantee of fixing the problem: the
+three large customers had a one-in-four chance of staying together on the same shard.
 
 The redesign adopted the two techniques that were missing.
 
 **1024 logical shards** mapped to 8 instances through a directory. Adding instances came to mean
-moving whole logical shards, with no key recomputation at all.
+moving whole logical shards — each one copied as a replica and promoted — instead of coordinating
+dual writes key by key.
 
 **A directory instead of a pure hash.** That made it possible to move the three large customers to
 dedicated instances, individually — something impossible with algorithmic mapping.
 
-The migration to the new scheme took six weeks. After it, going from 8 to 12 instances took four
-hours.
+The migration to the new scheme took six weeks, key by key with dual writes. After it, going from
+8 to 12 instances moved a third of the dataset in four hours. The difference is not in the volume —
+it is of the same order — it is in copying whole shards instead of coordinating every key.
 
 The detail the team highlights: logical shards and a directory are decisions that cost little at the
 start and are expensive to retrofit. Both were in the reference documentation nobody read before
@@ -221,8 +227,10 @@ implementing.
 
 ## Practical Exercise
 
-If your system is sharded, measure the distribution: size and operation rate per shard. A difference
-greater than 3× between the largest and the smallest indicates an imbalance that will get worse.
+If your system is sharded, measure the distribution: size and operation rate per shard. A ratio
+greater than 3× between the largest and the smallest is a rule of thumb for investigating, and the
+trend matters more than today's value: in a multi-tenant system the already-largest tenant tends to
+grow faster than the average, and the ratio widens over time.
 
 If it is not, check: is there a natural key? What would happen to a query that does not include it?
 

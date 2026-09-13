@@ -2,7 +2,7 @@
 id: partitioning
 title: Partitioning
 sidebar_position: 14
-description: Dividing the data across nodes — the only way to scale writes, and the hardest to reverse.
+description: Dividing the data across nodes — the only way to scale writes past one node's limit, and the hardest to reverse.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [sharding, hotspots, replication]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ It exists for a reason [replication](/06-distributed-systems/replication.md) doe
 **scaling writes**. Replicas multiply read capacity; for writes, every replica receives everything.
 
 And it is the data decision hardest to reverse, because the choice of key determines what stays
-cheap and what becomes expensive — permanently.
+cheap and what becomes expensive — at a cost only a months-long migration reverses.
 
 ## Problem
 
@@ -63,7 +63,8 @@ the query has to scan them all.
 identifier and a range by date within it. It preserves range queries **within** a customer and
 distributes across customers.
 
-The hybrid is frequently the right answer in business systems, and the least considered.
+The hybrid is frequently the right answer in business systems, and it requires knowing the query
+pattern before choosing — which is why it falls outside the first decision.
 
 ### The key decides everything
 
@@ -151,7 +152,7 @@ corresponding cost.
 | Volume scales with the number of nodes | Limited by one node |
 | Cross-partition operations expensive | All local |
 | A cross-partition transaction is distributed | Local |
-| Rebalancing to operate | Nothing |
+| [Rebalancing](/11-scalability/scaling-partitioning.md) to operate | Nothing |
 | Key hard to change | No key |
 
 ## Failure Modes
@@ -164,19 +165,22 @@ corresponding cost.
 
 **Rebalancing during a peak.** Data movement competing with traffic.
 
-**A query without the key.** It becomes a scan of every partition — the most common performance
-failure mode in partitioned systems.
+**A query without the key.** It becomes a scan of every partition, and the answer waits on the
+slowest.
 
 ## Common Mistakes
 
-**Partitioning too early.**
+**Partitioning too early.** You pay cross-partition coordination without having hit one node's
+ceiling.
 
-**Choosing the key without analyzing the queries.**
+**Choosing the key without analyzing the queries.** The system's most frequent operation becomes a
+query to every partition, and only the log reveals which one it is.
 
 **Not considering the real data distribution.** A key that is uniform in theory can be concentrated
 in practice.
 
-**Using a simple hash instead of a consistent one.**
+**Using a simple hash instead of a consistent one.** Adding a node remaps nearly every key, and
+growing becomes a migration.
 
 **Not measuring the distribution afterwards.** The load can become unbalanced over time.
 

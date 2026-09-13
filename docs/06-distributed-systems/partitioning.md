@@ -2,7 +2,7 @@
 id: partitioning
 title: Particionamento
 sidebar_position: 14
-description: Dividir os dados entre nós — a única forma de escalar escrita, e a mais difícil de reverter.
+description: Dividir os dados entre nós — a única forma de escalar escrita além do limite de um nó, e a mais difícil de reverter.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [sharding, hotspots, replication]
 canonical_for: [particionamento, chave de partição]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -29,7 +29,8 @@ escrita**. Réplicas multiplicam capacidade de leitura; para escrita, cada répl
 recebe tudo.
 
 E ele é a decisão de dados mais difícil de reverter, porque a escolha da chave
-determina o que fica barato e o que fica caro — permanentemente.
+determina o que fica barato e o que fica caro — por um custo que só uma
+migração de meses reverte.
 
 ## Problema
 
@@ -69,8 +70,9 @@ partições diferentes, e a consulta precisa varrer todas.
 identificador do cliente e faixa por data dentro dele. Preserva consulta por
 intervalo **dentro** de um cliente e distribui entre clientes.
 
-A híbrida é frequentemente a resposta certa em sistemas de negócio, e a menos
-considerada.
+A híbrida é frequentemente a resposta certa em sistemas de negócio, e exige
+conhecer o padrão de consulta antes de escolher — razão pela qual fica fora da
+primeira decisão.
 
 ### A chave decide tudo
 
@@ -165,7 +167,7 @@ correspondente.
 | Volume escala com o número de nós | Limitado por um nó |
 | Operações entre partições caras | Todas locais |
 | Transação entre partições é distribuída | Local |
-| Rebalanceamento a operar | Nada |
+| [Rebalanceamento](/11-scalability/scaling-partitioning.md) a operar | Nada |
 | Chave difícil de mudar | Sem chave |
 
 ## Modos de Falha
@@ -179,19 +181,22 @@ partições.
 
 **Rebalanceamento durante pico.** Movimentação de dados competindo com tráfego.
 
-**Consulta sem a chave.** Ela vira varredura de todas as partições — o modo de
-falha de desempenho mais comum em sistemas particionados.
+**Consulta sem a chave.** Ela vira varredura de todas as partições, e a resposta
+espera pela mais lenta.
 
 ## Erros Comuns
 
-**Particionar cedo demais.**
+**Particionar cedo demais.** Paga-se a coordenação entre partições sem ter
+atingido o teto de um nó.
 
-**Escolher a chave sem analisar as consultas.**
+**Escolher a chave sem analisar as consultas.** A operação mais frequente do
+sistema vira uma consulta a todas as partições, e só o log revela qual ela é.
 
 **Não considerar a distribuição real dos dados.** Uma chave uniforme em teoria pode
 ser concentrada na prática.
 
-**Usar hash simples em vez de consistente.**
+**Usar hash simples em vez de consistente.** Adicionar um nó remapeia quase
+todas as chaves, e crescer vira migração.
 
 **Não medir a distribuição depois.** A carga pode desequilibrar com o tempo.
 

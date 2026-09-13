@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [partitioning, clock-and-time, duplicate-messages]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -51,8 +51,9 @@ eliminates parallelism: the whole topic's throughput is limited to one consumer.
 | Per key | Messages with the same key in order | Choosing the key |
 | Global | All in order | One partition, no parallelism |
 
-**Per key** is the level that solves most real cases, and it comes for free: it is enough for the
-partition key to be the entity whose ordering matters.
+**Per key** is the level that solves most real cases, and it is free in infrastructure: it is enough
+for the partition key to be the entity whose ordering matters. The price is charged in load
+distribution, and it shows up two sections below.
 
 ```text
 partition = hash(order_id)
@@ -102,6 +103,11 @@ most elegant solution and not always possible.
 
 The first is the most used and the simplest: **a version in the message** solves most disorder cases
 with no waiting mechanism at all.
+
+The condition it imposes: a single origin responsible for the entity's version. If several producers
+emit events for the same entity, each numbers from what it knows and the versions collide — what is
+left is a shared counter, which reintroduces the very coordination the technique promised to avoid,
+or a single point that numbers before publishing.
 
 ### Timestamps do not establish ordering
 
@@ -158,11 +164,15 @@ under specific conditions — a producer with no parallel sends, with no retries
 
 ## Alternatives
 
-- **A version in the message** — the consumer discards the stale. It solves most cases.
-- **Commutative operations** — eliminate the dependency on ordering.
-- **Reordering buffer** — hold and apply in order, with a wait limit.
-- **State in the consumer** — check the precondition before applying, instead of trusting the
-  ordering.
+- **A version in the message** — wins when the stale event can be thrown away, that is, when the
+  final state depends only on the most recent one. It does not serve when every event has to be
+  applied.
+- **Commutative operations** — win when the operation is an increment or a union and the domain does
+  not need the sequence of the steps.
+- **Reordering buffer** — pays for itself when every event has to be applied in sequence and the
+  typical gap fits within the wait limit.
+- **State in the consumer** — wins when there is a checkable precondition in the state itself (does
+  the order exist?), and it is the only one that demands nothing of the producer.
 
 ## Trade-offs
 
@@ -189,15 +199,21 @@ the partition.
 
 ## Common Mistakes
 
-**Asking for global ordering without checking the need.**
+**Asking for global ordering without checking the need.** The whole topic's throughput becomes that
+of one consumer, and the ceiling is only discovered when the volume reaches it.
 
-**Not including a version in the messages.** It is the cheapest defense against disorder.
+**Not including a version in the messages.** It is the cheapest defense against disorder, and
+without it the consumer writes the stale over the recent with no way to notice.
 
-**Choosing the key without looking at the distribution.**
+**Choosing the key without looking at the distribution.** The most active key concentrates the load
+on one partition, and the topic's throughput becomes that partition's.
 
-**Assuming the broker guarantees ordering without reading the producer's configuration.**
+**Assuming the broker guarantees ordering without reading the producer's configuration.** Parallel
+sends and retries reorder within the partition itself, and the defect shows up under load, not in
+testing.
 
-**Ordering by timestamp.**
+**Ordering by timestamp.** The state converges to whatever the fastest clock said, not to the last
+event.
 
 ## Real-World Example
 
@@ -219,7 +235,8 @@ The fix had two parts.
 remains an attribute of the event, not the key.
 
 **A version in the message.** Each event carries a sequential counter for the parcel, assigned by
-the producer. The consumer discards events with a version lower than the last applied.
+the tracking service at the entry point — not by the carrier, which would number from what it knows
+and collide with the previous carrier. The consumer discards events with a version lower than the last applied.
 
 The second part paid off the most, and for a reason the team did not anticipate: it protects against
 disorder from **any** source — a retry, rebalancing, manual reprocessing — and not only against the
@@ -240,14 +257,15 @@ partners concentrated the load.
 For each topic in your system, answer: what is the partition key, and whose entity's ordering does
 it preserve?
 
-Then check whether the messages carry a version. If they do not, the consumer has no way to detect
-disorder.
+Then check whether the messages carry a version. Without it, detecting disorder depends on checking
+a state precondition in the consumer — more expensive, and it only covers the cases where the state
+makes the inversion visible.
 
 ## Interview Questions
 
 - Why is global ordering expensive?
 - How do you choose the partition key to preserve the ordering that matters?
-- Why is a version in the message the most robust defense against disorder?
+- Against which kinds of disorder does a version in the message protect, and against which does it not?
 
 ## Further Reading
 

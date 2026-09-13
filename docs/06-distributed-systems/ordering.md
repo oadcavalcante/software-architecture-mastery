@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [partitioning, clock-and-time, duplicate-messages]
 canonical_for: [ordenação, ordem de mensagens, ordem por partição]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -52,8 +52,9 @@ elimina o paralelismo: a vazão do tópico inteiro fica limitada a um consumidor
 | Por chave | Mensagens da mesma chave em ordem | Escolher a chave |
 | Global | Todas em ordem | Uma partição, sem paralelismo |
 
-**Por chave** é o nível que resolve a maior parte dos casos reais, e é obtido de
-graça: basta que a chave de partição seja a entidade cuja ordem importa.
+**Por chave** é o nível que resolve a maior parte dos casos reais, e é de graça em
+infraestrutura: basta que a chave de partição seja a entidade cuja ordem importa. O
+preço é cobrado na distribuição de carga, e aparece duas seções adiante.
 
 ```text
 partição = hash(id_do_pedido)
@@ -103,6 +104,12 @@ desaparece. É a solução mais elegante e nem sempre possível.
 
 A primeira é a mais usada e a mais simples: **versão na mensagem** resolve a maior
 parte dos casos de desordem sem nenhum mecanismo de espera.
+
+A condição que ela impõe: uma única origem responsável pela versão da entidade. Se
+vários produtores emitem eventos da mesma entidade, cada um numera a partir do que
+conhece e as versões colidem — restam um contador compartilhado, que reintroduz a
+coordenação que a técnica prometia evitar, ou um ponto único que numera antes de
+publicar.
 
 ### Marca de tempo não estabelece ordem
 
@@ -163,12 +170,15 @@ reordenando.
 
 ## Alternativas
 
-- **Versão na mensagem** — o consumidor descarta o obsoleto. Resolve a maioria dos
-  casos.
-- **Operações comutativas** — eliminar a dependência de ordem.
-- **Buffer de reordenação** — guardar e aplicar em ordem, com limite de espera.
-- **Estado no consumidor** — verificar a precondição antes de aplicar, em vez de
-  confiar na ordem.
+- **Versão na mensagem** — vence quando o evento obsoleto pode ser descartado, isto
+  é, quando o estado final depende só do mais recente. Não serve quando cada evento
+  precisa ser aplicado.
+- **Operações comutativas** — vencem quando a operação é incremento ou união e o
+  domínio não precisa da sequência dos passos.
+- **Buffer de reordenação** — se paga quando todos os eventos precisam ser aplicados
+  em sequência e a lacuna típica cabe no limite de espera.
+- **Estado no consumidor** — vence quando existe precondição verificável no próprio
+  estado (o pedido existe?), e é a única que não exige nada de quem produz.
 
 ## Trade-offs
 
@@ -197,15 +207,21 @@ mesmo dentro da partição.
 
 ## Erros Comuns
 
-**Pedir ordem global sem verificar a necessidade.**
+**Pedir ordem global sem verificar a necessidade.** A vazão do tópico inteiro passa a
+ser a de um consumidor, e o teto só é descoberto quando o volume encosta nele.
 
-**Não incluir versão nas mensagens.** É a defesa mais barata contra desordem.
+**Não incluir versão nas mensagens.** É a defesa mais barata contra desordem, e sem
+ela o consumidor grava o obsoleto por cima do recente sem ter como perceber.
 
-**Escolher a chave sem olhar a distribuição.**
+**Escolher a chave sem olhar a distribuição.** A chave mais ativa concentra a carga
+numa partição, e a vazão do tópico vira a dessa partição.
 
-**Assumir que o broker garante ordem sem ler a configuração do produtor.**
+**Assumir que o broker garante ordem sem ler a configuração do produtor.** Envio
+paralelo e retentativa reordenam dentro da própria partição, e o defeito aparece
+sob carga, não em teste.
 
-**Ordenar por marca de tempo.**
+**Ordenar por marca de tempo.** O estado converge para o que disse o relógio mais
+adiantado, e não para o do último evento.
 
 ## Exemplo Real
 
@@ -229,7 +245,8 @@ A correção teve duas partes.
 fato importa. Transportador continua sendo um atributo do evento, não a chave.
 
 **Versão na mensagem.** Cada evento carrega um contador sequencial da encomenda,
-atribuído por quem produz. O consumidor descarta eventos com versão menor que a
+atribuído pelo serviço de rastreamento na entrada — não pelo transportador, que
+numeraria a partir do que conhece e colidiria com o transportador anterior. O consumidor descarta eventos com versão menor que a
 última aplicada.
 
 A segunda parte foi a que mais rendeu, e por uma razão que a equipe não previu: ela
@@ -251,14 +268,15 @@ transportador, onde dois parceiros grandes concentravam a carga.
 Para cada tópico do seu sistema, responda: qual a chave de partição, e a ordem de
 qual entidade ela preserva?
 
-Depois verifique se as mensagens carregam versão. Se não carregarem, o consumidor
-não tem como detectar desordem.
+Depois verifique se as mensagens carregam versão. Sem ela, detectar desordem depende
+de verificar precondição de estado no consumidor — mais caro, e só cobre os casos em
+que o estado torna a inversão visível.
 
 ## Perguntas de Entrevista
 
 - Por que ordem global é cara?
 - Como escolher a chave de partição para preservar a ordem que importa?
-- Por que versão na mensagem é a defesa mais robusta contra desordem?
+- Contra que tipos de desordem a versão na mensagem protege, e contra quais não?
 
 ## Para Aprofundar
 

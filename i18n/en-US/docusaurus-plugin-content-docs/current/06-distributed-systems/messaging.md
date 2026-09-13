@@ -13,11 +13,14 @@ objective: >
 prerequisites: [partial-failure]
 related: [delivery-guarantees, ordering, event-driven-systems]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
 # Messaging
+
+> Prerequisite: [Queues](/05-system-design/queues.md). Here the focus is the choice between a
+> queue and an event log and the channel's guarantees, not the mechanics of the queue.
 
 ## Overview
 
@@ -70,8 +73,8 @@ the application has to handle:
 **[At-least-once delivery](/06-distributed-systems/delivery-guarantees.md)** — duplication will
 happen.
 
-**[Ordering only per partition](/06-distributed-systems/ordering.md)** — there is no global
-ordering.
+**[Ordering only per partition](/06-distributed-systems/ordering.md)** — global ordering requires
+a single partition, and the price is the topic's throughput capped at one consumer.
 
 **Messages that always fail** — they need a
 [dead-letter queue](/06-distributed-systems/dead-letter-queues.md).
@@ -84,23 +87,27 @@ mechanism.
 The consumer acknowledges **after** processing successfully. Acknowledging first loses the message
 if the processing fails.
 
-Between delivery and acknowledgment, the message is invisible to other consumers for a period. If
-that period is shorter than the processing, the message is redelivered while it is still being
-processed — systematic duplication.
+In the queue model, between delivery and acknowledgment the message is invisible to other consumers
+for a period. If that period is shorter than the processing, the message is redelivered while it is
+still being processed — systematic duplication.
 
 That value has to be calibrated from the high percentile of the processing time, not estimated.
+
+In a log there is no such clock. The analogue is the poll interval: a consumer that takes longer
+than it drops out of the group, the partition is reassigned, and whoever receives it rereads from
+the last committed position.
 
 ### The producer has a problem too
 
 Publishing a message and writing to the database are not atomic. It can write and not publish, or
 publish and fail to write.
 
-The solution is the **outbox** pattern: the message is written to a table in the same transaction as
-the data, and a separate process publishes it. See
-[domain event](/04-domain-driven-design/domain-event.md).
+The solution is the **outbox** pattern — see
+[delivery guarantees](/06-distributed-systems/delivery-guarantees.md), the canonical document on the
+topic: publishing stops being a second write and comes to depend only on the data's transaction.
 
-Ignoring that produces silent message loss — the failure mode hardest to diagnose, because there is
-no error anywhere.
+Ignoring that produces silent message loss — there is no error in any log, and the symptom shows up
+in the consumer that never received it.
 
 ### Push and pull
 
@@ -110,8 +117,9 @@ there is no flow control. See
 
 **Pull** — the consumer fetches when it can. Natural pace control, at the cost of interval latency.
 
-Most modern systems use pull with long polling: the consumer asks, and the connection stays open
-until there is a message or it expires. It combines pull's control with push's latency.
+Pull with long polling combines the two: the consumer asks, and the connection stays open until
+there is a message or it expires — pull's pace control with latency close to push's. It is the usual
+form wherever the broker offers it.
 
 ## Mental Model
 
@@ -222,8 +230,10 @@ The fifth interested party was added without touching the producer.
 
 Single publication with an outbox eliminated the partiality.
 
-And reprocessing became repositioning the read — analytics recomputed six months in two hours,
-reading the retained history.
+And reprocessing became repositioning the read. The events prior to the migration stayed lost: the
+log only accumulates the history from then on, and the six-month retention was a deliberate decision,
+paid for in storage. Once that window had passed, analytics recomputed six months in two hours by
+rereading that history.
 
 What the team learned: the queue was not wrong as a technology. It was wrong as a **model** — the
 case was distribution of facts, not of work, and the symptom of having chosen wrong was having to

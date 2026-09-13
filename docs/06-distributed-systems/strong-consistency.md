@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [eventual-consistency, consensus, pacelc]
 canonical_for: [consistência forte, linearizabilidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -37,9 +37,9 @@ como um programa de processo único funciona.
 Isso torna a garantia atraente por default: adotá-la elimina uma classe inteira de
 raciocínio sobre dado velho, conflito e convergência.
 
-O custo é que ela não escala da mesma forma. Cada operação que precisa de garantia
-forte precisa coordenar com a maioria das réplicas — e coordenação é ida e volta
-de rede.
+O custo é que ela não escala da mesma forma. Num sistema replicado, cada operação
+que precisa de garantia forte coordena com a maioria das réplicas — e coordenação
+é ida e volta de rede.
 
 Numa configuração de região única, isso é aceitável. Numa multi-região, é
 frequentemente inviável — e o cálculo é geométrico, não de otimização.
@@ -76,6 +76,10 @@ região única, entre zonas         → +2 a 5 ms
 duas regiões, mesmo continente    → +30 ms
 regiões intercontinentais         → +150 ms
 ```
+
+Os números são pisos. A operação coordenada só termina quando a réplica mais lenta
+do quórum responde, então a latência observada segue a cauda dessa réplica, não a
+mediana da rede — é por onde a coordenação costuma ser subestimada.
 
 A última linha é o que torna consistência forte global impraticável para operações
 de alta frequência. Ver [PACELC](/06-distributed-systems/pacelc.md).
@@ -186,6 +190,10 @@ regionais.
 **Contenção.** Muitas operações concorrentes sobre a mesma chave serializam, e a
 vazão despenca.
 
+**Manutenção que consome a folga do quórum.** Com três réplicas, tirar uma para
+atualizar deixa o sistema sem margem: a próxima perda recusa escritas. Número de
+réplicas e janela de manutenção viram decisão de arquitetura, não de operação.
+
 ## Erros Comuns
 
 **Adotar uniformemente.** Poucos fluxos de um sistema precisam de consistência forte — saldo, estoque, unicidade. Aplicá-la ao catálogo e ao histórico paga latência e disponibilidade por garantia que ninguém usa.
@@ -214,7 +222,8 @@ A reformulação manteve consistência forte e mudou o escopo.
 
 **Particionamento por evento.** Cada evento tem suas réplicas, na região onde ele
 acontece. A coordenação para reservar um assento passou a ser entre réplicas
-regionais: de 180 ms para 8 ms.
+regionais: de 180 ms para 8 ms. A reserva custa mais de uma ida e volta coordenada
+— daí o número ficar acima da faixa por operação entre zonas.
 
 **Reserva com expiração.** Em vez de coordenar durante todo o fluxo de compra, a
 reserva bloqueia o assento por 10 minutos — uma operação coordenada, curta. O
@@ -222,8 +231,10 @@ restante do fluxo — pagamento, cadastro — acontece sem coordenação.
 
 **Leitura eventual para o mapa de assentos.** A visualização de disponibilidade lê
 de réplica local, com atraso de segundos. O negócio aceitou: se um assento aparece
-disponível e já foi reservado, a tentativa de reserva falha com mensagem clara — o
-que é raro e aceitável.
+disponível e já foi reservado, a tentativa falha com mensagem clara, o mapa é
+recarregado e o sistema sugere um assento próximo. As colisões se concentram nos
+primeiros minutos da abertura, quando o mapa envelhece mais rápido do que atualiza;
+no resto da venda são raras.
 
 Resultado: a garantia de não vender duas vezes permaneceu absoluta, e a capacidade
 subiu por mais de uma ordem de grandeza.
@@ -239,6 +250,8 @@ que é intrinsecamente local a um evento.
 - [PACELC](/06-distributed-systems/pacelc.md) — o custo permanente.
 - [Consenso](/06-distributed-systems/consensus.md) — o mecanismo por trás.
 - [Particionamento](/06-distributed-systems/partitioning.md) — como reduzir o escopo.
+- [Consistência Forte vs. Eventual](/20-trade-offs/strong-vs-eventual-consistency.md) —
+  a janela de inconsistência com número.
 
 ## Exercício Prático
 

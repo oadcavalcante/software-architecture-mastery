@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [cap, consistency, latency]
 canonical_for: [PACELC]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -124,7 +124,8 @@ da leitura, posição do líder — os parâmetros existem e alguém precisa esc
 
 ## Erros Comuns
 
-**Conhecer apenas CAP.** Deixa sem explicação o comportamento normal do sistema.
+**Conhecer apenas CAP.** Faz procurar uma partição toda vez que a latência sobe, quando
+o custo é permanente e não há falha alguma por trás dele.
 
 **Tratar a classificação como propriedade do banco.** A maioria dos bancos
 modernos permite escolher por operação.
@@ -135,7 +136,9 @@ e na maioria é mensurável e raramente é medida.
 **Escolher EC globalmente por precaução.** Paga latência em toda operação para
 proteger as poucas que precisam.
 
-**Ignorar a geografia.** O custo de EC depende da distância entre réplicas.
+**Ignorar a geografia.** Dimensionar EC com réplicas na mesma região e depois espalhá-las
+por continentes multiplica por cinco a latência de cada escrita, e nenhuma otimização de
+código a devolve.
 
 ## Exemplo Real
 
@@ -156,7 +159,9 @@ A análise por operação mudou a arquitetura.
 **Reserva de quarto** permaneceu EC, e foi **particionada por região do hotel**. Um
 hotel em São Paulo tem sua reserva coordenada apenas entre réplicas
 sul-americanas. A coordenação continua, e a distância caiu de intercontinental
-para regional: de 340 ms para 18 ms.
+para regional: de 340 ms para 18 ms. O particionamento encurtou a coordenação, não o
+caminho do cliente — quem reserva da Europa um hotel em São Paulo continua pagando a
+viagem até a região dona do dado.
 
 **Consulta de disponibilidade** virou EL — lê da réplica local, com atraso aceito
 de segundos. O negócio confirmou que uma disponibilidade ligeiramente desatualizada
@@ -164,7 +169,7 @@ de segundos. O negócio confirmou que uma disponibilidade ligeiramente desatuali
 
 **Perfil e histórico do usuário** viraram EL sem ressalva.
 
-Resultado: p50 de 158 ms — os 140 ms de aplicação, que não tinham o que otimizar,
+Resultado: p50 de 158 ms nas reservas de hotel na própria região do usuário — os 140 ms de aplicação, que não tinham o que otimizar,
 mais os 18 ms de coordenação regional. Abaixo do requisito de 300 ms.
 
 O ponto que a equipe sublinha: a consistência forte não foi abandonada. O que mudou foi

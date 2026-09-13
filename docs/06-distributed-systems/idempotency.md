@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [retries, timeouts, duplicate-messages]
 canonical_for: [idempotência, chave de idempotência]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -43,7 +43,9 @@ Diante disso há duas opções, e ambas são ruins sem idempotência:
 **Não repetir.** Se não aconteceu, o efeito se perde. Um pedido pago fica sem
 processamento.
 
-Idempotência dissolve o dilema: se repetir é seguro, sempre repita.
+Idempotência dissolve o dilema no eixo do efeito: repetir deixa de duplicar.
+Se vale repetir — se a falha é retentável, com que limite e que espaçamento —
+é decisão de [retentativa](/06-distributed-systems/retries.md).
 
 Note a assimetria. Sem idempotência, você precisa **adivinhar** o que aconteceu do
 outro lado. Com ela, não precisa saber.
@@ -180,8 +182,11 @@ fato inofensivo.
   persistir. Mais barato e com garantia mais fraca.
 - **Detecção de duplicata no consumidor** — verificar se o efeito já existe antes
   de aplicar. Funciona quando há um identificador natural.
-- **Tornar a operação absoluta** — reformular de "some 50" para "defina 150". Nem
-  sempre possível e é a solução mais limpa quando é.
+- **Tornar a operação absoluta** — reformular de "some 50" para "defina 150".
+  Dispensa o armazenamento de chaves, e vence por isso quando há escritor único
+  ou ordenação garantida. Sob escrita concorrente perde: uma retentativa atrasada
+  de "defina 150" que chega depois de um "defina 200" legítimo reverte o estado,
+  a menos que a escrita seja condicional à versão.
 - **Transação distribuída** — cara, e evita o problema em vez de tratá-lo. Ver
   [transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
@@ -199,8 +204,8 @@ fato inofensivo.
 
 **Chave gravada fora da transação do efeito.** Janela em que duplica.
 
-**Chave gerada por retentativa.** Cada tentativa com chave nova; idempotência
-inexistente.
+**Chave por requisição HTTP em vez de por intenção.** Se o cliente gera uma chave
+nova a cada tentativa de rede, não há deduplicação.
 
 **Chave sem prazo.** Vazamento no armazenamento.
 
@@ -209,18 +214,20 @@ inexistente.
 **Idempotência natural que quebrou.** Um efeito colateral foi adicionado e ninguém
 reavaliou.
 
-**Chave por requisição HTTP em vez de por intenção.** Se o cliente gera uma chave
-nova a cada tentativa de rede, não há deduplicação.
-
 ## Erros Comuns
 
-**Presumir idempotência natural.**
+**Presumir idempotência natural.** Vale até alguém acrescentar um efeito colateral,
+e a quebra não aparece em teste — aparece na primeira retentativa em produção.
 
-**Servidor gerando a chave.**
+**Servidor gerando a chave.** Cada retentativa chega com chave nova, e o mecanismo
+vira ornamento: existe no código e não deduplica nada.
 
-**Gravar chave e efeito separadamente.**
+**Gravar chave e efeito separadamente.** Parece equivalente porque as duas escritas
+ficam adjacentes no código; a falha entre elas deixa o efeito aplicado sem registro
+da chave.
 
-**Não tratar a chave repetida com corpo diferente.**
+**Não tratar a chave repetida com corpo diferente.** Devolver o resultado antigo
+esconde o reuso indevido da chave, e a divergência só aparece na conciliação.
 
 **Não testar o caminho de duplicação.** É o caminho que só acontece sob falha, e
 por isso o menos exercitado.

@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [data-architecture, reliability, integration-architecture]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -37,21 +37,23 @@ Toda a complexidade desta seção deriva daí. Idempotência existe por causa di
 Sagas existem por causa disso. Consenso existe por causa disso.
 
 O objetivo aqui não é decorar CAP. É internalizar que **falha parcial é o caso
-normal**, não a exceção — e projetar assumindo isso desde o início, porque
-adicionar tolerância a falhas depois exige refazer o modelo de dados.
+normal**, não a exceção — e projetar assumindo isso desde o início. Timeout,
+backoff e circuit breaker se acrescentam depois sem tocar no resto; idempotência
+e reconciliação de estado, não — essas exigem refazer o modelo de dados.
 
 ## O que você vai encontrar aqui
 
-**Os fundamentos.** Falha de rede, falha parcial, latência, timeouts, retries e
-backoff. A base física de que tudo o mais depende.
+**Os fundamentos.** Falha de rede, falha parcial, detecção de falha, latência,
+relógio e tempo, timeouts, retries e backoff. A base física de que tudo o mais
+depende.
 
 **Idempotência.** Tratada como tópico central, não como detalhe. É a propriedade
 que torna retry seguro, e sem ela nada acima funciona.
 
 **Os limites teóricos.** CAP e PACELC, apresentados pelo que de fato afirmam —
-que é bem menos do que costumam citar. PACELC recebe mais espaço que CAP, porque
-descreve melhor o dilema real: o custo em latência que se paga por consistência
-mesmo quando não há partição.
+que é bem menos do que costumam citar. PACELC descreve melhor o dilema do dia a
+dia: o custo em latência que se paga por consistência mesmo quando não há
+partição.
 
 **Distribuição de dados.** Replicação, particionamento, sharding e resolução de
 conflitos. Consistência eventual e consistência forte, com o que cada uma

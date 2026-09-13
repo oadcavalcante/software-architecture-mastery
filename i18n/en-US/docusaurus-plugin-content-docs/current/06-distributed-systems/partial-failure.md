@@ -13,7 +13,7 @@ objective: >
 prerequisites: [network-failure]
 related: [idempotency, sagas, circuit-breakers]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -48,15 +48,19 @@ consequence of the operation crossing boundaries that fail independently.
 
 ## Core Concepts
 
-### The number of states explodes
+### The number of states grows with the topology
 
-With N steps that can fail independently, the intermediate states grow exponentially.
+With N steps that can fail independently, how many intermediate states exist depends on how the
+steps are dispatched.
 
-Three steps produce eight combinations of success and failure. Five produce 32. Each one needs
+In a sequential flow that aborts on the first failure, the reachable outcomes are N+1: full
+success, or a stop at each of the N steps. When the steps run in parallel, or when the flow
+carries on after one of them fails, they are the 2^N combinations of success and failure — 32
+for five steps — and 3^N when a timeout leaves each step's outcome unknown. Every outcome needs
 an answer — even if the answer is "we accept it and fix it manually".
 
-That is the strongest argument against excessive granularity: **each additional boundary
-multiplies the states to consider.**
+That is the cost excessive granularity imposes on multi-step operations: **each additional
+boundary adds states to consider, and parallelism multiplies them.**
 
 ### The three possible answers
 
@@ -102,9 +106,10 @@ recorded, and the slowness propagates to the callers until their connections are
 **Correct but stale.** A replica that stopped replicating keeps serving reads — of old data,
 with no sign that anything is wrong.
 
-None of those appears in an error count. Detecting them requires checking behavior, not
-availability: the health check has to exercise the real path, and the monitoring has to observe
-latency and lag, not only success and failure.
+None of those appears in an error count. What to measure instead of availability is in
+[network failure](/06-distributed-systems/network-failure.md). What matters here is that all
+three produce inconsistent state without any step having failed — and so none of the three
+answers (compensate, resume, reconcile) is ever triggered.
 
 ## Mental Model
 
@@ -131,14 +136,16 @@ failures.
 
 **Reconciling with no alert.** A silent process hides the frequency of the problem.
 
-**Multiplying boundaries with no need.**
+**Multiplying boundaries with no need.** A boundary pays for itself when the two sides change
+at different rates or scale by different orders of magnitude; below that, what it adds is one
+more intermediate state to handle.
 
 ## Alternatives
 
 - **Local transaction** — when the steps fit in the same database, partial failure disappears.
-  It is the strongest reason to keep things together.
-- **Reduce the number of steps** — merging two services eliminates one boundary and half the
-  states.
+  It is the reason to keep the steps of one operation in the same database.
+- **Reduce the number of steps** — merging two services eliminates one boundary: one outcome
+  fewer in a sequential flow, half the combinations in a parallel one.
 - **Make steps optional** — if the email can fail with no consequence, it leaves the critical
   path and becomes an event.
 
@@ -148,7 +155,7 @@ failures.
 |---|---|---|
 | Returns to the initial state | Reaches the final state | Fixes later |
 | Requires an inverse per step | Requires idempotency and durable state | Requires a separate process |
-| Fast | May take a while | Asynchronous |
+| Seconds | Minutes to hours | Only on the next cycle |
 | The inverse can fail | The resumption can fail | Backlog can accumulate |
 | Visible to the user | Transparent | Invisible until the alert |
 
@@ -182,11 +189,12 @@ having one.
 ## Real-World Example
 
 A course enrollment system executed four steps: reserve a seat, charge, grant access to the
-platform, send a welcome message.
+platform, send a welcome message. Around 300 enrollments a day.
 
 There was no progress persistence — it was a function calling four services in sequence.
 
-Over a year, three orphan states appeared frequently.
+Over a year, three orphan states appeared — the first two recurrently, the third in three
+cases.
 
 **Charged with no access.** The platform service failed after the charge. The student paid and
 could not get in. Discovered by support, fixed by hand.
@@ -194,9 +202,10 @@ could not get in. Discovered by support, fixed by hand.
 **Seat reserved with no charge.** The charge failed and the seat stayed locked. Courses appeared
 sold out with phantom seats.
 
-**Access with no charge.** The operator's manual retry re-executed from the beginning. The
-grant-access step — already completed — ran again, harmlessly. In three cases, however, the
-operator resumed after a charge failure and access was granted with no payment.
+**Access with no charge.** The operator's manual retry re-executed from the beginning: the
+grant-access step — already completed — ran again, harmlessly, but the charge was issued a
+second time. In three cases the operator skipped the charge and resumed from the third step,
+assuming it had completed, and access was granted with no payment.
 
 The redesign turned the operation into a persisted state machine.
 
@@ -208,7 +217,7 @@ Sending the welcome message left the critical path and became an event: it can f
 leaving the enrollment inconsistent.
 
 And daily reconciliation was added, comparing enrollments, charges and access grants, with an
-alert above five divergences.
+alert above five divergences in a day — a little over 1% of the daily volume.
 
 On its first run, it found 47 divergences accumulated over months. Nobody knew they existed,
 because only the ones that generated a complaint were discovered.

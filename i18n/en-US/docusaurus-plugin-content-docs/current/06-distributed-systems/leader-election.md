@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [consensus, distributed-locks, failure-detection]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -51,7 +51,8 @@ That is **split brain**, and it is the failure mode the election has to prevent.
 The fundamental mechanism: **a node only becomes leader with a majority vote.**
 
 Since there cannot be two disjoint majorities in the same group, there cannot be two leaders elected
-simultaneously.
+in the same term. What a majority does not prevent is a leader from an earlier term still believing it
+is the leader — and that is the case the next section deals with.
 
 ```text
 5 nodes, partitioned into 3 and 2
@@ -86,18 +87,18 @@ leader 1 comes back and tries to write with epoch 5
 ```
 
 Fencing is the defense that works even when the detection fails, because it does not depend on the
-old leader realizing anything. It is the most reliable mechanism, and the most frequently omitted.
+old leader realizing anything. It is also the mechanism Kleppmann (2016) points to as the one most
+often missing from the coordination implementations in use.
 
 ### Detection and stability
 
-The detection time defines a trade-off:
+The detection time defines a trade-off between fast failover and stability, and calibrating that
+trade-off is the subject of [failure detection](/06-distributed-systems/failure-detection.md).
 
-**Short.** Fast failover, and the risk of an unnecessary election from a momentary slowdown — which
-causes instability, with the leadership changing repeatedly.
-
-**Long.** Stable, and more unavailability when the leader actually goes down.
-
-Mature systems usually use detection on the order of seconds, with a similar lease duration.
+What is specific to leadership is the lease duration, which inherits that calibration: it is the
+ceiling on the window in which two nodes can believe they are the leader. A short lease shortens the
+window and raises the risk of the leader resigning over a momentary slowdown, with the leadership
+changing repeatedly; a long lease does the inverse.
 
 ### Not everything needs a leader
 
@@ -163,7 +164,7 @@ architecture, with the corresponding complications.
 | Natural ordering | Ordering to establish |
 | Simple reasoning | Complex |
 | Write bottleneck | Distributed |
-| Unavailable during an election | Always available |
+| Unavailable during an election | Available, within the configured quorum |
 | A point of failure, mitigated by failover | No single point |
 
 ## Failure Modes
@@ -222,8 +223,8 @@ What makes this case instructive is that the problem was not the election — it
 correctly elected. The problem was **A not knowing it had lost**, and no mechanism preventing it from
 writing.
 
-Fencing is the only defense that works in that scenario, because it does not depend on the former
-leader realizing anything.
+Fencing is the defense that does not depend on the former leader realizing anything — and, unlike a
+leadership check before the write, it has no window between checking and writing.
 
 ## Related Concepts
 

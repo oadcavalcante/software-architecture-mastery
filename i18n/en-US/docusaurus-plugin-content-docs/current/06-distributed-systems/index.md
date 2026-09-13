@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [data-architecture, reliability, integration-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -37,21 +37,21 @@ All the complexity of this section derives from that. Idempotency exists because
 Sagas exist because of it. Consensus exists because of it.
 
 The goal here is not to memorize CAP. It is to internalize that **partial failure is the
-normal case**, not the exception — and to design assuming that from the start, because
-adding fault tolerance later requires redoing the data model.
+normal case**, not the exception — and to design assuming that from the start. Timeouts,
+backoff and circuit breakers can be added later without touching anything else; idempotency
+and state reconciliation cannot — those require redoing the data model.
 
 ## What you will find here
 
-**The fundamentals.** Network failure, partial failure, latency, timeouts, retries and
-backoff. The physical basis everything else depends on.
+**The fundamentals.** Network failure, partial failure, failure detection, latency, clocks
+and time, timeouts, retries and backoff. The physical basis everything else depends on.
 
 **Idempotency.** Treated as a central topic, not as a detail. It is the property that makes
 retrying safe, and without it nothing above works.
 
 **The theoretical limits.** CAP and PACELC, presented for what they actually assert — which
-is far less than what is usually cited. PACELC gets more space than CAP, because it better
-describes the real dilemma: the latency cost you pay for consistency even when there is no
-partition.
+is far less than what is usually cited. PACELC better describes the day-to-day dilemma: the
+latency cost you pay for consistency even when there is no partition.
 
 **Data distribution.** Replication, partitioning, sharding and conflict resolution. Eventual
 consistency and strong consistency, with what each one means for whoever writes the

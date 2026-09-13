@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [partial-failure, timeouts, failure-detection]
 canonical_for: [falha de rede, partição de rede]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -119,8 +119,10 @@ Este documento não descreve uma técnica a aplicar. As decisões que ele inform
 **Presumir rede confiável dentro do datacenter.** É mais confiável; não é
 confiável. Partições dentro de uma zona acontecem.
 
-**Tratar partição como cenário improvável.** Sistemas de longa duração a
-encontram.
+**Tratar partição como cenário improvável.** Improvável por requisição não é
+improvável por ano: a probabilidade que decide o projeto é a de ocorrer ao menos
+uma vez na vida do sistema, e ela cresce com o tempo de operação e com o número
+de enlaces e zonas atravessados.
 
 **Confiar em verificação de saúde binária.** Ela não detecta lentidão.
 
@@ -145,9 +147,9 @@ divergência a resolver — e recusar — com indisponibilidade.
 | Aceitar escritas | Recusar |
 |---|---|
 | Sistema continua disponível | Indisponível durante a partição |
-| Estados divergem | Estado sempre consistente |
+| Estados divergem | Sem divergência durante a partição |
 | Conflito a resolver | Sem conflito |
-| Adequado a domínios que toleram | Adequado a domínios que não toleram |
+| Adequado onde divergência é reconciliável — carrinho, contador | Adequado onde divergência é inaceitável — saldo, estoque único |
 
 Ver [CAP](/06-distributed-systems/cap.md) para o tratamento completo.
 
@@ -155,7 +157,9 @@ Ver [CAP](/06-distributed-systems/cap.md) para o tratamento completo.
 
 **Cascata por lentidão.** Um nó lento consome as conexões de quem o chama.
 
-**Cérebro dividido.** Os dois lados de uma partição se consideram autoritativos.
+**[Cérebro dividido](/06-distributed-systems/leader-election.md).** Escrita aceita
+nos dois lados ao mesmo tempo; o que se observa é o conflito depois, na
+reconciliação.
 
 **Duplicação por retransmissão.** Sem idempotência, efeito duplicado.
 
@@ -186,27 +190,34 @@ disponibilidade diferentes.
 
 Uma manutenção de rede isolou a zona do líder das outras duas por 90 segundos.
 
-As duas réplicas pararam de receber sinal do líder. Após o tempo de detecção,
-elegeram uma nova líder entre si e passaram a aceitar escritas.
+As duas réplicas pararam de receber sinal do líder. Após 20 segundos sem sinal —
+o tempo de detecção configurado —, elegeram uma nova líder entre si e passaram a
+aceitar escritas.
 
 O líder original continuava íntegro, alcançável pela aplicação que rodava na mesma
 zona, e continuou aceitando escritas — sem saber que havia perdido a liderança.
 
-Por 90 segundos houve **dois líderes**, ambos aceitando escritas, cada um
-convencido de ser o único.
+Por cerca de 70 dos 90 segundos de partição houve **dois líderes**, ambos
+aceitando escritas, cada um convencido de ser o único.
 
 Ao fim da partição, 1 200 escritas precisaram ser reconciliadas manualmente. 40
 eram conflitantes — o mesmo registro alterado nos dois lados.
 
 O que a equipe descobriu na análise: o cluster tinha proteção contra isso —
 exigência de maioria para aceitar escrita — e ela estava desabilitada, porque
-habilitá-la tornava o sistema indisponível quando uma zona caía.
+habilitá-la deixa sem escrita o lado minoritário de uma partição. Não é o cluster
+que para: com três nós em três zonas, os dois que sobram formam maioria e seguem
+aceitando escrita — ver
+[zonas de disponibilidade](/09-cloud-architecture/availability-zones.md). Quem
+fica sem escrever é o líder isolado, e com ele a aplicação que rodava na mesma
+zona.
 
 Alguém havia trocado disponibilidade por consistência sem registrar a decisão, e
 sem que o negócio soubesse. Para um sistema de saldo, era a troca errada.
 
-A correção foi reabilitar a exigência de maioria e aceitar 90 segundos de
-indisponibilidade em vez de divergência de saldo — desta vez com a decisão
+A correção foi reabilitar a exigência de maioria e aceitar que a aplicação da
+zona isolada fique sem escrever enquanto durar a partição, em vez de divergência
+de saldo — desta vez com a decisão
 registrada em [ADR](/18-architecture-decisions/what-is-an-adr.md), e com o negócio na
 conversa.
 
@@ -216,6 +227,7 @@ conversa.
 - [CAP](/06-distributed-systems/cap.md) — a escolha sob partição.
 - [Detecção de Falha](/06-distributed-systems/failure-detection.md) — por que declarar morto é heurística.
 - [Timeouts](/06-distributed-systems/timeouts.md) — a única ferramenta disponível.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md) — cérebro dividido e o fencing que o evita.
 
 ## Exercício Prático
 
