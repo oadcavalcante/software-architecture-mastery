@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modularity]
 related: [cohesion, dependency-management, separation-of-concerns]
 canonical_for: [acoplamento, coupling]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -120,19 +120,24 @@ Acoplamento maior é a escolha correta quando:
 
 ## Quando Não Usar
 
-Reduzir acoplamento é errado quando:
+Acoplamento maior é errado quando:
 
-**A flexibilidade comprada nunca será usada.** Abstrair o acesso a dados para
-poder trocar de banco, num sistema que nunca trocará, é custo puro.
+**As partes mudam em ritmos diferentes.** Um cadastro que muda uma vez por ano,
+acoplado a uma regra de preço que muda toda semana, herda a cadência da segunda:
+cada alteração de preço passa a exigir reteste do cadastro.
 
-**A redução produz duplicação de conhecimento.** Se desacoplar dois módulos exige
-copiar a mesma regra nos dois, o acoplamento apenas ficou invisível.
+**A dependência atravessa fronteira de time.** Duas equipes que não coordenam
+releases pagam a dependência em negociação, não em código. Ali o contrato
+versionado sai mais barato que a chamada direta.
 
-**A abstração vaza.** Uma camada que reduz acoplamento nominal mas exige que o
-consumidor conheça o outro lado não reduziu nada e adicionou indireção.
+**Os consumidores da mesma parte querem coisas divergentes.** Um módulo
+compartilhado por três chamadores com requisitos diferentes obriga cada um a
+absorver mudanças feitas para os outros dois — é onde Ca alto deixa de ser
+estabilidade e vira imposto.
 
-**O sistema é pequeno e estável.** Em código que cabe na cabeça e muda pouco, o
-custo de navegação da indireção supera o benefício.
+**As partes têm exigências de disponibilidade diferentes.** Acoplar no tempo faz
+o serviço mais disponível herdar a indisponibilidade do menos disponível; aí vale
+pagar o acoplamento de formato de uma fila.
 
 ## Alternativas
 
@@ -190,14 +195,19 @@ sem contrato explícito. Nada quebra na compilação; quebra em produção.
 prematuras.
 
 **Medir acoplamento pela estrutura em vez do histórico.** O grafo de imports
-mostra o acoplamento declarado; o histórico de commits mostra o real. Quando
-divergem, o histórico está certo.
+mostra o acoplamento declarado; o histórico de commits mostra o que já foi
+exercido. Sobre mudanças que já ocorreram, quando os dois divergem o histórico
+está certo — mas ele é cego para o acoplamento ainda não exercido: um módulo de
+Ca alto e deliberadamente estável não aparece em par co-mudado nenhum, e
+continua caro de mudar.
 
 **Confundir baixo acoplamento com muitas interfaces.** Uma interface com uma
 implementação não desacopla — só adiciona um arquivo.
 
-**Ignorar acoplamento temporal.** É o mais caro em sistemas distribuídos e o que
-menos aparece em diagramas.
+**Ignorar acoplamento temporal.** É o que menos aparece em diagramas de
+dependência e, onde a cadeia de chamadas síncronas é longa, o que mais custa no
+eixo de disponibilidade: a de cada chamador é o produto da de tudo que ele
+chama de forma síncrona.
 
 **Tratar acoplamento entre times como acoplamento técnico.** Duas equipes que
 precisam coordenar releases estão acopladas independentemente do que o código

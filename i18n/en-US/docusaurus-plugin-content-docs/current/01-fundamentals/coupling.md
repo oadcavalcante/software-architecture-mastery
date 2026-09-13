@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modularity]
 related: [cohesion, dependency-management, separation-of-concerns]
 canonical_for: [coupling]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -121,19 +121,24 @@ More coupling is the right choice when:
 
 ## When Not to Use
 
-Reducing coupling is wrong when:
+More coupling is wrong when:
 
-**The flexibility bought will never be used.** Abstracting data access to allow
-swapping databases, in a system that never will, is pure cost.
+**The parts change at different rates.** A registry that changes once a year,
+coupled to a pricing rule that changes every week, inherits the cadence of the
+second: every price change now requires retesting the registry.
 
-**The reduction produces duplicated knowledge.** If decoupling two modules
-requires copying the same rule into both, the coupling merely became invisible.
+**The dependency crosses a team boundary.** Two teams that do not coordinate
+releases pay the dependency in negotiation, not in code. There a versioned
+contract comes out cheaper than the direct call.
 
-**The abstraction leaks.** A layer that reduces nominal coupling but requires the
-consumer to know the other side reduced nothing and added indirection.
+**The consumers of the same part want divergent things.** A module shared by
+three callers with different requirements forces each of them to absorb changes
+made for the other two — that is where high Ca stops being stability and becomes
+a tax.
 
-**The system is small and stable.** In code that fits in your head and rarely
-changes, the navigation cost of indirection exceeds the benefit.
+**The parts have different availability requirements.** Coupling in time makes
+the more available service inherit the unavailability of the less available one;
+there it is worth paying the format coupling of a queue.
 
 ## Alternatives
 
@@ -191,14 +196,19 @@ explicit contract. Nothing breaks at compile time; it breaks in production.
 abstractions.
 
 **Measuring coupling from structure rather than history.** The import graph shows
-declared coupling; the commit history shows the real one. When they diverge, the
-history is right.
+declared coupling; the commit history shows what has already been exercised. On
+changes that have already happened, when the two diverge the history is right —
+but it is blind to coupling not yet exercised: a module with high Ca, kept
+deliberately stable, shows up in no co-changed pair and remains expensive to
+change.
 
 **Confusing low coupling with many interfaces.** An interface with one
 implementation does not decouple — it only adds a file.
 
-**Ignoring temporal coupling.** It is the most expensive in distributed systems
-and the least visible in diagrams.
+**Ignoring temporal coupling.** It is the least visible in dependency diagrams
+and, where the chain of synchronous calls is long, the most expensive one on the
+availability axis: each caller's availability is the product of that of
+everything it calls synchronously.
 
 **Treating coupling between teams as technical coupling.** Two teams that have to
 coordinate releases are coupled regardless of what the code shows.

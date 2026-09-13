@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [abstraction, architecture-vs-implementation, technical-debt]
 canonical_for: [gestão de dependências, dependency management]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -56,9 +56,11 @@ porque representa algo que não varia. Um componente instável muda com frequên
 Se o estável depende do instável, cada mudança no instável quebra o estável. A
 seta precisa apontar ao contrário.
 
-Regra de negócio é estável — muda por decisão da empresa, o que é raro. Detalhe
-de infraestrutura é instável — versões, provedores, protocolos mudam. Logo, o
-detalhe deve depender da regra, não o inverso.
+No caso comum, a regra de negócio muda por decisão da empresa — raro — e o
+detalhe de infraestrutura muda com versões, provedores e protocolos. Onde essa
+comparação se sustenta, o detalhe deve depender da regra, não o inverso. Ela nem
+sempre se sustenta: para os casos em que o detalhe é o lado estável, ver
+[inversão de dependência](/02-software-design/dependency-inversion.md).
 
 ### Inversão de dependência
 
@@ -87,11 +89,9 @@ Um ciclo de dependências significa que os módulos envolvidos são, na prática
 só: não podem ser compilados, testados, entendidos ou implantados
 separadamente.
 
-Ciclos raramente são criados de propósito. Aparecem por acúmulo, e ficam
-invisíveis porque nenhuma ferramenta reclama por padrão.
-
 Detectá-los é barato — análise estática resolve — e o valor é alto, porque um
-ciclo é o sinal mais comum de fronteira no lugar errado. Ver
+ciclo é o sinal mais comum de fronteira no lugar errado. Como eles aparecem e
+quais são as duas formas de quebrá-los estão em
 [direção de dependência](/02-software-design/dependency-direction.md).
 
 ### Dependências externas
@@ -124,21 +124,15 @@ Inverter uma dependência vale quando:
 
 ## Quando Não Usar
 
-**Quando os dois lados são igualmente estáveis.** Inverter uma dependência entre
-dois módulos de domínio que mudam na mesma cadência adiciona indireção sem
-comprar nada.
+As condições em que inverter custa mais do que resolve — dois lados igualmente
+estáveis, abstração que não se sustenta, detalhe trivialmente substituível,
+sistema pequeno com implementação única — estão em
+[inversão de dependência](/02-software-design/dependency-inversion.md).
 
-**Quando a inversão exige uma abstração que não se sustenta.** Ver
-[abstração](/01-fundamentals/abstraction.md). Se a interface precisa expor detalhes do
-implementador para ser útil, a inversão é nominal.
-
-**Quando a dependência é trivialmente substituível.** Uma biblioteca de
-formatação de data usada em três lugares não precisa de camada de isolamento; o
-custo de trocá-la direto é menor que o de mantê-la abstraída.
-
-**Em sistemas pequenos com implementação única.** A inversão de dependência é um
-investimento em mudança. Onde a mudança não é esperada e o sistema é pequeno, é
-custo puro.
+No nível do grafo há um caso a mais: **quando a direção incômoda é sintoma de
+fronteira errada.** Inverter a aresta preserva o arranjo que a produziu; mover o
+elemento para o lado a que ele pertence elimina a aresta. Antes de introduzir uma
+abstração, verifique se o código não está simplesmente no módulo errado.
 
 ## Alternativas
 

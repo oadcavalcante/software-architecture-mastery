@@ -14,7 +14,7 @@ objective: >
 prerequisites: [problem-space]
 related: [non-functional-requirements, quality-attributes]
 canonical_for: [functional requirements]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -35,7 +35,8 @@ architectures.**
 
 "Record an order, charge for it and notify the customer" describes both a shop
 with a hundred orders a day and a marketplace with a hundred thousand a minute.
-The functions are the same. The architectures have nothing in common.
+The functions are the same. Everything that decides how to run them — storage,
+coupling between the steps, delivery guarantees — is different in the two.
 
 That means functional requirements delimit what the system has to be able to do,
 but the **how** is decided by something else: the
@@ -87,8 +88,10 @@ the payment that fails after stock has been reserved, the customer who cancels
 mid-shipment, the external integration that does not respond.
 
 Those cases determine whether the system needs compensation, idempotency, a state
-machine — decisions with a high cost of reversal. Gathering them alongside the
-main flow is what avoids discovering them later.
+machine — decisions with a high cost of reversal. That is not the functional
+side deciding on its own: each exception exposes a consistency or recovery demand
+that the main flow leaves implicit. Gathering them alongside the main flow is
+what avoids discovering them later.
 
 ## Mental Model
 
@@ -104,14 +107,14 @@ first is the one most frequently mistaken for the whole.
 requirements, there is no way to know whether the system is finished nor what it
 should do in each case.
 
-**Because the separation avoids the most common design failure.** Teams that
-gather only the functional side produce systems that do everything right and
-cannot take the load — and the rework to fix that is architectural, not
+**Because the separation avoids the failure that only shows up under real load.**
+Teams that gather only the functional side produce systems that do everything
+right and cannot take the load — and the rework to fix that is architectural, not
 incremental.
 
-**Because exception cases decide structure.** Gathering them late means
-discovering late that the data model cannot accommodate compensation, which is
-exactly the kind of expensive discovery.
+**Because exception cases expose the demands that decide structure.** Gathering
+them late means discovering late that the data model cannot accommodate
+compensation, which is exactly the kind of expensive discovery.
 
 ## Common Mistakes
 

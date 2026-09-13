@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [abstraction, architecture-vs-implementation, technical-debt]
 canonical_for: [dependency management, dependency direction]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -57,9 +57,11 @@ frequently.
 If the stable one depends on the unstable one, every change in the unstable one
 breaks the stable one. The arrow has to point the other way.
 
-A business rule is stable — it changes by company decision, which is rare. An
-infrastructure detail is unstable — versions, providers, protocols change.
-Therefore the detail should depend on the rule, not the reverse.
+In the common case, a business rule changes by company decision — rare — and an
+infrastructure detail changes with versions, providers and protocols. Where that
+comparison holds, the detail should depend on the rule, not the reverse. It does
+not always hold: for the cases where the detail is the stable side, see
+[dependency inversion](/02-software-design/dependency-inversion.md).
 
 ### Dependency inversion
 
@@ -87,11 +89,9 @@ through one extra file.
 A dependency cycle means the modules involved are, in practice, one: they cannot be
 compiled, tested, understood or deployed separately.
 
-Cycles are rarely created on purpose. They appear by accumulation, and stay
-invisible because no tool complains by default.
-
 Detecting them is cheap — static analysis handles it — and the value is high,
-because a cycle is the most common sign of a boundary in the wrong place. See
+because a cycle is the most common sign of a boundary in the wrong place. How they
+appear and the two ways of breaking them are in
 [dependency direction](/02-software-design/dependency-direction.md).
 
 ### External dependencies
@@ -124,20 +124,15 @@ Inverting a dependency is worth it when:
 
 ## When Not to Use
 
-**When both sides are equally stable.** Inverting a dependency between two domain
-modules that change at the same cadence adds indirection and buys nothing.
+The conditions under which inverting costs more than it solves — two equally
+stable sides, an abstraction that does not hold up, a trivially replaceable
+detail, a small system with a single implementation — are in
+[dependency inversion](/02-software-design/dependency-inversion.md).
 
-**When the inversion requires an abstraction that does not hold up.** See
-[abstraction](/01-fundamentals/abstraction.md). If the interface has to expose the implementer's
-details to be useful, the inversion is nominal.
-
-**When the dependency is trivially replaceable.** A date-formatting library used in
-three places does not need an isolation layer; the cost of swapping it directly is
-lower than the cost of keeping it abstracted.
-
-**In small systems with a single implementation.** Dependency inversion is an
-investment in change. Where change is not expected and the system is small, it is
-pure cost.
+At the graph level there is one more case: **when the uncomfortable direction is a
+symptom of a wrong boundary.** Inverting the edge preserves the arrangement that
+produced it; moving the element to the side it belongs to removes the edge. Before
+introducing an abstraction, check whether the code is simply in the wrong module.
 
 ## Alternatives
 

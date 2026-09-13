@@ -14,7 +14,7 @@ objective: >
 prerequisites: [problem-space]
 related: [solution-space, non-functional-requirements, constraints, business-context]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -101,8 +101,8 @@ is the trade show a launch deadline or a demo deadline?
 The second and the fourth decide almost everything. The second because it converts "real time" into a
 number, and the fourth because it reveals that "real time" may never have been the requirement.
 
-The last is the one nobody asks, and it can reduce the scope by 80%: demonstrating at a trade show and
-operating in production are different problems, with costs that differ by an order of magnitude.
+The last is the one nobody asks, and it can swap out the entire scope: demonstrating at a trade show
+and operating in production are different problems, with costs that differ by an order of magnitude.
 
 ## Assessment Criteria
 
@@ -121,7 +121,7 @@ Your answer is good if:
   meets the need and the whole effort is unnecessary.
 
 - **Some declared constraint was reclassified as a preference.** There is at least one in the brief. If
-  your six constraints are still six constraints, you didn't apply the test.
+  the five lines in the brief come out of your list as five constraints, you didn't apply the test.
 
 - **The telemetry frequency appears in your analysis.** The system receives positions every two minutes.
   No dashboard over that data is more "real time" than two minutes, and that bounds the problem before
@@ -151,10 +151,10 @@ show needs one screen working for three customers, not a system operating for 34
 projects, and the second one can happen later.
 
 **The customer distribution matters more than the average.** The median has 26 vehicles; the largest has
-4,100. A solution sized by the average serves both badly: it is excess for 340 customers and a shortfall
-for one. That suggests the right question is not "how many vehicles do we support", but "does the large
-customer behave the same as the small one?" — and frequently it doesn't: whoever has 4,100 vehicles
-doesn't look at a map, they look at exceptions.
+4,100. A solution sized by the average serves both badly: it is excess for the other 339 customers and a
+shortfall for one. That suggests the right question is not "how many vehicles do we support", but "does
+the large customer behave the same as the small one?" — and frequently it doesn't: whoever has 4,100
+vehicles doesn't look at a map, they look at exceptions.
 
 **What "reliable" probably means here.** It isn't the dashboard's availability. It is that the position
 shown isn't wrong — a vehicle displayed somewhere it isn't causes a wrong decision, which is worse than

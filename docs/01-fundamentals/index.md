@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [software-design]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -59,14 +59,18 @@ técnica — o que se acumula quando decisões são adiadas ou tomadas sem crit�
 **O contexto.** Contexto de negócio, espaço do problema e espaço da solução.
 Arquitetura que ignora o negócio otimiza a coisa errada com grande competência.
 
-**A dimensão temporal.** Princípios de arquitetura, características arquiteturais
-e evolução — porque nenhuma decisão é tomada uma vez só.
+**O que dirige a decisão.** Características arquiteturais, princípios de
+arquitetura e evolução — o que seleciona as poucas propriedades que decidem a
+estrutura, o que mantém consistentes as decisões tomadas sem você na sala, e
+por que nenhuma delas é tomada uma vez só.
 
 ## Ordem de leitura
 
 Leia na ordem do sidebar. Outras seções têm blocos com ordem obrigatória; esta é a
-que tem ordem do primeiro ao último documento, porque cada conceito é usado para
-definir o próximo.
+que tem ordem do primeiro ao último documento, porque nenhum documento usa um
+conceito ainda não definido. O encadeamento se ramifica — modularidade retoma a
+fronteira entre arquitetura e design, características arquiteturais retomam
+atributos de qualidade — mas nunca salta para frente.
 
 Se você já trabalha com sistemas há alguns anos, a tentação é pular. Resista a
 ela em três tópicos especificamente: **atributos de qualidade**, **restrições** e

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-requirements]
 related: [quality-attributes, constraints]
 canonical_for: [non-functional requirements]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -67,32 +67,29 @@ The third part is the one usually missing and the one that matters most. Without
 stated consequence, the number is arbitrary — and an arbitrary number does not
 survive the first conversation about cost.
 
-### Always percentiles, never averages
+### Percentiles, not averages, in a latency requirement
 
-Latency reported as an average hides exactly what users experience.
-
-A system averaging 200 ms may have 5% of requests above 3 seconds. Those 5% are
-real, they belong to real users, and the average will never reveal them. In
-systems with many calls per operation, the tail becomes the common case: a page
-making twenty independent calls has a high probability of hitting at least one at
-the 95th percentile.
+The average is what sizes aggregate capacity. To describe what a user waits for,
+it hides exactly what that user experiences: a system averaging 200 ms may have
+5% of requests above 3 seconds, and in operations that fire many calls that tail
+becomes the common case. [Latency](/06-distributed-systems/latency.md) develops
+why the tail exists and why it dominates along a chain.
 
 A latency requirement without a stated percentile is a malformed requirement.
 
 ### Cost grows non-linearly
 
-Each additional nine of availability costs disproportionately more.
+Each additional nine of availability costs disproportionately more, and what it
+charges is not a percentage of effort: 99% is met with a single instance and
+manual recovery; 99.9% asks for redundancy and automated failover; 99.99% asks
+for multi-zone and no maintenance window; 99.999% asks for multi-region
+active-active and dedicated operations. The translation of each tier into minutes
+of downtime per month and per year is in
+[Availability](/06-distributed-systems/availability.md).
 
-| Availability | Downtime/year | What it usually requires |
-|---|---|---|
-| 99% | ~3.6 days | Single instance, manual recovery |
-| 99.9% | ~8.8 hours | Redundancy, automated failover |
-| 99.99% | ~53 minutes | Multi-zone, no maintenance window |
-| 99.999% | ~5 minutes | Multi-region active-active, dedicated operations |
-
-That table is the most useful instrument in a requirements conversation. Asking
-"do you want 99.9% or 99.99%?" without it always produces the larger answer. With
-it, it produces an informed decision — and frequently the answer becomes "99.9% is
+Bringing that cost to the table is what turns "do you want 99.9% or 99.99%?" into
+an informed decision. Without it, the answer leans toward the larger number,
+because asking costs the asker nothing — with it, it frequently becomes "99.9% is
 fine".
 
 ### Not every attribute applies equally
@@ -135,7 +132,8 @@ document.
 
 **Asking for the maximum out of caution.** Stakeholders ask for 99.99% because
 asking costs nothing. It does cost — the cost just shows up in engineering.
-Presenting the cost table before the question changes the answer in most cases.
+Presenting the cost of each nine before the question changes the answer in most
+cases.
 
 **Using an average instead of a percentile.** See above. It is the most common
 technical mistake in the field.

@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [software-design]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -59,14 +59,18 @@ structure will withstand change.
 **The context.** Business context, problem space and solution space. Architecture
 that ignores the business optimizes the wrong thing with great competence.
 
-**The temporal dimension.** Architecture principles, architectural
-characteristics and evolution — because no decision is made only once.
+**What drives the decision.** Architectural characteristics, architecture
+principles and evolution — what selects the few properties that decide the
+structure, what keeps decisions made without you in the room consistent, and why
+none of them is made only once.
 
 ## Reading order
 
 Read in sidebar order. Other sections have blocks with a required order; this is the
-one ordered from first to last document, because each concept is used to define the
-next.
+one ordered from first to last document, because no document uses a concept that
+has not been defined yet. The chain branches — modularity picks up the boundary
+between architecture and design, architectural characteristics pick up quality
+attributes — but it never jumps forward.
 
 If you have worked with systems for a few years, the temptation is to skip.
 Resist it on three topics specifically: **quality attributes**, **constraints**

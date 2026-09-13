@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [coupling, cohesion, separation-of-concerns]
 canonical_for: [modularity, module]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -58,6 +58,9 @@ The central idea, formulated by Parnas in 1972 and still poorly applied:
 **modules should be divided by what they hide, not by the steps of the
 processing.**
 
+The mechanics of that hiding — what a contract can expose without giving the
+secret away — are in [encapsulation](/02-software-design/encapsulation.md).
+
 ### The axis of division
 
 The question that decides where to draw the boundary: **what changes together?**
@@ -73,16 +76,26 @@ together. Adding a field to a registration touches all three directories.
 A division by business capability — billing, catalogue, delivery — groups what
 changes together. The same alteration touches one place.
 
+The diagram below follows a single alteration — a new field on the product
+registration — and shows how many modules it reaches in each arrangement.
+
 ```mermaid
-graph TB
-  subgraph N[Division by capability]
-    direction TB
-    E[billing] --- F[catalogue] --- G[delivery]
-  end
+graph LR
+  M[new field on the product registration]
   subgraph T[Technical division]
-    direction TB
-    A[controllers] --- B[services] --- C[repositories]
+    A[controllers]
+    B[services]
+    C[repositories]
   end
+  subgraph N[Division by capability]
+    E[billing]
+    F[catalogue]
+    G[delivery]
+  end
+  M --> A
+  M --> B
+  M --> C
+  M --> F
 ```
 
 ### A nominal boundary is not a boundary
@@ -184,8 +197,9 @@ indirection stopped hiding complexity and became the complexity.
 
 ## Common Mistakes
 
-**Dividing by technical layer rather than by axis of change.** The most common
-mistake, and the one that most quietly degrades maintainability.
+**Dividing by technical layer rather than by axis of change.** The structure
+keeps looking organized while every change crosses three modules: there is no
+symptom until the cost of change has already risen.
 
 **Confusing a directory with a module.** Without enforcement, it is visual
 organization.

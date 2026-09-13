@@ -13,7 +13,7 @@ objective: >
 prerequisites: [non-functional-requirements]
 related: [constraints, architecture-characteristics]
 canonical_for: [atributos de qualidade, quality attributes]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -68,11 +68,11 @@ Alguns pares se opõem de forma estrutural, não circunstancial:
 
 ```mermaid
 graph TB
-  C[Consistência] <-->|PACELC| L[Latência]
+  C[Consistência] <-->|PACELC| P[Desempenho]
   D[Disponibilidade] <-->|CAP, sob partição| C
-  P[Desempenho] <-->|cache, desnormalização| M[Manutenibilidade]
+  P <-->|cache, desnormalização| M[Manutenibilidade]
   S[Segurança] <-->|verificação, isolamento| P
-  R[Redundância] <-->|infraestrutura| K[Custo]
+  D <-->|redundância| K[Custo operacional]
 ```
 
 Reconhecer que um par é estruturalmente oposto muda a conversa: deixa de ser
@@ -157,23 +157,26 @@ naquele momento.
 
 Duas equipes da mesma empresa constroem serviços que gravam dados de sensores.
 
-**Equipe A — monitoramento industrial.** Perder uma leitura significa não
-detectar uma condição de falha em equipamento. Prioridade: durabilidade e
-consistência acima de latência e custo. Arquitetura: escrita síncrona replicada,
-confirmação só após persistência em duas zonas, custo por leitura mais alto.
+**Equipe A — monitoramento industrial.** Poucas centenas de leituras por segundo,
+e perder uma significa não detectar uma condição de falha em equipamento.
+Prioridade: durabilidade e consistência acima de latência e custo. Arquitetura:
+escrita síncrona replicada, confirmação só após persistência em duas zonas, custo
+por leitura mais alto.
 
-**Equipe B — telemetria de aplicativo.** Perder algumas leituras entre milhões
-não muda nenhuma conclusão. Prioridade: custo e vazão acima de durabilidade.
-Arquitetura: escrita em lote, buffer em memória com descarte sob pressão, custo
-por leitura uma ordem de grandeza menor.
+**Equipe B — telemetria de aplicativo.** Quarenta mil leituras por segundo, e
+perder algumas entre milhões não muda nenhuma conclusão. Prioridade: custo e
+vazão acima de durabilidade. Arquitetura: escrita em lote, buffer em memória com
+descarte sob pressão, custo por leitura uma ordem de grandeza menor.
 
 Os requisitos funcionais são quase idênticos: receber leitura, armazenar,
-consultar por período. As arquiteturas não compartilham nenhuma decisão
-significativa.
+consultar por período. As arquiteturas divergem em cada decisão de
+armazenamento, confirmação e descarte.
 
-Se a equipe B tivesse copiado a arquitetura da A — o que foi proposto, por
-consistência interna — o custo teria inviabilizado o produto. Se a A tivesse
-copiado a B, o sistema teria perdido leituras que ninguém pode perder.
+Se a equipe B tivesse copiado a arquitetura da A, a ordem de grandeza a mais no
+custo por leitura multiplicada pelo volume dela levaria a conta mensal de
+infraestrutura de cerca de R$ 10 mil para R$ 100 mil — acima do orçamento inteiro
+do produto. Se a A tivesse copiado a B, o sistema teria perdido leituras que
+ninguém pode perder.
 
 O que separa as duas não está em nenhum documento de requisitos funcionais.
 

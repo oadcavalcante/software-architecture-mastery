@@ -13,7 +13,7 @@ objective: >
 prerequisites: [problem-space]
 related: [non-functional-requirements, quality-attributes]
 canonical_for: [requisitos funcionais, functional requirements]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -34,7 +34,8 @@ diferentes.**
 
 "Registrar um pedido, cobrar e notificar o cliente" descreve tanto uma loja com
 cem pedidos por dia quanto um marketplace com cem mil por minuto. As funções são
-as mesmas. As arquiteturas não têm nada em comum.
+as mesmas. Tudo o que decide como executá-las — armazenamento, acoplamento
+entre as etapas, garantia de entrega — é diferente nos dois.
 
 Isso significa que requisitos funcionais delimitam o que o sistema precisa
 conseguir fazer, mas o **como** é decidido por outra coisa: os
@@ -86,7 +87,9 @@ outros: o pagamento que falha após o estoque ser reservado, o cliente que cance
 durante o envio, a integração externa que não responde.
 
 Esses casos determinam se o sistema precisa de compensação, de idempotência, de
-máquina de estados — decisões de alto custo de reversão. Levantá-los junto com o
+máquina de estados — decisões de alto custo de reversão. Não é o funcional
+decidindo sozinho: cada exceção expõe uma exigência de consistência ou de
+recuperação que o fluxo principal deixa implícita. Levantá-los junto com o
 fluxo principal é o que evita descobri-los depois.
 
 ## Modelo Mental
@@ -103,13 +106,14 @@ primeiro é o que mais frequentemente é confundido com o conjunto.
 claros, não há como saber se o sistema está pronto nem o que ele deveria fazer
 em cada caso.
 
-**Porque a separação evita a falha mais comum de projeto.** Times que levantam
-apenas o funcional produzem sistemas que fazem tudo certo e não aguentam a
-carga — e o retrabalho para corrigir isso é arquitetural, não incremental.
+**Porque a separação evita a falha que só aparece sob carga real.** Times que
+levantam apenas o funcional produzem sistemas que fazem tudo certo e não
+aguentam a carga — e o retrabalho para corrigir isso é arquitetural, não
+incremental.
 
-**Porque os casos de exceção decidem estrutura.** Levantá-los tarde significa
-descobrir tarde que o modelo de dados não comporta compensação, que é exatamente
-o tipo de descoberta cara.
+**Porque os casos de exceção expõem as exigências que decidem estrutura.**
+Levantá-los tarde significa descobrir tarde que o modelo de dados não comporta
+compensação, que é exatamente o tipo de descoberta cara.
 
 ## Erros Comuns
 

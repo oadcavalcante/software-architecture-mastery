@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modularity]
 related: [coupling, cohesion, abstraction]
 canonical_for: [separação de responsabilidades, separation of concerns]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -56,9 +56,10 @@ Validação de formato muda quando o contrato de entrada muda. Regra de negócio
 muda quando a empresa decide diferente. Persistência muda quando o esquema ou a
 tecnologia muda. Três razões independentes, três assuntos.
 
-Isso é a formulação prática do Princípio da Responsabilidade Única, que fala em
-"uma razão para mudar" e é frequentemente lido como "fazer uma coisa só" — leitura
-que leva a fragmentar código sem critério.
+Isso é a formulação prática do [Princípio da Responsabilidade
+Única](/02-software-design/solid.md), que fala em "uma razão para mudar" e é
+frequentemente lido como "fazer uma coisa só" — leitura que leva a fragmentar
+código sem critério.
 
 ### Responsabilidades transversais
 
@@ -70,8 +71,9 @@ separação, aqui, é feita por outro mecanismo — middleware, decoradores,
 interceptadores, aspectos — que mantém o assunto em um lugar e o aplica em
 muitos.
 
-Misturar transversais no código de negócio é a forma mais comum de violação do
-princípio, e a mais tolerada.
+Misturar transversais no código de negócio costuma passar em revisão sem
+objeção: cada ocorrência isolada — uma linha de log, um `begin transaction` —
+parece barata demais para justificar um mecanismo.
 
 ### Separar não é fragmentar
 
@@ -104,9 +106,10 @@ só — e separar seria dano.
 
 ## Quando Não Usar
 
-**Quando os assuntos sempre mudam juntos.** É o caso mais importante e o mais
-ignorado. Separar aqui produz indireção pura: o leitor salta entre arquivos e não
-ganha nada, porque nunca vai alterar um sem o outro.
+**Quando os assuntos sempre mudam juntos.** É o caso mais importante desta
+seção, e o que o enunciado do princípio não ajuda a ver: ele diz o que separar,
+não quando não separar. Separar aqui produz indireção pura: o leitor salta entre
+arquivos e não ganha nada, porque nunca vai alterar um sem o outro.
 
 **Quando a separação exige uma abstração que não se sustenta.** Separar regra de
 negócio de persistência é fácil de enunciar e às vezes caro de fazer — se a regra
@@ -126,7 +129,9 @@ sintoma é precisar de um diagrama para entender uma operação simples.
 - **Coesão por proximidade** — manter junto o que muda junto, sem impor
   separação formal. É o default correto até que razões independentes apareçam.
 - **Separação por convenção** — mais barata e menos confiável que separação
-  imposta.
+  imposta. Vence onde o time é pequeno o bastante para que a convenção seja
+  conhecida por todos, e o mecanismo que a imporia custaria mais que os desvios
+  que evitaria.
 - **Aspectos e middleware** — para transversais, é a alternativa correta à
   separação por módulo.
 
@@ -171,7 +176,8 @@ fragmentar sem critério. A formulação correta é sobre razões de mudança.
 lugar, todos os mapeadores em outro. Agrupa o que muda por razões diferentes.
 
 **Aceitar transversal misturado por conveniência.** Log e transação dentro da
-regra de negócio parecem inofensivos e são a violação mais comum.
+regra de negócio parecem inofensivos um a um, e cada um amarra a regra a um
+detalhe de infraestrutura que o teste passa a ter de montar.
 
 **Confundir com camadas.** Camadas são uma forma de separar responsabilidades,
 não a definição dela. Um sistema em camadas pode ter responsabilidades
@@ -193,6 +199,10 @@ Mas duas coisas que pareciam separáveis — verificar estoque e gravar o pedido
 sempre mudavam juntas, porque a reserva de estoque fazia parte da mesma
 transação. Separá-las teria criado uma abstração que precisaria ser furada na
 primeira alteração.
+
+Emitir evento e enviar e-mail caíram na mesma unidade pela mesma razão: as duas
+mudavam quando o contrato de notificação mudava — campo novo no evento vinha
+acompanhado de linha nova no e-mail — e nunca uma sem a outra.
 
 O resultado: cinco unidades, não sete. E a mais valiosa foi a de regra fiscal,
 que passou a ser alterável e testável sem tocar em nada do resto — o que

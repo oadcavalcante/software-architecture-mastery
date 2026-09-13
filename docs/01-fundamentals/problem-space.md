@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-context]
 related: [solution-space, functional-requirements]
 canonical_for: [espaço do problema, problem space]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -53,7 +53,7 @@ consequência. Não menciona tecnologia, componente ou padrão.
 
 | Enunciado com solução embutida | Problema correspondente |
 |---|---|
-| "Precisamos de cache" | "A mesma consulta é repetida 200×/s e leva 400 ms" |
+| "Precisamos de cache" | "A mesma leitura, repetida 200×/s a 400 ms, domina o tempo de resposta da página" |
 | "Precisamos de microsserviços" | "Dois times bloqueiam um ao outro a cada release" |
 | "Precisamos de Kafka" | "Precisamos reprocessar eventos dos últimos 7 dias" |
 | "Precisamos de um dashboard" | "Operadores não sabem quais pedidos exigem ação" |
@@ -70,7 +70,7 @@ prática, duas ou três iterações bastam.
 "Precisamos de um cache distribuído."
     por quê?
 "A consulta de catálogo está lenta."
-    por quê isso é um problema?
+    por que isso é um problema?
 "A página de produto demora 2 s e a conversão cai."
     ↓
 Problema: a página de produto precisa responder abaixo de 500 ms
@@ -134,7 +134,8 @@ contra a tecnologia procurando um problema.
 ## Erros Comuns
 
 **Aceitar o enunciado do stakeholder como problema.** Ele quase sempre chega como
-solução. Recuar não é desrespeito — é o trabalho.
+solução. Aceito como veio, o time entrega o mecanismo pedido e o problema
+continua de pé. Recuar não é desrespeito — é o trabalho.
 
 **Recuar demais.** Levado ao extremo, todo problema vira "a empresa precisa ganhar
 dinheiro", o que é verdadeiro e inútil. Pare no nível em que o problema ainda é

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [non-functional-requirements]
 related: [constraints, architecture-characteristics]
 canonical_for: [quality attributes]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -67,11 +67,11 @@ Some pairs are opposed structurally, not circumstantially:
 
 ```mermaid
 graph TB
-  C[Consistency] <-->|PACELC| L[Latency]
+  C[Consistency] <-->|PACELC| P[Performance]
   D[Availability] <-->|CAP, under partition| C
-  P[Performance] <-->|cache, denormalization| M[Maintainability]
+  P <-->|cache, denormalization| M[Maintainability]
   S[Security] <-->|checks, isolation| P
-  R[Redundancy] <-->|infrastructure| K[Cost]
+  D <-->|redundancy| K[Operational cost]
 ```
 
 Recognizing that a pair is structurally opposed changes the conversation: it stops
@@ -158,22 +158,25 @@ function at that moment.
 
 Two teams at the same company build services that record sensor data.
 
-**Team A — industrial monitoring.** Losing one reading means failing to detect a
-fault condition in equipment. Priority: durability and consistency above latency
-and cost. Architecture: synchronous replicated writes, acknowledgement only after
-persistence in two zones, higher cost per reading.
+**Team A — industrial monitoring.** A few hundred readings per second, and losing
+one means failing to detect a fault condition in equipment. Priority: durability
+and consistency above latency and cost. Architecture: synchronous replicated
+writes, acknowledgement only after persistence in two zones, higher cost per
+reading.
 
-**Team B — application telemetry.** Losing a few readings out of millions changes
-no conclusion. Priority: cost and throughput above durability. Architecture:
-batched writes, an in-memory buffer that drops under pressure, cost per reading an
-order of magnitude lower.
+**Team B — application telemetry.** Forty thousand readings per second, and
+losing a few out of millions changes no conclusion. Priority: cost and throughput
+above durability. Architecture: batched writes, an in-memory buffer that drops
+under pressure, cost per reading an order of magnitude lower.
 
 The functional requirements are almost identical: receive a reading, store it,
-query by period. The architectures share no significant decision.
+query by period. The architectures diverge on every decision about storage,
+acknowledgement and dropping.
 
-Had team B copied team A's architecture — which was proposed, for internal
-consistency — the cost would have made the product unviable. Had A copied B, the
-system would have lost readings nobody can lose.
+Had team B copied team A's architecture, the extra order of magnitude in cost per
+reading multiplied by B's volume would have taken the monthly infrastructure bill
+from around $2,000 to $20,000 — above the product's entire budget. Had A copied B,
+the system would have lost readings nobody can lose.
 
 What separates the two appears in no functional requirements document.
 

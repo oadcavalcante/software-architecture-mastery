@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [coupling, cohesion, separation-of-concerns]
 canonical_for: [modularidade, modularity, módulo]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -58,6 +58,9 @@ módulo; é um agrupamento de arquivos.
 A ideia central, formulada por Parnas em 1972 e ainda mal aplicada: **módulos
 devem ser divididos pelo que escondem, não pelas etapas do processamento.**
 
+A mecânica dessa ocultação — o que um contrato pode expor sem entregar o segredo
+— está em [encapsulamento](/02-software-design/encapsulation.md).
+
 ### O eixo de divisão
 
 A pergunta que decide onde traçar a fronteira: **o que muda junto?**
@@ -73,16 +76,26 @@ a um cadastro toca os três diretórios.
 Uma divisão por capacidade de negócio — cobrança, catálogo, entrega — agrupa o
 que muda junto. A mesma alteração toca um lugar.
 
+O diagrama abaixo segue uma única alteração — um campo novo no cadastro de
+produto — e mostra quantos módulos ela alcança em cada arranjo.
+
 ```mermaid
-graph TB
-  subgraph N[Divisão por capacidade]
-    direction TB
-    E[cobrança] --- F[catálogo] --- G[entrega]
-  end
+graph LR
+  M[novo campo no cadastro de produto]
   subgraph T[Divisão técnica]
-    direction TB
-    A[controllers] --- B[services] --- C[repositories]
+    A[controllers]
+    B[services]
+    C[repositories]
   end
+  subgraph N[Divisão por capacidade]
+    E[cobrança]
+    F[catálogo]
+    G[entrega]
+  end
+  M --> A
+  M --> B
+  M --> C
+  M --> F
 ```
 
 ### Fronteira nominal não é fronteira
@@ -182,8 +195,9 @@ indireção deixou de esconder complexidade e passou a ser a complexidade.
 
 ## Erros Comuns
 
-**Dividir por camada técnica em vez de por eixo de mudança.** O erro mais comum,
-e o que mais silenciosamente degrada a manutenibilidade.
+**Dividir por camada técnica em vez de por eixo de mudança.** A estrutura
+continua parecendo organizada enquanto cada mudança atravessa três módulos: não
+há sintoma até o custo de mudança já ter subido.
 
 **Confundir diretório com módulo.** Sem imposição, é organização visual.
 

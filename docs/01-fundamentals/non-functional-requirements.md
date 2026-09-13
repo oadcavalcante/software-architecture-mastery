@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-requirements]
 related: [quality-attributes, constraints]
 canonical_for: [requisitos não-funcionais, non-functional requirements]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -67,33 +67,30 @@ A terceira parte é a que costuma faltar e a que mais importa. Sem consequência
 declarada, o número é arbitrário — e um número arbitrário não sobrevive à
 primeira conversa sobre custo.
 
-### Sempre percentil, nunca média
+### Percentil, não média, em requisito de latência
 
-Latência relatada como média esconde exatamente o que os usuários percebem.
-
-Um sistema com média de 200 ms pode ter 5% das requisições acima de 3 segundos.
-Esses 5% são reais, são de usuários reais, e a média nunca vai revelá-los. Em
-sistemas com muitas chamadas por operação, a cauda vira o caso comum: uma página
-que faz vinte chamadas independentes tem alta probabilidade de encontrar ao menos
-uma do percentil 95.
+A média serve para dimensionar capacidade agregada. Para descrever o que o
+usuário espera, ela esconde exatamente o que ele percebe: um sistema com média de
+200 ms pode ter 5% das requisições acima de 3 segundos, e em operações que
+disparam muitas chamadas essa cauda vira o caso comum.
+[Latência](/06-distributed-systems/latency.md) desenvolve por que a cauda existe
+e por que ela domina numa cadeia.
 
 Requisito de latência sem percentil declarado é requisito mal formado.
 
 ### O custo cresce de forma não linear
 
-Cada nove adicional de disponibilidade custa desproporcionalmente mais.
+Cada nove adicional de disponibilidade custa desproporcionalmente mais, e o que
+ele cobra não é percentual de esforço: 99% se atende com instância única e
+retorno manual; 99,9% pede redundância e retorno automatizado; 99,99% pede
+multi-zona e ausência de janela de manutenção; 99,999% pede multi-região
+ativo-ativo e operação dedicada. A tradução de cada patamar em minutos de
+indisponibilidade por mês e por ano está em
+[Disponibilidade](/06-distributed-systems/availability.md).
 
-| Disponibilidade | Indisponibilidade/ano | O que costuma exigir |
-|---|---|---|
-| 99% | ~3,6 dias | Instância única, retorno manual |
-| 99,9% | ~8,8 horas | Redundância, retorno automatizado |
-| 99,99% | ~53 minutos | Multi-zona, sem janela de manutenção |
-| 99,999% | ~5 minutos | Multi-região ativo-ativo, operação dedicada |
-
-Essa tabela é o instrumento mais útil de uma conversa de requisitos. Perguntar
-"você quer 99,9% ou 99,99%?" sem ela produz sempre a resposta maior. Com ela,
-produz uma decisão informada — e frequentemente a resposta vira "99,9% está
-bom".
+Levar esse custo para a mesa é o que transforma "você quer 99,9% ou 99,99%?" numa
+decisão informada. Sem ele, a resposta tende ao número maior, porque pedir não
+custa nada a quem pede — com ele, frequentemente vira "99,9% está bom".
 
 ### Nem todo atributo se aplica igualmente
 
@@ -132,8 +129,8 @@ precisa virar métrica, número, janela e consequência antes de entrar no
 documento.
 
 **Pedir o máximo por precaução.** Stakeholders pedem 99,99% porque não custa
-pedir. Custa — só que o custo aparece na engenharia. Apresentar a tabela de custo
-antes da pergunta muda a resposta na maioria dos casos.
+pedir. Custa — só que o custo aparece na engenharia. Apresentar o custo de cada
+nove antes da pergunta muda a resposta na maioria dos casos.
 
 **Usar média em vez de percentil.** Ver acima. É o erro técnico mais comum da
 área.

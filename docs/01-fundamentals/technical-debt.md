@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [architecture-evolution, dependency-management]
 canonical_for: [dívida técnica, technical debt]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -58,9 +58,11 @@ imprudente.
 | **Deliberado** | "Lançamos agora e refatoramos depois — sabemos o custo" | "Não temos tempo para design" |
 | **Inadvertido** | "Agora que terminamos, sabemos como deveria ter sido" | "O que é design em camadas?" |
 
-Só o quadrante superior esquerdo é dívida no sentido útil. O inferior direito é
-falta de competência. O superior direito é imprudência. O inferior esquerdo é
-aprendizado — e é inevitável e saudável.
+Para Fowler, as quatro células são dívida técnica: o quadrante classifica tipos,
+não separa o que conta como dívida. Este documento diverge e mantém o sentido
+estreito de Cunningham — só o quadrante superior esquerdo é dívida. O inferior
+direito é falta de competência. O superior direito é imprudência. O inferior
+esquerdo é aprendizado — e é inevitável e saudável.
 
 Tratar os quatro com a mesma palavra impede tratar cada um com a resposta
 correta.
@@ -68,11 +70,14 @@ correta.
 ### Juros
 
 O custo da dívida não é o esforço de corrigi-la. São os **juros**: o custo extra
-de cada mudança enquanto ela existe.
+que ela cobra enquanto existe — em cada mudança que passa por ela e em cada
+operação que ela onera. Passo manual antes de todo deploy, plantão acordado pelo
+mesmo alarme, dependência vulnerável que precisa ser vigiada: isso é juro
+cobrado sem que ninguém toque no código.
 
-Isso muda a decisão de quando pagar. Dívida em código que ninguém toca tem juros
-zero — é dívida sem custo corrente, e pagá-la é gasto puro. Dívida no caminho de
-toda mudança tem juros altos e se paga rápido.
+Isso muda a decisão de quando pagar. Dívida em código que ninguém toca e que nada
+custa para operar tem juros zero — é dívida sem custo corrente, e pagá-la é gasto
+puro. Dívida no caminho de toda mudança tem juros altos e se paga rápido.
 
 A pergunta operacional não é "isto está ruim?", e sim **"quanto isto está nos
 custando por mês?"**. Um módulo feio e estável perde para um módulo medíocre no
@@ -117,8 +122,10 @@ Assumir dívida deliberadamente faz sentido quando:
   saber o que vai ser usado; um atalho que produz esse aprendizado se paga.
 - **Existe uma janela com consequência externa.** Evento, obrigação regulatória,
   concorrente.
-- **O código pode ser descartado.** Dívida em algo que provavelmente será jogado
-  fora nunca vence.
+- **O código será descartado, com data e dono.** Dívida em algo que de fato for
+  jogado fora não chega a vencer. Sem data e sem responsável, "provavelmente será
+  descartado" é expectativa — e o protótipo que virou produção é o primeiro modo
+  de falha desta página.
 - **Os juros são baixos e conhecidos.** Atalho num módulo periférico e estável.
 
 ## Quando Não Usar
@@ -138,11 +145,18 @@ a mais, não há dívida a discutir.
 
 ## Alternativas
 
-- **Reduzir escopo** — entregar menos, bem feito. Frequentemente melhor que
-  entregar tudo com atalho, e raramente considerado.
+- **Reduzir escopo** — entregar menos, bem feito. Vence quando a janela exige
+  *algo* na data e o escopo é divisível: o que entra vai sem atalho, o resto
+  espera. Perde quando o escopo é indivisível — meia obrigação regulatória não
+  cumpre nada.
 - **Descartar explicitamente** — construir sabendo que será jogado fora, sem
-  fingir que vira produção.
-- **Negociar prazo** — a alternativa que engenharia menos exercita.
+  fingir que vira produção. Vence quando o objetivo é responder uma pergunta e a
+  resposta chega em semanas. Perde quando ninguém banca o descarte, e aí é dívida
+  com outro nome.
+- **Negociar prazo** — a alternativa que engenharia menos exercita. Vence quando a
+  data é interna e o custo do atraso é menor que os juros previstos. Perde diante
+  de consequência externa — evento, contrato, regulador — em que a data não se
+  move.
 
 ## Trade-offs
 
@@ -187,9 +201,6 @@ commits informa isso melhor que a impressão.
 dívida se acumula, ela volta na mesma taxa.
 
 **Não registrar a decisão.** Sem registro, dívida vira mistério em seis meses.
-
-**Assumir dívida na fundação.** É onde os juros são maiores e o pagamento é mais
-caro.
 
 ## Exemplo Real
 

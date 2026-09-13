@@ -14,7 +14,7 @@ objective: >
 prerequisites: [modularity]
 related: [coupling, cohesion, abstraction]
 canonical_for: [separation of concerns]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -56,9 +56,10 @@ Format validation changes when the input contract changes. A business rule
 changes when the company decides differently. Persistence changes when the schema
 or the technology changes. Three independent reasons, three subjects.
 
-That is the practical formulation of the Single Responsibility Principle, which
-speaks of "one reason to change" and is frequently read as "do only one thing" — a
-reading that leads to fragmenting code without criteria.
+That is the practical formulation of the [Single Responsibility
+Principle](/02-software-design/solid.md), which speaks of "one reason to change"
+and is frequently read as "do only one thing" — a reading that leads to
+fragmenting code without criteria.
 
 ### Cross-cutting concerns
 
@@ -70,8 +71,9 @@ Separation here is achieved by another mechanism — middleware, decorators,
 interceptors, aspects — that keeps the subject in one place and applies it in
 many.
 
-Mixing cross-cutting concerns into business code is the most common violation of
-the principle, and the most tolerated.
+Mixing cross-cutting concerns into business code tends to pass review without
+objection: each occurrence on its own — a log line, a `begin transaction` — looks
+too cheap to justify a mechanism.
 
 ### Separating is not fragmenting
 
@@ -105,10 +107,11 @@ is a single subject — and separating would be damage.
 
 ## When Not to Use
 
-**When the subjects always change together.** This is the most important case and
-the most ignored. Separating here produces pure indirection: the reader jumps
-between files and gains nothing, because they will never change one without the
-other.
+**When the subjects always change together.** This is the most important case in
+this section, and the one the principle as stated does not help you see: it says
+what to separate, not when not to. Separating here produces pure indirection: the
+reader jumps between files and gains nothing, because they will never change one
+without the other.
 
 **When the separation requires an abstraction that does not hold.** Separating a
 business rule from persistence is easy to state and sometimes expensive to do — if
@@ -130,7 +133,9 @@ needing a diagram to understand a simple operation.
   imposing formal separation. It is the correct default until independent reasons
   appear.
 - **Separation by convention** — cheaper and less reliable than enforced
-  separation.
+  separation. It wins where the team is small enough that the convention is known
+  to everyone, and the mechanism that would enforce it would cost more than the
+  deviations it would prevent.
 - **Aspects and middleware** — for cross-cutting concerns, the correct alternative
   to separation by module.
 
@@ -176,8 +181,8 @@ fragmenting without criteria. The correct formulation is about reasons for chang
 place, all mappers in another. It groups what changes for different reasons.
 
 **Accepting a mixed cross-cutting concern out of convenience.** Logging and
-transactions inside the business rule look harmless and are the most common
-violation.
+transactions inside the business rule look harmless one at a time, and each one
+ties the rule to an infrastructure detail the test then has to stand up.
 
 **Confusing this with layers.** Layers are one way to separate responsibilities,
 not the definition of it. A layered system can have tremendously mixed
@@ -199,6 +204,10 @@ But two things that looked separable — checking stock and persisting the order
 always changed together, because the stock reservation was part of the same
 transaction. Separating them would have created an abstraction that would need to
 be punctured on the first change.
+
+Emitting the event and sending the email landed in the same unit for the same
+reason: both changed when the notification contract changed — a new field in the
+event came with a new line in the email — and never one without the other.
 
 The result: five units, not seven. And the most valuable one was the tax rule,
 which became changeable and testable without touching anything else — which

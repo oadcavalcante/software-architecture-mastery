@@ -14,7 +14,7 @@ objective: >
 prerequisites: [problem-space]
 related: [solution-space, non-functional-requirements, constraints, business-context]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -102,7 +102,7 @@ a feira é prazo de lançamento ou de demonstração?
 A segunda e a quarta decidem quase tudo. A segunda porque converte "tempo real" num
 número, e a quarta porque revela que "tempo real" talvez nunca tenha sido o requisito.
 
-A última é a que ninguém faz, e ela pode reduzir o escopo em 80%: demonstrar numa feira e
+A última é a que ninguém faz, e ela pode trocar o escopo inteiro: demonstrar numa feira e
 operar em produção são problemas diferentes, com custos que diferem em ordem de grandeza.
 
 ## Critérios de Avaliação
@@ -123,8 +123,8 @@ Sua resposta está boa se:
   sistema atual já atende e o trabalho todo é desnecessário.
 
 - **Alguma restrição declarada foi reclassificada como preferência.** No enunciado há pelo
-  menos uma. Se as suas seis restrições continuam seis restrições, você não aplicou o
-  teste.
+  menos uma. Se as cinco linhas do enunciado saem da sua lista como cinco restrições,
+  você não aplicou o teste.
 
 - **A frequência de telemetria aparece na sua análise.** O sistema recebe posição a cada
   dois minutos. Nenhum dashboard sobre esse dado é mais "tempo real" que dois minutos, e
@@ -155,9 +155,9 @@ precisa de uma tela funcionando para três clientes, não de um sistema operando
 São projetos diferentes, e o segundo pode acontecer depois.
 
 **A distribuição dos clientes importa mais que a média.** A mediana tem 26 veículos; a
-maior tem 4.100. Uma solução dimensionada pela média serve mal a ambos: é sobra para 340
-clientes e falta para um. Isso sugere que a pergunta certa não é "quantos veículos
-suportar", e sim "o comportamento do cliente grande é o mesmo do pequeno?" — e
+maior tem 4.100. Uma solução dimensionada pela média serve mal a ambos: é sobra para os
+outros 339 clientes e falta para um. Isso sugere que a pergunta certa não é "quantos
+veículos suportar", e sim "o comportamento do cliente grande é o mesmo do pequeno?" — e
 frequentemente não é: quem tem 4.100 veículos não olha um mapa, olha exceções.
 
 **O que "confiável" provavelmente significa aqui.** Não é disponibilidade do dashboard. É

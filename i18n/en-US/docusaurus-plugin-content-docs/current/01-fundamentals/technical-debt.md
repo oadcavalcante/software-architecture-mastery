@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [architecture-evolution, dependency-management]
 canonical_for: [technical debt]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -60,9 +60,11 @@ reckless.
 | **Deliberate** | "We ship now and refactor later — we know the cost" | "We don't have time for design" |
 | **Inadvertent** | "Now that we're done, we know how it should have been" | "What's layered design?" |
 
-Only the top-left quadrant is debt in the useful sense. The bottom-right is a lack
-of competence. The top-right is recklessness. The bottom-left is learning — and it
-is inevitable and healthy.
+For Fowler, all four cells are technical debt: the quadrant classifies kinds, it
+does not separate what counts as debt. This document diverges and keeps
+Cunningham's narrow sense — only the top-left quadrant is debt. The bottom-right
+is a lack of competence. The top-right is recklessness. The bottom-left is
+learning — and it is inevitable and healthy.
 
 Treating all four with the same word prevents treating each with the correct
 response.
@@ -70,11 +72,15 @@ response.
 ### Interest
 
 The cost of debt is not the effort of fixing it. It is the **interest**: the extra
-cost of every change while it exists.
+cost it charges while it exists — on every change that goes through it and on every
+operation it burdens. A manual step before each deploy, an on-call engineer woken
+by the same alert, a vulnerable dependency that has to be watched: that is interest
+charged without anyone touching the code.
 
-That changes the decision about when to pay. Debt in code nobody touches has zero
-interest — it is debt with no running cost, and paying it is pure expense. Debt in
-the path of every change has high interest and pays back quickly.
+That changes the decision about when to pay. Debt in code nobody touches and that
+costs nothing to operate has zero interest — it is debt with no running cost, and
+paying it is pure expense. Debt in the path of every change has high interest and
+pays back quickly.
 
 The operational question is not "is this bad?" but **"how much is this costing us
 per month?"**. An ugly, stable module loses to a mediocre one on the critical path.
@@ -119,8 +125,10 @@ Taking on debt deliberately makes sense when:
   for itself.
 - **There is a window with an external consequence.** An event, a regulatory
   obligation, a competitor.
-- **The code can be thrown away.** Debt in something that will probably be
-  discarded never comes due.
+- **The code will be thrown away, with a date and an owner.** Debt in something
+  that actually gets discarded never comes due. With no date and no one
+  responsible, "it will probably be discarded" is a hope — and the prototype that
+  became production is the first failure mode on this page.
 - **The interest is low and known.** A shortcut in a peripheral, stable module.
 
 ## When Not to Use
@@ -140,11 +148,18 @@ extra days, there is no debt to discuss.
 
 ## Alternatives
 
-- **Reduce the scope** — deliver less, done well. Frequently better than delivering
-  everything with a shortcut, and rarely considered.
+- **Reduce the scope** — deliver less, done well. Wins when the window demands
+  *something* on the date and the scope is divisible: what ships goes in without a
+  shortcut, the rest waits. Loses when the scope is indivisible — half a regulatory
+  obligation satisfies nothing.
 - **Discard explicitly** — build knowing it will be thrown away, without pretending
-  it becomes production.
-- **Negotiate the deadline** — the alternative engineering exercises least.
+  it becomes production. Wins when the goal is to answer a question and the answer
+  arrives in weeks. Loses when nobody underwrites the discarding, and then it is
+  debt under another name.
+- **Negotiate the deadline** — the alternative engineering exercises least. Wins
+  when the date is internal and the cost of the delay is lower than the expected
+  interest. Loses against an external consequence — an event, a contract, a
+  regulator — where the date does not move.
 
 ## Trade-offs
 
@@ -191,9 +206,6 @@ understanding why the debt accumulates, it comes back at the same rate.
 
 **Not recording the decision.** Without a record, debt becomes a mystery in six
 months.
-
-**Taking on debt in the foundation.** It is where interest is highest and payment
-most expensive.
 
 ## Real-World Example
 

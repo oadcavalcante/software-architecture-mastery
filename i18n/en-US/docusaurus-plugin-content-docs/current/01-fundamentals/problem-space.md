@@ -14,7 +14,7 @@ objective: >
 prerequisites: [business-context]
 related: [solution-space, functional-requirements]
 canonical_for: [problem space]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -54,7 +54,7 @@ consequence. It mentions no technology, component or pattern.
 
 | Statement with a solution baked in | Corresponding problem |
 |---|---|
-| "We need a cache" | "The same query is repeated 200×/s and takes 400 ms" |
+| "We need a cache" | "The same read, repeated 200×/s at 400 ms, dominates the page's response time" |
 | "We need microservices" | "Two teams block each other on every release" |
 | "We need Kafka" | "We need to reprocess events from the last 7 days" |
 | "We need a dashboard" | "Operators don't know which orders require action" |
@@ -135,7 +135,8 @@ against a technology looking for a problem.
 ## Common Mistakes
 
 **Accepting the stakeholder's statement as the problem.** It almost always arrives
-as a solution. Backing up is not disrespect — it is the work.
+as a solution. Taken as it arrives, the team ships the mechanism asked for and
+the problem stays standing. Backing up is not disrespect — it is the work.
 
 **Backing up too far.** Taken to the extreme, every problem becomes "the company
 needs to make money", which is true and useless. Stop at the level where the
