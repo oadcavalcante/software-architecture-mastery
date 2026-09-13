@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [rto, disaster-recovery-planning, failover]
 canonical_for: [RPO, objetivo de ponto de recuperação, perda aceitável de dados]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -49,7 +49,10 @@ A última linha inviabiliza a maioria dos sistemas transacionais. RPO zero entre
 
 E há um segundo custo: replicação síncrona acopla disponibilidade. Se a cópia síncrona
 não responde, a escrita não confirma — o sistema fica indisponível para preservar o
-RPO.
+RPO. Motores com modo semissíncrono oferecem a saída oposta: passado um tempo limite
+sem resposta da réplica, a escrita confirma assim mesmo e a replicação segue assíncrona
+— preserva-se a disponibilidade abrindo mão do RPO zero, sem alarde. Qual dos dois
+comportamentos vale é configuração, não propriedade do mecanismo.
 
 ## Conceitos Centrais
 
@@ -105,7 +108,8 @@ O terceiro caso é o que justifica reter várias gerações e manter uma
 Um comando destrutivo replica em segundos. O RPO contra falha de hardware pode ser de
 segundos, e contra erro humano ser de horas — o intervalo até a cópia anterior.
 
-Declarar um único RPO sem distinguir o cenário é o erro conceitual mais comum aqui.
+Declarar um único RPO sem distinguir o cenário descreve só o cenário mais favorável —
+o de falha de infraestrutura — e deixa o de erro humano sem número.
 
 ### O RPO precisa contemplar o que está em trânsito
 
@@ -125,7 +129,8 @@ memória, ou se as requisições foram aceitas e ainda não persistidas, esse tr
 perde independentemente do RPO do banco.
 
 Ver [processamento assíncrono](/11-scalability/async-processing.md) — aceitar e não
-persistir é a forma mais comum de perder trabalho sem que nenhuma métrica registre.
+persistir perde trabalho sem que nenhuma métrica registre: o cliente recebeu
+confirmação e o registro não existe.
 
 A verificação: some o que está em trânsito no momento típico de pico. Se esse volume
 importa, ele precisa ser tratado com o mesmo rigor que o banco.
@@ -179,7 +184,8 @@ desastre regional            15 minutos
 ```
 
 **Réplica atrasada de 15 minutos**, cobrindo o cenário de erro humano — o mais barato
-dos três controles e o que não existia.
+dos três mecanismos em jogo (replicação síncrona, cópias periódicas, réplica atrasada)
+e o único que ainda não existia.
 
 **Cópias a cada 15 minutos** por log contínuo, substituindo a diária.
 
@@ -210,6 +216,8 @@ Esse número é o seu RPO real contra falha de infraestrutura. Compare com o dec
 
 ## Para Aprofundar
 
-- ISO 22301 — gestão de continuidade de negócios.
+- ISO. *ISO 22301:2019 — Security and resilience: business continuity management
+  systems — Requirements*. ISO, 2019.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- NIST SP 800-34 — planejamento de contingência.
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for
+  Federal Information Systems*. NIST, 2010.

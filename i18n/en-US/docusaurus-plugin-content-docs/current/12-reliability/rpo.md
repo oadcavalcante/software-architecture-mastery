@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [rto, disaster-recovery-planning, failover]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -47,7 +47,11 @@ The last line makes most transactional systems unviable. An RPO of zero across r
 and frequently promised with nobody having done the arithmetic.
 
 And there is a second cost: synchronous replication couples availability. If the synchronous copy does not
-respond, the write does not commit — the system becomes unavailable in order to preserve the RPO.
+respond, the write does not commit — the system becomes unavailable in order to preserve the RPO. Engines
+with a semi-synchronous mode offer the opposite way out: once a timeout passes with no answer from the
+replica, the write commits anyway and replication carries on asynchronously — availability is preserved by
+giving up the zero RPO, quietly. Which of the two behaviours applies is configuration, not a property of
+the mechanism.
 
 ## Core Concepts
 
@@ -102,7 +106,8 @@ The third case is what justifies retaining several generations and keeping a
 A destructive command replicates in seconds. The RPO against hardware failure can be seconds, and against
 human error it can be hours — the interval back to the previous copy.
 
-Declaring a single RPO with no distinction of scenario is the most common conceptual mistake here.
+Declaring a single RPO with no distinction of scenario describes only the most favourable scenario — that
+of infrastructure failure — and leaves the human error one with no number.
 
 ### The RPO needs to account for what is in flight
 
@@ -119,8 +124,8 @@ open transactions
 If the queue is durable and replicated, it enters the same calculation as the database. If it is in memory,
 or if the requests were accepted and not yet persisted, that work is lost regardless of the database's RPO.
 
-See [asynchronous processing](/11-scalability/async-processing.md) — accepting and not persisting is the
-most common way of losing work with no metric recording it.
+See [asynchronous processing](/11-scalability/async-processing.md) — accepting and not persisting loses
+work with no metric recording it: the client got an acknowledgement and the record does not exist.
 
 The check: sum what is in flight at the typical peak moment. If that volume matters, it needs to be treated
 with the same rigor as the database.
@@ -170,8 +175,9 @@ human error or corruption  15 minutes
 regional disaster          15 minutes
 ```
 
-**A 15-minute delayed replica**, covering the human error scenario — the cheapest of the three controls and
-the one that did not exist.
+**A 15-minute delayed replica**, covering the human error scenario — the cheapest of the three mechanisms
+in play (synchronous replication, periodic backups, a delayed replica) and the only one that did not yet
+exist.
 
 **Backups every 15 minutes** through a continuous log, replacing the daily one.
 
@@ -202,6 +208,8 @@ That number is your real RPO against infrastructure failure. Compare with the de
 
 ## Further Reading
 
-- ISO 22301 — business continuity management.
+- ISO. *ISO 22301:2019 — Security and Resilience: Business Continuity Management
+  Systems — Requirements*. ISO, 2019.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- NIST SP 800-34 — contingency planning.
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for
+  Federal Information Systems*. NIST, 2010.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [integration-architecture, scalability, system-design]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -49,10 +49,10 @@ problems people try to solve with hardware.
 **Analytical platforms.** Data warehouse, data lake and lakehouse — what each one solves, and what
 happens when a lake becomes a dump with no catalog.
 
-**Modeling.** Normalization and denormalization as a conscious and reversible decision, with the
-criterion for when each one pays off. Indexing treated as an architectural decision, because the
-wrong index is the most common cause of a slow query — and the one most frequently confused with a
-need to scale.
+**Modeling.** Normalization and denormalization as a conscious decision — and an expensive one to
+undo once records have been written — with the criterion for when each one pays off. Indexing
+treated as an architectural decision, because the wrong index is the most common cause of a slow
+query — and the one most frequently confused with a need to scale.
 
 **Data distribution.** Replication and partitioning seen from the storage angle, complementing the
 treatment in [distributed systems](/06-distributed-systems/index.md). Transactions and consistency at

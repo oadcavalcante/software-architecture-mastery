@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [cloud-architecture, integration-architecture, reliability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -50,6 +50,10 @@ choosing, which is rarely discussed.
 
 **The principles that decide structure.** Least privilege, secure trust boundaries, zero trust and defense
 in depth. They are what determine the size of the damage when something goes wrong.
+
+**Network security.** Segmentation, microsegmentation and egress filtering — where the principles
+above stop being intent and become a concrete limit on the lateral movement of whoever is already
+inside.
 
 **Secrets and cryptography.** Secrets management, encryption in transit and at rest, and key management —
 the topic where intuition misleads the most.

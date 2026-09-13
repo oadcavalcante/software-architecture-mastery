@@ -13,7 +13,7 @@ objective: >
 prerequisites: [latency]
 related: [retries, latency, circuit-breakers]
 canonical_for: [timeout, orçamento de tempo]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -131,13 +131,17 @@ aconteceu — apenas que você para de esperar.
 
 ## Quando Usar
 
-- Toda chamada de rede, sem exceção.
+- Toda chamada de rede de requisição-resposta.
 - Toda aquisição de recurso — conexão de pool, lock.
 - Todo trabalho em background, para não ocupar um trabalhador indefinidamente.
 
 ## Quando Não Usar
 
-**Não há chamada de rede que dispense timeout.** O que varia é o valor.
+**Conexão de longa duração e fluxo bidirecional.** Streaming, long polling e conexão
+persistente duram enquanto houver o que dizer: um prazo de leitura ou de requisição
+total corta a conexão saudável que está apenas ociosa. Ali o silêncio é detectado por
+batimento ou por limite de ociosidade — ver
+[detecção de falha](/06-distributed-systems/failure-detection.md).
 
 **Timeout uniforme para operações de custo diferente.** Uma consulta simples e um
 relatório não merecem o mesmo limite.
@@ -155,8 +159,10 @@ Timeout não tem alternativa; ele tem complementos:
 - **[Circuit breaker](/12-reliability/circuit-breakers.md)** — parar de chamar um destino que
   está falhando, em vez de esperar e desistir repetidamente.
 - **Prazo propagado** — a forma robusta.
-- **Requisição de reserva** — enviar a duas réplicas e usar a primeira resposta.
-- **Degradação** — responder sem o dado que não chegou.
+- **Requisição de reserva** — enviar a duas réplicas e usar a primeira resposta. Ver
+  [latência](/06-distributed-systems/latency.md).
+- **Degradação** — responder sem o dado que não chegou. Ver
+  [degradação graciosa](/12-reliability/graceful-degradation.md).
 
 ## Trade-offs
 
@@ -225,7 +231,7 @@ falhariam, e os outros 70% das requisições continuariam funcionando.
 período e falha imediatamente — sem nem gastar os 3 segundos.
 
 **Pool separado** para chamadas ao bureau. Mesmo que ele esgote, o pool das outras
-operações permanece.
+operações permanece. Ver [bulkheads](/12-reliability/bulkheads.md).
 
 **Degradação.** A consulta passou a devolver resposta parcial, marcando o dado do
 bureau como indisponível, em vez de falhar inteira.

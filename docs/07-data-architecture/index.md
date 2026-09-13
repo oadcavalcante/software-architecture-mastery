@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [integration-architecture, scalability, system-design]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -51,10 +51,11 @@ parte dos problemas de desempenho que se tenta resolver com hardware.
 **Plataformas analíticas.** Data warehouse, data lake e lakehouse — o que cada
 uma resolve, e o que acontece quando um lake vira depósito sem catálogo.
 
-**Modelagem.** Normalização e desnormalização como decisão consciente e
-reversível, com o critério de quando cada uma se paga. Indexação tratada como
-decisão de arquitetura, porque índice errado é a causa mais comum de consulta
-lenta — e a mais frequentemente confundida com necessidade de escalar.
+**Modelagem.** Normalização e desnormalização como decisão consciente — e cara de
+desfazer depois que existem registros gravados —, com o critério de quando cada uma
+se paga. Indexação tratada como decisão de arquitetura, porque índice errado é a
+causa mais comum de consulta lenta — e a mais frequentemente confundida com
+necessidade de escalar.
 
 **Distribuição de dados.** Replicação e particionamento vistos do ângulo do
 armazenamento, complementando o tratamento de

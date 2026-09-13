@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [scalability, cloud-architecture, observability]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -47,8 +47,9 @@ they hide.
 **The targets.** SLI, SLO and SLA — three things frequently confused, with the error budget as the
 mechanism that turns a target into an operational decision.
 
-**The tolerance techniques.** Fault tolerance, resilience, redundancy and failover. Redundancy gets
-specific attention to what nullifies it: correlation.
+**The responses to failure.** Fault tolerance, redundancy and failover — mechanisms for the anticipated
+failure mode — and resilience, which deals with the unanticipated and involves people and procedures, not
+mechanism alone. Redundancy gets specific attention to what nullifies it: correlation.
 
 **The containment patterns.** Circuit breakers, bulkheads and graceful degradation. They are what keep a
 localized failure from propagating.
@@ -67,7 +68,8 @@ incident.
 Start with **SLI, SLO and SLA**, in that order. With no defined target, everything else is effort with no
 stopping criterion.
 
-Then **graceful degradation**, cheap where redundancy is expensive, and the least applied.
+Then **graceful degradation**, cheap where redundancy is expensive, and usually left out because it
+depends on a product decision nobody asks for.
 
 **Circuit breakers**, **bulkheads** and **retry storms** form a block and should be read together, for
 different reasons: the circuit breaker breaks the retry cycle, and the bulkhead contains exhaustion of a

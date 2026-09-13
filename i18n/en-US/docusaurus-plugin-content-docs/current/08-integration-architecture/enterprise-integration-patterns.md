@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, event-driven-integration, integration-anti-corruption]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -65,8 +65,9 @@ second an execution one.
 
 How the message reaches whoever should handle it.
 
-**A content-based router.** It examines the message and chooses the destination. It is the most used
-pattern, and the one that accumulates the most business rules — the same vigilance described in
+**A content-based router.** It examines the message and chooses the destination. It is where
+business rules tend to accumulate, because every new destination arrives as one more
+conditional at the same point — the same vigilance described in
 [API gateways](/08-integration-architecture/api-gateways.md) applies.
 
 **A filter.** It discards what does not interest that consumer.
@@ -166,17 +167,25 @@ is handled reaches the domain.
 
 ## Common Mistakes
 
-**An aggregator with no time limit.**
+**An aggregator with no time limit.** Deciding the completion criterion and leaving the
+deadline for later — the sets that never complete stay held in memory until someone
+restarts the process.
 
 **An enricher creating a synchronous dependency** in a flow that should be asynchronous.
 
-**A router accumulating business rules.**
+**A router accumulating business rules.** Putting every new destination in the router as a
+conditional instead of in the domain — the business decision comes to live in the messaging
+infrastructure, where nobody tests it.
 
 **A splitter with no correlation.** The parts get lost and there is no way to reassemble them.
 
-**Confusing an invalid message with a dead message.**
+**Confusing an invalid message with a dead message.** Pointing both at the same channel —
+and batch reprocessing keeps insisting on messages that will never be interpreted, while
+the ones that merely failed sit mixed in among them.
 
-**Implementing the catalog instead of solving the problem.**
+**Implementing the catalog instead of solving the problem.** Assembling an enricher, a
+resequencer and a message store because they are in the book — each piece with no matching
+problem becomes code to maintain and one more hop to walk when the flow is debugged.
 
 ## Real-World Example
 

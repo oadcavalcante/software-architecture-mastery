@@ -13,7 +13,7 @@ objective: >
 prerequisites: [olap]
 related: [data-warehouses, oltp, data-partitioning]
 canonical_for: [colunar, armazenamento colunar, orientado a linha]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -52,8 +52,9 @@ o problema não é encontrar as linhas, é que elas são largas.
 
 ### Ler só o necessário
 
-No layout colunar, cada coluna é um arquivo. Ler três colunas lê três arquivos e
-ignora os outros quarenta e sete.
+No layout colunar, cada coluna é armazenada e comprimida à parte — em arquivo
+próprio nuns sistemas, em bloco de coluna dentro de um arquivo único noutros. Ler
+três colunas lê três desses blocos e ignora os outros quarenta e sete.
 
 O ganho é proporcional à razão entre colunas lidas e colunas totais. Numa tabela
 de cinquenta colunas em que a consulta usa três, o volume lido cai por um fator
@@ -95,7 +96,7 @@ dimensão não serem.
 **Atualizar um valor** exige descomprimir um bloco, alterar e recomprimir.
 
 **Ler uma linha inteira por chave** exige montar a linha a partir de cinquenta
-arquivos — o pior caso possível.
+blocos de coluna separados — o pior caso possível.
 
 Não é ajuste ausente. É o layout funcionando ao contrário do que a carga precisa.
 Ver [OLTP](/07-data-architecture/oltp.md).

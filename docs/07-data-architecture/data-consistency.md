@@ -13,11 +13,15 @@ objective: >
 prerequisites: [transactions]
 related: [data-replication, transactions, data-ownership]
 canonical_for: [consistência de dados, integridade referencial, reconciliação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
 # Consistência de Dados
+
+> Pré-requisito: [Consistência](/06-distributed-systems/consistency.md) define o
+> espectro de garantias e o quadro que as escolhe por operação. Aqui o foco é a
+> consistência entre fontes de dados que deveriam concordar, e como verificá-la.
 
 ## Visão Geral
 
@@ -39,8 +43,10 @@ três, uma, ou nenhuma.
 A pergunta "esse sistema é consistente?" não tem resposta, porque não especifica
 qual sentido.
 
-Um banco relacional de instância única tem consistência de restrição e de
-isolamento, e a de replicação não se aplica.
+Um banco relacional de instância única tem consistência de restrição e o
+isolamento que o nível configurado entregar — no padrão de
+[leitura confirmada](/07-data-architecture/transactions.md), menos do que o nome
+sugere — e a de replicação não se aplica.
 
 Um sistema replicado pode ter isolamento perfeito em cada nó e mostrar valores
 diferentes conforme o nó consultado.
@@ -109,7 +115,8 @@ um dia e detectar em um ano.
 
 ### A garantia se escolhe por operação
 
-O quadro que resume a decisão prática:
+O [quadro canônico](/06-distributed-systems/consistency.md) escolhe a garantia por
+operação; aqui ele aparece com o mecanismo que cada linha exige do armazenamento:
 
 ```text
 operação                          garantia necessária
@@ -147,7 +154,8 @@ Garantias fracas com reconciliação onde:
 
 **Consistência forte uniforme.** Paga em tudo para proteger pouco.
 
-**Regras de integridade só na aplicação.**
+**Regras de integridade só na aplicação.** Protege um caminho de escrita e deixa
+os outros livres.
 
 **Consistência eventual sem reconciliação.** Divergência silenciosa e permanente.
 
@@ -155,14 +163,17 @@ Garantias fracas com reconciliação onde:
 
 **Presumir garantia entre serviços.** Não existe por padrão.
 
-**Discutir "consistência" sem especificar o sentido.**
+**Discutir "consistência" sem especificar o sentido.** Consome a reunião sem
+produzir decisão.
 
 ## Alternativas
 
 - **[Transação](/07-data-architecture/transactions.md) local** — quando os dados cabem no mesmo
   armazenamento, a garantia sai de graça.
 - **Reunir os dados** — a fronteira de serviço pode estar no lugar errado.
-- **[Saga](/06-distributed-systems/sagas.md) com compensação.**
+- **[Saga](/06-distributed-systems/sagas.md) com compensação** — quando a operação
+  atravessa serviços distintos e cada passo tem reversão definida em termos de
+  negócio.
 - **Reconciliação periódica** — para divergências raras e corrigíveis.
 - **Garantias de sessão** — resolvem a percepção do usuário a custo baixo.
 
@@ -210,7 +221,8 @@ Garantias fracas com reconciliação onde:
 
 ## Exemplo Real
 
-Uma plataforma de cursos tinha três fontes que deveriam concordar sobre matrículas:
+Uma plataforma de cursos com 400 mil matrículas ativas distribuídas em 6 mil
+turmas tinha três fontes que deveriam concordar sobre matrículas:
 o banco transacional, o índice de busca do catálogo e um agregado de contagem por
 turma exibido na interface.
 

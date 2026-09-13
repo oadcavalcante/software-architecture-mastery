@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [data-architecture, cloud-architecture, system-design]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -54,8 +54,9 @@ que você não controla.
 arquivo — que movem, hoje, mais dados corporativos que todo o resto somado, e
 que continuam sendo a resposta certa para uma classe grande de problemas.
 
-**A infraestrutura de borda.** API gateways e service mesh, com a pergunta que
-precede as duas: qual problema concreto isso resolve que já não está resolvido?
+**A infraestrutura de comunicação.** API gateways, na borda por onde o tráfego
+entra, e service mesh, no tráfego entre serviços — com a pergunta que precede as
+duas: qual problema concreto isso resolve que já não está resolvido?
 
 **Os padrões clássicos.** Enterprise Integration Patterns — o vocabulário que
 descreve o que roteadores, tradutores e agregadores fazem, e que continua válido

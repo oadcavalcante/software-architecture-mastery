@@ -13,11 +13,15 @@ objective: >
 prerequisites: [transactions]
 related: [data-replication, transactions, data-ownership]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
 # Data Consistency
+
+> Prerequisite: [Consistency](/06-distributed-systems/consistency.md) defines the spectrum of
+> guarantees and the table that picks one per operation. Here the focus is consistency between
+> data sources that should agree, and how to verify it.
 
 ## Overview
 
@@ -36,8 +40,9 @@ They are independent problems, with independent solutions. A system can have all
 
 The question "is this system consistent?" has no answer, because it does not specify which sense.
 
-A single-instance relational database has constraint and isolation consistency, and the replication one
-does not apply.
+A single-instance relational database has constraint consistency and whatever isolation the configured
+level delivers — under the [read committed](/07-data-architecture/transactions.md) default, less than
+the name suggests — and the replication one does not apply.
 
 A replicated system can have perfect isolation on each node and show different values depending on the
 node queried.
@@ -102,7 +107,8 @@ in a year.
 
 ### The guarantee is chosen per operation
 
-The table that summarizes the practical decision:
+The [canonical table](/06-distributed-systems/consistency.md) picks the guarantee per operation; here
+it appears with the mechanism each line demands of the store:
 
 ```text
 operation                        required guarantee
@@ -140,7 +146,7 @@ Weak guarantees with reconciliation where:
 
 **Uniform strong consistency.** It pays on everything to protect little.
 
-**Integrity rules only in the application.**
+**Integrity rules only in the application.** They protect one write path and leave the others free.
 
 **Eventual consistency with no reconciliation.** Silent and permanent divergence.
 
@@ -148,14 +154,16 @@ Weak guarantees with reconciliation where:
 
 **Presuming a guarantee between services.** It does not exist by default.
 
-**Discussing "consistency" without specifying the sense.**
+**Discussing "consistency" without specifying the sense.** It consumes the meeting without producing a
+decision.
 
 ## Alternatives
 
 - **A local [transaction](/07-data-architecture/transactions.md)** — when the data fits in the same
   store, the guarantee comes for free.
 - **Bringing the data together** — the service boundary may be in the wrong place.
-- **A [saga](/06-distributed-systems/sagas.md) with compensation.**
+- **A [saga](/06-distributed-systems/sagas.md) with compensation** — when the operation crosses
+  distinct services and each step has a reversal defined in business terms.
 - **Periodic reconciliation** — for rare and correctable divergences.
 - **Session guarantees** — they solve the user's perception at a low cost.
 
@@ -212,8 +220,9 @@ consequence for someone, and whoever answers for it is who has to accept it.
 
 ## Real-World Example
 
-A course platform had three sources that should agree about enrollments: the transactional database, the
-catalog's search index and a per-class count aggregate shown in the interface.
+A course platform with 400,000 active enrollments spread across 6,000 classes had three sources that
+should agree about enrollments: the transactional database, the catalog's search index and a per-class
+count aggregate shown in the interface.
 
 Each one was updated by a different path, and no comparison existed.
 

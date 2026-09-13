@@ -13,7 +13,7 @@ objective: >
 prerequisites: [06-partial-failure]
 related: [disaster-recovery-planning, graceful-degradation, availability, pacelc]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,8 @@ last_reviewed: 2026-08-31
 
 This is the last exercise about the system you designed in
 [exercise 03](/05-system-design/exercises/03-ecommerce-backend.md). The decision it tests is the
-oldest of the three you recorded there.
+second of the three you recorded there — the single transaction covering inventory, order and
+payment.
 
 :::
 
@@ -56,8 +57,8 @@ orders                history queryable by the customer,
                       from any region
 continuity            one region going down cannot take
                       the others down
-regulatory            Mexican customer data has an in-country
-                      residency requirement
+regulatory            a premise of the brief: Mexican customer
+                      data resides in the country
 ```
 
 ## Constraints
@@ -105,8 +106,8 @@ doesn't need to coordinate anything.
 Your answer is good if:
 
 - **You realized almost nothing needs coordinating.** Inventory is per country, orders are per country,
-  customers are per country by regulatory requirement. Each region operates almost independently — which
-  is the cheapest answer and the most available.
+  customers are per country by the brief's data residency premise. Each region operates almost
+  independently — which is the cheapest answer and the most available.
 - **The catalog is replicated and orders are not.** The catalog is read-heavy and tolerates delay;
   orders are local writes with rare cross-region queries.
 - **The exercise 03 decision doesn't need to change.** The strong consistency is local to each region,
@@ -129,7 +130,10 @@ actually has to be seen from the other region?".
 ```text
 inventory   per country, no cross-selling   → nothing to coordinate
 orders      created and served in the customer's region
-            cross-region queries are rare   → asynchronous replication,
+            cross-region queries are rare   → asynchronously replicates
+                                              only the summary — items,
+                                              value, status —, with no
+                                              address or customer data;
                                               a delay of minutes acceptable
 customers   residency required in Mexico    → not replicated; records
                                               per region, with a
@@ -159,12 +163,19 @@ browsing        served from the edge cache; degrades to a catalog
                 that may be out of date
 checkout        unavailable in that country; the others carry on
 order queries   the asynchronous replica in the other regions serves
-                the history, with a delay
+                the summary of the history, with a delay
 internal ops    dispatch and invoicing in that country stop
 ```
 
-Nobody tries to serve Mexican customers from Brazil during the outage — the inventory is physically in
-Mexico, and selling from there would mean selling what cannot be shipped.
+Nobody tries to serve Mexican customers from Brazil during the outage. It is not the distribution
+center that went down: it is the region that runs dispatch and invoicing in Mexico. Selling from
+Brazil would produce orders that no Mexican system can dispatch or invoice until the region comes
+back, and it would take customer data out of the country.
+
+Accepting checkout being unavailable per country fits within the required 99.95% — 4h23 per year —
+with little slack: last year's 3h40 incident would consume 84% of that budget on its own. Two
+incidents of the same size in one year blow the requirement, and that is the signal for the
+active-active trigger below.
 
 **What not to do, with the trigger:**
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [availability-metrics, fault-tolerance, resilience]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,8 @@ last_reviewed: 2026-08-31
 Reliability is a system's ability to **keep delivering correct service** over time, even when parts of it
 fail.
 
-The definition contains two things that distinguish it from availability:
+The definition contains two things that distinguish it from
+[availability](/06-distributed-systems/availability.md):
 
 **Correct.** A system that responds fast and returns wrong data is not reliable, however available it may
 be.
@@ -77,14 +78,15 @@ any one's failure takes it down.
 
 ```text
 with no tolerance   reliability = the product of the parts → always lower
-with tolerance      reliability > any individual part
+with tolerance      reliability can exceed any part — if the mechanism works
 ```
 
 That is architecture's contribution: turning fallible components into a system that does not fail with
 them. See [fault tolerance](/12-reliability/fault-tolerance.md).
 
-The converse is the most common failure mode in distributed systems: dozens of individually good services,
-composing a system worse than any of them, because nothing tolerates anything's failure.
+The converse is the failure mode of distributed systems with no isolation between dependencies: dozens of
+individually good services, composing a system worse than any of them, because nothing tolerates anything's
+failure.
 
 ### Failure is the normal case
 
@@ -110,8 +112,8 @@ byzantine        arbitrary behavior, possibly malicious
 The difficulty grows down the list. Redundancy handles the first well; the fourth requires semantic
 verification — comparing results, validating invariants — which rarely exists.
 
-And the third is the one that causes the most incidents: dependencies rarely stop, they get slow. See
-[circuit breakers](/12-reliability/circuit-breakers.md).
+And the third is the one the design usually leaves out: the protections presume a crash, but dependencies
+rarely stop — they get slow. See [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ### Complexity is reliability's enemy
 
@@ -148,11 +150,13 @@ That is the component architecture influences indirectly — and that appears in
 
 **Investing only in prevention.** The unanticipated faults still exist.
 
-**Presuming crash failures.** Timing failures are more common and more damaging.
+**Presuming crash failures.** Timeouts and failover designed for the component that stops do not hold what
+gets slow — and that is what exhausts the caller's pool.
 
 **Adding mechanisms without exercising them.** Complexity with no benefit.
 
-**Ignoring the operational component.**
+**Ignoring the operational component.** Investing in the design and leaving deployment, on-call and
+procedure to improvisation delivers a system that is reliable only while nobody has to operate it.
 
 **Treating failure as an exception.** At scale, it is routine.
 
@@ -193,6 +197,7 @@ the system was among the company's most reliable.
 
 ## Related Concepts
 
+- [Availability](/06-distributed-systems/availability.md) — the definition and the composition.
 - [Availability Metrics](/12-reliability/availability-metrics.md).
 - [Fault Tolerance](/12-reliability/fault-tolerance.md).
 - [Resilience](/12-reliability/resilience.md).

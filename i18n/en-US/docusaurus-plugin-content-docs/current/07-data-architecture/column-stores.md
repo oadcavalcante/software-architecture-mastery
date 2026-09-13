@@ -13,7 +13,7 @@ objective: >
 prerequisites: [olap]
 related: [data-warehouses, oltp, data-partitioning]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -48,8 +48,9 @@ rows, it is that they are wide.
 
 ### Reading only what is needed
 
-In the columnar layout, each column is a file. Reading three columns reads three files and ignores the
-other forty-seven.
+In the columnar layout, each column is stored and compressed separately — in its own file in some
+systems, in a column block inside a single file in others. Reading three columns reads three of those
+blocks and ignores the other forty-seven.
 
 The gain is proportional to the ratio between columns read and total columns. In a fifty-column table
 where the query uses three, the volume read drops by a factor near sixteen.
@@ -86,7 +87,7 @@ filters are fast and filters on another dimension are not.
 
 **Updating a value** requires decompressing a block, changing it and recompressing.
 
-**Reading a whole row by key** requires assembling the row from fifty files — the worst possible case.
+**Reading a whole row by key** requires assembling the row from fifty separate column blocks — the worst possible case.
 
 It is not missing tuning. It is the layout working against what the workload needs. See
 [OLTP](/07-data-architecture/oltp.md).

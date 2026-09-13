@@ -13,7 +13,7 @@ objective: >
 prerequisites: [06-partial-failure]
 related: [disaster-recovery-planning, graceful-degradation, availability, pacelc]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -23,7 +23,8 @@ last_reviewed: 2026-08-29
 
 Este é o último exercício sobre o sistema que você projetou no
 [exercício 03](/05-system-design/exercises/03-ecommerce-backend.md). A decisão que ele
-testa é a mais antiga das três que você registrou lá.
+testa é a segunda das três que você registrou lá — a transação única cobrindo estoque,
+pedido e pagamento.
 
 :::
 
@@ -58,8 +59,8 @@ pedido                 histórico consultável pelo cliente,
                        de qualquer região
 continuidade           a queda de uma região não pode derrubar
                        as outras
-regulatório            dado de cliente mexicano tem exigência de
-                       residência no país
+regulatório            premissa do enunciado: dado de cliente
+                       mexicano reside no país
 ```
 
 ## Restrições
@@ -107,8 +108,8 @@ do sistema não precisa coordenar nada.
 Sua resposta está boa se:
 
 - **Você percebeu que quase nada precisa ser coordenado.** Estoque é por país, pedido é por
-  país, cliente é por país por exigência regulatória. Cada região opera quase independente — o
-  que é a resposta mais barata e a mais disponível.
+  país, cliente é por país pela residência de dado do enunciado. Cada região opera quase
+  independente — o que é a resposta mais barata e a mais disponível.
 - **O catálogo é replicado e o pedido não.** Catálogo é leitura pesada e tolera atraso; pedido é
   escrita local com consulta cruzada rara.
 - **A decisão do exercício 03 não precisa mudar.** A consistência forte é local a cada região,
@@ -131,8 +132,11 @@ ser visto da outra região?".
 ```text
 estoque      por país, sem venda cruzada  → nada a coordenar
 pedido       criado e servido na região do cliente
-             consulta cruzada é rara      → replicação assíncrona,
-                                            atraso de minutos aceitável
+             consulta cruzada é rara      → replica assíncrona só o
+                                            resumo — itens, valor,
+                                            estado —, sem endereço nem
+                                            dado de cliente; atraso de
+                                            minutos aceitável
 cliente      residência exigida no México → não replica; cadastro
                                             por região, com
                                             identificador global
@@ -161,12 +165,19 @@ navegação          serve do cache de borda; degrada para catálogo
                    possivelmente desatualizado
 finalização        indisponível naquele país; os outros seguem
 consulta de pedido a réplica assíncrona nas outras regiões serve
-                   o histórico, com atraso
+                   o resumo do histórico, com atraso
 operação interna   despacho e nota fiscal daquele país param
 ```
 
-Ninguém tenta atender clientes mexicanos a partir do Brasil durante a queda — o estoque está
-fisicamente no México, e vender de lá seria vender o que não pode ser despachado.
+Ninguém tenta atender clientes mexicanos a partir do Brasil durante a queda. Não é o centro de
+distribuição que caiu: é a região que opera despacho e nota fiscal no México. Vender do Brasil
+geraria pedido que nenhum sistema mexicano consegue despachar ou faturar até a região voltar, e
+ainda tiraria o dado do cliente do país.
+
+Aceitar finalização indisponível por país cabe nos 99,95% exigidos — 4h23 por ano — com pouca
+folga: o incidente de 3h40 do ano passado consumiria 84% desse orçamento sozinho. Dois incidentes
+do mesmo tamanho no mesmo ano estouram o requisito, e é esse o sinal para o gatilho de ativa-ativa
+abaixo.
 
 **O que não fazer, com gatilho:**
 

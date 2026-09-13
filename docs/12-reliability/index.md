@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [scalability, cloud-architecture, observability]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -48,8 +48,10 @@ os números significam e o que eles escondem.
 **Os alvos.** SLI, SLO e SLA — três coisas frequentemente confundidas, com o orçamento
 de erro como o mecanismo que transforma um alvo em decisão operacional.
 
-**As técnicas de tolerância.** Tolerância a falhas, resiliência, redundância e
-failover. Redundância recebe atenção específica ao que a anula: correlação.
+**As respostas à falha.** Tolerância a falhas, redundância e failover — mecanismos
+para o modo de falha previsto — e resiliência, que trata do não previsto e envolve
+pessoas e procedimentos, não só mecanismo. Redundância recebe atenção específica ao que
+a anula: correlação.
 
 **Os padrões de contenção.** Circuit breaker, bulkhead e degradação graciosa. São eles
 que impedem que uma falha localizada se propague.
@@ -68,7 +70,8 @@ antes do incidente.
 Comece por **SLI, SLO e SLA**, nessa ordem. Sem alvo definido, todo o resto é esforço
 sem critério de parada.
 
-Depois **degradação graciosa**, barata onde a redundância é cara, e a menos aplicada.
+Depois **degradação graciosa**, barata onde a redundância é cara, e que costuma ficar
+de fora porque depende de uma decisão de produto que ninguém pede.
 
 **Circuit breaker**, **bulkhead** e **tempestades de retentativa** formam um bloco e
 devem ser lidos juntos, por motivos diferentes: o circuit breaker quebra o ciclo de

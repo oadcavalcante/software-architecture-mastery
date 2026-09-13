@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, event-driven-integration, integration-anti-corruption]
 canonical_for: [enterprise integration patterns, roteador de mensagens, tradutor de mensagens, agregador, separador]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -69,8 +69,9 @@ diferente — a primeira é problema de contrato, a segunda de execução.
 
 Como a mensagem chega a quem deve tratá-la.
 
-**Roteador por conteúdo.** Examina a mensagem e escolhe o destino. É o padrão mais
-usado, e o que mais acumula regra de negócio — vale a mesma vigilância descrita em
+**Roteador por conteúdo.** Examina a mensagem e escolhe o destino. É onde a regra de
+negócio tende a se acumular, porque cada destino novo entra como mais uma condicional
+no mesmo ponto — vale a mesma vigilância descrita em
 [API gateways](/08-integration-architecture/api-gateways.md).
 
 **Filtro.** Descarta o que não interessa àquele consumidor.
@@ -179,18 +180,26 @@ duplicatas e monitoramento de consumidor. Sem isso, eles entregam a forma sem a 
 
 ## Erros Comuns
 
-**Agregador sem tempo limite.**
+**Agregador sem tempo limite.** Decidir o critério de conclusão e deixar o prazo para
+depois — os conjuntos que nunca completam ficam retidos em memória até alguém
+reiniciar o processo.
 
 **Enriquecedor criando dependência síncrona** num fluxo que deveria ser
 assíncrono.
 
-**Roteador acumulando regra de negócio.**
+**Roteador acumulando regra de negócio.** Colocar cada destino novo como condicional no
+roteador em vez de no domínio — a decisão de negócio passa a morar na infraestrutura de
+mensageria, onde ninguém a testa.
 
 **Separador sem correlação.** As partes se perdem e não há como reunir.
 
-**Confundir mensagem inválida com mensagem morta.**
+**Confundir mensagem inválida com mensagem morta.** Apontar as duas para o mesmo canal —
+e o reprocessamento em lote insiste em mensagens que nunca serão interpretadas, enquanto
+as que só falharam ficam misturadas no meio.
 
-**Implementar o catálogo em vez de resolver o problema.**
+**Implementar o catálogo em vez de resolver o problema.** Montar enriquecedor,
+sequenciador e repositório porque estão no livro — cada peça sem problema correspondente
+vira código a manter e mais um salto a percorrer quando o fluxo for depurado.
 
 ## Exemplo Real
 

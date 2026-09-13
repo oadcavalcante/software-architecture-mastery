@@ -13,7 +13,7 @@ objective: >
 prerequisites: [latency]
 related: [retries, latency, circuit-breakers]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -129,13 +129,16 @@ happened — only that you stop waiting.
 
 ## When to Use
 
-- Every network call, without exception.
+- Every request-response network call.
 - Every resource acquisition — a pool connection, a lock.
 - All background work, so as not to occupy a worker indefinitely.
 
 ## When Not to Use
 
-**There is no network call that goes without a timeout.** What varies is the value.
+**Long-lived connections and bidirectional streams.** Streaming, long polling and persistent
+connections last as long as either side has something to say: a read or total-request deadline
+cuts a healthy connection that is merely idle. There the silence is detected by heartbeat or by
+an idle limit — see [failure detection](/06-distributed-systems/failure-detection.md).
 
 **A uniform timeout for operations of different cost.** A simple query and a report do not deserve
 the same limit.
@@ -153,8 +156,10 @@ A timeout has no alternative; it has complements:
 - **[Circuit breaker](/12-reliability/circuit-breakers.md)** — stop calling a destination that is failing,
   instead of waiting and giving up repeatedly.
 - **Propagated deadline** — the robust form.
-- **Hedged request** — send to two replicas and use the first response.
-- **Degradation** — respond without the data that did not arrive.
+- **Hedged request** — send to two replicas and use the first response. See
+  [latency](/06-distributed-systems/latency.md).
+- **Degradation** — respond without the data that did not arrive. See
+  [graceful degradation](/12-reliability/graceful-degradation.md).
 
 ## Trade-offs
 
@@ -228,7 +233,7 @@ would keep working.
 fails immediately — without even spending the 3 seconds.
 
 **A separate pool** for bureau calls. Even if it is exhausted, the pool for the other operations
-remains.
+remains. See [bulkheads](/12-reliability/bulkheads.md).
 
 **Degradation.** The lookup came to return a partial response, marking the bureau's data as
 unavailable, instead of failing entirely.

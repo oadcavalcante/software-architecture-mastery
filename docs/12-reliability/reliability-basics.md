@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [availability-metrics, fault-tolerance, resilience]
 canonical_for: [confiabilidade, falha e defeito, taxa de falha, confiabilidade do sistema]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,8 @@ last_reviewed: 2026-08-28
 Confiabilidade é a capacidade de um sistema **continuar entregando o serviço correto**
 ao longo do tempo, mesmo quando partes dele falham.
 
-A definição contém duas coisas que a distinguem de disponibilidade:
+A definição contém duas coisas que a distinguem de
+[disponibilidade](/06-distributed-systems/availability.md):
 
 **Correto.** Um sistema que responde rápido e devolve dados errados não é confiável,
 por mais disponível que esteja.
@@ -78,15 +79,15 @@ E pode ser menos, se a falha de qualquer um o derruba.
 
 ```text
 sem tolerância   confiabilidade = produto das partes → sempre menor
-com tolerância   confiabilidade > qualquer parte individual
+com tolerância   confiabilidade pode superar qualquer parte — se o mecanismo funciona
 ```
 
 Essa é a contribuição da arquitetura: transformar componentes falíveis num sistema que
 não falha junto. Ver [tolerância a falhas](/12-reliability/fault-tolerance.md).
 
-A recíproca é o modo de falha mais comum em sistemas distribuídos: dezenas de serviços
-individualmente bons, compondo um sistema pior que qualquer um deles, porque nada
-tolera a falha de nada.
+A recíproca é o modo de falha de sistemas distribuídos sem isolamento entre
+dependências: dezenas de serviços individualmente bons, compondo um sistema pior que
+qualquer um deles, porque nada tolera a falha de nada.
 
 ### Falha é o caso normal
 
@@ -115,8 +116,9 @@ A dificuldade cresce na lista. Redundância trata bem a primeira; a quarta exige
 verificação semântica — comparar resultados, validar invariantes — que raramente
 existe.
 
-E a terceira é a que mais causa incidentes: dependências raramente param, elas ficam
-lentas. Ver [circuit breakers](/12-reliability/circuit-breakers.md).
+E a terceira é a que o desenho costuma deixar de fora: as proteções pressupõem parada,
+mas dependências raramente param — elas ficam lentas. Ver
+[circuit breakers](/12-reliability/circuit-breakers.md).
 
 ### Complexidade é inimiga da confiabilidade
 
@@ -156,11 +158,14 @@ confiável.
 
 **Investir só em prevenção.** As faltas não previstas continuam existindo.
 
-**Presumir falhas de parada.** As de temporização são mais comuns e mais danosas.
+**Presumir falhas de parada.** Timeout e failover desenhados para o componente que para
+não seguram o que fica lento — e é ele que esgota o pool do chamador.
 
 **Adicionar mecanismos sem exercitá-los.** Complexidade sem benefício.
 
-**Ignorar o componente operacional.**
+**Ignorar o componente operacional.** Investir no desenho e deixar implantação,
+sobreaviso e procedimento para a improvisação entrega um sistema confiável só enquanto
+ninguém precisa operá-lo.
 
 **Tratar falha como exceção.** Em escala, ela é rotina.
 
@@ -206,6 +211,7 @@ nenhum. O sistema estava, pelos números, entre os mais confiáveis da empresa.
 
 ## Conceitos Relacionados
 
+- [Disponibilidade](/06-distributed-systems/availability.md) — a definição e a composição.
 - [Métricas de Disponibilidade](/12-reliability/availability-metrics.md).
 - [Tolerância a Falhas](/12-reliability/fault-tolerance.md).
 - [Resiliência](/12-reliability/resilience.md).

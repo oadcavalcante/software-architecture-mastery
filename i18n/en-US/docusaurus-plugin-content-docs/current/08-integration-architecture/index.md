@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [data-architecture, cloud-architecture, system-design]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -49,8 +49,9 @@ asynchronous integration in which the other side is a server you do not control.
 corporate data than everything else combined, and which remain the right answer for a large class of
 problems.
 
-**The edge infrastructure.** API gateways and service meshes, with the question that precedes both: what
-concrete problem does this solve that is not already solved?
+**The communication infrastructure.** API gateways, at the edge where traffic comes in, and service
+meshes, on the traffic between services — with the question that precedes both: what concrete problem
+does this solve that is not already solved?
 
 **The classic patterns.** Enterprise Integration Patterns — the vocabulary that describes what routers,
 translators and aggregators do, and that remains valid regardless of the fashionable technology.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [cloud-architecture, integration-architecture, reliability]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -53,6 +53,10 @@ o critério para escolher, que raramente é discutido.
 **Os princípios que decidem estrutura.** Menor privilégio, fronteiras de confiança
 seguras, confiança zero e defesa em profundidade. São eles que determinam o tamanho
 do dano quando algo dá errado.
+
+**Segurança de rede.** Segmentação, microssegmentação e filtragem de saída — onde
+os princípios acima deixam de ser intenção e viram limite concreto ao movimento
+lateral de quem já entrou.
 
 **Segredos e criptografia.** Gestão de segredos, criptografia em trânsito e em
 repouso, e gestão de chaves — o tópico onde a intuição mais engana.
