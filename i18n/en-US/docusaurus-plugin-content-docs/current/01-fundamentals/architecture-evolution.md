@@ -12,8 +12,8 @@ objective: >
   change and designs so that change is possible without a rewrite.
 prerequisites: [architecture-as-decisions]
 related: [technical-debt, legacy-modernization]
-canonical_for: [architecture evolution, evolutionary architecture]
-translated_from_version: 1
+canonical_for: [architecture evolution]
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -44,8 +44,9 @@ The second is the rewrite. When the distance between the architecture and the ne
 grows too large to ignore, the proposal is to start over — which is the most
 expensive and riskiest way to evolve, and the one that fails most.
 
-The path that works is the middle one and the least practised: continuous,
-incremental change, decided from observed signals.
+The path that escapes both is the middle one: continuous, incremental change,
+decided from observed signals — neither preserving the structure past its
+validity nor paying the price of starting over.
 
 ## Core Concepts
 
@@ -93,7 +94,13 @@ Three things produce that, and all three have already appeared in this level:
 before it becomes structural. This is the fitness function idea, which returns in
 [Level 07](/23-architecture-leadership/index.md).
 
-### Incremental evolution beats a rewrite
+All three charge before they pay: a boundary imposes indirection where a direct
+call would do, recording decisions asks for discipline with no return inside the
+quarter, and verification has to be maintained — the check nobody fixes ends up
+switched off. The return arrives with the first change they keep contained; until
+then, the investment looks like bureaucracy.
+
+### Incremental evolution beats a rewrite in a system that cannot stop
 
 Rewrites fail for structural reasons, not from poor execution: the old system keeps
 evolving during the rewrite, the undocumented rules only surface when the new one
@@ -104,6 +111,11 @@ Incremental change delivers value before it is complete and can be reversed at a
 point. It is the subject of
 [legacy modernization](/16-legacy-modernization/index.md), and the main pattern is
 the strangler fig.
+
+The rewrite is the right choice under the opposite condition: a system that can be
+frozen while the replacement is built, and whose rules fit in a specification you
+can check. That condition does exist — an internal tool, an already isolated
+component — and it disappears as soon as the system has users who do not stop.
 
 ## Why This Matters
 
@@ -155,7 +167,10 @@ unable to meet its SLA because a deployment from another squad took everything
 down.
 
 The third signal is what decided it: a driving characteristic — availability for
-one segment — had stopped being met, and there was no local fix.
+one segment — had stopped being met, and there was no local fix. The availability
+of the corporate flow depended on the deployment unit, and that unit was shared by
+the four squads: no change inside the corporate module alters who goes to
+production alongside it.
 
 The response was not a migration to microservices. It was extracting **one**
 service: the corporate flow, which had a distinct requirement and a boundary
@@ -176,8 +191,8 @@ twice, each time for a specific signal, and can change again.
   happen.
 - [Legacy Modernization](/16-legacy-modernization/index.md) — evolution in
   systems that cannot stop.
-- [Architecture Leadership](/23-architecture-leadership/index.md) — evolutionary
-  architecture and fitness functions.
+- [Evolutionary Architecture](/23-architecture-leadership/evolutionary-architecture.md) —
+  the term and the mechanism: protected dimensions and fitness functions.
 
 ## Practical Exercise
 

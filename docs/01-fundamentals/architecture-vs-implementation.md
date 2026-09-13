@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [dependency-management, technical-debt]
 canonical_for: [arquitetura pretendida, arquitetura real, deriva arquitetural]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -66,8 +66,10 @@ diretórios. Ela restringe quem lembra dela e escolhe respeitá-la.
 Uma fronteira **efetiva** é imposta por algo que falha quando é violada. O código
 não compila, o teste quebra, o CI recusa o merge.
 
-A distinção é binária na prática: fronteira nominal é uma sugestão com aparência
-de regra.
+A distinção é binária no critério: ou algo falha quando a fronteira é
+atravessada, ou nada falha — e fronteira nominal é uma sugestão com aparência de
+regra. A gradação da tabela a seguir mede força entre os mecanismos que falham;
+não é um meio-termo entre nominal e efetiva.
 
 ### Os mecanismos que tornam uma fronteira efetiva
 
@@ -76,11 +78,11 @@ Ordenados por força — quanto mais alto, menos depende de vigilância humana:
 | Mecanismo | Força | Custo |
 |---|---|---|
 | Separação de processo ou repositório | Muito alta — o import some; resta a dependência declarada | Alto: operação, versionamento, latência |
-| Módulo de linguagem com visibilidade real | Alta — não compila | Depende do que a linguagem oferece |
+| Módulo de linguagem com visibilidade real | Alta — não compila | Baixo onde a linguagem oferece; proibitivo onde não oferece |
 | Teste de arquitetura no CI | Alta — não faz merge | Baixo: manutenção da regra |
 | Análise estática de dependências | Média a alta | Baixo |
 | Revisão de código | Média — depende de quem revisa e de estar atento | Contínuo e humano |
-| Convenção documentada | Baixa | Aparente zero, real alto |
+| Convenção documentada | Nenhuma — nada falha; é fronteira nominal, listada por contraste | Aparente zero, real alto |
 
 A tabela contém a decisão principal do documento: **fronteiras que importam
 merecem mecanismo automatizado.** Revisão de código é uma rede com furos de
@@ -107,7 +109,7 @@ em condição verificável. Quando alguém precisa violá-la, precisa alterar o 
 um import que passa despercebido.
 
 Essa é a ideia que reaparece no Nível 07 como
-[fitness function](/23-architecture-leadership/index.md).
+[fitness function](/23-architecture-leadership/fitness-functions.md).
 
 ## Modelo Mental
 

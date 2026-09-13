@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-characteristics]
 related: [architecture-as-decisions, architecture-governance]
 canonical_for: [princípios de arquitetura, architecture principles]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -38,15 +38,16 @@ O defeito é preciso: **ninguém escolheria o contrário.** Nenhuma equipe prefe
 complexidade ou ferramentas piores. Um princípio que não tem oposto defensável
 não elimina nenhuma opção, e portanto não ajuda em nenhuma decisão.
 
-O teste, portanto, é: **inverta o princípio. Se a frase invertida é obviamente
-absurda, o princípio original é vazio.**
-
-"Priorizamos simplicidade" invertido vira "priorizamos complexidade" — absurdo,
-logo o princípio é vazio.
-
-"Preferimos soluções mais simples mesmo quando limitam casos de uso futuros"
-invertido vira "aceitamos complexidade para cobrir casos futuros" — uma posição
-defensável, que empresas de fato adotam. Logo o princípio original tem conteúdo.
+O teste, portanto, é o **teste do inverso**: inverta o princípio; se a frase
+invertida é obviamente absurda, o princípio original é vazio. "Priorizamos
+simplicidade" invertido vira "priorizamos complexidade" — absurdo, logo vazio;
+"preferimos soluções mais simples mesmo quando limitam casos de uso futuros"
+invertido vira "aceitamos complexidade para cobrir casos futuros" — defensável, e
+empresas de fato adotam. A mecânica do teste e o que fazer com os princípios que
+reprovam estão em
+[Princípios em Operação](/19-architecture-governance/governance-principles.md);
+aqui ele serve só para mostrar por que a maioria dos princípios publicados não
+decide nada.
 
 ## Conceitos Centrais
 
@@ -67,10 +68,11 @@ Exemplos com conteúdo:
 
 - *Preferimos consistência eventual a consistência forte, exceto em fluxo
   financeiro, porque disponibilidade é nossa primeira característica.*
-- *Preferimos serviços gerenciados a autogeridos mesmo com custo por transação
-  maior, porque temos oito engenheiros e nenhum plantão de infraestrutura.*
-- *Preferimos duplicar código entre contextos a criar biblioteca compartilhada,
-  porque acoplamento entre times custa mais que duplicação.*
+- *Preferimos reverter a corrigir para frente, mesmo perdendo o trabalho da
+  release, porque tempo de recuperação é o que nosso SLA cobra.*
+- *Preferimos uma única linguagem em todos os serviços à melhor linguagem para
+  cada problema, porque pessoas mudam de time com mais frequência do que serviços
+  mudam de perfil de carga.*
 
 Cada um elimina opções e cada um tem um oposto que outra empresa adotaria.
 
@@ -106,7 +108,7 @@ característica, e dali a uma restrição de negócio.
 Cinco a dez princípios é o que um time consegue aplicar. Trinta é uma política
 que ninguém lê.
 
-E princípios têm prazo. Um derivado de "somos oito engenheiros" precisa ser
+E princípios têm prazo. Um derivado de um time de oito engenheiros precisa ser
 revisto quando forem oitenta.
 
 ## Modelo Mental
@@ -132,7 +134,7 @@ candidata a virar princípio. Se o desfecho varia conforme o caso, não é —
 força e o time contorna em silêncio — o que é pior que não ter princípio, porque
 a violação deixa de ser discutível.
 
-**Quando o princípio não tem oposto defensável.** Ver o teste da inversão. Não
+**Quando o princípio não tem oposto defensável.** Ver o teste do inverso. Não
 ajuda ninguém e ocupa espaço de atenção.
 
 **Quando o time é pequeno o suficiente para conversar.** Com quatro pessoas na
@@ -181,7 +183,7 @@ que há orientação.
 ## Exemplo Real
 
 Uma empresa de médio porte tinha nove princípios publicados. Sete falharam no
-teste da inversão — "priorizamos qualidade", "escolhemos a ferramenta certa para
+teste do inverso — "priorizamos qualidade", "escolhemos a ferramenta certa para
 cada problema", e variações.
 
 Os dois que sobreviveram:
@@ -241,7 +243,7 @@ citada — que é onde a maioria dos princípios de arquitetura mora.
 
 Pegue os princípios de arquitetura do seu time — escritos ou tácitos.
 
-Aplique o teste da inversão a cada um. Escreva o oposto e pergunte: alguma
+Aplique o teste do inverso a cada um. Escreva o oposto e pergunte: alguma
 empresa competente adotaria isso?
 
 Para os que sobreviverem, verifique se declaram do que se abre mão e a qual

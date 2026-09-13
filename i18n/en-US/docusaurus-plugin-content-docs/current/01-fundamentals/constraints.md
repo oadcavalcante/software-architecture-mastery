@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [business-context, solution-space]
 canonical_for: [constraints]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -50,18 +50,20 @@ of work.
 
 ### The categories
 
-**Regulatory and legal.** Where data may reside, how long it is retained, what has
-to be auditable, who may access it. These are the most rigid and the ones that most
-frequently eliminate entire regions of the solution space.
+Three of them — regulatory, organizational and economic — are the factors
+[Business Context](/01-fundamentals/business-context.md) enumerates, seen here from
+the side of the limit they impose and of how far each one gives.
+
+**Regulatory and legal.** The most rigid, and the ones that most frequently
+eliminate entire regions of the solution space.
 
 **Contractual.** SLAs with customers, commitments to partners, integration clauses.
 Rigid until renegotiation, which exists but has a cost and a lead time.
 
-**Organizational.** How many people, with what skills, in what team structure. An
-architecture requiring a skill the company does not have is unviable even when
-technically correct.
+**Organizational.** An architecture requiring a skill the company does not have is
+unviable even when technically correct.
 
-**Economic.** Budget, the nature of the spend, the payback horizon.
+**Economic.** Rigid within the budget cycle, renegotiable at its turn.
 
 **Inherited technical.** Legacy systems that cannot be switched off, existing
 integrations, data formats with history.
@@ -75,10 +77,12 @@ One question separates a constraint from a preference:
 
 > **What happens, concretely, if we violate this?**
 
-A real constraint has a specific, external answer: a fine, a breach of contract, a
-lawsuit, a physical impossibility, a project cancelled for lack of funds.
+A real constraint has a specific answer and someone who answers for it: a fine, a
+breach of contract, a lawsuit, a physical impossibility, a project cancelled for
+lack of funds. The consequence does not have to come from outside — an
+organizational or budgetary constraint is internal, and no less real for it.
 
-A preference has a vague or internal answer: "it's not our standard", "we prefer it
+A preference has a vague or circular answer: "it's not our standard", "we prefer it
 this way", "we've always done it like that". None of those is false or irrelevant —
 but all are negotiable, and have to be treated as such.
 
@@ -105,8 +109,8 @@ accidental complexity.
 **A constraint is what you work around. A requirement is what you meet. A
 preference is what you negotiate.**
 
-Explicitly classifying each input into one of those three categories is half an
-hour of work that changes the outcome of the project.
+Explicitly classifying each input into one of those three categories is one
+elicitation session of work, and it decides which alternatives ever get evaluated.
 
 ## Why This Matters
 

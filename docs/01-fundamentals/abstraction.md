@@ -13,7 +13,7 @@ objective: >
 prerequisites: [separation-of-concerns]
 related: [complexity, coupling, modularity]
 canonical_for: [abstração, abstraction]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -34,8 +34,10 @@ Abstração é a ferramenta mais poderosa e a mais mal aplicada do design de
 software, porque o custo dela é imediato e o benefício é hipotético.
 
 O custo é uma indireção a mais: alguém vai precisar navegar por ela para entender
-o fluxo. O benefício é a possibilidade de trocar a implementação — que só se
-realiza se a troca acontecer.
+o fluxo, e num incidente esse alguém navega sob pressão — o stack trace ganha
+quadros, o log nomeia a interface em vez do que falhou, e o erro aparece um nível
+longe de onde nasceu. O benefício é a possibilidade de trocar a implementação —
+que só se realiza se a troca acontecer.
 
 Times aplicam abstração por reflexo, e o resultado é o padrão reconhecível de
 interfaces com uma implementação, camadas que apenas repassam chamadas, e
@@ -150,22 +152,23 @@ incerto e futuro. Isso desloca o ônus da prova para quem quer abstrair.
 
 ## Modos de Falha
 
-**Abstração vazada.** O consumidor precisa saber o que está escondido para usar
-corretamente. Comum em repositórios que escondem SQL até o momento em que
-desempenho importa.
+**Abstração vazada.** O sintoma é o consumidor ramificando pelo que está do
+outro lado: um `if` que existe porque a implementação é esta e não outra.
 
-**Abstração de um.** Interface com uma implementação, criada por hábito. Custo
-sem benefício.
+**Abstração de um.** O sintoma é o nome. `ServicoImpl` para a interface
+`Servico` — quando não há o que distinguir, a implementação não tem como se
+chamar.
 
-**Abstração errada capturada cedo.** Cada novo caso precisa ser torcido para
-caber. O sintoma é a proliferação de parâmetros booleanos e casos especiais.
+**Abstração errada capturada cedo.** O sintoma é a proliferação de parâmetros
+booleanos e casos especiais, cada um deles um caso que não coube.
 
-**Camada anêmica.** Existe por simetria e apenas repassa. Aumenta o custo de
-navegação e não esconde nada.
+**Camada anêmica.** O sintoma é a assinatura repetida: o método da camada recebe
+os mesmos parâmetros e devolve o mesmo tipo do método que ele chama.
 
-**Generalização especulativa.** Abstração construída para requisitos imaginados.
-Normalmente adivinha errado o eixo de variação, e o requisito real quando chega
-não encaixa.
+**Generalização especulativa.** Definida em
+[YAGNI](/02-software-design/yagni.md). O sintoma próprio da abstração é o eixo:
+ela parametriza o que o time imaginou variar, e a variação real chega em outro
+eixo.
 
 ## Exemplo Real
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [architecture-principles, architecture-as-decisions]
 canonical_for: [architecture characteristics]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -68,7 +68,12 @@ maintainability, deployability. Not asked for does not mean not required — it 
 nobody will warn you when they are missing, until they are missing.
 
 A gathering that captures only the explicit ones produces systems that are fast and
-unavailable, or available and impossible to change.
+insecure, or available and impossible to change.
+
+Capturing them does not widen the driving list: it stays at three to five. An
+implicit one joins the list only when there is something to sacrifice for it in
+this system — otherwise it is a floor, guaranteed by standard practice and
+verified outside the list.
 
 ### Every extra characteristic has a cost
 
@@ -100,8 +105,8 @@ conversation.** Asking "which matters more: latency or cost?" produces a useful
 answer. Asking "which attributes matter?" produces a list of everything.
 
 **Because it makes the architecture assessable.** An architecture can be judged
-against three stated characteristics. Against fifteen, it always meets some and
-fails others, and there is no verdict.
+against three stated characteristics. Against fifteen, the result is a tally of
+hits and misses with no weight between them, not a verdict.
 
 ## Common Mistakes
 
@@ -121,22 +126,24 @@ guarantee of no duplication under failure" contains one.
 **Defining them once and never revisiting.** The list ages along with the business
 context, and the misalignment is silent.
 
-**Choosing characteristics nobody measures.** A characteristic without
-instrumentation is aspirational, and it degrades without warning.
+**Choosing characteristics nobody measures.** A driving characteristic without
+instrumentation judges no decision — [quality attributes](/01-fundamentals/quality-attributes.md)
+covers why an unmeasured attribute degrades without warning.
 
 ## Real-World Example
 
 Two architectures at the same company, decided with different lists.
 
-**Authentication service.** Driving characteristics, in order: availability,
-security, latency. Direct consequences: multi-zone replication, no local state,
-aggressive caching of public keys, and a deliberate refusal of a real-time audit
-feature that would have added a synchronous dependency.
+**Authentication service.** Driving characteristics, in order: availability
+(99.95% monthly), security, latency (p99 of 50 ms on token validation). Direct
+consequences: multi-zone replication, no local state, aggressive caching of
+public keys, and a deliberate refusal of a real-time audit feature that would
+have added a synchronous dependency.
 
-**Management reporting service.** Driving characteristics: cost, maintainability,
-correctness. Consequences: a single instance, nightly batch processing, no
-redundancy, and use of a managed service that is more expensive per transaction but
-far cheaper to operate.
+**Management reporting service.** Driving characteristics: cost (a $2,000/month
+infrastructure ceiling), maintainability, correctness. Consequences: a single
+instance, nightly batch processing, no redundancy, and use of a managed service
+that is more expensive per transaction but far cheaper to operate.
 
 The two architectures share no structural decision. Neither is better — each
 answers its own list.

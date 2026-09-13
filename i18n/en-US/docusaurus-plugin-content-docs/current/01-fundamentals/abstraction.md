@@ -13,7 +13,7 @@ objective: >
 prerequisites: [separation-of-concerns]
 related: [complexity, coupling, modularity]
 canonical_for: [abstraction]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -35,8 +35,11 @@ Abstraction is the most powerful and most misapplied tool in software design,
 because its cost is immediate and its benefit is hypothetical.
 
 The cost is one more indirection: somebody will have to navigate it to understand
-the flow. The benefit is the possibility of swapping the implementation — which
-only materializes if the swap happens.
+the flow, and during an incident that somebody navigates under pressure — the
+stack trace gains frames, the log names the interface rather than what failed, and
+the error surfaces one level away from where it started. The benefit is the
+possibility of swapping the implementation — which only materializes if the swap
+happens.
 
 Teams apply abstraction reflexively, and the result is the recognizable pattern of
 interfaces with one implementation, layers that merely forward calls, and generic
@@ -154,22 +157,23 @@ wants to abstract.
 
 ## Failure Modes
 
-**A leaking abstraction.** The consumer needs to know what is hidden in order to
-use it correctly. Common in repositories that hide SQL until the moment
-performance matters.
+**A leaking abstraction.** The symptom is the consumer branching on what is on
+the other side: an `if` that exists because the implementation is this one and not
+another.
 
-**An abstraction of one.** An interface with one implementation, created out of
-habit. Cost without benefit.
+**An abstraction of one.** The symptom is the name. `ServiceImpl` for the
+`Service` interface — when there is nothing to distinguish, the implementation has
+nothing to call itself.
 
-**The wrong abstraction captured early.** Every new case has to be twisted to fit.
-The symptom is the proliferation of boolean parameters and special cases.
+**The wrong abstraction captured early.** The symptom is the proliferation of
+boolean parameters and special cases, each one a case that did not fit.
 
-**An anaemic layer.** It exists for symmetry and merely forwards. It raises the
-cost of navigation and hides nothing.
+**An anaemic layer.** The symptom is the repeated signature: the layer's method
+takes the same parameters and returns the same type as the method it calls.
 
-**Speculative generality.** An abstraction built for imagined requirements. It
-usually guesses the axis of variation wrong, and the real requirement does not fit
-when it arrives.
+**Speculative generality.** Defined in [YAGNI](/02-software-design/yagni.md). The
+symptom specific to abstraction is the axis: it parameterizes what the team
+imagined would vary, and the real variation arrives on a different axis.
 
 ## Real-World Example
 

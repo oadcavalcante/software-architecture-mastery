@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [problem-space, constraints]
 canonical_for: [contexto de negócio, business context]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -52,7 +52,9 @@ sem ter estabelecido qual pergunta de negócio estava sendo respondida.
 ### O que compõe o contexto
 
 Cinco grupos de fatores restringem arquitetura antes de qualquer discussão
-técnica começar.
+técnica começar. Os três últimos são categorias de
+[Restrições](/01-fundamentals/constraints.md), que as define; aqui interessa de
+onde elas vêm e o que determinam.
 
 **Modelo de negócio.** Como a empresa ganha dinheiro determina o que uma falha
 custa. Indisponibilidade num marketplace transacional custa receita por minuto;
@@ -65,17 +67,19 @@ empresa em escala precisa de estabilidade, porque o custo de errar aumentou. A
 mesma decisão arquitetural — digamos, investir em abstração para trocar de
 provedor — é prudência numa e desperdício na outra.
 
-**Restrições regulatórias.** Onde o dado pode residir, quanto tempo precisa ser
-retido, o que precisa ser auditável, quem pode ver o quê. Não são negociáveis, e
-frequentemente eliminam opções inteiras antes da primeira reunião técnica.
+**Restrições regulatórias.** Chegam prontas, de fora da empresa, e não passam
+por negociação técnica: frequentemente eliminam opções inteiras antes da
+primeira reunião.
 
-**Economia.** Orçamento, se é capital ou despesa operacional, e o horizonte em
-que o investimento precisa se pagar.
+**Economia.** Quanto se pode gastar, e em quanto tempo o gasto precisa se pagar,
+não são dados da engenharia — saem do modelo de negócio e do estágio, e é por
+isso que a mesma cifra é generosa numa empresa e irrisória em outra.
 
-**Organização.** Quantas pessoas, com que competências, distribuídas como. Uma
-arquitetura que exige competência que a empresa não tem e não vai contratar é
-uma arquitetura que não vai existir. Este fator retorna com força no
-[Nível 07](/23-architecture-leadership/index.md), via lei de Conway.
+**Organização.** O contexto determina quantas pessoas existem e que competências
+a empresa consegue contratar. Uma arquitetura que exige competência que ela não
+tem e não vai contratar é uma arquitetura que não vai existir. Este fator
+retorna com força no [Nível 07](/23-architecture-leadership/index.md), via
+[lei de Conway](/23-architecture-leadership/conways-law.md).
 
 ### As perguntas que extraem o contexto
 

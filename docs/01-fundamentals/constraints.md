@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [business-context, solution-space]
 canonical_for: [restrições, constraints]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -50,18 +50,20 @@ invalidar meses de trabalho.
 
 ### As categorias
 
-**Regulatórias e legais.** Onde o dado pode residir, quanto tempo é retido, o
-que precisa ser auditável, quem pode acessar. São as mais rígidas e as que mais
-frequentemente eliminam regiões inteiras do espaço de solução.
+Três delas — regulatória, organizacional e econômica — são os fatores que o
+[Contexto de Negócio](/01-fundamentals/business-context.md) enumera, vistos aqui
+pelo lado do limite que impõem e do quanto cada uma cede.
+
+**Regulatórias e legais.** As mais rígidas, e as que mais frequentemente eliminam
+regiões inteiras do espaço de solução.
 
 **Contratuais.** SLAs com clientes, compromissos com parceiros, cláusulas de
 integração. Rígidas até a renegociação, que existe mas tem custo e prazo.
 
-**Organizacionais.** Quantas pessoas, com que competências, com que estrutura de
-times. Uma arquitetura que exige competência inexistente na empresa é inviável
-mesmo sendo tecnicamente correta.
+**Organizacionais.** Uma arquitetura que exige competência inexistente na empresa
+é inviável mesmo sendo tecnicamente correta.
 
-**Econômicas.** Orçamento, natureza do gasto, horizonte de retorno.
+**Econômicas.** Rígidas dentro do ciclo orçamentário, renegociáveis na virada dele.
 
 **Técnicas herdadas.** Sistemas legados que não podem ser desligados,
 integrações existentes, formatos de dado com histórico.
@@ -75,10 +77,12 @@ Uma pergunta separa restrição de preferência:
 
 > **O que acontece, concretamente, se violarmos isso?**
 
-Restrição real tem resposta específica e externa: multa, quebra de contrato,
-processo, impossibilidade física, projeto cancelado por falta de verba.
+Restrição real tem resposta específica e alguém que responde por ela: multa,
+quebra de contrato, processo, impossibilidade física, projeto cancelado por falta
+de verba. A consequência não precisa vir de fora — restrição organizacional e
+orçamentária é interna, e nem por isso menos real.
 
-Preferência tem resposta vaga ou interna: "não é o nosso padrão", "a gente
+Preferência tem resposta vaga ou circular: "não é o nosso padrão", "a gente
 prefere assim", "sempre fizemos desse jeito". Nenhuma dessas é falsa nem
 irrelevante — mas todas são negociáveis, e precisam ser tratadas como tal.
 
@@ -106,7 +110,8 @@ complexidade acidental.
 o que você negocia.**
 
 Classificar cada item de entrada numa dessas três categorias, explicitamente, é
-trabalho de meia hora que muda o resultado do projeto.
+o trabalho de uma sessão de levantamento, e decide quais alternativas chegam a
+ser avaliadas.
 
 ## Por Que Isso Importa
 

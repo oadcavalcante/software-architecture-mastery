@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [architecture-principles, architecture-as-decisions]
 canonical_for: [características arquiteturais, architecture characteristics]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -69,7 +69,11 @@ manutenibilidade, capacidade de ser implantado. Não pedidas não significa não
 exigidas — significa que ninguém vai avisar quando faltarem, até que faltem.
 
 Um levantamento que só captura as explícitas produz sistemas rápidos e
-indisponíveis, ou disponíveis e impossíveis de mudar.
+inseguros, ou disponíveis e impossíveis de mudar.
+
+Capturá-las não alarga a lista dirigente: ela continua com três a cinco. Uma
+implícita só entra na lista quando há algo a sacrificar por ela neste sistema —
+do contrário é piso, garantido por prática padrão e verificado fora da lista.
 
 ### Toda característica extra tem custo
 
@@ -101,8 +105,8 @@ Perguntar "o que é mais importante: latência ou custo?" produz uma resposta ú
 Perguntar "quais atributos importam?" produz uma lista de tudo.
 
 **Porque torna a arquitetura avaliável.** Uma arquitetura pode ser julgada contra
-três características declaradas. Contra quinze, sempre atende a algumas e falha
-em outras, e não há veredito.
+três características declaradas. Contra quinze, o resultado é uma contagem de
+acertos e falhas sem peso entre elas, não um veredito.
 
 ## Erros Comuns
 
@@ -122,23 +126,24 @@ garantia de não duplicação sob falha" contém uma característica.
 **Definir uma vez e nunca revisar.** A lista envelhece junto com o contexto de
 negócio, e o desalinhamento é silencioso.
 
-**Escolher características que ninguém mede.** Uma característica sem
-instrumentação é aspiracional, e degrada sem aviso.
+**Escolher características que ninguém mede.** Uma dirigente sem instrumentação
+não julga decisão nenhuma — [atributos de qualidade](/01-fundamentals/quality-attributes.md)
+trata por que um atributo não medido degrada sem aviso.
 
 ## Exemplo Real
 
 Duas arquiteturas na mesma empresa, decididas com listas diferentes.
 
 **Serviço de autenticação.** Características dirigentes, em ordem:
-disponibilidade, segurança, latência. Consequências diretas: replicação
-multi-zona, ausência de estado local, cache agressivo de chaves públicas, e
-recusa deliberada de um recurso de auditoria em tempo real que teria adicionado
-uma dependência síncrona.
+disponibilidade (99,95% ao mês), segurança, latência (p99 de 50 ms na validação
+de token). Consequências diretas: replicação multi-zona, ausência de estado
+local, cache agressivo de chaves públicas, e recusa deliberada de um recurso de
+auditoria em tempo real que teria adicionado uma dependência síncrona.
 
-**Serviço de relatórios gerenciais.** Características dirigentes: custo,
-manutenibilidade, correção. Consequências: instância única, processamento em
-lote noturno, sem redundância, e uso de um serviço gerenciado mais caro por
-transação mas muito mais barato de operar.
+**Serviço de relatórios gerenciais.** Características dirigentes: custo (teto de
+R$ 10 mil/mês de infraestrutura), manutenibilidade, correção. Consequências:
+instância única, processamento em lote noturno, sem redundância, e uso de um
+serviço gerenciado mais caro por transação mas muito mais barato de operar.
 
 As duas arquiteturas não compartilham nenhuma decisão estrutural. Nenhuma das
 duas é melhor — cada uma responde à sua lista.

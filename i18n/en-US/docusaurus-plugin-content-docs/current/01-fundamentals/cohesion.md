@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [modularity, separation-of-concerns]
 canonical_for: [cohesion]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -48,7 +48,7 @@ manifestation: grouped by what they are not, rather than by what they are.
 
 From worst to best, in the classic taxonomy:
 
-| Kind | Grouping criterion | Assessment |
+| Kind | Grouping criterion | Example |
 |---|---|---|
 | Coincidental | None | `utils` |
 | Logical | Same generic category | All validators together |
@@ -75,8 +75,10 @@ subject in there.
 
 ### High cohesion reduces coupling — sometimes
 
-When a module is cohesive, whoever uses it depends on one thing, not several.
-That tends to reduce efferent coupling on the outside.
+When a module is cohesive, whoever uses it depends only on the subject it needs,
+not on a grouping whose remainder changes for unrelated reasons. Splitting a
+junk-drawer module may even raise the dependency count for a consumer that pulled
+several things out of it; what drops is the exposure to irrelevant change.
 
 But the relationship is not automatic. You can have an internally cohesive module
 that depends on ten others — high cohesion and high efferent coupling at once.
@@ -94,7 +96,9 @@ module that was cohesive two years ago may no longer be.
 
 ## Mental Model
 
-**Describe the module in one sentence. If you need "and", it is not cohesive.**
+**Describe the module in one sentence. If you need "and", be suspicious: either
+there is more than one subject in there, or the invariant that binds them has no
+name yet.**
 
 The test is crude and works well in practice, because the difficulty of naming
 reflects the absence of a single concept behind the grouping.

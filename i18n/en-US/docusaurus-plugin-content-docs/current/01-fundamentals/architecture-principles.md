@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-characteristics]
 related: [architecture-as-decisions, architecture-governance]
 canonical_for: [architecture principles]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -38,15 +38,14 @@ The defect is precise: **nobody would choose the opposite.** No team prefers
 complexity or worse tools. A principle with no defensible opposite eliminates no
 option, and therefore helps in no decision.
 
-The test, then, is: **invert the principle. If the inverted sentence is obviously
-absurd, the original is empty.**
-
-"We prioritize simplicity" inverted becomes "we prioritize complexity" — absurd, so
-the principle is empty.
-
-"We prefer simpler solutions even when they limit future use cases" inverted
-becomes "we accept complexity to cover future cases" — a defensible position that
-companies do in fact adopt. So the original principle has content.
+The test, then, is the **inverse test**: invert the principle; if the inverted
+sentence is obviously absurd, the original is empty. "We prioritize simplicity"
+inverted becomes "we prioritize complexity" — absurd, so empty; "we prefer simpler
+solutions even when they limit future use cases" inverted becomes "we accept
+complexity to cover future cases" — defensible, and companies do in fact adopt it.
+The mechanics of the test, and what to do with the principles that fail it, are in
+[Principles in Operation](/19-architecture-governance/governance-principles.md);
+here it serves only to show why most published principles decide nothing.
 
 ## Core Concepts
 
@@ -67,10 +66,11 @@ Examples with content:
 
 - *We prefer eventual consistency over strong consistency, except in financial
   flows, because availability is our first characteristic.*
-- *We prefer managed services over self-managed ones even at a higher cost per
-  transaction, because we have eight engineers and no infrastructure on-call.*
-- *We prefer duplicating code across contexts over creating a shared library,
-  because coupling between teams costs more than duplication.*
+- *We prefer rolling back over fixing forward, even losing the work in the
+  release, because recovery time is what our SLA charges for.*
+- *We prefer a single language across all services over the best language for each
+  problem, because people move between teams more often than services change load
+  profile.*
 
 Each eliminates options and each has an opposite that another company would adopt.
 
@@ -105,7 +105,7 @@ and from there a business constraint.
 
 Five to ten principles is what a team can apply. Thirty is a policy nobody reads.
 
-And principles have an expiry. One derived from "we are eight engineers" needs
+And principles have an expiry. One derived from a team of eight engineers needs
 revisiting when there are eighty.
 
 ## Mental Model
@@ -131,7 +131,7 @@ judgement, and a principle does not replace judgement.
 straitjacket and the team works around it silently — which is worse than having no
 principle, because the violation stops being discussable.
 
-**When the principle has no defensible opposite.** See the inversion test. It helps
+**When the principle has no defensible opposite.** See the inverse test. It helps
 nobody and takes up attention.
 
 **When the team is small enough to just talk.** With four people in the same room,
@@ -180,7 +180,7 @@ false impression that guidance exists.
 
 ## Real-World Example
 
-A mid-sized company had nine published principles. Seven failed the inversion test
+A mid-sized company had nine published principles. Seven failed the inverse test
 — "we prioritize quality", "we pick the right tool for each problem", and
 variations.
 
@@ -241,7 +241,7 @@ which is where most architecture principles live.
 
 Take your team's architecture principles — written or tacit.
 
-Apply the inversion test to each. Write the opposite and ask: would any competent
+Apply the inverse test to each. Write the opposite and ask: would any competent
 company adopt this?
 
 For the ones that survive, check whether they state what is given up and which

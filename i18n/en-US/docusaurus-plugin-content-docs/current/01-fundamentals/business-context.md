@@ -14,7 +14,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [problem-space, constraints]
 canonical_for: [business context]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
 
@@ -54,7 +54,9 @@ question without having established which business question was being answered.
 ### What makes up the context
 
 Five groups of factors constrain architecture before any technical discussion
-starts.
+starts. The last three are categories of
+[Constraints](/01-fundamentals/constraints.md), which defines them; what matters
+here is where they come from and what they determine.
 
 **Business model.** How the company makes money determines what a failure costs.
 Downtime in a transactional marketplace costs revenue per minute; in an internal
@@ -67,17 +69,20 @@ stability, because the cost of being wrong has gone up. The same architectural
 decision — say, investing in abstraction to be able to switch providers — is
 prudence at one and waste at the other.
 
-**Regulatory constraints.** Where data may reside, how long it must be retained,
-what has to be auditable, who may see what. They are not negotiable, and they
-frequently eliminate entire options before the first technical meeting.
+**Regulatory constraints.** They arrive settled, from outside the company, and do
+not go through technical negotiation: they frequently eliminate entire options
+before the first meeting.
 
-**Economics.** Budget, whether it is capital or operating expenditure, and the
-horizon over which the investment has to pay for itself.
+**Economics.** How much can be spent, and how fast the spending has to pay for
+itself, are not engineering inputs — they follow from the business model and the
+stage, which is why the same figure is generous at one company and derisory at
+another.
 
-**Organization.** How many people, with what skills, distributed how. An
-architecture that requires a skill the company does not have and will not hire is
-an architecture that will not exist. This factor returns forcefully in
-[Level 07](/23-architecture-leadership/index.md), via Conway's law.
+**Organization.** The context determines how many people exist and what skills
+the company is able to hire. An architecture that requires a skill it does not
+have and will not hire is an architecture that will not exist. This factor
+returns forcefully in [Level 07](/23-architecture-leadership/index.md), via
+[Conway's law](/23-architecture-leadership/conways-law.md).
 
 ### The questions that extract the context
 

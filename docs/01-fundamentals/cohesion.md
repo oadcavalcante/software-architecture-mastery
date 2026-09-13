@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [modularity, separation-of-concerns]
 canonical_for: [coesão, cohesion]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -48,7 +48,7 @@ canônica: agrupados pelo que não são, e não pelo que são.
 
 Do pior ao melhor, na taxonomia clássica:
 
-| Tipo | Critério de agrupamento | Avaliação |
+| Tipo | Critério de agrupamento | Exemplo |
 |---|---|---|
 | Coincidental | Nenhum | `utils` |
 | Lógica | Mesma categoria genérica | Todos os validadores juntos |
@@ -74,8 +74,10 @@ assunto ali.
 
 ### Coesão alta reduz acoplamento — às vezes
 
-Quando um módulo é coeso, quem o usa depende de uma coisa, não de várias. Isso
-tende a reduzir acoplamento eferente do lado de fora.
+Quando um módulo é coeso, quem o usa depende só do assunto de que precisa, e não
+de um agrupamento cujo resto muda por razões alheias. Dividir um módulo-depósito
+pode até aumentar a contagem de dependências de quem consumia várias coisas dele;
+o que cai é a exposição a mudanças que não lhe dizem respeito.
 
 Mas a relação não é automática. É possível ter um módulo internamente coeso que
 depende de dez outros — coesão alta e acoplamento eferente alto ao mesmo tempo.
@@ -93,7 +95,8 @@ errado. Um módulo coeso há dois anos pode não ser mais.
 
 ## Modelo Mental
 
-**Descreva o módulo em uma frase. Se precisar de "e", ele não é coeso.**
+**Descreva o módulo em uma frase. Se precisar de "e", suspeite: ou há mais de um
+assunto ali, ou falta o nome da invariante que une os dois.**
 
 O teste é grosseiro e funciona bem na prática, porque a dificuldade de nomear
 reflete a ausência de um conceito único por trás do agrupamento.

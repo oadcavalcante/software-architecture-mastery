@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [technical-debt, modularity]
 canonical_for: [complexidade, complexidade essencial, complexidade acidental]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -169,9 +169,9 @@ que a do problema que resolve.
 
 ## Erros Comuns
 
-**Confundir simples com fácil.** Fácil é familiar; simples é ter poucas partes
-entrelaçadas. Uma ferramenta familiar pode ser complexa; uma desconhecida pode
-ser simples.
+**Confundir simples com fácil.** Familiaridade não é simplicidade, e a
+ferramenta conhecida pode ser a mais entrelaçada das disponíveis. A distinção
+está em [KISS](/02-software-design/kiss.md).
 
 **Justificar complexidade com escala futura.** Sem número e prazo, é adivinhação.
 E adivinha-se mal: a escala que chega raramente tem a forma prevista.

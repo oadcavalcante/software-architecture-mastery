@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [technical-debt, modularity]
 canonical_for: [complexity, essential complexity, accidental complexity]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -169,9 +169,9 @@ greater than that of the problem it solves.
 
 ## Common Mistakes
 
-**Confusing simple with easy.** Easy is familiar; simple is having few
-intertwined parts. A familiar tool can be complex; an unfamiliar one can be
-simple.
+**Confusing simple with easy.** Familiarity is not simplicity, and the tool you
+know may be the most intertwined one available. The distinction is in
+[KISS](/02-software-design/kiss.md).
 
 **Justifying complexity with future scale.** Without a number and a date, it is
 guesswork. And we guess badly: the scale that arrives rarely has the shape

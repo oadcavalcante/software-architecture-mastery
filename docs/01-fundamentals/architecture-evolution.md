@@ -12,8 +12,8 @@ objective: >
   e projeta para que a mudança seja possível sem reescrita.
 prerequisites: [architecture-as-decisions]
 related: [technical-debt, legacy-modernization]
-canonical_for: [evolução da arquitetura, arquitetura evolutiva]
-content_version: 1
+canonical_for: [evolução da arquitetura]
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -44,8 +44,9 @@ A segunda é a reescrita. Quando a distância entre a arquitetura e a necessidad
 fica grande demais para ignorar, a proposta é recomeçar — que é a forma mais cara
 e arriscada de evoluir, e a que mais falha.
 
-O caminho que funciona é o intermediário e o menos praticado: mudança contínua e
-incremental, decidida a partir de sinais observados.
+O caminho que escapa das duas é o intermediário: mudança contínua e incremental,
+decidida a partir de sinais observados — sem preservar a estrutura além da
+validade nem pagar o preço de recomeçar.
 
 ## Conceitos Centrais
 
@@ -93,7 +94,13 @@ Três coisas produzem isso, e as três já foram vistas neste nível:
 seja visível antes de ser estrutural. É a ideia de fitness function, que reaparece
 no [Nível 07](/23-architecture-leadership/index.md).
 
-### Evolução incremental vence reescrita
+As três cobram antes de render: a fronteira impõe indireção onde uma chamada
+direta bastaria, o registro pede disciplina sem retorno no mesmo trimestre, e a
+verificação precisa ser mantida — a que ninguém conserta acaba desligada. O
+retorno chega na primeira mudança que elas mantêm contida; até lá, o
+investimento parece burocracia.
+
+### Evolução incremental vence reescrita em sistema que não pode parar
 
 A reescrita falha por razões estruturais, não por má execução: o sistema antigo
 continua evoluindo durante ela, as regras não documentadas só aparecem quando o
@@ -103,6 +110,11 @@ Mudança incremental entrega valor antes de estar completa e pode ser revertida 
 qualquer ponto. É o assunto de
 [modernização de legado](/16-legacy-modernization/index.md), e o padrão
 principal é o strangler fig.
+
+A reescrita é a escolha correta sob a condição oposta: sistema que pode ser
+congelado enquanto o substituto é construído e cujas regras cabem em uma
+especificação conferível. Essa condição existe — em ferramenta interna, em
+componente já isolado — e some assim que o sistema tem usuários que não param.
 
 ## Por Que Isso Importa
 
@@ -153,7 +165,10 @@ fim, o squad corporativo sem conseguir atender ao SLA porque uma implantação d
 outro squad derrubava tudo.
 
 O terceiro sinal é o que decidiu: uma característica dirigente — disponibilidade
-para um segmento — deixou de ser atendida, e não havia correção local.
+para um segmento — deixou de ser atendida, e não havia correção local. A
+disponibilidade do fluxo corporativo dependia da unidade de implantação, e essa
+era compartilhada pelos quatro squads: nenhuma mudança dentro do módulo
+corporativo altera quem sobe para produção junto com ele.
 
 A resposta não foi migrar para microsserviços. Foi extrair **um** serviço: o do
 fluxo corporativo, que tinha requisito distinto e fronteira já estável no
@@ -174,8 +189,8 @@ cada vez por um sinal específico, e pode mudar de novo.
   acontece.
 - [Modernização de Legado](/16-legacy-modernization/index.md) — a evolução em
   sistemas que não podem parar.
-- [Liderança em Arquitetura](/23-architecture-leadership/index.md) —
-  arquitetura evolutiva e fitness functions.
+- [Arquitetura Evolutiva](/23-architecture-leadership/evolutionary-architecture.md) —
+  o termo e o mecanismo: dimensões protegidas e fitness functions.
 
 ## Exercício Prático
 

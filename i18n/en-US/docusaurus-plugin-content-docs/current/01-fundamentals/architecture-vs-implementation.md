@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [dependency-management, technical-debt]
 canonical_for: [intended architecture, actual architecture, architectural drift]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -70,8 +70,11 @@ it.
 An **effective** boundary is enforced by something that fails when it is
 violated. The code does not compile, the test breaks, CI refuses the merge.
 
-The distinction is binary in practice: a nominal boundary is a suggestion with
-the appearance of a rule.
+The distinction is binary in its criterion: either something fails when the
+boundary is crossed, or nothing does — and a nominal boundary is a suggestion
+with the appearance of a rule. The gradation in the table below measures strength
+among the mechanisms that fail; it is not a middle ground between nominal and
+effective.
 
 ### The mechanisms that make a boundary effective
 
@@ -80,11 +83,11 @@ Ordered by strength — the higher, the less it depends on human vigilance:
 | Mechanism | Strength | Cost |
 |---|---|---|
 | Separate process or repository | Very high — the import goes; the declared dependency stays | High: operations, versioning, latency |
-| Language module with real visibility | High — it does not compile | Depends on what the language offers |
+| Language module with real visibility | High — it does not compile | Low where the language offers it; prohibitive where it does not |
 | Architecture test in CI | High — it does not merge | Low: maintaining the rule |
 | Static dependency analysis | Medium to high | Low |
 | Code review | Medium — depends on who reviews and on their attention | Continuous and human |
-| Documented convention | Low | Apparently zero, actually high |
+| Documented convention | None — nothing fails; it is a nominal boundary, listed for contrast | Apparently zero, actually high |
 
 The table contains the main decision of this document: **boundaries that matter
 deserve an automated mechanism.** Code review is a net whose holes vary in size,
@@ -110,7 +113,7 @@ have to change the test — which turns the violation into an explicit decision,
 debatable in review, rather than an import that slips through.
 
 That is the idea that reappears at Level 07 as a
-[fitness function](/23-architecture-leadership/index.md).
+[fitness function](/23-architecture-leadership/fitness-functions.md).
 
 ## Mental Model
 
