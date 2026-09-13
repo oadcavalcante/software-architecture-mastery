@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [supporting-domain, generic-domain, tactical-ddd]
 canonical_for: [core domain, domínio central]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -51,8 +51,10 @@ empresa perderia clientes?** Se a resposta for não, não é core.
 
 ### Diferenciação, não importância
 
-Faturamento é essencial — sem ele a empresa não recebe. E não é core: toda
-empresa fatura, e fazer isso melhor que o concorrente não ganha cliente nenhum.
+Faturamento é essencial — sem ele a empresa não recebe. Para quem vende outra
+coisa, não é core: toda empresa fatura, e fazer isso melhor que o concorrente não
+traz cliente. Numa plataforma de cobrança, que vende justamente faturamento, ele é
+o core — a classificação é relativa ao que a empresa vende.
 
 Core é onde ser melhor **importa competitivamente**. É um conceito de estratégia
 de negócio, não de criticidade operacional.
@@ -112,9 +114,13 @@ interessante.
 **Confundir com o mais crítico operacionalmente.** Pagamento é crítico e
 raramente é core.
 
-**Identificar mais de um ou dois.** Empresas se diferenciam em poucas coisas.
+**Identificar mais de um ou dois.** Empresas se diferenciam em poucas coisas;
+chamar quatro subdomínios de core espalha os melhores engenheiros e nenhum deles
+recebe a modelagem que o core justificaria.
 
-**Deixar a engenharia decidir sozinha.**
+**Deixar a engenharia decidir sozinha.** Sem o negócio na mesa, o core é declarado
+por quem não tem como saber por que o cliente paga — e a alocação segue esse rótulo
+por anos.
 
 **Comprar ou terceirizar o core.** É vender a diferenciação.
 
@@ -137,14 +143,18 @@ Era o que os compradores citavam ao explicar por que não compravam no marketpla
 grande. E era o que os vendedores citavam ao explicar por que pagavam comissão
 mais alta.
 
-O sistema de curadoria era uma planilha e um formulário, mantido por um
-engenheiro em tempo parcial.
+O sistema de curadoria era uma planilha e um formulário, mantido em tempo parcial
+pelo único engenheiro do painel dos vendedores.
 
 Busca e recomendação — cinco engenheiros — usavam uma biblioteca de prateleira com
 ajustes, e eram comparáveis a qualquer concorrente.
 
 A realocação moveu três engenheiros para construir o sistema de curadoria: fluxo
 de avaliação, rastreabilidade de origem, verificação de artesão, reputação.
+
+Busca ficou com dois: o roadmap de relevância parou e a frente passou a só operar a
+biblioteca com correções pontuais — perda aceita porque ali a empresa já empatava
+com o concorrente.
 
 Dezoito meses depois, esse sistema virou o principal argumento comercial da
 empresa e a base de uma certificação que ela passou a vender.

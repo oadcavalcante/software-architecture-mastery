@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, supporting-domain, anti-corruption-layer]
 canonical_for: [generic domain, subdomínio genérico]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -58,6 +58,7 @@ A comparação honesta inclui o que não aparece na estimativa inicial:
 | | Construir | Comprar |
 |---|---|---|
 | Desenvolvimento inicial | Alto | Integração |
+| Custo recorrente | Infraestrutura e pessoal | Licença ou custo por transação |
 | Manutenção por ano | Contínuo | Incluído |
 | Correção de segurança | Sua responsabilidade | Do fornecedor |
 | Conformidade regulatória | Sua | Frequentemente do fornecedor |
@@ -127,7 +128,8 @@ o argumento de dependência se torna verdadeiro.
 **Construir por preferência técnica.** É agradável construir; isso não é
 justificativa.
 
-**Não reavaliar implementações antigas.**
+**Não reavaliar implementações antigas.** O que era supporting quando se construiu
+virou generic, e a capacidade de engenharia segue presa a ele.
 
 ## Exemplo Real
 
@@ -157,9 +159,6 @@ ausência de revisão.
 
 ## O ciclo de revisão
 
-A decisão de construir um generic domain quase nunca está errada no momento em que
-é tomada. O que falha é a ausência de revisão.
-
 Um ciclo simples que funciona, revisado uma vez por ano:
 
 **Liste o que foi construído internamente e não diferencia a empresa.** A lista
@@ -186,9 +185,10 @@ construir envelhecer.
 ## Conceitos Relacionados
 
 - [Subdomínio](/04-domain-driven-design/subdomain.md) — a classificação.
-- [Core Domain](/04-domain-driven-design/core-domain.md) — onde construir sempre.
+- [Core Domain](/04-domain-driven-design/core-domain.md) — onde o default se inverte,
+  porque comprar custa a diferenciação quando o fornecedor vende o mesmo aos concorrentes.
 - [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — como isolar o que se adota.
-- [Build vs. Buy](/20-trade-offs/index.md) — o trade-off em detalhe.
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — o custo total de propriedade em detalhe.
 
 ## Exercício Prático
 

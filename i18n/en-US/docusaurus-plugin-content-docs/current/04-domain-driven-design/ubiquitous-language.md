@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [bounded-context, domain, entity]
 canonical_for: [ubiquitous language]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -247,5 +247,6 @@ points is a candidate for a distinction the model does not make.
 ## Further Exploration
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Brandolini, Alberto. *EventStorming*, 2013.
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — still in progress; the
+  technique first appeared in the 2013 article of the same name.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.

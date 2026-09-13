@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [core-domain, supporting-domain, generic-domain, bounded-context]
 canonical_for: [subdomain]
-translated_from_version: 2
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -95,8 +95,9 @@ Product recommendation was core for many companies ten years ago; today there ar
 off-the-shelf services most of them should use. Continuing to invest their own effort there
 is spending where they no longer differentiate.
 
-Reviewing the classification periodically is cheap and sometimes frees up significant
-engineering capacity.
+Reviewing the classification is cheap; acting on the review is not. Demoting a subdomain
+from core to generic discards investment already made and pays for a migration before it
+frees up any capacity.
 
 ## Why This Matters
 
@@ -114,7 +115,9 @@ receiving the least investment, that is a strategic problem the analysis makes v
 
 **Classifying everything as core.** If everything is a priority, nothing is.
 
-**Confusing a subdomain with a bounded context.** Problem versus solution.
+**Confusing a subdomain with a bounded context.** The classification starts following the
+software boundary: a legacy context covering three subdomains gets a single treatment, and
+the core living inside it is funded like the rest.
 
 **Classifying by what is technically interesting.** The technically most challenging
 subdomain frequently is not the one that differentiates the company.
@@ -136,13 +139,16 @@ The review with the executive team changed the picture. What customers cited whe
 their contracts was **predictive maintenance**: predicting a component failure before it
 stopped the vehicle. No competitor did that well.
 
-Routing, despite being the hardest problem, was comparable to competitors' and there were
-mature libraries solving 90% of the cases.
+Routing, despite being the hardest problem, was comparable to competitors': mature
+libraries solved 90% of the cases, and the remaining 10% were the fleet's own constraints —
+specific, but not differentiating. Hence supporting, not generic.
 
 The reclassification: predictive maintenance became the only core; routing became
 supporting, with a library adopted; tax issuance and authentication, generic, bought.
 
-The three routing engineers moved to predictive maintenance.
+The three routing engineers moved to predictive maintenance. The change was not free: two
+years of in-house routing became a thin layer over the library, and the three took months to
+become productive in a domain they did not know.
 
 What matters here is not the specific decision. It is that the classification made by
 engineering and the one made with the business diverged completely — and the second is the
@@ -200,5 +206,6 @@ The misalignment between the two lists is the finding.
 ## Further Exploration
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Brandolini, Alberto. *EventStorming*, 2013.
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — still in progress; the
+  technique first appeared in the 2013 article of the same name.
 - Vernon, Vaughn. *Domain-Driven Design Distilled*. Addison-Wesley, 2016.

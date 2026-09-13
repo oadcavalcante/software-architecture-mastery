@@ -13,7 +13,7 @@ objective: >
 prerequisites: [boundaries]
 related: [modular-design, package-design, clean-architecture]
 canonical_for: [layering, layered architecture]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -101,14 +101,14 @@ answer, in business systems, is almost always the vertical one.
 ## When to Use
 
 - As the division **inside** a capability module — almost always useful.
-- As the primary division when the real variation is technical, not of domain.
-- In small systems, for conventionality.
 - When dependency direction between policy and detail has to be enforced.
+- As the primary division, under the three conditions in "Where layers work well
+  as the primary division", above.
 
 ## When Not to Use
 
-**As the primary division in a mid-sized or larger business system.** It is the
-dominant mistake, and the cost shows up as "every change touches everything".
+**As the primary division in a mid-sized or larger business system.** When the axis
+of change is capability, the cost shows up as "every change touches everything".
 
 **When the layers merely pass calls along.** If the application layer calls the
 service that calls the repository without adding anything, there is one layer
@@ -122,8 +122,8 @@ common, the structure is decorative and the cost remains.
 
 ## Alternatives
 
-- **Module by capability, layers inside** — the arrangement that works in most
-  cases.
+- **[Module by capability](/02-software-design/modular-design.md), layers inside** — the
+  arrangement that works in most cases.
 - **[Ports and Adapters](/02-software-design/ports-and-adapters.md)** — swaps the
   stack metaphor for inside and outside, with a single direction rule.
 - **Vertical slice** — organize by use case, with everything it needs together.
@@ -157,9 +157,10 @@ implementing business rules.
 
 **Adopting layers by default, without asking about the axis.** The root of it.
 
-**Confusing layers with
-[Clean Architecture](/02-software-design/clean-architecture.md).** The second has a
-specific direction rule that the first does not.
+**Putting the [Clean Architecture](/02-software-design/clean-architecture.md) label on four
+conventional layers.** Without the direction rule that inverts the dependency on
+infrastructure, the domain still points at the concrete repository and remains
+untestable without a database.
 
 **Creating a layer for each kind of object.** DTOs, mappers and validators in
 their own layers produce constant crossing.
@@ -192,8 +193,7 @@ The number tends to grow by accumulation, and each additional layer charges
 translation at every crossing.
 
 One criterion to justify each one: **does it hide a decision that its neighbours do
-not need to know?** If removing the layer forces nobody to learn anything new, it
-was not hiding anything.
+not need to know?** It is the anemic-layer test, applied layer by layer.
 
 In practice, three layers cover most cases inside a module:
 

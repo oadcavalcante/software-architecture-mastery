@@ -13,7 +13,7 @@ objective: >
 prerequisites: [software-design]
 related: [fundamentals, domain-driven-design]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -47,16 +47,19 @@ per rule is rare outside a compiler, and where it shows up the usual answer is a
 parser. Each treated from the problem that originated it, not from its class
 structure.
 
-**Architectural patterns.** Layered, Modular Monolith, Microservices, Event-Driven,
-Hexagonal, Clean Architecture, CQRS, Event Sourcing, Pipes and Filters, Space-Based
-Architecture and SOA. These operate at a different level: they decide how the system
-is deployed and operated, not merely how the code is organized.
+**Architectural patterns.** Modular Monolith, Microservices, Event-Driven, CQRS,
+Event Sourcing, Pipes and Filters, Space-Based Architecture and SOA. These operate at
+a different level: they decide how the system is deployed and operated, not merely how
+the code is organized. Layered, Hexagonal and Clean Architecture are architectural
+patterns too, but the canonical document for each sits in Level 02, alongside Ports and
+Adapters and Onion — the next section has the links.
 
-## Three patterns that live in Level 02
+## Five patterns that live in Level 02
 
-Layered, Hexagonal and Clean Architecture are architectural patterns and are covered
-in [Software Design](/02-software-design/index.md), because there they arise as a
-consequence of decisions about boundaries and dependency direction.
+Layered, Ports and Adapters, Hexagonal, Onion and Clean Architecture are architectural
+patterns and are covered in [Software Design](/02-software-design/index.md), because
+there they arise as a consequence of decisions about boundaries and dependency
+direction.
 
 A concept has a single canonical document in this material; where it reappears, it is
 referenced. The direct links:

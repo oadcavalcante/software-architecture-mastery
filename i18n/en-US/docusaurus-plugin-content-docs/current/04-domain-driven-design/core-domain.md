@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [supporting-domain, generic-domain, tactical-ddd]
 canonical_for: [core domain]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -50,8 +50,10 @@ would the company lose customers?** If the answer is no, it is not core.
 
 ### Differentiation, not importance
 
-Billing is essential — without it the company does not get paid. And it is not core: every
-company bills, and doing it better than the competitor wins no customers.
+Billing is essential — without it the company does not get paid. For a company that sells
+something else, it is not core: every company bills, and doing it better than the competitor
+wins no customers. In a billing platform, which sells billing itself, it is the core — the
+classification is relative to what the company sells.
 
 Core is where being better **matters competitively**. It is a concept of business strategy,
 not of operational criticality.
@@ -110,9 +112,13 @@ interesting problem.
 **Confusing it with the operationally most critical.** Payments are critical and rarely
 core.
 
-**Identifying more than one or two.** Companies differentiate on few things.
+**Identifying more than one or two.** Companies differentiate on few things; calling four
+subdomains core spreads the best engineers thin and none of them gets the modelling the core
+would justify.
 
-**Letting engineering decide alone.**
+**Letting engineering decide alone.** Without the business at the table, the core is declared
+by people who have no way of knowing why the customer pays — and the allocation follows that
+label for years.
 
 **Buying or outsourcing the core.** It is selling the differentiation.
 
@@ -133,13 +139,18 @@ everything on the platform was genuinely handcrafted.
 It was what buyers cited when explaining why they did not buy from the large marketplace.
 And it was what sellers cited when explaining why they paid a higher commission.
 
-The curation system was a spreadsheet and a form, maintained by one engineer part-time.
+The curation system was a spreadsheet and a form, maintained part-time by the single engineer
+on the sellers' dashboard.
 
 Search and recommendation — five engineers — used an off-the-shelf library with tweaks, and
 were comparable to any competitor's.
 
 The reallocation moved three engineers to build the curation system: an assessment
 workflow, provenance traceability, artisan verification, reputation.
+
+Search was left with two: the relevance roadmap stopped and the front went to merely operating
+the library with occasional fixes — a loss accepted because there the company already matched
+the competitor.
 
 Eighteen months later, that system became the company's main commercial argument and the
 basis of a certification it started selling.

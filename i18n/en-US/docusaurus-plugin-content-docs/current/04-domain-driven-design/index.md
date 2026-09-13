@@ -13,7 +13,7 @@ objective: >
 prerequisites: [software-design]
 related: [design-patterns, system-design, enterprise-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -62,7 +62,8 @@ for service boundaries later.
 
 The tactical part is expensive. Aggregates, value objects and repositories add indirection
 that is only justified when the business rules are genuinely complex. Applied to CRUD,
-tactical DDD produces six hundred lines to do what thirty would.
+[tactical DDD](/04-domain-driven-design/tactical-ddd.md) stacks up an aggregate, a
+repository and a factory to do what thirty lines would.
 
 The right question is never "shall we use DDD?". It is "is this subdomain core, and are the
 rules here complex enough to pay for the tactical part?".

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, generic-domain, tactical-ddd]
 canonical_for: [supporting domain, subdomínio de apoio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -29,8 +29,9 @@ simples** — e resistir à tentação de fazer bem feito demais.
 
 ## O Problema
 
-Supporting domains são a maior parte do sistema na maioria das empresas, e o lugar
-onde mais esforço é desperdiçado.
+Supporting domains são a maior parte do sistema na maioria das empresas, e é por
+isso que, em volume de horas, são onde mais esforço se perde — não porque cada erro
+ali custe mais caro que um erro no core.
 
 O mecanismo é previsível. Um engenheiro competente trabalha num subdomínio de
 apoio. Ele vê oportunidades legítimas de melhoria: abstrair aqui, generalizar ali,
@@ -95,7 +96,9 @@ supporting domain é um mês disponível onde importa.
 
 ## Erros Comuns
 
-**Aplicar DDD tático.** O erro mais comum e o mais caro em volume.
+**Aplicar DDD tático.** O erro mais comum e o mais caro em volume: agregados e
+repositórios multiplicam o código de um subdomínio que ninguém vai evoluir, e cada
+ajuste trivial passa a exigir uma rodada de modelagem.
 
 **Alocar os melhores engenheiros.**
 
@@ -120,9 +123,9 @@ documentos.
 
 Supporting, portanto.
 
-O que a equipe havia construído em dois anos: um motor de fluxo configurável, com
-regras de retenção declaradas em uma linguagem própria, versionamento de
-documento, e uma interface de administração para criar tipos de documento novos.
+O que a equipe havia construído: um motor de fluxo configurável, com regras de
+retenção declaradas em uma linguagem própria, versionamento de documento, e uma
+interface de administração para criar tipos de documento novos.
 
 Quatro engenheiros, dezoito meses.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [boundaries]
 related: [modular-design, package-design, clean-architecture]
 canonical_for: [camadas, arquitetura em camadas, layered]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -101,14 +101,14 @@ negócio, é quase sempre a vertical.
 ## Quando Usar
 
 - Como divisão **dentro** de um módulo de capacidade — quase sempre útil.
-- Como divisão primária quando a variação real é técnica, não de domínio.
-- Em sistemas pequenos, pela convencionalidade.
 - Quando é preciso impor direção de dependência entre política e detalhe.
+- Como divisão primária, nas três condições de "Onde camadas funcionam bem como
+  divisão primária", acima.
 
 ## Quando Não Usar
 
-**Como divisão primária num sistema de negócio de porte médio ou maior.** É o erro
-dominante, e o custo aparece como "toda mudança toca tudo".
+**Como divisão primária num sistema de negócio de porte médio ou maior.** Quando o eixo
+de mudança é a capacidade, o custo aparece como "toda mudança toca tudo".
 
 **Quando as camadas apenas repassam.** Se a camada de aplicação chama o serviço
 que chama o repositório sem acrescentar nada, há uma camada a menos do que parece.
@@ -121,8 +121,8 @@ comum, a estrutura é decorativa e o custo permanece.
 
 ## Alternativas
 
-- **Módulo por capacidade, camada interna** — o arranjo que funciona na maioria
-  dos casos.
+- **[Módulo por capacidade](/02-software-design/modular-design.md), camada interna** — o arranjo
+  que funciona na maioria dos casos.
 - **[Ports and Adapters](/02-software-design/ports-and-adapters.md)** — troca a metáfora de pilha
   pela de dentro e fora, com uma única regra de direção.
 - **Vertical slice** — organizar por caso de uso, com tudo que ele precisa junto.
@@ -156,8 +156,10 @@ que implementando regra de negócio.
 
 **Adotar camadas por default, sem perguntar o eixo.** A raiz.
 
-**Confundir camadas com [Clean Architecture](/02-software-design/clean-architecture.md).** A segunda
-tem uma regra de direção específica que a primeira não tem.
+**Adotar o rótulo [Clean Architecture](/02-software-design/clean-architecture.md) sobre quatro
+camadas convencionais.** Sem a regra de direção que inverte a dependência da
+infraestrutura, o domínio continua apontando para o repositório concreto e segue
+sem ser testável fora do banco.
 
 **Criar uma camada para cada tipo de objeto.** DTOs, mapeadores, validadores em
 camadas próprias produz travessia constante.
@@ -190,8 +192,7 @@ O número tende a crescer por acúmulo, e cada camada adicional cobra tradução
 toda travessia.
 
 Um critério para justificar cada uma: **ela esconde uma decisão que as vizinhas
-não precisam conhecer?** Se remover a camada não obriga ninguém a saber algo
-novo, ela não estava escondendo nada.
+não precisam conhecer?** É o teste da camada anêmica, aplicado camada a camada.
 
 Na prática, três camadas cobrem a maioria dos casos dentro de um módulo:
 

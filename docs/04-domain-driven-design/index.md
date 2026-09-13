@@ -13,7 +13,7 @@ objective: >
 prerequisites: [software-design]
 related: [design-patterns, system-design, enterprise-architecture]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -63,7 +63,8 @@ melhores candidatas a fronteiras de serviço mais tarde.
 
 O tático é caro. Aggregates, value objects e repositories adicionam indireção
 que só se justifica quando a regra de negócio é genuinamente complexa. Aplicado
-a um CRUD, DDD tático produz seiscentas linhas para fazer o que trinta fariam.
+a um CRUD, [DDD tático](/04-domain-driven-design/tactical-ddd.md) empilha
+agregado, repositório e fábrica para fazer o que trinta linhas fariam.
 
 A pergunta correta nunca é "vamos usar DDD?". É "este subdomínio é core, e a
 regra aqui é complexa o bastante para pagar o tático?".

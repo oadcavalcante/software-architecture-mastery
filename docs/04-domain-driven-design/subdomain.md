@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [core-domain, supporting-domain, generic-domain, bounded-context]
 canonical_for: [subdomínio, subdomain]
-content_version: 2
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -97,8 +97,9 @@ Recomendação de produto era core para muitas empresas há dez anos; hoje há
 serviços prontos que a maioria delas deveria usar. Continuar investindo esforço
 próprio ali é gastar onde não se diferencia mais.
 
-Revisar a classificação periodicamente é barato e às vezes libera capacidade de
-engenharia significativa.
+Revisar a classificação é barato; agir sobre a revisão não. Rebaixar um subdomínio
+de core para generic descarta investimento já feito e paga uma migração antes de
+liberar qualquer capacidade.
 
 ## Por Que Isso Importa
 
@@ -117,7 +118,9 @@ visível.
 
 **Classificar tudo como core.** Se tudo é prioritário, nada é.
 
-**Confundir subdomínio com bounded context.** Problema versus solução.
+**Confundir subdomínio com bounded context.** A classificação passa a seguir a
+fronteira do software: um contexto legado que cobre três subdomínios recebe
+tratamento único, e o core que mora dentro dele é financiado como o resto.
 
 **Classificar pelo que é interessante tecnicamente.** O subdomínio mais desafiador
 tecnicamente frequentemente não é o que diferencia a empresa.
@@ -140,13 +143,17 @@ contrato era a **manutenção preditiva**: prever falha de componente antes que 
 parasse o veículo. Nenhum concorrente fazia isso bem.
 
 Roteirização, apesar de ser o problema mais difícil, era comparável à dos
-concorrentes e havia bibliotecas maduras que resolviam 90% dos casos.
+concorrentes: bibliotecas maduras resolviam 90% dos casos, e os 10% restantes eram
+restrições próprias da frota — específicas, mas sem diferenciar. Daí supporting, e
+não generic.
 
 A reclassificação: manutenção preditiva virou o único core; roteirização virou
 supporting, com adoção de biblioteca; emissão fiscal e autenticação, generic,
 comprados.
 
-Os três engenheiros de roteirização foram para manutenção preditiva.
+Os três engenheiros de roteirização foram para manutenção preditiva. A mudança não
+saiu de graça: dois anos de roteirização própria viraram uma camada fina sobre a
+biblioteca, e os três levaram meses para render num domínio que não conheciam.
 
 O que interessa aqui não é a decisão específica. É que a classificação feita pela
 engenharia e a feita com o negócio divergiram completamente — e a segunda é a que
@@ -204,5 +211,6 @@ O desalinhamento entre as duas listas é o achado.
 ## Para Aprofundar
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Brandolini, Alberto. *EventStorming*, 2013.
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — em progresso desde
+  então; a técnica apareceu antes no artigo homônimo de 2013.
 - Vernon, Vaughn. *Domain-Driven Design Distilled*. Addison-Wesley, 2016.

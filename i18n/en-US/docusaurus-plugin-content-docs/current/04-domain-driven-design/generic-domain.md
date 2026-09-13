@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, supporting-domain, anti-corruption-layer]
 canonical_for: [generic domain]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -57,6 +57,7 @@ The honest comparison includes what does not appear in the initial estimate:
 | | Build | Buy |
 |---|---|---|
 | Initial development | High | Integration |
+| Recurring cost | Infrastructure and staff | Licence or cost per transaction |
 | Maintenance per year | Continuous | Included |
 | Security fixes | Your responsibility | The vendor's |
 | Regulatory compliance | Yours | Frequently the vendor's |
@@ -124,7 +125,8 @@ expensive and the dependency argument becomes true.
 **Building out of technical preference.** Building is enjoyable; that is not a
 justification.
 
-**Not reassessing old implementations.**
+**Not reassessing old implementations.** What was supporting when it was built has turned
+generic, and engineering capacity stays locked in it.
 
 ## Real-World Example
 
@@ -152,9 +154,6 @@ absence of review.
 
 ## The review cycle
 
-The decision to build a generic domain is almost never wrong at the moment it is taken. What
-fails is the absence of review.
-
 A simple cycle that works, reviewed once a year:
 
 **List what was built in-house and does not differentiate the company.** The list tends to
@@ -180,10 +179,11 @@ old.
 ## Related Concepts
 
 - [Subdomain](/04-domain-driven-design/subdomain.md) — the classification.
-- [Core Domain](/04-domain-driven-design/core-domain.md) — where to always build.
+- [Core Domain](/04-domain-driven-design/core-domain.md) — where the default inverts,
+  because buying costs you the differentiation when the vendor sells the same to competitors.
 - [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — how to
   isolate what you adopt.
-- [Build vs. Buy](/20-trade-offs/index.md) — the trade-off in detail.
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — total cost of ownership in detail.
 
 ## Practical Exercise
 

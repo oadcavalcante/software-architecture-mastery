@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [bounded-context, domain, entity]
 canonical_for: [ubiquitous language, linguagem ubíqua]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -249,5 +249,6 @@ cada ponto desses é candidato a uma distinção que o modelo não faz.
 ## Para Aprofundar
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Brandolini, Alberto. *EventStorming*, 2013.
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — em progresso desde
+  então; a técnica apareceu antes no artigo homônimo de 2013.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.

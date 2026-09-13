@@ -13,7 +13,7 @@ objective: >
 prerequisites: [layering]
 related: [package-design, component-design, boundaries]
 canonical_for: [modular design, capability module]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -42,8 +42,9 @@ system runs into three questions the concept does not answer.
 **What may a module expose?** If it exposes its entities, the coupling is the same
 as before with more ceremony.
 
-**How do two modules cooperate without coupling?** Every real feature crosses
-capabilities: an order involves catalogue, stock, payment and delivery.
+**How do two modules cooperate without coupling?** An end-to-end flow crosses
+capabilities even when the typical change fits inside one: an order involves
+catalogue, stock, payment and delivery.
 
 Without concrete answers, the division becomes renaming directories.
 
@@ -119,16 +120,19 @@ in the others, it is not modular.
 - In any system beyond a few tens of thousands of lines.
 - When more than one team works on the same codebase.
 - When parts evolve at different rates.
-- Before considering microservices — the modular monolith is the step that tells
-  you where the boundaries actually are.
+- Before considering microservices — the
+  [modular monolith](/03-design-patterns/modular-monolith.md) is the step that
+  tells you where the boundaries actually are.
 
 ## When Not to Use
 
 **In small systems.** Below a few thousand lines, the module structure costs more
 in navigation than it saves in containment.
 
-**When the domain is not yet understood.** A wrong boundary is worse than a
-missing one. Start flat and extract modules as the axes appear in the history.
+**When the domain is not yet understood.** The comparison between a wrong
+boundary and a missing one is in [Modularity](/01-fundamentals/modularity.md);
+here it settles the sequence: start flat and extract modules as the axes appear in
+the history.
 
 **When the proposed division does not match a real capability.** Modules by entity
 or by technical layer add ceremony without containing change.
@@ -148,13 +152,14 @@ its entities has the cost of the division and none of the benefit.
 
 ## Trade-offs
 
+The general axis — change contained against indirection, contracts to maintain
+against none — is in [Modularity](/01-fundamentals/modularity.md). What division
+by capability adds on top of it:
+
 | Modules by capability | No modules |
 |---|---|
-| Change contained | Change spreads |
-| Teams in parallel | Constant conflict |
 | Extraction into a service viable | Extraction unviable |
 | Internal structure duplicated per module | A single structure |
-| Internal contracts to maintain | No contracts |
 | Cooperation between modules requires design | Direct call to anything |
 
 ## Failure Modes
@@ -180,8 +185,9 @@ imports the entity directly.
 
 **Creating modules before knowing the domain.** See "when not to use".
 
-**Thinking modules require microservices.** A modular monolith delivers most of the
-benefit for a fraction of the operational cost.
+**Thinking modules require microservices.** A module boundary is enforced inside a
+single process; what separation by process adds — and what it charges — is in
+[modular monolith](/03-design-patterns/modular-monolith.md).
 
 ## Real-World Example
 
@@ -189,7 +195,10 @@ A logistics system was divided into `Driver`, `Vehicle`, `Route` and `Delivery` 
 by entity.
 
 The feature "reassign a delivery when the driver becomes unavailable" touched all
-four modules, and that was the most frequent operation in the business.
+four modules. It was the most frequent operation in the business — some 400 a day
+across a fleet of 300 vehicles — and the only one with a stated latency
+constraint: the dispatcher waits for the confirmation on screen, on a one-second
+budget.
 
 The redivision by capability produced: `planning` (who does what and when),
 `execution` (what is happening now), `registry` (driver and vehicle data) and
@@ -200,8 +209,10 @@ projection of driver availability — a local copy, updated by an event from
 `registry`.
 
 The local copy bothered the team at first: it was duplicated data. What it bought
-was that `planning` stopped depending on `registry` in the critical path, and the
-system's most frequent operation became local.
+was that `planning` stopped depending on `registry` in the critical path: the
+reassignment went from three cross-module calls to none. The projection's lag, in
+the order of seconds, is tolerable because driver availability changes by shift,
+not by the minute.
 
 ## How to introduce modules into an existing system
 

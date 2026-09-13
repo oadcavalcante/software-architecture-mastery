@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bounded-context, context-mapping]
 related: [tactical-ddd, subdomain, enterprise-architecture]
 canonical_for: [DDD estratégico, strategic design]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -91,6 +91,10 @@ Identificar onde o vocabulário muda de significado é trabalho de conversas, n�
 de código. Saber qual subdomínio diferencia a empresa muda a alocação de pessoas.
 Nenhum dos dois exige adotar padrão nenhum.
 
+O custo que ele tem não é de engenharia: é a agenda dos especialistas de domínio e a
+disposição de mexer em fronteiras que já têm dono. Onde os dois faltam, a análise sai
+barata e produz ficção — fronteiras plausíveis que ninguém vai aplicar.
+
 Um time pode aplicar DDD estratégico integralmente e escrever código sem um único
 agregado — e frequentemente isso é a decisão certa.
 
@@ -129,7 +133,9 @@ organização é pista, não resposta — e às vezes a organização é que est
 
 **Fazer uma vez e nunca revisar.** O negócio muda, e as fronteiras envelhecem.
 
-**Confundir subdomínio com bounded context.** Problema versus solução.
+**Confundir subdomínio com bounded context.** Problema versus solução — tratá-los como
+sinônimo leva a desenhar um contexto por subdomínio, e perde a decisão de fronteira
+justamente onde os dois não coincidem.
 
 ## Exemplo Real
 
@@ -197,4 +203,5 @@ resultado.
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — a parte IV.
 - Vernon, Vaughn. *Domain-Driven Design Distilled*. Addison-Wesley, 2016.
-- Brandolini, Alberto. *EventStorming*, 2013.
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — em progresso desde
+  então; a técnica apareceu antes no artigo homônimo de 2013.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, generic-domain, tactical-ddd]
 canonical_for: [supporting domain]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,8 +29,9 @@ resist the temptation to do it too well.
 
 ## The Problem
 
-Supporting domains are most of the system in most companies, and the place where the most
-effort is wasted.
+Supporting domains are most of the system in most companies, and that is why, measured in
+hours, they are where the most effort is lost — not because a mistake there costs more than
+a mistake in the core.
 
 The mechanism is predictable. A competent engineer works in a supporting subdomain. They see
 legitimate opportunities for improvement: abstract here, generalize there, make that
@@ -93,7 +94,9 @@ domain is a month available where it matters.
 
 ## Common Mistakes
 
-**Applying tactical DDD.** The most common mistake and the most expensive in volume.
+**Applying tactical DDD.** The most common mistake and the most expensive in volume:
+aggregates and repositories multiply the code of a subdomain nobody will evolve, and every
+trivial adjustment starts to require a round of modeling.
 
 **Allocating the best engineers.**
 
@@ -116,9 +119,9 @@ customer chose the fintech because of its document management.
 
 Supporting, therefore.
 
-What the team had built in two years: a configurable workflow engine, with retention rules
-declared in a bespoke language, document versioning, and an admin interface for creating new
-document types.
+What the team had built: a configurable workflow engine, with retention rules declared in
+a bespoke language, document versioning, and an admin interface for creating new document
+types.
 
 Four engineers, eighteen months.
 

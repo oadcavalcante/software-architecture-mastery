@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-driven-design]
 related: [subdomain, ubiquitous-language, bounded-context]
 canonical_for: [domain, domain model]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,23 +29,20 @@ that came from decades of practice and constraints nobody programmed.
 
 ## The Problem
 
-Software with a complex domain fails for a specific, recurring reason: **translation**.
+> Prerequisite: [Domain-Driven Design](/04-domain-driven-design/index.md) establishes the
+> translation chain — expert, analyst, developer — and why nuance is lost at each
+> conversion. Here the focus is what remains when nobody made a mistake at any step.
 
-The expert describes a rule. The analyst converts it into a requirement. The developer
-converts it into code. At each conversion, nuance is lost — and nobody notices, because
-each step looks faithful to the previous one.
-
-Months later, the system's behaviour diverges from everyone's understanding. A typical
-conversation:
+The loss is invisible from the inside: each step looks faithful to the previous one, and
+the divergence only surfaces months later, when the system's behaviour no longer matches
+anyone's understanding. A typical conversation:
 
 > — The system is calculating the waiting period wrong.
 > — It is not, it does exactly what was specified.
 > — But that is not what a waiting period means.
 
-Nobody made a mistake at any step. The meaning degraded along the chain.
-
-DDD attacks that by eliminating the conversions: the code uses the domain's terms, with the
-exact meaning they have in the domain.
+Nobody made a mistake at any step. The meaning degraded along the chain — which is why DDD
+eliminates the conversions instead of trying to make them more faithful.
 
 ## Core Concepts
 
@@ -118,7 +115,9 @@ serves every problem badly. See
 **Treating the expert as a source of requirements.** They are a source of knowledge; the
 difference shows in the depth of the conversations.
 
-**Applying DDD to technical complexity.** The method addresses domain complexity.
+**Applying DDD to technical complexity.** Adopting aggregates, repositories and domain
+events in a system whose difficulty is throughput or latency adds layers of indirection
+over trivial rules, and the real bottleneck stays where it was.
 
 **Modelling once and stopping.** Understanding of the domain improves as the system is
 used; the model has to keep up.

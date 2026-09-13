@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [dependency-inversion, interfaces, encapsulation]
 canonical_for: [SOLID, princípio da responsabilidade única, princípio aberto-fechado, substituição de Liskov, segregação de interface]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -92,7 +92,8 @@ que a violação pode ser invisível no compilador e óbvia no comportamento.
 
 > Nenhum cliente deve ser forçado a depender de métodos que não usa.
 
-Interfaces largas acoplam implementadores a comportamento irrelevante.
+Interfaces largas acoplam o cliente a métodos que ele não chama e, do outro
+lado, obrigam o implementador a preencher o que não faz sentido na sua classe.
 
 **Sintoma:** implementações com métodos que lançam `UnsupportedOperation`.
 
@@ -121,7 +122,8 @@ antes do princípio. Se o sintoma não está lá, o princípio não se aplica.
 
 ## Quando Não Usar
 
-**Preventivamente, sem sintoma.** É o erro dominante. Aplicar o O sem saber qual
+**Preventivamente, sem sintoma.** É o mais caro de desfazer: a abstração errada
+precisa ser desmontada antes que a variação real caiba. Aplicar o O sem saber qual
 eixo varia produz a abstração errada; aplicar o D onde há uma implementação
 produz um arquivo a mais.
 
@@ -146,7 +148,9 @@ mesma forma.
   intenção, sem duplicação, mínimo de elementos. Mais enxutas e menos sujeitas a
   aplicação mecânica.
 - **Heurísticas de acoplamento e coesão** — mais fundamentais; SOLID pode ser
-  lido como cinco corolários delas.
+  lido como cinco corolários delas. Vencem quando nenhum dos cinco sintomas
+  descreve o problema, ou fora de orientação a objetos, onde os corolários não
+  traduzem.
 - **Design orientado a dados** — em contextos de desempenho, os princípios de
   OO frequentemente são o problema.
 
@@ -200,9 +204,10 @@ produziu foi diferente: buscar dados e aplicar regra fiscal mudavam sempre junto
 pedidos pelo mesmo time e pela mesma razão regulatória. Formatação mudava por
 pedido de design. Envio, por mudança de provedor.
 
-Três classes, não quatro. E a mais valiosa foi a de formatação, que passou a ser
-alterável sem risco de tocar cálculo fiscal — o que importava porque quem alterava
-formatação não conhecia a regra fiscal.
+Três classes, não quatro. O ganho da análise por ator não foi separar formatação
+de cálculo fiscal — a divisão mecânica também separaria —, e sim **não** separar
+busca de dados de regra fiscal: uma mudança regulatória continua cabendo numa
+classe, em vez de exigir duas alterações em sincronia.
 
 O contraste: no mesmo sistema, uma tentativa anterior tinha aplicado O criando
 uma hierarquia de `EstrategiaDeCalculo` para "suportar novos tipos de relatório".

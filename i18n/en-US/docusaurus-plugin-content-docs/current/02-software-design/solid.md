@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [dependency-inversion, interfaces, encapsulation]
 canonical_for: [SOLID, single responsibility principle, open-closed principle, Liskov substitution, interface segregation]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -95,7 +95,8 @@ behaviour.
 
 > No client should be forced to depend on methods it does not use.
 
-Wide interfaces couple implementers to irrelevant behaviour.
+Wide interfaces couple the client to methods it never calls and, on the other
+side, force the implementer to fill in what makes no sense in its class.
 
 **Symptom:** implementations with methods that throw `UnsupportedOperation`.
 
@@ -125,9 +126,10 @@ before the principle. If the symptom is not there, the principle does not apply.
 
 ## When Not to Use
 
-**Preventively, with no symptom.** The dominant mistake. Applying the O without
-knowing which axis varies produces the wrong abstraction; applying the D where
-there is one implementation produces one more file.
+**Preventively, with no symptom.** It is the costliest to undo: the wrong
+abstraction has to be dismantled before the real variation fits. Applying the O
+without knowing which axis varies produces the wrong abstraction; applying the D
+where there is one implementation produces one more file.
 
 **In throwaway or stable code.** Prototypes, scripts, and modules that have not
 changed in two years. The principle is an investment in future change.
@@ -149,7 +151,8 @@ in the same form.
 - **The four rules of simple design** (Beck) — passes the tests, reveals intent, no
   duplication, fewest elements. Leaner and less prone to mechanical application.
 - **Coupling and cohesion heuristics** — more fundamental; SOLID can be read as
-  five corollaries of them.
+  five corollaries of them. They win when none of the five symptoms describes the
+  problem, or outside object orientation, where the corollaries do not translate.
 - **Data-oriented design** — in performance contexts, the OO principles are
   frequently the problem.
 
@@ -203,9 +206,10 @@ produced was different: fetching data and applying tax rules always changed
 together, requested by the same team and for the same regulatory reason. Formatting
 changed at the request of design. Sending, on a change of provider.
 
-Three classes, not four. And the most valuable was the formatting one, which became
-changeable without risk of touching the tax calculation — which mattered because
-whoever changed formatting did not know the tax rules.
+Three classes, not four. The gain of the actor analysis was not separating
+formatting from tax calculation — the mechanical split would separate those too —
+it was **not** separating data fetching from the tax rule: a regulatory change
+still fits in one class, instead of requiring two changes in lockstep.
 
 The contrast: in the same system, an earlier attempt had applied O by creating a
 `CalculationStrategy` hierarchy to "support new report types". In three years, no

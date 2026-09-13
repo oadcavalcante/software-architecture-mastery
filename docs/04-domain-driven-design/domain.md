@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-driven-design]
 related: [subdomain, ubiquitous-language, bounded-context]
 canonical_for: [domínio, domain, modelo de domínio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -31,24 +31,21 @@ ninguém programou.
 
 ## O Problema
 
-Software de domínio complexo falha por uma razão específica e recorrente: a
-**tradução**.
+> Pré-requisito: [Domain-Driven Design](/04-domain-driven-design/index.md)
+> estabelece a cadeia de tradução — especialista, analista, desenvolvedor — e por
+> que nuance se perde a cada conversão. Aqui o foco é o que resta quando ninguém
+> errou em etapa alguma.
 
-O especialista descreve uma regra. O analista converte em requisito. O
-desenvolvedor converte em código. A cada conversão, nuance se perde — e ninguém
-percebe, porque cada etapa parece fiel à anterior.
-
-Meses depois, o comportamento do sistema diverge do entendimento de todos. Uma
-conversa típica:
+A perda é invisível de dentro: cada etapa parece fiel à anterior, e a divergência
+só aparece meses depois, quando o comportamento do sistema já não corresponde ao
+entendimento de ninguém. Uma conversa típica:
 
 > — O sistema está calculando errado a carência.
 > — Não está, ele faz exatamente o que foi especificado.
 > — Mas não é isso que carência significa.
 
-Ninguém errou em nenhuma etapa. O significado se degradou ao longo da cadeia.
-
-DDD ataca isso eliminando as conversões: o código usa os termos do domínio, com o
-significado exato que eles têm no domínio.
+Ninguém errou em nenhuma etapa. O significado se degradou ao longo da cadeia — e é
+por isso que DDD elimina as conversões em vez de tentar torná-las mais fiéis.
 
 ## Conceitos Centrais
 
@@ -124,7 +121,9 @@ domínio serve mal a todos os problemas. Ver
 **Tratar o especialista como fonte de requisitos.** Ele é fonte de conhecimento;
 a diferença aparece na profundidade das conversas.
 
-**Aplicar DDD a complexidade técnica.** O método endereça complexidade de domínio.
+**Aplicar DDD a complexidade técnica.** Adotar agregados, repositórios e eventos
+de domínio num sistema cuja dificuldade é vazão ou latência acrescenta camadas de
+indireção sobre regras triviais, e o gargalo real continua onde estava.
 
 **Modelar uma vez e parar.** O entendimento do domínio melhora com o uso do
 sistema; o modelo precisa acompanhar.

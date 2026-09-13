@@ -13,7 +13,7 @@ objective: >
 prerequisites: [software-design]
 related: [fundamentals, domain-driven-design]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -46,17 +46,19 @@ gramática com uma classe por regra é raro fora de compilador, e onde aparece a
 resposta usual é um analisador de verdade. Cada um tratado a partir do problema que o
 originou, não a partir da sua estrutura de classes.
 
-**Padrões arquiteturais.** Layered, Monolito Modular, Microsserviços,
-Event-Driven, Hexagonal, Clean Architecture, CQRS, Event Sourcing, Pipes and
-Filters, Space-Based Architecture e SOA. Estes operam num nível diferente:
-decidem como o sistema é implantado e operado, não apenas como o código é
-organizado.
+**Padrões arquiteturais.** Monolito Modular, Microsserviços, Event-Driven, CQRS,
+Event Sourcing, Pipes and Filters, Space-Based Architecture e SOA. Estes operam num
+nível diferente: decidem como o sistema é implantado e operado, não apenas como o
+código é organizado. Layered, Hexagonal e Clean Architecture também são padrões
+arquiteturais, mas o documento canônico de cada um fica no Nível 02, junto com Ports
+and Adapters e Onion — a seção seguinte traz os links.
 
-## Três padrões que moram no Nível 02
+## Cinco padrões que moram no Nível 02
 
-Layered, Hexagonal e Clean Architecture são padrões arquiteturais e são tratados
-em [Design de Software](/02-software-design/index.md), porque ali eles surgem
-como consequência das decisões de fronteira e direção de dependência.
+Layered, Ports and Adapters, Hexagonal, Onion e Clean Architecture são padrões
+arquiteturais e são tratados em [Design de Software](/02-software-design/index.md),
+porque ali eles surgem como consequência das decisões de fronteira e direção de
+dependência.
 
 Um conceito tem um único documento canônico neste material; onde reaparece, é
 referenciado. Os links diretos:

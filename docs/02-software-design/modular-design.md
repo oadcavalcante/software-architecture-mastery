@@ -13,7 +13,7 @@ objective: >
 prerequisites: [layering]
 related: [package-design, component-design, boundaries]
 canonical_for: [design modular, módulo de capacidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -42,8 +42,9 @@ esbarra em três perguntas que o conceito não responde.
 **O que um módulo pode expor?** Se ele expõe suas entidades, o acoplamento é o
 mesmo de antes com mais cerimônia.
 
-**Como dois módulos cooperam sem se acoplar?** Toda funcionalidade real atravessa
-capacidades: um pedido envolve catálogo, estoque, pagamento e entrega.
+**Como dois módulos cooperam sem se acoplar?** Um fluxo de ponta a ponta atravessa
+capacidades mesmo quando a mudança típica cabe em uma só: um pedido envolve
+catálogo, estoque, pagamento e entrega.
 
 Sem respostas concretas, a divisão vira renomeação de diretórios.
 
@@ -117,17 +118,19 @@ outros, ele não está modular.
 - Em qualquer sistema que passe de algumas dezenas de milhares de linhas.
 - Quando mais de um time trabalha na mesma base.
 - Quando partes evoluem em ritmos diferentes.
-- Antes de considerar microsserviços — o monolito modular é o passo que informa
-  onde as fronteiras de fato estão.
+- Antes de considerar microsserviços — o
+  [monolito modular](/03-design-patterns/modular-monolith.md) é o passo que
+  informa onde as fronteiras de fato estão.
 
 ## Quando Não Usar
 
 **Em sistemas pequenos.** Abaixo de alguns milhares de linhas, a estrutura de
 módulos custa mais navegação do que economiza em contenção.
 
-**Quando o domínio ainda não está entendido.** Fronteira errada é pior que
-fronteira ausente. Comece plano e extraia módulos conforme os eixos aparecem no
-histórico.
+**Quando o domínio ainda não está entendido.** A comparação entre fronteira errada
+e fronteira ausente está em [Modularidade](/01-fundamentals/modularity.md); aqui
+ela decide a sequência: comece plano e extraia módulos conforme os eixos aparecem
+no histórico.
 
 **Quando a divisão proposta não corresponde a capacidade real.** Módulos por
 entidade ou por camada técnica adicionam cerimônia sem conter mudança.
@@ -146,13 +149,14 @@ entidades tem o custo da divisão e nenhum benefício.
 
 ## Trade-offs
 
+O eixo geral — mudança contida contra indireção, contratos a manter contra
+nenhum — está em [Modularidade](/01-fundamentals/modularity.md). O que a divisão
+por capacidade acrescenta sobre ele:
+
 | Módulos por capacidade | Sem módulos |
 |---|---|
-| Mudança contida | Mudança se espalha |
-| Times em paralelo | Conflito constante |
 | Extração para serviço viável | Extração inviável |
 | Estrutura interna duplicada por módulo | Uma estrutura só |
-| Contratos internos a manter | Sem contratos |
 | Cooperação entre módulos exige projeto | Chamada direta a qualquer coisa |
 
 ## Modos de Falha
@@ -178,8 +182,10 @@ direto.
 
 **Criar módulos antes de conhecer o domínio.** Ver "quando não usar".
 
-**Achar que módulos exigem microsserviços.** Monolito modular entrega a maior
-parte do benefício por uma fração do custo operacional.
+**Achar que módulos exigem microsserviços.** A fronteira de módulo é imposta
+dentro de um processo; o que a separação por processo acrescenta — e o que ela
+cobra — está em
+[monolito modular](/03-design-patterns/modular-monolith.md).
 
 ## Exemplo Real
 
@@ -187,7 +193,9 @@ Um sistema de logística foi dividido em `Motorista`, `Veiculo`, `Rota` e
 `Entrega` — por entidade.
 
 A funcionalidade "reatribuir entrega quando o motorista fica indisponível" tocava
-os quatro módulos, e essa era a operação mais frequente do negócio.
+os quatro módulos. Era a operação mais frequente do negócio — cerca de 400 por dia
+numa frota de 300 veículos — e a única com restrição de latência declarada: o
+despachante espera a confirmação na tela, com orçamento de um segundo.
 
 A redivisão por capacidade produziu: `planejamento` (quem faz o quê e quando),
 `execucao` (o que está acontecendo agora), `cadastro` (dados de motoristas e
@@ -199,7 +207,9 @@ de `cadastro`.
 
 A cópia local incomodou o time no início: era duplicação de dados. O que ela
 comprou foi que `planejamento` deixou de depender de `cadastro` no caminho
-crítico, e a operação mais frequente do sistema virou local.
+crítico: a reatribuição passou de três chamadas entre módulos a nenhuma. O atraso
+da projeção, na casa de segundos, é tolerável porque disponibilidade de motorista
+muda por turno, não por minuto.
 
 ## Como introduzir módulos num sistema existente
 
