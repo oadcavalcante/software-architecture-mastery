@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-alternatives, superseding-decisions, adr-status]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -90,9 +90,10 @@ requisito contratual de 99,5% não é atingível assim.
 manter, com equipe sem experiência e prazo apertado. O volume atual não justifica —
 25 pedidos/s cabem folgadamente numa tabela.
 
-*Voltaria a ganhar se:* o volume passar de ~200 mensagens/s de forma sustentada, ou se
-surgirem mais de três consumidores independentes dos mesmos eventos, ou se precisarmos de
-retenção e reprocessamento de histórico.
+*Voltaria a ganhar se:* o volume passar de ~200 mensagens/s de forma sustentada — uma tarefa
+de confirmação por pedido, portanto ~200 pedidos/s —, ou se surgirem mais de três
+consumidores independentes dos mesmos eventos, ou se precisarmos de retenção e
+reprocessamento de histórico.
 
 **Serviço gerenciado de filas do provedor.** Descartada por um motivo específico: não
 oferece gravação transacional junto com o pedido, o que exigiria caixa de saída de qualquer
@@ -135,7 +136,8 @@ Em julho de 2025, as quatro condições do sinal de alerta tinham sido atingidas
 
 Este documento permanece como registro correto da decisão de 2023: para o contexto de
 25 pedidos/s, equipe sem experiência em mensageria e prazo contratual vigente, a fila em
-banco foi a escolha adequada. Ela sustentou o sistema por 26 meses.
+banco foi a escolha adequada. A decisão vigorou por 26 meses e sustentou a produção desde a
+entrada no ar, em julho de 2024, até a substituição — doze meses.
 
 ## O que observar neste exemplo
 

@@ -1,7 +1,7 @@
 ---
 id: current-state-architecture
 title: Current State Architecture
-sidebar_position: 17
+sidebar_position: 16
 description: What actually exists — and why the diagram from two years ago doesn't count.
 doc_type: concept
 level: 6

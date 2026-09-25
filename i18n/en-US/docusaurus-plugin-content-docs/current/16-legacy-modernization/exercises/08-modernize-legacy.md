@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [strangler-fig, incremental-modernization, modernization-risk, organizational-constraints]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -156,6 +156,11 @@ of the 14 estimated inside, and it depends on neither of the two people.
 Whoever puts the traceability inside the legacy system consumes 14 of the 30 months, occupies the two
 people who are the scarcest resource, and arrives at month 14 having modernized nothing.
 
+**The third requirement closes by accumulation.** Every phase produces code outside Delphi — the
+facade, the traceability, the extracted capabilities — and that code is maintained by the new
+engineers. By the end of phase 2 there are already more than two people able to maintain a part of
+the system; by the end of phase 3, the part that changes most.
+
 **The rules come out by comparison.** The new system is implemented with the best available
 understanding, runs in parallel over real transactions, and each divergence is a rule discovered.
 Reading the code doesn't work: in nineteen years, the harvest calculation logic has cases nobody
@@ -174,9 +179,10 @@ project without doing anything, simply by not collaborating, and they would be r
 of the code hasn't run in years. Discovering that reduces the real scope before a single line is
 written, and it is the project's highest-return survey.
 
-**The harvest peaks** define the calendar: eight months of the year are usable, four are not. A
-30-month plan has, in practice, a 20-month window — and that has to be in the schedule from the start,
-not discovered at the first peak.
+**The harvest peaks** define the calendar: eight months of the year are usable, four are not. The
+phase durations above are calendar months and already absorb the stoppages; a 30-month plan has, in
+practice, 20 months of work — and that has to be in the schedule from the start, not discovered at
+the first peak.
 
 :::
 

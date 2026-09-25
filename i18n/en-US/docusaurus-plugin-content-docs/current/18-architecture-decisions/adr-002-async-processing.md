@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-alternatives, superseding-decisions, adr-status]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -89,9 +89,9 @@ all. The contractual requirement of 99.5% is not reachable that way.
 with a team that has no experience and a tight deadline. The current volume doesn't justify
 it — 25 orders/s fit comfortably in a table.
 
-*Would win again if:* the volume exceeds ~200 messages/s in a sustained way, or if more than
-three independent consumers of the same events appear, or if we need retention and
-reprocessing of history.
+*Would win again if:* the volume exceeds ~200 messages/s in a sustained way — one confirmation
+task per order, hence ~200 orders/s — or if more than three independent consumers of the
+same events appear, or if we need retention and reprocessing of history.
 
 **The provider's managed queue service.** Discarded for a specific reason: it doesn't offer
 a transactional write together with the order, which would require an outbox anyway — and,
@@ -135,7 +135,8 @@ one.
 
 This document remains the correct record of the 2023 decision: for a context of 25 orders/s,
 a team with no messaging experience and a contractual deadline in force, the queue in the
-database was the appropriate choice. It sustained the system for 26 months.
+database was the appropriate choice. The decision stood for 26 months and carried production
+from go-live, in July 2024, until it was replaced — twelve months.
 
 ## What to notice in this example
 

@@ -1,7 +1,7 @@
 ---
 id: target-architecture
 title: Target Architecture
-sidebar_position: 16
+sidebar_position: 17
 description: Where you want to get to — and why a three-year target rarely survives its second.
 doc_type: concept
 level: 6

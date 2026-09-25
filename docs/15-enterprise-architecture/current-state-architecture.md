@@ -1,7 +1,7 @@
 ---
 id: current-state-architecture
 title: Arquitetura do Estado Atual
-sidebar_position: 17
+sidebar_position: 16
 description: O que existe de fato — e por que o diagrama de dois anos atrás não conta.
 doc_type: concept
 level: 6

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [strangler-fig, incremental-modernization, modernization-risk, organizational-constraints]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -157,6 +157,11 @@ legado — ela precisa dos dados que o legado produz. Construída fora, ela leva
 Quem coloca a rastreabilidade dentro do legado consome 14 dos 30 meses, ocupa as duas pessoas
 que são o recurso mais escasso, e chega ao mês 14 sem ter modernizado nada.
 
+**O terceiro requisito fecha por acúmulo.** Cada fase produz código fora do Delphi — a fachada, a
+rastreabilidade, as capacidades extraídas — e esse código é mantido pelos engenheiros novos. Ao fim
+da fase 2 já há mais de duas pessoas capazes de manter uma parte do sistema; ao fim da fase 3, a
+parte que mais muda.
+
 **As regras saem por comparação.** O sistema novo é implementado com o melhor entendimento
 disponível, roda em paralelo sobre transações reais, e cada divergência é uma regra descoberta.
 Ler o código não funciona: em dezenove anos, a lógica de cálculo de safra tem casos que ninguém
@@ -175,9 +180,10 @@ sem fazer nada, apenas não colaborando, e teriam razão.
 50% do código não é executado há anos. Descobrir isso reduz o escopo real antes de qualquer
 linha ser escrita, e é o levantamento de melhor retorno do projeto.
 
-**Os picos de safra** definem o calendário: oito meses do ano são úteis, quatro não. Um plano de
-30 meses tem, na prática, 20 meses de janela — e isso precisa estar no cronograma desde o
-início, não ser descoberto no primeiro pico.
+**Os picos de safra** definem o calendário: oito meses do ano são úteis, quatro não. As durações
+das fases acima são de calendário e já absorvem as paradas; um plano de 30 meses tem, na prática,
+20 meses de trabalho — e isso precisa estar no cronograma desde o início, não ser descoberto no
+primeiro pico.
 
 :::
 

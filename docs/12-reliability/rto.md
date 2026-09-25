@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [rpo, disaster-recovery-planning, failover]
 canonical_for: [RTO, objetivo de tempo de recuperação, tempo de retomada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -60,7 +60,9 @@ segundos      ativo-ativo                     muito alto
 Ver [recuperação de desastre](/09-cloud-architecture/disaster-recovery.md) e
 [multi-região](/09-cloud-architecture/multi-region.md).
 
-A escolha é mecânica depois que o número existe. É o número que é difícil.
+A escolha é mecânica depois que os dois números existem: o RTO fixa a faixa da tabela
+e o RPO decide dentro dela — cópias diárias não atendem RPO de minutos, por mais
+folgado que o RTO seja. Difícil é chegar aos números.
 
 ### O relógio começa antes do que se imagina
 
@@ -141,7 +143,9 @@ partir da capacidade de processamento acumulado. Ver
 
 **Medido a partir do início da execução**, ignorando detecção e decisão.
 
-**Nunca verificado** por exercício cronometrado.
+**Nunca verificado** por exercício cronometrado — o número declarado continua valendo
+como compromisso, e a distância entre ele e o tempo real só aparece no primeiro
+incidente.
 
 **Definido sem considerar dependências.** O RTO do sistema não pode ser menor que o do
 fornecedor crítico.
@@ -211,6 +215,8 @@ sua exposição real.
 
 ## Para Aprofundar
 
-- ISO 22301 — gestão de continuidade de negócios.
-- NIST SP 800-34 — planejamento de contingência.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
+- ISO. *ISO 22301:2019 — Security and resilience: business continuity management
+  systems — Requirements*. ISO, 2019.
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for
+  Federal Information Systems*. NIST, 2010.

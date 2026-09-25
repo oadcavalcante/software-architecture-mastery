@@ -1,7 +1,7 @@
 ---
 id: target-architecture
 title: Arquitetura Alvo
-sidebar_position: 16
+sidebar_position: 17
 description: Onde se quer chegar — e por que um alvo de três anos raramente sobrevive ao segundo.
 doc_type: concept
 level: 6

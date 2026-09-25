@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-alternatives, adr-consequences]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -58,11 +58,12 @@ plantão                   ainda não existe; será criado durante o projeto
 
 Restrições:
 
-- **Prazo contratual de agosto de 2024**, com multa por extensão do contrato atual.
+- **Prazo contratual de agosto de 2024**: o contrato atual termina nessa data e não há
+  extensão a comprar.
 - **Nenhuma plataforma interna de implantação.** Cada unidade implantável exigiria
   esteira, monitoração e plantão construídos por nós.
-- A equipe não tem experiência operacional com sistemas distribuídos, e o prazo não
-  permite aprendizado sob pressão.
+- A equipe tem um único engenheiro com experiência operacional em sistemas distribuídos, e
+  o prazo não permite aprendizado sob pressão.
 
 O que não sabíamos: se a projeção comercial de 120 pedidos/s se confirmaria, e como o
 domínio se dividiria de fato — nenhum de nós tinha operado esse negócio antes.
@@ -87,8 +88,8 @@ afetadas.
 
 **Microsserviços desde o início.** Descartada porque exigiria construir esteira,
 monitoração, rastreamento e plantão para N serviços antes de entregar qualquer
-funcionalidade — estimado em 4 a 5 meses dos 18 disponíveis, com uma equipe sem experiência
-operacional distribuída.
+funcionalidade — estimado em 4 a 5 meses dos 18 disponíveis, com uma equipe de um só
+engenheiro com experiência operacional distribuída.
 
 *Voltaria a ganhar se:* o prazo fosse maior que 30 meses, ou a equipe já tivesse plataforma
 interna e experiência operacional.
@@ -151,7 +152,8 @@ pico: 41 pedidos/s — bem abaixo da projeção comercial de 120.
 
 Das quatro condições do sinal de alerta, nenhuma foi atingida. A equipe está com 17
 engenheiros; a verificação de fronteiras tem 2 exceções, ambas com prazo; o tempo de
-implantação é de 11 minutos.
+implantação é de 11 minutos; e o catálogo, módulo mais pesado, pede 1,4× a capacidade dos
+demais.
 
 A erosão de fronteiras, apontada como risco principal, não se materializou — atribuímos à
 verificação automática, que rejeitou 34 tentativas de acesso cruzado ao longo do período.

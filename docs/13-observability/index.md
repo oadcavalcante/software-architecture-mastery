@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [reliability, scalability, devops-and-platform]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -70,8 +70,8 @@ do que serve ao acompanhamento.
 
 ## Ordem de leitura
 
-Comece por **identificadores de correlação**. Sem eles, os demais sinais não se
-conectam, e a investigação em sistema distribuído fica inviável.
+Comece por **identificadores de correlação**. Sem eles, registros e traces de uma mesma
+requisição não se juntam, e a investigação em sistema distribuído fica inviável.
 
 Depois **sinais dourados**, que dão um ponto de partida concreto para instrumentar.
 

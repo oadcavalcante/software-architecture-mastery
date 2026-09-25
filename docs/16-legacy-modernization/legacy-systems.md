@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-drivers, legacy-refactoring, organizational-constraints]
 canonical_for: [sistema legado, conhecimento perdido, código sem testes, valor preso]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -90,19 +90,11 @@ aqui por quê?** Frequentemente a resposta é um incidente de sete anos atrás.
 
 ### Testes de caracterização capturam o comportamento atual
 
-A técnica que reduz o medo antes de qualquer mudança:
-
-```text
-teste convencional      verifica o comportamento desejado
-teste de caracterização captura o comportamento atual, seja ele qual for
-```
-
-Ele não julga se o comportamento está certo. Ele congela o que existe, de forma que
-qualquer alteração acidental apareça.
-
-Isso permite refatorar com segurança sem entender completamente o sistema — que é a
-situação real. Ver
-[refatoração de legado](/16-legacy-modernization/legacy-refactoring.md).
+A técnica que reduz o medo antes de qualquer mudança é o teste de caracterização,
+definido em
+[refatoração de legado](/16-legacy-modernization/legacy-refactoring.md). Aqui interessa só
+o efeito sobre o medo: ele congela o comportamento que existe, e com isso permite mexer no
+código sem entendê-lo completamente — que é a situação real.
 
 E os testes escritos assim documentam: eles são a descrição executável do que o sistema
 faz, produzida a partir dele.
@@ -132,7 +124,9 @@ sistema estável, que ninguém precisa mudar   → não é problema
 sistema que precisa mudar e resiste          → é o problema
 ```
 
-Um sistema legado que atende bem e não muda pode continuar assim indefinidamente. O que
+Um sistema legado que atende bem e não muda pode continuar assim enquanto suas
+dependências tiverem suporte: fim de suporte e correção de vulnerabilidade são mudanças
+que chegam pelo relógio de terceiros, não pela demanda do negócio. O que
 ele precisa é de contenção — isolamento para que ele não limite o que está em volta — e
 de plano para o risco de pessoas.
 
@@ -217,7 +211,7 @@ Cada causa tem um tratamento diferente, e a maioria é mais barata que substitui
 
 - Qual a definição útil de sistema legado?
 - Por que o conhecimento embutido é o ativo mais subestimado?
-- O que um teste de caracterização faz que um teste convencional não faz?
+- Quando um sistema legado não é um problema a tratar — e o que tira dele essa condição?
 
 ## Para Aprofundar
 

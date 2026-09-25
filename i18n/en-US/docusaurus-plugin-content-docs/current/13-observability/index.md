@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [reliability, scalability, devops-and-platform]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -65,8 +65,8 @@ one that serves tracking.
 
 ## Reading order
 
-Start with **correlation identifiers**. Without them, the other signals do not connect, and investigation
-in a distributed system becomes unviable.
+Start with **correlation identifiers**. Without them, logs and traces from the same request do not come
+together, and investigation in a distributed system becomes unviable.
 
 Then **golden signals**, which give a concrete starting point for instrumenting.
 

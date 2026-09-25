@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, adr-consequences]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -86,8 +86,10 @@ requisito, e não há incidente atribuído ao modelo. O custo é concreto e imed
 armazenamento a operar, com equipe sem experiência.
 
 *Voltaria a ganhar se:* o p99 da busca por filtro passar de 300 ms e a otimização em
-PostgreSQL se esgotar, **ou** se o catálogo passar de ~2 milhões de produtos, **ou** se
-surgir um segundo caso de uso independente que também precise de modelo de documento.
+PostgreSQL se esgotar, **ou** se o catálogo passar de ~2 milhões de produtos e os índices
+GIN sobre `jsonb` deixarem de caber em memória — ponto em que manter o modelo atual passa a
+exigir particionamento do catálogo —, **ou** se surgir um segundo caso de uso independente
+que também precise de modelo de documento.
 
 **Índice de busca dedicado para o catálogo**, mantendo PostgreSQL como fonte de verdade.
 Descartada agora por não ser necessária — a latência atende. Mas é considerada a próxima
@@ -105,7 +107,7 @@ exigem transações e integridade referencial que não queremos implementar na a
 locais. Uma competência a manter na equipe, não duas. Cópia de segurança, restauração e
 atualização com um procedimento só.
 
-**Positivas (longo prazo).** A pressão por otimizar dentro do PostgreSQL produziu
+**Positivas (longo prazo).** A pressão por otimizar dentro do PostgreSQL tende a produzir
 conhecimento que se aplica a todos os módulos.
 
 **Negativas (imediatas).** O modelo do catálogo continua desconfortável. Atributos por

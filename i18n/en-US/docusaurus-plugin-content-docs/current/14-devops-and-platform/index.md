@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [reliability, cloud-architecture, security]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -70,8 +70,8 @@ the area's most common confusion.
 Then **deployment strategies**, which organizes blue-green, canary and rolling as choices with criteria,
 not as matters of taste.
 
-**Feature flags** deserves special attention: it is the highest-impact technique and the one that
-accumulates the most silent debt.
+**Feature flags** deserves special attention: it is this section's highest-impact technique — for what
+separating deploying from releasing enables — and the one that accumulates the most silent debt.
 
 Leave **platform engineering** for the end. It reorganizes everything that came before into an
 organizational decision.

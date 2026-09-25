@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-alternatives, adr-consequences]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -57,12 +57,12 @@ on-call                   doesn't exist yet; it will be created during the proje
 
 Constraints:
 
-- **A contractual deadline of August 2024**, with a penalty for extending the current
-  contract.
+- **A contractual deadline of August 2024**: the current contract ends on that date and
+  there is no extension to buy.
 - **No internal deployment platform.** Each deployable unit would require a pipeline,
   monitoring and on-call built by us.
-- The team has no operational experience with distributed systems, and the deadline does
-  not allow learning under pressure.
+- The team has a single engineer with operational experience in distributed systems, and
+  the deadline does not allow learning under pressure.
 
 What we didn't know: whether the commercial projection of 120 orders/s would be confirmed,
 and how the domain would actually divide — none of us had operated this business before.
@@ -86,8 +86,8 @@ affected.
 
 **Microservices from the start.** Discarded because it would require building a pipeline,
 monitoring, tracing and on-call for N services before delivering any functionality —
-estimated at 4 to 5 months of the 18 available, with a team that has no distributed
-operational experience.
+estimated at 4 to 5 months of the 18 available, with a team that has a single engineer
+with distributed operational experience.
 
 *Would win again if:* the deadline were longer than 30 months, or the team already had an
 internal platform and operational experience.
@@ -151,7 +151,8 @@ The system went into production in July 2024, a month before the deadline. Obser
 volume: 41 orders/s — well below the commercial projection of 120.
 
 Of the four warning-signal conditions, none was met. The team is at 17 engineers; the
-boundary check has 2 exceptions, both with a deadline; deployment time is 11 minutes.
+boundary check has 2 exceptions, both with a deadline; deployment time is 11 minutes; and
+the catalog, the heaviest module, asks for 1.4× the capacity of the others.
 
 Boundary erosion, flagged as the main risk, did not materialize — we attribute that to the
 automated verification, which rejected 34 cross-access attempts over the period.

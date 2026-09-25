@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, adr-consequences]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -85,8 +85,10 @@ and there is no incident attributed to the model. The cost is concrete and immed
 more store to operate, with a team that has no experience.
 
 *Would win again if:* the p99 of filtered search exceeds 300 ms and optimization in
-PostgreSQL is exhausted, **or** if the catalog exceeds ~2 million products, **or** if a
-second independent use case appears that also needs a document model.
+PostgreSQL is exhausted, **or** if the catalog exceeds ~2 million products and the GIN
+indexes over `jsonb` no longer fit in memory — the point at which keeping the current model
+starts to require partitioning the catalog — **or** if a second independent use case appears
+that also needs a document model.
 
 **A dedicated search index for the catalog**, keeping PostgreSQL as the source of truth.
 Discarded for now as unnecessary — the latency meets the requirement. But it is considered
@@ -106,8 +108,8 @@ application.
 One competence to maintain in the team, not two. Backup, restore and upgrade with a single
 procedure.
 
-**Positive (long-term).** The pressure to optimize inside PostgreSQL produced knowledge that
-applies to every module.
+**Positive (long-term).** The pressure to optimize inside PostgreSQL tends to produce
+knowledge that applies to every module.
 
 **Negative (immediate).** The catalog model stays uncomfortable. Attributes per category
 require mapping code nobody enjoys maintaining, and the catalog team lives with a solution

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [rpo, disaster-recovery-planning, failover]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -59,7 +59,9 @@ seconds        active-active                  very high
 See [disaster recovery](/09-cloud-architecture/disaster-recovery.md) and
 [multi-region](/09-cloud-architecture/multi-region.md).
 
-The choice is mechanical once the number exists. It is the number that is hard.
+The choice is mechanical once both numbers exist: the RTO fixes the band in the table and the RPO
+decides within it — daily backups do not meet an RPO of minutes, however generous the RTO is. Getting to
+the numbers is the hard part.
 
 ### The clock starts earlier than you think
 
@@ -137,7 +139,8 @@ backlog processing capacity. See [queue-based scaling](/11-scalability/queue-bas
 
 **Measured from the start of the execution**, ignoring detection and decision.
 
-**Never verified** by a timed exercise.
+**Never verified** by a timed exercise — the declared number goes on standing as a commitment, and the
+distance between it and the real time only shows up in the first incident.
 
 **Defined without considering dependencies.** The system's RTO cannot be lower than the critical vendor's.
 
@@ -201,6 +204,8 @@ Then time a recovery exercise. The difference between the two numbers is your re
 
 ## Further Reading
 
-- ISO 22301 — business continuity management.
-- NIST SP 800-34 — contingency planning.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
+- ISO. *ISO 22301:2019 — Security and Resilience: Business Continuity Management
+  Systems — Requirements*. ISO, 2019.
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for
+  Federal Information Systems*. NIST, 2010.

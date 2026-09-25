@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-drivers, legacy-refactoring, organizational-constraints]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -90,19 +90,11 @@ here?** Frequently the answer is an incident from seven years ago.
 
 ### Characterization tests capture current behavior
 
-The technique that reduces the fear before any change:
-
-```text
-conventional test      verifies the desired behavior
-characterization test  captures the current behavior, whatever it is
-```
-
-It does not judge whether the behavior is right. It freezes what exists, so that any
-accidental change shows up.
-
-That makes it possible to refactor safely without fully understanding the system — which
-is the real situation. See
-[legacy refactoring](/16-legacy-modernization/legacy-refactoring.md).
+The technique that reduces the fear before any change is the characterization test,
+defined in
+[legacy refactoring](/16-legacy-modernization/legacy-refactoring.md). What matters here is
+only its effect on the fear: it freezes the behavior that exists, and so makes it possible
+to touch the code without fully understanding it — which is the real situation.
 
 And tests written that way document: they are the executable description of what the
 system does, produced from it.
@@ -132,7 +124,9 @@ a stable system nobody needs to change   → not a problem
 a system that needs to change and resists → that's the problem
 ```
 
-A legacy system that serves well and does not change can go on that way indefinitely.
+A legacy system that serves well and does not change can go on that way for as long as
+its dependencies are supported: end of support and vulnerability fixes are changes that
+arrive on someone else's clock, not on the business's demand.
 What it needs is containment — isolation so that it does not limit what is around it —
 and a plan for the people risk.
 
@@ -217,7 +211,7 @@ Each cause has a different treatment, and most are cheaper than replacing.
 
 - What is the useful definition of a legacy system?
 - Why is embedded knowledge the most underestimated asset?
-- What does a characterization test do that a conventional test does not?
+- When is a legacy system not a problem to be dealt with — and what takes that status away from it?
 
 ## Further Reading
 

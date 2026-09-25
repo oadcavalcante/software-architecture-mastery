@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [reliability, cloud-architecture, security]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -72,8 +72,9 @@ usa, e desfaz a confusão mais comum da área.
 Depois **estratégias de implantação**, que organiza blue-green, canary e ondas como
 escolhas com critérios, não como alternativas de gosto.
 
-**Feature flags** merece atenção especial: é a técnica de maior impacto e a que mais
-acumula dívida silenciosa.
+**Feature flags** merece atenção especial: é a técnica de maior impacto desta seção —
+pelo que a separação entre implantar e liberar habilita — e a que mais acumula dívida
+silenciosa.
 
 Deixe **engenharia de plataforma** para o fim. Ela reorganiza tudo o que veio antes numa
 decisão organizacional.
