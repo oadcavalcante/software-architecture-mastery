@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [architecture-decisions, case-studies, system-design-interviews]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -31,9 +31,9 @@ para um time de oito pessoas, com um domínio ainda instável, sem plataforma de
 operação e com prazo de seis meses?" é respondível, e a resposta é bastante
 clara.
 
-A diferença entre as duas perguntas é a única coisa que importa. Um profissional
-que responde à primeira está exibindo preferência; um que exige a segunda está
-fazendo arquitetura.
+A diferença entre as duas perguntas é a restrição declarada, e é ela que separa
+uma resposta defensável de uma opinião. Um profissional que responde à primeira
+está exibindo preferência; um que exige a segunda está fazendo arquitetura.
 
 Esta seção treina essa conversão. Cada documento pega um par aparentemente
 oposto, identifica o eixo real de comparação e mostra sob quais restrições cada

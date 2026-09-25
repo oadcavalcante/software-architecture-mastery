@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [case-studies, trade-offs]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -53,8 +53,9 @@ declarada — sem isso, toda decisão fica sem critério.
 **Aprofundamento.** Identificação de gargalos, escala e tratamento de falhas. É
 onde a entrevista de fato diferencia candidatos.
 
-**Comunicação.** Como enunciar um trade-off em voz alta enquanto desenha. Esta é
-a competência mais valorizada e a menos treinada.
+**Comunicação.** Como enunciar um trade-off em voz alta enquanto desenha. O
+avaliador só pontua o raciocínio que você verbaliza — e é a parte que a
+preparação por leitura não alcança.
 
 **Erros comuns.** Os padrões que fazem entrevistas darem errado, com o que fazer
 em vez disso.
@@ -75,14 +76,14 @@ outras seções; aqui o treino é a ordem, não o enunciado.
 
 ## Uma nota sobre preparação
 
-Decorar arquiteturas de referência é a forma mais popular de se preparar e uma
-das menos eficazes. Funciona enquanto o enunciado coincide com o que foi
-decorado, e colapsa na primeira variação — que o avaliador vai introduzir
-justamente para testar isso.
+Decorar arquiteturas de referência falha pelo motivo já descrito, e vale nomear
+o mecanismo: essa preparação otimiza o reconhecimento do enunciado, enquanto a
+entrevista mede a condução de um enunciado que você não reconhece.
 
 O que transfere é o método: clarificar, estimar, decompor, identificar gargalo,
-declarar trade-off. Esse método funciona em qualquer enunciado, inclusive nos que
-você nunca viu.
+declarar trade-off. Ele não depende de reconhecer o enunciado — depende de tempo
+para as fases, e em entrevistas de 30 minutos reduz-se a três, como mostra
+[Estrutura da Entrevista](/22-system-design-interviews/interview-structure.md).
 
 ## Ao terminar
 

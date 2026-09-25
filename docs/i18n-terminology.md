@@ -13,8 +13,8 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-terminology_exempt: ["CQRS", "aggregate root", "anti-corruption layer", "availability", "backpressure", "blue/green", "bottleneck", "boundary", "bounded context", "canary", "cohesion", "commit", "constraint", "coupling", "dead-letter queue", "deployment", "event sourcing", "event-driven", "eventual consistency", "fault tolerance", "feature flag", "latency", "layer", "load balancing", "maintainability", "redundancy", "reliability", "requirement", "scalability", "service mesh", "sharding", "sidecar", "strangler fig", "strong consistency", "technical debt", "throughput", "trade-off", "ubiquitous language"]
-content_version: 1
+terminology_exempt: ["CQRS", "aggregate root", "anti-corruption layer", "availability", "backpressure", "blue/green", "bottleneck", "boundary", "bounded context", "canary", "cohesion", "commit", "constraint", "coupling", "dead-letter queue", "deploy", "deployment", "event sourcing", "event-driven", "eventual consistency", "fault tolerance", "feature flag", "latency", "layer", "load balancing", "maintainability", "redundancy", "reliability", "requirement", "scalability", "service mesh", "sharding", "sidecar", "strangler fig", "strong consistency", "technical debt", "throughput", "trade-off", "ubiquitous language"]
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -44,16 +44,22 @@ A coluna **Regra** indica se o linter aplica a decisão automaticamente:
 - **— orientação** — documentado, não automatizado. São os casos em que a
   decisão depende de contexto e a automação produziria falso positivo.
 
-Um documento pode declarar `terminology_exempt: [termo]` no front matter para
-sair da regra num caso justificado — citação literal, por exemplo.
+Um documento pode declarar `terminology_exempt` no front matter para sair da
+regra num caso justificado — citação literal, por exemplo. O termo se declara
+como aparece na primeira coluna da tabela, sempre em inglês:
+`terminology_exempt: ["coupling"]` isenta o par coupling/acoplamento;
+`["acoplamento"]` não isenta nada.
 
 ## Categoria A — Traduzir sempre
 
 Termos com equivalente estabelecido em português técnico. O documento usa a
 forma em português como termo de trabalho.
 
-A forma em inglês é permitida **uma vez**, como glosa de primeira ocorrência:
-*"acoplamento (coupling)"*. Depois disso, só a forma em português.
+A forma em inglês é permitida como glosa colada à forma em português —
+*"acoplamento (coupling)"* — e a convenção do acervo é escrevê-la uma única vez,
+na primeira ocorrência. O linter cobra a colagem, não a contagem: cada ocorrência
+do termo em inglês precisa cair a até 40 caracteres de uma ocorrência da forma em
+português. Uma ocorrência solta falha o build mesmo sendo a única.
 
 | Inglês | Português | Regra |
 |---|---|---|
@@ -99,6 +105,7 @@ A coluna de traduções recusadas lista as formas que o linter rejeita.
 | blue/green | azul/verde | ✅ aplicado |
 | strangler fig | figueira estranguladora | ✅ aplicado |
 | CQRS | — | — orientação |
+| deploy | — | — orientação |
 | commit | — | — orientação |
 | anti-corruption layer | camada anticorrupção · camada de anticorrupção | ✅ aplicado |
 | dead-letter queue | — | — orientação |
@@ -114,7 +121,6 @@ de cada documento e apenas o termo em inglês depois.
 | circuit breaker | disjuntor |
 | bulkhead | anteparo |
 | poison message | mensagem envenenada |
-| dead-letter queue | fila de mensagens mortas |
 | hotspot | ponto quente |
 
 ## Nomes próprios

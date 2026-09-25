@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [why-adrs-matter, adr-structure, adr-status]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -149,33 +149,30 @@ proven demand, unlike most documentation. See
 
 ## Why This Matters
 
-**Because the reason is what is lost first.** Structure stays visible in the code;
-justification disappears with the people. In teams with normal turnover, two years is
-enough for nobody to know why the system is the way it is.
+**Because the reason is what the code does not hold.** Structure stays visible in the
+files; justification has nowhere to live. The ADR exists to occupy that empty place — it is
+the piece of the repository whose content is the why.
 
-**Because decisions with no context cannot be revisited.** A recorded decision can be
-reassessed when the context changes — the question becomes "does the reason still hold?",
-which is answerable. With no record, the only possible question is "does anyone know why?",
-which normally isn't.
+**Because recording an event is different from describing a state.** Treating the ADR as a
+dated, immutable record is what makes it possible to reconstruct a two-year-old decision
+with the information that existed then, rather than with today's. Documentation kept up to
+date does not do this: it overwrites the previous version.
 
-**Because writing forces the reasoning.** Having to list alternatives and consequences
-exposes decisions made out of habit. A meaningful share of ADRs change conclusion during
-the writing — the author discovers, while trying to justify, that they cannot.
+**Because the significance criterion decides whether the set is good for anything.** One
+ADR per decision that is expensive to reverse keeps the set small enough to be read; one
+ADR per library choice makes it irrelevant within weeks.
 
-**Because the cost of not having them is invisible.** Nobody measures the time spent
-rediscovering reasons or re-deciding what was already decided. It shows up as diffuse
-slowness, not as a budget line.
-
-**Because it gives disagreement a place.** A decision recorded with alternatives and
-consequences can be challenged with an argument. A tacit decision can only be challenged
-with authority.
+The full argument — what the organization loses without records, and the effects that do not
+depend on anyone reading the ADR later — is in
+[Why ADRs Matter](/18-architecture-decisions/why-adrs-matter.md).
 
 ## Common Mistakes
 
 **Recording everything.** An ADR for a trivial library choice dilutes the set and makes
 nobody read any of them.
 
-**Recording nothing.** The opposite extreme, and the most frequent.
+**Recording nothing.** The opposite extreme, and the most frequent — the team only finds
+out which decisions needed a record once someone has already undone one of them.
 
 **Editing instead of superseding.** It destroys the property that gives the format its
 value.

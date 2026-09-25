@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: [architecture-leadership]
 canonical_for: [maturidade arquitetural, modelo de maturidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -23,8 +23,9 @@ Seis estágios de capacidade arquitetural. Cada um é definido pelo que a pessoa
 **decide sozinha**, não pelo que ela sabe explicar.
 
 A distinção importa. Conhecimento declarado e capacidade divergem muito nesta
-profissão: é comum alguém explicar bem consistência eventual e nunca ter
-decidido, sob pressão, se um caso concreto a tolera.
+profissão: explicar por que uma fronteira mal posta custa caro é um exercício de
+vocabulário; decidir onde ela passa, com o prazo correndo e o código já escrito
+do outro jeito, é outro.
 
 ## Dois eixos diferentes
 
@@ -110,14 +111,17 @@ e passou a ser organizacional.
 **Horizonte:** a organização, anos.
 **Negocia com:** a direção da empresa.
 
-Trata a lei de Conway como instrumento, não como observação: propõe mudança
-organizacional para viabilizar arquitetura. Mede resultado arquitetural em vez de
+Trata a [lei de Conway](/23-architecture-leadership/conways-law.md) como
+instrumento, não como observação: propõe mudança organizacional para viabilizar
+arquitetura. Mede resultado arquitetural em vez de
 argumentar por ele. Sustenta coerência sem centralizar decisão.
 
 ## Como usar isto
 
-Localize-se pela pergunta: **qual foi a decisão mais consequente que você tomou
-sozinho nos últimos seis meses, e de que tipo ela era?**
+Localize-se pela pergunta: **qual foi a decisão mais consequente cuja última
+palavra foi sua nos últimos seis meses, e de que tipo ela era?** Última palavra,
+não solidão: do estágio 3 em diante decisão consequente é decisão negociada, e
+negociar não transfere a responsabilidade de quem decide.
 
 A resposta costuma ser um estágio abaixo do que a autoavaliação sugere, porque
 tendemos a nos medir pelo que entendemos e não pelo que decidimos.

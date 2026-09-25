@@ -13,7 +13,7 @@ objective: >
 prerequisites: [superseding-decisions]
 related: [superseding-decisions, adr-context, adr-consequences]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -57,7 +57,10 @@ contenção de conexões atribuída à sondagem.
 
 ```text
 volume de pedidos              41/s de pico em 2024, 190/s em 2025
-mensagens na fila              ~310/s de pico (cada pedido gera múltiplos eventos)
+mensagens na fila              ~310/s de pico e ~230/s sustentada na
+                               janela diária de maior movimento — os
+                               eventos de pedido, pagamento e entrega
+                               não têm pico simultâneo
 consumidores dos mesmos
   eventos                      5 — confirmação, entrega, antifraude,
                                analítico, notificação
@@ -126,13 +129,16 @@ diferença de custo cair abaixo de 1,5×.
 ## Consequências
 
 **Positivas (imediatas).** Consumidores independentes, sem acoplamento entre eles. Retenção
-configurável com reprocessamento por posição. A contenção de conexões do banco é eliminada.
+configurável com reprocessamento por posição. A contenção de conexões do banco cai: a tabela
+deixa de ser sondada por cinco consumidores e passa a ser drenada por um único publicador da
+caixa de saída.
 
 **Positivas (longo prazo).** Os eventos viram um ativo consultável, não apenas um mecanismo
 de entrega.
 
-**Negativas (imediatas).** Um agrupamento a operar, com plantão próprio. Ordem garantida
-apenas por partição, o que exige escolher chave de partição com cuidado. Depuração de
+**Negativas (imediatas).** Um agrupamento a operar, com plantão próprio. [Ordem garantida
+apenas por partição](/06-distributed-systems/ordering.md), o que exige escolher a
+[chave de partição](/06-distributed-systems/partitioning.md) com cuidado. Depuração de
 fluxos assíncronos fica mais difícil e exige rastreamento distribuído.
 
 **Negativas (longo prazo).** Os esquemas de evento viram **contratos públicos**. Alterá-los

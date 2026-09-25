@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [what-is-an-adr, adr-alternatives, superseding-decisions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -138,7 +138,8 @@ carries.
 
 ### What ADRs don't solve
 
-Worth delimiting, because overpromising is the main cause of the practice being abandoned:
+Worth delimiting, because whatever is promised beyond this becomes a reason to abandon the
+practice once it fails to materialize:
 
 ```text
 they don't improve bad decisions   they record them better
@@ -147,6 +148,12 @@ they don't guarantee alignment     an ignored ADR stays ignored
 they don't document the system     they are history, not state
 they don't solve a lack of time    if nobody has 30 minutes, the problem is elsewhere
 ```
+
+And there is the cost the practice creates, which is not the writing time. A collection
+that is never pruned accumulates expired ADRs that keep being read as current — which is
+why superseding has to be explicit. And the record can be used as authority: "it's in
+ADR-014" ends the very discussion the ADR existed to enable, if nobody opens the document
+to check whether the reason still holds.
 
 ## Why This Matters
 
@@ -163,8 +170,10 @@ reasoning — happens even if the document is never opened.
 **Because it improves the quality of the debate.** Arguments against documents are more
 honest and more accessible than arguments against people.
 
-**Because the return is asymmetric.** Most ADRs will not be read; the few that are will be
-read at the moment someone is about to make an expensive mistake.
+**Because the return is asymmetric.** The profile — low cost, rare and high return — is in
+[what an ADR is](/18-architecture-decisions/what-is-an-adr.md). What it implies here is that
+writing cannot depend on predicted demand: whoever writes does not know which of the ADRs
+will be the one that gets read.
 
 ## Common Mistakes
 
@@ -174,8 +183,11 @@ disappointment.
 **Promising they will be read.** Most will not, and that is fine — that is not the
 argument.
 
-**Imposing them by process.** A mandatory ADR with approval becomes theater; the practice
-works when it is cheap and voluntary.
+**Imposing them by process.** Mandatory approval shifts the incentive — you write to clear
+the committee, not to think — and that is what the case below observed: 6 generic ADRs in a
+year, against 127 without a committee. Where the decision already goes through a formal
+body, as in a regulated environment, being mandatory may be the only viable format; what
+does not survive is mandatory **and** expensive.
 
 **Writing after implementation.** You lose the "writing changes the decision" effect, which
 is the main one.
@@ -233,7 +245,10 @@ decisions changed during the writing             19
 ADRs superseded                                  11
 ```
 
-The 22 closures by reference alone covered more than the total cost of writing.
+The 22 closures by reference were worth roughly 400 person-hours, at the average of 18 hours
+per repeated discussion that the survey itself measured — against fewer than 127 hours of
+writing, at a ceiling of one hour per ADR. That item pays for the practice on its own even
+if the average is overstated by half.
 
 And the 11 superseded ones were used as an internal argument to sustain the practice: they
 showed decisions being revisited on the basis of documented context change, rather than by

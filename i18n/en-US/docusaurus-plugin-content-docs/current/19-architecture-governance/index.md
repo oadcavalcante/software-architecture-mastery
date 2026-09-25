@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [architecture-decisions, architecture-leadership, security]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -53,34 +53,38 @@ what remains central. Applicable to organizations past a certain size.
 
 **Pathologies.** How governance becomes a bottleneck, and the signs that it already has.
 
+**Measurement.** The effect and the friction of each mechanism — the two numbers without
+which the decision to keep or remove falls to whoever has the most authority.
+
 ## A principle and a standard are not the same thing
 
-Confusing the two is the most common cause of governance that doesn't work.
+Both guide decisions, but at different points of intervention, and treating them as the
+same thing makes the mechanism miss the point: it prescribes where it should guide, or
+guides where it should prescribe. A principle gives the criterion for the new
+situation — "we prefer X over Y, because Z" — and is weighed against other principles. A
+standard closes the recurring situation — "use X" — and, when it doesn't fit the case,
+requires an explicit exception process.
 
-| | Principle | Standard |
-|---|---|---|
-| What it does | Guides judgment | Prescribes a choice |
-| Format | "We prefer X over Y, because Z" | "Use X" |
-| When it applies | A new, unforeseen situation | A recurring situation, already solved |
-| Exception | Doesn't apply — a principle is weighed | Requires an explicit process |
-| Typical failure | Too vague to decide anything | Too rigid for the real case |
+The line-by-line comparison, with the axis of each row, is in
+[Standards in Operation](/19-architecture-governance/governance-standards.md); the
+criterion for what makes a principle decide anything, in
+[Principles in Operation](/19-architecture-governance/governance-principles.md).
 
 An organization that has only principles produces inconsistent decisions; one that has only
-standards stalls at the first unforeseen case. Both are necessary, and confusing them
-produces the worst of both.
+standards stalls at the first unforeseen case.
 
 ## Reading order
 
 Start with **Governance Basics**, which fixes the mechanism and the point of
 intervention — and is a prerequisite for most of the rest. Then **Principles in
-Operation** and **Standards in Operation**, in that order. The distinction between them:
-principles guide judgment, standards prescribe. Confusing the two produces both rigidity
-and vagueness.
+Operation** and **Standards in Operation**, in that order.
 
 Then **fitness functions**, which is the mechanism with the best ratio of effect to
 friction.
 
-Read **pathologies** last, as a checklist for the governance you have or are proposing.
+Read **pathologies** and **Measuring Governance** last, and as a pair: one is the checklist
+for the governance you have or are proposing, the other gives you the two numbers with
+which you argue to keep, adjust or remove each mechanism.
 
 ## By the end
 

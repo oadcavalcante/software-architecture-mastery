@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [why-adrs-matter, adr-structure, adr-status]
 canonical_for: [ADR, registro de decisão de arquitetura, decisão significativa]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -148,33 +148,30 @@ demanda comprovada, ao contrário da maior parte da documentação. Ver
 
 ## Por Que Isso Importa
 
-**Porque a razão é o que se perde primeiro.** Estrutura permanece visível no código;
-justificativa some com as pessoas. Em times com rotatividade normal, dois anos bastam para
-que ninguém saiba por que o sistema é como é.
+**Porque a razão é o que o código não guarda.** Estrutura permanece visível nos arquivos;
+justificativa não tem onde ficar. O ADR existe para ocupar esse lugar vazio — é a peça do
+repositório cujo conteúdo é o porquê.
 
-**Porque decisões sem contexto não podem ser revistas.** Uma decisão registrada pode ser
-reavaliada quando o contexto mudar — a pergunta vira "a razão ainda vale?", que é
-respondível. Sem registro, a única pergunta possível é "alguém sabe por quê?", que
-normalmente não é.
+**Porque registrar um evento é diferente de descrever um estado.** Tratar o ADR como
+registro datado e imutável é o que permite reconstruir uma decisão de dois anos atrás com a
+informação que existia então, e não com a de hoje. Documentação mantida atualizada não faz
+isso: ela sobrescreve a versão anterior.
 
-**Porque escrever força o raciocínio.** Ter de listar alternativas e consequências expõe
-decisões tomadas por hábito. Uma parcela relevante dos ADRs muda de conclusão durante a
-escrita — o autor descobre, ao tentar justificar, que não consegue.
+**Porque o critério de significância decide se o conjunto serve para alguma coisa.** Um ADR
+por decisão cara de reverter mantém o conjunto pequeno o bastante para ser lido; um ADR por
+escolha de biblioteca o torna irrelevante em semanas.
 
-**Porque o custo de não ter é invisível.** Ninguém mede o tempo gasto redescobrindo razões
-ou redecidindo o já decidido. Ele aparece como lentidão difusa, não como item de
-orçamento.
-
-**Porque dá um lugar para o desacordo.** Uma decisão registrada com alternativas e
-consequências pode ser contestada com argumento. Uma decisão tácita só pode ser contestada
-com autoridade.
+O argumento completo — o que a organização perde sem registro, e os efeitos que não dependem
+de ninguém ler o ADR depois — está em
+[Por Que ADRs Importam](/18-architecture-decisions/why-adrs-matter.md).
 
 ## Erros Comuns
 
 **Registrar tudo.** ADR para escolha de biblioteca trivial dilui o conjunto e faz com que
 ninguém leia nenhum.
 
-**Registrar nada.** O extremo oposto, e o mais frequente.
+**Registrar nada.** O extremo oposto, e o mais frequente — o time só descobre quais
+decisões precisavam de registro quando alguém já desfez uma delas.
 
 **Editar em vez de superar.** Destrói a propriedade que dá valor ao formato.
 

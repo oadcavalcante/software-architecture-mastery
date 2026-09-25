@@ -13,7 +13,7 @@ objective: >
 prerequisites: [current-state-architecture]
 related: [current-state-architecture, transition-architecture, architecture-roadmaps]
 canonical_for: [arquitetura alvo, horizonte de planejamento, propriedade desejada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 

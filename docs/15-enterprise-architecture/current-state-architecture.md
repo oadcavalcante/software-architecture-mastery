@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, transition-architecture, application-portfolios]
 canonical_for: [estado atual, levantamento de arquitetura, dívida arquitetural visível]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 

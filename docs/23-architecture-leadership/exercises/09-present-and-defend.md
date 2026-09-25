@@ -13,7 +13,7 @@ objective: >
 prerequisites: [communication]
 related: [architecture-presentations, stakeholder-management, negotiating-tradeoffs, cost-management]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -173,19 +173,21 @@ precisa ser de autoridade — não de fonte a ser drenada antes de aposentar.
 Se elas disserem ao presidente "concordamos, e o plano nos coloca decidindo o que está certo",
 a aprovação é formalidade. Se disserem "vão jogar fora dezenove anos", acabou.
 
-**A menor aprovação suficiente** é a pergunta que mais destrava reuniões: talvez a fase 1 caiba
-no orçamento já aprovado, e o pedido de hoje seja apenas autorização para começar — com o
-plurianual em novembro, já com resultado da fase 1 na mão.
+**A menor aprovação suficiente** é a pergunta que destrava uma reunião em que o pedido inteiro
+não passaria: talvez a fase 1 caiba no orçamento já aprovado, e o pedido de hoje seja apenas
+autorização para começar — com o plurianual em novembro, já com resultado da fase 1 na mão.
 
-Pedir menos, com resultado antes de pedir mais, é frequentemente o caminho mais rápido para
-receber tudo.
+Quando o conselho decide por consenso e o orçamento só reabre daqui a um ano, pedir menos com
+resultado antes de pedir mais chega ao total aprovado mais cedo que pedir tudo e ouvir não.
 
 **O fechamento:**
 
 ```text
 "Resumindo: oito pessoas, começando em 60 dias, com a fase 1
- entregando o aplicativo do produtor em quatro meses e o prazo
- regulatório coberto no mês 12.
+ entregando o aplicativo do produtor em quatro meses — em
+ produção antes da janela de congelamento da safra, e se
+ escorregar, depois dela, nunca dentro — e o prazo regulatório
+ coberto no mês 12.
 
  O que não está nesta proposta: a substituição completa do
  sistema. Ela vai levar mais de 30 meses e eu não vou pedir

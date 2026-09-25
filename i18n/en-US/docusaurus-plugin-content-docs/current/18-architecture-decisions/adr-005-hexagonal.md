@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, adr-consequences]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -110,9 +110,11 @@ the domain already independent.
 isolated.
 
 **An anti-corruption layer only on the external integrations**, without inverting the
-persistence dependencies. Discarded as insufficient for the extraction goal — coupling to
-the database is what makes separating a module hardest. But it was adopted as an
-**intermediate step** in the three modules, being cheaper and delivering results sooner.
+persistence dependencies. Discarded as insufficient for the extraction goal — the three
+modules share schema and transactions with the rest, and that layer does not touch that
+coupling: it would remain intact, to be untangled at the moment of extraction. But it was
+adopted as an **intermediate step** in the three modules, being cheaper and delivering
+results sooner.
 
 ## Consequences
 
@@ -148,7 +150,9 @@ on how many discussions about "does this module qualify?" have occurred.
 ## Warning Signal
 
 - More than **five discussions** in 12 months about whether a module fits the criterion.
-- Average provider change time **above 4 weeks** after adoption.
+- A provider change **above 4 weeks** in order, delivery or fraud. Changes in payment and
+  notification stay out of the count: those two did not adopt the pattern, by decision, and
+  still cost 6–11 weeks without that saying anything about the adoption.
 - Any of the four excluded modules adopting the pattern **with no recorded decision**.
 - Recurring complaints from newcomers about navigability in the three modules.
 

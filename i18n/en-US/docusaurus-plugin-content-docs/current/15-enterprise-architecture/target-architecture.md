@@ -13,7 +13,7 @@ objective: >
 prerequisites: [current-state-architecture]
 related: [current-state-architecture, transition-architecture, architecture-roadmaps]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 

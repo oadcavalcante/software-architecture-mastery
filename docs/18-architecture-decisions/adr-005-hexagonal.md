@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, adr-consequences]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -109,9 +109,10 @@ independente.
 *Voltaria a ganhar se:* a extração fosse urgente e a lógica do módulo já fosse isolada.
 
 **Anti-corruption layer apenas nas integrações externas**, sem inverter as dependências de
-persistência. Descartada como insuficiente para o objetivo de extração — o acoplamento ao
-banco é o que mais dificulta separar um módulo. Mas foi adotada como **passo intermediário**
-nos três módulos, por ser mais barata e dar resultado antes.
+persistência. Descartada como insuficiente para o objetivo de extração — os três módulos
+compartilham esquema e transações com os demais, e essa camada não toca nesse acoplamento:
+ele continuaria inteiro, para ser desemaranhado no momento da extração. Mas foi adotada
+como **passo intermediário** nos três módulos, por ser mais barata e dar resultado antes.
 
 ## Consequências
 
@@ -147,7 +148,9 @@ quantas discussões sobre "este módulo se aplica?" tiverem ocorrido.
 ## Sinal de Alerta
 
 - Mais de **cinco discussões** em 12 meses sobre se um módulo se enquadra no critério.
-- Tempo médio de troca de provedor **acima de 4 semanas** após a adoção.
+- Troca de provedor **acima de 4 semanas** em pedido, entrega ou antifraude. Trocas em
+  pagamento e notificação ficam fora da conta: esses dois não adotaram o padrão por decisão,
+  e continuam custando 6–11 semanas sem que isso diga nada sobre a adoção.
 - Qualquer um dos quatro módulos excluídos adotando o padrão **sem decisão registrada**.
 - Reclamação recorrente de pessoas novas sobre navegabilidade nos três módulos.
 

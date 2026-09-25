@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [architecture-decisions, case-studies, system-design-interviews]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -30,9 +30,9 @@ constraint**.
 eight, with a domain that is still unstable, no operations platform and a six-month
 deadline?" is answerable, and the answer is quite clear.
 
-The difference between the two questions is the only thing that matters. A practitioner who
-answers the first is displaying preference; one who demands the second is doing
-architecture.
+The difference between the two questions is the stated constraint, and that is what
+separates a defensible answer from an opinion. A practitioner who answers the first is
+displaying preference; one who demands the second is doing architecture.
 
 This section trains that conversion. Each document takes an apparently opposed pair,
 identifies the real axis of comparison and shows under which constraints each side wins.

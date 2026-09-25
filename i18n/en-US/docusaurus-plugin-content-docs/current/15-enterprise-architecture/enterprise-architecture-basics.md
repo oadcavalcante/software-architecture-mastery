@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [architecture-levels, enterprise-principles, technical-strategy]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -114,15 +114,17 @@ work happens without them.
 What generates real influence:
 
 ```text
-information nobody else has     the overview, the duplication, the aggregate cost
+information nobody aggregates   the overview, the duplication, the aggregate cost
 a paved road                    making the right choice the easiest one
 early participation             being in the conversation before the decision
 distributed credit              the team decides, architecture enables
 hands in the work               building together, not only reviewing
 ```
 
-The first line is the main asset: nobody outside that function has a view of the whole, and that
-information is genuinely useful to the teams.
+The first line is the main asset — not because the data is out of the teams' reach, but because each
+one sees its own part and none has a mandate to cross all of them and aggregate. Where another function
+already does that aggregation — a platform team, a principal engineer — the asset belongs to it, and
+enterprise architecture needs a different one.
 
 ### The discipline is continuous, not a project
 
@@ -145,27 +147,35 @@ handles what genuinely crosses — with **constraints and criteria**, not with c
 
 ## Common Mistakes
 
-**Practicing it through authority.** Blocking is the only tool, and it gets bypassed.
+**Requiring the decision to pass through the committee before it exists.** The team brings the committee
+what it has already built, the review becomes a rubber stamp, and the committee ends up approving what it
+never assessed.
 
-**Producing artifacts with no reader.**
+**Adopting the entire taxonomy of a reference framework.** The map describes a generic company, the teams
+do not recognize themselves in it, and the budget discussion goes on without it.
 
-**Centralizing local decisions.**
+**Deciding for the team whatever shows up in the inventory.** The choice loses its owner, and the cost of
+operating it stays with whoever did not make it.
 
-**Treating it as a project** with a start and an end.
+**Running the inventory as a project** with a delivery date. It is born correct and ages the next day,
+because nothing in the pipeline feeds it back.
 
-**Distance from the real work.** Decisions that ignore implementation constraints.
+**Writing the standard without having operated what it constrains.** The first team to hit the constraint
+asks for an exception, the exception is granted, and the standard ends up binding only those who did not
+complain.
 
-**Confusing it with control.** The discipline exists to enable better decisions, not to make them in the
-teams' place.
+**Measuring the function by the artifacts produced.** What gets produced is what can be counted, and the
+expensive work — being in the conversation before the decision — does not enter the count.
 
 ## Real-World Example
 
-A retail company with 90 systems hired a consultancy to establish enterprise architecture. The result, in
-eight months: a capability model, an application inventory, a three-year target state and a set of 40
-standards.
+An insurance company with 90 systems hired a consultancy to establish enterprise architecture. The
+result, in eight months: a capability model, an application inventory, a three-year target state and a
+set of 40 standards.
 
-Eighteen months later, none of that was used. The inventory was out of date, the target state had been
-superseded by two acquisitions, and the standards were cited only to block proposals.
+Two years later, none of that was used. The inventory was out of date, the target state had been
+superseded by a platform change in one of the business lines, and the standards were cited only to block
+proposals.
 
 The enterprise architecture function was seen by the teams as an obstacle.
 
@@ -180,14 +190,16 @@ inventory and maintained by the teams themselves.
 **"I do not know whether somebody already solved this problem."** A register of architectural decisions per
 system, searchable, with what was decided and why.
 
-**"I do not know what breaks if I change this."** A dependency map, derived from distributed tracing. See
+**"I do not know what breaks if I change this."** A dependency map derived from distributed tracing —
+which only sees the instrumented paths. File-based and shared-database integrations were left out and were
+entered by hand, and the map marks which origin each edge comes from. See
 [distributed tracing](/13-observability/distributed-tracing.md).
 
 **"I do not know how much this costs."** Cost per capability, derived from resource tagging. See
 [cost architecture](/09-cloud-architecture/cost-architecture.md).
 
-None of those is an approval. All of them are information only the function with a view of the whole can
-produce.
+None of those is an approval. All of them depend on crossing systems owned by several teams — work none
+of them had any reason to do alone.
 
 The 40-item standards became 6 principles, and the rest became a paved road in the platform. See
 [enterprise principles](/15-enterprise-architecture/enterprise-principles.md).

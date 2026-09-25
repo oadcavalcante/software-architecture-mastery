@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance, enterprise-architecture]
 related: [devops-and-platform, trade-offs, architecture-decisions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -25,11 +25,11 @@ The path's final level, and the one that least resembles the previous ones.
 
 In the six previous levels, the difficulty is technical. Here it isn't.
 
-A senior architect rarely fails for not knowing the correct answer. They fail because the correct
-answer required an investment nobody approved, because two teams disagreed and the disagreement
-was never resolved, because the decision was communicated in a way that left whoever controls the
-budget not understanding the risk, or because the proposed architecture went against the
-organizational structure and the organization won — as it always wins.
+A senior architect rarely fails for not knowing the correct answer: they fail at making the
+correct answer happen.
+[Architecture Leadership Basics](/23-architecture-leadership/architecture-leadership-basics.md)
+opens the section with that failure pattern and with what it demands of the role. The rest of this
+section is the set of competencies that sustain it.
 
 Conway's law is not a curiosity. It is the strongest constraint there is on an architecture, and
 the one that least appears in the diagrams.
@@ -67,12 +67,15 @@ How to know whether the architecture is improving, instead of arguing that it is
 
 ## Reading order
 
-Start with **Conway's law** and **Team Topologies**. They are the concepts that most change how you
-read an organization, and they retroactively explain a good share of the strange architectures you
-have already encountered.
+Start with
+[Basics](/23-architecture-leadership/architecture-leadership-basics.md): everything else in the
+section builds on it, directly or indirectly. Next, **Conway's law** and **Team Topologies** — they are the
+concepts that most change how you read an organization, and they retroactively explain a good share
+of the strange architectures you have already encountered.
 
-Then **communication** and **negotiating trade-offs** — the competencies with the highest practical
-return and the least trained among engineers.
+Then **communication** and **decision-making under uncertainty**, which is what **negotiating
+trade-offs** presupposes — the competencies with the highest practical return and the least trained
+among engineers.
 
 Leave **fitness functions** and **measurement** for last. They are the instrument that turns the
 rest into a verifiable cycle instead of a recurring opinion.
@@ -90,6 +93,6 @@ architectural leadership and senior opinion.
 
 ## The end of the path
 
-The material ends here. What doesn't end is the practice: none of these competencies develops by
-reading. They develop by deciding, getting it wrong, recording why and revisiting — which is, once
-again, the cycle this path began with.
+The material ends here. What doesn't end is the practice: reading fixes the vocabulary and the
+criteria, and that is as far as a text takes you. The rest develops by deciding, getting it wrong,
+recording why and revisiting — which is, once again, the cycle this path began with.

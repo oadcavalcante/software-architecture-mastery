@@ -213,6 +213,12 @@
       "enforced": false
     },
     {
+      "term": "deploy",
+      "badPt": [],
+      "enforced": false,
+      "$note": "SPEC §5.5 põe 'deploy' na categoria B. Não é aplicado: 'implantação' é a tradução correta de 'deployment' (categoria A), e recusá-la como má tradução de 'deploy' geraria falso positivo em todo documento de entrega."
+    },
+    {
       "term": "commit",
       "badPt": [],
       "enforced": false
@@ -228,7 +234,8 @@
     {
       "term": "dead-letter queue",
       "badPt": [],
-      "enforced": false
+      "enforced": false,
+      "$note": "Estava também na categoria C, com glosa 'fila de mensagens mortas' — duas prescrições para o mesmo termo. Fica só em B: o acervo usa o termo em inglês sem glosa."
     },
     {
       "term": "event-driven",
@@ -248,10 +255,6 @@
     {
       "term": "poison message",
       "gloss": "mensagem envenenada"
-    },
-    {
-      "term": "dead-letter queue",
-      "gloss": "fila de mensagens mortas"
     },
     {
       "term": "hotspot",

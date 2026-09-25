@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance, enterprise-architecture]
 related: [devops-and-platform, trade-offs, architecture-decisions]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -25,12 +25,11 @@ O nível final do percurso, e o que menos se parece com os anteriores.
 
 Nos seis níveis anteriores, a dificuldade é técnica. Aqui não é.
 
-Um arquiteto sênior raramente falha por não saber a resposta correta. Falha
-porque a resposta correta exigia um investimento que ninguém aprovou, porque
-dois times discordaram e a discordância não se resolveu, porque a decisão foi
-comunicada de forma que quem decide orçamento não entendeu o risco, ou porque a
-arquitetura proposta contrariava a estrutura organizacional e a organização
-venceu — como sempre vence.
+Um arquiteto sênior raramente falha por não saber a resposta correta: falha por
+não conseguir fazer a resposta correta acontecer. Os
+[Fundamentos de Liderança em Arquitetura](/23-architecture-leadership/architecture-leadership-basics.md)
+abrem a seção com esse padrão de fracasso e com o que ele exige do papel. O
+resto desta seção são as competências que o sustentam.
 
 A lei de Conway não é uma curiosidade. É a restrição mais forte que existe sobre
 uma arquitetura, e a que menos aparece nos diagramas.
@@ -70,12 +69,16 @@ que está.
 
 ## Ordem de leitura
 
-Comece por **lei de Conway** e **Team Topologies**. São os conceitos que mais
-mudam a leitura de uma organização, e explicam retroativamente boa parte das
-arquiteturas estranhas que você já encontrou.
+Comece pelos
+[Fundamentos](/23-architecture-leadership/architecture-leadership-basics.md):
+todo o resto da seção parte deles, direta ou indiretamente. Em seguida, **lei de
+Conway** e **Team Topologies** — são os conceitos que mais mudam a leitura de uma
+organização, e explicam retroativamente boa parte das arquiteturas estranhas que
+você já encontrou.
 
-Depois **comunicação** e **negociação de trade-offs** — as competências de maior
-retorno prático e as menos treinadas por engenheiros.
+Depois **comunicação** e **tomada de decisão sob incerteza**, que é o que a
+**negociação de trade-offs** pressupõe — as competências de maior retorno prático
+e as menos treinadas por engenheiros.
 
 Deixe **fitness functions** e **medição** para o fim. São o instrumento que
 transforma as demais em ciclo verificável em vez de opinião recorrente.
@@ -94,6 +97,7 @@ liderança arquitetural e opinião sênior.
 
 ## O fim do percurso
 
-Aqui o material acaba. O que não acaba é a prática: nenhuma dessas competências
-se desenvolve por leitura. Elas se desenvolvem decidindo, errando, registrando o
-porquê e revendo — que é, de novo, o ciclo com que este percurso começou.
+Aqui o material acaba. O que não acaba é a prática: a leitura fixa o vocabulário
+e os critérios, e é até onde um texto leva. O resto se desenvolve decidindo,
+errando, registrando o porquê e revendo — que é, de novo, o ciclo com que este
+percurso começou.

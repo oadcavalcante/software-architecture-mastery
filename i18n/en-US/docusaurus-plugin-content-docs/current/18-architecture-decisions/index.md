@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [trade-offs, architecture-governance, legacy-modernization]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -52,11 +52,11 @@ your mind — it is superseded by another, preserving the history of the reasoni
 reasoning:
 
 ```text
-ADR-001  Choose a Modular Monolith over Microservices
-ADR-002  Introduce Asynchronous Processing
-ADR-003  Choose PostgreSQL as the Primary Database
-ADR-004  Introduce Kafka
-ADR-005  Adopt Hexagonal Architecture
+ADR-001  Adopt a Modular Monolith
+ADR-002  Asynchronous Order Confirmation
+ADR-003  Keep PostgreSQL as the Single Primary Database
+ADR-004  Adopt Kafka for Domain Events
+ADR-005  Ports and Adapters in the Domain Modules
 ```
 
 At least one of them appears with status `superseded`, to show the mechanics of
@@ -68,8 +68,13 @@ superseding.
 
 ## Reading order
 
-Read the **structure** and then go straight to the examples. An ADR is a simple format;
-what you learn is the pattern of reasoning, and that is learned by example.
+Read **what an ADR is** and **why ADRs matter**, then the **structure**. Next, the four
+sections the structure opens — context, decision, alternatives, consequences — and the
+lifecycle: status and superseding. They are short chapters, one per part of the format and
+the mistake made in it.
+
+Only then the five examples. An ADR is a simple format; what you learn is the pattern of
+reasoning, and that is learned by example.
 
 Pay specific attention to each example's alternatives section. That is where the
 architectural reasoning becomes visible.

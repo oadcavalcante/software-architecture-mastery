@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [architecture-levels, enterprise-principles, technical-strategy]
 canonical_for: [arquitetura corporativa, otimização local, arquiteto corporativo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -120,15 +120,17 @@ influência. Ele é contornado, e o trabalho acontece sem ele.
 O que gera influência real:
 
 ```text
-informação que ninguém mais tem     o panorama, a duplicação, o custo agregado
+informação que ninguém agrega       o panorama, a duplicação, o custo agregado
 caminho pavimentado                 tornar a escolha certa a mais fácil
 participação cedo                   estar na conversa antes da decisão
 crédito distribuído                 o time decide, a arquitetura habilita
 mãos no trabalho                    construir junto, não apenas revisar
 ```
 
-A primeira linha é o ativo principal: ninguém além dessa função tem visão do conjunto, e
-essa informação é genuinamente útil aos times.
+A primeira linha é o ativo principal — não porque o dado seja inacessível aos times,
+mas porque cada um enxerga a própria parte e nenhum tem mandato para atravessar todas e
+agregar. Onde outra função já faz essa agregação — uma equipe de plataforma, um
+engenheiro principal —, o ativo é dela, e a arquitetura corporativa precisa de outro.
 
 ### A disciplina é contínua, não um projeto
 
@@ -155,28 +157,34 @@ aprovações caso a caso. Ver
 
 ## Erros Comuns
 
-**Exercer por autoridade.** Bloquear é a única ferramenta, e ela é contornada.
+**Exigir que a decisão passe pelo comitê antes de existir.** O time leva ao comitê o que
+já construiu, a revisão vira carimbo, e o comitê passa a aprovar o que não avaliou.
 
-**Produzir artefatos sem leitor.**
+**Adotar a taxonomia inteira de um framework de referência.** O mapa descreve uma empresa
+genérica, os times não se reconhecem nele, e a discussão de orçamento segue sem ele.
 
-**Centralizar decisões locais.**
+**Decidir pelo time o que aparece no inventário.** A escolha perde o dono, e o custo de
+operá-la fica com quem não a tomou.
 
-**Tratar como projeto** com início e fim.
+**Levantar o inventário como projeto** com data de entrega. Ele nasce correto e envelhece
+no dia seguinte, porque nada na esteira o realimenta.
 
-**Distância do trabalho real.** Decisões que ignoram restrições de implementação.
+**Escrever o padrão sem ter operado o que ele restringe.** O primeiro time a esbarrar na
+restrição pede exceção, a exceção é concedida, e o padrão passa a valer só para quem não
+reclamou.
 
-**Confundir com controle.** A disciplina existe para habilitar decisões melhores, não
-para tomá-las no lugar dos times.
+**Medir a função pelos artefatos produzidos.** Produz-se o que é contável, e o trabalho
+caro — estar na conversa antes da decisão — não entra na contagem.
 
 ## Exemplo Real
 
-Uma empresa de varejo com 90 sistemas contratou uma consultoria para estabelecer
-arquitetura corporativa. O resultado, em oito meses: um modelo de capacidades, um
-inventário de aplicações, um estado-alvo de três anos e um conjunto de 40 padrões.
+Uma seguradora com 90 sistemas contratou uma consultoria para estabelecer arquitetura
+corporativa. O resultado, em oito meses: um modelo de capacidades, um inventário de
+aplicações, um estado-alvo de três anos e um conjunto de 40 padrões.
 
-Dezoito meses depois, nada disso era usado. O inventário estava desatualizado, o
-estado-alvo tinha sido superado por duas aquisições, e os padrões eram citados apenas
-para bloquear propostas.
+Dois anos depois, nada disso era usado. O inventário estava desatualizado, o estado-alvo
+tinha sido superado pela troca de plataforma de um dos ramos de negócio, e os padrões
+eram citados apenas para bloquear propostas.
 
 A função de arquitetura corporativa era vista pelos times como obstáculo.
 
@@ -191,15 +199,17 @@ derivado do inventário de sistemas e mantido pelos próprios times.
 **"Não sei se alguém já resolveu este problema."** Um registro de decisões arquiteturais
 por sistema, pesquisável, com o que foi decidido e por quê.
 
-**"Não sei o que quebra se eu mudar isto."** Um mapa de dependências, derivado do
-rastreamento distribuído. Ver
+**"Não sei o que quebra se eu mudar isto."** Um mapa de dependências derivado do
+rastreamento distribuído — que só enxerga os caminhos instrumentados. As integrações por
+arquivo e por banco compartilhado ficaram de fora e entraram à mão, e o mapa marca de
+qual origem vem cada aresta. Ver
 [rastreamento distribuído](/13-observability/distributed-tracing.md).
 
 **"Não sei quanto custa isto."** Custo por capacidade, derivado da marcação de recursos.
 Ver [arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
-Nenhum desses é aprovação. Todos são informação que só a função com visão de conjunto
-consegue produzir.
+Nenhum desses é aprovação. Todos dependem de atravessar sistemas de vários times —
+trabalho que nenhum deles tinha por que fazer sozinho.
 
 Os padrões de 40 itens viraram 6 princípios, e o restante virou caminho pavimentado na
 plataforma. Ver

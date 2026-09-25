@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design, distributed-systems]
 related: [trade-offs, system-design-interviews]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -62,6 +62,10 @@ Business Context → Functional Requirements → Non-Functional Requirements
 → Security → Scalability → Reliability → Observability
 → Deployment → Evolution Strategy
 ```
+
+The chain above is the analysis. After it, each case closes with six
+consolidation sections — Results, What this case teaches, Related Concepts,
+Practical Exercise, Interview Questions and Further Reading.
 
 ## The rule in this section
 

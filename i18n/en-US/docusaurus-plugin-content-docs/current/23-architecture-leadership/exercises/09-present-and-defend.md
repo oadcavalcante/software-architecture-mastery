@@ -13,7 +13,7 @@ objective: >
 prerequisites: [communication]
 related: [architecture-presentations, stakeholder-management, negotiating-tradeoffs, cost-management]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -173,19 +173,22 @@ to be one of authority — not a source to be drained before retirement.
 If they tell the president "we agree, and the plan puts us deciding what is right", the approval is a
 formality. If they say "they're going to throw away nineteen years", it's over.
 
-**The smallest sufficient approval** is the question that unblocks the most meetings: perhaps phase 1
-fits in the already-approved budget, and today's ask is just authorization to start — with the
-multi-year one in November, with phase 1's result already in hand.
+**The smallest sufficient approval** is the question that unblocks a meeting the full ask would not
+survive: perhaps phase 1 fits in the already-approved budget, and today's ask is just authorization
+to start — with the multi-year one in November, with phase 1's result already in hand.
 
-Asking for less, with a result before asking for more, is frequently the fastest route to getting
-everything.
+When the board decides by consensus and the budget only reopens a year from now, asking for less
+with a result before asking for more reaches the full approval sooner than asking for everything
+and hearing no.
 
 **The closing:**
 
 ```text
 "To summarize: eight people, starting in 60 days, with phase 1
- delivering the farmer's app in four months and the regulatory
- deadline covered in month 12.
+ delivering the farmer's app in four months — live before the
+ harvest freeze window opens, and if it slips, after the window
+ closes, never inside it — and the regulatory deadline covered
+ in month 12.
 
  What is not in this proposal: the complete replacement of the
  system. It will take more than 30 months and I am not going to ask

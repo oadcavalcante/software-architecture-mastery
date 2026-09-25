@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: [architecture-leadership]
 canonical_for: [architectural maturity, maturity model]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -23,8 +23,9 @@ Six stages of architectural capability. Each is defined by what a person
 **decides alone**, not by what they can explain.
 
 The distinction matters. Stated knowledge and capability diverge sharply in this
-profession: it is common for someone to explain eventual consistency well and
-never have decided, under pressure, whether a concrete case tolerates it.
+profession: explaining why a misplaced boundary is expensive is an exercise in
+vocabulary; deciding where it runs, with the deadline closing in and the code
+already written the other way, is another thing entirely.
 
 ## Two different axes
 
@@ -110,14 +111,18 @@ technical and become organizational.
 **Horizon:** the organization, years.
 **Negotiates with:** company leadership.
 
-Treats Conway's law as an instrument, not an observation: proposes organizational
-change to make an architecture possible. Measures architectural outcomes instead
-of arguing for them. Sustains coherence without centralizing decisions.
+Treats [Conway's law](/23-architecture-leadership/conways-law.md) as an
+instrument, not an observation: proposes organizational change to make an
+architecture possible. Measures architectural outcomes instead of arguing for
+them. Sustains coherence without centralizing decisions.
 
 ## How to use this
 
 Locate yourself with one question: **what was the most consequential decision you
-made alone in the past six months, and what kind of decision was it?**
+had the final say on in the past six months, and what kind of decision was it?**
+Final say, not solitude: from stage 3 onwards a consequential decision
+is a negotiated decision, and negotiating does not transfer the responsibility of
+whoever decides.
 
 The answer is usually one stage below what self-assessment suggests, because we
 tend to measure ourselves by what we understand rather than by what we decide.

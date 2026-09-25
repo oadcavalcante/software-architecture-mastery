@@ -13,7 +13,7 @@ objective: >
 prerequisites: [superseding-decisions]
 related: [superseding-decisions, adr-context, adr-consequences]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -57,7 +57,10 @@ contention attributed to polling.
 
 ```text
 order volume                   41/s at peak in 2024, 190/s in 2025
-messages in the queue          ~310/s at peak (each order generates multiple events)
+messages in the queue          ~310/s at peak and ~230/s sustained in
+                               the daily busiest window — order, payment
+                               and delivery events do not peak at the
+                               same time
 consumers of the same
   events                       5 — confirmation, delivery, fraud,
                                analytics, notification
@@ -125,14 +128,15 @@ difference drops below 1.5×.
 ## Consequences
 
 **Positive (immediate).** Independent consumers, with no coupling between them.
-Configurable retention with reprocessing by offset. Database connection contention is
-eliminated.
+Configurable retention with reprocessing by offset. Database connection contention drops:
+the table stops being polled by five consumers and is drained by a single outbox publisher.
 
 **Positive (long-term).** The events become a queryable asset, not merely a delivery
 mechanism.
 
-**Negative (immediate).** A cluster to operate, with its own on-call. Ordering guaranteed
-only per partition, which requires choosing the partition key carefully. Debugging
+**Negative (immediate).** A cluster to operate, with its own on-call. [Ordering guaranteed
+only per partition](/06-distributed-systems/ordering.md), which requires choosing the
+[partition key](/06-distributed-systems/partitioning.md) carefully. Debugging
 asynchronous flows becomes harder and requires distributed tracing.
 
 **Negative (long-term).** The event schemas become **public contracts**. Changing them will

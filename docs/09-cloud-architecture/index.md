@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [integration-architecture, scalability, reliability]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -33,10 +33,12 @@ por decisão do provedor. Isso não é um risco a mitigar — é o modelo de ope
 o sistema precisa ser projetado para ele. Ver
 [falha parcial](/06-distributed-systems/partial-failure.md).
 
-**O custo vira decisão de arquitetura.** Numa infraestrutura própria, a máquina já
-foi comprada e a escolha de desenho não muda a fatura no mês seguinte. Na nuvem,
-cada chamada, cada gigabyte transferido e cada segundo de execução aparecem na
-conta. Uma decisão ruim de arquitetura tem preço mensal e mensurável.
+**O custo vira decisão de arquitetura.** Em infraestrutura própria, o desenho
+ineficiente gasta capacidade já comprada e não muda a fatura. Na nuvem, o desenho é
+cobrado: por chamada, por segundo de execução e por gigabyte que cruza uma zona, uma
+região ou a saída para a internet. Uma decisão ruim de arquitetura tem preço mensal e
+mensurável. Ver
+[arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
 **A dependência é real e precisa ser escolhida.** Todo serviço gerenciado que você
 adota é trabalho que não vai fazer e liberdade que não vai ter. Fingir que essa

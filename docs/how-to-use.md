@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -30,7 +30,7 @@ achar o ponto de entrada honesto.
 | Estrutura código bem, mas nunca projetou um sistema inteiro | Nível 01 em leitura rápida, depois Nível 02 |
 | Já projetou sistemas, mas só monolíticos | Nível 03, e volte ao 01 quando faltar vocabulário |
 | Trabalha com sistemas distribuídos e quer fechar lacunas | Nível 04, e depois as disciplinas do Nível 05 que faltam |
-| Vai fazer entrevistas de system design | Nível 03, depois seção 22, depois case studies |
+| Vai fazer entrevistas de system design | Nível 03, depois seção 22, depois a seção 20 e os case studies |
 | É arquiteto e quer atuar acima do sistema | Níveis 06 e 07, usando o restante por consulta |
 
 Pular níveis é legítimo. O que não funciona é pular e não voltar quando um
@@ -70,8 +70,10 @@ O objetivo não é acertar. É comparar o seu recorte de restrições com o do t
 ## Sobre os trade-offs
 
 A seção 20 é a espinha dorsal conceitual do material. Se você tiver tempo para
-uma seção só, é ela — mas ela rende muito mais depois do Nível 04, porque metade
-dos trade-offs listados só existe em sistemas distribuídos.
+uma seção só, é ela — mas ela rende muito mais depois do Nível 04, porque quatro
+dos quinze trade-offs listados — consistência versus disponibilidade,
+consistência forte versus eventual, síncrono versus assíncrono, monolito versus
+microsserviços — pressupõem o problema que só um sistema distribuído cria.
 
 ## O que este material não faz
 
@@ -84,6 +86,7 @@ hábito contrário.
 
 ## Idioma
 
-O conteúdo canônico é em português. A versão em inglês é traduzida
-progressivamente; páginas ainda não traduzidas recaem no português com um aviso.
-O estado por documento está no roadmap.
+O conteúdo canônico é em português, e o percurso inteiro já está traduzido para o
+inglês. O português avança primeiro: quando um documento canônico muda de forma
+substantiva, a tradução fica defasada até ser atualizada. O roadmap marca esse
+estado por documento.

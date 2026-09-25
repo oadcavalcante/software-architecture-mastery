@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [what-is-an-adr, adr-alternatives, superseding-decisions]
 canonical_for: [erosão de contexto, custo de redecidir, decisão contestável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -134,7 +134,7 @@ organização — com as restrições reais dela — que nenhum material genéri
 
 ### O que ADRs não resolvem
 
-Vale delimitar, porque a promessa exagerada é a principal causa de abandono da prática:
+Vale delimitar, porque o que se promete a mais vira motivo de abandono quando não se cumpre:
 
 ```text
 não melhoram decisões ruins    registram-nas melhor
@@ -143,6 +143,12 @@ não garantem alinhamento       um ADR ignorado continua ignorado
 não documentam o sistema       são histórico, não estado
 não resolvem falta de tempo    se ninguém tem 30 minutos, o problema é outro
 ```
+
+E há o custo que a prática cria, que não é o tempo de escrita. Um acervo sem poda acumula
+ADRs vencidos que continuam lidos como vigentes — por isso a superação precisa ser
+explícita. E o registro pode ser usado como autoridade: "está no ADR-014" encerra a
+discussão que o ADR existia para permitir, se ninguém abrir o documento para ver se a
+razão ainda vale.
 
 ## Por Que Isso Importa
 
@@ -159,8 +165,10 @@ frágil — acontece mesmo que o documento nunca seja aberto.
 **Porque melhora a qualidade do debate.** Argumentos contra documentos são mais honestos e
 mais acessíveis que argumentos contra pessoas.
 
-**Porque o retorno é assimétrico.** A maior parte dos ADRs não será lida; os poucos que
-forem, serão lidos no momento em que alguém está prestes a errar de forma cara.
+**Porque o retorno é assimétrico.** O perfil — custo baixo, retorno raro e alto — está em
+[o que é um ADR](/18-architecture-decisions/what-is-an-adr.md). O que ele implica aqui é que
+escrever não pode depender de demanda prevista: quem escreve não sabe qual dos ADRs será o
+lido.
 
 ## Erros Comuns
 
@@ -168,8 +176,11 @@ forem, serão lidos no momento em que alguém está prestes a errar de forma car
 
 **Prometer que serão lidos.** A maior parte não será, e tudo bem — o argumento não é esse.
 
-**Impor por processo.** ADR obrigatório com aprovação vira teatro; a prática funciona
-quando é barata e voluntária.
+**Impor por processo.** Aprovação obrigatória desloca o incentivo — escreve-se para passar
+no comitê, não para pensar —, e foi o que o caso abaixo observou: 6 ADRs genéricos em um ano,
+contra 127 sem comitê. Onde a decisão já passa por um órgão formal, como em ambiente
+regulado, a obrigatoriedade pode ser o único formato viável; o que não sobrevive é
+obrigatório **e** caro.
 
 **Escrever depois da implementação.** Perde-se o efeito de "escrever muda a decisão", que
 é o principal.
@@ -226,7 +237,10 @@ decisões alteradas durante a escrita             19
 ADRs superados                                   11
 ```
 
-Os 22 encerramentos por referência cobriram, sozinhos, mais que o custo total de escrita.
+Os 22 encerramentos por referência valeram cerca de 400 horas-pessoa, pela média de 18 horas
+por discussão repetida que o próprio levantamento mediu — contra menos de 127 horas de
+escrita, ao teto de uma hora por ADR. O item se paga sozinho mesmo que aquela média esteja
+superestimada pela metade.
 
 E os 11 superados foram usados como argumento interno para sustentar a prática: eles
 mostravam decisões sendo revistas com base em mudança de contexto documentada, em vez de

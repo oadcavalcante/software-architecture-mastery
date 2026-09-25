@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [integration-architecture, scalability, reliability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -32,10 +32,11 @@ What actually changes, from the point of view of whoever designs, is three thing
 That is not a risk to mitigate — it is the operating model, and the system needs to be designed for it. See
 [partial failure](/06-distributed-systems/partial-failure.md).
 
-**Cost becomes an architectural decision.** On your own infrastructure, the machine has already been
-bought and the design choice does not change next month's bill. In the cloud, each call, each gigabyte
-transferred and each second of execution appear on the invoice. A bad architectural decision has a monthly
-and measurable price.
+**Cost becomes an architectural decision.** On your own infrastructure, an inefficient design burns
+capacity that was already bought and does not change the bill. In the cloud, the design itself is billed:
+per call, per second of execution, per gigabyte that crosses a zone, a region or the exit to the internet.
+A bad architectural decision has a monthly and measurable price. See
+[cost architecture](/09-cloud-architecture/cost-architecture.md).
 
 **The dependency is real and needs to be chosen.** Every managed service you adopt is work you will not do
 and freedom you will not have. Pretending that trade does not exist — on either side — is what produces

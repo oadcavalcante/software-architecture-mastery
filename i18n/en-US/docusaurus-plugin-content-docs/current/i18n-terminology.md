@@ -13,8 +13,8 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-terminology_exempt: ["CQRS", "aggregate root", "anti-corruption layer", "availability", "backpressure", "blue/green", "bottleneck", "boundary", "bounded context", "canary", "cohesion", "commit", "constraint", "coupling", "dead-letter queue", "deployment", "event sourcing", "event-driven", "eventual consistency", "fault tolerance", "feature flag", "latency", "layer", "load balancing", "maintainability", "redundancy", "reliability", "requirement", "scalability", "service mesh", "sharding", "sidecar", "strangler fig", "strong consistency", "technical debt", "throughput", "trade-off", "ubiquitous language"]
-translated_from_version: 1
+terminology_exempt: ["CQRS", "aggregate root", "anti-corruption layer", "availability", "backpressure", "blue/green", "bottleneck", "boundary", "bounded context", "canary", "cohesion", "commit", "constraint", "coupling", "dead-letter queue", "deploy", "deployment", "event sourcing", "event-driven", "eventual consistency", "fault tolerance", "feature flag", "latency", "layer", "load balancing", "maintainability", "redundancy", "reliability", "requirement", "scalability", "service mesh", "sharding", "sidecar", "strangler fig", "strong consistency", "technical debt", "throughput", "trade-off", "ubiquitous language"]
+translated_from_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -45,16 +45,23 @@ automatically:
 - **— guidance** — documented, not automated. These are the cases where the
   decision depends on context and automation would produce false positives.
 
-A document can declare `terminology_exempt: [term]` in its front matter to opt
-out of the rule in a justified case — a literal quotation, for example.
+A document can declare `terminology_exempt` in its front matter to opt out of
+the rule in a justified case — a literal quotation, for example. The term is
+declared as it appears in the table's first column, always in English:
+`terminology_exempt: ["coupling"]` exempts the coupling/acoplamento pair;
+`["acoplamento"]` exempts nothing.
 
 ## Category A — Always translate
 
 Terms with an established equivalent in technical Portuguese. The document uses
 the Portuguese form as the working term.
 
-The English form is allowed **once**, as a first-occurrence gloss:
-*"acoplamento (coupling)"*. After that, only the Portuguese form.
+The English form is allowed as a gloss attached to the Portuguese form —
+*"acoplamento (coupling)"* — and the convention here is to write it once, on the
+first occurrence. The linter enforces the attachment, not the count: each
+occurrence of the English term must fall within 40 characters of an occurrence of
+the Portuguese form. A detached occurrence fails the build even if it is the only
+one.
 
 | English | Portuguese | Rule |
 |---|---|---|
@@ -100,6 +107,7 @@ exists. The refused-translations column lists the forms the linter rejects.
 | blue/green | azul/verde | ✅ enforced |
 | strangler fig | figueira estranguladora | ✅ enforced |
 | CQRS | — | — guidance |
+| deploy | — | — guidance |
 | commit | — | — guidance |
 | anti-corruption layer | camada anticorrupção · camada de anticorrupção | ✅ enforced |
 | dead-letter queue | — | — guidance |
@@ -115,7 +123,6 @@ each document and only the English term afterward.
 | circuit breaker | disjuntor |
 | bulkhead | anteparo |
 | poison message | mensagem envenenada |
-| dead-letter queue | fila de mensagens mortas |
 | hotspot | ponto quente |
 
 ## Proper names

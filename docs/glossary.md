@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: [i18n-terminology]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -71,6 +71,10 @@ que está falhando, evitando que o chamador desperdice recursos e propague a fal
 Alta coesão e baixo acoplamento são a mesma decisão vista de dois lados: o que
 fica junto e o que fica separado.
 
+**Confiabilidade** (reliability) — Probabilidade de o sistema operar corretamente
+por um período. Distingue-se de disponibilidade: um sistema pode estar disponível
+e devolver resultados errados.
+
 **Consistência eventual** — Garantia de que, na ausência de novas escritas, todas
 as réplicas convergem para o mesmo valor. Não diz **quando**, e é essa ausência
 que precisa ser tratada na aplicação.
@@ -98,6 +102,9 @@ velocidade agora. Só é dívida quando a escolha foi consciente e há intençã
 pagar; o resto é apenas trabalho mal feito.
 
 ## E
+
+**Escalabilidade** (scalability) — Capacidade de absorver crescimento adicionando
+recursos. Distingue-se de desempenho: um sistema pode ser rápido e não escalar.
 
 **Event sourcing** — Persistir a sequência de eventos que levou ao estado, em vez
 do estado. O estado vira uma projeção derivável. Poderoso e caro: exige
@@ -155,10 +162,6 @@ carga ou volume. Ver também sharding.
 Aumenta disponibilidade e capacidade de leitura; introduz a questão de qual cópia
 está certa.
 
-**Confiabilidade** (reliability) — Probabilidade de o sistema operar corretamente
-por um período. Distingue-se de disponibilidade: um sistema pode estar disponível
-e devolver resultados errados.
-
 **RPO** — Recovery Point Objective. Quantidade máxima de dado que se aceita
 perder, medida em tempo. Define a estratégia de replicação e backup.
 
@@ -170,9 +173,6 @@ serviço após uma falha. Define a topologia de redundância.
 **Saga** — Sequência de transações locais com compensações, usada quando uma
 transação distribuída não é viável. Troca atomicidade por disponibilidade, e
 exige que cada passo tenha compensação definida.
-
-**Escalabilidade** (scalability) — Capacidade de absorver crescimento adicionando
-recursos. Distingue-se de desempenho: um sistema pode ser rápido e não escalar.
 
 **Sharding** — Particionamento horizontal em que cada partição vive numa
 instância separada. A escolha da chave determina se a carga distribui ou

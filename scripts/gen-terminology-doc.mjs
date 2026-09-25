@@ -56,7 +56,7 @@ prerequisites: []
 related: []
 canonical_for: []
 terminology_exempt: [${exempt.map((t) => JSON.stringify(t)).join(', ')}]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---`;
 
@@ -87,16 +87,22 @@ A coluna **Regra** indica se o linter aplica a decisão automaticamente:
 - **— orientação** — documentado, não automatizado. São os casos em que a
   decisão depende de contexto e a automação produziria falso positivo.
 
-Um documento pode declarar \`terminology_exempt: [termo]\` no front matter para
-sair da regra num caso justificado — citação literal, por exemplo.
+Um documento pode declarar \`terminology_exempt\` no front matter para sair da
+regra num caso justificado — citação literal, por exemplo. O termo se declara
+como aparece na primeira coluna da tabela, sempre em inglês:
+\`terminology_exempt: ["coupling"]\` isenta o par coupling/acoplamento;
+\`["acoplamento"]\` não isenta nada.
 
 ## Categoria A — Traduzir sempre
 
 Termos com equivalente estabelecido em português técnico. O documento usa a
 forma em português como termo de trabalho.
 
-A forma em inglês é permitida **uma vez**, como glosa de primeira ocorrência:
-*"acoplamento (coupling)"*. Depois disso, só a forma em português.
+A forma em inglês é permitida como glosa colada à forma em português —
+*"acoplamento (coupling)"* — e a convenção do acervo é escrevê-la uma única vez,
+na primeira ocorrência. O linter cobra a colagem, não a contagem: cada ocorrência
+do termo em inglês precisa cair a até 40 caracteres de uma ocorrência da forma em
+português. Uma ocorrência solta falha o build mesmo sendo a única.
 
 | Inglês | Português | Regra |
 |---|---|---|
@@ -152,7 +158,7 @@ prerequisites: []
 related: []
 canonical_for: []
 terminology_exempt: [${exempt.map((t) => JSON.stringify(t)).join(', ')}]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-26
 ---`;
 
@@ -184,16 +190,23 @@ automatically:
 - **— guidance** — documented, not automated. These are the cases where the
   decision depends on context and automation would produce false positives.
 
-A document can declare \`terminology_exempt: [term]\` in its front matter to opt
-out of the rule in a justified case — a literal quotation, for example.
+A document can declare \`terminology_exempt\` in its front matter to opt out of
+the rule in a justified case — a literal quotation, for example. The term is
+declared as it appears in the table's first column, always in English:
+\`terminology_exempt: ["coupling"]\` exempts the coupling/acoplamento pair;
+\`["acoplamento"]\` exempts nothing.
 
 ## Category A — Always translate
 
 Terms with an established equivalent in technical Portuguese. The document uses
 the Portuguese form as the working term.
 
-The English form is allowed **once**, as a first-occurrence gloss:
-*"acoplamento (coupling)"*. After that, only the Portuguese form.
+The English form is allowed as a gloss attached to the Portuguese form —
+*"acoplamento (coupling)"* — and the convention here is to write it once, on the
+first occurrence. The linter enforces the attachment, not the count: each
+occurrence of the English term must fall within 40 characters of an occurrence of
+the Portuguese form. A detached occurrence fails the build even if it is the only
+one.
 
 | English | Portuguese | Rule |
 |---|---|---|

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [architecture-decisions, architecture-leadership, security]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -55,21 +55,25 @@ que permanece central. Aplicável a organizações a partir de certo tamanho.
 
 **Patologias.** Como governança vira gargalo, e os sinais de que já virou.
 
+**Medição.** Efeito e atrito de cada mecanismo — os dois números sem os quais a
+decisão de manter ou remover cai para quem tem mais autoridade.
+
 ## Princípio e padrão não são a mesma coisa
 
-A confusão entre os dois é a causa mais comum de governança que não funciona.
+Os dois orientam decisão, mas em pontos de intervenção diferentes, e tratá-los
+como a mesma coisa faz o mecanismo errar o ponto: prescreve onde deveria
+orientar, ou orienta onde deveria prescrever. Princípio dá o critério para a
+situação nova — "preferimos X a Y, porque Z" — e se pondera contra outros
+princípios. Padrão fecha a situação recorrente — "use X" — e, quando não serve
+ao caso, precisa de um processo de exceção explícito.
 
-| | Princípio | Padrão |
-|---|---|---|
-| O que faz | Orienta julgamento | Prescreve escolha |
-| Formato | "Preferimos X a Y, porque Z" | "Use X" |
-| Quando aplicar | Situação nova, não prevista | Situação recorrente, já resolvida |
-| Exceção | Não se aplica — princípio se pondera | Precisa de processo explícito |
-| Falha típica | Vago demais para decidir nada | Rígido demais para o caso real |
+A comparação linha a linha, com o eixo de cada uma, está em
+[Padrões em Operação](/19-architecture-governance/governance-standards.md); o
+critério do que faz um princípio decidir alguma coisa, em
+[Princípios em Operação](/19-architecture-governance/governance-principles.md).
 
 Uma organização que só tem princípios produz decisões inconsistentes; uma que só
-tem padrões trava diante do primeiro caso não previsto. As duas coisas são
-necessárias, e confundi-las produz o pior dos dois.
+tem padrões trava diante do primeiro caso não previsto.
 
 ## Ordem de leitura
 
@@ -80,8 +84,9 @@ Operação** e **Padrões em Operação**, nessa ordem.
 Depois **fitness functions**, que é o mecanismo com melhor relação entre efeito e
 atrito.
 
-Leia **patologias** por último, como lista de verificação sobre a governança que
-você tem ou está propondo.
+Leia **patologias** e **Medição de Governança** por último, e como par: uma é a
+lista de verificação sobre a governança que você tem ou está propondo, a outra dá
+os dois números com que você sustenta manter, ajustar ou remover cada mecanismo.
 
 ## Ao terminar
 

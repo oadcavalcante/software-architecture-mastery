@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [case-studies, trade-offs]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -52,8 +52,9 @@ decision has no criterion.
 **Deep dive.** Bottleneck identification, scaling and failure handling. This is where the
 interview actually separates candidates.
 
-**Communication.** How to state a trade-off out loud while drawing. This is the most valued
-competency and the least trained.
+**Communication.** How to state a trade-off out loud while drawing. The interviewer only
+scores the reasoning you say out loud — and that is the part reading-based preparation never
+reaches.
 
 **Common mistakes.** The patterns that make interviews go wrong, with what to do instead.
 
@@ -73,12 +74,14 @@ sections; here the training is the order, not the prompt.
 
 ## A note on preparation
 
-Memorizing reference architectures is the most popular way to prepare and one of the least
-effective. It works while the prompt matches what was memorized, and collapses at the first
-variation — which the interviewer will introduce precisely to test that.
+Memorizing reference architectures fails for the reason already described, and the mechanism is
+worth naming: that preparation optimizes for recognizing the prompt, while the interview measures
+how you run a prompt you do not recognize.
 
 What transfers is the method: clarify, estimate, decompose, identify the bottleneck, state the
-trade-off. That method works on any prompt, including ones you have never seen.
+trade-off. It does not depend on recognizing the prompt — it depends on having time for the
+phases, and in 30-minute interviews it collapses into three, as
+[Interview Structure](/22-system-design-interviews/interview-structure.md) shows.
 
 ## By the end
 

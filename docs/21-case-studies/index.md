@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design, distributed-systems]
 related: [trade-offs, system-design-interviews]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-26
 ---
 
@@ -65,6 +65,10 @@ Contexto de Negócio → Requisitos Funcionais → Requisitos Não-Funcionais
 → Segurança → Escalabilidade → Confiabilidade → Observabilidade
 → Implantação → Estratégia de Evolução
 ```
+
+A cadeia acima é a análise. Depois dela, cada case fecha com seis seções de
+consolidação — Resultados, O que este case ensina, Conceitos Relacionados,
+Exercício Prático, Perguntas de Entrevista e Para Aprofundar.
 
 ## A regra desta seção
 

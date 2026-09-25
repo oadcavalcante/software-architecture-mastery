@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [trade-offs, architecture-governance, legacy-modernization]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -53,11 +53,11 @@ de ideia — é superado por outro, preservando o histórico do raciocínio.
 para demonstrar raciocínio:
 
 ```text
-ADR-001  Escolher Monolito Modular em vez de Microsserviços
-ADR-002  Introduzir Processamento Assíncrono
-ADR-003  Escolher PostgreSQL como Banco Primário
-ADR-004  Introduzir Kafka
-ADR-005  Adotar Arquitetura Hexagonal
+ADR-001  Adotar Monólito Modular
+ADR-002  Processamento Assíncrono da Confirmação
+ADR-003  Manter PostgreSQL como Banco Primário Único
+ADR-004  Adotar Kafka para Eventos de Domínio
+ADR-005  Portas e Adaptadores nos Módulos de Domínio
 ```
 
 Pelo menos um deles aparece com status `superseded`, para mostrar a mecânica de
@@ -69,8 +69,13 @@ de superação.
 
 ## Ordem de leitura
 
-Leia a **estrutura** e depois vá direto aos exemplos. ADR é um formato simples;
-o que se aprende é o padrão de raciocínio, e isso se aprende por exemplo.
+Leia **o que é um ADR** e **por que ADRs importam**, depois a **estrutura**. Em
+seguida, as quatro seções que a estrutura abre — contexto, decisão, alternativas,
+consequências — e o ciclo de vida: status e superação. São capítulos curtos, um
+por parte do formato e pelo erro que se comete nela.
+
+Só então os cinco exemplos. ADR é um formato simples; o que se aprende é o padrão
+de raciocínio, e isso se aprende por exemplo.
 
 Preste atenção específica na seção de alternativas de cada exemplo. É onde o
 raciocínio arquitetural fica visível.
