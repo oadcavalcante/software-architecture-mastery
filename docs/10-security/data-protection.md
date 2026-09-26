@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [encryption, auditability, data-lifecycle]
 canonical_for: [minimização de dados, classificação de dados, pseudonimização, tokenização]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -126,20 +126,14 @@ quebrar relacionamentos —, um projeto em si.
 
 ### Dados de produção em outros ambientes
 
-Uma das exposições mais comuns e mais evitáveis.
+Ambientes de teste, desenvolvimento e análise que recebem cópia de produção multiplicam
+os lugares onde há dado pessoal, e raramente carregam os controles de produção: acesso
+mais amplo, cifragem ausente, retenção sem dono. Para a proteção de dados, a pergunta
+é qual dado real cada ambiente precisa ter — e a resposta usual é nenhum.
 
-Ambientes de teste, desenvolvimento e análise costumam receber cópia de produção — com
-controles mais fracos, acesso mais amplo, e frequentemente sem cifragem.
-
-As alternativas:
-
-**Dados sintéticos.** Gerados, com as propriedades estatísticas necessárias.
-
-**Subconjunto mascarado.** Cópia com os campos sensíveis substituídos de forma
-consistente — o mascaramento precisa preservar relacionamentos, ou os testes quebram.
-
-**Nenhum dado.** Para muitos casos, um conjunto pequeno criado à mão basta.
-
+As formas de chegar lá — dados sintéticos, subconjunto mascarado que preserva os
+relacionamentos, conjunto pequeno feito à mão — estão em
+[gestão de ambientes](/14-devops-and-platform/environment-management.md#dados-de-teste-não-cópia-integral-de-produção).
 Ver [segredos](/10-security/secrets.md) — a mesma lógica vale para credenciais.
 
 ### Vazamento por caminhos laterais

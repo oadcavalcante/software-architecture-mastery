@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [encryption, auditability, data-lifecycle]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -117,20 +117,14 @@ swapping values for tokens without breaking relationships —, a project in its 
 
 ### Production data in other environments
 
-One of the most common and most avoidable exposures.
+Test, development and analysis environments that receive a copy of production multiply
+the places where personal data lives, and rarely carry production's controls: broader
+access, no encryption, retention with no owner. For data protection, the question is
+what real data each environment needs — and the usual answer is none.
 
-Test, development and analysis environments usually receive a copy of production — with weaker controls,
-broader access, and frequently no encryption.
-
-The alternatives:
-
-**Synthetic data.** Generated, with the necessary statistical properties.
-
-**A masked subset.** A copy with the sensitive fields consistently substituted — the masking needs to
-preserve relationships, or the tests break.
-
-**No data.** For many cases, a small hand-crafted set is enough.
-
+The ways to get there — synthetic data, a masked subset that preserves relationships, a
+small hand-crafted set — are in
+[environment management](/14-devops-and-platform/environment-management.md#test-data-not-a-full-copy-of-production).
 See [secrets](/10-security/secrets.md) — the same logic holds for credentials.
 
 ### Leakage through side paths
